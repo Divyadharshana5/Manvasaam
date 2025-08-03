@@ -21,7 +21,7 @@ export type OrderStatus =
   | "Cancelled";
 
 export interface LogisticsUpdate {
-  timestamp: Date;
+  timestamp: Date | any; // Allow for server timestamp
   status: OrderStatus;
   location: string;
   notes: string;
@@ -31,9 +31,10 @@ export interface Order {
   id: string;
   crop: Crop;
   buyer: string;
+  buyerId: string;
   quantity: number;
   totalPrice: number;
-  orderDate: Date;
+  orderDate: Date | any; // Allow for server timestamp
   status: OrderStatus;
   transporter?: string;
   logistics: LogisticsUpdate[];

@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import type { UserRole } from "@/lib/types";
 import { Button } from "@/components/ui/button";
 import {
@@ -20,9 +20,29 @@ import {
   Truck,
   Users,
 } from "lucide-react";
+import { useAuth } from "@/hooks/use-auth";
+import { useRouter } from "next/navigation";
 
 export default function DashboardPage() {
   const [role, setRole] = useState<UserRole>("farmer");
+  const { user, loading } = useAuth();
+  const router = useRouter();
+
+  useEffect(() => {
+    if (!loading && !user) {
+      router.push('/login');
+    }
+  }, [user, loading, router]);
+
+
+  if (loading) {
+    return <div>Loading...</div>;
+  }
+
+  if (!user) {
+    return null;
+  }
+
 
   const renderDashboardContent = () => {
     switch (role) {
@@ -216,7 +236,7 @@ export default function DashboardPage() {
         <div>
           <h2 className="text-3xl font-bold tracking-tight">Dashboard</h2>
           <p className="text-muted-foreground">
-            Welcome back! Here's your overview as a {role}.
+            Welcome back, {user.displayName}! Here's your overview as a {role}.
           </p>
         </div>
         <div className="flex items-center space-x-2">
