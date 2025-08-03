@@ -1,8 +1,8 @@
 import Image from 'next/image';
 import type { SVGProps } from 'react';
 
-export function ManvaasamLogo(props: SVGProps<SVGSVGElement> & { width?: number, height?: number }) {
-  const { width = 32, height = 32, className, ...rest } = props;
+export function ManvaasamLogo(props: Omit<React.ComponentProps<typeof Image>, 'src' | 'alt'> & { src?: string, alt?: string }) {
+  const { width = 32, height = 32, ...rest } = props;
   return (
     <Image
       {...rest}
@@ -10,7 +10,6 @@ export function ManvaasamLogo(props: SVGProps<SVGSVGElement> & { width?: number,
       alt="Manvaasam Logo"
       width={width}
       height={height}
-      className={className}
     />
   );
 }
