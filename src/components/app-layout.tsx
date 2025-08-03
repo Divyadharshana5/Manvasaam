@@ -56,7 +56,7 @@ export function AppLayout({ children }: { children: React.ReactNode }) {
               "group-data-[collapsible=icon]:justify-center group-data-[collapsible=icon]:p-2"
             )}
           >
-            <ManvaasamLogo className="size-7 shrink-0 text-primary" />
+            <ManvaasamLogo width={28} height={28} className="shrink-0 text-primary" />
             <span
               className={cn(
                 "text-lg font-bold text-primary",

@@ -45,7 +45,7 @@ export default function HomePage() {
     <div className="flex flex-col min-h-screen auth-layout-background">
       <header className="fixed top-0 left-0 right-0 z-50 flex items-center justify-between p-4 bg-background/50 backdrop-blur-sm">
         <div className="flex items-center gap-2">
-          <ManvaasamLogo className="h-8 w-8 text-primary" />
+          <ManvaasamLogo width={32} height={32} className="text-primary" />
           <span className="text-xl font-bold text-primary">Manvaasam</span>
         </div>
         <DropdownMenu>
