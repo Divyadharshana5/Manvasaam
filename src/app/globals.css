@@ -5,13 +5,13 @@
 @layer base {
   :root {
     --background: 0 0% 100%;
-    --foreground: 120 25% 15%;
+    --foreground: 94 38% 25%;
     --card: 0 0% 100%;
-    --card-foreground: 120 25% 15%;
+    --card-foreground: 94 38% 25%;
     --popover: 0 0% 100%;
-    --popover-foreground: 120 25% 15%;
-    --primary: 142.1 76.2% 36.3%;
-    --primary-foreground: 355.7 100% 97.3%;
+    --popover-foreground: 94 38% 25%;
+    --primary: 104 56% 40%;
+    --primary-foreground: 0 0% 100%;
     --secondary: 120 10% 95%;
     --secondary-foreground: 120 25% 15%;
     --muted: 120 10% 95%;
@@ -22,16 +22,16 @@
     --destructive-foreground: 0 0% 98%;
     --border: 120 10% 85%;
     --input: 120 10% 85%;
-    --ring: 142.1 76.2% 36.3%;
+    --ring: 104 56% 40%;
     --radius: 0.5rem;
     --sidebar-background: 240 10% 3.9%;
     --sidebar-foreground: 0 0% 98%;
-    --sidebar-primary: 142.1 76.2% 36.3%;
+    --sidebar-primary: 104 56% 40%;
     --sidebar-primary-foreground: 0 0% 98%;
     --sidebar-accent: 240 3.7% 15.9%;
     --sidebar-accent-foreground: 0 0% 98%;
     --sidebar-border: 240 3.7% 15.9%;
-    --sidebar-ring: 142.1 76.2% 36.3%;
+    --sidebar-ring: 104 56% 40%;
   }
 
   .dark {
@@ -41,8 +41,8 @@
     --card-foreground: 0 0% 98%;
     --popover: 120 25% 10%;
     --popover-foreground: 0 0% 98%;
-    --primary: 142.1 76.2% 36.3%;
-    --primary-foreground: 355.7 100% 97.3%;
+    --primary: 104 56% 40%;
+    --primary-foreground: 0 0% 100%;
     --secondary: 120 10% 15%;
     --secondary-foreground: 0 0% 98%;
     --muted: 120 10% 15%;
@@ -75,7 +75,7 @@
 }
 
 .auth-layout-background {
-  background-image: url("https://storage.googleapis.com/aai-web-samples/community-images/manvaasam/background_2.png");
+  background-image: url("https://storage.googleapis.com/aai-web-samples/community-images/manvaasam/background.png");
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
