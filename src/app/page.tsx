@@ -10,11 +10,10 @@ import {
 } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { ManvaasamLogo } from "@/components/icons";
-import { ArrowRight, Languages, Users, Building, Tractor, Search, Mic } from "lucide-react";
+import { ArrowRight, Languages, Users, Building, Tractor } from "lucide-react";
 import Image from 'next/image';
 import { useState, useEffect, useRef } from "react";
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
-import { Input } from "@/components/ui/input";
 
 const translations = {
   English: {
@@ -241,70 +240,9 @@ const translations = {
 
 const languages = ["English", "Tamil", "Malayalam", "Telugu", "Hindi", "Kannada", "Bengali", "Arabic", "Urdu", "Srilanka"];
 
-// Extend the Window interface for speech recognition
-declare global {
-  interface Window {
-    SpeechRecognition: any;
-    webkitSpeechRecognition: any;
-  }
-}
-
 export default function HomePage() {
   const [selectedLanguage, setSelectedLanguage] = useState<keyof typeof translations>("English");
-  const [isListening, setIsListening] = useState(false);
-  const recognitionRef = useRef<any>(null);
-
   const t = translations[selectedLanguage];
-
-  const handleSearchChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const query = event.target.value.toLowerCase();
-    const foundLanguage = languages.find(lang => lang.toLowerCase().includes(query));
-    if (foundLanguage) {
-      setSelectedLanguage(foundLanguage as keyof typeof translations);
-    }
-  };
-
-  const startListening = () => {
-    if (isListening || !window.SpeechRecognition && !window.webkitSpeechRecognition) return;
-
-    const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
-    recognitionRef.current = new SpeechRecognition();
-    recognitionRef.current.lang = 'en-US'; 
-    recognitionRef.current.continuous = false;
-    recognitionRef.current.interimResults = false;
-
-    recognitionRef.current.onstart = () => {
-      setIsListening(true);
-    };
-
-    recognitionRef.current.onend = () => {
-      setIsListening(false);
-    };
-
-    recognitionRef.current.onerror = (event: any) => {
-      console.error('Speech recognition error:', event.error);
-      setIsListening(false);
-    };
-    
-    recognitionRef.current.onresult = (event: any) => {
-      const transcript = event.results[0][0].transcript.trim().toLowerCase();
-       const foundLanguage = languages.find(lang => transcript.includes(lang.toLowerCase()));
-      if (foundLanguage) {
-        setSelectedLanguage(foundLanguage as keyof typeof translations);
-      }
-    };
-
-    recognitionRef.current.start();
-  };
-
-  useEffect(() => {
-    return () => {
-      if (recognitionRef.current) {
-        recognitionRef.current.stop();
-      }
-    };
-  }, []);
-
 
   const userRoles = [
     {
@@ -334,25 +272,7 @@ export default function HomePage() {
           <ManvaasamLogo width={32} height={32} />
           <span className="text-xl font-bold text-primary">Manvaasam</span>
         </div>
-        <div className="flex-1 max-w-sm px-4">
-          <div className="relative">
-            <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
-            <Input 
-              placeholder="Search language..." 
-              className="pl-10"
-              onChange={handleSearchChange} 
-            />
-            <Button 
-              variant="ghost" 
-              size="icon" 
-              className={`absolute right-1 top-1/2 -translate-y-1/2 h-8 w-8 ${isListening ? 'text-primary animate-pulse' : ''}`}
-              onClick={startListening}
-              disabled={!('SpeechRecognition' in window || 'webkitSpeechRecognition' in window)}
-            >
-              <Mic className="h-4 w-4" />
-            </Button>
-          </div>
-        </div>
+        <div className="flex-1" />
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
             <Button variant="outline">
@@ -424,5 +344,3 @@ export default function HomePage() {
     </div>
   );
 }
-
-    
