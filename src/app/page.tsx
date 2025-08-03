@@ -215,9 +215,31 @@ const translations = {
     missionStatement: "منواسام آپ کو ہمارے قابل اعتماد مرکز نیٹ ورک کے ذریعے براہ راست مقامی کسانوں سے جوڑتا ہے، اس بات کو یقینی بناتا ہے کہ آپ پائیدار زراعت کی حمایت کرتے ہوئے تازہ ترین نامیاتی مصنوعات حاصل کریں۔",
     footer: "جملہ حقوق محفوظ ہیں۔",
   },
+  Sinhala: {
+    tagline: "ගොවීන් සවිබල ගැන්වීම, නැවුම් බව ලබා දීම",
+    joinCommunity: "අපගේ ප්‍රජාවට සම්බන්ධ වන්න",
+    roles: {
+      farmer: {
+        name: "ගොවියා",
+        description: "ඔබේ නිෂ්පාදන සෘජුවම විකිණීම සඳහා අපගේ ජාලයට සම්බන්ධ වන්න.",
+      },
+      customer: {
+        name: "පාරිභෝගික",
+        description: "නැවුම්, කාබනික නිෂ්පාදන ඔබේ දොරකඩටම ගෙන්වා ගන්න.",
+      },
+      hub: {
+        name: "කේන්ද්‍රය",
+        description: "ලොජිස්ටික්ස් කළමනාකරණය කර ගොවීන් පාරිභෝගිකයන් හා සම්බන්ධ කරන්න.",
+      },
+    },
+    continue: "ඉදිරියට යන්න",
+    ourMission: "අපේ මෙහෙවර",
+    missionStatement: "මන්වාசம் අපගේ විශ්වාසවන්ත මධ්‍යස්ථාන ජාලය හරහා ඔබව දේශීය ගොවීන් සමඟ සෘජුවම සම්බන්ධ කරයි, තිරසාර කෘෂිකර්මාන්තයට සහාය දෙන අතරම ඔබට නැවුම්ම කාබනික නිෂ්පාදන ලැබෙන බව සහතික කරයි.",
+    footer: "සියලුම හිමිකම් ඇවිරිණි.",
+  },
 };
 
-const languages = ["English", "Tamil", "Malayalam", "Telugu", "Hindi", "Kannada", "Bengali", "Arabic", "Urdu"];
+const languages = ["English", "Tamil", "Malayalam", "Telugu", "Hindi", "Kannada", "Bengali", "Arabic", "Urdu", "Sinhala"];
 
 // Extend the Window interface for speech recognition
 declare global {
@@ -402,5 +424,3 @@ export default function HomePage() {
     </div>
   );
 }
-
-    
