@@ -12,6 +12,8 @@ import { Button } from "@/components/ui/button";
 import { ManvaasamLogo } from "@/components/icons";
 import { ArrowRight, Languages, Users, Building, Tractor } from "lucide-react";
 import Image from 'next/image';
+import { useState } from "react";
+import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
 
 const userRoles = [
   {
@@ -34,7 +36,11 @@ const userRoles = [
   },
 ];
 
+const languages = ["English", "Tamil", "Malayalam", "Telugu", "Hindi"];
+
 export default function HomePage() {
+  const [selectedLanguage, setSelectedLanguage] = useState("English");
+
   return (
     <div className="flex flex-col min-h-screen auth-layout-background">
       <header className="fixed top-0 left-0 right-0 z-50 flex items-center justify-between p-4 bg-background/50 backdrop-blur-sm">
@@ -42,10 +48,21 @@ export default function HomePage() {
           <ManvaasamLogo className="h-8 w-8 text-primary" />
           <span className="text-xl font-bold text-primary">Manvaasam</span>
         </div>
-        <Button variant="outline">
-          <Languages className="mr-2 h-4 w-4" />
-          English
-        </Button>
+        <DropdownMenu>
+          <DropdownMenuTrigger asChild>
+            <Button variant="outline">
+              <Languages className="mr-2 h-4 w-4" />
+              {selectedLanguage}
+            </Button>
+          </DropdownMenuTrigger>
+          <DropdownMenuContent>
+            {languages.map((lang) => (
+              <DropdownMenuItem key={lang} onSelect={() => setSelectedLanguage(lang)}>
+                {lang}
+              </DropdownMenuItem>
+            ))}
+          </DropdownMenuContent>
+        </DropdownMenu>
       </header>
 
       <main className="flex-1 flex flex-col items-center justify-center pt-24 px-4">
