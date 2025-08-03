@@ -19,6 +19,7 @@ import {
   LayoutDashboard,
   LogOut,
   LogIn,
+  Volume2,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
@@ -28,6 +29,7 @@ import { useAuth } from "@/hooks/use-auth";
 
 const menuItems = [
   { href: "/dashboard", label: "Dashboard", icon: LayoutDashboard },
+  { href: "/dashboard/voice-assistant", label: "Voice Assistant", icon: Volume2 },
   // Add other dashboard items here
 ];
 
