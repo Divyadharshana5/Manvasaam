@@ -17,36 +17,30 @@ import {
 } from "@/components/ui/sidebar";
 import {
   LayoutDashboard,
-  Carrot,
-  Package,
-  Bot,
-  User,
-  HelpCircle,
   LogOut,
   LogIn,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-import { AgriLinkLogo } from "./icons";
+import { ManvaasamLogo } from "./icons";
 import { cn } from "@/lib/utils";
 import { useAuth } from "@/hooks/use-auth";
 
 const menuItems = [
-  { href: "/", label: "Dashboard", icon: LayoutDashboard },
-  { href: "/market", label: "Crop Market", icon: Carrot },
-  { href: "/orders", label: "Orders", icon: Package },
-  { href: "/matchmaking", label: "AI Matchmaking", icon: Bot },
-  { href: "/profile", label: "Profile", icon: User },
-  { href: "/faq", label: "FAQ", icon: HelpCircle },
+  { href: "/dashboard", label: "Dashboard", icon: LayoutDashboard },
+  // Add other dashboard items here
+];
+
+const authPages = [
+  "/",
+  "/login/farmer-customer",
+  "/login/hub"
 ];
 
 export function AppLayout({ children }: { children: React.ReactNode }) {
   const pathname = usePathname();
   const { user, signOut } = useAuth();
-  const isAuthPage =
-    pathname === "/login" ||
-    pathname === "/register" ||
-    pathname === "/verify-email";
+  const isAuthPage = authPages.includes(pathname);
 
   if (isAuthPage) {
     return <>{children}</>;
@@ -62,14 +56,14 @@ export function AppLayout({ children }: { children: React.ReactNode }) {
               "group-data-[collapsible=icon]:justify-center group-data-[collapsible=icon]:p-2"
             )}
           >
-            <AgriLinkLogo className="size-7 shrink-0 text-primary" />
+            <ManvaasamLogo className="size-7 shrink-0 text-primary" />
             <span
               className={cn(
                 "text-lg font-bold text-primary",
                 "group-data-[collapsible=icon]:hidden"
               )}
             >
-              AgriLink
+              Manvaasam
             </span>
           </div>
         </SidebarHeader>
@@ -131,7 +125,7 @@ export function AppLayout({ children }: { children: React.ReactNode }) {
             </div>
           ) : (
             <div className="p-2">
-              <Link href="/login" passHref>
+              <Link href="/" passHref>
                 <Button className="w-full">
                   <LogIn />
                   <span className="group-data-[collapsible=icon]:hidden">
@@ -149,7 +143,7 @@ export function AppLayout({ children }: { children: React.ReactNode }) {
           <div className="flex-1">
             <h1 className="text-xl font-semibold">
               {menuItems.find((item) => item.href === pathname)?.label ||
-                "AgriLink"}
+                "Dashboard"}
             </h1>
           </div>
           <Button>Get Support</Button>

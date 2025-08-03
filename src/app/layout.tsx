@@ -5,8 +5,8 @@ import { AppLayout } from '@/components/app-layout';
 import { Toaster } from '@/components/ui/toaster';
 
 export const metadata: Metadata = {
-  title: 'AgriLink',
-  description: 'Efficiently manage your agricultural supply chain.',
+  title: 'Manvaasam',
+  description: 'Empowering Farmers, Delivering Freshness.',
 };
 
 export default function RootLayout({
@@ -30,7 +30,7 @@ export default function RootLayout({
       </head>
       <body className="font-body antialiased">
         <AuthProvider>
-          <AppLayout>{children}</AppLayout>
+          {children}
         </AuthProvider>
         <Toaster />
       </body>

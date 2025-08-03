@@ -1,8 +1,6 @@
 "use client";
 
-import { useState, useEffect } from "react";
-import type { UserRole } from "@/lib/types";
-import { Button } from "@/components/ui/button";
+import Link from "next/link";
 import {
   Card,
   CardContent,
@@ -10,274 +8,113 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-import {
-  Activity,
-  Carrot,
-  DollarSign,
-  Package,
-  Route,
-  ShoppingBag,
-  Truck,
-  Users,
-} from "lucide-react";
-import { useAuth } from "@/hooks/use-auth";
-import { useRouter } from "next/navigation";
+import { Button } from "@/components/ui/button";
+import { ManvaasamLogo } from "@/components/icons";
+import { ArrowRight, Languages, Users, Building, WholeWord } from "lucide-react";
+import Image from 'next/image';
 
-export default function DashboardPage() {
-  const [role, setRole] = useState<UserRole>("farmer");
-  const { user, loading } = useAuth();
-  const router = useRouter();
+const userRoles = [
+  {
+    name: "Farmer",
+    description: "Join our network to sell your produce directly.",
+    href: "/login/farmer-customer",
+    icon: <WholeWord className="h-12 w-12 text-primary" />,
+  },
+  {
+    name: "Customer",
+    description: "Get fresh, organic products delivered to your doorstep.",
+    href: "/login/farmer-customer",
+    icon: <Users className="h-12 w-12 text-primary" />,
+  },
+  {
+    name: "Hub",
+    description: "Manage logistics and connect farmers to customers.",
+    href: "/login/hub",
+    icon: <Building className="h-12 w-12 text-primary" />,
+  },
+];
 
-  useEffect(() => {
-    if (!loading && !user) {
-      router.push('/login');
-    }
-  }, [user, loading, router]);
-
-
-  if (loading) {
-    return <div>Loading...</div>;
-  }
-
-  if (!user) {
-    return null;
-  }
-
-
-  const renderDashboardContent = () => {
-    switch (role) {
-      case "farmer":
-        return (
-          <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
-            <Card>
-              <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-                <CardTitle className="text-sm font-medium">
-                  Total Revenue
-                </CardTitle>
-                <DollarSign className="h-4 w-4 text-muted-foreground" />
-              </CardHeader>
-              <CardContent>
-                <div className="text-2xl font-bold">$45,231.89</div>
-                <p className="text-xs text-muted-foreground">
-                  +20.1% from last month
-                </p>
-              </CardContent>
-            </Card>
-            <Card>
-              <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-                <CardTitle className="text-sm font-medium">
-                  Active Listings
-                </CardTitle>
-                <Carrot className="h-4 w-4 text-muted-foreground" />
-              </CardHeader>
-              <CardContent>
-                <div className="text-2xl font-bold">12</div>
-                <p className="text-xs text-muted-foreground">
-                  +2 from last week
-                </p>
-              </CardContent>
-            </Card>
-            <Card>
-              <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-                <CardTitle className="text-sm font-medium">New Orders</CardTitle>
-                <ShoppingBag className="h-4 w-4 text-muted-foreground" />
-              </CardHeader>
-              <CardContent>
-                <div className="text-2xl font-bold">+5</div>
-                <p className="text-xs text-muted-foreground">
-                  In the last 24 hours
-                </p>
-              </CardContent>
-            </Card>
-            <Card>
-              <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-                <CardTitle className="text-sm font-medium">
-                  Sales Activity
-                </CardTitle>
-                <Activity className="h-4 w-4 text-muted-foreground" />
-              </CardHeader>
-              <CardContent>
-                <div className="text-2xl font-bold">+573</div>
-                <p className="text-xs text-muted-foreground">
-                  +201 since last hour
-                </p>
-              </CardContent>
-            </Card>
-          </div>
-        );
-      case "buyer":
-        return (
-          <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
-            <Card>
-              <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-                <CardTitle className="text-sm font-medium">
-                  Total Spent
-                </CardTitle>
-                <DollarSign className="h-4 w-4 text-muted-foreground" />
-              </CardHeader>
-              <CardContent>
-                <div className="text-2xl font-bold">$12,873.42</div>
-                <p className="text-xs text-muted-foreground">
-                  -5.2% from last month
-                </p>
-              </CardContent>
-            </Card>
-            <Card>
-              <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-                <CardTitle className="text-sm font-medium">
-                  Active Orders
-                </CardTitle>
-                <Package className="h-4 w-4 text-muted-foreground" />
-              </CardHeader>
-              <CardContent>
-                <div className="text-2xl font-bold">3</div>
-                <p className="text-xs text-muted-foreground">
-                  1 in transit
-                </p>
-              </CardContent>
-            </Card>
-            <Card>
-              <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-                <CardTitle className="text-sm font-medium">
-                  Favorite Farmers
-                </CardTitle>
-                <Users className="h-4 w-4 text-muted-foreground" />
-              </CardHeader>
-              <CardContent>
-                <div className="text-2xl font-bold">8</div>
-                <p className="text-xs text-muted-foreground">
-                  You frequently buy from them
-                </p>
-              </CardContent>
-            </Card>
-            <Card>
-              <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-                <CardTitle className="text-sm font-medium">
-                  New Crops in Market
-                </CardTitle>
-                <Carrot className="h-4 w-4 text-muted-foreground" />
-              </CardHeader>
-              <CardContent>
-                <div className="text-2xl font-bold">+32</div>
-                <p className="text-xs text-muted-foreground">
-                  In your region
-                </p>
-              </CardContent>
-            </Card>
-          </div>
-        );
-      case "transporter":
-        return (
-          <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
-            <Card>
-              <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-                <CardTitle className="text-sm font-medium">
-                  Earnings this Month
-                </CardTitle>
-                <DollarSign className="h-4 w-4 text-muted-foreground" />
-              </CardHeader>
-              <CardContent>
-                <div className="text-2xl font-bold">$3,150.00</div>
-                <p className="text-xs text-muted-foreground">
-                  +15.3% from last month
-                </p>
-              </CardContent>
-            </Card>
-            <Card>
-              <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-                <CardTitle className="text-sm font-medium">
-                  Available Deliveries
-                </CardTitle>
-                <Package className="h-4 w-4 text-muted-foreground" />
-              </CardHeader>
-              <CardContent>
-                <div className="text-2xl font-bold">7</div>
-                <p className="text-xs text-muted-foreground">
-                  Nearby pickups available
-                </p>
-              </CardContent>
-            </Card>
-            <Card>
-              <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-                <CardTitle className="text-sm font-medium">
-                  Active Deliveries
-                </CardTitle>
-                <Truck className="h-4 w-4 text-muted-foreground" />
-              </CardHeader>
-              <CardContent>
-                <div className="text-2xl font-bold">2</div>
-                <p className="text-xs text-muted-foreground">
-                  1 scheduled for today
-                </p>
-              </CardContent>
-            </Card>
-            <Card>
-              <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-                <CardTitle className="text-sm font-medium">
-                  Total Distance
-                </CardTitle>
-                <Route className="h-4 w-4 text-muted-foreground" />
-              </CardHeader>
-              <CardContent>
-                <div className="text-2xl font-bold">1,245 km</div>
-                <p className="text-xs text-muted-foreground">
-                  This month
-                </p>
-              </CardContent>
-            </Card>
-          </div>
-        );
-    }
-  };
-
+export default function HomePage() {
   return (
-    <div className="flex-1 space-y-4 p-4 md:p-8 pt-6">
-      <div className="flex items-center justify-between space-y-2">
-        <div>
-          <h2 className="text-3xl font-bold tracking-tight">Dashboard</h2>
-          <p className="text-muted-foreground">
-            Welcome back, {user.displayName}! Here's your overview as a {role}.
-          </p>
+    <div className="flex flex-col min-h-screen">
+      <header className="fixed top-0 left-0 right-0 z-50 flex items-center justify-between p-4 bg-background/50 backdrop-blur-sm">
+        <div className="flex items-center gap-2">
+          <ManvaasamLogo className="h-8 w-8 text-primary" />
+          <span className="text-xl font-bold text-primary">Manvaasam</span>
         </div>
-        <div className="flex items-center space-x-2">
-          <p className="text-sm font-medium text-muted-foreground">
-            View as:
-          </p>
-          <Button
-            variant={role === "farmer" ? "default" : "outline"}
-            size="sm"
-            onClick={() => setRole("farmer")}
-          >
-            Farmer
-          </Button>
-          <Button
-            variant={role === "buyer" ? "default" : "outline"}
-            size="sm"
-            onClick={() => setRole("buyer")}
-          >
-            Buyer
-          </Button>
-          <Button
-            variant={role === "transporter" ? "default" : "outline"}
-            size="sm"
-            onClick={() => setRole("transporter")}
-          >
-            Transporter
-          </Button>
-        </div>
-      </div>
-      {renderDashboardContent()}
-      <Card className="mt-6">
-        <CardHeader>
-          <CardTitle>Recent Activity</CardTitle>
-          <CardDescription>
-            A log of recent activities on the platform.
-          </CardDescription>
-        </CardHeader>
-        <CardContent>
-          <p>Activity feed will be shown here.</p>
-        </CardContent>
-      </Card>
+        <Button variant="outline">
+          <Languages className="mr-2 h-4 w-4" />
+          English
+        </Button>
+      </header>
+
+      <main className="flex-1 flex flex-col items-center justify-center pt-24 px-4">
+        <section className="text-center w-full max-w-4xl mx-auto">
+          <div className="relative w-full h-64 md:h-80 rounded-lg overflow-hidden shadow-2xl mb-12">
+            <Image
+              src="https://placehold.co/1200x400.png"
+              alt="Fresh produce banner"
+              layout="fill"
+              objectFit="cover"
+              className="brightness-75"
+              data-ai-hint="organic vegetables farm"
+            />
+            <div className="absolute inset-0 flex items-center justify-center">
+              <h1 className="text-4xl md:text-6xl font-bold text-white tracking-tight">
+                Empowering Farmers, Delivering Freshness
+              </h1>
+            </div>
+          </div>
+
+          <h2 className="text-3xl font-bold mb-8">Join Our Community</h2>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+            {userRoles.map((role) => (
+              <Card key={role.name} className="bg-card/60 backdrop-blur-lg border-2 border-white/20 shadow-lg hover:shadow-xl transition-shadow">
+                <CardHeader className="items-center">
+                  {role.icon}
+                  <CardTitle className="mt-4 text-2xl">{role.name}</CardTitle>
+                </CardHeader>
+                <CardContent className="text-center">
+                  <p className="text-muted-foreground mb-6">{role.description}</p>
+                  <Button asChild className="w-full">
+                    <Link href={role.href}>
+                      Continue <ArrowRight className="ml-2 h-4 w-4" />
+                    </Link>
+                  </Button>
+                </CardContent>
+              </Card>
+            ))}
+          </div>
+        </section>
+
+        <section className="w-full max-w-4xl mx-auto mt-20 text-center">
+           <h2 className="text-3xl font-bold mb-4">Our Mission</h2>
+           <p className="text-lg text-muted-foreground mb-8 max-w-3xl mx-auto">
+            Manvaasam connects you directly with local farmers through our trusted hub network, ensuring you receive the freshest organic products while supporting sustainable agriculture.
+           </p>
+           <div className="relative">
+             <Image 
+                src="https://placehold.co/800x200.png"
+                alt="Farmer to Hub to Customer flow"
+                width={800}
+                height={200}
+                className="rounded-lg"
+                data-ai-hint="infographic supply chain"
+             />
+             <div className="absolute inset-0 flex items-center justify-around text-lg font-semibold text-white">
+                <span>Farmer</span>
+                <ArrowRight size={48} />
+                <span>Hub</span>
+                <ArrowRight size={48} />
+                <span>Customer</span>
+             </div>
+           </div>
+        </section>
+      </main>
+
+      <footer className="w-full p-4 text-center text-muted-foreground mt-12">
+        © {new Date().getFullYear()} Manvaasam. All rights reserved.
+      </footer>
     </div>
   );
 }
