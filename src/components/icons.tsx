@@ -6,7 +6,7 @@ export function ManvaasamLogo(props: Omit<React.ComponentProps<typeof Image>, 's
   return (
     <Image
       {...rest}
-      src="https://storage.googleapis.com/aai-web-samples/community-images/manvaasam/logo_2.png"
+      src="https://storage.googleapis.com/aai-web-samples/community-images/manvaasam/logo_3.png"
       alt="Manvaasam Logo"
       width={width}
       height={height}
