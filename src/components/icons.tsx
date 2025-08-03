@@ -6,7 +6,7 @@ export function ManvaasamLogo(props: SVGProps<SVGSVGElement> & { width?: number,
   return (
     <Image
       {...rest}
-      src="https://storage.googleapis.com/aai-web-samples/community-images/manvaasam/logo.png"
+      src="https://storage.googleapis.com/aai-web-samples/community-images/manvaasam/logo_2.png"
       alt="Manvaasam Logo"
       width={width}
       height={height}
