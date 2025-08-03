@@ -75,7 +75,7 @@
 }
 
 .auth-layout-background {
-  background-image: url("/background.png");
+  background-image: url("https://storage.googleapis.com/aai-web-samples/community-images/manvaasam/background.png");
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;

@@ -67,15 +67,13 @@ export default function HomePage() {
 
       <main className="flex-1 flex flex-col items-center justify-center pt-24 px-4">
         <section className="text-center w-full max-w-4xl mx-auto">
-          <div className="relative w-full h-64 md:h-80 rounded-lg overflow-hidden shadow-2xl mb-12 bg-black/30">
-             <div className="absolute inset-0 flex items-center justify-center">
-              <h1 className="text-4xl md:text-6xl font-bold text-white tracking-tight text-center">
+          <div className="relative w-full h-64 md:h-80 rounded-lg overflow-hidden mb-12 flex items-center justify-center">
+              <h1 className="text-4xl md:text-6xl font-bold text-white tracking-tight text-center drop-shadow-lg">
                 Empowering Farmers, Delivering Freshness
               </h1>
-            </div>
           </div>
 
-          <h2 className="text-3xl font-bold mb-8 text-white">Join Our Community</h2>
+          <h2 className="text-3xl font-bold mb-8 text-white drop-shadow-md">Join Our Community</h2>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
             {userRoles.map((role) => (
               <Card key={role.name} className="bg-card/60 backdrop-blur-lg border-2 border-white/20 shadow-lg hover:shadow-xl transition-shadow">
@@ -97,8 +95,8 @@ export default function HomePage() {
         </section>
 
         <section className="w-full max-w-4xl mx-auto mt-20 text-center">
-           <h2 className="text-3xl font-bold mb-4 text-white">Our Mission</h2>
-           <p className="text-lg text-muted-foreground mb-8 max-w-3xl mx-auto">
+           <h2 className="text-3xl font-bold mb-4 text-white drop-shadow-md">Our Mission</h2>
+           <p className="text-lg text-white/90 mb-8 max-w-3xl mx-auto drop-shadow-sm">
             Manvaasam connects you directly with local farmers through our trusted hub network, ensuring you receive the freshest organic products while supporting sustainable agriculture.
            </p>
             <Card className="bg-card/60 backdrop-blur-lg border-2 border-white/20 shadow-lg">
@@ -115,7 +113,7 @@ export default function HomePage() {
         </section>
       </main>
 
-      <footer className="w-full p-4 text-center text-muted-foreground mt-12">
+      <footer className="w-full p-4 text-center text-white/80 mt-12">
         © {new Date().getFullYear()} Manvaasam. All rights reserved.
       </footer>
     </div>
