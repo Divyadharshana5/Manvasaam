@@ -10,7 +10,7 @@ import {
 } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { ManvaasamLogo } from "@/components/icons";
-import { ArrowRight, Languages, Users, Building, WholeWord } from "lucide-react";
+import { ArrowRight, Languages, Users, Building, Tractor } from "lucide-react";
 import Image from 'next/image';
 
 const userRoles = [
@@ -18,7 +18,7 @@ const userRoles = [
     name: "Farmer",
     description: "Join our network to sell your produce directly.",
     href: "/login/farmer-customer",
-    icon: <WholeWord className="h-12 w-12 text-primary" />,
+    icon: <Tractor className="h-12 w-12 text-primary" />,
   },
   {
     name: "Customer",
