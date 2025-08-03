@@ -36,7 +36,7 @@ const userRoles = [
 
 export default function HomePage() {
   return (
-    <div className="flex flex-col min-h-screen">
+    <div className="flex flex-col min-h-screen auth-layout-background">
       <header className="fixed top-0 left-0 right-0 z-50 flex items-center justify-between p-4 bg-background/50 backdrop-blur-sm">
         <div className="flex items-center gap-2">
           <ManvaasamLogo className="h-8 w-8 text-primary" />
@@ -50,23 +50,15 @@ export default function HomePage() {
 
       <main className="flex-1 flex flex-col items-center justify-center pt-24 px-4">
         <section className="text-center w-full max-w-4xl mx-auto">
-          <div className="relative w-full h-64 md:h-80 rounded-lg overflow-hidden shadow-2xl mb-12">
-            <Image
-              src="https://placehold.co/1200x400.png"
-              alt="Fresh produce banner"
-              layout="fill"
-              objectFit="cover"
-              className="brightness-75"
-              data-ai-hint="organic vegetables farm"
-            />
-            <div className="absolute inset-0 flex items-center justify-center">
-              <h1 className="text-4xl md:text-6xl font-bold text-white tracking-tight">
+          <div className="relative w-full h-64 md:h-80 rounded-lg overflow-hidden shadow-2xl mb-12 bg-black/30">
+             <div className="absolute inset-0 flex items-center justify-center">
+              <h1 className="text-4xl md:text-6xl font-bold text-white tracking-tight text-center">
                 Empowering Farmers, Delivering Freshness
               </h1>
             </div>
           </div>
 
-          <h2 className="text-3xl font-bold mb-8">Join Our Community</h2>
+          <h2 className="text-3xl font-bold mb-8 text-white">Join Our Community</h2>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
             {userRoles.map((role) => (
               <Card key={role.name} className="bg-card/60 backdrop-blur-lg border-2 border-white/20 shadow-lg hover:shadow-xl transition-shadow">
@@ -88,27 +80,21 @@ export default function HomePage() {
         </section>
 
         <section className="w-full max-w-4xl mx-auto mt-20 text-center">
-           <h2 className="text-3xl font-bold mb-4">Our Mission</h2>
+           <h2 className="text-3xl font-bold mb-4 text-white">Our Mission</h2>
            <p className="text-lg text-muted-foreground mb-8 max-w-3xl mx-auto">
             Manvaasam connects you directly with local farmers through our trusted hub network, ensuring you receive the freshest organic products while supporting sustainable agriculture.
            </p>
-           <div className="relative">
-             <Image 
-                src="https://placehold.co/800x200.png"
-                alt="Farmer to Hub to Customer flow"
-                width={800}
-                height={200}
-                className="rounded-lg"
-                data-ai-hint="infographic supply chain"
-             />
-             <div className="absolute inset-0 flex items-center justify-around text-lg font-semibold text-white">
-                <span>Farmer</span>
-                <ArrowRight size={48} />
-                <span>Hub</span>
-                <ArrowRight size={48} />
-                <span>Customer</span>
-             </div>
-           </div>
+            <Card className="bg-card/60 backdrop-blur-lg border-2 border-white/20 shadow-lg">
+                <CardContent className="p-6">
+                    <div className="flex items-center justify-around text-lg font-semibold text-foreground">
+                        <span>Farmer</span>
+                        <ArrowRight size={48} className="text-primary"/>
+                        <span>Hub</span>
+                        <ArrowRight size={48} className="text-primary"/>
+                        <span>Customer</span>
+                    </div>
+                </CardContent>
+            </Card>
         </section>
       </main>
 
