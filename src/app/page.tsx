@@ -215,7 +215,7 @@ const translations = {
     missionStatement: "منواسام آپ کو ہمارے قابل اعتماد مرکز نیٹ ورک کے ذریعے براہ راست مقامی کسانوں سے جوڑتا ہے، اس بات کو یقینی بناتا ہے کہ آپ پائیدار زراعت کی حمایت کرتے ہوئے تازہ ترین نامیاتی مصنوعات حاصل کریں۔",
     footer: "جملہ حقوق محفوظ ہیں۔",
   },
-  Sinhala: {
+  Srilanka: {
     tagline: "ගොවීන් සවිබල ගැන්වීම, නැවුම් බව ලබා දීම",
     joinCommunity: "අපගේ ප්‍රජාවට සම්බන්ධ වන්න",
     roles: {
@@ -239,7 +239,7 @@ const translations = {
   },
 };
 
-const languages = ["English", "Tamil", "Malayalam", "Telugu", "Hindi", "Kannada", "Bengali", "Arabic", "Urdu", "Sinhala"];
+const languages = ["English", "Tamil", "Malayalam", "Telugu", "Hindi", "Kannada", "Bengali", "Arabic", "Urdu", "Srilanka"];
 
 // Extend the Window interface for speech recognition
 declare global {
@@ -424,3 +424,5 @@ export default function HomePage() {
     </div>
   );
 }
+
+    
