@@ -25,8 +25,7 @@ import { useToast } from "@/hooks/use-toast";
 import { Loader2 } from "lucide-react";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
-import { auth } from "@/lib/firebase";
-import { createUserWithEmailAndPassword, signInWithEmailAndPassword } from "firebase/auth";
+import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword } from "firebase/auth";
 import { useRouter } from "next/navigation";
 
 const loginSchema = z.object({
@@ -51,6 +50,7 @@ export default function FarmerCustomerAuthPage() {
   const [loading, setLoading] = useState(false);
   const { toast } = useToast();
   const router = useRouter();
+  const auth = getAuth();
 
   const loginForm = useForm<z.infer<typeof loginSchema>>({
     resolver: zodResolver(loginSchema),
@@ -146,7 +146,7 @@ export default function FarmerCustomerAuthPage() {
                     <FormItem>
                       <FormLabel>Email</FormLabel>
                       <FormControl>
-                        <Input placeholder="m@example.com" {...field} />
+                        <Input type="email" placeholder="m@example.com" {...field} />
                       </FormControl>
                       <FormMessage />
                     </FormItem>
@@ -229,7 +229,7 @@ export default function FarmerCustomerAuthPage() {
                     <FormItem>
                       <FormLabel>Email</FormLabel>
                       <FormControl>
-                        <Input placeholder="m@example.com" {...field} />
+                        <Input type="email" placeholder="m@example.com" {...field} />
                       </FormControl>
                       <FormMessage />
                     </FormItem>

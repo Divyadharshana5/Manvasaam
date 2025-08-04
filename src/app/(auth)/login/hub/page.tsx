@@ -24,8 +24,7 @@ import { Input } from "@/components/ui/input";
 import { useToast } from "@/hooks/use-toast";
 import { Loader2 } from "lucide-react";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { auth } from "@/lib/firebase";
-import { createUserWithEmailAndPassword, signInWithEmailAndPassword } from "firebase/auth";
+import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword } from "firebase/auth";
 import { useRouter } from "next/navigation";
 
 
@@ -50,6 +49,7 @@ export default function HubAuthPage() {
   const [loading, setLoading] = useState(false);
   const { toast } = useToast();
   const router = useRouter();
+  const auth = getAuth();
 
   const loginForm = useForm<z.infer<typeof loginSchema>>({
     resolver: zodResolver(loginSchema),
@@ -145,7 +145,7 @@ export default function HubAuthPage() {
                     <FormItem>
                       <FormLabel>Email</FormLabel>
                       <FormControl>
-                        <Input placeholder="hub-admin@example.com" {...field} />
+                        <Input type="email" placeholder="hub-admin@example.com" {...field} />
                       </FormControl>
                       <FormMessage />
                     </FormItem>
@@ -207,7 +207,7 @@ export default function HubAuthPage() {
                     <FormItem>
                       <FormLabel>Hub Admin Email</FormLabel>
                       <FormControl>
-                        <Input placeholder="hub-admin@example.com" {...field} />
+                        <Input type="email" placeholder="hub-admin@example.com" {...field} />
                       </FormControl>
                       <FormMessage />
                     </FormItem>
