@@ -24,9 +24,8 @@ import { Input } from "@/components/ui/input";
 import { useToast } from "@/hooks/use-toast";
 import { Loader2 } from "lucide-react";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { auth, db } from "@/lib/firebase";
+import { auth } from "@/lib/firebase";
 import { createUserWithEmailAndPassword, signInWithEmailAndPassword } from "firebase/auth";
-import { doc, setDoc } from "firebase/firestore";
 import { useRouter } from "next/navigation";
 
 
@@ -90,13 +89,25 @@ export default function HubAuthPage() {
      try {
         const userCredential = await createUserWithEmailAndPassword(auth, values.email, values.password);
         const user = userCredential.user;
-        await setDoc(doc(db, "users", user.uid), {
-            uid: user.uid,
-            branchName: values.branchName,
-            branchId: values.branchId,
-            email: values.email,
-            userType: "hub",
+
+        const { password, confirmPassword, ...userData } = values;
+        const apiData = {
+          uid: user.uid,
+          userType: "hub",
+          ...userData,
+        };
+
+        const response = await fetch('/api/register', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(apiData),
         });
+
+        if (!response.ok) {
+            const errorData = await response.json();
+            throw new Error(errorData.message || 'Failed to save hub details.');
+        }
+
         toast({ title: "Hub Registration Successful", description: "The new hub account has been created." });
         router.push("/dashboard");
     } catch (error: any) {

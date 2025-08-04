@@ -25,9 +25,8 @@ import { useToast } from "@/hooks/use-toast";
 import { Loader2 } from "lucide-react";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
-import { auth, db } from "@/lib/firebase";
+import { auth } from "@/lib/firebase";
 import { createUserWithEmailAndPassword, signInWithEmailAndPassword } from "firebase/auth";
-import { doc, setDoc } from "firebase/firestore";
 import { useRouter } from "next/navigation";
 
 const loginSchema = z.object({
@@ -92,13 +91,24 @@ export default function FarmerCustomerAuthPage() {
     try {
         const userCredential = await createUserWithEmailAndPassword(auth, values.email, values.password);
         const user = userCredential.user;
-        await setDoc(doc(db, "users", user.uid), {
+        
+        const { password, confirmPassword, ...userData } = values;
+        const apiData = {
             uid: user.uid,
-            username: values.username,
-            email: values.email,
-            phone: values.phone,
-            userType: values.userType,
+            ...userData
+        };
+
+        const response = await fetch('/api/register', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(apiData),
         });
+
+        if (!response.ok) {
+            const errorData = await response.json();
+            throw new Error(errorData.message || 'Failed to save user details.');
+        }
+
         toast({ title: "Registration Successful", description: "Your account has been created." });
         router.push("/dashboard");
     } catch (error: any) {

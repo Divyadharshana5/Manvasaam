@@ -5,8 +5,6 @@ import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card";
 import { useAuth } from "@/hooks/use-auth";
 import { useRouter } from "next/navigation";
 import { useEffect } from "react";
-import { doc, getDoc } from "firebase/firestore";
-import { db } from "@/lib/firebase";
 import { useState } from "react";
 
 interface UserProfile {
@@ -29,11 +27,9 @@ export default function DashboardPage() {
   useEffect(() => {
     async function fetchUserProfile() {
       if (user) {
-        const docRef = doc(db, "users", user.uid);
-        const docSnap = await getDoc(docRef);
-        if (docSnap.exists()) {
-          setUserProfile(docSnap.data() as UserProfile);
-        }
+        // This part needs to be updated to fetch from your new API
+        // For now, we'll just display a message.
+        // In a real app, you would fetch from /api/users/{user.uid}
       }
     }
     fetchUserProfile();
@@ -56,7 +52,7 @@ export default function DashboardPage() {
           <div>
             <h2 className="text-3xl font-bold tracking-tight">Dashboard</h2>
             <p className="text-muted-foreground">
-              Welcome back, {userProfile?.username || userProfile?.branchName || user?.email}!
+              Welcome back, {user?.email}!
             </p>
           </div>
         </div>
@@ -65,10 +61,10 @@ export default function DashboardPage() {
         <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
             <Card>
                 <CardHeader>
-                    <CardTitle>Your Profile Type</CardTitle>
-                </CardHeader>
+                    <CardTitle>Your Profile</CardTitle>
+                </Header>
                 <CardContent>
-                    <p className="capitalize">{userProfile?.userType || 'N/A'}</p>
+                    <p>User details are now stored in MongoDB.</p>
                 </CardContent>
             </Card>
              <Card>
