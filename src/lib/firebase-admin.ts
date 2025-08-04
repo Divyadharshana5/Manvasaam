@@ -1,4 +1,5 @@
 import admin from 'firebase-admin';
+import 'dotenv/config';
 
 const serviceAccount: admin.ServiceAccount = {
     projectId: process.env.FIREBASE_PROJECT_ID,
