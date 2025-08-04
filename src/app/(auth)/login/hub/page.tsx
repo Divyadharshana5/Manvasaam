@@ -26,6 +26,7 @@ import { Loader2 } from "lucide-react";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword } from "firebase/auth";
 import { useRouter } from "next/navigation";
+import { getFirebaseAuth } from "@/lib/firebase";
 
 
 // Hub needs an email to work with Firebase Auth
@@ -49,7 +50,7 @@ export default function HubAuthPage() {
   const [loading, setLoading] = useState(false);
   const { toast } = useToast();
   const router = useRouter();
-  const auth = getAuth();
+  const auth = getFirebaseAuth();
 
   const loginForm = useForm<z.infer<typeof loginSchema>>({
     resolver: zodResolver(loginSchema),
@@ -181,7 +182,7 @@ export default function HubAuthPage() {
                     <FormItem>
                       <FormLabel>Branch Name</FormLabel>
                       <FormControl>
-                        <Input placeholder="Central Hub" {...field} />
+                        <Input type="text" placeholder="Central Hub" {...field} />
                       </FormControl>
                       <FormMessage />
                     </FormItem>
@@ -194,7 +195,7 @@ export default function HubAuthPage() {
                     <FormItem>
                       <FormLabel>Branch ID</FormLabel>
                       <FormControl>
-                        <Input placeholder="HUB-123" {...field} />
+                        <Input type="text" placeholder="HUB-123" {...field} />
                       </FormControl>
                       <FormMessage />
                     </FormItem>
