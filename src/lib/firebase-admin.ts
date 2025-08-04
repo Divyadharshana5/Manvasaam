@@ -4,7 +4,7 @@ import 'dotenv/config';
 const serviceAccount: admin.ServiceAccount = {
     projectId: process.env.FIREBASE_PROJECT_ID,
     privateKey: process.env.FIREBASE_PRIVATE_KEY?.replace(/\\n/g, '\n'),
-    clientEmail: process.env.FIREBEASE_CLIENT_EMAIL,
+    clientEmail: process.env.FIREBASE_CLIENT_EMAIL,
 };
 
 if (!admin.apps.length) {
