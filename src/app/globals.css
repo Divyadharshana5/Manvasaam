@@ -10,7 +10,7 @@
     --card-foreground: 94 38% 25%;
     --popover: 0 0% 100%;
     --popover-foreground: 94 38% 25%;
-    --primary: 104 56% 40%;
+    --primary: 84 44% 49%;
     --primary-foreground: 0 0% 100%;
     --secondary: 120 10% 95%;
     --secondary-foreground: 120 25% 15%;
@@ -22,7 +22,7 @@
     --destructive-foreground: 0 0% 98%;
     --border: 120 10% 85%;
     --input: 120 10% 85%;
-    --ring: 104 56% 40%;
+    --ring: 84 44% 49%;
     --radius: 0.5rem;
     --sidebar-background: 240 10% 3.9%;
     --sidebar-foreground: 0 0% 98%;
@@ -41,7 +41,7 @@
     --card-foreground: 0 0% 98%;
     --popover: 120 25% 10%;
     --popover-foreground: 0 0% 98%;
-    --primary: 104 56% 40%;
+    --primary: 84 44% 49%;
     --primary-foreground: 0 0% 100%;
     --secondary: 120 10% 15%;
     --secondary-foreground: 0 0% 98%;
@@ -75,35 +75,7 @@
 }
 
 .auth-layout-background {
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1200 800'%3E%3Cdefs%3E%3Cfilter id='noise' x='0%25' y='0%25' width='100%25' height='100%25'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3CfeColorMatrix type='matrix' values='1 0 0 0 0 0 1 0 0 0 0 0 1 0 0 0 0 0 0.1 0'/%3E%3C/filter%3E%3C/defs%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E"),
-    linear-gradient(
-      135deg,
-      #4ade80 0%,
-      #22c55e 25%,
-      #16a34a 50%,
-      #15803d 75%,
-      #166534 100%
-    );
-  background-size: cover, cover;
-  background-position: center, center;
-  background-repeat: no-repeat, no-repeat;
-  background-attachment: fixed, fixed;
-  position: relative;
-}
-
-.auth-layout-background::before {
-  content: "";
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1200 800'%3E%3Cdefs%3E%3Cfilter id='grass' x='0%25' y='0%25' width='100%25' height='100%25'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix type='matrix' values='0.2 0.8 0.2 0 0 0.3 0.9 0.3 0 0 0.2 0.8 0.2 0 0 0 0 0 0.3 0'/%3E%3C/filter%3E%3C/defs%3E%3Crect width='100%25' height='100%25' filter='url(%23grass)'/%3E%3C/svg%3E");
-  background-size: 200px 200px;
-  background-repeat: repeat;
-  opacity: 0.4;
-  pointer-events: none;
-  z-index: 0;
+  background-color: #f0f2f5;
 }
 
 @layer components {
