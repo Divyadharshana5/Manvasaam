@@ -25,7 +25,7 @@ import { useToast } from "@/hooks/use-toast";
 import { Loader2 } from "lucide-react";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
-import { createUserWithEmailAndPassword, signInWithEmailAndPassword } from "firebase/auth";
+import { signInWithCustomToken } from "firebase/auth";
 import { useRouter } from "next/navigation";
 import { auth } from "@/lib/firebase";
 
@@ -72,7 +72,20 @@ export default function FarmerCustomerAuthPage() {
   async function onLogin(values: z.infer<typeof loginSchema>) {
     setLoading(true);
     try {
-        await signInWithEmailAndPassword(auth, values.email, values.password);
+        const response = await fetch('/api/login', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(values),
+        });
+
+        if (!response.ok) {
+            const errorData = await response.json();
+            throw new Error(errorData.message || 'Login failed.');
+        }
+
+        const { token } = await response.json();
+        await signInWithCustomToken(auth, token);
+        
         toast({ title: "Login Successful", description: "Welcome back!" });
         router.push("/dashboard");
     } catch (error: any) {
@@ -89,15 +102,8 @@ export default function FarmerCustomerAuthPage() {
   async function onRegister(values: z.infer<typeof registerSchema>) {
     setLoading(true);
     try {
-        const userCredential = await createUserWithEmailAndPassword(auth, values.email, values.password);
-        const user = userCredential.user;
+        const { confirmPassword, ...apiData } = values;
         
-        const { password, confirmPassword, ...userData } = values;
-        const apiData = {
-            uid: user.uid,
-            ...userData
-        };
-
         const response = await fetch('/api/register', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
@@ -106,11 +112,14 @@ export default function FarmerCustomerAuthPage() {
 
         if (!response.ok) {
             const errorData = await response.json();
-            throw new Error(errorData.message || 'Failed to save user details.');
+            throw new Error(errorData.message || 'Failed to register.');
         }
 
-        toast({ title: "Registration Successful", description: "Your account has been created." });
-        router.push("/dashboard");
+        toast({ title: "Registration Successful", description: "Your account has been created. Please log in." });
+        // After successful registration, switch to login tab or redirect
+        // For simplicity, we just show a toast. A better UX would be to auto-login or redirect.
+         loginForm.reset({ email: values.email, password: ""});
+        // Consider switching tabs here if you have a way to control the active tab state
     } catch (error: any) {
         toast({
             variant: "destructive",
@@ -227,8 +236,7 @@ export default function FarmerCustomerAuthPage() {
                   name="email"
                   render={({ field }) => (
                     <FormItem>
-                      <FormLabel>Email</FormLabel>
-                      <FormControl>
+                      <FormLabel>Email</FormLabel>                      <FormControl>
                         <Input type="email" placeholder="m@example.com" {...field} />
                       </FormControl>
                       <FormMessage />

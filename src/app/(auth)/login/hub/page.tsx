@@ -24,7 +24,7 @@ import { Input } from "@/components/ui/input";
 import { useToast } from "@/hooks/use-toast";
 import { Loader2 } from "lucide-react";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { createUserWithEmailAndPassword, signInWithEmailAndPassword } from "firebase/auth";
+import { signInWithCustomToken } from "firebase/auth";
 import { useRouter } from "next/navigation";
 import { auth } from "@/lib/firebase";
 
@@ -70,7 +70,20 @@ export default function HubAuthPage() {
   async function onLogin(values: z.infer<typeof loginSchema>) {
     setLoading(true);
     try {
-        await signInWithEmailAndPassword(auth, values.email, values.password);
+        const response = await fetch('/api/login', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(values),
+        });
+
+        if (!response.ok) {
+            const errorData = await response.json();
+            throw new Error(errorData.message || 'Login failed.');
+        }
+
+        const { token } = await response.json();
+        await signInWithCustomToken(auth, token);
+
         toast({ title: "Login Successful", description: "Welcome back, Hub Manager!" });
         router.push("/dashboard");
     } catch (error: any) {
@@ -87,14 +100,10 @@ export default function HubAuthPage() {
   async function onRegister(values: z.infer<typeof registerSchema>) {
     setLoading(true);
      try {
-        const userCredential = await createUserWithEmailAndPassword(auth, values.email, values.password);
-        const user = userCredential.user;
-
-        const { password, confirmPassword, ...userData } = values;
+        const { confirmPassword, ...rest } = values;
         const apiData = {
-          uid: user.uid,
           userType: "hub",
-          ...userData,
+          ...rest,
         };
 
         const response = await fetch('/api/register', {
@@ -109,7 +118,8 @@ export default function HubAuthPage() {
         }
 
         toast({ title: "Hub Registration Successful", description: "The new hub account has been created." });
-        router.push("/dashboard");
+         // Consider switching to login tab here
+        loginForm.reset({ email: values.email, password: ""});
     } catch (error: any) {
         toast({
             variant: "destructive",
