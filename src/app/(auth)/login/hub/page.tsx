@@ -106,7 +106,7 @@ export default function HubAuthPage() {
                     <FormItem>
                       <FormLabel>Branch ID</FormLabel>
                       <FormControl>
-                        <Input placeholder="HUB-123" {...field} disabled />
+                        <Input placeholder="HUB-123" {...field} />
                       </FormControl>
                       <FormMessage />
                     </FormItem>
@@ -119,13 +119,13 @@ export default function HubAuthPage() {
                     <FormItem>
                       <FormLabel>Password</FormLabel>
                       <FormControl>
-                        <Input type="password" {...field} disabled />
+                        <Input type="password" {...field} />
                       </FormControl>
                       <FormMessage />
                     </FormItem>
                   )}
                 />
-                <Button type="submit" className="w-full" disabled>
+                <Button type="submit" className="w-full" variant="secondary" disabled={loading}>
                   {loading && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
                   Login
                 </Button>
@@ -142,7 +142,7 @@ export default function HubAuthPage() {
                     <FormItem>
                       <FormLabel>Branch Name</FormLabel>
                       <FormControl>
-                        <Input placeholder="Central Hub" {...field} disabled />
+                        <Input placeholder="Central Hub" {...field} />
                       </FormControl>
                       <FormMessage />
                     </FormItem>
@@ -155,7 +155,7 @@ export default function HubAuthPage() {
                     <FormItem>
                       <FormLabel>Branch ID</FormLabel>
                       <FormControl>
-                        <Input placeholder="HUB-123" {...field} disabled />
+                        <Input placeholder="HUB-123" {...field} />
                       </FormControl>
                       <FormMessage />
                     </FormItem>
@@ -168,7 +168,7 @@ export default function HubAuthPage() {
                     <FormItem>
                       <FormLabel>Hub Admin Email</FormLabel>
                       <FormControl>
-                        <Input placeholder="hub-admin@example.com" {...field} disabled />
+                        <Input placeholder="hub-admin@example.com" {...field} />
                       </FormControl>
                       <FormMessage />
                     </FormItem>
@@ -181,7 +181,7 @@ export default function HubAuthPage() {
                     <FormItem>
                       <FormLabel>Password</FormLabel>
                       <FormControl>
-                        <Input type="password" {...field} disabled />
+                        <Input type="password" {...field} />
                       </FormControl>
                       <FormMessage />
                     </FormItem>
@@ -194,13 +194,13 @@ export default function HubAuthPage() {
                     <FormItem>
                       <FormLabel>Confirm Password</FormLabel>
                       <FormControl>
-                        <Input type="password" {...field} disabled />
+                        <Input type="password" {...field} />
                       </FormControl>
                       <FormMessage />
                     </FormItem>
                   )}
                 />
-                <Button type="submit" className="w-full" disabled>
+                <Button type="submit" className="w-full" variant="secondary" disabled={loading}>
                   {loading && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
                   Register Hub
                 </Button>

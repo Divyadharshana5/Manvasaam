@@ -109,7 +109,7 @@ export default function FarmerCustomerAuthPage() {
                     <FormItem>
                       <FormLabel>Email</FormLabel>
                       <FormControl>
-                        <Input placeholder="m@example.com" {...field} disabled />
+                        <Input placeholder="m@example.com" {...field} />
                       </FormControl>
                       <FormMessage />
                     </FormItem>
@@ -122,13 +122,13 @@ export default function FarmerCustomerAuthPage() {
                     <FormItem>
                       <FormLabel>Password</FormLabel>
                       <FormControl>
-                        <Input type="password" {...field} disabled />
+                        <Input type="password" {...field} />
                       </FormControl>
                       <FormMessage />
                     </FormItem>
                   )}
                 />
-                <Button type="submit" className="w-full" disabled>
+                <Button type="submit" className="w-full" variant="secondary" disabled={loading}>
                   {loading && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
                   Login
                 </Button>
@@ -149,7 +149,6 @@ export default function FarmerCustomerAuthPage() {
                           onValueChange={field.onChange}
                           defaultValue={field.value}
                           className="flex space-x-4"
-                          disabled
                         >
                           <FormItem className="flex items-center space-x-2 space-y-0">
                             <FormControl>
@@ -180,7 +179,7 @@ export default function FarmerCustomerAuthPage() {
                     <FormItem>
                       <FormLabel>Username</FormLabel>
                       <FormControl>
-                        <Input placeholder="John Doe" {...field} disabled />
+                        <Input placeholder="John Doe" {...field} />
                       </FormControl>
                       <FormMessage />
                     </FormItem>
@@ -193,7 +192,7 @@ export default function FarmerCustomerAuthPage() {
                     <FormItem>
                       <FormLabel>Email</FormLabel>
                       <FormControl>
-                        <Input placeholder="m@example.com" {...field} disabled />
+                        <Input placeholder="m@example.com" {...field} />
                       </FormControl>
                       <FormMessage />
                     </FormItem>
@@ -206,7 +205,7 @@ export default function FarmerCustomerAuthPage() {
                     <FormItem>
                       <FormLabel>Phone Number</FormLabel>
                       <FormControl>
-                        <Input placeholder="123-456-7890" {...field} disabled />
+                        <Input placeholder="123-456-7890" {...field} />
                       </FormControl>
                       <FormMessage />
                     </FormItem>
@@ -219,7 +218,7 @@ export default function FarmerCustomerAuthPage() {
                     <FormItem>
                       <FormLabel>Password</FormLabel>
                       <FormControl>
-                        <Input type="password" {...field} disabled />
+                        <Input type="password" {...field} />
                       </FormControl>
                       <FormMessage />
                     </FormItem>
@@ -232,13 +231,13 @@ export default function FarmerCustomerAuthPage() {
                     <FormItem>
                       <FormLabel>Confirm Password</FormLabel>
                       <FormControl>
-                        <Input type="password" {...field} disabled />
+                        <Input type="password" {...field} />
                       </FormControl>
                       <FormMessage />
                     </FormItem>
                   )}
                 />
-                <Button type="submit" className="w-full" disabled>
+                <Button type="submit" className="w-full" variant="secondary" disabled={loading}>
                   {loading && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
                   Create Account
                 </Button>
