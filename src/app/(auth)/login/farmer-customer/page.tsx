@@ -155,7 +155,7 @@ export default function FarmerCustomerAuthPage() {
                     </FormItem>
                   )}
                 />
-                <Button type="submit" className="w-full" variant="secondary" disabled={loading}>
+                <Button type="submit" className="w-full" disabled={loading}>
                   {loading && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
                   Login
                 </Button>
@@ -264,7 +264,7 @@ export default function FarmerCustomerAuthPage() {
                     </FormItem>
                   )}
                 />
-                <Button type="submit" className="w-full" variant="secondary" disabled={loading}>
+                <Button type="submit" className="w-full" disabled={loading}>
                   {loading && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
                   Create Account
                 </Button>
