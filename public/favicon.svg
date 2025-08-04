@@ -1,0 +1,25 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32">
+  <circle cx="16" cy="16" r="15" fill="#22c55e" stroke="#15803d" strokeWidth="1" />
+  
+  <!-- Simplified truck -->
+  <rect x="18" y="18" width="10" height="6" fill="#1a1a1a" rx="1" />
+  <rect x="17" y="20" width="12" height="4" fill="#1a1a1a" rx="1" />
+  
+  <!-- Produce -->
+  <circle cx="20" cy="21" r="1.5" fill="#FF6347" />
+  <circle cx="23" cy="20" r="1.5" fill="#FF6347" />
+  <ellipse cx="21" cy="22" rx="1" ry="2" fill="#32CD32" />
+  
+  <!-- Farmer -->
+  <circle cx="26" cy="20" r="2" fill="#DEB887" />
+  <rect x="25" y="22" width="2" height="3" fill="#4169E1" />
+  
+  <!-- Green field -->
+  <rect x="4" y="22" width="24" height="8" fill="#90EE90" />
+  
+  <!-- Sun -->
+  <circle cx="24" cy="8" r="3" fill="#FFD700" />
+  
+  <!-- M text -->
+  <text x="16" y="14" textAnchor="middle" fontSize="6" fontWeight="bold" fill="#ffffff">M</text>
+</svg> 

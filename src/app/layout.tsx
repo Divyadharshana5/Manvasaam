@@ -1,10 +1,16 @@
-import type { Metadata } from 'next';
-import './globals.css';
-import { Toaster } from '@/components/ui/toaster';
+import type { Metadata } from "next";
+import "./globals.css";
+import { AuthProvider } from "@/hooks/use-auth";
+import { Toaster } from "@/components/ui/toaster";
 
 export const metadata: Metadata = {
-  title: 'Manvaasam',
-  description: 'Empowering Farmers, Delivering Freshness.',
+  title: "Manvaasam",
+  description: "Empowering Farmers, Delivering Freshness.",
+  icons: {
+    icon: "/favicon.svg",
+    shortcut: "/favicon.svg",
+    apple: "/favicon.svg",
+  },
 };
 
 export default function RootLayout({
@@ -27,7 +33,7 @@ export default function RootLayout({
         />
       </head>
       <body className="font-body antialiased">
-        {children}
+        <AuthProvider>{children}</AuthProvider>
         <Toaster />
       </body>
     </html>

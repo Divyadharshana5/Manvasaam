@@ -4,12 +4,12 @@ import {getAuth} from 'firebase/auth';
 import {getFirestore} from 'firebase/firestore';
 
 const firebaseConfig = {
-  apiKey: 'AIzaSyCX7QqJ2E-AsLqKiT2YmWYYqQ4PYFR7REo',
-  authDomain: 'agrilink-h50ej.firebaseapp.com',
-  projectId: 'agrilink-h50ej',
-  storageBucket: 'agrilink-h50ej.appspot.com',
-  messagingSenderId: '901229086413',
-  appId: '1:901229086413:web:b75f25596f1d7f751d4b84',
+  apiKey: "AIzaSyCX7QqJ2E-AsLqKiT2YmWYYqQ4PYFR7REo",
+  authDomain: "agrilink-h50ej.firebaseapp.com",
+  projectId: "agrilink-h50ej",
+  storageBucket: "agrilink-h50ej.appspot.com",
+  messagingSenderId: "901229086413",
+  appId: "1:901229086413:web:b75f25596f1d7f751d4b84",
 };
 
 // Initialize Firebase
