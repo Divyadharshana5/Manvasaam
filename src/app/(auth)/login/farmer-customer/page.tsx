@@ -4,14 +4,6 @@ import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import * as z from "zod";
-import {
-  createUserWithEmailAndPassword,
-  signInWithEmailAndPassword,
-  updateProfile,
-} from "firebase/auth";
-import { auth, db } from "@/lib/firebase";
-import { doc, setDoc } from "firebase/firestore";
-import { useRouter } from "next/navigation";
 import { Button } from "@/components/ui/button";
 import {
   Card,
@@ -55,7 +47,6 @@ const registerSchema = z.object({
 export default function FarmerCustomerAuthPage() {
   const [loading, setLoading] = useState(false);
   const { toast } = useToast();
-  const router = useRouter();
 
   const loginForm = useForm<z.infer<typeof loginSchema>>({
     resolver: zodResolver(loginSchema),
@@ -76,54 +67,22 @@ export default function FarmerCustomerAuthPage() {
 
   async function onLogin(values: z.infer<typeof loginSchema>) {
     setLoading(true);
-    try {
-      await signInWithEmailAndPassword(auth, values.email, values.password);
-      router.push("/dashboard");
-    } catch (error: any) {
-      toast({
-        variant: "destructive",
-        title: "Login Failed",
-        description: error.message,
-      });
-    } finally {
-      setLoading(false);
-    }
+    toast({
+      variant: "destructive",
+      title: "Login Disabled",
+      description: "Firebase has been removed, so login is not available.",
+    });
+    setLoading(false);
   }
 
   async function onRegister(values: z.infer<typeof registerSchema>) {
     setLoading(true);
-    try {
-      const userCredential = await createUserWithEmailAndPassword(
-        auth,
-        values.email,
-        values.password
-      );
-      const user = userCredential.user;
-      await updateProfile(user, { displayName: values.username });
-      
-      const userDocRef = doc(db, values.userType === 'farmer' ? 'farmers' : 'customers', user.uid);
-      await setDoc(userDocRef, {
-        uid: user.uid,
-        username: values.username,
-        email: values.email,
-        phone: values.phone,
-        userType: values.userType,
-      });
-      
-      router.push("/dashboard");
-      toast({
-        title: "Account Created!",
-        description: "You have been successfully registered.",
-      });
-    } catch (error: any) {
-      toast({
-        variant: "destructive",
-        title: "Registration Failed",
-        description: error.message,
-      });
-    } finally {
-      setLoading(false);
-    }
+    toast({
+      variant: "destructive",
+      title: "Registration Disabled",
+      description: "Firebase has been removed, so registration is not available.",
+    });
+    setLoading(false);
   }
 
   return (
@@ -131,7 +90,7 @@ export default function FarmerCustomerAuthPage() {
       <CardHeader>
         <CardTitle>Welcome</CardTitle>
         <CardDescription>
-          Sign in or create an account to get started.
+          Sign in or create an account to get started. (Functionality disabled)
         </CardDescription>
       </CardHeader>
       <CardContent>
@@ -150,7 +109,7 @@ export default function FarmerCustomerAuthPage() {
                     <FormItem>
                       <FormLabel>Email</FormLabel>
                       <FormControl>
-                        <Input placeholder="m@example.com" {...field} />
+                        <Input placeholder="m@example.com" {...field} disabled />
                       </FormControl>
                       <FormMessage />
                     </FormItem>
@@ -163,13 +122,13 @@ export default function FarmerCustomerAuthPage() {
                     <FormItem>
                       <FormLabel>Password</FormLabel>
                       <FormControl>
-                        <Input type="password" {...field} />
+                        <Input type="password" {...field} disabled />
                       </FormControl>
                       <FormMessage />
                     </FormItem>
                   )}
                 />
-                <Button type="submit" className="w-full" disabled={loading}>
+                <Button type="submit" className="w-full" disabled>
                   {loading && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
                   Login
                 </Button>
@@ -190,6 +149,7 @@ export default function FarmerCustomerAuthPage() {
                           onValueChange={field.onChange}
                           defaultValue={field.value}
                           className="flex space-x-4"
+                          disabled
                         >
                           <FormItem className="flex items-center space-x-2 space-y-0">
                             <FormControl>
@@ -220,7 +180,7 @@ export default function FarmerCustomerAuthPage() {
                     <FormItem>
                       <FormLabel>Username</FormLabel>
                       <FormControl>
-                        <Input placeholder="John Doe" {...field} />
+                        <Input placeholder="John Doe" {...field} disabled />
                       </FormControl>
                       <FormMessage />
                     </FormItem>
@@ -233,7 +193,7 @@ export default function FarmerCustomerAuthPage() {
                     <FormItem>
                       <FormLabel>Email</FormLabel>
                       <FormControl>
-                        <Input placeholder="m@example.com" {...field} />
+                        <Input placeholder="m@example.com" {...field} disabled />
                       </FormControl>
                       <FormMessage />
                     </FormItem>
@@ -246,7 +206,7 @@ export default function FarmerCustomerAuthPage() {
                     <FormItem>
                       <FormLabel>Phone Number</FormLabel>
                       <FormControl>
-                        <Input placeholder="123-456-7890" {...field} />
+                        <Input placeholder="123-456-7890" {...field} disabled />
                       </FormControl>
                       <FormMessage />
                     </FormItem>
@@ -259,7 +219,7 @@ export default function FarmerCustomerAuthPage() {
                     <FormItem>
                       <FormLabel>Password</FormLabel>
                       <FormControl>
-                        <Input type="password" {...field} />
+                        <Input type="password" {...field} disabled />
                       </FormControl>
                       <FormMessage />
                     </FormItem>
@@ -272,13 +232,13 @@ export default function FarmerCustomerAuthPage() {
                     <FormItem>
                       <FormLabel>Confirm Password</FormLabel>
                       <FormControl>
-                        <Input type="password" {...field} />
+                        <Input type="password" {...field} disabled />
                       </FormControl>
                       <FormMessage />
                     </FormItem>
                   )}
                 />
-                <Button type="submit" className="w-full" disabled={loading}>
+                <Button type="submit" className="w-full" disabled>
                   {loading && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
                   Create Account
                 </Button>

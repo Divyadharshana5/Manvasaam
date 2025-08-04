@@ -1,70 +1,9 @@
 "use client";
 
-import { useAuth } from "@/hooks/use-auth";
-import { useRouter } from "next/navigation";
-import { useEffect, useState } from "react";
-import { doc, getDoc } from "firebase/firestore";
-import { db } from "@/lib/firebase";
-import { Loader2 } from "lucide-react";
 import { AppLayout } from "@/components/app-layout";
 import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card";
 
 export default function DashboardPage() {
-  const { user, loading: authLoading } = useAuth();
-  const router = useRouter();
-  const [userData, setUserData] = useState<any>(null);
-  const [loading, setLoading] = useState(true);
-
-  useEffect(() => {
-    if (!authLoading && !user) {
-      router.push("/");
-    }
-  }, [user, authLoading, router]);
-
-  useEffect(() => {
-    async function fetchUserData() {
-      if (user) {
-        // Check farmers, then customers, then hubs
-        const farmerDoc = await getDoc(doc(db, "farmers", user.uid));
-        if (farmerDoc.exists()) {
-          setUserData({ ...farmerDoc.data(), role: 'Farmer' });
-          setLoading(false);
-          return;
-        }
-        const customerDoc = await getDoc(doc(db, "customers", user.uid));
-        if (customerDoc.exists()) {
-          setUserData({ ...customerDoc.data(), role: 'Customer' });
-          setLoading(false);
-          return;
-        }
-        const hubDoc = await getDoc(doc(db, "hubs", user.uid));
-        if (hubDoc.exists()) {
-          setUserData({ ...hubDoc.data(), role: 'Hub' });
-          setLoading(false);
-          return;
-        }
-        // If user exists in auth but not in any collection, handle appropriately
-        console.error("User document not found!");
-        setLoading(false);
-      }
-    }
-
-    if (!authLoading) {
-      fetchUserData();
-    }
-  }, [user, authLoading]);
-
-  if (authLoading || loading) {
-    return (
-      <div className="flex h-screen w-full items-center justify-center">
-        <Loader2 className="h-8 w-8 animate-spin" />
-      </div>
-    );
-  }
-  
-  if (!user) {
-    return null; // Redirect is handled by the hook
-  }
 
   return (
     <AppLayout>
@@ -73,38 +12,17 @@ export default function DashboardPage() {
           <div>
             <h2 className="text-3xl font-bold tracking-tight">Dashboard</h2>
             <p className="text-muted-foreground">
-              Welcome back, {user.displayName}! You are logged in as a {userData?.role}.
+              Welcome to Manvaasam. Firebase integration has been removed.
             </p>
           </div>
         </div>
         
         <Card>
             <CardHeader>
-                <CardTitle>Your Information</CardTitle>
+                <CardTitle>Functionality Disabled</CardTitle>
             </CardHeader>
             <CardContent>
-                {userData?.role === "Farmer" && (
-                    <div>
-                        <p><strong>Username:</strong> {userData.username}</p>
-                        <p><strong>Email:</strong> {userData.email}</p>
-                        <p><strong>Phone:</strong> {userData.phone}</p>
-                    </div>
-                )}
-                {userData?.role === "Customer" && (
-                    <div>
-                        <p><strong>Username:</strong> {userData.username}</p>
-                        <p><strong>Email:</strong> {userData.email}</p>
-                        <p><strong>Phone:</strong> {userData.phone}</p>
-                    </div>
-                )}
-                {userData?.role === "Hub" && (
-                     <div>
-                        <p><strong>Branch Name:</strong> {userData.branchName}</p>
-                        <p><strong>Branch ID:</strong> {userData.branchId}</p>
-                        <p><strong>Admin Email:</strong> {userData.email}</p>
-                    </div>
-                )}
-                 {!userData && <p>Could not load user details.</p>}
+                <p>User authentication and data management have been disabled because Firebase has been removed from the project.</p>
             </CardContent>
         </Card>
         
@@ -121,7 +39,7 @@ export default function DashboardPage() {
              <Card>
                 <CardHeader>
                     <CardTitle>Feature 2</CardTitle>
-                </CardHeader>
+                </Header>
                 <CardContent>
                     <p>Coming soon...</p>
                 </CardContent>

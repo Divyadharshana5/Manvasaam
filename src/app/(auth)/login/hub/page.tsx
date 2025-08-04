@@ -4,14 +4,6 @@ import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import * as z from "zod";
-import {
-  createUserWithEmailAndPassword,
-  signInWithEmailAndPassword,
-  updateProfile,
-} from "firebase/auth";
-import { auth, db } from "@/lib/firebase";
-import { doc, setDoc } from "firebase/firestore";
-import { useRouter } from "next/navigation";
 import { Button } from "@/components/ui/button";
 import {
   Card,
@@ -53,7 +45,6 @@ const registerSchema = z.object({
 export default function HubAuthPage() {
   const [loading, setLoading] = useState(false);
   const { toast } = useToast();
-  const router = useRouter();
 
   const loginForm = useForm<z.infer<typeof loginSchema>>({
     resolver: zodResolver(loginSchema),
@@ -70,60 +61,25 @@ export default function HubAuthPage() {
       confirmPassword: "",
     },
   });
-  
-  // Note: Firebase Auth doesn't support ID/password login directly.
-  // A real-world scenario would involve a lookup to get email from branchId first.
-  // For this prototype, we'll simulate this by requiring email for registration
-  // and then using a dummy email for login for simplicity. This part of the logic
-  // will be updated when the user asks for it.
+
   async function onLogin(values: z.infer<typeof loginSchema>) {
     setLoading(true);
     toast({
-      title: "Hub Login Notice",
-      description: "Hub login is a placeholder. Please register a new hub account.",
-      duration: 5000,
+      variant: "destructive",
+      title: "Login Disabled",
+      description: "Firebase has been removed, so login is not available.",
     });
     setLoading(false);
-    // This is where a real implementation would look up the email associated with the branchId
-    // and then attempt a Firebase login.
-    // e.g. const email = await getEmailForBranch(values.branchId);
-    // await signInWithEmailAndPassword(auth, email, values.password);
   }
 
   async function onRegister(values: z.infer<typeof registerSchema>) {
     setLoading(true);
-    try {
-      const userCredential = await createUserWithEmailAndPassword(
-        auth,
-        values.email,
-        values.password
-      );
-      const user = userCredential.user;
-      await updateProfile(user, { displayName: `${values.branchName} Hub` });
-      
-      const hubDocRef = doc(db, 'hubs', user.uid);
-      await setDoc(hubDocRef, {
-        uid: user.uid,
-        branchName: values.branchName,
-        branchId: values.branchId,
-        email: values.email,
-        userType: 'hub',
-      });
-      
-      router.push("/dashboard");
-      toast({
-        title: "Hub Registered!",
-        description: "Your hub account has been successfully created.",
-      });
-    } catch (error: any) {
-      toast({
-        variant: "destructive",
-        title: "Registration Failed",
-        description: error.message,
-      });
-    } finally {
-      setLoading(false);
-    }
+    toast({
+      variant: "destructive",
+      title: "Registration Disabled",
+      description: "Firebase has been removed, so registration is not available.",
+    });
+    setLoading(false);
   }
 
   return (
@@ -131,7 +87,7 @@ export default function HubAuthPage() {
       <CardHeader>
         <CardTitle>Hub Portal</CardTitle>
         <CardDescription>
-          Manage logistics and connect our network.
+          Manage logistics and connect our network. (Functionality disabled)
         </CardDescription>
       </CardHeader>
       <CardContent>
@@ -150,7 +106,7 @@ export default function HubAuthPage() {
                     <FormItem>
                       <FormLabel>Branch ID</FormLabel>
                       <FormControl>
-                        <Input placeholder="HUB-123" {...field} />
+                        <Input placeholder="HUB-123" {...field} disabled />
                       </FormControl>
                       <FormMessage />
                     </FormItem>
@@ -163,13 +119,13 @@ export default function HubAuthPage() {
                     <FormItem>
                       <FormLabel>Password</FormLabel>
                       <FormControl>
-                        <Input type="password" {...field} />
+                        <Input type="password" {...field} disabled />
                       </FormControl>
                       <FormMessage />
                     </FormItem>
                   )}
                 />
-                <Button type="submit" className="w-full" disabled={loading}>
+                <Button type="submit" className="w-full" disabled>
                   {loading && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
                   Login
                 </Button>
@@ -186,7 +142,7 @@ export default function HubAuthPage() {
                     <FormItem>
                       <FormLabel>Branch Name</FormLabel>
                       <FormControl>
-                        <Input placeholder="Central Hub" {...field} />
+                        <Input placeholder="Central Hub" {...field} disabled />
                       </FormControl>
                       <FormMessage />
                     </FormItem>
@@ -199,7 +155,7 @@ export default function HubAuthPage() {
                     <FormItem>
                       <FormLabel>Branch ID</FormLabel>
                       <FormControl>
-                        <Input placeholder="HUB-123" {...field} />
+                        <Input placeholder="HUB-123" {...field} disabled />
                       </FormControl>
                       <FormMessage />
                     </FormItem>
@@ -212,7 +168,7 @@ export default function HubAuthPage() {
                     <FormItem>
                       <FormLabel>Hub Admin Email</FormLabel>
                       <FormControl>
-                        <Input placeholder="hub-admin@example.com" {...field} />
+                        <Input placeholder="hub-admin@example.com" {...field} disabled />
                       </FormControl>
                       <FormMessage />
                     </FormItem>
@@ -225,7 +181,7 @@ export default function HubAuthPage() {
                     <FormItem>
                       <FormLabel>Password</FormLabel>
                       <FormControl>
-                        <Input type="password" {...field} />
+                        <Input type="password" {...field} disabled />
                       </FormControl>
                       <FormMessage />
                     </FormItem>
@@ -238,13 +194,13 @@ export default function HubAuthPage() {
                     <FormItem>
                       <FormLabel>Confirm Password</FormLabel>
                       <FormControl>
-                        <Input type="password" {...field} />
+                        <Input type="password" {...field} disabled />
                       </FormControl>
                       <FormMessage />
                     </FormItem>
                   )}
                 />
-                <Button type="submit" className="w-full" disabled={loading}>
+                <Button type="submit" className="w-full" disabled>
                   {loading && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
                   Register Hub
                 </Button>

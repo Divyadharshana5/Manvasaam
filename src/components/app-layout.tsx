@@ -17,7 +17,6 @@ import {
 } from "@/components/ui/sidebar";
 import {
   LayoutDashboard,
-  LogOut,
   LogIn,
   Volume2,
 } from "lucide-react";
@@ -25,7 +24,6 @@ import { Button } from "@/components/ui/button";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { ManvaasamLogo } from "./icons";
 import { cn } from "@/lib/utils";
-import { useAuth } from "@/hooks/use-auth";
 
 const menuItems = [
   { href: "/dashboard", label: "Dashboard", icon: LayoutDashboard },
@@ -41,7 +39,6 @@ const authPages = [
 
 export function AppLayout({ children }: { children: React.ReactNode }) {
   const pathname = usePathname();
-  const { user, signOut } = useAuth();
   const isAuthPage = authPages.includes(pathname);
 
   if (isAuthPage) {
@@ -87,45 +84,6 @@ export function AppLayout({ children }: { children: React.ReactNode }) {
           </SidebarMenu>
         </SidebarContent>
         <SidebarFooter>
-          {user ? (
-            <div
-              className={cn(
-                "flex items-center gap-2 p-2 transition-all duration-200",
-                "group-data-[collapsible=icon]:flex-col group-data-[collapsible=icon]:items-stretch"
-              )}
-            >
-              <div className="flex items-center gap-2 group-data-[collapsible=icon]:justify-center">
-                <Avatar className="size-8">
-                  <AvatarImage
-                    src={user.photoURL ?? "https://placehold.co/100x100.png"}
-                    alt={user.displayName ?? "User"}
-                    data-ai-hint="user avatar"
-                  />
-                  <AvatarFallback>
-                    {user.email?.[0]?.toUpperCase() ?? "U"}
-                  </AvatarFallback>
-                </Avatar>
-                <div className="flex flex-col group-data-[collapsible=icon]:hidden">
-                  <span className="text-sm font-semibold">
-                    {user.displayName ?? "User Name"}
-                  </span>
-                  <span className="text-xs text-muted-foreground">
-                    {user.email}
-                  </span>
-                </div>
-              </div>
-              <Button
-                variant="ghost"
-                className="w-full justify-center"
-                onClick={signOut}
-              >
-                <LogOut />
-                <span className="group-data-[collapsible=icon]:hidden">
-                  Sign Out
-                </span>
-              </Button>
-            </div>
-          ) : (
             <div className="p-2">
               <Link href="/" passHref>
                 <Button className="w-full">
@@ -136,7 +94,6 @@ export function AppLayout({ children }: { children: React.ReactNode }) {
                 </Button>
               </Link>
             </div>
-          )}
         </SidebarFooter>
       </Sidebar>
       <SidebarInset>
