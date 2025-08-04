@@ -25,6 +25,10 @@ import { useToast } from "@/hooks/use-toast";
 import { Loader2 } from "lucide-react";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
+import { auth, db } from "@/lib/firebase";
+import { createUserWithEmailAndPassword, signInWithEmailAndPassword } from "firebase/auth";
+import { doc, setDoc } from "firebase/firestore";
+import { useRouter } from "next/navigation";
 
 const loginSchema = z.object({
   email: z.string().email({ message: "Invalid email address." }),
@@ -47,6 +51,7 @@ const registerSchema = z.object({
 export default function FarmerCustomerAuthPage() {
   const [loading, setLoading] = useState(false);
   const { toast } = useToast();
+  const router = useRouter();
 
   const loginForm = useForm<z.infer<typeof loginSchema>>({
     resolver: zodResolver(loginSchema),
@@ -67,22 +72,44 @@ export default function FarmerCustomerAuthPage() {
 
   async function onLogin(values: z.infer<typeof loginSchema>) {
     setLoading(true);
-    toast({
-      variant: "destructive",
-      title: "Login Disabled",
-      description: "Firebase has been removed, so login is not available.",
-    });
-    setLoading(false);
+    try {
+        await signInWithEmailAndPassword(auth, values.email, values.password);
+        toast({ title: "Login Successful", description: "Welcome back!" });
+        router.push("/dashboard");
+    } catch (error: any) {
+        toast({
+            variant: "destructive",
+            title: "Login Failed",
+            description: error.message,
+        });
+    } finally {
+        setLoading(false);
+    }
   }
 
   async function onRegister(values: z.infer<typeof registerSchema>) {
     setLoading(true);
-    toast({
-      variant: "destructive",
-      title: "Registration Disabled",
-      description: "Firebase has been removed, so registration is not available.",
-    });
-    setLoading(false);
+    try {
+        const userCredential = await createUserWithEmailAndPassword(auth, values.email, values.password);
+        const user = userCredential.user;
+        await setDoc(doc(db, "users", user.uid), {
+            uid: user.uid,
+            username: values.username,
+            email: values.email,
+            phone: values.phone,
+            userType: values.userType,
+        });
+        toast({ title: "Registration Successful", description: "Your account has been created." });
+        router.push("/dashboard");
+    } catch (error: any) {
+        toast({
+            variant: "destructive",
+            title: "Registration Failed",
+            description: error.message,
+        });
+    } finally {
+        setLoading(false);
+    }
   }
 
   return (
@@ -90,7 +117,7 @@ export default function FarmerCustomerAuthPage() {
       <CardHeader>
         <CardTitle>Welcome</CardTitle>
         <CardDescription>
-          Sign in or create an account to get started. (Functionality disabled)
+          Sign in or create an account to get started.
         </CardDescription>
       </CardHeader>
       <CardContent>

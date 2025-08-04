@@ -24,10 +24,15 @@ import { Input } from "@/components/ui/input";
 import { useToast } from "@/hooks/use-toast";
 import { Loader2 } from "lucide-react";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { auth, db } from "@/lib/firebase";
+import { createUserWithEmailAndPassword, signInWithEmailAndPassword } from "firebase/auth";
+import { doc, setDoc } from "firebase/firestore";
+import { useRouter } from "next/navigation";
+
 
 // Hub needs an email to work with Firebase Auth
 const loginSchema = z.object({
-  branchId: z.string().min(1, { message: "Branch ID is required." }),
+  email: z.string().email({ message: "A valid email is required." }),
   password: z.string().min(1, { message: "Password is required." }),
 });
 
@@ -45,10 +50,11 @@ const registerSchema = z.object({
 export default function HubAuthPage() {
   const [loading, setLoading] = useState(false);
   const { toast } = useToast();
+  const router = useRouter();
 
   const loginForm = useForm<z.infer<typeof loginSchema>>({
     resolver: zodResolver(loginSchema),
-    defaultValues: { branchId: "", password: "" },
+    defaultValues: { email: "", password: "" },
   });
 
   const registerForm = useForm<z.infer<typeof registerSchema>>({
@@ -64,22 +70,44 @@ export default function HubAuthPage() {
 
   async function onLogin(values: z.infer<typeof loginSchema>) {
     setLoading(true);
-    toast({
-      variant: "destructive",
-      title: "Login Disabled",
-      description: "Firebase has been removed, so login is not available.",
-    });
-    setLoading(false);
+    try {
+        await signInWithEmailAndPassword(auth, values.email, values.password);
+        toast({ title: "Login Successful", description: "Welcome back, Hub Manager!" });
+        router.push("/dashboard");
+    } catch (error: any) {
+        toast({
+            variant: "destructive",
+            title: "Login Failed",
+            description: error.message,
+        });
+    } finally {
+        setLoading(false);
+    }
   }
 
   async function onRegister(values: z.infer<typeof registerSchema>) {
     setLoading(true);
-    toast({
-      variant: "destructive",
-      title: "Registration Disabled",
-      description: "Firebase has been removed, so registration is not available.",
-    });
-    setLoading(false);
+     try {
+        const userCredential = await createUserWithEmailAndPassword(auth, values.email, values.password);
+        const user = userCredential.user;
+        await setDoc(doc(db, "users", user.uid), {
+            uid: user.uid,
+            branchName: values.branchName,
+            branchId: values.branchId,
+            email: values.email,
+            userType: "hub",
+        });
+        toast({ title: "Hub Registration Successful", description: "The new hub account has been created." });
+        router.push("/dashboard");
+    } catch (error: any) {
+        toast({
+            variant: "destructive",
+            title: "Registration Failed",
+            description: error.message,
+        });
+    } finally {
+        setLoading(false);
+    }
   }
 
   return (
@@ -87,7 +115,7 @@ export default function HubAuthPage() {
       <CardHeader>
         <CardTitle>Hub Portal</CardTitle>
         <CardDescription>
-          Manage logistics and connect our network. (Functionality disabled)
+          Manage logistics and connect our network.
         </CardDescription>
       </CardHeader>
       <CardContent>
@@ -101,12 +129,12 @@ export default function HubAuthPage() {
               <form onSubmit={loginForm.handleSubmit(onLogin)} className="space-y-4 pt-4">
                 <FormField
                   control={loginForm.control}
-                  name="branchId"
+                  name="email"
                   render={({ field }) => (
                     <FormItem>
-                      <FormLabel>Branch ID</FormLabel>
+                      <FormLabel>Email</FormLabel>
                       <FormControl>
-                        <Input placeholder="HUB-123" {...field} />
+                        <Input placeholder="hub-admin@example.com" {...field} />
                       </FormControl>
                       <FormMessage />
                     </FormItem>

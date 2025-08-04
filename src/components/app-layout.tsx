@@ -17,13 +17,19 @@ import {
 } from "@/components/ui/sidebar";
 import {
   LayoutDashboard,
-  LogIn,
+  LogOut,
   Volume2,
+  User as UserIcon,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { ManvaasamLogo } from "./icons";
 import { cn } from "@/lib/utils";
+import { useAuth } from "@/hooks/use-auth";
+import { auth } from "@/lib/firebase";
+import { signOut } from "firebase/auth";
+import { useRouter } from "next/navigation";
+import { useToast } from "@/hooks/use-toast";
 
 const menuItems = [
   { href: "/dashboard", label: "Dashboard", icon: LayoutDashboard },
@@ -39,7 +45,21 @@ const authPages = [
 
 export function AppLayout({ children }: { children: React.ReactNode }) {
   const pathname = usePathname();
+  const { user, loading } = useAuth();
+  const router = useRouter();
+  const { toast } = useToast();
   const isAuthPage = authPages.includes(pathname);
+
+  const handleSignOut = async () => {
+    try {
+      await signOut(auth);
+      toast({ title: "Signed Out", description: "You have been successfully signed out." });
+      router.push("/");
+    } catch (error: any) {
+      toast({ variant: "destructive", title: "Sign Out Failed", description: error.message });
+    }
+  };
+
 
   if (isAuthPage) {
     return <>{children}</>;
@@ -85,14 +105,12 @@ export function AppLayout({ children }: { children: React.ReactNode }) {
         </SidebarContent>
         <SidebarFooter>
             <div className="p-2">
-              <Link href="/" passHref>
-                <Button className="w-full">
-                  <LogIn />
-                  <span className="group-data-[collapsible=icon]:hidden">
-                    Sign In
-                  </span>
-                </Button>
-              </Link>
+              <Button className="w-full" onClick={handleSignOut}>
+                <LogOut />
+                <span className="group-data-[collapsible=icon]:hidden">
+                  Sign Out
+                </span>
+              </Button>
             </div>
         </SidebarFooter>
       </Sidebar>
@@ -105,7 +123,15 @@ export function AppLayout({ children }: { children: React.ReactNode }) {
                 "Dashboard"}
             </h1>
           </div>
-          <Button>Get Support</Button>
+          <div className="flex items-center gap-2">
+            <span className="text-sm font-medium">{user?.email}</span>
+            <Avatar>
+              <AvatarImage src={user?.photoURL || undefined} />
+              <AvatarFallback>
+                <UserIcon />
+              </AvatarFallback>
+            </Avatar>
+          </div>
         </header>
         <main className="flex-1">{children}</main>
       </SidebarInset>
