@@ -42,9 +42,13 @@
     "firebase": "^10.12.3",
     "genkit": "^1.14.1",
     "lucide-react": "^0.475.0",
+<<<<<<< HEAD
     "mongodb": "^6.8.0",
     "next": "15.3.3",
     "nodemailer": "^6.9.14",
+=======
+    "next": "^15.3.3",
+>>>>>>> 6020b9b (updated at page.tsx)
     "patch-package": "^8.0.0",
     "react": "^18.3.1",
     "react-day-picker": "^8.10.1",
