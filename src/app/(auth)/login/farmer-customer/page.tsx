@@ -27,7 +27,7 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { createUserWithEmailAndPassword, signInWithEmailAndPassword } from "firebase/auth";
 import { useRouter } from "next/navigation";
-import { getFirebaseAuth } from "@/lib/firebase";
+import { auth } from "@/lib/firebase";
 
 const loginSchema = z.object({
   email: z.string().email({ message: "Invalid email address." }),
@@ -51,7 +51,6 @@ export default function FarmerCustomerAuthPage() {
   const [loading, setLoading] = useState(false);
   const { toast } = useToast();
   const router = useRouter();
-  const auth = getFirebaseAuth();
 
   const loginForm = useForm<z.infer<typeof loginSchema>>({
     resolver: zodResolver(loginSchema),
