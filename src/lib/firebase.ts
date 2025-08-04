@@ -1,6 +1,6 @@
 // Import the functions you need from the SDKs you need
-import {initializeApp, getApps, getApp} from 'firebase/app';
-import {getAuth} from 'firebase/auth';
+import {initializeApp, getApps, getApp, FirebaseApp} from 'firebase/app';
+import {getAuth, Auth} from 'firebase/auth';
 
 const firebaseConfig = {
   apiKey: "AIzaSyCX7QqJ2E-AsLqKiT2YmWYYqQ4PYFR7REo",
@@ -12,7 +12,13 @@ const firebaseConfig = {
 };
 
 // Initialize Firebase for SSR
-const app = !getApps().length ? initializeApp(firebaseConfig) : getApp();
+let app: FirebaseApp;
+if (!getApps().length) {
+  app = initializeApp(firebaseConfig);
+} else {
+  app = getApp();
+}
+
 const auth = getAuth(app);
 
 export { app, auth };
