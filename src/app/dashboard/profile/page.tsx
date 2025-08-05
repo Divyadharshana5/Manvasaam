@@ -14,7 +14,7 @@ import {
 import { useAuth } from "@/hooks/use-auth";
 import { Skeleton } from "@/components/ui/skeleton";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-import { Loader2, User } from "lucide-react";
+import { Loader2, User, Mail, Phone, Building, Calendar } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import {
   Dialog,
@@ -43,7 +43,6 @@ import { storage } from "@/lib/firebase";
 import { ref, uploadBytesResumable, getDownloadURL } from "firebase/storage";
 import { updateProfile } from "firebase/auth";
 import { Progress } from "@/components/ui/progress";
-import Image from "next/image";
 
 
 interface UserProfile {
@@ -176,7 +175,6 @@ export default function ProfilePage() {
         
         if (values.photo instanceof File) {
             photoURL = await uploadImage(values.photo);
-            // This client-side update is for immediate feedback in the auth object
             if (user.photoURL !== photoURL) {
               await updateProfile(user, { photoURL });
             }
@@ -200,9 +198,8 @@ export default function ProfilePage() {
             description: "Your profile has been updated successfully.",
         });
         
-        // Force a reload of the user's profile to get the latest data
         await user.reload(); 
-        await fetchUserProfile(); // Refetch firestore data
+        await fetchUserProfile();
         setIsEditDialogOpen(false);
 
     } catch (error: any) {
@@ -223,21 +220,21 @@ export default function ProfilePage() {
     if (!userProfile) return <p>No profile data found.</p>;
 
     const details = [
-      { label: "Username", value: userProfile.username },
-      { label: "Branch Name", value: userProfile.branchName },
-      { label: "Branch ID", value: userProfile.branchId },
-      { label: "Email", value: userProfile.email },
-      { label: "Phone", value: userProfile.phone },
-      { label: "User Type", value: userProfile.userType },
-      { label: "Member Since", value: userProfile.createdAt ? new Date(userProfile.createdAt).toLocaleDateString() : 'N/A' },
+      { label: "Email", value: userProfile.email, icon: Mail },
+      { label: "Phone", value: userProfile.phone, icon: Phone },
+      { label: userProfile.userType === 'hub' ? "Branch ID" : "User Type", value: userProfile.userType === 'hub' ? userProfile.branchId : userProfile.userType, icon: Building },
+      { label: "Member Since", value: userProfile.createdAt ? new Date(userProfile.createdAt).toLocaleDateString() : 'N/A', icon: Calendar },
     ];
 
     return (
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mt-6">
             {details.filter(item => item.value).map(item => (
-                <div key={item.label}>
-                    <p className="text-sm font-medium text-muted-foreground">{item.label}</p>
-                    <p className="text-lg">{item.value}</p>
+                <div key={item.label} className="flex items-center gap-4">
+                    <item.icon className="h-8 w-8 text-primary" />
+                    <div>
+                        <p className="text-sm font-medium text-muted-foreground">{item.label}</p>
+                        <p className="text-lg font-semibold">{item.value}</p>
+                    </div>
                 </div>
             ))}
         </div>
@@ -256,8 +253,8 @@ export default function ProfilePage() {
           </div>
         </div>
 
-        <Card>
-          <CardHeader className="flex flex-row items-center justify-between">
+        <Card className="shadow-lg border-2 border-primary/10">
+          <CardHeader className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
             <div>
                 <CardTitle>User Information</CardTitle>
                 <CardDescription>Your personal and account details.</CardDescription>
@@ -386,19 +383,21 @@ export default function ProfilePage() {
               </div>
             ) : userProfile ? (
               <div className="space-y-6">
-                <div className="flex items-center space-x-4">
-                    <Avatar className="h-24 w-24">
+                <div className="flex flex-col sm:flex-row items-center space-y-4 sm:space-y-0 sm:space-x-6">
+                    <Avatar className="h-28 w-28 border-4 border-primary/20">
                         <AvatarImage src={userProfile.photoURL || undefined} />
                         <AvatarFallback>
                             <User className="h-12 w-12" />
                         </AvatarFallback>
                     </Avatar>
                     <div>
-                        <h3 className="text-2xl font-bold">{userProfile.username || userProfile.branchName}</h3>
-                        <p className="text-muted-foreground">{userProfile.email}</p>
+                        <h3 className="text-3xl font-bold text-center sm:text-left">{userProfile.username || userProfile.branchName}</h3>
+                        <p className="text-muted-foreground text-center sm:text-left text-lg">{userProfile.email}</p>
                     </div>
                 </div>
-                {renderProfileDetails()}
+                <div className="border-t border-dashed pt-6">
+                 {renderProfileDetails()}
+                </div>
               </div>
             ) : (
               <p>Could not load user profile.</p>

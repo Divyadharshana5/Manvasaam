@@ -28,8 +28,6 @@ import { signInWithCustomToken } from "firebase/auth";
 import { useRouter } from "next/navigation";
 import { auth } from "@/lib/firebase";
 
-
-// Hub needs an email to work with Firebase Auth
 const loginSchema = z.object({
   email: z.string().email({ message: "A valid email is required." }),
   password: z.string().min(1, { message: "Password is required." }),
@@ -50,6 +48,7 @@ export default function HubAuthPage() {
   const [loading, setLoading] = useState(false);
   const { toast } = useToast();
   const router = useRouter();
+  const [activeTab, setActiveTab] = useState("login");
 
   const loginForm = useForm<z.infer<typeof loginSchema>>({
     resolver: zodResolver(loginSchema),
@@ -118,8 +117,8 @@ export default function HubAuthPage() {
         }
 
         toast({ title: "Hub Registration Successful", description: "The new hub account has been created." });
-         // Consider switching to login tab here
         loginForm.reset({ email: values.email, password: ""});
+        setActiveTab("login");
     } catch (error: any) {
         toast({
             variant: "destructive",
@@ -133,14 +132,14 @@ export default function HubAuthPage() {
 
   return (
     <Card className="w-full max-w-md bg-card/60 backdrop-blur-lg border-2 border-white/20 shadow-lg">
-      <CardHeader>
+      <CardHeader className="text-center">
         <CardTitle>Hub Portal</CardTitle>
         <CardDescription>
           Manage logistics and connect our network.
         </CardDescription>
       </CardHeader>
       <CardContent>
-        <Tabs defaultValue="login" className="w-full">
+        <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full">
           <TabsList className="grid w-full grid-cols-2">
             <TabsTrigger value="login">Login</TabsTrigger>
             <TabsTrigger value="register">Register</TabsTrigger>

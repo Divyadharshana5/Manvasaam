@@ -50,6 +50,37 @@ export default function OrdersPage() {
       order.customer.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
       order.id.toLowerCase().includes(searchTerm.toLowerCase())
   );
+  
+  const getStatusBadgeVariant = (status: Order['status']) => {
+    switch (status) {
+        case "Delivered":
+            return "default";
+        case "Shipped":
+            return "secondary";
+        case "Processing":
+            return "secondary";
+        case "Cancelled":
+            return "destructive";
+        default:
+            return "outline";
+    }
+  }
+
+  const getStatusBadgeClass = (status: Order['status']) => {
+    switch (status) {
+        case "Delivered":
+            return "bg-green-500/20 text-green-700 border-green-500/30";
+        case "Shipped":
+            return "bg-yellow-500/20 text-yellow-700 border-yellow-500/30";
+        case "Processing":
+            return "bg-blue-500/20 text-blue-700 border-blue-500/30";
+        case "Cancelled":
+            return "bg-red-500/20 text-red-700 border-red-500/30";
+        default:
+            return "";
+    }
+  }
+
 
   return (
     <AppLayout>
@@ -62,17 +93,22 @@ export default function OrdersPage() {
             </p>
           </div>
         </div>
-        <Card>
-          <CardHeader>
-            <CardTitle>All Orders</CardTitle>
-            <CardDescription>
+        <Card className="shadow-lg border-2 border-primary/10">
+          <CardHeader className="flex flex-col md:flex-row justify-between items-center gap-2">
+            <div className="flex-1">
+              <CardTitle>All Orders</CardTitle>
+              <CardDescription>
+                Review and manage all customer orders.
+              </CardDescription>
+            </div>
+            <div className="w-full md:w-auto">
               <Input
                 placeholder="Search by order ID or customer name..."
                 value={searchTerm}
                 onChange={(e) => setSearchTerm(e.target.value)}
                 className="max-w-sm"
               />
-            </CardDescription>
+            </div>
           </CardHeader>
           <CardContent>
             {loading ? (
@@ -82,56 +118,44 @@ export default function OrdersPage() {
                 ))}
               </div>
             ) : (
-              <Table>
-                <TableHeader>
-                  <TableRow>
-                    <TableHead>Order ID</TableHead>
-                    <TableHead>Customer</TableHead>
-                    <TableHead>Status</TableHead>
-                    <TableHead>Date</TableHead>
-                    <TableHead className="text-right">Total</TableHead>
-                  </TableRow>
-                </TableHeader>
-                <TableBody>
-                  {filteredOrders.map((order) => (
-                    <TableRow key={order.id}>
-                      <TableCell className="font-medium">{order.id}</TableCell>
-                      <TableCell>{order.customer.name}</TableCell>
-                      <TableCell>
-                        <Badge
-                          variant={
-                            order.status === "Delivered"
-                              ? "default"
-                              : order.status === "Processing"
-                              ? "secondary"
-                              : "destructive"
-                          }
-                          className={
-                            order.status === "Delivered"
-                              ? "bg-green-500/20 text-green-700 border-green-500/30"
-                              : order.status === "Shipped"
-                              ? "bg-yellow-500/20 text-yellow-700 border-yellow-500/30"
-                              : order.status === "Processing"
-                              ? "bg-blue-500/20 text-blue-700 border-blue-500/30"
-                              : "bg-red-500/20 text-red-700 border-red-500/30"
-                          }
-                        >
-                          {order.status}
-                        </Badge>
-                      </TableCell>
-                      <TableCell>
-                        {new Date(order.date).toLocaleDateString()}
-                      </TableCell>
-                      <TableCell className="text-right">
-                        {order.total.toLocaleString("en-US", {
-                          style: "currency",
-                          currency: "USD",
-                        })}
-                      </TableCell>
+             <div className="overflow-x-auto">
+                <Table>
+                    <TableHeader>
+                    <TableRow>
+                        <TableHead>Order ID</TableHead>
+                        <TableHead>Customer</TableHead>
+                        <TableHead>Status</TableHead>
+                        <TableHead>Date</TableHead>
+                        <TableHead className="text-right">Total</TableHead>
                     </TableRow>
-                  ))}
-                </TableBody>
-              </Table>
+                    </TableHeader>
+                    <TableBody>
+                    {filteredOrders.map((order) => (
+                        <TableRow key={order.id}>
+                        <TableCell className="font-medium">{order.id}</TableCell>
+                        <TableCell>{order.customer.name}</TableCell>
+                        <TableCell>
+                            <Badge
+                            variant={getStatusBadgeVariant(order.status)}
+                            className={getStatusBadgeClass(order.status)}
+                            >
+                            {order.status}
+                            </Badge>
+                        </TableCell>
+                        <TableCell>
+                            {new Date(order.date).toLocaleDateString()}
+                        </TableCell>
+                        <TableCell className="text-right">
+                            {order.total.toLocaleString("en-US", {
+                            style: "currency",
+                            currency: "USD",
+                            })}
+                        </TableCell>
+                        </TableRow>
+                    ))}
+                    </TableBody>
+                </Table>
+             </div>
             )}
           </CardContent>
         </Card>
