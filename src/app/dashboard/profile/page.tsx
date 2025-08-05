@@ -62,6 +62,7 @@ const profileFormSchema = z.object({
   branchName: z.string().min(2, { message: "Branch name must be at least 2 characters." }).optional().or(z.literal('')),
   phone: z.string().min(10, { message: "Please enter a valid phone number." }).optional().or(z.literal('')),
   photo: z.any().optional(),
+  email: z.string().email({ message: "Please enter a valid email." }).optional().or(z.literal('')),
 });
 
 
@@ -119,6 +120,7 @@ export default function ProfilePage() {
             username: userProfile.username || "",
             branchName: userProfile.branchName || "",
             phone: userProfile.phone || "",
+            email: userProfile.email || "",
         });
         setImagePreview(userProfile.photoURL || null);
     }
@@ -171,7 +173,9 @@ export default function ProfilePage() {
         
         if (values.photo instanceof File) {
             photoURL = await uploadImage(values.photo);
-            await updateProfile(user, { photoURL });
+            if (user.photoURL !== photoURL) {
+              await updateProfile(user, { photoURL });
+            }
         }
         
         const { photo, ...profileData } = values;
@@ -192,6 +196,9 @@ export default function ProfilePage() {
             description: "Your profile has been updated successfully.",
         });
         setIsEditDialogOpen(false);
+        // We need to re-authenticate or refresh token to see auth changes reflected immediately
+        // For now, we just refetch firestore data
+        await user.reload(); 
         fetchUserProfile();
 
     } catch (error: any) {
@@ -313,6 +320,19 @@ export default function ProfilePage() {
                                     )}
                                 />
                             )}
+                             <FormField
+                                control={form.control}
+                                name="email"
+                                render={({ field }) => (
+                                    <FormItem>
+                                        <FormLabel>Email</FormLabel>
+                                        <FormControl>
+                                            <Input type="email" placeholder="m@example.com" {...field} />
+                                        </FormControl>
+                                        <FormMessage />
+                                    </FormItem>
+                                )}
+                            />
                             <FormField
                                 control={form.control}
                                 name="phone"

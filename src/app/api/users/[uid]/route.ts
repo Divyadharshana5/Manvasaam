@@ -53,6 +53,10 @@ export async function PATCH(
         allowedUpdates.photoURL = body.photoURL;
         authUpdates.photoURL = body.photoURL;
     }
+    if (body.email) {
+        allowedUpdates.email = body.email;
+        authUpdates.email = body.email;
+    }
 
 
     if (Object.keys(allowedUpdates).length === 0) {
@@ -71,7 +75,13 @@ export async function PATCH(
 
   } catch (error: any) {
     console.error("API Update User Error:", error);
-    return NextResponse.json({ message: "Failed to update profile", error: error.message }, { status: 500 });
+    let message = "Failed to update profile";
+    if (error.code === 'auth/email-already-exists') {
+        message = "An account with this email already exists.";
+    } else if (error.code === 'auth/invalid-email') {
+        message = "The new email address is not valid.";
+    }
+    return NextResponse.json({ message: message, error: error.message }, { status: 500 });
   }
 }
 
