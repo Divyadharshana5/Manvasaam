@@ -18,6 +18,7 @@ import {
 import {
   LayoutDashboard,
   LogOut,
+  Megaphone,
   Mic,
   ShoppingCart,
   User as UserIcon,
@@ -37,6 +38,7 @@ const menuItems = [
   { href: "/dashboard/profile", label: "Profile", icon: UserIcon },
   { href: "/dashboard/orders", label: "Orders", icon: ShoppingCart },
   { href: "/dashboard/voice-assistant", label: "Voice Assistant", icon: Mic },
+  { href: "/dashboard/marketing", label: "Marketing", icon: Megaphone },
   // Add other dashboard items here
 ];
 
