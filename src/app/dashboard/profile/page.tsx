@@ -110,7 +110,10 @@ export default function ProfilePage() {
   };
 
   useEffect(() => {
-    fetchUserProfile();
+    if (user) {
+      fetchUserProfile();
+    }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [user, authLoading]);
 
   // Set form default values when profile data is loaded or dialog opens
@@ -173,6 +176,7 @@ export default function ProfilePage() {
         
         if (values.photo instanceof File) {
             photoURL = await uploadImage(values.photo);
+            // This client-side update is for immediate feedback in the auth object
             if (user.photoURL !== photoURL) {
               await updateProfile(user, { photoURL });
             }
@@ -195,11 +199,11 @@ export default function ProfilePage() {
             title: "Success",
             description: "Your profile has been updated successfully.",
         });
-        setIsEditDialogOpen(false);
-        // We need to re-authenticate or refresh token to see auth changes reflected immediately
-        // For now, we just refetch firestore data
+        
+        // Force a reload of the user's profile to get the latest data
         await user.reload(); 
-        fetchUserProfile();
+        await fetchUserProfile(); // Refetch firestore data
+        setIsEditDialogOpen(false);
 
     } catch (error: any) {
       toast({
@@ -405,5 +409,3 @@ export default function ProfilePage() {
     </AppLayout>
   );
 }
-
-    
