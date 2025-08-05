@@ -12,8 +12,31 @@ import {
 import { useAuth } from "@/hooks/use-auth";
 import { Skeleton } from "@/components/ui/skeleton";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-import { User } from "lucide-react";
+import { Loader2, User } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import {
+  Dialog,
+  DialogContent,
+  DialogHeader,
+  DialogTitle,
+  DialogDescription,
+  DialogFooter,
+  DialogClose,
+  DialogTrigger,
+} from "@/components/ui/dialog";
+import {
+  Form,
+  FormControl,
+  FormField,
+  FormItem,
+  FormLabel,
+  FormMessage,
+} from "@/components/ui/form";
+import { Input } from "@/components/ui/input";
+import { useForm } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
+import * as z from "zod";
+import { useToast } from "@/hooks/use-toast";
 
 interface UserProfile {
   username?: string;
@@ -25,33 +48,101 @@ interface UserProfile {
   createdAt?: string;
 }
 
+const profileFormSchema = z.object({
+  username: z.string().min(2, { message: "Username must be at least 2 characters." }).optional().or(z.literal('')),
+  branchName: z.string().min(2, { message: "Branch name must be at least 2 characters." }).optional().or(z.literal('')),
+  phone: z.string().min(10, { message: "Please enter a valid phone number." }).optional().or(z.literal('')),
+});
+
+
 export default function ProfilePage() {
   const { user, loading: authLoading } = useAuth();
   const [userProfile, setUserProfile] = useState<UserProfile | null>(null);
   const [profileLoading, setProfileLoading] = useState(true);
+  const [isEditDialogOpen, setIsEditDialogOpen] = useState(false);
+  const [isUpdating, setIsUpdating] = useState(false);
+  const { toast } = useToast();
 
-  useEffect(() => {
-    async function fetchUserProfile() {
-      if (user) {
-        try {
-          const response = await fetch(`/api/users/${user.uid}`);
-          if (!response.ok) {
-            throw new Error("Failed to fetch user profile");
-          }
-          const data = await response.json();
-          setUserProfile(data);
-        } catch (error) {
-          console.error(error);
-        } finally {
-          setProfileLoading(false);
+  const form = useForm<z.infer<typeof profileFormSchema>>({
+    resolver: zodResolver(profileFormSchema),
+    defaultValues: {},
+  });
+
+  const fetchUserProfile = async () => {
+    if (user) {
+      try {
+        setProfileLoading(true);
+        const response = await fetch(`/api/users/${user.uid}`);
+        if (!response.ok) {
+          throw new Error("Failed to fetch user profile");
         }
-      } else if (!authLoading) {
-        // If there's no user and auth is not loading, we can stop loading profile
+        const data = await response.json();
+        setUserProfile(data);
+      } catch (error) {
+        console.error(error);
+        toast({
+          variant: "destructive",
+          title: "Error",
+          description: "Could not load user profile.",
+        });
+      } finally {
         setProfileLoading(false);
       }
+    } else if (!authLoading) {
+      setProfileLoading(false);
     }
+  };
+
+  useEffect(() => {
     fetchUserProfile();
   }, [user, authLoading]);
+
+  // Set form default values when profile data is loaded or dialog opens
+  useEffect(() => {
+    if (userProfile && isEditDialogOpen) {
+        form.reset({
+            username: userProfile.username || "",
+            branchName: userProfile.branchName || "",
+            phone: userProfile.phone || "",
+        });
+    }
+  }, [userProfile, isEditDialogOpen, form]);
+
+
+  async function onSubmit(values: z.infer<typeof profileFormSchema>) {
+    if (!user) return;
+    setIsUpdating(true);
+    try {
+      const response = await fetch(`/api/users/${user.uid}`, {
+        method: "PATCH",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(values),
+      });
+
+      if (!response.ok) {
+        const errorData = await response.json();
+        throw new Error(errorData.message || "Failed to update profile");
+      }
+
+      toast({
+        title: "Success",
+        description: "Your profile has been updated successfully.",
+      });
+      setIsEditDialogOpen(false);
+      // Refetch profile data to show updated info
+      fetchUserProfile();
+
+    } catch (error: any) {
+      toast({
+        variant: "destructive",
+        title: "Update Failed",
+        description: error.message,
+      });
+    } finally {
+      setIsUpdating(false);
+    }
+  }
+
 
   const loading = authLoading || profileLoading;
 
@@ -98,7 +189,74 @@ export default function ProfilePage() {
                 <CardTitle>User Information</CardTitle>
                 <CardDescription>Your personal and account details.</CardDescription>
             </div>
-            <Button variant="outline">Edit Profile</Button>
+            <Dialog open={isEditDialogOpen} onOpenChange={setIsEditDialogOpen}>
+                <DialogTrigger asChild>
+                    <Button variant="outline">Edit Profile</Button>
+                </DialogTrigger>
+                <DialogContent>
+                    <DialogHeader>
+                        <DialogTitle>Edit Profile</DialogTitle>
+                        <DialogDescription>
+                            Make changes to your profile here. Click save when you're done.
+                        </DialogDescription>
+                    </DialogHeader>
+                    <Form {...form}>
+                        <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
+                            {userProfile?.userType === 'hub' ? (
+                                <FormField
+                                    control={form.control}
+                                    name="branchName"
+                                    render={({ field }) => (
+                                        <FormItem>
+                                            <FormLabel>Branch Name</FormLabel>
+                                            <FormControl>
+                                                <Input placeholder="Central Hub" {...field} />
+                                            </FormControl>
+                                            <FormMessage />
+                                        </FormItem>
+                                    )}
+                                />
+                            ) : (
+                                <FormField
+                                    control={form.control}
+                                    name="username"
+                                    render={({ field }) => (
+                                        <FormItem>
+                                            <FormLabel>Username</FormLabel>
+                                            <FormControl>
+                                                <Input placeholder="John Doe" {...field} />
+                                            </FormControl>
+                                            <FormMessage />
+                                        </FormItem>
+                                    )}
+                                />
+                            )}
+                            <FormField
+                                control={form.control}
+                                name="phone"
+                                render={({ field }) => (
+                                    <FormItem>
+                                        <FormLabel>Phone Number</FormLabel>
+                                        <FormControl>
+                                            <Input type="tel" placeholder="123-456-7890" {...field} />
+                                        </FormControl>
+                                        <FormMessage />
+                                    </FormItem>
+                                )}
+                            />
+                            <DialogFooter>
+                                <DialogClose asChild>
+                                    <Button type="button" variant="secondary">Cancel</Button>
+                                </DialogClose>
+                                <Button type="submit" disabled={isUpdating}>
+                                    {isUpdating && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
+                                    Save Changes
+                                </Button>
+                            </DialogFooter>
+                        </form>
+                    </Form>
+                </DialogContent>
+            </Dialog>
           </CardHeader>
           <CardContent>
             {loading ? (
