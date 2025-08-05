@@ -1,3 +1,4 @@
+
 "use client";
 
 import * as React from "react";
@@ -24,6 +25,7 @@ import {
   Package,
   ShoppingCart,
   User as UserIcon,
+  HelpCircle,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
@@ -43,6 +45,7 @@ const menuItems = [
   { href: "/dashboard/matchmaking", label: "Matchmaking", icon: HeartHandshake },
   { href: "/dashboard/voice-assistant", label: "Voice Assistant", icon: Mic },
   { href: "/dashboard/marketing", label: "Marketing", icon: Megaphone },
+  { href: "/dashboard/faq", label: "FAQ", icon: HelpCircle },
   // Add other dashboard items here
 ];
 
