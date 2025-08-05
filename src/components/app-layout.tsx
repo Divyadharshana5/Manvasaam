@@ -21,6 +21,7 @@ import {
   LogOut,
   Megaphone,
   Mic,
+  Package,
   ShoppingCart,
   User as UserIcon,
 } from "lucide-react";
@@ -38,6 +39,7 @@ const menuItems = [
   { href: "/dashboard", label: "Dashboard", icon: LayoutDashboard },
   { href: "/dashboard/profile", label: "Profile", icon: UserIcon },
   { href: "/dashboard/orders", label: "Orders", icon: ShoppingCart },
+  { href: "/dashboard/products", label: "Products", icon: Package },
   { href: "/dashboard/matchmaking", label: "Matchmaking", icon: HeartHandshake },
   { href: "/dashboard/voice-assistant", label: "Voice Assistant", icon: Mic },
   { href: "/dashboard/marketing", label: "Marketing", icon: Megaphone },
