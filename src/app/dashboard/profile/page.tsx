@@ -1,3 +1,4 @@
+
 "use client";
 
 import { useEffect, useState } from "react";
@@ -8,6 +9,7 @@ import {
   CardTitle,
   CardContent,
   CardDescription,
+  CardFooter,
 } from "@/components/ui/card";
 import { useAuth } from "@/hooks/use-auth";
 import { Skeleton } from "@/components/ui/skeleton";
@@ -37,6 +39,12 @@ import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import * as z from "zod";
 import { useToast } from "@/hooks/use-toast";
+import { storage } from "@/lib/firebase";
+import { ref, uploadBytesResumable, getDownloadURL } from "firebase/storage";
+import { updateProfile } from "firebase/auth";
+import { Progress } from "@/components/ui/progress";
+import Image from "next/image";
+
 
 interface UserProfile {
   username?: string;
@@ -46,12 +54,14 @@ interface UserProfile {
   branchId?: string;
   phone?: string;
   createdAt?: string;
+  photoURL?: string;
 }
 
 const profileFormSchema = z.object({
   username: z.string().min(2, { message: "Username must be at least 2 characters." }).optional().or(z.literal('')),
   branchName: z.string().min(2, { message: "Branch name must be at least 2 characters." }).optional().or(z.literal('')),
   phone: z.string().min(10, { message: "Please enter a valid phone number." }).optional().or(z.literal('')),
+  photo: z.any().optional(),
 });
 
 
@@ -62,6 +72,8 @@ export default function ProfilePage() {
   const [isEditDialogOpen, setIsEditDialogOpen] = useState(false);
   const [isUpdating, setIsUpdating] = useState(false);
   const { toast } = useToast();
+  const [uploadProgress, setUploadProgress] = useState<number | null>(null);
+  const [imagePreview, setImagePreview] = useState<string | null>(null);
 
   const form = useForm<z.infer<typeof profileFormSchema>>({
     resolver: zodResolver(profileFormSchema),
@@ -77,7 +89,10 @@ export default function ProfilePage() {
           throw new Error("Failed to fetch user profile");
         }
         const data = await response.json();
-        setUserProfile(data);
+        setUserProfile({
+          ...data,
+          photoURL: user.photoURL || data.photoURL,
+        });
       } catch (error) {
         console.error(error);
         toast({
@@ -105,32 +120,79 @@ export default function ProfilePage() {
             branchName: userProfile.branchName || "",
             phone: userProfile.phone || "",
         });
+        setImagePreview(userProfile.photoURL || null);
     }
   }, [userProfile, isEditDialogOpen, form]);
 
+  const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (file) {
+      const reader = new FileReader();
+      reader.onloadend = () => {
+        setImagePreview(reader.result as string);
+      };
+      reader.readAsDataURL(file);
+      form.setValue("photo", file);
+    }
+  };
+
+  async function uploadImage(file: File): Promise<string> {
+    return new Promise((resolve, reject) => {
+        if (!user) return reject("No user found");
+        
+        const storageRef = ref(storage, `profile-images/${user.uid}/${file.name}`);
+        const uploadTask = uploadBytesResumable(storageRef, file);
+
+        uploadTask.on('state_changed',
+            (snapshot) => {
+                const progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+                setUploadProgress(progress);
+            },
+            (error) => {
+                console.error("Upload failed:", error);
+                reject(error);
+            },
+            () => {
+                getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
+                    resolve(downloadURL);
+                });
+            }
+        );
+    });
+}
 
   async function onSubmit(values: z.infer<typeof profileFormSchema>) {
     if (!user) return;
     setIsUpdating(true);
+    setUploadProgress(null);
+
     try {
-      const response = await fetch(`/api/users/${user.uid}`, {
-        method: "PATCH",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(values),
-      });
+        let photoURL = userProfile?.photoURL;
+        
+        if (values.photo instanceof File) {
+            photoURL = await uploadImage(values.photo);
+            await updateProfile(user, { photoURL });
+        }
+        
+        const { photo, ...profileData } = values;
 
-      if (!response.ok) {
-        const errorData = await response.json();
-        throw new Error(errorData.message || "Failed to update profile");
-      }
+        const response = await fetch(`/api/users/${user.uid}`, {
+            method: "PATCH",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ ...profileData, photoURL }),
+        });
 
-      toast({
-        title: "Success",
-        description: "Your profile has been updated successfully.",
-      });
-      setIsEditDialogOpen(false);
-      // Refetch profile data to show updated info
-      fetchUserProfile();
+        if (!response.ok) {
+            const errorData = await response.json();
+            throw new Error(errorData.message || "Failed to update profile");
+        }
+
+        toast({
+            title: "Success",
+            description: "Your profile has been updated successfully.",
+        });
+        setIsEditDialogOpen(false);
+        fetchUserProfile();
 
     } catch (error: any) {
       toast({
@@ -140,9 +202,9 @@ export default function ProfilePage() {
       });
     } finally {
       setIsUpdating(false);
+      setUploadProgress(null);
     }
   }
-
 
   const loading = authLoading || profileLoading;
 
@@ -202,6 +264,26 @@ export default function ProfilePage() {
                     </DialogHeader>
                     <Form {...form}>
                         <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
+                            <FormField
+                                control={form.control}
+                                name="photo"
+                                render={({ field }) => (
+                                <FormItem>
+                                    <FormLabel>Profile Picture</FormLabel>
+                                    <div className="flex items-center gap-4">
+                                        <Avatar className="h-20 w-20">
+                                            <AvatarImage src={imagePreview || undefined} />
+                                            <AvatarFallback><User className="h-10 w-10" /></AvatarFallback>
+                                        </Avatar>
+                                        <FormControl>
+                                            <Input type="file" accept="image/*" onChange={handleImageChange} className="max-w-xs"/>
+                                        </FormControl>
+                                    </div>
+                                    <FormMessage />
+                                </FormItem>
+                                )}
+                            />
+
                             {userProfile?.userType === 'hub' ? (
                                 <FormField
                                     control={form.control}
@@ -244,6 +326,9 @@ export default function ProfilePage() {
                                     </FormItem>
                                 )}
                             />
+                             {uploadProgress !== null && (
+                                <Progress value={uploadProgress} />
+                            )}
                             <DialogFooter>
                                 <DialogClose asChild>
                                     <Button type="button" variant="secondary">Cancel</Button>
@@ -279,7 +364,7 @@ export default function ProfilePage() {
               <div className="space-y-6">
                 <div className="flex items-center space-x-4">
                     <Avatar className="h-24 w-24">
-                        <AvatarImage src={user?.photoURL || undefined} />
+                        <AvatarImage src={userProfile.photoURL || undefined} />
                         <AvatarFallback>
                             <User className="h-12 w-12" />
                         </AvatarFallback>
@@ -300,3 +385,5 @@ export default function ProfilePage() {
     </AppLayout>
   );
 }
+
+    

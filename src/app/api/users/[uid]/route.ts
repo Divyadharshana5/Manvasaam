@@ -1,5 +1,6 @@
+
 import { NextResponse } from "next/server";
-import { adminDb } from "@/lib/firebase-admin";
+import { adminDb, adminAuth } from "@/lib/firebase-admin";
 
 export async function GET(
   request: Request,
@@ -42,18 +43,29 @@ export async function PATCH(
 
     const body = await request.json();
     
-    // You might want to validate the body here to ensure only allowed fields are updated
-    // For example, filter out fields that shouldn't be changed by the user.
     const allowedUpdates: { [key: string]: any } = {};
+    const authUpdates: { [key: string]: any } = {};
+
     if (body.username) allowedUpdates.username = body.username;
     if (body.phone) allowedUpdates.phone = body.phone;
     if (body.branchName) allowedUpdates.branchName = body.branchName;
+    if (body.photoURL) {
+        allowedUpdates.photoURL = body.photoURL;
+        authUpdates.photoURL = body.photoURL;
+    }
+
 
     if (Object.keys(allowedUpdates).length === 0) {
         return NextResponse.json({ message: "No valid fields to update" }, { status: 400 });
     }
 
+    // Update Firestore
     await adminDb.collection("users").doc(uid).update(allowedUpdates);
+
+    // Update Firebase Auth user if needed
+    if (Object.keys(authUpdates).length > 0) {
+        await adminAuth.updateUser(uid, authUpdates);
+    }
 
     return NextResponse.json({ message: "Profile updated successfully" }, { status: 200 });
 
@@ -62,3 +74,5 @@ export async function PATCH(
     return NextResponse.json({ message: "Failed to update profile", error: error.message }, { status: 500 });
   }
 }
+
+    
