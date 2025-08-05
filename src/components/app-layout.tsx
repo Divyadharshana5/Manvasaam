@@ -18,7 +18,7 @@ import {
 import {
   LayoutDashboard,
   LogOut,
-  Volume2,
+  Mic,
   User as UserIcon,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
@@ -33,7 +33,7 @@ import { useToast } from "@/hooks/use-toast";
 
 const menuItems = [
   { href: "/dashboard", label: "Dashboard", icon: LayoutDashboard },
-  { href: "/dashboard/voice-assistant", label: "Voice Assistant", icon: Volume2 },
+  { href: "/dashboard/voice-assistant", label: "Voice Assistant", icon: Mic },
   // Add other dashboard items here
 ];
 
