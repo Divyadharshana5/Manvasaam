@@ -7,9 +7,9 @@ export const metadata: Metadata = {
   title: "Manvaasam",
   description: "Empowering Farmers, Delivering Freshness.",
   icons: {
- icon: "/bg-agri.png",
- shortcut: "/bg-agri.png",
- apple: "/bg-agri.png",
+    icon: "/bg-agri.png",
+    shortcut: "/bg-agri.png",
+    apple: "/bg-agri.png",
   },
 };
 
