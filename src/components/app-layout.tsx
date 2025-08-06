@@ -26,6 +26,7 @@ import {
   ShoppingCart,
   User as UserIcon,
   HelpCircle,
+  Map,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
@@ -42,6 +43,7 @@ const menuItems = [
   { href: "/dashboard/profile", label: "Profile", icon: UserIcon },
   { href: "/dashboard/orders", label: "Orders", icon: ShoppingCart },
   { href: "/dashboard/products", label: "Products", icon: Package },
+  { href: "/dashboard/track", label: "Track Order", icon: Map },
   { href: "/dashboard/matchmaking", label: "Matchmaking", icon: HeartHandshake },
   { href: "/dashboard/voice-assistant", label: "Voice Assistant", icon: Mic },
   { href: "/dashboard/marketing", label: "Marketing", icon: Megaphone },
@@ -76,6 +78,13 @@ export function AppLayout({ children }: { children: React.ReactNode }) {
   if (isAuthPage) {
     return <>{children}</>;
   }
+  
+  const getPageTitle = () => {
+    if (pathname.startsWith('/dashboard/track')) {
+      return "Track Order";
+    }
+    return menuItems.find((item) => pathname.startsWith(item.href))?.label || "Dashboard"
+  }
 
   return (
     <SidebarProvider>
@@ -104,7 +113,7 @@ export function AppLayout({ children }: { children: React.ReactNode }) {
               <SidebarMenuItem key={item.href}>
                 <Link href={item.href} legacyBehavior passHref>
                   <SidebarMenuButton
-                    isActive={pathname === item.href}
+                    isActive={pathname.startsWith(item.href)}
                     tooltip={{ children: item.label }}
                   >
                     <item.icon />
@@ -131,8 +140,7 @@ export function AppLayout({ children }: { children: React.ReactNode }) {
           <SidebarTrigger />
           <div className="flex-1">
             <h1 className="text-xl font-semibold">
-              {menuItems.find((item) => item.href === pathname)?.label ||
-                "Dashboard"}
+              {getPageTitle()}
             </h1>
           </div>
           <div className="flex items-center gap-2">

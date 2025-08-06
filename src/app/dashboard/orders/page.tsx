@@ -29,7 +29,9 @@ import {
     DialogTitle,
     DialogDescription,
 } from "@/components/ui/dialog";
-import { MapPin, PackageCheck, CalendarClock, Truck } from "lucide-react";
+import { MapPin, PackageCheck, CalendarClock, Truck, LocateFixed } from "lucide-react";
+import { Button } from "@/components/ui/button";
+import Link from "next/link";
 
 
 interface ShippingDetails {
@@ -189,14 +191,15 @@ export default function OrdersPage() {
                         <TableHead>Status</TableHead>
                         <TableHead>Date</TableHead>
                         <TableHead className="text-right">Total</TableHead>
+                        <TableHead className="text-center">Actions</TableHead>
                     </TableRow>
                     </TableHeader>
                     <TableBody>
                     {filteredOrders.map((order) => (
-                        <TableRow key={order.id} onClick={() => handleRowClick(order)} className={order.status !== 'Cancelled' ? 'cursor-pointer' : ''}>
-                        <TableCell className="font-medium">{order.id}</TableCell>
-                        <TableCell>{order.customer.name}</TableCell>
-                        <TableCell>
+                        <TableRow key={order.id} >
+                        <TableCell className="font-medium" onClick={() => handleRowClick(order)}>{order.id}</TableCell>
+                        <TableCell onClick={() => handleRowClick(order)}>{order.customer.name}</TableCell>
+                        <TableCell onClick={() => handleRowClick(order)}>
                             <Badge
                                 variant="outline"
                                 className={getStatusBadgeClass(order.status)}
@@ -204,14 +207,24 @@ export default function OrdersPage() {
                                 {order.status}
                             </Badge>
                         </TableCell>
-                        <TableCell>
+                        <TableCell onClick={() => handleRowClick(order)}>
                             {new Date(order.date).toLocaleDateString()}
                         </TableCell>
-                        <TableCell className="text-right">
+                        <TableCell className="text-right" onClick={() => handleRowClick(order)}>
                             {order.total.toLocaleString("en-US", {
                             style: "currency",
                             currency: "INR",
                             })}
+                        </TableCell>
+                         <TableCell className="text-center">
+                            { (order.status === 'Shipped' || order.status === 'Processing') && (
+                                <Button asChild variant="outline" size="sm">
+                                    <Link href={`/dashboard/track?orderId=${order.id}`}>
+                                        <LocateFixed className="mr-2 h-4 w-4" />
+                                        Track Live
+                                    </Link>
+                                </Button>
+                            )}
                         </TableCell>
                         </TableRow>
                     ))}
