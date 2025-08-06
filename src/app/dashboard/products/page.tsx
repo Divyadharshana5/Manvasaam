@@ -36,7 +36,7 @@ import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import * as z from "zod";
 import { useToast } from "@/hooks/use-toast";
-import { Loader2, ShoppingCart } from "lucide-react";
+import { Loader2, ShoppingCart, Star } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { useAuth } from "@/hooks/use-auth";
 
@@ -139,15 +139,30 @@ export default function ProductsPage() {
                 </CardHeader>
                 <CardContent className="p-4">
                     <CardTitle>Fresh Carrots</CardTitle>
+                     <div className="flex items-center gap-1 mt-2">
+                        <Star className="w-5 h-5 text-yellow-400 fill-yellow-400" />
+                        <Star className="w-5 h-5 text-yellow-400 fill-yellow-400" />
+                        <Star className="w-5 h-5 text-yellow-400 fill-yellow-400" />
+                        <Star className="w-5 h-5 text-yellow-400 fill-yellow-400" />
+                        <Star className="w-5 h-5 text-muted-foreground" />
+                        <span className="text-sm text-muted-foreground ml-1">(4.0)</span>
+                    </div>
                     <p className="text-lg font-semibold text-primary mt-2">1kg - Rs.20</p>
                 </CardContent>
                 <CardFooter className="p-4 pt-0">
                    <Dialog open={isOrderDialogOpen} onOpenChange={setIsOrderDialogOpen}>
-                     <DialogTrigger asChild>
-                       <Button className="w-full">
-                         <ShoppingCart className="mr-2 h-4 w-4" /> Add to Cart
-                       </Button>
-                     </DialogTrigger>
+                     <div className="flex w-full gap-2">
+                        <DialogTrigger asChild>
+                        <Button className="w-full" variant="outline">
+                            <ShoppingCart className="mr-2 h-4 w-4" /> Add to Cart
+                        </Button>
+                        </DialogTrigger>
+                        <DialogTrigger asChild>
+                           <Button className="w-full">
+                                Buy Now
+                           </Button>
+                        </DialogTrigger>
+                     </div>
                      <DialogContent className="sm:max-w-lg">
                        <DialogHeader>
                          <DialogTitle>Place Your Order</DialogTitle>
