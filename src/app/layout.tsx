@@ -7,9 +7,9 @@ export const metadata: Metadata = {
   title: "Manvaasam",
   description: "Empowering Farmers, Delivering Freshness.",
   icons: {
-    icon: "/favicon.svg",
-    shortcut: "/favicon.svg",
-    apple: "/favicon.svg",
+ icon: "/bg-agri.png",
+ shortcut: "/bg-agri.png",
+ apple: "/bg-agri.png",
   },
 };
 
@@ -21,6 +21,7 @@ export default function RootLayout({
   return (
     <html lang="en" suppressHydrationWarning>
       <head>
+        
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link
           rel="preconnect"
