@@ -1,3 +1,4 @@
+
 "use client";
 
 import { useEffect, useState } from "react";
@@ -30,12 +31,25 @@ export default function OrdersPage() {
   useEffect(() => {
     async function fetchOrders() {
       try {
+        // First, fetch the static mock orders from the API
         const response = await fetch("/api/orders");
         if (!response.ok) {
           throw new Error("Failed to fetch orders");
         }
-        const data = await response.json();
-        setOrders(data);
+        const apiOrders = await response.json();
+        
+        // Next, check localStorage for any newly placed orders
+        const localOrdersJSON = localStorage.getItem("mockOrders");
+        const localOrders = localOrdersJSON ? JSON.parse(localOrdersJSON) : [];
+
+        // Combine the local orders with the API orders, ensuring no duplicates.
+        // We'll use the API orders as the base and prepend local orders.
+        const combinedOrders = [...localOrders, ...apiOrders];
+        const uniqueOrders = Array.from(new Set(combinedOrders.map(o => o.id)))
+            .map(id => combinedOrders.find(o => o.id === id)!);
+        
+        setOrders(uniqueOrders);
+        
       } catch (error) {
         console.error(error);
       } finally {
@@ -148,7 +162,7 @@ export default function OrdersPage() {
                         <TableCell className="text-right">
                             {order.total.toLocaleString("en-US", {
                             style: "currency",
-                            currency: "USD",
+                            currency: "INR",
                             })}
                         </TableCell>
                         </TableRow>
