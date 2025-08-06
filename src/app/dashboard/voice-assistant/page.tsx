@@ -1,47 +1,114 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useRef } from "react";
 import { AppLayout } from "@/components/app-layout";
-import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card";
-import { Textarea } from "@/components/ui/textarea";
+import { Card, CardHeader, CardTitle, CardContent, CardDescription } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { Loader2, Volume2 } from "lucide-react";
-import { textToSpeech, TextToSpeechOutput } from "@/ai/flows/tts-flow";
+import { Loader2, Mic, Square, Volume2 } from "lucide-react";
+import { speechToText } from "@/ai/flows/stt-flow";
+import { textToSpeech } from "@/ai/flows/tts-flow";
 import { useToast } from "@/hooks/use-toast";
+import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
+import { Textarea } from "@/components/ui/textarea";
+
+type RecordingStatus = "idle" | "recording" | "stopped";
 
 export default function VoiceAssistantPage() {
+  // Speech-to-Text states
+  const [transcribedText, setTranscribedText] = useState("");
+  const [sttLoading, setSttLoading] = useState(false);
+  const [recordingStatus, setRecordingStatus] = useState<RecordingStatus>("idle");
+  const mediaRecorderRef = useRef<MediaRecorder | null>(null);
+  const audioChunksRef = useRef<Blob[]>([]);
+
+  // Text-to-Speech states
   const [inputText, setInputText] = useState("");
-  const [audioResult, setAudioResult] = useState<TextToSpeechOutput | null>(null);
-  const [loading, setLoading] = useState(false);
+  const [audioUrl, setAudioUrl] = useState("");
+  const [ttsLoading, setTtsLoading] = useState(false);
+  const audioRef = useRef<HTMLAudioElement | null>(null);
+
   const { toast } = useToast();
 
-  const handleGenerateSpeech = async () => {
-    if (!inputText.trim()) {
-      toast({
-        variant: "destructive",
-        title: "Input required",
-        description: "Please enter some text to generate speech.",
-      });
-      return;
-    }
-
-    setLoading(true);
-    setAudioResult(null);
-
+  const handleStartRecording = async () => {
+    setTranscribedText("");
     try {
-      const result = await textToSpeech(inputText);
-      setAudioResult(result);
-    } catch (error: any) {
-      console.error("Error generating speech:", error);
+      const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
+      mediaRecorderRef.current = new MediaRecorder(stream, { mimeType: 'audio/webm' });
+      audioChunksRef.current = [];
+
+      mediaRecorderRef.current.ondataavailable = (event) => {
+        audioChunksRef.current.push(event.data);
+      };
+
+      mediaRecorderRef.current.onstop = async () => {
+        setSttLoading(true);
+        const audioBlob = new Blob(audioChunksRef.current, { type: "audio/webm" });
+        const reader = new FileReader();
+        reader.readAsDataURL(audioBlob);
+        reader.onloadend = async () => {
+          const base64Audio = reader.result as string;
+          try {
+            const result = await speechToText({ audioDataUri: base64Audio });
+            setTranscribedText(result.transcript);
+            setInputText(result.transcript); // auto-fill TTS input
+          } catch (error: any) {
+            console.error("Error transcribing speech:", error);
+            toast({
+              variant: "destructive",
+              title: "Transcription Failed",
+              description: error.message || "An unexpected error occurred.",
+            });
+          } finally {
+            setSttLoading(false);
+          }
+        };
+      };
+
+      mediaRecorderRef.current.start();
+      setRecordingStatus("recording");
+    } catch (error) {
+      console.error("Error accessing microphone:", error);
       toast({
         variant: "destructive",
-        title: "Speech Generation Failed",
-        description: error.message || "An unexpected error occurred.",
+        title: "Microphone Access Denied",
+        description: "Please allow microphone access in your browser settings to use this feature.",
       });
-    } finally {
-      setLoading(false);
     }
   };
+
+  const handleStopRecording = () => {
+    if (mediaRecorderRef.current && recordingStatus === "recording") {
+      mediaRecorderRef.current.stop();
+      setRecordingStatus("stopped");
+      mediaRecorderRef.current.stream.getTracks().forEach(track => track.stop());
+    }
+  };
+
+  const handleTextToSpeech = async () => {
+    if (!inputText.trim()) {
+        toast({
+            variant: "destructive",
+            title: "Input Required",
+            description: "Please enter some text to convert to speech.",
+        });
+        return;
+    }
+    setTtsLoading(true);
+    setAudioUrl("");
+    try {
+        const result = await textToSpeech(inputText);
+        setAudioUrl(result.audioDataUri);
+    } catch (error: any) {
+        console.error("Error converting text to speech:", error);
+        toast({
+            variant: "destructive",
+            title: "Conversion Failed",
+            description: error.message || "An unexpected error occurred.",
+        });
+    } finally {
+        setTtsLoading(false);
+    }
+  }
 
   return (
     <AppLayout>
@@ -50,42 +117,86 @@ export default function VoiceAssistantPage() {
           <div>
             <h2 className="text-3xl font-bold tracking-tight">Voice Assistant</h2>
             <p className="text-muted-foreground">
-              Convert text to speech for easy listening.
+              Convert speech to text and text back to speech.
             </p>
           </div>
         </div>
 
-        <Card>
-          <CardHeader>
-            <CardTitle>Text-to-Speech Converter</CardTitle>
-          </CardHeader>
-          <CardContent className="space-y-4">
-            <Textarea
-              placeholder="Enter the text you want to hear..."
-              value={inputText}
-              onChange={(e) => setInputText(e.target.value)}
-              rows={5}
-              className="resize-none"
-            />
-            <Button onClick={handleGenerateSpeech} disabled={loading}>
-              {loading ? (
-                <Loader2 className="mr-2 h-4 w-4 animate-spin" />
-              ) : (
-                <Volume2 className="mr-2 h-4 w-4" />
-              )}
-              Generate Speech
-            </Button>
-            
-            {audioResult && audioResult.audioDataUri && (
-                <div className="pt-4">
-                    <h3 className="text-lg font-semibold mb-2">Generated Audio</h3>
-                    <audio controls autoPlay src={audioResult.audioDataUri} className="w-full">
-                        Your browser does not support the audio element.
-                    </audio>
-                </div>
-            )}
-          </CardContent>
-        </Card>
+        <div className="grid gap-6 md:grid-cols-2">
+            <Card>
+                <CardHeader>
+                    <CardTitle>Speech-to-Text</CardTitle>
+                    <CardDescription>Record your voice and see the transcription below.</CardDescription>
+                </CardHeader>
+                <CardContent className="space-y-4">
+                    <div className="flex items-center gap-4">
+                        {recordingStatus !== "recording" ? (
+                            <Button onClick={handleStartRecording} disabled={sttLoading}>
+                            <Mic className="mr-2 h-4 w-4" />
+                            Start Recording
+                            </Button>
+                        ) : (
+                            <Button onClick={handleStopRecording} variant="destructive">
+                            <Square className="mr-2 h-4 w-4" />
+                            Stop Recording
+                            </Button>
+                        )}
+                        {recordingStatus === 'recording' && <div className="flex items-center gap-2 text-destructive"><div className="h-3 w-3 rounded-full bg-destructive animate-pulse"></div><span>Recording...</span></div>}
+                    </div>
+
+                    {sttLoading && (
+                    <div className="flex items-center gap-2 pt-4">
+                        <Loader2 className="h-5 w-5 animate-spin" />
+                        <span>Transcribing audio...</span>
+                    </div>
+                    )}
+                    
+                    {transcribedText && !sttLoading && (
+                    <Alert className="mt-4">
+                        <AlertTitle>Transcription Result</AlertTitle>
+                        <AlertDescription className="pt-2">
+                        <p className="text-base leading-relaxed">{transcribedText}</p>
+                        </AlertDescription>
+                    </Alert>
+                    )}
+                </CardContent>
+            </Card>
+
+            <Card>
+                <CardHeader>
+                    <CardTitle>Text-to-Speech</CardTitle>
+                    <CardDescription>Enter text to generate and play back audio.</CardDescription>
+                </CardHeader>
+                <CardContent className="space-y-4">
+                    <Textarea
+                        placeholder="Type your message here..."
+                        value={inputText}
+                        onChange={(e) => setInputText(e.target.value)}
+                        rows={5}
+                        disabled={ttsLoading}
+                    />
+                    <Button onClick={handleTextToSpeech} disabled={ttsLoading}>
+                        {ttsLoading ? (
+                            <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                        ) : (
+                            <Volume2 className="mr-2 h-4 w-4" />
+                        )}
+                        Generate Speech
+                    </Button>
+                    
+                    {audioUrl && !ttsLoading && (
+                         <Alert className="mt-4">
+                            <AlertTitle>Generated Audio</AlertTitle>
+                            <AlertDescription className="pt-2">
+                                <audio ref={audioRef} src={audioUrl} controls autoPlay className="w-full">
+                                    Your browser does not support the audio element.
+                                </audio>
+                            </AlertDescription>
+                        </Alert>
+                    )}
+                </CardContent>
+            </Card>
+        </div>
       </div>
     </AppLayout>
   );

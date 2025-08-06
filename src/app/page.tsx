@@ -1,3 +1,4 @@
+
 "use client";
 
 import Link from "next/link";
@@ -137,7 +138,7 @@ const translations = {
     roles: {
       farmer: {
         name: "ರೈತ",
-        description: "ನಿಮ್ಮ ಉತ್ಪನ್ನಗಳನ್ನು ನೇರವಾಗಿ ಮಾರಾಟ ಮಾಡಲು ನಮ್ಮ ನೆಟ್‌ವರ್ಕ್‌ಗೆ ಸೇರಿ.",
+        description: "ನಿಮ್ಮ ಉತ್ಪನ್ನಗಳನ್ನು ನೇರವಾಗಿ ಮಾರಾಟ ಮಾಡಲು ನಮ್ಮ ನೆట్‌ವರ್ಕ್‌ಗೆ ಸೇರಿ.",
       },
       customer: {
         name: "ಗ್ರಾಹಕ",
@@ -341,7 +342,7 @@ export default function HomePage() {
         </section>
       </main>
       <footer className="w-full p-4 text-center text-foreground/80 mt-12 [text-shadow:_0_1px_2px_rgb(0_0_0_/_20%)] relative z-10">
-        © {new Date().getFullYear()} Manvaasam. All rights reserved.
+        © {new Date().getFullYear()} Manvaasam. {t.footer}
       </footer>
     </div>
   );

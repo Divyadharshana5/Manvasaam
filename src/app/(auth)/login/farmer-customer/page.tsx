@@ -51,6 +51,7 @@ export default function FarmerCustomerAuthPage() {
   const [loading, setLoading] = useState(false);
   const { toast } = useToast();
   const router = useRouter();
+  const [activeTab, setActiveTab] = useState("register");
 
   const loginForm = useForm<z.infer<typeof loginSchema>>({
     resolver: zodResolver(loginSchema),
@@ -116,10 +117,8 @@ export default function FarmerCustomerAuthPage() {
         }
 
         toast({ title: "Registration Successful", description: "Your account has been created. Please log in." });
-        // After successful registration, switch to login tab or redirect
-        // For simplicity, we just show a toast. A better UX would be to auto-login or redirect.
-         loginForm.reset({ email: values.email, password: ""});
-        // Consider switching tabs here if you have a way to control the active tab state
+        loginForm.reset({ email: values.email, password: ""});
+        setActiveTab("login");
     } catch (error: any) {
         toast({
             variant: "destructive",
@@ -132,15 +131,15 @@ export default function FarmerCustomerAuthPage() {
   }
 
   return (
-    <Card className="w-full max-w-md bg-white shadow-none border-0">
-      <CardHeader>
-        <CardTitle>Welcome</CardTitle>
+    <Card className="w-full max-w-md bg-card/60 backdrop-blur-lg border-2 border-white/20 shadow-lg">
+      <CardHeader className="text-center">
+        <CardTitle>Welcome to Manvaasam</CardTitle>
         <CardDescription>
           Sign in or create an account to get started.
         </CardDescription>
       </CardHeader>
       <CardContent>
-        <Tabs defaultValue="register" className="w-full">
+        <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full">
           <TabsList className="grid w-full grid-cols-2">
             <TabsTrigger value="login">Login</TabsTrigger>
             <TabsTrigger value="register">Register</TabsTrigger>

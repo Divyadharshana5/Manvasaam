@@ -1,3 +1,4 @@
+
 "use client";
 
 import * as React from "react";
@@ -16,10 +17,15 @@ import {
   SidebarInset,
 } from "@/components/ui/sidebar";
 import {
+  HeartHandshake,
   LayoutDashboard,
   LogOut,
-  Volume2,
+  Megaphone,
+  Mic,
+  Package,
+  ShoppingCart,
   User as UserIcon,
+  HelpCircle,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
@@ -33,7 +39,13 @@ import { useToast } from "@/hooks/use-toast";
 
 const menuItems = [
   { href: "/dashboard", label: "Dashboard", icon: LayoutDashboard },
-  { href: "/dashboard/voice-assistant", label: "Voice Assistant", icon: Volume2 },
+  { href: "/dashboard/profile", label: "Profile", icon: UserIcon },
+  { href: "/dashboard/orders", label: "Orders", icon: ShoppingCart },
+  { href: "/dashboard/products", label: "Products", icon: Package },
+  { href: "/dashboard/matchmaking", label: "Matchmaking", icon: HeartHandshake },
+  { href: "/dashboard/voice-assistant", label: "Voice Assistant", icon: Mic },
+  { href: "/dashboard/marketing", label: "Marketing", icon: Megaphone },
+  { href: "/dashboard/faq", label: "FAQ", icon: HelpCircle },
   // Add other dashboard items here
 ];
 
