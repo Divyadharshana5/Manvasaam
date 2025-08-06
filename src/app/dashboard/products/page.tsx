@@ -129,7 +129,7 @@ export default function ProductsPage() {
                 <CardHeader className="p-0">
                     <div className="relative aspect-video">
                         <Image 
-                            src="https://placehold.co/600x400/f6ad55/333333.png?text=Carrots"
+                            src="https://placehold.co/600x400.png"
                             alt="Fresh Carrots"
                             layout="fill"
                             objectFit="cover"
