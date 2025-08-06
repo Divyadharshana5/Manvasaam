@@ -23,6 +23,12 @@ export async function PUT(request: Request) {
     
     // 2. Find user and update their profile with the face data URL
     const userRecord = await adminAuth.getUserByEmail(email);
+    const userDoc = await adminDb.collection("users").doc(userRecord.uid).get();
+
+    if (!userDoc.exists || userDoc.data()?.userType !== 'farmer') {
+        return NextResponse.json({ message: "Face registration is only available for farmers." }, { status: 403 });
+    }
+
     await adminDb.collection("users").doc(userRecord.uid).update({
         facePhotoUrl: photoDataUri // In a real app, store this securely or store an embedding
     });
@@ -41,10 +47,13 @@ export async function PUT(request: Request) {
 
 export async function POST(request: Request) {
     try {
-        const { photoDataUri } = await request.json();
+        const { photoDataUri, userType } = await request.json();
 
         if (!photoDataUri) {
             return NextResponse.json({ message: "Photo is required for face login." }, { status: 400 });
+        }
+        if (userType !== 'farmer') {
+            return NextResponse.json({ message: "Face login is only available for farmers." }, { status: 403 });
         }
 
         // 1. Detect if there's a face in the picture
@@ -53,14 +62,18 @@ export async function POST(request: Request) {
             return NextResponse.json({ message: "No face detected. Please position your face in the camera." }, { status: 400 });
         }
         
-        // 2. Find a user with a matching face
+        // 2. Find a farmer user with a matching face
         // THIS IS A SIMPLIFIED LOOKUP. A real application would use a vector database
         // to find the user with the closest facial embedding. Here we just find the *first*
-        // user with any face data registered. This is NOT secure and for DEMO only.
-        const usersWithFace = await adminDb.collection('users').where('facePhotoUrl', '!=', null).limit(1).get();
+        // farmer with any face data registered. This is NOT secure and for DEMO only.
+        const usersWithFace = await adminDb.collection('users')
+            .where('facePhotoUrl', '!=', null)
+            .where('userType', '==', 'farmer')
+            .limit(1)
+            .get();
 
         if (usersWithFace.empty) {
-            return NextResponse.json({ message: "No user found with a registered face. Please register first." }, { status: 404 });
+            return NextResponse.json({ message: "No farmer found with a registered face. Please register first." }, { status: 404 });
         }
         
         const user = usersWithFace.docs[0].data();

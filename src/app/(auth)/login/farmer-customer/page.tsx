@@ -2,7 +2,7 @@
 "use client";
 
 import { useState, useRef, useEffect, useCallback } from "react";
-import { useForm } from "react-hook-form";
+import { useForm, useWatch } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import * as z from "zod";
 import { Button } from "@/components/ui/button";
@@ -61,6 +61,116 @@ const registerSchema = z.object({
 const forgotPasswordSchema = z.object({
   email: z.string().email({ message: "Please enter a valid email address." }),
 });
+
+function RegisterForm({
+    onRegisterSubmit,
+    loading,
+    form,
+    setIsRegisteringFace
+}: {
+    onRegisterSubmit: (values: z.infer<typeof registerSchema>) => void;
+    loading: boolean;
+    form: any;
+    setIsRegisteringFace: (value: boolean) => void;
+}) {
+    const userType = useWatch({
+        control: form.control,
+        name: "userType",
+    });
+
+    const onSubmit = (values: z.infer<typeof registerSchema>) => {
+      onRegisterSubmit(values);
+    };
+
+    return (
+        <Form {...form}>
+            <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4 pt-4">
+                <FormField
+                control={form.control}
+                name="userType"
+                render={({ field }) => (
+                    <FormItem className="space-y-3">
+                    <FormLabel>I am a...</FormLabel>
+                    <FormControl>
+                        <RadioGroup onValueChange={field.onChange} defaultValue={field.value} className="flex space-x-4">
+                        <FormItem className="flex items-center space-x-2 space-y-0">
+                            <FormControl><RadioGroupItem value="customer" /></FormControl>
+                            <FormLabel className="font-normal">Customer</FormLabel>
+                        </FormItem>
+                        <FormItem className="flex items-center space-x-2 space-y-0">
+                            <FormControl><RadioGroupItem value="farmer" /></FormControl>
+                            <FormLabel className="font-normal">Farmer</FormLabel>
+                        </FormItem>
+                        </RadioGroup>
+                    </FormControl>
+                    <FormMessage />
+                    </FormItem>
+                )}
+                />
+                <FormField
+                control={form.control}
+                name="username"
+                render={({ field }) => (
+                    <FormItem>
+                    <FormLabel>Username</FormLabel>
+                    <FormControl><Input type="text" placeholder="John Doe" {...field} /></FormControl>
+                    <FormMessage />
+                    </FormItem>
+                )}
+                />
+                <FormField
+                control={form.control}
+                name="email"
+                render={({ field }) => (
+                    <FormItem>
+                    <FormLabel>Email</FormLabel>
+                    <FormControl><Input type="email" placeholder="m@example.com" {...field} /></FormControl>
+                    <FormMessage />
+                    </FormItem>
+                )}
+                />
+                <FormField
+                control={form.control}
+                name="phone"
+                render={({ field }) => (
+                    <FormItem>
+                    <FormLabel>Phone Number</FormLabel>
+                    <FormControl><Input type="tel" placeholder="123-456-7890" {...field} /></FormControl>
+                    <FormMessage />
+                    </FormItem>
+                )}
+                />
+                <FormField
+                control={form.control}
+                name="password"
+                render={({ field }) => (
+                    <FormItem>
+                    <FormLabel>Password</FormLabel>
+                    <FormControl><Input type="password" {...field} /></FormControl>
+                    <FormMessage />
+                    </FormItem>
+                )}
+                />
+                <FormField
+                control={form.control}
+                name="confirmPassword"
+                render={({ field }) => (
+                    <FormItem>
+                    <FormLabel>Confirm Password</FormLabel>
+                    <FormControl><Input type="password" {...field} /></FormControl>
+                    <FormMessage />
+                    </FormItem>
+                )}
+                />
+                <Button type="submit" className="w-full" disabled={loading}>
+                {loading && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
+                {userType === 'farmer' ? "Create Account & Register Face" : "Create Account"}
+                </Button>
+            </form>
+        </Form>
+    );
+}
+
 
 export default function FarmerCustomerAuthPage() {
   const [loading, setLoading] = useState(false);
@@ -149,7 +259,7 @@ export default function FarmerCustomerAuthPage() {
         const response = await fetch('/api/face-login', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ photoDataUri }),
+            body: JSON.stringify({ photoDataUri, userType: 'farmer' }),
         });
 
         if (!response.ok) {
@@ -260,7 +370,15 @@ export default function FarmerCustomerAuthPage() {
         throw new Error(errorData.message || 'Failed to register.');
       }
       
-      setIsRegisteringFace(true);
+      if (values.userType === 'farmer') {
+        setIsRegisteringFace(true);
+      } else {
+        toast({
+          title: "Registration Successful",
+          description: "Your customer account has been created. Please log in.",
+        });
+        setActiveTab("login");
+      }
 
     } catch (error: any) {
       toast({
@@ -320,7 +438,7 @@ export default function FarmerCustomerAuthPage() {
             <Tabs value={authMode} onValueChange={setAuthMode} className="w-full">
               <TabsList className="grid w-full grid-cols-2">
                 <TabsTrigger value="email">Email & Password</TabsTrigger>
-                <TabsTrigger value="face">Sign in with Face</TabsTrigger>
+                <TabsTrigger value="face">Farmer Face Sign-In</TabsTrigger>
               </TabsList>
               <TabsContent value="email" className="pt-4">
                 <Form {...loginForm}>
@@ -411,91 +529,12 @@ export default function FarmerCustomerAuthPage() {
           </TabsContent>
           <TabsContent value="register">
             {!isRegisteringFace ? (
-              <Form {...registerForm}>
-                <form onSubmit={registerForm.handleSubmit(onRegister)} className="space-y-4 pt-4">
-                  <FormField
-                    control={registerForm.control}
-                    name="userType"
-                    render={({ field }) => (
-                      <FormItem className="space-y-3">
-                        <FormLabel>I am a...</FormLabel>
-                        <FormControl>
-                          <RadioGroup onValueChange={field.onChange} defaultValue={field.value} className="flex space-x-4">
-                            <FormItem className="flex items-center space-x-2 space-y-0">
-                              <FormControl><RadioGroupItem value="customer" /></FormControl>
-                              <FormLabel className="font-normal">Customer</FormLabel>
-                            </FormItem>
-                            <FormItem className="flex items-center space-x-2 space-y-0">
-                              <FormControl><RadioGroupItem value="farmer" /></FormControl>
-                              <FormLabel className="font-normal">Farmer</FormLabel>
-                            </FormItem>
-                          </RadioGroup>
-                        </FormControl>
-                        <FormMessage />
-                      </FormItem>
-                    )}
-                  />
-                  <FormField
-                    control={registerForm.control}
-                    name="username"
-                    render={({ field }) => (
-                      <FormItem>
-                        <FormLabel>Username</FormLabel>
-                        <FormControl><Input type="text" placeholder="John Doe" {...field} /></FormControl>
-                        <FormMessage />
-                      </FormItem>
-                    )}
-                  />
-                  <FormField
-                    control={registerForm.control}
-                    name="email"
-                    render={({ field }) => (
-                      <FormItem>
-                        <FormLabel>Email</FormLabel>
-                        <FormControl><Input type="email" placeholder="m@example.com" {...field} /></FormControl>
-                        <FormMessage />
-                      </FormItem>
-                    )}
-                  />
-                  <FormField
-                    control={registerForm.control}
-                    name="phone"
-                    render={({ field }) => (
-                      <FormItem>
-                        <FormLabel>Phone Number</FormLabel>
-                        <FormControl><Input type="tel" placeholder="123-456-7890" {...field} /></FormControl>
-                        <FormMessage />
-                      </FormItem>
-                    )}
-                  />
-                  <FormField
-                    control={registerForm.control}
-                    name="password"
-                    render={({ field }) => (
-                      <FormItem>
-                        <FormLabel>Password</FormLabel>
-                        <FormControl><Input type="password" {...field} /></FormControl>
-                        <FormMessage />
-                      </FormItem>
-                    )}
-                  />
-                  <FormField
-                    control={registerForm.control}
-                    name="confirmPassword"
-                    render={({ field }) => (
-                      <FormItem>
-                        <FormLabel>Confirm Password</FormLabel>
-                        <FormControl><Input type="password" {...field} /></FormControl>
-                        <FormMessage />
-                      </FormItem>
-                    )}
-                  />
-                  <Button type="submit" className="w-full" disabled={loading}>
-                    {loading && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
-                    Create Account & Register Face
-                  </Button>
-                </form>
-              </Form>
+              <RegisterForm 
+                onRegisterSubmit={onRegister}
+                loading={loading}
+                form={registerForm}
+                setIsRegisteringFace={setIsRegisteringFace}
+              />
             ) : (
                 <div className="pt-4 space-y-4">
                     <CardHeader className="text-center p-0 mb-4">
