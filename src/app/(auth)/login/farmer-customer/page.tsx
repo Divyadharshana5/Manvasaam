@@ -93,6 +93,7 @@ function RegisterForm({
     const [isCameraActive, setIsCameraActive] = useState(false);
 
     const startCamera = useCallback(async () => {
+        if (isCameraActive) return;
         try {
             const stream = await navigator.mediaDevices.getUserMedia({ video: true });
             setHasCameraPermission(true);
@@ -104,30 +105,28 @@ function RegisterForm({
             console.error("Error accessing camera:", error);
             setHasCameraPermission(false);
         }
-    }, []);
+    }, [isCameraActive]);
 
-    const stopCamera = () => {
+    const stopCamera = useCallback(() => {
         if (videoRef.current && videoRef.current.srcObject) {
             const stream = videoRef.current.srcObject as MediaStream;
             stream.getTracks().forEach(track => track.stop());
             videoRef.current.srcObject = null;
         }
         setIsCameraActive(false);
-    }
+    }, []);
 
     useEffect(() => {
-        if (userType === 'farmer') {
+        if (userType === 'farmer' && !facePhoto) {
             startCamera();
         } else {
             stopCamera();
-            setFacePhoto(null);
-            form.setValue('photoDataUri', undefined);
         }
         
         return () => {
             stopCamera();
         }
-    }, [userType, form, startCamera]);
+    }, [userType, form, startCamera, stopCamera, facePhoto]);
 
     const handleCaptureFace = () => {
         if (!videoRef.current) return;
@@ -138,14 +137,14 @@ function RegisterForm({
         context?.drawImage(videoRef.current, 0, 0, canvas.width, canvas.height);
         const dataUri = canvas.toDataURL("image/jpeg");
         setFacePhoto(dataUri);
-        form.setValue("photoDataUri", dataUri);
+        form.setValue("photoDataUri", dataUri, { shouldValidate: true });
         form.clearErrors("photoDataUri");
         stopCamera();
     };
 
     const handleRetake = () => {
         setFacePhoto(null);
-        form.setValue('photoDataUri', undefined);
+        form.setValue('photoDataUri', undefined, { shouldValidate: true });
         startCamera();
     }
 
@@ -185,39 +184,39 @@ function RegisterForm({
                         render={({ field }) => (
                             <FormItem>
                                 <FormLabel>Face Registration</FormLabel>
-                                <FormControl>
-                                   <Card className="p-4 bg-muted/50">
-                                       {!facePhoto && (
-                                           <div className="space-y-2">
-                                                <div className="relative aspect-video w-full overflow-hidden rounded-lg border bg-background">
-                                                    <video ref={videoRef} className="w-full h-full object-cover" autoPlay muted playsInline />
-                                                    {hasCameraPermission === false && (
-                                                        <div className="absolute inset-0 flex flex-col items-center justify-center bg-black/60 text-white p-4">
-                                                            <Camera className="h-10 w-10 mb-2"/>
-                                                            <p className="text-center font-semibold">Camera access denied.</p>
-                                                            <p className="text-sm text-center">Please enable camera permissions in your browser settings.</p>
-                                                        </div>
-                                                    )}
+                                <Card className="p-4 bg-muted/50 border-dashed border-2">
+                                       <CardContent className="p-0">
+                                            {!facePhoto ? (
+                                                <div className="space-y-2">
+                                                        <p className="text-sm text-muted-foreground text-center">Center your face in the camera and click capture.</p>
+                                                    <div className="relative aspect-video w-full overflow-hidden rounded-lg border bg-background">
+                                                        <video ref={videoRef} className="w-full h-full object-cover" autoPlay muted playsInline />
+                                                        {hasCameraPermission === false && (
+                                                            <div className="absolute inset-0 flex flex-col items-center justify-center bg-black/60 text-white p-4">
+                                                                <Camera className="h-10 w-10 mb-2"/>
+                                                                <p className="text-center font-semibold">Camera access denied.</p>
+                                                                <p className="text-sm text-center">Please enable camera permissions in your browser settings.</p>
+                                                            </div>
+                                                        )}
+                                                    </div>
+                                                    <Button type="button" onClick={handleCaptureFace} disabled={!isCameraActive || hasCameraPermission === false} className="w-full">
+                                                        <Camera className="mr-2 h-4 w-4"/> Capture Photo
+                                                    </Button>
                                                 </div>
-                                                <Button type="button" onClick={handleCaptureFace} disabled={!isCameraActive || hasCameraPermission === false}>
-                                                    <Camera className="mr-2 h-4 w-4"/> Capture Photo
-                                                </Button>
-                                           </div>
-                                       )}
-                                       {facePhoto && (
-                                            <div className="space-y-4">
-                                                <p className="text-sm font-medium text-green-600 flex items-center"><UserCheck className="mr-2 h-4 w-4"/> Photo captured successfully!</p>
-                                                <div className="relative aspect-video w-full overflow-hidden rounded-lg border">
-                                                    <Image src={facePhoto} alt="Captured face" layout="fill" objectFit="cover" />
+                                            ) : (
+                                                <div className="space-y-4">
+                                                    <div className="text-sm font-medium text-green-600 flex items-center justify-center"><UserCheck className="mr-2 h-4 w-4"/> Photo captured successfully!</div>
+                                                    <div className="relative aspect-video w-full overflow-hidden rounded-lg border">
+                                                        <Image src={facePhoto} alt="Captured face" layout="fill" objectFit="cover" />
+                                                    </div>
+                                                    <Button type="button" variant="outline" onClick={handleRetake} className="w-full">
+                                                        <RefreshCw className="mr-2 h-4 w-4"/> Retake Photo
+                                                    </Button>
                                                 </div>
-                                                <Button type="button" variant="outline" onClick={handleRetake}>
-                                                    <RefreshCw className="mr-2 h-4 w-4"/> Retake Photo
-                                                </Button>
-                                            </div>
-                                       )}
-                                   </Card>
-                                </FormControl>
-                                <FormMessage />
+                                            )}
+                                       </CardContent>
+                                </Card>
+                                <FormMessage className="pt-1"/>
                             </FormItem>
                         )}
                     />
