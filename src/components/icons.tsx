@@ -1,11 +1,13 @@
 
-export function ManvaasamLogo(props: React.ImgHTMLAttributes<HTMLImageElement>) {
+import Image from "next/image";
+
+export function ManvaasamLogo(props: Omit<React.ComponentProps<typeof Image>, 'src' | 'alt'>) {
  const { width = 32, height = 32, ...rest } = props;
   return (
-    <img
+    <Image
       src="/bg-agri.png"
-      width={width}
-      height={height}
+      width={Number(width)}
+      height={Number(height)}
       alt="Manvaasam Logo"
       {...rest}
       className="drop-shadow-lg"
