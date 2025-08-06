@@ -30,7 +30,11 @@ export async function PUT(request: Request) {
     }
 
     await adminDb.collection("users").doc(userRecord.uid).update({
-        facePhotoUrl: photoDataUri // In a real app, store this securely or store an embedding
+        photoURL: photoDataUri // In a real app, store this securely or store an embedding
+    });
+    
+    await adminAuth.updateUser(userRecord.uid, {
+        photoURL: photoDataUri
     });
 
     return NextResponse.json({ message: "Face registered successfully." }, { status: 200 });
@@ -67,7 +71,7 @@ export async function POST(request: Request) {
         // to find the user with the closest facial embedding. Here we just find the *first*
         // farmer with any face data registered. This is NOT secure and for DEMO only.
         const usersWithFace = await adminDb.collection('users')
-            .where('facePhotoUrl', '!=', null)
+            .where('photoURL', '!=', null)
             .where('userType', '==', 'farmer')
             .limit(1)
             .get();

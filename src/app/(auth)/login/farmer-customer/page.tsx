@@ -23,7 +23,7 @@ import {
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { useToast } from "@/hooks/use-toast";
-import { Loader2, Camera, UserCheck } from "lucide-react";
+import { Loader2, Camera, UserCheck, RefreshCw } from "lucide-react";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { signInWithCustomToken } from "firebase/auth";
@@ -40,6 +40,7 @@ import {
   DialogClose,
 } from "@/components/ui/dialog";
 import { Alert, AlertTitle, AlertDescription } from "@/components/ui/alert";
+import Image from "next/image";
 
 const loginSchema = z.object({
   email: z.string().email({ message: "Invalid email address." }),
@@ -53,10 +54,20 @@ const registerSchema = z.object({
   password: z.string().min(6, { message: "Password must be at least 6 characters." }),
   confirmPassword: z.string(),
   userType: z.enum(["farmer", "customer"]),
+  photoDataUri: z.string().optional(),
 }).refine((data) => data.password === data.confirmPassword, {
   message: "Passwords don't match",
   path: ["confirmPassword"],
+}).refine((data) => {
+    if (data.userType === 'farmer') {
+        return !!data.photoDataUri;
+    }
+    return true;
+}, {
+    message: "Please capture a photo for face registration.",
+    path: ["photoDataUri"],
 });
+
 
 const forgotPasswordSchema = z.object({
   email: z.string().email({ message: "Please enter a valid email address." }),
@@ -66,17 +77,78 @@ function RegisterForm({
     onRegisterSubmit,
     loading,
     form,
-    setIsRegisteringFace
 }: {
     onRegisterSubmit: (values: z.infer<typeof registerSchema>) => void;
     loading: boolean;
     form: any;
-    setIsRegisteringFace: (value: boolean) => void;
 }) {
     const userType = useWatch({
         control: form.control,
         name: "userType",
     });
+    
+    const [facePhoto, setFacePhoto] = useState<string | null>(null);
+    const videoRef = useRef<HTMLVideoElement>(null);
+    const [hasCameraPermission, setHasCameraPermission] = useState<boolean | null>(null);
+    const [isCameraActive, setIsCameraActive] = useState(false);
+
+    const startCamera = async () => {
+        try {
+            const stream = await navigator.mediaDevices.getUserMedia({ video: true });
+            setHasCameraPermission(true);
+            if (videoRef.current) {
+                videoRef.current.srcObject = stream;
+            }
+            setIsCameraActive(true);
+        } catch (error) {
+            console.error("Error accessing camera:", error);
+            setHasCameraPermission(false);
+        }
+    }
+
+    const stopCamera = () => {
+        if (videoRef.current && videoRef.current.srcObject) {
+            const stream = videoRef.current.srcObject as MediaStream;
+            stream.getTracks().forEach(track => track.stop());
+            videoRef.current.srcObject = null;
+        }
+        setIsCameraActive(false);
+    }
+
+    useEffect(() => {
+        if (userType === 'farmer') {
+            startCamera();
+        } else {
+            stopCamera();
+            setFacePhoto(null);
+            form.setValue('photoDataUri', undefined);
+        }
+        
+        return () => {
+            stopCamera();
+        }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [userType]);
+
+    const handleCaptureFace = () => {
+        if (!videoRef.current) return;
+        const canvas = document.createElement("canvas");
+        canvas.width = videoRef.current.videoWidth;
+        canvas.height = videoRef.current.videoHeight;
+        const context = canvas.getContext("2d");
+        context?.drawImage(videoRef.current, 0, 0, canvas.width, canvas.height);
+        const dataUri = canvas.toDataURL("image/jpeg");
+        setFacePhoto(dataUri);
+        form.setValue("photoDataUri", dataUri);
+        form.clearErrors("photoDataUri");
+        stopCamera();
+    };
+
+    const handleRetake = () => {
+        setFacePhoto(null);
+        form.setValue('photoDataUri', undefined);
+        startCamera();
+    }
 
     const onSubmit = (values: z.infer<typeof registerSchema>) => {
       onRegisterSubmit(values);
@@ -107,6 +179,49 @@ function RegisterForm({
                     </FormItem>
                 )}
                 />
+                 {userType === 'farmer' && (
+                    <FormField
+                        control={form.control}
+                        name="photoDataUri"
+                        render={({ field }) => (
+                            <FormItem>
+                                <FormLabel>Face Registration</FormLabel>
+                                <FormControl>
+                                   <Card className="p-4">
+                                       {!facePhoto && (
+                                           <div className="space-y-2">
+                                                <div className="relative aspect-video w-full overflow-hidden rounded-lg border bg-muted">
+                                                    <video ref={videoRef} className="w-full h-full object-cover" autoPlay muted playsInline />
+                                                    {hasCameraPermission === false && (
+                                                        <div className="absolute inset-0 flex flex-col items-center justify-center bg-black/50 text-white p-4">
+                                                            <Camera className="h-10 w-10 mb-2"/>
+                                                            <p className="text-center font-semibold">Camera access denied.</p>
+                                                        </div>
+                                                    )}
+                                                </div>
+                                                <Button type="button" onClick={handleCaptureFace} disabled={!isCameraActive}>
+                                                    <Camera className="mr-2 h-4 w-4"/> Capture Photo
+                                                </Button>
+                                           </div>
+                                       )}
+                                       {facePhoto && (
+                                            <div className="space-y-4">
+                                                <p>Photo captured successfully!</p>
+                                                <div className="relative aspect-video w-full overflow-hidden rounded-lg border">
+                                                    <Image src={facePhoto} alt="Captured face" layout="fill" objectFit="cover" />
+                                                </div>
+                                                <Button type="button" variant="outline" onClick={handleRetake}>
+                                                    <RefreshCw className="mr-2 h-4 w-4"/> Retake Photo
+                                                </Button>
+                                            </div>
+                                       )}
+                                   </Card>
+                                </FormControl>
+                                <FormMessage />
+                            </FormItem>
+                        )}
+                    />
+                )}
                 <FormField
                 control={form.control}
                 name="username"
@@ -164,7 +279,7 @@ function RegisterForm({
                 />
                 <Button type="submit" className="w-full" disabled={loading}>
                 {loading && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
-                {userType === 'farmer' ? "Create Account & Register Face" : "Create Account"}
+                Create Account
                 </Button>
             </form>
         </Form>
@@ -181,12 +296,10 @@ export default function FarmerCustomerAuthPage() {
   const [isForgotPassDialogOpen, setIsForgotPassDialogOpen] = useState(false);
   const videoRef = useRef<HTMLVideoElement>(null);
   const [hasCameraPermission, setHasCameraPermission] = useState<boolean | null>(null);
-  const [isRegisteringFace, setIsRegisteringFace] = useState(false);
-  const [faceRegistered, setFaceRegistered] = useState(false);
 
 
   useEffect(() => {
-    if ((activeTab === 'login' && authMode === 'face') || (activeTab === 'register' && isRegisteringFace)) {
+    if (activeTab === 'login' && authMode === 'face') {
       const getCameraPermission = async () => {
         try {
           const stream = await navigator.mediaDevices.getUserMedia({ video: true });
@@ -213,7 +326,7 @@ export default function FarmerCustomerAuthPage() {
             videoRef.current.srcObject = null;
         }
     }
-  }, [activeTab, authMode, isRegisteringFace, toast]);
+  }, [activeTab, authMode, toast]);
 
   const loginForm = useForm<z.infer<typeof loginSchema>>({
     resolver: zodResolver(loginSchema),
@@ -229,6 +342,7 @@ export default function FarmerCustomerAuthPage() {
       password: "",
       confirmPassword: "",
       userType: "customer",
+      photoDataUri: undefined,
     },
   });
 
@@ -284,45 +398,6 @@ export default function FarmerCustomerAuthPage() {
     }
   };
 
-  const handleCaptureAndRegisterFace = async () => {
-    if (!videoRef.current) return;
-    setIsRegisteringFace(true);
-    setLoading(true);
-
-    const canvas = document.createElement("canvas");
-    canvas.width = videoRef.current.videoWidth;
-    canvas.height = videoRef.current.videoHeight;
-    const context = canvas.getContext("2d");
-    context?.drawImage(videoRef.current, 0, 0, canvas.width, canvas.height);
-    const photoDataUri = canvas.toDataURL("image/jpeg");
-    const email = registerForm.getValues("email");
-
-    try {
-        const response = await fetch('/api/face-login', {
-            method: 'PUT',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ email, photoDataUri }),
-        });
-
-        if (!response.ok) {
-            const errorData = await response.json();
-            throw new Error(errorData.message || 'Face registration failed.');
-        }
-        
-        setFaceRegistered(true);
-        toast({ title: "Face Registered Successfully", description: "You can now use face login." });
-
-    } catch (error: any) {
-        toast({
-            variant: "destructive",
-            title: "Face Registration Failed",
-            description: error.message,
-        });
-    } finally {
-        setLoading(false);
-    }
-  }
-
 
   async function onLogin(values: z.infer<typeof loginSchema>) {
     setLoading(true);
@@ -358,7 +433,7 @@ export default function FarmerCustomerAuthPage() {
     setLoading(true);
     try {
       const { confirmPassword, ...apiData } = values;
-
+      
       const response = await fetch('/api/register', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
@@ -370,15 +445,13 @@ export default function FarmerCustomerAuthPage() {
         throw new Error(errorData.message || 'Failed to register.');
       }
       
-      if (values.userType === 'farmer') {
-        setIsRegisteringFace(true);
-      } else {
-        toast({
-          title: "Registration Successful",
-          description: "Your customer account has been created. Please log in.",
-        });
-        setActiveTab("login");
-      }
+      toast({
+        title: "Registration Successful",
+        description: "Your account has been created. Please log in.",
+      });
+      setActiveTab("login");
+      registerForm.reset();
+
 
     } catch (error: any) {
       toast({
@@ -528,54 +601,11 @@ export default function FarmerCustomerAuthPage() {
             </Tabs>
           </TabsContent>
           <TabsContent value="register">
-            {!isRegisteringFace ? (
-              <RegisterForm 
+             <RegisterForm 
                 onRegisterSubmit={onRegister}
                 loading={loading}
                 form={registerForm}
-                setIsRegisteringFace={setIsRegisteringFace}
               />
-            ) : (
-                <div className="pt-4 space-y-4">
-                    <CardHeader className="text-center p-0 mb-4">
-                        <CardTitle>Register Your Face</CardTitle>
-                        <CardDescription>Center your face in the frame and capture.</CardDescription>
-                    </CardHeader>
-                    <div className="relative aspect-video w-full overflow-hidden rounded-lg border bg-muted">
-                        <video ref={videoRef} className="w-full h-full object-cover" autoPlay muted playsInline />
-                         {hasCameraPermission === false && (
-                            <div className="absolute inset-0 flex flex-col items-center justify-center bg-black/50 text-white p-4">
-                                <Camera className="h-10 w-10 mb-2"/>
-                                <p className="text-center font-semibold">Camera access denied.</p>
-                                <p className="text-center text-sm">Please enable camera permissions.</p>
-                            </div>
-                        )}
-                    </div>
-
-                    {faceRegistered ? (
-                        <Alert variant="default" className="bg-green-500/10 border-green-500/50 text-green-700">
-                            <UserCheck className="h-4 w-4 !text-green-700" />
-                            <AlertTitle>Face Registered!</AlertTitle>
-                            <AlertDescription>
-                                You can now log in using your face. Please proceed to the login tab.
-                            </AlertDescription>
-                        </Alert>
-                    ) : (
-                        <Button onClick={handleCaptureAndRegisterFace} className="w-full" disabled={loading || hasCameraPermission !== true}>
-                            {loading && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
-                            Capture and Complete Registration
-                        </Button>
-                    )}
-                     <Button variant="link" onClick={() => {
-                        setIsRegisteringFace(false);
-                        setFaceRegistered(false);
-                        setActiveTab("login");
-                        setAuthMode("email");
-                     }}>
-                        Go to Login
-                     </Button>
-                </div>
-            )}
           </TabsContent>
         </Tabs>
       </CardContent>

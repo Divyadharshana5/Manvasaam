@@ -1,17 +1,28 @@
+
 import { NextResponse } from "next/server";
 import { adminAuth, adminDb } from "@/lib/firebase-admin";
 import { sendRegistrationNotification } from "@/lib/email";
+import { detectFace } from "@/ai/flows/face-detection-flow";
 
 export async function POST(request: Request) {
   try {
     const data = await request.json();
-    const { email, password, ...userData } = data;
+    const { email, password, photoDataUri, ...userData } = data;
+
+    // Optional: Validate face if provided
+    if (photoDataUri) {
+      const faceDetectionResult = await detectFace({ photoDataUri });
+      if (!faceDetectionResult.faceDetected) {
+        return NextResponse.json({ message: "No face detected in the provided image. Please capture a clear photo." }, { status: 400 });
+      }
+    }
 
     // Create user in Firebase Auth
     const userRecord = await adminAuth.createUser({
         email: email,
         password: password,
-        emailVerified: false, // Start with email as not verified
+        photoURL: photoDataUri, // Set photoURL if provided
+        emailVerified: false,
         disabled: false,
     });
 
@@ -20,6 +31,7 @@ export async function POST(request: Request) {
         ...userData,
         uid: userRecord.uid,
         email: email, // store email in firestore as well
+        photoURL: photoDataUri || null, // store photoURL
         createdAt: new Date().toISOString(),
     });
 
@@ -30,12 +42,9 @@ export async function POST(request: Request) {
         console.error("Failed to send registration email:", emailError.message);
     }
 
-    // You could also trigger a verification email here
-    // const link = await adminAuth.generateEmailVerificationLink(email);
-    // await sendVerificationEmail({ email, link }); // You'd need to create this function
-
     return NextResponse.json({ message: "User created successfully", uid: userRecord.uid }, { status: 201 });
-  } catch (error: any) {
+  } catch (error: any)
+   {
     console.error("API Error:", error);
     let message = "Failed to create user";
     if (error.code === 'auth/email-already-exists') {
