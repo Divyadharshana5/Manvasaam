@@ -71,7 +71,11 @@
   }
   body {
     @apply bg-background text-foreground;
-  }
+    background-image: url('/Public/bg-img.png'), url('/Public/bg-agri.png') !important;
+    background-size: cover !important;
+    background-position: center !important;
+    background-repeat: no-repeat !important;
+}
 }
 
 .auth-layout-background {
