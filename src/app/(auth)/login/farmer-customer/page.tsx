@@ -92,7 +92,7 @@ function RegisterForm({
     const [hasCameraPermission, setHasCameraPermission] = useState<boolean | null>(null);
     const [isCameraActive, setIsCameraActive] = useState(false);
 
-    const startCamera = async () => {
+    const startCamera = useCallback(async () => {
         try {
             const stream = await navigator.mediaDevices.getUserMedia({ video: true });
             setHasCameraPermission(true);
@@ -104,7 +104,7 @@ function RegisterForm({
             console.error("Error accessing camera:", error);
             setHasCameraPermission(false);
         }
-    }
+    }, []);
 
     const stopCamera = () => {
         if (videoRef.current && videoRef.current.srcObject) {
@@ -127,8 +127,7 @@ function RegisterForm({
         return () => {
             stopCamera();
         }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [userType]);
+    }, [userType, form, startCamera]);
 
     const handleCaptureFace = () => {
         if (!videoRef.current) return;
@@ -187,26 +186,27 @@ function RegisterForm({
                             <FormItem>
                                 <FormLabel>Face Registration</FormLabel>
                                 <FormControl>
-                                   <Card className="p-4">
+                                   <Card className="p-4 bg-muted/50">
                                        {!facePhoto && (
                                            <div className="space-y-2">
-                                                <div className="relative aspect-video w-full overflow-hidden rounded-lg border bg-muted">
+                                                <div className="relative aspect-video w-full overflow-hidden rounded-lg border bg-background">
                                                     <video ref={videoRef} className="w-full h-full object-cover" autoPlay muted playsInline />
                                                     {hasCameraPermission === false && (
-                                                        <div className="absolute inset-0 flex flex-col items-center justify-center bg-black/50 text-white p-4">
+                                                        <div className="absolute inset-0 flex flex-col items-center justify-center bg-black/60 text-white p-4">
                                                             <Camera className="h-10 w-10 mb-2"/>
                                                             <p className="text-center font-semibold">Camera access denied.</p>
+                                                            <p className="text-sm text-center">Please enable camera permissions in your browser settings.</p>
                                                         </div>
                                                     )}
                                                 </div>
-                                                <Button type="button" onClick={handleCaptureFace} disabled={!isCameraActive}>
+                                                <Button type="button" onClick={handleCaptureFace} disabled={!isCameraActive || hasCameraPermission === false}>
                                                     <Camera className="mr-2 h-4 w-4"/> Capture Photo
                                                 </Button>
                                            </div>
                                        )}
                                        {facePhoto && (
                                             <div className="space-y-4">
-                                                <p>Photo captured successfully!</p>
+                                                <p className="text-sm font-medium text-green-600 flex items-center"><UserCheck className="mr-2 h-4 w-4"/> Photo captured successfully!</p>
                                                 <div className="relative aspect-video w-full overflow-hidden rounded-lg border">
                                                     <Image src={facePhoto} alt="Captured face" layout="fill" objectFit="cover" />
                                                 </div>
@@ -450,6 +450,8 @@ export default function FarmerCustomerAuthPage() {
         description: "Your account has been created. Please log in.",
       });
       setActiveTab("login");
+      loginForm.setValue("email", values.email);
+      loginForm.setValue("password", "");
       registerForm.reset();
 
 
@@ -586,7 +588,7 @@ export default function FarmerCustomerAuthPage() {
                 <div className="relative aspect-video w-full overflow-hidden rounded-lg border bg-muted">
                     <video ref={videoRef} className="w-full h-full object-cover" autoPlay muted playsInline />
                     {hasCameraPermission === false && (
-                         <div className="absolute inset-0 flex flex-col items-center justify-center bg-black/50 text-white p-4">
+                         <div className="absolute inset-0 flex flex-col items-center justify-center bg-black/60 text-white p-4">
                             <Camera className="h-10 w-10 mb-2"/>
                             <p className="text-center font-semibold">Camera access denied.</p>
                             <p className="text-center text-sm">Please enable camera permissions in your browser settings.</p>
@@ -612,3 +614,5 @@ export default function FarmerCustomerAuthPage() {
     </Card>
   );
 }
+
+    
