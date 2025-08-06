@@ -1,7 +1,7 @@
 
 "use client";
 
-import { useState, useRef, useEffect } from "react";
+import { useState, useRef, useEffect, useCallback } from "react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import * as z from "zod";
@@ -76,7 +76,7 @@ export default function FarmerCustomerAuthPage() {
 
 
   useEffect(() => {
-    if (activeTab === 'login' && authMode === 'face') {
+    if ((activeTab === 'login' && authMode === 'face') || (activeTab === 'register' && isRegisteringFace)) {
       const getCameraPermission = async () => {
         try {
           const stream = await navigator.mediaDevices.getUserMedia({ video: true });
@@ -90,20 +90,20 @@ export default function FarmerCustomerAuthPage() {
           toast({
             variant: "destructive",
             title: "Camera Access Denied",
-            description: "Please enable camera permissions to use face login.",
+            description: "Please enable camera permissions to use this feature.",
           });
         }
       };
       getCameraPermission();
     } else {
-        // Stop camera stream when not in face login tab
+        // Stop camera stream when not in use
         if (videoRef.current && videoRef.current.srcObject) {
             const stream = videoRef.current.srcObject as MediaStream;
             stream.getTracks().forEach(track => track.stop());
             videoRef.current.srcObject = null;
         }
     }
-  }, [activeTab, authMode, toast]);
+  }, [activeTab, authMode, isRegisteringFace, toast]);
 
   const loginForm = useForm<z.infer<typeof loginSchema>>({
     resolver: zodResolver(loginSchema),
@@ -126,6 +126,13 @@ export default function FarmerCustomerAuthPage() {
     resolver: zodResolver(forgotPasswordSchema),
     defaultValues: { email: "" },
   });
+
+  const handleForgotPasswordOpen = useCallback(() => {
+    const email = loginForm.getValues("email");
+    if (email) {
+      forgotPasswordForm.setValue("email", email);
+    }
+  }, [loginForm, forgotPasswordForm]);
 
   const handleFaceLogin = async () => {
     if (!videoRef.current) return;
@@ -170,6 +177,7 @@ export default function FarmerCustomerAuthPage() {
   const handleCaptureAndRegisterFace = async () => {
     if (!videoRef.current) return;
     setIsRegisteringFace(true);
+    setLoading(true);
 
     const canvas = document.createElement("canvas");
     canvas.width = videoRef.current.videoWidth;
@@ -201,7 +209,7 @@ export default function FarmerCustomerAuthPage() {
             description: error.message,
         });
     } finally {
-        setIsRegisteringFace(false);
+        setLoading(false);
     }
   }
 
@@ -252,7 +260,7 @@ export default function FarmerCustomerAuthPage() {
         throw new Error(errorData.message || 'Failed to register.');
       }
       
-      setIsRegisteringFace(true); // Move to face capture step
+      setIsRegisteringFace(true);
 
     } catch (error: any) {
       toast({
@@ -339,7 +347,7 @@ export default function FarmerCustomerAuthPage() {
                             <FormLabel>Password</FormLabel>
                             <Dialog open={isForgotPassDialogOpen} onOpenChange={setIsForgotPassDialogOpen}>
                               <DialogTrigger asChild>
-                                <Button variant="link" size="sm" type="button" className="p-0 h-auto text-xs">Forgot Password?</Button>
+                                <Button variant="link" size="sm" type="button" className="p-0 h-auto text-xs" onClick={handleForgotPasswordOpen}>Forgot Password?</Button>
                               </DialogTrigger>
                               <DialogContent>
                                 <DialogHeader>

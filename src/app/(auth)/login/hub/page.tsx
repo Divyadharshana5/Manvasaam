@@ -1,7 +1,7 @@
 
 "use client";
 
-import { useState } from "react";
+import { useState, useCallback } from "react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import * as z from "zod";
@@ -87,6 +87,13 @@ export default function HubAuthPage() {
     resolver: zodResolver(forgotPasswordSchema),
     defaultValues: { email: "" },
   });
+  
+  const handleForgotPasswordOpen = useCallback(() => {
+    const email = loginForm.getValues("email");
+    if (email) {
+      forgotPasswordForm.setValue("email", email);
+    }
+  }, [loginForm, forgotPasswordForm]);
 
   async function onLogin(values: z.infer<typeof loginSchema>) {
     setLoading(true);
@@ -222,7 +229,7 @@ export default function HubAuthPage() {
                         <FormLabel>Password</FormLabel>
                         <Dialog open={isForgotPassDialogOpen} onOpenChange={setIsForgotPassDialogOpen}>
                            <DialogTrigger asChild>
-                            <Button variant="link" size="sm" type="button" className="p-0 h-auto text-xs">
+                            <Button variant="link" size="sm" type="button" className="p-0 h-auto text-xs" onClick={handleForgotPasswordOpen}>
                               Forgot Password?
                             </Button>
                           </DialogTrigger>
