@@ -48,6 +48,7 @@ const orderFormSchema = z.object({
     whatsapp: z.string().min(10, { message: "Please enter a valid WhatsApp number." }),
     address: z.string().min(5, { message: "Address is required." }),
     country: z.string().min(2, { message: "Country is required." }),
+    state: z.string().min(2, { message: "State is required." }),
     district: z.string().min(2, { message: "District is required." }),
 });
 
@@ -67,6 +68,7 @@ export default function ProductsPage() {
             whatsapp: "",
             address: "",
             country: "",
+            state: "",
             district: "",
         },
     });
@@ -197,11 +199,19 @@ export default function ProductsPage() {
                                </FormItem>
                              )}
                            />
-                           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                           <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
                              <FormField control={form.control} name="country" render={({ field }) => (
                                  <FormItem>
                                    <FormLabel>Country</FormLabel>
                                    <FormControl><Input placeholder="e.g. India" {...field} /></FormControl>
+                                   <FormMessage />
+                                 </FormItem>
+                               )}
+                             />
+                             <FormField control={form.control} name="state" render={({ field }) => (
+                                 <FormItem>
+                                   <FormLabel>State</FormLabel>
+                                   <FormControl><Input placeholder="e.g. Maharashtra" {...field} /></FormControl>
                                    <FormMessage />
                                  </FormItem>
                                )}
