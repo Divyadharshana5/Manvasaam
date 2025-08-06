@@ -1,3 +1,4 @@
+
 "use client";
 
 import { useState } from "react";
@@ -27,6 +28,16 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { signInWithCustomToken } from "firebase/auth";
 import { useRouter } from "next/navigation";
 import { auth } from "@/lib/firebase";
+import {
+  Dialog,
+  DialogContent,
+  DialogHeader,
+  DialogTitle,
+  DialogDescription,
+  DialogFooter,
+  DialogTrigger,
+  DialogClose,
+} from "@/components/ui/dialog";
 
 const loginSchema = z.object({
   email: z.string().email({ message: "A valid email is required." }),
@@ -44,11 +55,17 @@ const registerSchema = z.object({
   path: ["confirmPassword"],
 });
 
+const forgotPasswordSchema = z.object({
+  email: z.string().email({ message: "Please enter a valid email address." }),
+});
+
+
 export default function HubAuthPage() {
   const [loading, setLoading] = useState(false);
   const { toast } = useToast();
   const router = useRouter();
   const [activeTab, setActiveTab] = useState("login");
+  const [isForgotPassDialogOpen, setIsForgotPassDialogOpen] = useState(false);
 
   const loginForm = useForm<z.infer<typeof loginSchema>>({
     resolver: zodResolver(loginSchema),
@@ -64,6 +81,11 @@ export default function HubAuthPage() {
       password: "",
       confirmPassword: "",
     },
+  });
+
+  const forgotPasswordForm = useForm<z.infer<typeof forgotPasswordSchema>>({
+    resolver: zodResolver(forgotPasswordSchema),
+    defaultValues: { email: "" },
   });
 
   async function onLogin(values: z.infer<typeof loginSchema>) {
@@ -129,6 +151,37 @@ export default function HubAuthPage() {
         setLoading(false);
     }
   }
+  
+  async function onForgotPassword(values: z.infer<typeof forgotPasswordSchema>) {
+    setLoading(true);
+    try {
+      const response = await fetch('/api/forgot-password', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(values),
+      });
+
+      if (!response.ok) {
+        const errorData = await response.json();
+        throw new Error(errorData.message || 'Failed to send reset link.');
+      }
+
+      toast({
+        title: "Password Reset Email Sent",
+        description: "Please check your inbox for instructions to reset your password.",
+      });
+      setIsForgotPassDialogOpen(false);
+      forgotPasswordForm.reset();
+    } catch (error: any) {
+      toast({
+        variant: "destructive",
+        title: "Request Failed",
+        description: error.message,
+      });
+    } finally {
+      setLoading(false);
+    }
+  }
 
   return (
     <Card className="w-full max-w-md bg-card/60 backdrop-blur-lg border-2 border-white/20 shadow-lg">
@@ -165,7 +218,52 @@ export default function HubAuthPage() {
                   name="password"
                   render={({ field }) => (
                     <FormItem>
-                      <FormLabel>Password</FormLabel>
+                      <div className="flex justify-between items-center">
+                        <FormLabel>Password</FormLabel>
+                        <Dialog open={isForgotPassDialogOpen} onOpenChange={setIsForgotPassDialogOpen}>
+                           <DialogTrigger asChild>
+                            <Button variant="link" size="sm" type="button" className="p-0 h-auto text-xs">
+                              Forgot Password?
+                            </Button>
+                          </DialogTrigger>
+                          <DialogContent>
+                            <DialogHeader>
+                              <DialogTitle>Forgot Password</DialogTitle>
+                              <DialogDescription>
+                                Enter your email address and we'll send you a link to reset your password.
+                              </DialogDescription>
+                            </DialogHeader>
+                            <Form {...forgotPasswordForm}>
+                              <form onSubmit={forgotPasswordForm.handleSubmit(onForgotPassword)} className="space-y-4">
+                                <FormField
+                                  control={forgotPasswordForm.control}
+                                  name="email"
+                                  render={({ field }) => (
+                                    <FormItem>
+                                      <FormLabel>Email</FormLabel>
+                                      <FormControl>
+                                        <Input type="email" placeholder="m@example.com" {...field} />
+                                      </FormControl>
+                                      <FormMessage />
+                                    </FormItem>
+                                  )}
+                                />
+                                <DialogFooter>
+                                  <DialogClose asChild>
+                                    <Button type="button" variant="secondary" disabled={loading}>
+                                      Cancel
+                                    </Button>
+                                  </DialogClose>
+                                  <Button type="submit" disabled={loading}>
+                                    {loading && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
+                                    Send Reset Link
+                                  </Button>
+                                </DialogFooter>
+                              </form>
+                            </Form>
+                          </DialogContent>
+                        </Dialog>
+                      </div>
                       <FormControl>
                         <Input type="password" {...field} />
                       </FormControl>

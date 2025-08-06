@@ -1,3 +1,4 @@
+
 import nodemailer from 'nodemailer';
 
 const {
@@ -85,3 +86,23 @@ export const sendRegistrationNotification = async (userData: any) => {
     html,
   });
 };
+
+export const sendPasswordResetEmail = async ({email, link}: {email: string, link: string}) => {
+    const subject = "Reset Your Password for Manvaasam";
+    const html = `
+      <h1>Password Reset Request</h1>
+      <p>You are receiving this email because a password reset was requested for your account.</p>
+      <p>Please click the link below to reset your password:</p>
+      <a href="${link}" target="_blank" rel="noopener noreferrer">Reset Password</a>
+      <p>If you did not request a password reset, please ignore this email.</p>
+      <br>
+      <p>Thanks,</p>
+      <p>The Manvaasam Team</p>
+    `;
+
+    await sendEmail({
+        to: email,
+        subject,
+        html,
+    });
+}
