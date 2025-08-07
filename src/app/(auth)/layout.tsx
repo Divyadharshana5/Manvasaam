@@ -1,6 +1,7 @@
-
-import { ManvaasamLogo } from "@/components/icons";
 import Link from "next/link";
+import { ManvaasamLogo } from "@/components/icons";
+import Image from "next/image";
+
 
 export default function AuthLayout({
   children,
