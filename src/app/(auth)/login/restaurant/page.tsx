@@ -94,6 +94,12 @@ export default function RestaurantAuthPage() {
   async function onLogin(values: z.infer<typeof loginSchema>) {
     setLoading(true);
     try {
+      // The client cannot directly sign in with restaurantId.
+      // The backend must find the user's email from the restaurantId,
+      // and then the client can sign in with the email and password.
+      // This is not ideal. A better flow is to have the backend do the lookup
+      // and return a custom token.
+      
       const response = await fetch('/api/restaurant-login', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },

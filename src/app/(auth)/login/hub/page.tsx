@@ -25,7 +25,7 @@ import { Input } from "@/components/ui/input";
 import { useToast } from "@/hooks/use-toast";
 import { Loader2 } from "lucide-react";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { signInWithCustomToken } from "firebase/auth";
+import { signInWithEmailAndPassword, signInWithCustomToken } from "firebase/auth";
 import { useRouter } from "next/navigation";
 import { auth } from "@/lib/firebase";
 import {
@@ -100,10 +100,13 @@ export default function HubAuthPage() {
   async function onLogin(values: z.infer<typeof loginSchema>) {
     setLoading(true);
     try {
+        const userCredential = await signInWithEmailAndPassword(auth, values.email, values.password);
+        const user = userCredential.user;
+
         const response = await fetch('/api/login', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify(values),
+            body: JSON.stringify({ uid: user.uid }),
         });
 
         if (!response.ok) {
@@ -167,7 +170,7 @@ export default function HubAuthPage() {
       const response = await fetch('/api/forgot-password', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(values),
+        body: JSON.stringify({ identifier: values.email }),
       });
 
       if (!response.ok) {

@@ -26,7 +26,7 @@ import { useToast } from "@/hooks/use-toast";
 import { Loader2, Camera, UserCheck, RefreshCw } from "lucide-react";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
-import { signInWithCustomToken } from "firebase/auth";
+import { signInWithEmailAndPassword, signInWithCustomToken } from "firebase/auth";
 import { useRouter } from "next/navigation";
 import { auth } from "@/lib/firebase";
 import {
@@ -404,19 +404,27 @@ export default function FarmerCustomerAuthPage() {
   async function onLogin(values: z.infer<typeof loginSchema>) {
     setLoading(true);
     try {
+      // 1. Sign in with email and password on the client
+      const userCredential = await signInWithEmailAndPassword(auth, values.email, values.password);
+      const user = userCredential.user;
+
+      // 2. Request a custom token from the backend
       const response = await fetch('/api/login', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(values),
+        body: JSON.stringify({ uid: user.uid }),
       });
 
       if (!response.ok) {
         const errorData = await response.json();
-        throw new Error(errorData.message || 'Login failed.');
+        throw new Error(errorData.message || 'Failed to get custom token.');
       }
 
       const { token } = await response.json();
+      
+      // 3. Sign in with the custom token to establish the server session
       await signInWithCustomToken(auth, token);
+
 
       toast({ title: "Login Successful", description: "Welcome back!" });
       router.push("/dashboard");
@@ -474,7 +482,7 @@ export default function FarmerCustomerAuthPage() {
       const response = await fetch('/api/forgot-password', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(values),
+        body: JSON.stringify({ identifier: values.email }),
       });
 
       if (!response.ok) {
@@ -616,5 +624,3 @@ export default function FarmerCustomerAuthPage() {
     </Card>
   );
 }
-
-    
