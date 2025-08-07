@@ -38,6 +38,7 @@ import {
   DialogTrigger,
   DialogClose,
 } from "@/components/ui/dialog";
+import { useLanguage } from "@/context/language-context";
 
 const loginSchema = z.object({
   email: z.string().email({ message: "A valid email is required." }),
@@ -66,6 +67,7 @@ export default function HubAuthPage() {
   const router = useRouter();
   const [activeTab, setActiveTab] = useState("login");
   const [isForgotPassDialogOpen, setIsForgotPassDialogOpen] = useState(false);
+  const { t } = useLanguage();
 
   const loginForm = useForm<z.infer<typeof loginSchema>>({
     resolver: zodResolver(loginSchema),
@@ -193,16 +195,16 @@ export default function HubAuthPage() {
   return (
     <Card className="w-full max-w-md bg-card/60 backdrop-blur-lg border-2 border-white/20 shadow-lg">
       <CardHeader className="text-center">
-        <CardTitle>Hub Portal</CardTitle>
+        <CardTitle>{t.auth.hubPortal}</CardTitle>
         <CardDescription>
-          Manage logistics and connect our network.
+          {t.auth.hubDesc}
         </CardDescription>
       </CardHeader>
       <CardContent>
         <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full">
           <TabsList className="grid w-full grid-cols-2">
-            <TabsTrigger value="login">Login</TabsTrigger>
-            <TabsTrigger value="register">Register</TabsTrigger>
+            <TabsTrigger value="login">{t.auth.login}</TabsTrigger>
+            <TabsTrigger value="register">{t.auth.register}</TabsTrigger>
           </TabsList>
           <TabsContent value="login">
             <Form {...loginForm}>
@@ -212,7 +214,7 @@ export default function HubAuthPage() {
                   name="email"
                   render={({ field }) => (
                     <FormItem>
-                      <FormLabel>Email</FormLabel>
+                      <FormLabel>{t.auth.emailLabel}</FormLabel>
                       <FormControl>
                         <Input type="email" placeholder="hub-admin@example.com" {...field} />
                       </FormControl>
@@ -226,18 +228,18 @@ export default function HubAuthPage() {
                   render={({ field }) => (
                     <FormItem>
                       <div className="flex justify-between items-center">
-                        <FormLabel>Password</FormLabel>
+                        <FormLabel>{t.auth.passwordLabel}</FormLabel>
                         <Dialog open={isForgotPassDialogOpen} onOpenChange={setIsForgotPassDialogOpen}>
                            <DialogTrigger asChild>
                             <Button variant="link" size="sm" type="button" className="p-0 h-auto text-xs" onClick={handleForgotPasswordOpen}>
-                              Forgot Password?
+                              {t.auth.forgotPassword}
                             </Button>
                           </DialogTrigger>
                           <DialogContent>
                             <DialogHeader>
-                              <DialogTitle>Forgot Password</DialogTitle>
+                              <DialogTitle>{t.auth.forgotPasswordTitle}</DialogTitle>
                               <DialogDescription>
-                                Enter your email address and we'll send you a link to reset your password.
+                                {t.auth.forgotPasswordDesc}
                               </DialogDescription>
                             </DialogHeader>
                             <Form {...forgotPasswordForm}>
@@ -247,7 +249,7 @@ export default function HubAuthPage() {
                                   name="email"
                                   render={({ field }) => (
                                     <FormItem>
-                                      <FormLabel>Email</FormLabel>
+                                      <FormLabel>{t.auth.emailLabel}</FormLabel>
                                       <FormControl>
                                         <Input type="email" placeholder="m@example.com" {...field} />
                                       </FormControl>
@@ -258,12 +260,12 @@ export default function HubAuthPage() {
                                 <DialogFooter>
                                   <DialogClose asChild>
                                     <Button type="button" variant="secondary" disabled={loading}>
-                                      Cancel
+                                      {t.auth.cancel}
                                     </Button>
                                   </DialogClose>
                                   <Button type="submit" disabled={loading}>
                                     {loading && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
-                                    Send Reset Link
+                                    {t.auth.sendResetLink}
                                   </Button>
                                 </DialogFooter>
                               </form>
@@ -280,7 +282,7 @@ export default function HubAuthPage() {
                 />
                 <Button type="submit" className="w-full" disabled={loading}>
                   {loading && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
-                  Login
+                  {t.auth.login}
                 </Button>
               </form>
             </Form>
@@ -293,7 +295,7 @@ export default function HubAuthPage() {
                   name="branchName"
                   render={({ field }) => (
                     <FormItem>
-                      <FormLabel>Branch Name</FormLabel>
+                      <FormLabel>{t.auth.branchNameLabel}</FormLabel>
                       <FormControl>
                         <Input type="text" placeholder="Central Hub" {...field} />
                       </FormControl>
@@ -306,7 +308,7 @@ export default function HubAuthPage() {
                   name="branchId"
                   render={({ field }) => (
                     <FormItem>
-                      <FormLabel>Branch ID</FormLabel>
+                      <FormLabel>{t.auth.branchIdLabel}</FormLabel>
                       <FormControl>
                         <Input type="text" placeholder="HUB-123" {...field} />
                       </FormControl>
@@ -319,7 +321,7 @@ export default function HubAuthPage() {
                   name="email"
                   render={({ field }) => (
                     <FormItem>
-                      <FormLabel>Hub Admin Email</FormLabel>
+                      <FormLabel>{t.auth.hubAdminEmailLabel}</FormLabel>
                       <FormControl>
                         <Input type="email" placeholder="hub-admin@example.com" {...field} />
                       </FormControl>
@@ -332,7 +334,7 @@ export default function HubAuthPage() {
                   name="password"
                   render={({ field }) => (
                     <FormItem>
-                      <FormLabel>Password</FormLabel>
+                      <FormLabel>{t.auth.passwordLabel}</FormLabel>
                       <FormControl>
                         <Input type="password" {...field} />
                       </FormControl>
@@ -345,7 +347,7 @@ export default function HubAuthPage() {
                   name="confirmPassword"
                   render={({ field }) => (
                     <FormItem>
-                      <FormLabel>Confirm Password</FormLabel>
+                      <FormLabel>{t.auth.confirmPasswordLabel}</FormLabel>
                       <FormControl>
                         <Input type="password" {...field} />
                       </FormControl>
@@ -355,7 +357,7 @@ export default function HubAuthPage() {
                 />
                 <Button type="submit" className="w-full" disabled={loading}>
                   {loading && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
-                  Register Hub
+                  {t.auth.registerHub}
                 </Button>
               </form>
             </Form>

@@ -38,6 +38,7 @@ import {
   DialogTrigger,
   DialogClose,
 } from "@/components/ui/dialog";
+import { useLanguage } from "@/context/language-context";
 
 const loginSchema = z.object({
   restaurantId: z.string().min(1, { message: "Restaurant ID is required." }),
@@ -66,6 +67,7 @@ export default function RestaurantAuthPage() {
   const router = useRouter();
   const [activeTab, setActiveTab] = useState("login");
   const [isForgotPassDialogOpen, setIsForgotPassDialogOpen] = useState(false);
+  const { t } = useLanguage();
 
   const loginForm = useForm<z.infer<typeof loginSchema>>({
     resolver: zodResolver(loginSchema),
@@ -190,16 +192,16 @@ export default function RestaurantAuthPage() {
   return (
     <Card className="w-full max-w-md bg-card/60 backdrop-blur-lg border-2 border-white/20 shadow-lg">
       <CardHeader className="text-center">
-        <CardTitle>Restaurant Portal</CardTitle>
+        <CardTitle>{t.auth.restaurantPortal}</CardTitle>
         <CardDescription>
-          Access your account or register your restaurant.
+          {t.auth.restaurantDesc}
         </CardDescription>
       </CardHeader>
       <CardContent>
         <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full">
           <TabsList className="grid w-full grid-cols-2">
-            <TabsTrigger value="login">Login</TabsTrigger>
-            <TabsTrigger value="register">Register</TabsTrigger>
+            <TabsTrigger value="login">{t.auth.login}</TabsTrigger>
+            <TabsTrigger value="register">{t.auth.register}</TabsTrigger>
           </TabsList>
           <TabsContent value="login">
             <Form {...loginForm}>
@@ -209,9 +211,9 @@ export default function RestaurantAuthPage() {
                   name="restaurantId"
                   render={({ field }) => (
                     <FormItem>
-                      <FormLabel>Restaurant ID</FormLabel>
+                      <FormLabel>{t.auth.restaurantIdLabel}</FormLabel>
                       <FormControl>
-                        <Input placeholder="Your unique Restaurant ID" {...field} />
+                        <Input placeholder={t.auth.restaurantIdPlaceholder} {...field} />
                       </FormControl>
                       <FormMessage />
                     </FormItem>
@@ -223,18 +225,18 @@ export default function RestaurantAuthPage() {
                   render={({ field }) => (
                     <FormItem>
                       <div className="flex justify-between items-center">
-                        <FormLabel>Password</FormLabel>
+                        <FormLabel>{t.auth.passwordLabel}</FormLabel>
                         <Dialog open={isForgotPassDialogOpen} onOpenChange={setIsForgotPassDialogOpen}>
                            <DialogTrigger asChild>
                             <Button variant="link" size="sm" type="button" className="p-0 h-auto text-xs">
-                              Forgot Password?
+                              {t.auth.forgotPassword}
                             </Button>
                           </DialogTrigger>
                           <DialogContent>
                             <DialogHeader>
-                              <DialogTitle>Forgot Password</DialogTitle>
+                              <DialogTitle>{t.auth.forgotPasswordTitle}</DialogTitle>
                               <DialogDescription>
-                                Enter your Restaurant ID or email to receive a password reset link.
+                                {t.auth.forgotPasswordRestaurantDesc}
                               </DialogDescription>
                             </DialogHeader>
                             <Form {...forgotPasswordForm}>
@@ -244,9 +246,9 @@ export default function RestaurantAuthPage() {
                                   name="identifier"
                                   render={({ field }) => (
                                     <FormItem>
-                                      <FormLabel>Restaurant ID or Email</FormLabel>
+                                      <FormLabel>{t.auth.restaurantIdOrEmailLabel}</FormLabel>
                                       <FormControl>
-                                        <Input placeholder="ID or email" {...field} />
+                                        <Input placeholder={t.auth.restaurantIdOrEmailPlaceholder} {...field} />
                                       </FormControl>
                                       <FormMessage />
                                     </FormItem>
@@ -255,12 +257,12 @@ export default function RestaurantAuthPage() {
                                 <DialogFooter>
                                   <DialogClose asChild>
                                     <Button type="button" variant="secondary" disabled={loading}>
-                                      Cancel
+                                      {t.auth.cancel}
                                     </Button>
                                   </DialogClose>
                                   <Button type="submit" disabled={loading}>
                                     {loading && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
-                                    Send Reset Link
+                                    {t.auth.sendResetLink}
                                   </Button>
                                 </DialogFooter>
                               </form>
@@ -277,7 +279,7 @@ export default function RestaurantAuthPage() {
                 />
                 <Button type="submit" className="w-full" disabled={loading}>
                   {loading && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
-                  Login
+                  {t.auth.login}
                 </Button>
               </form>
             </Form>
@@ -290,7 +292,7 @@ export default function RestaurantAuthPage() {
                   name="restaurantName"
                   render={({ field }) => (
                     <FormItem>
-                      <FormLabel>Restaurant Name</FormLabel>
+                      <FormLabel>{t.auth.restaurantNameLabel}</FormLabel>
                       <FormControl>
                         <Input type="text" placeholder="The Fresh Table" {...field} />
                       </FormControl>
@@ -303,7 +305,7 @@ export default function RestaurantAuthPage() {
                   name="email"
                   render={({ field }) => (
                     <FormItem>
-                      <FormLabel>Restaurant Email</FormLabel>
+                      <FormLabel>{t.auth.restaurantEmailLabel}</FormLabel>
                       <FormControl>
                         <Input type="email" placeholder="contact@thefreshtable.com" {...field} />
                       </FormControl>
@@ -316,7 +318,7 @@ export default function RestaurantAuthPage() {
                   name="phone"
                   render={({ field }) => (
                     <FormItem>
-                      <FormLabel>Restaurant Phone</FormLabel>
+                      <FormLabel>{t.auth.restaurantPhoneLabel}</FormLabel>
                       <FormControl>
                         <Input type="tel" placeholder="123-456-7890" {...field} />
                       </FormControl>
@@ -329,7 +331,7 @@ export default function RestaurantAuthPage() {
                   name="location"
                   render={({ field }) => (
                     <FormItem>
-                      <FormLabel>Location</FormLabel>
+                      <FormLabel>{t.auth.locationLabel}</FormLabel>
                       <FormControl>
                         <Input type="text" placeholder="City, State" {...field} />
                       </FormControl>
@@ -342,7 +344,7 @@ export default function RestaurantAuthPage() {
                   name="password"
                   render={({ field }) => (
                     <FormItem>
-                      <FormLabel>Password</FormLabel>
+                      <FormLabel>{t.auth.passwordLabel}</FormLabel>
                       <FormControl>
                         <Input type="password" {...field} />
                       </FormControl>
@@ -355,7 +357,7 @@ export default function RestaurantAuthPage() {
                   name="confirmPassword"
                   render={({ field }) => (
                     <FormItem>
-                      <FormLabel>Confirm Password</FormLabel>
+                      <FormLabel>{t.auth.confirmPasswordLabel}</FormLabel>
                       <FormControl>
                         <Input type="password" {...field} />
                       </FormControl>
@@ -365,7 +367,7 @@ export default function RestaurantAuthPage() {
                 />
                 <Button type="submit" className="w-full" disabled={loading}>
                   {loading && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
-                  Register Restaurant
+                  {t.auth.registerRestaurant}
                 </Button>
               </form>
             </Form>

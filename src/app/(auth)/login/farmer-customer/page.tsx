@@ -41,6 +41,7 @@ import {
 } from "@/components/ui/dialog";
 import { Alert, AlertTitle, AlertDescription } from "@/components/ui/alert";
 import Image from "next/image";
+import { useLanguage } from "@/context/language-context";
 
 const loginSchema = z.object({
   email: z.string().email({ message: "Invalid email address." }),
@@ -82,6 +83,7 @@ function RegisterForm({
     loading: boolean;
     form: any;
 }) {
+    const { t } = useLanguage();
     const userType = useWatch({
         control: form.control,
         name: "userType",
@@ -160,16 +162,16 @@ function RegisterForm({
                 name="userType"
                 render={({ field }) => (
                     <FormItem className="space-y-3">
-                    <FormLabel>I am a...</FormLabel>
+                    <FormLabel>{t.auth.iamA}</FormLabel>
                     <FormControl>
                         <RadioGroup onValueChange={field.onChange} defaultValue={field.value} className="flex space-x-4">
                         <FormItem className="flex items-center space-x-2 space-y-0">
                             <FormControl><RadioGroupItem value="customer" /></FormControl>
-                            <FormLabel className="font-normal">Customer</FormLabel>
+                            <FormLabel className="font-normal">{t.auth.customer}</FormLabel>
                         </FormItem>
                         <FormItem className="flex items-center space-x-2 space-y-0">
                             <FormControl><RadioGroupItem value="farmer" /></FormControl>
-                            <FormLabel className="font-normal">Farmer</FormLabel>
+                            <FormLabel className="font-normal">{t.auth.farmer}</FormLabel>
                         </FormItem>
                         </RadioGroup>
                     </FormControl>
@@ -183,12 +185,12 @@ function RegisterForm({
                         name="photoDataUri"
                         render={({ field }) => (
                             <FormItem>
-                                <FormLabel>Face Registration</FormLabel>
+                                <FormLabel>{t.auth.faceReg}</FormLabel>
                                 <Card className="p-4 bg-muted/50 border-dashed border-2">
                                        <CardContent className="p-0">
                                             {!facePhoto ? (
                                                 <div className="space-y-2">
-                                                        <p className="text-sm text-muted-foreground text-center">Center your face in the camera and click capture.</p>
+                                                        <p className="text-sm text-muted-foreground text-center">{t.auth.faceRegDesc}</p>
                                                     <div className="relative aspect-video w-full overflow-hidden rounded-lg border bg-background">
                                                         <video ref={videoRef} className="w-full h-full object-cover" autoPlay muted playsInline />
                                                         {hasCameraPermission === false && (
@@ -200,17 +202,17 @@ function RegisterForm({
                                                         )}
                                                     </div>
                                                     <Button type="button" onClick={handleCaptureFace} disabled={!isCameraActive || hasCameraPermission === false} className="w-full">
-                                                        <Camera className="mr-2 h-4 w-4"/> Capture Photo
+                                                        <Camera className="mr-2 h-4 w-4"/> {t.auth.capturePhoto}
                                                     </Button>
                                                 </div>
                                             ) : (
                                                 <div className="space-y-4">
-                                                    <div className="text-sm font-medium text-green-600 flex items-center justify-center"><UserCheck className="mr-2 h-4 w-4"/> Photo captured successfully!</div>
+                                                    <div className="text-sm font-medium text-green-600 flex items-center justify-center"><UserCheck className="mr-2 h-4 w-4"/> {t.auth.photoCaptured}</div>
                                                     <div className="relative aspect-video w-full overflow-hidden rounded-lg border">
                                                         <Image src={facePhoto} alt="Captured face" layout="fill" objectFit="cover" />
                                                     </div>
                                                     <Button type="button" variant="outline" onClick={handleRetake} className="w-full">
-                                                        <RefreshCw className="mr-2 h-4 w-4"/> Retake Photo
+                                                        <RefreshCw className="mr-2 h-4 w-4"/> {t.auth.retakePhoto}
                                                     </Button>
                                                 </div>
                                             )}
@@ -226,7 +228,7 @@ function RegisterForm({
                 name="username"
                 render={({ field }) => (
                     <FormItem>
-                    <FormLabel>Username</FormLabel>
+                    <FormLabel>{t.auth.usernameLabel}</FormLabel>
                     <FormControl><Input type="text" placeholder="John Doe" {...field} /></FormControl>
                     <FormMessage />
                     </FormItem>
@@ -237,7 +239,7 @@ function RegisterForm({
                 name="email"
                 render={({ field }) => (
                     <FormItem>
-                    <FormLabel>Email</FormLabel>
+                    <FormLabel>{t.auth.emailLabel}</FormLabel>
                     <FormControl><Input type="email" placeholder="m@example.com" {...field} /></FormControl>
                     <FormMessage />
                     </FormItem>
@@ -248,7 +250,7 @@ function RegisterForm({
                 name="phone"
                 render={({ field }) => (
                     <FormItem>
-                    <FormLabel>Phone Number</FormLabel>
+                    <FormLabel>{t.auth.phoneLabel}</FormLabel>
                     <FormControl><Input type="tel" placeholder="123-456-7890" {...field} /></FormControl>
                     <FormMessage />
                     </FormItem>
@@ -259,7 +261,7 @@ function RegisterForm({
                 name="password"
                 render={({ field }) => (
                     <FormItem>
-                    <FormLabel>Password</FormLabel>
+                    <FormLabel>{t.auth.passwordLabel}</FormLabel>
                     <FormControl><Input type="password" {...field} /></FormControl>
                     <FormMessage />
                     </FormItem>
@@ -270,7 +272,7 @@ function RegisterForm({
                 name="confirmPassword"
                 render={({ field }) => (
                     <FormItem>
-                    <FormLabel>Confirm Password</FormLabel>
+                    <FormLabel>{t.auth.confirmPasswordLabel}</FormLabel>
                     <FormControl><Input type="password" {...field} /></FormControl>
                     <FormMessage />
                     </FormItem>
@@ -278,7 +280,7 @@ function RegisterForm({
                 />
                 <Button type="submit" className="w-full" disabled={loading}>
                 {loading && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
-                Create Account
+                {t.auth.createAccount}
                 </Button>
             </form>
         </Form>
@@ -295,6 +297,7 @@ export default function FarmerCustomerAuthPage() {
   const [isForgotPassDialogOpen, setIsForgotPassDialogOpen] = useState(false);
   const videoRef = useRef<HTMLVideoElement>(null);
   const [hasCameraPermission, setHasCameraPermission] = useState<boolean | null>(null);
+  const { t } = useLanguage();
 
 
   useEffect(() => {
@@ -499,20 +502,20 @@ export default function FarmerCustomerAuthPage() {
   return (
     <Card className="w-full max-w-md bg-card/60 backdrop-blur-lg border-2 border-white/20 shadow-lg">
       <CardHeader className="text-center">
-        <CardTitle>Welcome to Manvaasam</CardTitle>
-        <CardDescription>Sign in or create an account to get started.</CardDescription>
+        <CardTitle>{t.auth.welcome}</CardTitle>
+        <CardDescription>{t.auth.getStarted}</CardDescription>
       </CardHeader>
       <CardContent>
         <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full">
           <TabsList className="grid w-full grid-cols-2">
-            <TabsTrigger value="login">Login</TabsTrigger>
-            <TabsTrigger value="register">Register</TabsTrigger>
+            <TabsTrigger value="login">{t.auth.login}</TabsTrigger>
+            <TabsTrigger value="register">{t.auth.register}</TabsTrigger>
           </TabsList>
           <TabsContent value="login">
             <Tabs value={authMode} onValueChange={setAuthMode} className="w-full">
               <TabsList className="grid w-full grid-cols-2">
-                <TabsTrigger value="email">Email & Password</TabsTrigger>
-                <TabsTrigger value="face">Farmer Face Sign-In</TabsTrigger>
+                <TabsTrigger value="email">{t.auth.emailPassword}</TabsTrigger>
+                <TabsTrigger value="face">{t.auth.farmerFaceSignIn}</TabsTrigger>
               </TabsList>
               <TabsContent value="email" className="pt-4">
                 <Form {...loginForm}>
@@ -522,7 +525,7 @@ export default function FarmerCustomerAuthPage() {
                       name="email"
                       render={({ field }) => (
                         <FormItem>
-                          <FormLabel>Email</FormLabel>
+                          <FormLabel>{t.auth.emailLabel}</FormLabel>
                           <FormControl>
                             <Input type="email" placeholder="m@example.com" {...field} />
                           </FormControl>
@@ -536,15 +539,15 @@ export default function FarmerCustomerAuthPage() {
                       render={({ field }) => (
                         <FormItem>
                           <div className="flex justify-between items-center">
-                            <FormLabel>Password</FormLabel>
+                            <FormLabel>{t.auth.passwordLabel}</FormLabel>
                             <Dialog open={isForgotPassDialogOpen} onOpenChange={setIsForgotPassDialogOpen}>
                               <DialogTrigger asChild>
-                                <Button variant="link" size="sm" type="button" className="p-0 h-auto text-xs" onClick={handleForgotPasswordOpen}>Forgot Password?</Button>
+                                <Button variant="link" size="sm" type="button" className="p-0 h-auto text-xs" onClick={handleForgotPasswordOpen}>{t.auth.forgotPassword}</Button>
                               </DialogTrigger>
                               <DialogContent>
                                 <DialogHeader>
-                                  <DialogTitle>Forgot Password</DialogTitle>
-                                  <DialogDescription>Enter your email and we'll send a reset link.</DialogDescription>
+                                  <DialogTitle>{t.auth.forgotPasswordTitle}</DialogTitle>
+                                  <DialogDescription>{t.auth.forgotPasswordDesc}</DialogDescription>
                                 </DialogHeader>
                                 <Form {...forgotPasswordForm}>
                                   <form onSubmit={forgotPasswordForm.handleSubmit(onForgotPassword)} className="space-y-4">
@@ -553,17 +556,17 @@ export default function FarmerCustomerAuthPage() {
                                       name="email"
                                       render={({ field }) => (
                                         <FormItem>
-                                          <FormLabel>Email</FormLabel>
+                                          <FormLabel>{t.auth.emailLabel}</FormLabel>
                                           <FormControl><Input type="email" placeholder="m@example.com" {...field} /></FormControl>
                                           <FormMessage />
                                         </FormItem>
                                       )}
                                     />
                                     <DialogFooter>
-                                      <DialogClose asChild><Button type="button" variant="secondary" disabled={loading}>Cancel</Button></DialogClose>
+                                      <DialogClose asChild><Button type="button" variant="secondary" disabled={loading}>{t.auth.cancel}</Button></DialogClose>
                                       <Button type="submit" disabled={loading}>
                                         {loading && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
-                                        Send Reset Link
+                                        {t.auth.sendResetLink}
                                       </Button>
                                     </DialogFooter>
                                   </form>
@@ -578,7 +581,7 @@ export default function FarmerCustomerAuthPage() {
                     />
                     <Button type="submit" className="w-full" disabled={loading}>
                       {loading && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
-                      Login
+                      {t.auth.login}
                     </Button>
                   </form>
                 </Form>
@@ -596,7 +599,7 @@ export default function FarmerCustomerAuthPage() {
                 </div>
                 <Button onClick={handleFaceLogin} className="w-full" disabled={loading || hasCameraPermission !== true}>
                   {loading && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
-                  Sign In
+                  {t.auth.signIn}
                 </Button>
               </TabsContent>
             </Tabs>
