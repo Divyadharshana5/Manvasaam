@@ -39,6 +39,7 @@ import { useToast } from "@/hooks/use-toast";
 import { Loader2, ShoppingCart, Star } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { useAuth } from "@/hooks/use-auth";
+import { useLanguage } from "@/context/language-context";
 
 
 const orderFormSchema = z.object({
@@ -58,6 +59,7 @@ export default function ProductsPage() {
     const { toast } = useToast();
     const router = useRouter();
     const { user } = useAuth();
+    const { t } = useLanguage();
     
     const form = useForm<z.infer<typeof orderFormSchema>>({
         resolver: zodResolver(orderFormSchema),
@@ -94,8 +96,8 @@ export default function ProductsPage() {
 
 
             toast({
-                title: "Order Placed!",
-                description: "Your order has been successfully submitted.",
+                title: t.products.orderSuccessTitle,
+                description: t.products.orderSuccessDescription,
             });
             
             setIsOrderDialogOpen(false);
@@ -104,8 +106,8 @@ export default function ProductsPage() {
         } catch (error: any) {
             toast({
                 variant: "destructive",
-                title: "Order Failed",
-                description: error.message || "Something went wrong.",
+                title: t.products.orderFailTitle,
+                description: error.message || t.products.orderFailDescription,
             });
         } finally {
             setIsSubmitting(false);
@@ -118,9 +120,9 @@ export default function ProductsPage() {
       <div className="flex-1 space-y-4 p-4 md:p-8 pt-6">
         <div className="flex items-center justify-between space-y-2">
           <div>
-            <h2 className="text-3xl font-bold tracking-tight">Products</h2>
+            <h2 className="text-3xl font-bold tracking-tight">{t.products.title}</h2>
             <p className="text-muted-foreground">
-              Browse and purchase fresh produce directly from our farmers.
+              {t.products.description}
             </p>
           </div>
         </div>
@@ -138,7 +140,7 @@ export default function ProductsPage() {
                     </div>
                 </CardHeader>
                 <CardContent className="p-4">
-                    <CardTitle>Fresh Carrots</CardTitle>
+                    <CardTitle>{t.products.freshCarrots}</CardTitle>
                      <div className="flex items-center gap-1 mt-2">
                         <Star className="w-5 h-5 text-yellow-400 fill-yellow-400" />
                         <Star className="w-5 h-5 text-yellow-400 fill-yellow-400" />
@@ -147,43 +149,43 @@ export default function ProductsPage() {
                         <Star className="w-5 h-5 text-muted-foreground" />
                         <span className="text-sm text-muted-foreground ml-1">(4.0)</span>
                     </div>
-                    <p className="text-lg font-semibold text-primary mt-2">1kg - Rs.20</p>
+                    <p className="text-lg font-semibold text-primary mt-2">{t.products.kgPrice}</p>
                 </CardContent>
                 <CardFooter className="p-4 pt-0">
                    <Dialog open={isOrderDialogOpen} onOpenChange={setIsOrderDialogOpen}>
                      <div className="flex w-full gap-2">
                         <DialogTrigger asChild>
                         <Button className="w-full" variant="outline">
-                            <ShoppingCart className="mr-2 h-4 w-4" /> Add to Cart
+                            <ShoppingCart className="mr-2 h-4 w-4" /> {t.products.addToCart}
                         </Button>
                         </DialogTrigger>
                         <DialogTrigger asChild>
                            <Button className="w-full">
-                                Buy Now
+                                {t.products.buyNow}
                            </Button>
                         </DialogTrigger>
                      </div>
                      <DialogContent className="sm:max-w-lg">
                        <DialogHeader>
-                         <DialogTitle>Place Your Order</DialogTitle>
+                         <DialogTitle>{t.products.dialogTitle}</DialogTitle>
                          <DialogDescription>
-                           Please fill in your details to complete the purchase.
+                           {t.products.dialogDescription}
                          </DialogDescription>
                        </DialogHeader>
                        <Form {...form}>
                          <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
                            <FormField control={form.control} name="name" render={({ field }) => (
                                <FormItem>
-                                 <FormLabel>Name</FormLabel>
-                                 <FormControl><Input placeholder="Your full name" {...field} /></FormControl>
+                                 <FormLabel>{t.products.nameLabel}</FormLabel>
+                                 <FormControl><Input placeholder={t.products.namePlaceholder} {...field} /></FormControl>
                                  <FormMessage />
                                </FormItem>
                              )}
                            />
                            <FormField control={form.control} name="email" render={({ field }) => (
                                <FormItem>
-                                 <FormLabel>Email ID</FormLabel>
-                                 <FormControl><Input type="email" placeholder="you@example.com" {...field} /></FormControl>
+                                 <FormLabel>{t.products.emailLabel}</FormLabel>
+                                 <FormControl><Input type="email" placeholder={t.products.emailPlaceholder} {...field} /></FormControl>
                                  <FormMessage />
                                </FormItem>
                              )}
@@ -191,16 +193,16 @@ export default function ProductsPage() {
                            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                                 <FormField control={form.control} name="mobile" render={({ field }) => (
                                     <FormItem>
-                                        <FormLabel>Mobile Number</FormLabel>
-                                        <FormControl><Input type="tel" placeholder="123-456-7890" {...field} /></FormControl>
+                                        <FormLabel>{t.products.mobileLabel}</FormLabel>
+                                        <FormControl><Input type="tel" placeholder={t.products.mobilePlaceholder} {...field} /></FormControl>
                                         <FormMessage />
                                     </FormItem>
                                     )}
                                 />
                                 <FormField control={form.control} name="whatsapp" render={({ field }) => (
                                     <FormItem>
-                                        <FormLabel>WhatsApp Number</FormLabel>
-                                        <FormControl><Input type="tel" placeholder="123-456-7890" {...field} /></FormControl>
+                                        <FormLabel>{t.products.whatsappLabel}</FormLabel>
+                                        <FormControl><Input type="tel" placeholder={t.products.whatsappPlaceholder} {...field} /></FormControl>
                                         <FormMessage />
                                     </FormItem>
                                     )}
@@ -208,8 +210,8 @@ export default function ProductsPage() {
                            </div>
                            <FormField control={form.control} name="address" render={({ field }) => (
                                <FormItem>
-                                 <FormLabel>Address</FormLabel>
-                                 <FormControl><Input placeholder="123 Main St, City" {...field} /></FormControl>
+                                 <FormLabel>{t.products.addressLabel}</FormLabel>
+                                 <FormControl><Input placeholder={t.products.addressPlaceholder} {...field} /></FormControl>
                                  <FormMessage />
                                </FormItem>
                              )}
@@ -217,24 +219,24 @@ export default function ProductsPage() {
                            <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
                              <FormField control={form.control} name="country" render={({ field }) => (
                                  <FormItem>
-                                   <FormLabel>Country</FormLabel>
-                                   <FormControl><Input placeholder="e.g. India" {...field} /></FormControl>
+                                   <FormLabel>{t.products.countryLabel}</FormLabel>
+                                   <FormControl><Input placeholder={t.products.countryPlaceholder} {...field} /></FormControl>
                                    <FormMessage />
                                  </FormItem>
                                )}
                              />
                              <FormField control={form.control} name="state" render={({ field }) => (
                                  <FormItem>
-                                   <FormLabel>State</FormLabel>
-                                   <FormControl><Input placeholder="e.g. Maharashtra" {...field} /></FormControl>
+                                   <FormLabel>{t.products.stateLabel}</FormLabel>
+                                   <FormControl><Input placeholder={t.products.statePlaceholder} {...field} /></FormControl>
                                    <FormMessage />
                                  </FormItem>
                                )}
                              />
                              <FormField control={form.control} name="district" render={({ field }) => (
                                  <FormItem>
-                                   <FormLabel>District</FormLabel>
-                                   <FormControl><Input placeholder="e.g. Pune" {...field} /></FormControl>
+                                   <FormLabel>{t.products.districtLabel}</FormLabel>
+                                   <FormControl><Input placeholder={t.products.districtPlaceholder} {...field} /></FormControl>
                                    <FormMessage />
                                  </FormItem>
                                )}
@@ -243,12 +245,12 @@ export default function ProductsPage() {
                            <DialogFooter>
                              <DialogClose asChild>
                                <Button type="button" variant="secondary" disabled={isSubmitting}>
-                                 Cancel
+                                 {t.products.cancel}
                                </Button>
                              </DialogClose>
                              <Button type="submit" disabled={isSubmitting}>
                                {isSubmitting && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
-                               Place Order
+                               {t.products.placeOrder}
                              </Button>
                            </DialogFooter>
                          </form>

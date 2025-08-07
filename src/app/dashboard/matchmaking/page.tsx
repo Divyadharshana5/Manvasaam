@@ -1,3 +1,4 @@
+
 "use client";
 
 import { useState } from "react";
@@ -37,6 +38,7 @@ import {
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { useToast } from "@/hooks/use-toast";
+import { useLanguage } from "@/context/language-context";
 
 
 const farmers = [
@@ -78,6 +80,7 @@ const inquirySchema = z.object({
 function ContactFarmerForm({ farmerName, onClose }: { farmerName: string; onClose: () => void }) {
   const [isSending, setIsSending] = useState(false);
   const { toast } = useToast();
+  const { t } = useLanguage();
   
   const form = useForm<z.infer<typeof inquirySchema>>({
     resolver: zodResolver(inquirySchema),
@@ -93,8 +96,8 @@ function ContactFarmerForm({ farmerName, onClose }: { farmerName: string; onClos
     await new Promise(resolve => setTimeout(resolve, 1500));
     
     toast({
-      title: "Inquiry Sent!",
-      description: `Your message has been successfully sent to ${farmerName}.`,
+      title: t.matchmaking.inquirySuccessTitle,
+      description: t.matchmaking.inquirySuccessDescription.replace('{farmerName}', farmerName),
     });
     
     setIsSending(false);
@@ -109,9 +112,9 @@ function ContactFarmerForm({ farmerName, onClose }: { farmerName: string; onClos
           name="subject"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>Subject</FormLabel>
+              <FormLabel>{t.matchmaking.subjectLabel}</FormLabel>
               <FormControl>
-                <Input placeholder="e.g., Inquiry about fresh tomatoes" {...field} />
+                <Input placeholder={t.matchmaking.subjectPlaceholder} {...field} />
               </FormControl>
               <FormMessage />
             </FormItem>
@@ -122,9 +125,9 @@ function ContactFarmerForm({ farmerName, onClose }: { farmerName: string; onClos
           name="message"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>Message</FormLabel>
+              <FormLabel>{t.matchmaking.messageLabel}</FormLabel>
               <FormControl>
-                <Textarea rows={6} placeholder={`Hi ${farmerName}, I'm interested in...`} {...field} />
+                <Textarea rows={6} placeholder={t.matchmaking.messagePlaceholder.replace('{farmerName}', farmerName)} {...field} />
               </FormControl>
               <FormMessage />
             </FormItem>
@@ -132,11 +135,11 @@ function ContactFarmerForm({ farmerName, onClose }: { farmerName: string; onClos
         />
         <DialogFooter>
           <DialogClose asChild>
-            <Button type="button" variant="secondary" disabled={isSending}>Cancel</Button>
+            <Button type="button" variant="secondary" disabled={isSending}>{t.matchmaking.cancel}</Button>
           </DialogClose>
           <Button type="submit" disabled={isSending}>
             {isSending ? <Loader2 className="mr-2 h-4 w-4 animate-spin" /> : <Send className="mr-2 h-4 w-4" />}
-            Send Inquiry
+            {t.matchmaking.send}
           </Button>
         </DialogFooter>
       </form>
@@ -147,15 +150,16 @@ function ContactFarmerForm({ farmerName, onClose }: { farmerName: string; onClos
 
 export default function MatchmakingPage() {
   const [isDialogOpen, setIsDialogOpen] = useState(false);
+  const { t } = useLanguage();
 
   return (
     <AppLayout>
       <div className="flex-1 space-y-4 p-4 md:p-8 pt-6">
         <div className="flex items-center justify-between space-y-2">
           <div>
-            <h2 className="text-3xl font-bold tracking-tight">Farmer Matchmaking</h2>
+            <h2 className="text-3xl font-bold tracking-tight">{t.matchmaking.title}</h2>
             <p className="text-muted-foreground">
-              Connect directly with farmers to source the freshest ingredients.
+              {t.matchmaking.description}
             </p>
           </div>
         </div>
@@ -176,7 +180,7 @@ export default function MatchmakingPage() {
                         </div>
                     </CardHeader>
                     <CardContent className="flex-grow">
-                        <h4 className="font-semibold mb-2 flex items-center gap-2"><Leaf className="h-4 w-4 text-primary"/> Specializes in:</h4>
+                        <h4 className="font-semibold mb-2 flex items-center gap-2"><Leaf className="h-4 w-4 text-primary"/> {t.matchmaking.specializesIn}</h4>
                         <div className="flex flex-wrap gap-2">
                             {farmer.specialties.map(specialty => (
                                 <span key={specialty} className="bg-muted px-2 py-1 text-xs rounded-full text-muted-foreground">{specialty}</span>
@@ -187,16 +191,16 @@ export default function MatchmakingPage() {
                         <DialogTrigger asChild>
                              <Button className="w-full">
                                 <MessageSquare className="mr-2 h-4 w-4" />
-                                Send Inquiry
+                                {t.matchmaking.sendInquiry}
                             </Button>
                         </DialogTrigger>
                     </CardFooter>
                 </Card>
                  <DialogContent>
                     <DialogHeader>
-                      <DialogTitle>Contact {farmer.name}</DialogTitle>
+                      <DialogTitle>{t.matchmaking.dialogTitle} {farmer.name}</DialogTitle>
                       <DialogDescription>
-                        Send a message directly to inquire about their produce.
+                        {t.matchmaking.dialogDescription}
                       </DialogDescription>
                     </DialogHeader>
                     <ContactFarmerForm farmerName={farmer.name} onClose={() => setIsDialogOpen(false)} />

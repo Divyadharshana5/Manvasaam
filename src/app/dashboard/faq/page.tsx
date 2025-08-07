@@ -15,6 +15,7 @@ import {
   CardContent,
   CardDescription,
 } from "@/components/ui/card";
+import { useLanguage } from "@/context/language-context";
 
 
 const faqItems = [
@@ -41,23 +42,24 @@ const faqItems = [
 ]
 
 export default function FaqPage() {
+  const { t } = useLanguage();
   return (
     <AppLayout>
       <div className="flex-1 space-y-4 p-4 md:p-8 pt-6">
         <div className="flex items-center justify-between space-y-2">
           <div>
             <h2 className="text-3xl font-bold tracking-tight">
-              Frequently Asked Questions
+              {t.faq.title}
             </h2>
             <p className="text-muted-foreground">
-              Here are some answers to common questions.
+              {t.faq.description}
             </p>
           </div>
         </div>
         <Card>
             <CardHeader>
-                <CardTitle>Common Questions</CardTitle>
-                <CardDescription>Find answers to the most frequently asked questions below.</CardDescription>
+                <CardTitle>{t.faq.cardTitle}</CardTitle>
+                <CardDescription>{t.faq.cardDescription}</CardDescription>
             </CardHeader>
             <CardContent>
                 <Accordion type="single" collapsible className="w-full">

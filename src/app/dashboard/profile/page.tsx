@@ -43,6 +43,7 @@ import { storage } from "@/lib/firebase";
 import { ref, uploadBytesResumable, getDownloadURL } from "firebase/storage";
 import { updateProfile } from "firebase/auth";
 import { Progress } from "@/components/ui/progress";
+import { useLanguage } from "@/context/language-context";
 
 
 interface UserProfile {
@@ -74,6 +75,7 @@ export default function ProfilePage() {
   const { toast } = useToast();
   const [uploadProgress, setUploadProgress] = useState<number | null>(null);
   const [imagePreview, setImagePreview] = useState<string | null>(null);
+  const { t } = useLanguage();
 
   const form = useForm<z.infer<typeof profileFormSchema>>({
     resolver: zodResolver(profileFormSchema),
@@ -97,8 +99,8 @@ export default function ProfilePage() {
         console.error(error);
         toast({
           variant: "destructive",
-          title: "Error",
-          description: "Could not load user profile.",
+          title: t.profile.updateErrorTitle,
+          description: t.profile.loadError,
         });
       } finally {
         setProfileLoading(false);
@@ -194,8 +196,8 @@ export default function ProfilePage() {
         }
 
         toast({
-            title: "Success",
-            description: "Your profile has been updated successfully.",
+            title: t.profile.updateSuccessTitle,
+            description: t.profile.updateSuccessDescription,
         });
         
         await user.reload(); 
@@ -205,7 +207,7 @@ export default function ProfilePage() {
     } catch (error: any) {
       toast({
         variant: "destructive",
-        title: "Update Failed",
+        title: t.profile.updateErrorTitle,
         description: error.message,
       });
     } finally {
@@ -217,13 +219,13 @@ export default function ProfilePage() {
   const loading = authLoading || profileLoading;
 
   const renderProfileDetails = () => {
-    if (!userProfile) return <p>No profile data found.</p>;
+    if (!userProfile) return <p>{t.profile.noProfileData}</p>;
 
     const details = [
-      { label: "Email", value: userProfile.email, icon: Mail },
-      { label: "Phone", value: userProfile.phone, icon: Phone },
-      { label: userProfile.userType === 'hub' ? "Branch ID" : "User Type", value: userProfile.userType === 'hub' ? userProfile.branchId : userProfile.userType, icon: Building },
-      { label: "Member Since", value: userProfile.createdAt ? new Date(userProfile.createdAt).toLocaleDateString() : 'N/A', icon: Calendar },
+      { label: t.profile.emailLabel, value: userProfile.email, icon: Mail },
+      { label: t.profile.phoneLabel, value: userProfile.phone, icon: Phone },
+      { label: userProfile.userType === 'hub' ? t.profile.branchIdLabel : t.profile.userTypeLabel, value: userProfile.userType === 'hub' ? userProfile.branchId : userProfile.userType, icon: Building },
+      { label: t.profile.memberSinceLabel, value: userProfile.createdAt ? new Date(userProfile.createdAt).toLocaleDateString() : 'N/A', icon: Calendar },
     ];
 
     return (
@@ -246,9 +248,9 @@ export default function ProfilePage() {
       <div className="flex-1 space-y-4 p-4 md:p-8 pt-6">
         <div className="flex items-center justify-between space-y-2">
           <div>
-            <h2 className="text-3xl font-bold tracking-tight">My Profile</h2>
+            <h2 className="text-3xl font-bold tracking-tight">{t.profile.title}</h2>
             <p className="text-muted-foreground">
-              View and manage your account details.
+              {t.profile.description}
             </p>
           </div>
         </div>
@@ -256,18 +258,18 @@ export default function ProfilePage() {
         <Card className="shadow-lg border-2 border-primary/10">
           <CardHeader className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
             <div>
-                <CardTitle>User Information</CardTitle>
-                <CardDescription>Your personal and account details.</CardDescription>
+                <CardTitle>{t.profile.cardTitle}</CardTitle>
+                <CardDescription>{t.profile.cardDescription}</CardDescription>
             </div>
             <Dialog open={isEditDialogOpen} onOpenChange={setIsEditDialogOpen}>
                 <DialogTrigger asChild>
-                    <Button variant="outline">Edit Profile</Button>
+                    <Button variant="outline">{t.profile.editProfile}</Button>
                 </DialogTrigger>
                 <DialogContent>
                     <DialogHeader>
-                        <DialogTitle>Edit Profile</DialogTitle>
+                        <DialogTitle>{t.profile.editDialogTitle}</DialogTitle>
                         <DialogDescription>
-                            Make changes to your profile here. Click save when you're done.
+                            {t.profile.editDialogDescription}
                         </DialogDescription>
                     </DialogHeader>
                     <Form {...form}>
@@ -277,7 +279,7 @@ export default function ProfilePage() {
                                 name="photo"
                                 render={({ field }) => (
                                 <FormItem>
-                                    <FormLabel>Profile Picture</FormLabel>
+                                    <FormLabel>{t.profile.profilePicture}</FormLabel>
                                     <div className="flex items-center gap-4">
                                         <Avatar className="h-20 w-20">
                                             <AvatarImage src={imagePreview || undefined} />
@@ -298,7 +300,7 @@ export default function ProfilePage() {
                                     name="branchName"
                                     render={({ field }) => (
                                         <FormItem>
-                                            <FormLabel>Branch Name</FormLabel>
+                                            <FormLabel>{t.profile.branchName}</FormLabel>
                                             <FormControl>
                                                 <Input placeholder="Central Hub" {...field} />
                                             </FormControl>
@@ -312,7 +314,7 @@ export default function ProfilePage() {
                                     name="username"
                                     render={({ field }) => (
                                         <FormItem>
-                                            <FormLabel>Username</FormLabel>
+                                            <FormLabel>{t.profile.username}</FormLabel>
                                             <FormControl>
                                                 <Input placeholder="John Doe" {...field} />
                                             </FormControl>
@@ -326,7 +328,7 @@ export default function ProfilePage() {
                                 name="email"
                                 render={({ field }) => (
                                     <FormItem>
-                                        <FormLabel>Email</FormLabel>
+                                        <FormLabel>{t.profile.email}</FormLabel>
                                         <FormControl>
                                             <Input type="email" placeholder="m@example.com" {...field} />
                                         </FormControl>
@@ -339,7 +341,7 @@ export default function ProfilePage() {
                                 name="phone"
                                 render={({ field }) => (
                                     <FormItem>
-                                        <FormLabel>Phone Number</FormLabel>
+                                        <FormLabel>{t.profile.phone}</FormLabel>
                                         <FormControl>
                                             <Input type="tel" placeholder="123-456-7890" {...field} />
                                         </FormControl>
@@ -352,11 +354,11 @@ export default function ProfilePage() {
                             )}
                             <DialogFooter>
                                 <DialogClose asChild>
-                                    <Button type="button" variant="secondary">Cancel</Button>
+                                    <Button type="button" variant="secondary">{t.profile.cancel}</Button>
                                 </DialogClose>
                                 <Button type="submit" disabled={isUpdating}>
                                     {isUpdating && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
-                                    Save Changes
+                                    {t.profile.saveChanges}
                                 </Button>
                             </DialogFooter>
                         </form>
@@ -400,7 +402,7 @@ export default function ProfilePage() {
                 </div>
               </div>
             ) : (
-              <p>Could not load user profile.</p>
+              <p>{t.profile.loadError}</p>
             )}
           </CardContent>
         </Card>

@@ -1,3 +1,4 @@
+
 "use client";
 
 import { AppLayout } from "@/components/app-layout";
@@ -9,6 +10,7 @@ import { Skeleton } from "@/components/ui/skeleton";
 import { DollarSign, Package, Users, Activity } from "lucide-react";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
+import { useLanguage } from "@/context/language-context";
 
 interface UserProfile {
   username?: string;
@@ -21,6 +23,7 @@ export default function DashboardPage() {
   const router = useRouter();
   const [userProfile, setUserProfile] = useState<UserProfile | null>(null);
   const [profileLoading, setProfileLoading] = useState(true);
+  const { t } = useLanguage();
 
   useEffect(() => {
     if (!loading && !user) {
@@ -60,11 +63,11 @@ export default function DashboardPage() {
         <div className="flex items-center justify-between space-y-2">
           <div>
             <h2 className="text-3xl font-bold tracking-tight">
-              {isLoading ? "Loading..." : "Dashboard"}
+              {isLoading ? t.dashboard.loading : t.dashboard.title}
             </h2>
             {!isLoading && (
               <p className="text-muted-foreground">
-                Welcome back, {displayName}!
+                {t.dashboard.welcome}, {displayName}!
               </p>
             )}
           </div>
@@ -82,54 +85,54 @@ export default function DashboardPage() {
             <Card>
               <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
                 <CardTitle className="text-sm font-medium">
-                  Total Revenue
+                  {t.dashboard.totalRevenue}
                 </CardTitle>
                 <DollarSign className="h-4 w-4 text-muted-foreground" />
               </CardHeader>
               <CardContent>
                 <div className="text-2xl font-bold">$45,231.89</div>
                 <p className="text-xs text-muted-foreground">
-                  +20.1% from last month
+                  +20.1% {t.dashboard.fromLastMonth}
                 </p>
               </CardContent>
             </Card>
             <Card>
               <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
                 <CardTitle className="text-sm font-medium">
-                  New Customers
+                  {t.dashboard.newCustomers}
                 </CardTitle>
                 <Users className="h-4 w-4 text-muted-foreground" />
               </CardHeader>
               <CardContent>
                 <div className="text-2xl font-bold">+2350</div>
                 <p className="text-xs text-muted-foreground">
-                  +180.1% from last month
+                  +180.1% {t.dashboard.fromLastMonth}
                 </p>
               </CardContent>
             </Card>
             <Card>
               <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-                <CardTitle className="text-sm font-medium">Products Sold</CardTitle>
+                <CardTitle className="text-sm font-medium">{t.dashboard.productsSold}</CardTitle>
                 <Package className="h-4 w-4 text-muted-foreground" />
               </CardHeader>
               <CardContent>
                 <div className="text-2xl font-bold">+12,234</div>
                 <p className="text-xs text-muted-foreground">
-                  +19% from last month
+                  +19% {t.dashboard.fromLastMonth}
                 </p>
               </CardContent>
             </Card>
             <Card>
               <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
                 <CardTitle className="text-sm font-medium">
-                  Your Profile
+                  {t.dashboard.yourProfile}
                 </CardTitle>
                 <Activity className="h-4 w-4 text-muted-foreground" />
               </CardHeader>
               <CardContent>
                 <div className="text-xl font-bold capitalize">{userProfile?.userType}</div>
                 <Link href="/dashboard/profile">
-                  <Button variant="link" className="p-0 text-xs text-muted-foreground">View your profile</Button>
+                  <Button variant="link" className="p-0 text-xs text-muted-foreground">{t.dashboard.viewProfile}</Button>
                 </Link>
               </CardContent>
             </Card>

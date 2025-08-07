@@ -32,6 +32,7 @@ import {
 import { MapPin, PackageCheck, CalendarClock, Truck, LocateFixed } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
+import { useLanguage } from "@/context/language-context";
 
 
 interface ShippingDetails {
@@ -92,6 +93,7 @@ export default function OrdersPage() {
   const [searchTerm, setSearchTerm] = useState("");
   const [selectedOrder, setSelectedOrder] = useState<Order | null>(null);
   const [isDialogOpen, setIsDialogOpen] = useState(false);
+  const { t } = useLanguage();
 
   useEffect(() => {
     async function fetchOrders() {
@@ -151,23 +153,23 @@ export default function OrdersPage() {
       <div className="flex-1 space-y-4 p-4 md:p-8 pt-6">
         <div className="flex items-center justify-between space-y-2">
           <div>
-            <h2 className="text-3xl font-bold tracking-tight">Orders</h2>
+            <h2 className="text-3xl font-bold tracking-tight">{t.orders.title}</h2>
             <p className="text-muted-foreground">
-              Here's a list of all the recent orders.
+              {t.orders.description}
             </p>
           </div>
         </div>
         <Card className="shadow-lg border-2 border-primary/10">
           <CardHeader className="flex flex-col md:flex-row justify-between items-center gap-2">
             <div className="flex-1">
-              <CardTitle>All Orders</CardTitle>
+              <CardTitle>{t.orders.cardTitle}</CardTitle>
               <CardDescription>
-                Review and manage all customer orders. Click on an order to view details.
+                {t.orders.cardDescription}
               </CardDescription>
             </div>
             <div className="w-full md:w-auto">
               <Input
-                placeholder="Search by order ID or customer name..."
+                placeholder={t.orders.searchPlaceholder}
                 value={searchTerm}
                 onChange={(e) => setSearchTerm(e.target.value)}
                 className="max-w-sm"
@@ -186,12 +188,12 @@ export default function OrdersPage() {
                 <Table>
                     <TableHeader>
                     <TableRow>
-                        <TableHead>Order ID</TableHead>
-                        <TableHead>Customer</TableHead>
-                        <TableHead>Status</TableHead>
-                        <TableHead>Date</TableHead>
-                        <TableHead className="text-right">Total</TableHead>
-                        <TableHead className="text-center">Actions</TableHead>
+                        <TableHead>{t.orders.orderId}</TableHead>
+                        <TableHead>{t.orders.customer}</TableHead>
+                        <TableHead>{t.orders.status}</TableHead>
+                        <TableHead>{t.orders.date}</TableHead>
+                        <TableHead className="text-right">{t.orders.total}</TableHead>
+                        <TableHead className="text-center">{t.orders.actions}</TableHead>
                     </TableRow>
                     </TableHeader>
                     <TableBody>
@@ -221,7 +223,7 @@ export default function OrdersPage() {
                                 <Button asChild variant="outline" size="sm">
                                     <Link href={`/dashboard/track?orderId=${order.id}`}>
                                         <LocateFixed className="mr-2 h-4 w-4" />
-                                        Track Live
+                                        {t.orders.trackLive}
                                     </Link>
                                 </Button>
                             )}
@@ -239,9 +241,9 @@ export default function OrdersPage() {
        <Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
             <DialogContent className="sm:max-w-md">
                 <DialogHeader>
-                    <DialogTitle>Order Tracking: {selectedOrder?.id}</DialogTitle>
+                    <DialogTitle>{t.orders.dialogTitle}: {selectedOrder?.id}</DialogTitle>
                     <DialogDescription>
-                        Live shipping and delivery updates for your order.
+                        {t.orders.dialogDescription}
                     </DialogDescription>
                 </DialogHeader>
                 {shippingInfo ? (
@@ -249,27 +251,27 @@ export default function OrdersPage() {
                         <div className="flex items-center gap-4">
                             <MapPin className="h-6 w-6 text-primary" />
                             <div>
-                                <p className="text-sm text-muted-foreground">Current Location</p>
+                                <p className="text-sm text-muted-foreground">{t.orders.currentLocation}</p>
                                 <p className="font-semibold">{shippingInfo.currentLocation}</p>
                             </div>
                         </div>
                         <div className="flex items-center gap-4">
                             <PackageCheck className="h-6 w-6 text-primary" />
                             <div>
-                                <p className="text-sm text-muted-foreground">Reached Your State</p>
+                                <p className="text-sm text-muted-foreground">{t.orders.reachedState}</p>
                                 <p className="font-semibold">{shippingInfo.hasReachedState ? 'Yes' : 'Not Yet'}</p>
                             </div>
                         </div>
                          <div className="flex items-center gap-4">
                             <CalendarClock className="h-6 w-6 text-primary" />
                             <div>
-                                <p className="text-sm text-muted-foreground">Estimated Delivery</p>
+                                <p className="text-sm text-muted-foreground">{t.orders.estimatedDelivery}</p>
                                 <p className="font-semibold">{new Date(shippingInfo.estimatedDelivery).toDateString()}</p>
                             </div>
                         </div>
                         
                         <div className="space-y-4">
-                             <h4 className="font-semibold">Shipment History</h4>
+                             <h4 className="font-semibold">{t.orders.shipmentHistory}</h4>
                              <div className="relative pl-6">
                                 <div className="absolute left-[11px] top-1 h-full w-0.5 bg-border"></div>
                                 {shippingInfo.path.map((stop, index) => (
@@ -287,7 +289,7 @@ export default function OrdersPage() {
                         </div>
                     </div>
                 ) : (
-                    <p className="py-4">No shipping details available for this order yet.</p>
+                    <p className="py-4">{t.orders.noDetails}</p>
                 )}
             </DialogContent>
         </Dialog>
