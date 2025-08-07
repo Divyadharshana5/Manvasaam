@@ -116,7 +116,7 @@ export default function VoiceAssistantPage() {
         <CardTitle>Voice Assistant</CardTitle>
         <CardDescription>
           Convert speech to text and text back to speech.
-        </p>
+        </CardDescription>
       </CardHeader>
       <CardContent>
         <div className="grid gap-6 md:grid-cols-2">
@@ -163,7 +163,7 @@ export default function VoiceAssistantPage() {
                 <CardHeader>
                     <CardTitle>Text-to-Speech</CardTitle>
                     <CardDescription>Enter text to generate and play back audio.</CardDescription>
-                </CardHeader>
+                </Header>
                 <CardContent className="space-y-4">
                     <Textarea
                         placeholder="Type your message here..."

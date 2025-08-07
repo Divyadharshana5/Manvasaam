@@ -44,7 +44,8 @@ const authPages = [
   "/",
   "/login/farmer-customer",
   "/login/hub",
-  "/login/restaurant"
+  "/login/restaurant",
+  "/voice-assistant",
 ];
 
 export function AppLayout({ children }: { children: React.ReactNode }) {
