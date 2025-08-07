@@ -1,5 +1,6 @@
 "use client";
 
+import { useState } from "react";
 import { AppLayout } from "@/components/app-layout";
 import {
   Card,
@@ -7,31 +8,202 @@ import {
   CardTitle,
   CardContent,
   CardDescription,
+  CardFooter,
 } from "@/components/ui/card";
+import { Button } from "@/components/ui/button";
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import { MapPin, Leaf, MessageSquare, Send, Loader2 } from "lucide-react";
+import {
+  Dialog,
+  DialogContent,
+  DialogHeader,
+  DialogTitle,
+  DialogDescription,
+  DialogFooter,
+  DialogClose,
+  DialogTrigger,
+} from "@/components/ui/dialog";
+import { useForm } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
+import * as z from "zod";
+import {
+  Form,
+  FormControl,
+  FormField,
+  FormItem,
+  FormLabel,
+  FormMessage,
+} from "@/components/ui/form";
+import { Input } from "@/components/ui/input";
+import { Textarea } from "@/components/ui/textarea";
+import { useToast } from "@/hooks/use-toast";
+
+
+const farmers = [
+  {
+    name: "Rajesh Kumar",
+    location: "Pune, Maharashtra",
+    specialties: ["Tomatoes", "Onions", "Leafy Greens"],
+    avatar: "https://placehold.co/100x100.png",
+    dataAiHint: "indian farmer",
+  },
+  {
+    name: "Anjali Devi",
+    location: "Mysuru, Karnataka",
+    specialties: ["Mangoes", "Coconuts", "Spices"],
+    avatar: "https://placehold.co/100x100.png",
+    dataAiHint: "indian farmer woman",
+  },
+  {
+    name: "Sandeep Singh",
+    location: "Ludhiana, Punjab",
+    specialties: ["Wheat", "Potatoes", "Carrots"],
+    avatar: "https://placehold.co/100x100.png",
+    dataAiHint: "punjabi farmer",
+  },
+   {
+    name: "Priya Patel",
+    location: "Anand, Gujarat",
+    specialties: ["Organic Milk", "Okra", "Chilies"],
+    avatar: "https://placehold.co/100x100.png",
+    dataAiHint: "gujarati woman",
+  }
+];
+
+const inquirySchema = z.object({
+  subject: z.string().min(5, "Subject must be at least 5 characters."),
+  message: z.string().min(10, "Message must be at least 10 characters."),
+});
+
+function ContactFarmerForm({ farmerName, onClose }: { farmerName: string; onClose: () => void }) {
+  const [isSending, setIsSending] = useState(false);
+  const { toast } = useToast();
+  
+  const form = useForm<z.infer<typeof inquirySchema>>({
+    resolver: zodResolver(inquirySchema),
+    defaultValues: {
+      subject: "",
+      message: "",
+    },
+  });
+
+  async function onSubmit(values: z.infer<typeof inquirySchema>) {
+    setIsSending(true);
+    // Simulate API call
+    await new Promise(resolve => setTimeout(resolve, 1500));
+    
+    toast({
+      title: "Inquiry Sent!",
+      description: `Your message has been successfully sent to ${farmerName}.`,
+    });
+    
+    setIsSending(false);
+    onClose();
+  }
+
+  return (
+    <Form {...form}>
+      <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
+        <FormField
+          control={form.control}
+          name="subject"
+          render={({ field }) => (
+            <FormItem>
+              <FormLabel>Subject</FormLabel>
+              <FormControl>
+                <Input placeholder="e.g., Inquiry about fresh tomatoes" {...field} />
+              </FormControl>
+              <FormMessage />
+            </FormItem>
+          )}
+        />
+        <FormField
+          control={form.control}
+          name="message"
+          render={({ field }) => (
+            <FormItem>
+              <FormLabel>Message</FormLabel>
+              <FormControl>
+                <Textarea rows={6} placeholder={`Hi ${farmerName}, I'm interested in...`} {...field} />
+              </FormControl>
+              <FormMessage />
+            </FormItem>
+          )}
+        />
+        <DialogFooter>
+          <DialogClose asChild>
+            <Button type="button" variant="secondary" disabled={isSending}>Cancel</Button>
+          </DialogClose>
+          <Button type="submit" disabled={isSending}>
+            {isSending ? <Loader2 className="mr-2 h-4 w-4 animate-spin" /> : <Send className="mr-2 h-4 w-4" />}
+            Send Inquiry
+          </Button>
+        </DialogFooter>
+      </form>
+    </Form>
+  );
+}
+
 
 export default function MatchmakingPage() {
+  const [isDialogOpen, setIsDialogOpen] = useState(false);
+
   return (
     <AppLayout>
       <div className="flex-1 space-y-4 p-4 md:p-8 pt-6">
         <div className="flex items-center justify-between space-y-2">
           <div>
-            <h2 className="text-3xl font-bold tracking-tight">Matchmaking</h2>
+            <h2 className="text-3xl font-bold tracking-tight">Farmer Matchmaking</h2>
             <p className="text-muted-foreground">
-              Intelligent crop matching between farmers and buyers.
+              Connect directly with farmers to source the freshest ingredients.
             </p>
           </div>
         </div>
-        <Card>
-          <CardHeader>
-            <CardTitle>Coming Soon</CardTitle>
-            <CardDescription>
-              Our intelligent matchmaking tool is under construction. Check back soon!
-            </CardDescription>
-          </CardHeader>
-          <CardContent>
-            <p>We are building an advanced system to connect farmers and buyers based on crop availability, location, and pricing to provide intelligent recommendations.</p>
-          </CardContent>
-        </Card>
+        <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+            {farmers.map((farmer, index) => (
+              <Dialog key={index} onOpenChange={setIsDialogOpen}>
+                <Card className="flex flex-col">
+                    <CardHeader className="flex flex-row items-center gap-4">
+                        <Avatar className="h-16 w-16 border">
+                            <AvatarImage src={farmer.avatar} data-ai-hint={farmer.dataAiHint} />
+                            <AvatarFallback>{farmer.name.charAt(0)}</AvatarFallback>
+                        </Avatar>
+                        <div>
+                            <CardTitle>{farmer.name}</CardTitle>
+                            <CardDescription className="flex items-center gap-1 mt-1">
+                                <MapPin className="h-4 w-4" /> {farmer.location}
+                            </CardDescription>
+                        </div>
+                    </CardHeader>
+                    <CardContent className="flex-grow">
+                        <h4 className="font-semibold mb-2 flex items-center gap-2"><Leaf className="h-4 w-4 text-primary"/> Specializes in:</h4>
+                        <div className="flex flex-wrap gap-2">
+                            {farmer.specialties.map(specialty => (
+                                <span key={specialty} className="bg-muted px-2 py-1 text-xs rounded-full text-muted-foreground">{specialty}</span>
+                            ))}
+                        </div>
+                    </CardContent>
+                    <CardFooter>
+                        <DialogTrigger asChild>
+                             <Button className="w-full">
+                                <MessageSquare className="mr-2 h-4 w-4" />
+                                Send Inquiry
+                            </Button>
+                        </DialogTrigger>
+                    </CardFooter>
+                </Card>
+                 <DialogContent>
+                    <DialogHeader>
+                      <DialogTitle>Contact {farmer.name}</DialogTitle>
+                      <DialogDescription>
+                        Send a message directly to inquire about their produce.
+                      </DialogDescription>
+                    </DialogHeader>
+                    <ContactFarmerForm farmerName={farmer.name} onClose={() => setIsDialogOpen(false)} />
+                  </DialogContent>
+              </Dialog>
+            ))}
+        </div>
       </div>
     </AppLayout>
   );
