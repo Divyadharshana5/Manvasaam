@@ -460,10 +460,12 @@ export const LanguageProvider = ({ children }: { children: ReactNode }) => {
 
   const handleSetLanguage = (language: Language) => {
     setSelectedLanguage(language);
-    localStorage.setItem('manvaasam-language', language);
+    if (typeof window !== 'undefined') {
+      localStorage.setItem('manvaasam-language', language);
+    }
   };
   
-  const t = translations[selectedLanguage];
+  const t = translations[selectedLanguage] || translations['English'];
 
   return (
     <LanguageContext.Provider value={{ selectedLanguage, setSelectedLanguage: handleSetLanguage, t }}>
