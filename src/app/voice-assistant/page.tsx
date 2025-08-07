@@ -1,4 +1,3 @@
-
 "use client";
 
 import { useState, useRef } from "react";
@@ -10,6 +9,7 @@ import { textToSpeech } from "@/ai/flows/tts-flow";
 import { useToast } from "@/hooks/use-toast";
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 import { Textarea } from "@/components/ui/textarea";
+import { useLanguage } from "@/context/language-context";
 
 type RecordingStatus = "idle" | "recording" | "stopped";
 
@@ -28,6 +28,7 @@ export default function VoiceAssistantPage() {
   const audioRef = useRef<HTMLAudioElement | null>(null);
 
   const { toast } = useToast();
+  const { selectedLanguage } = useLanguage();
 
   const handleStartRecording = async () => {
     setTranscribedText("");
@@ -42,13 +43,13 @@ export default function VoiceAssistantPage() {
 
       mediaRecorderRef.current.onstop = async () => {
         setSttLoading(true);
-        const audioBlob = new Blob(audioChunksRef.current, { type: "audio/webm" });
+        const audioBlob = new Blob(audioChunksRef.current, { type: "audio/wav" });
         const reader = new FileReader();
         reader.readAsDataURL(audioBlob);
         reader.onloadend = async () => {
           const base64Audio = reader.result as string;
           try {
-            const result = await speechToText({ audioDataUri: base64Audio });
+            const result = await speechToText({ audioDataUri: base64Audio, language: selectedLanguage });
             setTranscribedText(result.transcript);
             setInputText(result.transcript); // auto-fill TTS input
           } catch (error: any) {
@@ -120,7 +121,7 @@ export default function VoiceAssistantPage() {
       </CardHeader>
       <CardContent>
         <div className="grid gap-6 md:grid-cols-2">
-            <Card className="bg-transparent border-0 shadow-none">
+            <Card className="bg-transparent border-0 shadow-none p-0">
                 <CardHeader>
                     <CardTitle>Speech-to-Text</CardTitle>
                     <CardDescription>Record your voice and see the transcription below.</CardDescription>
@@ -159,11 +160,11 @@ export default function VoiceAssistantPage() {
                 </CardContent>
             </Card>
 
-            <Card className="bg-transparent border-0 shadow-none">
+            <Card className="bg-transparent border-0 shadow-none p-0">
                 <CardHeader>
                     <CardTitle>Text-to-Speech</CardTitle>
                     <CardDescription>Enter text to generate and play back audio.</CardDescription>
-                </Header>
+                </CardHeader>
                 <CardContent className="space-y-4">
                     <Textarea
                         placeholder="Type your message here..."

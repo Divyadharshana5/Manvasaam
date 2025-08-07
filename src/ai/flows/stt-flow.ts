@@ -1,3 +1,4 @@
+
 'use server';
 /**
  * @fileOverview A speech-to-text AI flow.
@@ -16,6 +17,7 @@ export const SpeechToTextInputSchema = z.object({
     .describe(
       "A recording, as a data URI that must include a MIME type and use Base64 encoding. Expected format: 'data:<mimetype>;base64,<encoded_data>'."
     ),
+  language: z.string().optional().describe("The language of the audio recording (e.g., 'English', 'Tamil')."),
 });
 export type SpeechToTextInput = z.infer<typeof SpeechToTextInputSchema>;
 
@@ -31,12 +33,17 @@ const speechToTextFlow = ai.defineFlow(
     inputSchema: SpeechToTextInputSchema,
     outputSchema: SpeechToTextOutputSchema,
   },
-  async ({ audioDataUri }) => {
+  async ({ audioDataUri, language }) => {
+    
+    const promptText = language 
+      ? `Transcribe the audio, which is in ${language}. Respond only with the transcribed text.`
+      : "Transcribe the audio. Respond only with the transcribed text.";
+
     const { text } = await ai.generate({
       model: 'gemini-1.5-flash-latest',
       prompt: [
         { media: { url: audioDataUri } },
-        { text: "Transcribe the audio. Respond only with the transcribed text." },
+        { text: promptText },
       ],
       config: {
         temperature: 0.1, // Lower temperature for more deterministic transcription
