@@ -82,15 +82,16 @@ export const sendRegistrationNotification = async (userData: any, restaurantId?:
 
   // Send Restaurant ID to the newly registered restaurant
   if (userData.userType === 'restaurant' && restaurantId) {
-    const subject = "Welcome to Manvaasam! Here is your Restaurant ID";
+    const subject = "Welcome! Here is Your Restaurant Registration ID";
     const html = `
-        <h1>Registration Successful!</h1>
-        <p>Thank you for registering your restaurant with Manvaasam.</p>
-        <p>Your unique <strong>Restaurant ID</strong> is: <strong>${restaurantId}</strong></p>
-        <p>Please use this ID and your password to log in to the Restaurant Portal.</p>
-        <br>
-        <p>Thanks,</p>
-        <p>The Manvaasam Team</p>
+      <p>Dear ${userData.restaurantName},</p>
+      <p>Thank you for registering your restaurant with us!</p>
+      <p>Your unique Restaurant ID is: <strong>${restaurantId}</strong></p>
+      <p>Please keep this ID for your records. You will need it for future logins and support.</p>
+      <p>If you have any questions, reply to this email or contact our team.</p>
+      <br>
+      <p>Best regards,</p>
+      <p>The Manvaasam Team</p>
     `;
 
     await sendEmail({ to: userData.email, subject, html });
