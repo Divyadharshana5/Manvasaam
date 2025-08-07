@@ -10,7 +10,7 @@ import {
 } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { ManvaasamLogo } from "@/components/icons";
-import { ArrowRight, Languages, Users, Building, Tractor, Utensils } from "lucide-react";
+import { ArrowRight, Languages, Users, Building, Tractor, Utensils, Mic } from "lucide-react";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -56,22 +56,29 @@ export default function HomePage() {
           <ManvaasamLogo width={32} height={32} />
           <span className="text-xl font-bold text-primary">Manvaasam</span>
         </Link>
-        <div className="flex-1" />
-        <DropdownMenu>
-          <DropdownMenuTrigger asChild>
-            <Button variant="outline">
-              <Languages className="mr-2 h-4 w-4" />
-              {selectedLanguage}
+        <div className="flex items-center gap-4">
+            <Button asChild variant="ghost">
+                <Link href="/voice-assistant">
+                    <Mic className="mr-2 h-4 w-4" />
+                    {t.sidebar.voiceAssistant}
+                </Link>
             </Button>
-          </DropdownMenuTrigger>
-          <DropdownMenuContent>
-            {languages.map((lang) => (
-              <DropdownMenuItem key={lang} onSelect={() => setSelectedLanguage(lang as keyof typeof translations)}>
-                {lang}
-              </DropdownMenuItem>
-            ))}
-          </DropdownMenuContent>
-        </DropdownMenu>
+            <DropdownMenu>
+            <DropdownMenuTrigger asChild>
+                <Button variant="outline">
+                <Languages className="mr-2 h-4 w-4" />
+                {selectedLanguage}
+                </Button>
+            </DropdownMenuTrigger>
+            <DropdownMenuContent>
+                {languages.map((lang) => (
+                <DropdownMenuItem key={lang} onSelect={() => setSelectedLanguage(lang as keyof typeof translations)}>
+                    {lang}
+                </DropdownMenuItem>
+                ))}
+            </DropdownMenuContent>
+            </DropdownMenu>
+        </div>
       </header>
 
       <main className="flex-1 flex flex-col items-center justify-center pt-24 px-4 relative z-10">
@@ -84,7 +91,7 @@ export default function HomePage() {
             {userRoles.map((role) => (
               <Card
                 key={role.name}
- className="bg-white/10 backdrop-blur-xl border border-white/30 rounded-2xl shadow-lg hover:shadow-2xl transition-all duration-300 p-6"
+                className="bg-white/10 backdrop-blur-xl border border-white/30 rounded-2xl shadow-lg hover:shadow-2xl transition-all duration-300 p-6"
               >
                 <CardHeader className="items-center">
                   {role.icon}
