@@ -40,19 +40,6 @@ import { useToast } from "@/hooks/use-toast";
 import { useLanguage } from "@/context/language-context";
 
 
-const menuItems = [
-  { href: "/dashboard", label: "Dashboard", icon: LayoutDashboard },
-  { href: "/dashboard/profile", label: "Profile", icon: UserIcon },
-  { href: "/dashboard/orders", label: "Orders", icon: ShoppingCart },
-  { href: "/dashboard/products", label: "Products", icon: Package },
-  { href: "/dashboard/track", label: "Track Order", icon: Map },
-  { href: "/dashboard/matchmaking", label: "Matchmaking", icon: HeartHandshake },
-  { href: "/dashboard/voice-assistant", label: "Voice Assistant", icon: Mic },
-  { href: "/dashboard/marketing", label: "Marketing", icon: Megaphone },
-  { href: "/dashboard/faq", label: "FAQ", icon: HelpCircle },
-  // Add other dashboard items here
-];
-
 const authPages = [
   "/",
   "/login/farmer-customer",
@@ -67,14 +54,26 @@ export function AppLayout({ children }: { children: React.ReactNode }) {
   const { toast } = useToast();
   const { t } = useLanguage();
   const isAuthPage = authPages.includes(pathname);
+  
+  const menuItems = [
+    { href: "/dashboard", label: t.sidebar.dashboard, icon: LayoutDashboard },
+    { href: "/dashboard/profile", label: t.sidebar.profile, icon: UserIcon },
+    { href: "/dashboard/orders", label: t.sidebar.orders, icon: ShoppingCart },
+    { href: "/dashboard/products", label: t.sidebar.products, icon: Package },
+    { href: "/dashboard/track", label: t.sidebar.track, icon: Map },
+    { href: "/dashboard/matchmaking", label: t.sidebar.matchmaking, icon: HeartHandshake },
+    { href: "/dashboard/voice-assistant", label: t.sidebar.voiceAssistant, icon: Mic },
+    { href: "/dashboard/marketing", label: t.sidebar.marketing, icon: Megaphone },
+    { href: "/dashboard/faq", label: t.sidebar.faq, icon: HelpCircle },
+  ];
 
   const handleSignOut = async () => {
     try {
       await signOut(auth);
-      toast({ title: "Signed Out", description: "You have been successfully signed out." });
+      toast({ title: t.signOut.title, description: t.signOut.description });
       router.push("/");
     } catch (error: any) {
-      toast({ variant: "destructive", title: "Sign Out Failed", description: error.message });
+      toast({ variant: "destructive", title: t.signOut.errorTitle, description: error.message });
     }
   };
 
@@ -84,10 +83,8 @@ export function AppLayout({ children }: { children: React.ReactNode }) {
   }
   
   const getPageTitle = () => {
-    if (pathname.startsWith('/dashboard/track')) {
-      return "Track Order";
-    }
-    return menuItems.find((item) => pathname.startsWith(item.href))?.label || "Dashboard"
+    const currentItem = menuItems.find((item) => pathname.startsWith(item.href));
+    return currentItem ? currentItem.label : t.sidebar.dashboard;
   }
 
   return (
@@ -133,7 +130,7 @@ export function AppLayout({ children }: { children: React.ReactNode }) {
               <Button className="w-full" onClick={handleSignOut}>
                 <LogOut />
                 <span className="group-data-[collapsible=icon]:hidden">
-                  Sign Out
+                  {t.signOut.button}
                 </span>
               </Button>
             </div>
