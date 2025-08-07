@@ -25,11 +25,10 @@ export async function POST(request: Request) {
         return NextResponse.json({ message: "User account is not properly configured." }, { status: 500 });
     }
     
-    // In a real app, you would verify the password here against a stored hash.
-    // Firebase Admin SDK doesn't support password verification directly.
-    // For this demo, we'll proceed to create a custom token if the user exists,
-    // which simulates a successful credential check.
-
+    // This API route is no longer responsible for password verification.
+    // The client will handle sign-in with email and password, and then request
+    // a custom token. This route is now only for getting the UID for a custom token.
+    
     // 2. Create a custom token for the found user
     const customToken = await adminAuth.createCustomToken(uid);
 

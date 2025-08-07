@@ -25,7 +25,7 @@ import { Input } from "@/components/ui/input";
 import { useToast } from "@/hooks/use-toast";
 import { Loader2 } from "lucide-react";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { signInWithCustomToken } from "firebase/auth";
+import { signInWithEmailAndPassword, signInWithCustomToken } from "firebase/auth";
 import { useRouter } from "next/navigation";
 import { auth } from "@/lib/firebase";
 import {
@@ -94,25 +94,37 @@ export default function RestaurantAuthPage() {
   async function onLogin(values: z.infer<typeof loginSchema>) {
     setLoading(true);
     try {
-      // The client cannot directly sign in with restaurantId.
-      // The backend must find the user's email from the restaurantId,
-      // and then the client can sign in with the email and password.
-      // This is not ideal. A better flow is to have the backend do the lookup
-      // and return a custom token.
-      
-      const response = await fetch('/api/restaurant-login', {
+      // 1. Get email from restaurant ID
+      const emailRes = await fetch('/api/get-email-by-id', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(values),
+        body: JSON.stringify({ restaurantId: values.restaurantId }),
       });
 
-      if (!response.ok) {
-        const errorData = await response.json();
-        throw new Error(errorData.message || 'Login failed.');
+      if (!emailRes.ok) {
+        throw new Error("Invalid Restaurant ID or password.");
       }
+      const { email } = await emailRes.json();
 
-      const { token } = await response.json();
+      // 2. Sign in with email and password
+      const userCredential = await signInWithEmailAndPassword(auth, email, values.password);
+      const user = userCredential.user;
+
+      // 3. Get custom token for server session
+      const tokenRes = await fetch('/api/login', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ uid: user.uid }),
+      });
+      
+      if (!tokenRes.ok) {
+          throw new Error("Could not verify login on server.");
+      }
+      const { token } = await tokenRes.json();
+
+      // 4. Sign in with custom token
       await signInWithCustomToken(auth, token);
+
 
       toast({ title: "Login Successful", description: "Welcome back, Restaurant Manager!" });
       router.push("/dashboard");
