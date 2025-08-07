@@ -37,6 +37,8 @@ import { auth } from "@/lib/firebase";
 import { signOut } from "firebase/auth";
 import { useRouter } from "next/navigation";
 import { useToast } from "@/hooks/use-toast";
+import { useLanguage } from "@/context/language-context";
+
 
 const menuItems = [
   { href: "/dashboard", label: "Dashboard", icon: LayoutDashboard },
@@ -54,7 +56,8 @@ const menuItems = [
 const authPages = [
   "/",
   "/login/farmer-customer",
-  "/login/hub"
+  "/login/hub",
+  "/login/restaurant"
 ];
 
 export function AppLayout({ children }: { children: React.ReactNode }) {
@@ -62,6 +65,7 @@ export function AppLayout({ children }: { children: React.ReactNode }) {
   const { user, loading } = useAuth();
   const router = useRouter();
   const { toast } = useToast();
+  const { t } = useLanguage();
   const isAuthPage = authPages.includes(pathname);
 
   const handleSignOut = async () => {

@@ -1,7 +1,9 @@
+
 import type { Metadata } from "next";
 import "./globals.css";
 import { AuthProvider } from "@/hooks/use-auth";
 import { Toaster } from "@/components/ui/toaster";
+import { LanguageProvider } from "@/context/language-context";
 
 export const metadata: Metadata = {
   title: "Manvaasam",
@@ -34,7 +36,9 @@ export default function RootLayout({
         />
       </head>
       <body className="font-body antialiased">
-        <AuthProvider>{children}</AuthProvider>
+        <LanguageProvider>
+          <AuthProvider>{children}</AuthProvider>
+        </LanguageProvider>
         <Toaster />
       </body>
     </html>
