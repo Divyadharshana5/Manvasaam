@@ -11,7 +11,7 @@ import {
 } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { ManvaasamLogo } from "@/components/icons";
-import { ArrowRight, Languages, Users, Building, Tractor } from "lucide-react";
+import { ArrowRight, Languages, Users, Building, Tractor, Utensils } from "lucide-react";
 import Image from "next/image";
 import { useState, useEffect, useRef } from "react";
 import {
@@ -38,6 +38,10 @@ const translations = {
         name: "Hub",
         description: "Manage logistics and connect farmers to customers.",
       },
+      restaurant: {
+        name: "Restaurant",
+        description: "Source fresh ingredients directly from local farms.",
+      },
     },
     continue: "Continue",
     ourMission: "Our Mission",
@@ -59,6 +63,10 @@ const translations = {
       hub: {
         name: "மையம்",
         description: "விநியோகத்தை நிர்வகித்து விவசாயிகளை வாடிக்கையாளர்களுடன் இணைக்கவும்.",
+      },
+      restaurant: {
+        name: "உணவகம்",
+        description: "உள்ளூர் பண்ணைகளிலிருந்து நேரடியாக புதிய பொருட்களைப் பெறுங்கள்.",
       },
     },
     continue: "தொடரவும்",
@@ -82,6 +90,10 @@ const translations = {
         name: "ഹബ്",
         description: "ലോജിസ്റ്റിക്സ് നിയന്ത്രിക്കുക, കർഷകരെ ഉപഭോക്താക്കളുമായി ബന്ധിപ്പിക്കുക.",
       },
+       restaurant: {
+        name: "റെസ്റ്റോറന്റ്",
+        description: "പ്രാദേശിക ഫാമുകളിൽ നിന്ന് നേരിട്ട് പുതിയ ചേരുവകൾ നേടുക.",
+      },
     },
     continue: "തുടരുക",
     ourMission: "ഞങ്ങളുടെ ദൗത്യം",
@@ -103,6 +115,10 @@ const translations = {
       hub: {
         name: "హబ్",
         description: "లాజిస్టిక్స్ నిర్వహించండి మరియు రైతులను వినియోగదారులతో కనెక్ట్ చేయండి.",
+      },
+       restaurant: {
+        name: "రెస్టారెంట్",
+        description: "స్థానిక పొలాల నుండి నేరుగా తాజా పదార్థాలను పొందండి.",
       },
     },
     continue: "కొనసాగించు",
@@ -126,6 +142,10 @@ const translations = {
         name: "हब",
         description: "लॉजिस्टिक्स प्रबंधित करें और किसानों को ग्राहकों से जोड़ें।",
       },
+       restaurant: {
+        name: "रेस्टोरेंट",
+        description: "स्थानीय खेतों से सीधे ताजा सामग्री प्राप्त करें।",
+      },
     },
     continue: "जारी रखें",
     ourMission: "हमारा विशेष कार्य",
@@ -138,7 +158,7 @@ const translations = {
     roles: {
       farmer: {
         name: "ರೈತ",
-        description: "ನಿಮ್ಮ ಉತ್ಪನ್ನಗಳನ್ನು ನೇರವಾಗಿ ಮಾರಾಟ ಮಾಡಲು ನಮ್ಮ ನೆట్‌ವರ್ಕ್‌ಗೆ ಸೇರಿ.",
+        description: "ನಿಮ್ಮ ಉತ್ಪನ್ನಗಳನ್ನು ನೇರವಾಗಿ ಮಾರಾಟ ಮಾಡಲು ನಮ್ಮ ನೆಟ್‌ವರ್ಕ್‌ಗೆ ಸೇರಿ.",
       },
       customer: {
         name: "ಗ್ರಾಹಕ",
@@ -147,6 +167,10 @@ const translations = {
       hub: {
         name: "ಕೇಂದ್ರ",
         description: "ಲಾಜಿಸ್ಟಿಕ್ಸ್ ಅನ್ನು ನಿರ್ವಹಿಸಿ ಮತ್ತು ರೈತರನ್ನು ಗ್ರಾಹಕರಿಗೆ ಸಂಪರ್ಕಿಸಿ.",
+      },
+       restaurant: {
+        name: "ರೆಸ್ಟೋರೆಂಟ್",
+        description: "ಸ್ಥಳೀಯ ಜಮೀನುಗಳಿಂದ ನೇರವಾಗಿ ತಾಜಾ ಪದಾರ್ಥಗಳನ್ನು ಪಡೆಯಿರಿ.",
       },
     },
     continue: "ಮುಂದುವರಿಸಿ",
@@ -170,6 +194,10 @@ const translations = {
         name: "হাব",
         description: "লজিস্টিক পরিচালনা করুন এবং কৃষকদের গ্রাহকদের সাথে সংযুক্ত করুন।",
       },
+       restaurant: {
+        name: "রেস্তোরাঁ",
+        description: "স্থানীয় খামার থেকে সরাসরি তাজা উপাদান সংগ্রহ করুন।",
+      },
     },
     continue: "চালিয়ে যান",
     ourMission: "আমাদের লক্ষ্য",
@@ -191,6 +219,10 @@ const translations = {
       hub: {
         name: "مركز",
         description: "إدارة الخدمات اللوجستية وربط المزارعين بالعملاء.",
+      },
+      restaurant: {
+        name: "مطعم",
+        description: "احصل على المكونات الطازجة مباشرة من المزارع المحلية.",
       },
     },
     continue: "متابعة",
@@ -214,6 +246,10 @@ const translations = {
         name: "مرکز",
         description: "لاجسٹکس کا نظم کریں اور کسانوں کو صارفین سے جوڑیں۔",
       },
+      restaurant: {
+        name: "ریستوراں",
+        description: "مقامی فارموں سے براہ راست تازہ اجزاء حاصل کریں۔",
+      },
     },
     continue: "جاری رکھیں",
     ourMission: "ہمارا مقصد",
@@ -235,6 +271,10 @@ const translations = {
       hub: {
         name: "කේන්ද්‍රය",
         description: "ලොජිස්ටික්ස් කළමනාකරණය කර ගොවීන් පාරිභෝගිකයන් හා සම්බන්ධ කරන්න.",
+      },
+      restaurant: {
+        name: "ආපන ශාලාව",
+        description: "දේශීය ගොවිපලවලින් නැවුම් අමුද්‍රව්‍ය සෘජුවම ලබා ගන්න.",
       },
     },
     continue: "ඉදිරියට යන්න",
@@ -269,6 +309,12 @@ export default function HomePage() {
       href: "/login/hub",
       icon: <Building className="h-12 w-12 text-primary" />,
     },
+    {
+      name: t.roles.restaurant.name,
+      description: t.roles.restaurant.description,
+      href: "/login/restaurant",
+      icon: <Utensils className="h-12 w-12 text-primary" />,
+    },
   ];
 
   return (
@@ -302,7 +348,7 @@ export default function HomePage() {
             <h1 className="text-4xl md:text-6xl font-bold text-foreground tracking-tight text-center" style={{ textShadow: '0 2px 4px rgba(0, 0, 0, 0.4)' }}>{t.tagline}</h1>
           </div>
           <h2 className="text-3xl font-bold mb-8 text-foreground [text-shadow:_0_1px_2px_rgb(0_0_0_/_20%)]">{t.joinCommunity}</h2>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
             {userRoles.map((role) => (
               <Card
                 key={role.name}

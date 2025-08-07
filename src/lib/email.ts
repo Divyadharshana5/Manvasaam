@@ -51,40 +51,51 @@ export const sendEmail = async (data: EmailPayload) => {
   }
 };
 
-export const sendRegistrationNotification = async (userData: any) => {
-  const recipient = EMAIL_TO;
-  if (!recipient) {
-    console.log(
-      'No recipient email address configured (EMAIL_TO). Skipping email notification.'
-    );
-    return;
-  }
+export const sendRegistrationNotification = async (userData: any, restaurantId?: string) => {
+  const adminRecipient = EMAIL_TO;
   
   // Sanitize data before sending
   const { password, confirmPassword, ...safeUserData } = userData;
 
-  const subject = `New User Registration on Manvaasam: ${
-    safeUserData.username || safeUserData.branchName
-  }`;
-  
-  const userDetailsHtml = Object.entries(safeUserData)
-    .map(([key, value]) => `<li><strong>${key}:</strong> ${value}</li>`)
-    .join('');
+  // Send notification to Admin
+  if (adminRecipient) {
+    const subject = `New User Registration on Manvaasam: ${
+      safeUserData.username || safeUserData.branchName || safeUserData.restaurantName
+    }`;
+    const userDetailsHtml = Object.entries(safeUserData)
+      .map(([key, value]) => `<li><strong>${key}:</strong> ${value}</li>`)
+      .join('');
 
-  const html = `
-        <h1>New User Registration</h1>
-        <p>A new user has registered on the Manvaasam platform.</p>
-        <h2>User Details:</h2>
-        <ul>
-            ${userDetailsHtml}
-        </ul>
+    const html = `
+          <h1>New User Registration</h1>
+          <p>A new user has registered on the Manvaasam platform.</p>
+          <h2>User Details:</h2>
+          <ul>
+              ${userDetailsHtml}
+          </ul>
+      `;
+    await sendEmail({ to: adminRecipient, subject, html });
+  } else {
+     console.log('No recipient email address configured (EMAIL_TO). Skipping admin email notification.');
+  }
+
+
+  // Send Restaurant ID to the newly registered restaurant
+  if (userData.userType === 'restaurant' && restaurantId) {
+    const subject = "Welcome to Manvaasam! Here is your Restaurant ID";
+    const html = `
+        <h1>Registration Successful!</h1>
+        <p>Thank you for registering your restaurant with Manvaasam.</p>
+        <p>Your unique <strong>Restaurant ID</strong> is: <strong>${restaurantId}</strong></p>
+        <p>Please use this ID and your password to log in to the Restaurant Portal.</p>
+        <br>
+        <p>Thanks,</p>
+        <p>The Manvaasam Team</p>
     `;
 
-  await sendEmail({
-    to: recipient,
-    subject,
-    html,
-  });
+    await sendEmail({ to: userData.email, subject, html });
+  }
+
 };
 
 export const sendPasswordResetEmail = async ({email, link}: {email: string, link: string}) => {
