@@ -1,9 +1,10 @@
+
 "use client";
 
-import { useState, useRef } from "react";
+import { useState, useRef, useEffect } from "react";
 import { Card, CardHeader, CardTitle, CardContent, CardDescription, CardFooter } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { Loader2, Mic, Square, Volume2, ArrowLeft } from "lucide-react";
+import { Loader2, Mic, Square, Volume2, ArrowLeft, MicOff } from "lucide-react";
 import { speechToText } from "@/ai/flows/stt-flow";
 import { textToSpeech } from "@/ai/flows/tts-flow";
 import { useToast } from "@/hooks/use-toast";
@@ -21,6 +22,7 @@ export default function VoiceAssistantPage() {
   const [recordingStatus, setRecordingStatus] = useState<RecordingStatus>("idle");
   const mediaRecorderRef = useRef<MediaRecorder | null>(null);
   const audioChunksRef = useRef<Blob[]>([]);
+  const [hasMicrophonePermission, setHasMicrophonePermission] = useState<boolean | null>(null);
 
   // Text-to-Speech states
   const [inputText, setInputText] = useState("");
@@ -30,11 +32,38 @@ export default function VoiceAssistantPage() {
 
   const { toast } = useToast();
   const { selectedLanguage } = useLanguage();
+  
+  useEffect(() => {
+    const checkMicrophonePermission = async () => {
+      try {
+        const permissionStatus = await navigator.permissions.query({ name: 'microphone' as PermissionName });
+        setHasMicrophonePermission(permissionStatus.state !== 'denied');
+        permissionStatus.onchange = () => {
+          setHasMicrophonePermission(permissionStatus.state !== 'denied');
+        };
+      } catch (error) {
+        // Permissions API might not be supported in all browsers (e.g., Firefox for 'microphone')
+        // We'll rely on the getUserMedia catch block in that case.
+        setHasMicrophonePermission(true); // Assume true and let getUserMedia handle it
+        console.warn("Could not query microphone permission status:", error);
+      }
+    };
+    checkMicrophonePermission();
+  }, []);
 
   const handleStartRecording = async () => {
     setTranscribedText("");
+    if (hasMicrophonePermission === false) {
+        toast({
+            variant: "destructive",
+            title: "Microphone Access Denied",
+            description: "Please allow microphone access in your browser settings to use this feature.",
+        });
+        return;
+    }
     try {
       const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
+      setHasMicrophonePermission(true);
       mediaRecorderRef.current = new MediaRecorder(stream, { mimeType: 'audio/wav' });
       audioChunksRef.current = [];
 
@@ -70,6 +99,7 @@ export default function VoiceAssistantPage() {
       setRecordingStatus("recording");
     } catch (error) {
       console.error("Error accessing microphone:", error);
+      setHasMicrophonePermission(false);
       toast({
         variant: "destructive",
         title: "Microphone Access Denied",
@@ -121,6 +151,15 @@ export default function VoiceAssistantPage() {
         </CardDescription>
       </CardHeader>
       <CardContent>
+        {hasMicrophonePermission === false && (
+            <Alert variant="destructive" className="mb-4">
+              <MicOff className="h-4 w-4" />
+              <AlertTitle>Microphone Access Denied</AlertTitle>
+              <AlertDescription>
+                You have denied microphone access. Please go to your browser settings to enable it for this site.
+              </AlertDescription>
+            </Alert>
+        )}
         <div className="grid gap-6 md:grid-cols-2">
             <Card className="bg-transparent border-0 shadow-none p-0">
                 <CardHeader>
@@ -130,7 +169,7 @@ export default function VoiceAssistantPage() {
                 <CardContent className="space-y-4">
                     <div className="flex items-center gap-4">
                         {recordingStatus !== "recording" ? (
-                            <Button onClick={handleStartRecording} disabled={sttLoading}>
+                            <Button onClick={handleStartRecording} disabled={sttLoading || hasMicrophonePermission === false}>
                             <Mic className="mr-2 h-4 w-4" />
                             Start Recording
                             </Button>
