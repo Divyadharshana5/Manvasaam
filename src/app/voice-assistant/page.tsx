@@ -1,15 +1,16 @@
 "use client";
 
 import { useState, useRef } from "react";
-import { Card, CardHeader, CardTitle, CardContent, CardDescription } from "@/components/ui/card";
+import { Card, CardHeader, CardTitle, CardContent, CardDescription, CardFooter } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { Loader2, Mic, Square, Volume2 } from "lucide-react";
+import { Loader2, Mic, Square, Volume2, ArrowLeft } from "lucide-react";
 import { speechToText } from "@/ai/flows/stt-flow";
 import { textToSpeech } from "@/ai/flows/tts-flow";
 import { useToast } from "@/hooks/use-toast";
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 import { Textarea } from "@/components/ui/textarea";
 import { useLanguage } from "@/context/language-context";
+import Link from "next/link";
 
 type RecordingStatus = "idle" | "recording" | "stopped";
 
@@ -34,7 +35,7 @@ export default function VoiceAssistantPage() {
     setTranscribedText("");
     try {
       const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
-      mediaRecorderRef.current = new MediaRecorder(stream, { mimeType: 'audio/webm' });
+      mediaRecorderRef.current = new MediaRecorder(stream, { mimeType: 'audio/wav' });
       audioChunksRef.current = [];
 
       mediaRecorderRef.current.ondataavailable = (event) => {
@@ -195,7 +196,15 @@ export default function VoiceAssistantPage() {
                 </CardContent>
             </Card>
         </div>
-        </CardContent>
+      </CardContent>
+      <CardFooter className="flex justify-center">
+        <Button asChild variant="outline">
+            <Link href="/">
+                <ArrowLeft className="mr-2 h-4 w-4" />
+                Back to Home
+            </Link>
+        </Button>
+      </CardFooter>
     </Card>
   );
 }
