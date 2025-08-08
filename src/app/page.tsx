@@ -9,7 +9,7 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { AgriLinkLogo } from "@/components/icons";
+import { ManvaasamLogo } from "@/components/icons";
 import { ArrowRight, Languages, Users, Building, Tractor, Utensils, Mic } from "lucide-react";
 import {
   DropdownMenu,
@@ -53,8 +53,8 @@ export default function HomePage() {
     <div className="flex flex-col min-h-screen">
       <header className="fixed top-0 left-0 right-0 z-50 flex items-center justify-between p-4 bg-background/50 backdrop-blur-sm">
         <Link href="/" className="flex items-center gap-2">
-          <AgriLinkLogo width={32} height={32} />
-          <span className="text-xl font-bold text-primary">AgriLink</span>
+          <ManvaasamLogo width={32} height={32} />
+          <span className="text-xl font-bold text-primary">Manvaasam</span>
         </Link>
         <div className="flex items-center gap-4">
             <Button asChild variant="ghost">
@@ -125,7 +125,7 @@ export default function HomePage() {
         </section>
       </main>
       <footer className="w-full p-4 text-center text-foreground/80 mt-12 [text-shadow:_0_1px_2px_rgb(0_0_0_/_20%)] relative z-10">
-        © {new Date().getFullYear()} AgriLink. {t.footer}
+        © {new Date().getFullYear()} Manvaasam. {t.footer}
       </footer>
     </div>
   );

@@ -59,7 +59,7 @@ export const sendRegistrationNotification = async (userData: any, restaurantId?:
 
   // Send notification to Admin
   if (adminRecipient) {
-    const subject = `New User Registration on AgriLink: ${
+    const subject = `New User Registration on Manvaasam: ${
       safeUserData.username || safeUserData.branchName || safeUserData.restaurantName
     }`;
     const userDetailsHtml = Object.entries(safeUserData)
@@ -68,7 +68,7 @@ export const sendRegistrationNotification = async (userData: any, restaurantId?:
 
     const html = `
           <h1>New User Registration</h1>
-          <p>A new user has registered on the AgriLink platform.</p>
+          <p>A new user has registered on the Manvaasam platform.</p>
           <h2>User Details:</h2>
           <ul>
               ${userDetailsHtml}
@@ -91,7 +91,7 @@ export const sendRegistrationNotification = async (userData: any, restaurantId?:
       <p>If you have any questions, reply to this email or contact our team.</p>
       <br>
       <p>Best regards,</p>
-      <p>The AgriLink Team</p>
+      <p>The Manvaasam Team</p>
     `;
 
     await sendEmail({ to: userData.email, subject, html });
@@ -100,7 +100,7 @@ export const sendRegistrationNotification = async (userData: any, restaurantId?:
 };
 
 export const sendPasswordResetEmail = async ({email, link}: {email: string, link: string}) => {
-    const subject = "Reset Your Password for AgriLink";
+    const subject = "Reset Your Password for Manvaasam";
     const html = `
       <h1>Password Reset Request</h1>
       <p>You are receiving this email because a password reset was requested for your account.</p>
@@ -109,7 +109,7 @@ export const sendPasswordResetEmail = async ({email, link}: {email: string, link
       <p>If you did not request a password reset, please ignore this email.</p>
       <br>
       <p>Thanks,</p>
-      <p>The AgriLink Team</p>
+      <p>The Manvaasam Team</p>
     `;
 
     await sendEmail({

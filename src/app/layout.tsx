@@ -14,7 +14,7 @@ const ptSans = PT_Sans({
 
 
 export const metadata: Metadata = {
-  title: "AgriLink",
+  title: "Manvaasam",
   description: "Empowering Farmers, Delivering Freshness.",
   icons: {
     icon: "/logo.svg",

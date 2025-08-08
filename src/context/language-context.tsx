@@ -27,7 +27,7 @@ export const translations = {
     },
     continue: "Continue",
     ourMission: "Our Mission",
-    missionStatement: "AgriLink connects you directly with local farmers through our trusted hub network, ensuring you receive the freshest organic products while supporting sustainable agriculture.",
+    missionStatement: "Manvaasam connects you directly with local farmers through our trusted hub network, ensuring you receive the freshest organic products while supporting sustainable agriculture.",
     footer: "All rights reserved.",
     sidebar: {
       dashboard: "Dashboard",
@@ -47,7 +47,7 @@ export const translations = {
       errorTitle: "Sign Out Failed"
     },
     auth: {
-      welcome: "Welcome to AgriLink",
+      welcome: "Welcome to Manvaasam",
       getStarted: "Sign in or create an account to get started.",
       login: "Login",
       register: "Register",
@@ -235,7 +235,7 @@ export const translations = {
     },
     continue: "தொடரவும்",
     ourMission: "எங்கள் நோக்கம்",
-    missionStatement: "அக்ரிலிங்க் உங்களை உள்ளூர் விவசாயிகளுடன் எங்கள் நம்பகமான மைய நெட்வொர்க் மூலம் நேரடியாக இணைக்கிறது, நிலையான விவசாயத்தை ஆதரிக்கும் அதே வேளையில் புத்துணர்ச்சியான ஆர்கானிக் தயாரிப்புகளைப் பெறுவதை உறுதி செய்கிறது.",
+    missionStatement: "மன்வாசம் உங்களை உள்ளூர் விவசாயிகளுடன் எங்கள் நம்பகமான மைய நெட்வொர்க் மூலம் நேரடியாக இணைக்கிறது, நிலையான விவசாயத்தை ஆதரிக்கும் அதே வேளையில் புத்துணர்ச்சியான ஆர்கானிக் தயாரிப்புகளைப் பெறுவதை உறுதி செய்கிறது.",
     footer: "அனைத்து உரிமைகளும் பாதுகாக்கப்பட்டவை.",
     sidebar: {
       dashboard: "முகப்பு",
@@ -255,7 +255,7 @@ export const translations = {
       errorTitle: "வெளியேற முடியவில்லை"
     },
     auth: {
-      welcome: "அக்ரிலிங்கிற்கு வரவேற்கிறோம்",
+      welcome: "மன்வாசமிற்கு வரவேற்கிறோம்",
       getStarted: "தொடங்குவதற்கு உள்நுழையவும் அல்லது ஒரு கணக்கை உருவாக்கவும்.",
       login: "உள்நுழை",
       register: "பதிவு செய்க",
@@ -443,7 +443,7 @@ export const translations = {
     },
     continue: "തുടരുക",
     ourMission: "ഞങ്ങളുടെ ദൗത്യം",
-    missionStatement: "സുസ്ഥിരമായ കൃഷിയെ പിന്തുണച്ചുകൊണ്ട് നിങ്ങൾക്ക് ഏറ്റവും പുതിയ ഓർഗാനിക് ഉൽപ്പന്നങ്ങൾ ലഭിക്കുന്നുണ്ടെന്ന് ഉറപ്പാക്കിക്കൊണ്ട് ഞങ്ങളുടെ വിശ്വസ്ത ഹബ് നെറ്റ്‌വർക്ക് വഴി അഗ്രിലിങ്ക് നിങ്ങളെ പ്രാദേശിക കർഷകരുമായി നേരിട്ട് ബന്ധിപ്പിക്കുന്നു.",
+    missionStatement: "സുസ്ഥിരമായ കൃഷിയെ പിന്തുണച്ചുകൊണ്ട് നിങ്ങൾക്ക് ഏറ്റവും പുതിയ ഓർഗാനിക് ഉൽപ്പന്നങ്ങൾ ലഭിക്കുന്നുണ്ടെന്ന് ഉറപ്പാക്കിക്കൊണ്ട് ഞങ്ങളുടെ വിശ്വസ്ത ഹബ് നെറ്റ്‌വർക്ക് വഴി മൻവാസം നിങ്ങളെ പ്രാദേശിക കർഷകരുമായി നേരിട്ട് ബന്ധിപ്പിക്കുന്നു.",
     footer: "എല്ലാ അവകാശങ്ങളും നിക്ഷിപ്തം.",
     sidebar: {
       dashboard: "ഡാഷ്ബോർഡ്",
@@ -463,7 +463,7 @@ export const translations = {
       errorTitle: "സൈൻ ഔട്ട് പരാജയപ്പെട്ടു"
     },
     auth: {
-      welcome: "അഗ്രിലിങ്കിലേക്ക് സ്വാഗതം",
+      welcome: "മൻവാസത്തിലേക്ക് സ്വാഗതം",
       getStarted: "ആരംഭിക്കാൻ സൈൻ ഇൻ ചെയ്യുക അല്ലെങ്കിൽ ഒരു അക്കൗണ്ട് ഉണ്ടാക്കുക.",
       login: "പ്രവേശിക്കുക",
       register: "രജിസ്റ്റർ ചെയ്യുക",
@@ -651,7 +651,7 @@ export const translations = {
     },
     continue: "కొనసాగించు",
     ourMission: "మా లక్ష్యం",
-    missionStatement: "సుస్థిర వ్యవసాయానికి మద్దతు ఇస్తూ, తాజా సేంద్రీయ ఉత్పత్తులను మీరు పొందేలా మా విశ్వసనీయ హబ్ నెట్‌వర్క్ ద్వారా అగ్రிலிಂಕ್ మిమ్మల్ని స్థానిక రైతులతో నేరుగా కలుపుతుంది.",
+    missionStatement: "సుస్థిర వ్యవసాయానికి మద్దతు ఇస్తూ, తాజా సేంద్రీయ ఉత్పత్తులను మీరు పొందేలా మా విశ్వసనీయ హబ్ నెట్‌వర్క్ ద్వారా మన్వాసం మిమ్మల్ని స్థానిక రైతులతో నేరుగా కలుపుతుంది.",
     footer: "అన్ని హక్కులు ప్రత్యేకించబడ్డాయి.",
     sidebar: {
       dashboard: "డాష్బోర్డ్",
@@ -671,7 +671,7 @@ export const translations = {
       errorTitle: "సైన్ అవుట్ విఫలమైంది"
     },
     auth: {
-      welcome: "అగ్రிலிಂಕ್కు స్వాగతం",
+      welcome: "మన్వాసంకు స్వాగతం",
       getStarted: "ప్రారంభించడానికి సైన్ ఇన్ చేయండి లేదా ఖాతాను సృష్టించండి.",
       login: "లాగిన్",
       register: "నమోదు చేసుకోండి",
@@ -859,7 +859,7 @@ export const translations = {
     },
     continue: "जारी रखें",
     ourMission: "हमारा विशेष कार्य",
-    missionStatement: "एग्रीलिंक आपको हमारे विश्वसनीय हब नेटवर्क के माध्यम से सीधे स्थानीय किसानों से जोड़ता है, यह सुनिश्चित करता है कि आपको स्थायी कृषि का समर्थन करते हुए सबसे ताज़ा जैविक उत्पाद प्राप्त हों।",
+    missionStatement: "मनवाசம் आपको हमारे विश्वसनीय हब नेटवर्क के माध्यम से सीधे स्थानीय किसानों से जोड़ता है, यह सुनिश्चित करता है कि आपको स्थायी कृषि का समर्थन करते हुए सबसे ताज़ा जैविक उत्पाद प्राप्त हों।",
     footer: "सर्वाधिकार सुरक्षित।",
      sidebar: {
       dashboard: "डैशबोर्ड",
@@ -879,7 +879,7 @@ export const translations = {
       errorTitle: "साइन आउट विफल"
     },
     auth: {
-      welcome: "एग्रीलिंक में आपका स्वागत है",
+      welcome: "मनवाசம் में आपका स्वागत है",
       getStarted: "शुरू करने के लिए साइन इन करें या एक खाता बनाएँ।",
       login: "लॉग इन करें",
       register: "पंजीकरण करवाना",
@@ -1067,7 +1067,7 @@ export const translations = {
     },
     continue: "ಮುಂದುವರಿಸಿ",
     ourMission: "ನಮ್ಮ ಧ್ಯೇಯ",
-    missionStatement: "ಅಗ್ರಿಲಿಂಕ್ ನಮ್ಮ ವಿಶ್ವಾಸಾರ್ಹ ಕೇಂದ್ರ ನೆಟ್‌ವರ್ಕ್ ಮೂಲಕ ನಿಮ್ಮನ್ನು ಸ್ಥಳೀಯ ರೈತರೊಂದಿಗೆ ನೇರವಾಗಿ ಸಂಪರ್ಕಿಸುತ್ತದೆ, ಸುಸ್ಥಿರ ಕೃಷಿಯನ್ನು ಬೆಂಬಲಿಸುವಾಗ ನೀವು ತಾಜಾ ಸಾವಯವ ಉತ್ಪನ್ನಗಳನ್ನು ಪಡೆಯುವುದನ್ನು ಖಚಿತಪಡಿಸುತ್ತದೆ.",
+    missionStatement: "ಮನ್ವಾസം ನಮ್ಮ ವಿಶ್ವಾಸಾರ್ಹ ಕೇಂದ್ರ ನೆಟ್‌ವರ್ಕ್ ಮೂಲಕ ನಿಮ್ಮನ್ನು ಸ್ಥಳೀಯ ರೈತರೊಂದಿಗೆ ನೇರವಾಗಿ ಸಂಪರ್ಕಿಸುತ್ತದೆ, ಸುಸ್ಥಿರ ಕೃಷಿಯನ್ನು ಬೆಂಬಲಿಸುವಾಗ ನೀವು ತಾಜಾ ಸಾವಯವ ಉತ್ಪನ್ನಗಳನ್ನು ಪಡೆಯುವುದನ್ನು ಖಚಿತಪಡಿಸುತ್ತದೆ.",
     footer: "ಎಲ್ಲ ಹಕ್ಕುಗಳನ್ನು ಕಾಯ್ದಿರಿಸಲಾಗಿದೆ.",
     sidebar: {
       dashboard: "ಡ್ಯಾಶ್ಬೋರ್ಡ್",
@@ -1087,7 +1087,7 @@ export const translations = {
       errorTitle: "ಸೈನ್ ಔಟ್ ವಿಫಲವಾಗಿದೆ"
     },
     auth: {
-      welcome: "ಅಗ್ರಿಲಿಂಕ್ಗೆ ಸ್ವಾಗತ",
+      welcome: "ಮನ್ವಾസംಗೆ ಸ್ವಾಗತ",
       getStarted: "ಪ್ರಾರಂಭಿಸಲು ಸೈನ್ ಇನ್ ಮಾಡಿ ಅಥವಾ ಖಾತೆಯನ್ನು ರಚಿಸಿ.",
       login: "ಲಾಗಿನ್ ಮಾಡಿ",
       register: "ನೋಂದಣಿ ಮಾಡಿ",
@@ -1275,7 +1275,7 @@ export const translations = {
     },
     continue: "চালিয়ে যান",
     ourMission: "আমাদের লক্ষ্য",
-    missionStatement: "এগ্রিলিঙ্ক আমাদের বিশ্বস্ত হাব নেটওয়ার্কের মাধ্যমে আপনাকে স্থানীয় কৃষকদের সাথে সরাসরি সংযুক্ত করে, টেকসই কৃষিকে সমর্থন করার সময় আপনি তাজা জৈব পণ্য পান তা নিশ্চিত করে।",
+    missionStatement: "মনবাসম আমাদের বিশ্বস্ত হাব নেটওয়ার্কের মাধ্যমে আপনাকে স্থানীয় কৃষকদের সাথে সরাসরি সংযুক্ত করে, টেকসই কৃষিকে সমর্থন করার সময় আপনি তাজা জৈব পণ্য পান তা নিশ্চিত করে।",
     footer: "সমস্ত অধিকার সংরক্ষিত।",
     sidebar: {
       dashboard: "ড্যাশবোর্ড",
@@ -1295,7 +1295,7 @@ export const translations = {
       errorTitle: "সাইন আউট ব্যর্থ হয়েছে"
     },
     auth: {
-      welcome: "এগ্রিলিঙ্ক-এ স্বাগতম",
+      welcome: "মনবাসম-এ স্বাগতম",
       getStarted: "শুরু করতে সাইন ইন করুন বা একটি অ্যাকাউন্ট তৈরি করুন।",
       login: "লগইন",
       register: "নিবন্ধন করুন",
@@ -1483,7 +1483,7 @@ export const translations = {
     },
     continue: "متابعة",
     ourMission: "مهمتنا",
-    missionStatement: "تقوم أجريلينك بتوصيلك مباشرة بالمزارعين المحليين من خلال شبكة مراكزنا الموثوقة، مما يضمن حصولك على المنتجات العضوية الطازجة مع دعم الزراعة المستدامة.",
+    missionStatement: "تقوم مانفاسام بتوصيلك مباشرة بالمزارعين المحليين من خلال شبكة مراكزنا الموثوقة، مما يضمن حصولك على المنتجات العضوية الطازجة مع دعم الزراعة المستدامة.",
     footer: "كل الحقوق محفوظة.",
     sidebar: {
         dashboard: "لوحة القيادة",
@@ -1503,7 +1503,7 @@ export const translations = {
         errorTitle: "فشل تسجيل الخروج"
     },
     auth: {
-      welcome: "مرحبًا بك في أجريلينك",
+      welcome: "مرحبًا بك في مانفاسام",
       getStarted: "للبدء، قم بتسجيل الدخول أو إنشاء حساب.",
       login: "تسجيل الدخول",
       register: "تسجيل",
@@ -1691,7 +1691,7 @@ export const translations = {
     },
     continue: "جاری رکھیں",
     ourMission: "ہمارا مقصد",
-    missionStatement: "ایگری لنک آپ کو ہمارے قابل اعتماد مرکز نیٹ ورک کے ذریعے براہ راست مقامی کسانوں سے جوڑتا ہے، اس بات کو یقینی بناتا ہے کہ آپ پائیدار زراعت کی حمایت کرتے ہوئے تازہ ترین نامیاتی مصنوعات حاصل کریں۔",
+    missionStatement: "منواسم آپ کو ہمارے قابل اعتماد مرکز نیٹ ورک کے ذریعے براہ راست مقامی کسانوں سے جوڑتا ہے، اس بات کو یقینی بناتا ہے کہ آپ پائیدار زراعت کی حمایت کرتے ہوئے تازہ ترین نامیاتی مصنوعات حاصل کریں۔",
     footer: "جملہ حقوق محفوظ ہیں۔",
     sidebar: {
         dashboard: "ڈیش بورڈ",
@@ -1711,7 +1711,7 @@ export const translations = {
         errorTitle: "সাইন আউট ব্যর্থ হয়েছে"
     },
     auth: {
-      welcome: "ایگری لنک میں خوش آمدید",
+      welcome: "منواسم میں خوش آمدید",
       getStarted: "شروع کرنے کے لیے سائن ان کریں یا ایک اکاؤنٹ بنائیں۔",
       login: "لاگ ان کریں",
       register: "رجسٹر کریں",
@@ -1740,7 +1740,7 @@ export const translations = {
       hubPortal: "حب پورٹل",
       hubDesc: "لاجسٹکس کا نظم کریں اور ہمارے نیٹ ورک کو جوڑیں۔",
       branchNameLabel: "برانچ کا نام",
-      branchIdLabel: "برانچ آئی ڈی",
+      branchIdLabel: "برانਚ آئی ڈی",
       hubAdminEmailLabel: "حب ایڈمن ای میل",
       registerHub: "حب رجسٹر کریں",
       restaurantPortal: "ریستوراں پورٹل",
@@ -1899,7 +1899,7 @@ export const translations = {
     },
     continue: "ඉදිරියට යන්න",
     ourMission: "අපේ මෙහෙවර",
-    missionStatement: "අග්‍රිලින්ක් අපගේ විශ්වාසවන්ත මධ්‍යස්ථාන ජාලය හරහා ඔබව දේශීය ගොවීන් සමඟ සෘජුවම සම්බන්ධ කරයි, තිරසාර කෘෂිකර්මාන්තයට සහාය දෙන අතරම ඔබට නැවුම්ම කාබනික නිෂ්පාදන ලැබෙන බව සහතික කරයි.",
+    missionStatement: "මන්වාasam අපගේ විශ්වාසවන්ත මධ්‍යස්ථාන ජාලය හරහා ඔබව දේශීය ගොවීන් සමඟ සෘජුවම සම්බන්ධ කරයි, තිරසාර කෘෂිකර්මාන්තයට සහාය දෙන අතරම ඔබට නැවුම්ම කාබනික නිෂ්පාදන ලැබෙන බව සහතික කරයි.",
     footer: "සියලුම හිමිකම් ඇවිරිණි.",
     sidebar: {
         dashboard: "แดชบอร์ด",
@@ -1919,7 +1919,7 @@ export const translations = {
         errorTitle: "การออกจากระบบล้มเหลว"
     },
     auth: {
-      welcome: "අග්‍රිලින්ක් වෙත සාදරයෙන් පිළිගනිමු",
+      welcome: "මන්වාasam වෙත සාදරයෙන් පිළිගනිමු",
       getStarted: "ආරම්භ කිරීමට පුරනය වන්න හෝ ගිණුමක් සාදන්න.",
       login: "ඇතුල් වන්න",
       register: "ලියාපදිංචි වන්න",
@@ -1955,7 +1955,7 @@ export const translations = {
       restaurantDesc: "ඔබගේ ගිණුමට පිවිසෙන්න හෝ ඔබගේ ආපනශාලාව ලියාපදිංචි කරන්න.",
       restaurantIdLabel: "ආපනශාලා හැඳුනුම්පත",
       restaurantIdPlaceholder: "ඔබගේ අනන්‍ය ආපනශාලා හැඳුනුම්පත",
-      forgotPasswordRestaurantDesc: "මුරපද යළි පිහිටුවීමේ සබැඳියක් ලබා ගැනීමට ඔබගේ ආපනශාලා හැඳුනුම්පත හෝ විද්‍යුත් තැපෑල ඇතුළත් කරන්න.",
+      forgotPasswordRestaurantDesc: "මුරපද යළි පිහිටුවීමේ සබැඳියක් ලබා ගැනීමට ඔබගේ ආපනශාලා හැඳුනුම්පත හෝ විද්‍යುත් තැපෑල ඇතුළත් කරන්න.",
       restaurantIdOrEmailLabel: "ආපනශාලා හැඳුනුම්පත හෝ විද්‍යುත් තැපෑල",
       restaurantIdOrEmailPlaceholder: "හැඳුනුම්පත හෝ විද්‍යುත් තැපෑල",
       restaurantNameLabel: "ආපනශාලාවේ නම",
@@ -2102,7 +2102,7 @@ export const LanguageProvider = ({ children }: { children: ReactNode }) => {
   const [selectedLanguage, setSelectedLanguage] = useState<Language>('English');
 
   useEffect(() => {
-    const storedLanguage = localStorage.getItem('agrilink-language') as Language;
+    const storedLanguage = localStorage.getItem('manvaasam-language') as Language;
     if (storedLanguage && translations[storedLanguage]) {
       setSelectedLanguage(storedLanguage);
     }
@@ -2111,7 +2111,7 @@ export const LanguageProvider = ({ children }: { children: ReactNode }) => {
   const handleSetLanguage = (language: Language) => {
     setSelectedLanguage(language);
     if (typeof window !== 'undefined') {
-      localStorage.setItem('agrilink-language', language);
+      localStorage.setItem('manvaasam-language', language);
     }
   };
   

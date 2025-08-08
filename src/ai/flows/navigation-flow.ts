@@ -31,7 +31,7 @@ const navigationPrompt = ai.definePrompt({
   name: 'navigationPrompt',
   input: { schema: NavigationInputSchema },
   output: { schema: NavigationOutputSchema },
-  prompt: `You are a navigation assistant for the AgriLink application. Your task is to understand the user's request and determine if they want to navigate to a specific page. The application supports multiple languages.
+  prompt: `You are a navigation assistant for the Manvaasam application. Your task is to understand the user's request and determine if they want to navigate to a specific page. The application supports multiple languages.
 
 The user is speaking in: {{{language}}}
 The user said: "{{{text}}}"
