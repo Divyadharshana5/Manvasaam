@@ -58,7 +58,7 @@ const translations: Record<string, Record<string, string>> = {
     Kannada: "ನಿಮಗೆ ಒಂದು ಪ್ರಶ್ನೆ ಇದೆ ಎಂದು ತೋರುತ್ತದೆ. ನಾನು ನಿಮ್ಮನ್ನು FAQ ಪುಟಕ್ಕೆ ಕರೆದೊಯ್ಯಬೇಕೇ?",
     Bengali: "মনে হচ্ছে আপনার একটি প্রশ্ন আছে। আমি কি আপনাকে প্রায়শই জিজ্ঞাসিত প্রশ্নাবলী পৃষ্ঠাতে নিয়ে যাব?",
     Arabic: "يبدو أن لديك سؤال. هل تود أن آخذك إلى صفحة الأسئلة الشائعة؟",
-    Urdu: "ایسا لگتا ہے کہ آپ کا کوئی سوال ہے۔ کیا آپ چاہتے ہیں کہ میں آپ کو عمومی سوالات کے صفحے پر لے جاؤں؟",
+    Urdu: "ایسا लगता ہے کہ آپ کا کوئی سوال ہے۔ کیا آپ چاہتے ہیں کہ میں آپ کو عمومی سوالات کے صفحے پر لے جاؤں؟",
     Srilanka: "ඔබට ප්‍රශ්නයක් ඇති බව පෙනේ. මම ඔබව නිතර අසන පැන පිටුවට ගෙන යාමට කැමතිද?",
   }
 };
@@ -80,7 +80,7 @@ export type NavigationInput = z.infer<typeof NavigationInputSchema>;
 // The AI will now return a page key instead of a full message.
 const AiNavigationOutputSchema = z.object({
   intent: z.enum(['navigate', 'faq', 'none']).describe("The user's intent."),
-  pageKey: z.string().optional().describe("The key for the page to navigate to (e.g., 'restaurantRegistration', 'faq')."),
+  pageKey: z.enum(['restaurantRegistration', 'farmerCustomerLogin', 'hubLogin', 'faq', 'none']).optional().describe("The key for the page to navigate to (e.g., 'restaurantRegistration', 'faq')."),
 });
 
 export const NavigationOutputSchema = z.object({
@@ -99,17 +99,12 @@ const navigationPrompt = ai.definePrompt({
 
 The user said: "{{{text}}}"
 
-Supported Pages and their keywords:
-- Restaurant Registration: pageKey 'restaurantRegistration' (Keywords: "restaurant register", "உணவகம் பதிவு", "register restaurant", "பதிவு பக்கம்")
-- Farmer/Customer Login: pageKey 'farmerCustomerLogin' (Keywords: "farmer login", "customer login", "விவசாயி உள்நுழைவு", "வாடிக்கையாளர் உள்நுழைவு")
-- Hub Login: pageKey 'hubLogin' (Keywords: "hub login", "hub portal", "மையம் உள்நுழைவு")
-- FAQ: pageKey 'faq' (Keywords: "faq", "help", "கேள்விகள்", "உதவி")
-
-Based on the user's text, determine the navigation intent.
-
-- If the user wants to navigate to a page, set intent to 'navigate' and set the pageKey.
-- If the user is asking a general question, set intent to 'faq' and pageKey to 'faq'.
-- If the user's intent is unclear or doesn't match any navigation commands, set intent to 'none'.
+Analyze the user's text and determine the navigation intent.
+- If the user wants to go to the Restaurant Registration page, set intent to 'navigate' and pageKey to 'restaurantRegistration'.
+- If the user wants to go to the Farmer or Customer Login page, set intent to 'navigate' and pageKey to 'farmerCustomerLogin'.
+- If the user wants to go to the Hub Login page, set intent to 'navigate' and pageKey to 'hubLogin'.
+- If the user is asking a general question or wants help, set intent to 'faq' and pageKey to 'faq'.
+- If the user's intent is unclear or doesn't match any navigation commands, set intent to 'none' and pageKey to 'none'.
 `,
 });
 
@@ -123,7 +118,7 @@ const understandNavigationFlow = ai.defineFlow(
   async (input) => {
     const { output } = await navigationPrompt(input);
 
-    if (!output || output.intent === 'none' || !output.pageKey) {
+    if (!output || output.intent === 'none' || !output.pageKey || output.pageKey === 'none') {
         return { intent: 'none' };
     }
     
