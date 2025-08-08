@@ -4,7 +4,7 @@ import {next} from '@genkit-ai/next';
 
 export const ai = genkit({
   plugins: [
-    next,
+    next(),
     googleAI(),
   ],
 });
