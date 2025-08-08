@@ -36,12 +36,13 @@ import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import * as z from "zod";
 import { useToast } from "@/hooks/use-toast";
-import { Loader2, ShoppingCart, Star, Trees, Milk, Carrot, Apple, Wheat, User } from "lucide-react";
+import { Loader2, ShoppingCart, Star, Trees, Milk, Carrot, Apple, Wheat, User, ChevronDown } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { useAuth } from "@/hooks/use-auth";
 import { useLanguage } from "@/context/language-context";
 import { Separator } from "@/components/ui/separator";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import { cn } from "@/lib/utils";
 
 
 const orderFormSchema = z.object({
@@ -237,6 +238,7 @@ function OrderForm({ product, onClose }: { product: Product, onClose: () => void
 export default function ProductsPage() {
     const [isOrderDialogOpen, setIsOrderDialogOpen] = useState(false);
     const [selectedProduct, setSelectedProduct] = useState<Product | null>(null);
+    const [isProductsVisible, setIsProductsVisible] = useState(false);
     const { toast } = useToast();
     const { t } = useLanguage();
 
@@ -265,19 +267,23 @@ export default function ProductsPage() {
         </div>
 
         <Card className="w-full">
-            <CardHeader>
-                <div className="flex items-center gap-4">
-                    <Avatar className="h-16 w-16">
-                        <AvatarImage src={farmerData.avatar} data-ai-hint={farmerData.dataAiHint} />
-                        <AvatarFallback><User /></AvatarFallback>
-                    </Avatar>
-                    <div>
-                        <CardTitle className="text-2xl">{farmerData.name}</CardTitle>
-                        <CardDescription>{farmerData.acres} Acres of Farmland</CardDescription>
+             <CardHeader className="cursor-pointer" onClick={() => setIsProductsVisible(!isProductsVisible)}>
+                <div className="flex items-center justify-between">
+                    <div className="flex items-center gap-4">
+                        <Avatar className="h-16 w-16">
+                            <AvatarImage src={farmerData.avatar} data-ai-hint={farmerData.dataAiHint} />
+                            <AvatarFallback><User /></AvatarFallback>
+                        </Avatar>
+                        <div>
+                            <CardTitle className="text-2xl">{farmerData.name}</CardTitle>
+                            <CardDescription>{farmerData.acres} Acres of Farmland</CardDescription>
+                        </div>
                     </div>
+                     <ChevronDown className={cn("h-6 w-6 text-muted-foreground transition-transform", isProductsVisible && "rotate-180")} />
                 </div>
             </CardHeader>
-            <CardContent className="space-y-8">
+           {isProductsVisible && (
+            <CardContent className="space-y-8 pt-6">
                 {/* Vegetables Section */}
                 <div>
                     <h3 className="text-xl font-semibold flex items-center gap-2 mb-4"><Carrot className="text-primary"/>Vegetables</h3>
@@ -372,6 +378,7 @@ export default function ProductsPage() {
                     </div>
                 </div>
             </CardContent>
+           )}
         </Card>
       </div>
       <Dialog open={isOrderDialogOpen} onOpenChange={setIsOrderDialogOpen}>
@@ -382,5 +389,3 @@ export default function ProductsPage() {
     </AppLayout>
   );
 }
-
-    
