@@ -1,13 +1,34 @@
 
 "use client";
 
-import { Suspense } from 'react';
+import { Suspense, use } from 'react';
 import { useSearchParams } from 'next/navigation';
 import { AppLayout } from "@/components/app-layout";
-import { Card, CardHeader, CardTitle, CardContent, CardDescription } from "@/components/ui/card";
-import { Truck } from "lucide-react";
+import { Card, CardHeader, CardTitle, CardContent, CardDescription, CardFooter } from "@/components/ui/card";
+import { Truck, XCircle } from "lucide-react";
 import { useEffect, useState } from "react";
 import { Progress } from "@/components/ui/progress";
+import { Button } from '@/components/ui/button';
+import {
+    Dialog,
+    DialogClose,
+    DialogContent,
+    DialogDescription,
+    DialogFooter,
+    DialogHeader,
+    DialogTitle,
+    DialogTrigger,
+} from "@/components/ui/dialog";
+import { useForm } from 'react-hook-form';
+import { zodResolver } from '@hookform/resolvers/zod';
+import * as z from 'zod';
+import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form';
+import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group';
+import { Textarea } from '@/components/ui/textarea';
+import { useToast } from '@/hooks/use-toast';
+import { Loader2 } from 'lucide-react';
+import { useRouter } from 'next/navigation';
+
 
 const mockTrackingData = {
     "ORD002": {
@@ -39,15 +60,42 @@ const mockTrackingData = {
     }
 };
 
+const cancellationSchema = z.object({
+  reason: z.enum(["mistake", "timing", "item", "other"]),
+  otherDetails: z.string().optional(),
+}).refine(data => {
+    if (data.reason === 'other') {
+        return data.otherDetails && data.otherDetails.length >= 10;
+    }
+    return true;
+}, {
+    message: "Please provide at least 10 characters for your reason.",
+    path: ["otherDetails"],
+});
+
+
 function LiveTrackingPage() {
     const searchParams = useSearchParams();
+    const router = useRouter();
+    const { toast } = useToast();
     const orderId = searchParams.get('orderId') || "ORD002"; // Fallback for direct access
     
     const [progress, setProgress] = useState(0);
     const [currentStep, setCurrentStep] = useState(0);
+    const [isCancelling, setIsCancelling] = useState(false);
     
     const trackingInfo = mockTrackingData[orderId as keyof typeof mockTrackingData] || mockTrackingData["ORD002"];
     const totalSteps = trackingInfo.path.length - 1;
+
+    const form = useForm<z.infer<typeof cancellationSchema>>({
+        resolver: zodResolver(cancellationSchema),
+        defaultValues: {
+            reason: "mistake",
+            otherDetails: "",
+        }
+    });
+    
+    const selectedReason = form.watch("reason");
 
     useEffect(() => {
         const interval = setInterval(() => {
@@ -87,6 +135,23 @@ function LiveTrackingPage() {
     };
     
     const currentStatus = trackingInfo.path[currentStep]?.name || "Dispatched";
+
+    const onCancelSubmit = async (values: z.infer<typeof cancellationSchema>) => {
+        setIsCancelling(true);
+        // Simulate API call
+        await new Promise(resolve => setTimeout(resolve, 1500));
+        
+        // In a real app, you would also update the local order state if needed,
+        // e.g., by refetching or updating the localStorage entry.
+        
+        toast({
+            title: "Order Cancellation Requested",
+            description: `Your request to cancel order ${orderId} has been submitted.`,
+        });
+        
+        setIsCancelling(false);
+        router.push("/dashboard/orders");
+    };
 
     return (
         <AppLayout>
@@ -133,6 +198,86 @@ function LiveTrackingPage() {
                             <Progress value={progress} />
                         </div>
                     </CardContent>
+                     <CardFooter className="flex justify-end">
+                        <Dialog>
+                            <DialogTrigger asChild>
+                                <Button variant="destructive">
+                                    <XCircle className="mr-2 h-4 w-4" />
+                                    Cancel Order
+                                </Button>
+                            </DialogTrigger>
+                            <DialogContent>
+                                <DialogHeader>
+                                    <DialogTitle>Cancel Order {orderId}</DialogTitle>
+                                    <DialogDescription>
+                                        Please let us know why you're cancelling. This helps us improve our service.
+                                    </DialogDescription>
+                                </DialogHeader>
+                                <Form {...form}>
+                                    <form onSubmit={form.handleSubmit(onCancelSubmit)} className="space-y-4">
+                                        <FormField
+                                            control={form.control}
+                                            name="reason"
+                                            render={({ field }) => (
+                                                <FormItem className="space-y-3">
+                                                    <FormLabel>Reason for Cancellation</FormLabel>
+                                                    <FormControl>
+                                                        <RadioGroup
+                                                            onValueChange={field.onChange}
+                                                            defaultValue={field.value}
+                                                            className="flex flex-col space-y-1"
+                                                        >
+                                                            <FormItem className="flex items-center space-x-3 space-y-0">
+                                                                <FormControl><RadioGroupItem value="mistake" /></FormControl>
+                                                                <FormLabel className="font-normal">Ordered by mistake</FormLabel>
+                                                            </FormItem>
+                                                            <FormItem className="flex items-center space-x-3 space-y-0">
+                                                                <FormControl><RadioGroupItem value="timing" /></FormControl>
+                                                                <FormLabel className="font-normal">Delivery timing is not suitable</FormLabel>
+                                                            </FormItem>
+                                                            <FormItem className="flex items-center space-x-3 space-y-0">
+                                                                <FormControl><RadioGroupItem value="item" /></FormControl>
+                                                                <FormLabel className="font-normal">Incorrect item was ordered</FormLabel>
+                                                            </FormItem>
+                                                             <FormItem className="flex items-center space-x-3 space-y-0">
+                                                                <FormControl><RadioGroupItem value="other" /></FormControl>
+                                                                <FormLabel className="font-normal">Other</FormLabel>
+                                                            </FormItem>
+                                                        </RadioGroup>
+                                                    </FormControl>
+                                                    <FormMessage />
+                                                </FormItem>
+                                            )}
+                                        />
+                                        {selectedReason === 'other' && (
+                                            <FormField
+                                                control={form.control}
+                                                name="otherDetails"
+                                                render={({ field }) => (
+                                                    <FormItem>
+                                                        <FormLabel>Please specify</FormLabel>
+                                                        <FormControl>
+                                                            <Textarea placeholder="Tell us more..." {...field} />
+                                                        </FormControl>
+                                                        <FormMessage />
+                                                    </FormItem>
+                                                )}
+                                            />
+                                        )}
+                                        <DialogFooter>
+                                            <DialogClose asChild>
+                                                <Button type="button" variant="ghost" disabled={isCancelling}>Back</Button>
+                                            </DialogClose>
+                                            <Button type="submit" variant="destructive" disabled={isCancelling}>
+                                                {isCancelling && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
+                                                Confirm Cancellation
+                                            </Button>
+                                        </DialogFooter>
+                                    </form>
+                                </Form>
+                            </DialogContent>
+                        </Dialog>
+                    </CardFooter>
                 </Card>
 
             </div>
