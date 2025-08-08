@@ -196,7 +196,7 @@ export default function HubAuthPage() {
   }
 
   return (
-    <Card className="w-full max-w-md bg-card/60 backdrop-blur-lg border-2 border-white/20 shadow-lg">
+    <Card className="w-full max-w-md bg-card/80 backdrop-blur-lg border-2 border-primary/20 shadow-lg">
       <CardHeader className="text-center">
         <CardTitle>{t.auth.hubPortal}</CardTitle>
         <CardDescription>

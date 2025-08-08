@@ -9,7 +9,7 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { ManvaasamLogo } from "@/components/icons";
+import { AgriLinkLogo } from "@/components/icons";
 import { ArrowRight, Languages, Users, Building, Tractor, Utensils, Mic } from "lucide-react";
 import {
   DropdownMenu,
@@ -50,11 +50,11 @@ export default function HomePage() {
   ];
 
   return (
-    <div className="flex flex-col min-h-screen auth-layout-background">
+    <div className="flex flex-col min-h-screen">
       <header className="fixed top-0 left-0 right-0 z-50 flex items-center justify-between p-4 bg-background/50 backdrop-blur-sm">
         <Link href="/" className="flex items-center gap-2">
-          <ManvaasamLogo width={32} height={32} />
-          <span className="text-xl font-bold text-primary">Manvaasam</span>
+          <AgriLinkLogo width={32} height={32} />
+          <span className="text-xl font-bold text-primary">AgriLink</span>
         </Link>
         <div className="flex items-center gap-4">
             <Button asChild variant="ghost">
@@ -83,15 +83,13 @@ export default function HomePage() {
 
       <main className="flex-1 flex flex-col items-center justify-center pt-24 px-4 relative z-10">
         <section className="text-center w-full max-w-4xl mx-auto">
-          <div className="relative w-full h-64 md:h-80 rounded-lg overflow-hidden mb-12 flex items-center justify-center">
-            <h1 className="text-4xl md:text-6xl font-bold text-foreground tracking-tight text-center" style={{ textShadow: '0 2px 4px rgba(0, 0, 0, 0.4)' }}>{t.tagline}</h1>
-          </div>
+          <h1 className="text-4xl md:text-6xl font-bold text-foreground tracking-tight text-center mb-12" style={{ textShadow: '0 2px 4px rgba(0, 0, 0, 0.4)' }}>{t.tagline}</h1>
           <h2 className="text-3xl font-bold mb-8 text-foreground [text-shadow:_0_1px_2px_rgb(0_0_0_/_20%)]">{t.joinCommunity}</h2>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
             {userRoles.map((role) => (
               <Card
                 key={role.name}
-                className="bg-white/10 backdrop-blur-xl border border-white/30 rounded-2xl shadow-lg hover:shadow-2xl transition-all duration-300 p-6"
+                className="bg-card/80 backdrop-blur-xl border border-primary/20 rounded-2xl shadow-lg hover:shadow-2xl transition-all duration-300 p-6"
               >
                 <CardHeader className="items-center">
                   {role.icon}
@@ -113,7 +111,7 @@ export default function HomePage() {
         <section className="w-full max-w-4xl mx-auto mt-20 text-center">
            <h2 className="text-3xl font-bold mb-4 text-foreground [text-shadow:_0_1px_2px_rgb(0_0_0_/_20%)]">{t.ourMission}</h2>
            <p className="text-lg text-foreground/90 mb-8 max-w-3xl mx-auto [text-shadow:_0_1px_2px_rgb(0_0_0_/_20%)]">{t.missionStatement}</p>
-            <Card className="bg-white/10 backdrop-blur-xl border border-white/30 rounded-2xl shadow-lg hover:shadow-2xl transition-all duration-300 p-6">
+            <Card className="bg-card/80 backdrop-blur-xl border border-primary/20 rounded-2xl shadow-lg p-6">
                 <CardContent className="p-6">
                     <div className="flex items-center justify-center gap-4 text-lg font-semibold text-foreground">
                         <span>{t.roles.farmer.name}</span>
@@ -127,7 +125,7 @@ export default function HomePage() {
         </section>
       </main>
       <footer className="w-full p-4 text-center text-foreground/80 mt-12 [text-shadow:_0_1px_2px_rgb(0_0_0_/_20%)] relative z-10">
-        © {new Date().getFullYear()} Manvaasam. {t.footer}
+        © {new Date().getFullYear()} AgriLink. {t.footer}
       </footer>
     </div>
   );

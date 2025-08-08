@@ -10,7 +10,7 @@ import { Skeleton } from "@/components/ui/skeleton";
 import { DollarSign, Package, Users, Activity, ShoppingCart, Truck, PackageX } from "lucide-react";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
-import { useLanguage } from "@/context/language-context";
+import { useLanguage, LanguageProvider } from "@/context/language-context";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import { Badge } from "@/components/ui/badge";
 
@@ -37,7 +37,7 @@ const farmerStats = {
   ]
 };
 
-export default function DashboardPage() {
+function DashboardComponent() {
   const { user, loading } = useAuth();
   const router = useRouter();
   const [userProfile, setUserProfile] = useState<UserProfile | null>(null);
@@ -266,4 +266,12 @@ export default function DashboardPage() {
       </div>
     </AppLayout>
   );
+}
+
+export default function DashboardPage() {
+  return (
+    <LanguageProvider>
+      <DashboardComponent />
+    </LanguageProvider>
+  )
 }

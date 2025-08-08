@@ -4,34 +4,34 @@
 
 @layer base {
   :root {
-    --background: 0 0% 100%;
-    --foreground: 94 38% 25%;
+    --background: 80 60% 95%;
+    --foreground: 80 10% 20%;
     --card: 0 0% 100%;
-    --card-foreground: 94 38% 25%;
+    --card-foreground: 80 10% 20%;
     --popover: 0 0% 100%;
-    --popover-foreground: 94 38% 25%;
-    --primary: 84 44% 49%;
+    --popover-foreground: 80 10% 20%;
+    --primary: 84 44% 33%;
     --primary-foreground: 0 0% 100%;
-    --secondary: 120 10% 95%;
-    --secondary-foreground: 120 25% 15%;
-    --muted: 120 10% 95%;
-    --muted-foreground: 120 10% 40%;
-    --accent: 120 10% 95%;
-    --accent-foreground: 120 25% 15%;
+    --secondary: 80 10% 95%;
+    --secondary-foreground: 80 25% 15%;
+    --muted: 60 50% 90%;
+    --muted-foreground: 60 10% 40%;
+    --accent: 60 40% 55%;
+    --accent-foreground: 60 25% 15%;
     --destructive: 0 84.2% 60.2%;
     --destructive-foreground: 0 0% 98%;
-    --border: 120 10% 85%;
-    --input: 120 10% 85%;
-    --ring: 84 44% 49%;
+    --border: 80 10% 85%;
+    --input: 80 10% 85%;
+    --ring: 84 44% 33%;
     --radius: 0.5rem;
     --sidebar-background: 240 10% 3.9%;
     --sidebar-foreground: 0 0% 98%;
-    --sidebar-primary: 104 56% 40%;
+    --sidebar-primary: 84 44% 49%;
     --sidebar-primary-foreground: 0 0% 98%;
     --sidebar-accent: 240 3.7% 15.9%;
     --sidebar-accent-foreground: 0 0% 98%;
     --sidebar-border: 240 3.7% 15.9%;
-    --sidebar-ring: 104 56% 40%;
+    --sidebar-ring: 84 44% 49%;
   }
 
   .dark {
@@ -70,33 +70,6 @@
     @apply border-border;
   }
   body {
-    @apply bg-background text-foreground;
-    background-image: url('/bg-img.png'), url('/bg-agri.png') !important;
-    background-size: cover !important;
-    background-position: center !important;
-    background-repeat: no-repeat !important;
-}
-}
-
-.auth-layout-background {
-  background-color: #f0f2f5;
-  background-image:
-    radial-gradient(at 0% 0%, hsla(120,60%,90%,0.3) 0px, transparent 50%),
-    radial-gradient(at 100% 0%, hsla(85,60%,85%,0.3) 0px, transparent 50%),
-    radial-gradient(at 0% 100%, hsla(100,70%,90%,0.3) 0px, transparent 50%);
-}
-
-@layer components {
-  .bg-background\/50 {
-    background-color: hsla(var(--background) / 0.5);
-  }
-  .bg-card\/60 {
-    background-color: hsla(var(--card) / 0.6);
-  }
-  .bg-background\/30 {
-    background-color: hsla(var(--background) / 0.3);
-  }
-  .bg-sidebar\/80 {
-    background-color: hsla(var(--sidebar-background) / 0.8);
+    @apply bg-background text-foreground font-body;
   }
 }

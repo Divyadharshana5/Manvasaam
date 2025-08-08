@@ -30,7 +30,7 @@ import {
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-import { ManvaasamLogo } from "./icons";
+import { AgriLinkLogo } from "./icons";
 import { cn } from "@/lib/utils";
 import { useAuth } from "@/hooks/use-auth";
 import { auth } from "@/lib/firebase";
@@ -63,7 +63,6 @@ export function AppLayout({ children }: { children: React.ReactNode }) {
     { href: "/dashboard/products", label: t.sidebar.products, icon: Package },
     { href: "/dashboard/track", label: t.sidebar.track, icon: Map },
     { href: "/dashboard/matchmaking", label: t.sidebar.matchmaking, icon: HeartHandshake },
-    { href: "/dashboard/voice-assistant", label: t.sidebar.voiceAssistant, icon: Mic },
     { href: "/dashboard/marketing", label: t.sidebar.marketing, icon: Megaphone },
     { href: "/dashboard/faq", label: t.sidebar.faq, icon: HelpCircle },
   ];
@@ -98,14 +97,14 @@ export function AppLayout({ children }: { children: React.ReactNode }) {
               "group-data-[collapsible=icon]:justify-center group-data-[collapsible=icon]:p-2"
             )}
           >
-            <ManvaasamLogo width={28} height={28} className="shrink-0 text-primary" />
+            <AgriLinkLogo width={28} height={28} className="shrink-0 text-primary" />
             <span
               className={cn(
                 "text-lg font-bold text-primary",
                 "group-data-[collapsible=icon]:hidden"
               )}
             >
-              Manvaasam
+              AgriLink
             </span>
           </div>
         </SidebarHeader>
