@@ -63,6 +63,13 @@ const translations: Record<string, Record<string, string>> = {
   }
 };
 
+const pagePaths: Record<string, string> = {
+  restaurantRegistration: '/login/restaurant',
+  farmerCustomerLogin: '/login/farmer-customer',
+  hubLogin: '/login/hub',
+  faq: '/dashboard/faq',
+};
+
 
 export const NavigationInputSchema = z.object({
   text: z.string().describe("The user's transcribed voice command."),
@@ -74,7 +81,6 @@ export type NavigationInput = z.infer<typeof NavigationInputSchema>;
 const AiNavigationOutputSchema = z.object({
   intent: z.enum(['navigate', 'faq', 'none']).describe("The user's intent."),
   pageKey: z.string().optional().describe("The key for the page to navigate to (e.g., 'restaurantRegistration', 'faq')."),
-  page: z.string().optional().describe("The full path for the page to navigate to (e.g., '/login/restaurant', '/dashboard/faq')."),
 });
 
 export const NavigationOutputSchema = z.object({
@@ -94,15 +100,15 @@ const navigationPrompt = ai.definePrompt({
 The user said: "{{{text}}}"
 
 Supported Pages and their keywords:
-- Restaurant Registration: pageKey 'restaurantRegistration', path '/login/restaurant' (Keywords: "restaurant register", "உணவகம் பதிவு", "register restaurant", "பதிவு பக்கம்")
-- Farmer/Customer Login: pageKey 'farmerCustomerLogin', path '/login/farmer-customer' (Keywords: "farmer login", "customer login", "விவசாயி உள்நுழைவு", "வாடிக்கையாளர் உள்நுழைவு")
-- Hub Login: pageKey 'hubLogin', path '/login/hub' (Keywords: "hub login", "hub portal", "மையம் உள்நுழைவு")
-- FAQ: pageKey 'faq', path '/dashboard/faq' (Keywords: "faq", "help", "கேள்விகள்", "உதவி")
+- Restaurant Registration: pageKey 'restaurantRegistration' (Keywords: "restaurant register", "உணவகம் பதிவு", "register restaurant", "பதிவு பக்கம்")
+- Farmer/Customer Login: pageKey 'farmerCustomerLogin' (Keywords: "farmer login", "customer login", "விவசாயி உள்நுழைவு", "வாடிக்கையாளர் உள்நுழைவு")
+- Hub Login: pageKey 'hubLogin' (Keywords: "hub login", "hub portal", "மையம் உள்நுழைவு")
+- FAQ: pageKey 'faq' (Keywords: "faq", "help", "கேள்விகள்", "உதவி")
 
 Based on the user's text, determine the navigation intent.
 
-- If the user wants to navigate to a page, set intent to 'navigate', set the pageKey, and set the page path.
-- If the user is asking a general question, set intent to 'faq', pageKey to 'faq' and page path to '/dashboard/faq'.
+- If the user wants to navigate to a page, set intent to 'navigate' and set the pageKey.
+- If the user is asking a general question, set intent to 'faq' and pageKey to 'faq'.
 - If the user's intent is unclear or doesn't match any navigation commands, set intent to 'none'.
 `,
 });
@@ -123,14 +129,15 @@ const understandNavigationFlow = ai.defineFlow(
     
     // Look up the translation based on the pageKey and language.
     const confirmationMessage = translations[output.pageKey]?.[input.language] || translations[output.pageKey]?.['English'];
+    const pagePath = pagePaths[output.pageKey];
 
-    if (!confirmationMessage) {
+    if (!confirmationMessage || !pagePath) {
        return { intent: 'none' };
     }
     
     return {
         intent: output.intent,
-        page: output.page,
+        page: pagePath,
         confirmationMessage: confirmationMessage,
     };
   }
