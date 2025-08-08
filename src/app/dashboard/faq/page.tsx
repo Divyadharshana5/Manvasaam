@@ -20,24 +20,24 @@ import { useLanguage } from "@/context/language-context";
 
 const faqItems = [
     {
-        question: "What is Manvaasam?",
-        answer: "Manvaasam is a platform designed to bridge the gap between farmers and customers. We provide a network for farmers to sell their produce directly, and for customers to buy fresh, organic products."
+        question: "How can I be sure about the quality of the products?",
+        answer: "We partner directly with trusted farmers who are committed to organic and sustainable farming practices. Each farmer profile on our Matchmaking page provides details about their farm and specialties, so you know exactly where your food is coming from."
     },
     {
-        question: "How do I register as a Farmer or Customer?",
-        answer: "On the homepage, select either 'Farmer' or 'Customer' and click 'Continue'. You will be taken to a registration page where you can create your account."
+        question: "How does the ordering process work?",
+        answer: "You can browse products on the 'Products' page and place an order directly using the 'Buy Now' button. After filling in your details, your order is sent to the farmer and our logistics hub for processing. You can track the status of your order on the 'Orders' page."
     },
     {
-        question: "What is a Hub?",
-        answer: "A Hub is a central point in our logistics network. Hubs manage the collection of produce from farmers and coordinate the delivery to customers, ensuring efficiency and freshness."
+        question: "How can I track my delivery?",
+        answer: "Once an order is shipped, you can track it live from the 'Orders' page by clicking the 'Track Live' button. This will take you to a map view showing your delivery's real-time location and estimated time of arrival."
     },
     {
-        question: "How can I update my profile information?",
-        answer: "Navigate to the 'Profile' page from the dashboard sidebar. You will find an option to edit your details like username and phone number."
+        question: "What is Manvaasam and how does it help farmers?",
+        answer: "Manvaasam is an application that directly connects customers with local farmers. By removing intermediaries, we ensure that farmers get a fair price for their produce, helping them build a sustainable business while providing you with the freshest products."
     },
     {
-        question: "Where can I see my orders?",
-        answer: "All your recent and past orders are available on the 'Orders' page, accessible from the dashboard sidebar."
+        question: "Can I contact a farmer directly?",
+        answer: "Yes! The 'Matchmaking' page allows you to view farmer profiles and send them a direct inquiry. This is a great way to ask about specific products, farming practices, or arrange bulk orders."
     }
 ]
 
