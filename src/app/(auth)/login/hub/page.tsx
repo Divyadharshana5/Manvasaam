@@ -25,7 +25,7 @@ import { Input } from "@/components/ui/input";
 import { useToast } from "@/hooks/use-toast";
 import { Loader2 } from "lucide-react";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { signInWithEmailAndPassword, signInWithCustomToken } from "firebase/auth";
+import { signInWithEmailAndPassword } from "firebase/auth";
 import { useRouter } from "next/navigation";
 import { auth } from "@/lib/firebase";
 import {
@@ -100,23 +100,7 @@ export default function HubAuthPage() {
   async function onLogin(values: z.infer<typeof loginSchema>) {
     setLoading(true);
     try {
-        const userCredential = await signInWithEmailAndPassword(auth, values.email, values.password);
-        const user = userCredential.user;
-
-        const response = await fetch('/api/login', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ uid: user.uid }),
-        });
-
-        if (!response.ok) {
-            const errorData = await response.json();
-            throw new Error(errorData.message || 'Login failed.');
-        }
-
-        const { token } = await response.json();
-        await signInWithCustomToken(auth, token);
-
+        await signInWithEmailAndPassword(auth, values.email, values.password);
         toast({ title: "Login Successful", description: "Welcome back, Hub Manager!" });
         router.push("/dashboard");
     } catch (error: any) {
@@ -370,3 +354,5 @@ export default function HubAuthPage() {
     </Card>
   );
 }
+
+    

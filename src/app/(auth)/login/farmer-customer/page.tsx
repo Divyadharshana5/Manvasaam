@@ -404,28 +404,7 @@ export default function FarmerCustomerAuthPage() {
   async function onLogin(values: z.infer<typeof loginSchema>) {
     setLoading(true);
     try {
-      // 1. Sign in with email and password on the client
-      const userCredential = await signInWithEmailAndPassword(auth, values.email, values.password);
-      const user = userCredential.user;
-
-      // 2. Request a custom token from the backend
-      const response = await fetch('/api/login', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ uid: user.uid }),
-      });
-
-      if (!response.ok) {
-        const errorData = await response.json();
-        throw new Error(errorData.message || 'Failed to get custom token.');
-      }
-
-      const { token } = await response.json();
-      
-      // 3. Sign in with the custom token to establish the server session
-      await signInWithCustomToken(auth, token);
-
-
+      await signInWithEmailAndPassword(auth, values.email, values.password);
       toast({ title: "Login Successful", description: "Welcome back!" });
       router.push("/dashboard");
     } catch (error: any) {
@@ -624,3 +603,5 @@ export default function FarmerCustomerAuthPage() {
     </Card>
   );
 }
+
+    

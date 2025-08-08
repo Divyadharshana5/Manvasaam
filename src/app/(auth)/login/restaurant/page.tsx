@@ -25,7 +25,7 @@ import { Input } from "@/components/ui/input";
 import { useToast } from "@/hooks/use-toast";
 import { Loader2 } from "lucide-react";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { signInWithEmailAndPassword, signInWithCustomToken } from "firebase/auth";
+import { signInWithEmailAndPassword } from "firebase/auth";
 import { useRouter } from "next/navigation";
 import { auth } from "@/lib/firebase";
 import {
@@ -107,24 +107,7 @@ export default function RestaurantAuthPage() {
       const { email } = await emailRes.json();
 
       // 2. Sign in with email and password
-      const userCredential = await signInWithEmailAndPassword(auth, email, values.password);
-      const user = userCredential.user;
-
-      // 3. Get custom token for server session
-      const tokenRes = await fetch('/api/login', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ uid: user.uid }),
-      });
-      
-      if (!tokenRes.ok) {
-          throw new Error("Could not verify login on server.");
-      }
-      const { token } = await tokenRes.json();
-
-      // 4. Sign in with custom token
-      await signInWithCustomToken(auth, token);
-
+      await signInWithEmailAndPassword(auth, email, values.password);
 
       toast({ title: "Login Successful", description: "Welcome back, Restaurant Manager!" });
       router.push("/dashboard");
@@ -395,3 +378,5 @@ export default function RestaurantAuthPage() {
     </Card>
   );
 }
+
+    
