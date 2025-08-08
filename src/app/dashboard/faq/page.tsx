@@ -20,24 +20,24 @@ import { useLanguage } from "@/context/language-context";
 
 const faqItems = [
     {
-        question: "How can I be sure about the quality of the products?",
-        answer: "We partner directly with trusted farmers who are committed to organic and sustainable farming practices. Each farmer profile on our Matchmaking page provides details about their farm and specialties, so you know exactly where your food is coming from."
+        question: "How do customers or restaurants contact me?",
+        answer: "Customers and restaurants can find your profile on the 'Matchmaking' page and send you a direct inquiry. You will be notified of new messages. Ensure your profile is up-to-date to attract more buyers."
     },
     {
-        question: "How does the ordering process work?",
-        answer: "You can browse products on the 'Products' page and place an order directly using the 'Buy Now' button. After filling in your details, your order is sent to the farmer and our logistics hub for processing. You can track the status of your order on the 'Orders' page."
+        question: "How do I manage my product listings?",
+        answer: "You can manage your products from the 'Products' page in your dashboard. Here, you can add new products, update existing ones with prices and availability, and mark items as 'out of stock'."
     },
     {
-        question: "How can I track my delivery?",
-        answer: "Once an order is shipped, you can track it live from the 'Orders' page by clicking the 'Track Live' button. This will take you to a map view showing your delivery's real-time location and estimated time of arrival."
+        question: "How do I view and process new orders?",
+        answer: "All new orders for your products will appear on the 'Orders' page. You can view order details, update the status from 'Processing' to 'Shipped', and prepare the items for pickup by our hub logistics."
     },
     {
-        question: "What is Manvaasam and how does it help farmers?",
-        answer: "Manvaasam is an application that directly connects customers with local farmers. By removing intermediaries, we ensure that farmers get a fair price for their produce, helping them build a sustainable business while providing you with the freshest products."
+        question: "What is the role of the Manvaasam hub?",
+        answer: "The Manvaasam hub handles the logistics of getting your products from your farm to the customer. Once you confirm an order, our hub team is notified to arrange for pickup and delivery, so you can focus on farming."
     },
     {
-        question: "Can I contact a farmer directly?",
-        answer: "Yes! The 'Matchmaking' page allows you to view farmer profiles and send them a direct inquiry. This is a great way to ask about specific products, farming practices, or arrange bulk orders."
+        question: "How does Manvaasam help me get a better price for my produce?",
+        answer: "By connecting you directly with customers and restaurants, Manvaasam removes the need for multiple intermediaries. This ensures that a larger portion of the final price comes directly to you, resulting in fairer compensation for your hard work."
     }
 ]
 
