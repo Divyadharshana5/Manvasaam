@@ -103,8 +103,13 @@ export default function OrdersPage() {
           throw new Error("Failed to fetch orders");
         }
         const apiOrders = await response.json();
-        const localOrdersJSON = localStorage.getItem("mockOrders");
-        const localOrders = localOrdersJSON ? JSON.parse(localOrdersJSON) : [];
+        
+        let localOrders = [];
+        if (typeof window !== "undefined") {
+            const localOrdersJSON = localStorage.getItem("mockOrders");
+            localOrders = localOrdersJSON ? JSON.parse(localOrdersJSON) : [];
+        }
+
         const combinedOrders = [...localOrders, ...apiOrders];
         const uniqueOrders = Array.from(new Set(combinedOrders.map(o => o.id)))
             .map(id => combinedOrders.find(o => o.id === id)!);
@@ -296,3 +301,5 @@ export default function OrdersPage() {
     </AppLayout>
   );
 }
+
+    
