@@ -354,5 +354,3 @@ export default function HubAuthPage() {
     </Card>
   );
 }
-
-    

@@ -603,5 +603,3 @@ export default function FarmerCustomerAuthPage() {
     </Card>
   );
 }
-
-    
