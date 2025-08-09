@@ -2,7 +2,7 @@
 "use client";
 
 import { useState } from "react";
-import { useForm } from "react-hook-form";
+import { useForm } from "react";
 import { zodResolver } from "@hookform/resolvers/zod";
 import * as z from "zod";
 import { Button } from "@/components/ui/button";
@@ -38,6 +38,7 @@ const loginSchema = z.object({
 const registerSchema = z.object({
   branchName: z.string().min(2, { message: "Branch name must be at least 2 characters." }),
   location: z.string().min(3, { message: "Location is required." }),
+  phone: z.string().min(10, { message: "Please enter a valid phone number." }),
   email: z.string().email({ message: "A valid email is required for the hub account." }),
   password: z.string().min(6, { message: "Password must be at least 6 characters." }),
   confirmPassword: z.string(),
@@ -64,6 +65,7 @@ export default function HubAuthPage() {
     defaultValues: {
       branchName: "",
       location: "",
+      phone: "",
       email: "",
       password: "",
       confirmPassword: "",
@@ -255,6 +257,19 @@ export default function HubAuthPage() {
                     </FormItem>
                   )}
                 />
+                 <FormField
+                  control={registerForm.control}
+                  name="phone"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel>{t.auth.phoneLabel}</FormLabel>
+                      <FormControl>
+                        <Input type="tel" placeholder="123-456-7890" {...field} />
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
                 <FormField
                   control={registerForm.control}
                   name="email"
@@ -307,4 +322,5 @@ export default function HubAuthPage() {
   );
 }
 
+    
     
