@@ -20,24 +20,24 @@ import { useLanguage } from "@/context/language-context";
 
 const faqItems = [
     {
-        question: "How do customers or restaurants contact me?",
-        answer: "Customers and restaurants can find your profile on the 'Matchmaking' page and send you a direct inquiry. You will be notified of new messages. Ensure your profile is up-to-date to attract more buyers."
+        question: "What is my role as a Manvaasam Hub?",
+        answer: "Your role is to act as the central logistics and coordination point between farmers and customers. You manage incoming orders from various customers, coordinate the pickup of fresh produce from farmers, and ensure timely and efficient delivery."
     },
     {
-        question: "How do I manage my product listings?",
-        answer: "You can manage your products from the 'Products' page in your dashboard. Here, you can add new products, update existing ones with prices and availability, and mark items as 'out of stock'."
+        question: "How can I see all the orders assigned to my hub?",
+        answer: "You can view and manage all orders assigned to your hub from the 'Orders' page in your dashboard. This page provides details on the customer, the products ordered, and the current status of each order."
     },
     {
-        question: "How do I view and process new orders?",
-        answer: "All new orders for your products will appear on the 'Orders' page. You can view order details, update the status from 'Processing' to 'Shipped', and prepare the items for pickup by our hub logistics."
+        question: "How do I connect with farmers for produce pickup?",
+        answer: "The 'Matchmaking' page allows you to see profiles of farmers in your network. You can find their locations and the products they specialize in, helping you to efficiently plan your pickup routes."
     },
     {
-        question: "What is the role of the Manvaasam hub?",
-        answer: "The Manvaasam hub handles the logistics of getting your products from your farm to the customer. Once you confirm an order, our hub team is notified to arrange for pickup and delivery, so you can focus on farming."
+        question: "How do I get information about the customers I need to deliver to?",
+        answer: "Customer information, including their delivery address, is available within each order on the 'Orders' page. The platform automatically assigns orders to your hub based on your operational area."
     },
     {
-        question: "How does Manvaasam help me get a better price for my produce?",
-        answer: "By connecting you directly with customers and restaurants, Manvaasam removes the need for multiple intermediaries. This ensures that a larger portion of the final price comes directly to you, resulting in fairer compensation for your hard work."
+        question: "What happens if a product in an order is unavailable?",
+        answer: "If a farmer informs you that a product is unavailable, you should first check if another farmer in your network can fulfill that item. If not, you will need to contact the customer to inform them of the situation and discuss potential replacements or a refund for that item. It is important to encourage farmers to keep their product listings up-to-date."
     }
 ]
 
