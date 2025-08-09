@@ -47,7 +47,6 @@ const loginSchema = z.object({
 
 const registerSchema = z.object({
   branchName: z.string().min(2, { message: "Branch name must be at least 2 characters." }),
-  branchId: z.string().min(2, { message: "Branch ID must be at least 2 characters." }),
   email: z.string().email({ message: "A valid email is required for the hub account." }),
   password: z.string().min(6, { message: "Password must be at least 6 characters." }),
   confirmPassword: z.string(),
@@ -78,7 +77,6 @@ export default function HubAuthPage() {
     resolver: zodResolver(registerSchema),
     defaultValues: {
       branchName: "",
-      branchId: "",
       email: "",
       password: "",
       confirmPassword: "",
@@ -285,19 +283,6 @@ export default function HubAuthPage() {
                       <FormLabel>{t.auth.branchNameLabel}</FormLabel>
                       <FormControl>
                         <Input type="text" placeholder="Central Hub" {...field} />
-                      </FormControl>
-                      <FormMessage />
-                    </FormItem>
-                  )}
-                />
-                <FormField
-                  control={registerForm.control}
-                  name="branchId"
-                  render={({ field }) => (
-                    <FormItem>
-                      <FormLabel>{t.auth.branchIdLabel}</FormLabel>
-                      <FormControl>
-                        <Input type="text" placeholder="HUB-123" {...field} />
                       </FormControl>
                       <FormMessage />
                     </FormItem>
