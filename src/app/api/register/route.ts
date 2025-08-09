@@ -21,8 +21,12 @@ export async function POST(request: Request) {
     
     let restaurantId: string | undefined = undefined;
     if (userType === 'restaurant') {
-        // Generate a unique restaurant ID
         restaurantId = `REST-${randomBytes(4).toString('hex').toUpperCase()}`;
+    }
+
+    let branchId: string | undefined = undefined;
+    if (userType === 'hub') {
+        branchId = `HUB-${randomBytes(3).toString('hex').toUpperCase()}`;
     }
 
     const authPayload: { [key: string]: any } = {
@@ -52,6 +56,9 @@ export async function POST(request: Request) {
     if (restaurantId) {
         firestoreData.restaurantId = restaurantId;
     }
+    if (branchId) {
+        firestoreData.branchId = branchId;
+    }
 
 
     // Store additional user information in Firestore
@@ -59,13 +66,13 @@ export async function POST(request: Request) {
 
     // Send email notification, but don't let it block the registration process
     try {
-        await sendRegistrationNotification(data, restaurantId);
+        await sendRegistrationNotification(data, restaurantId, branchId);
     } catch (emailError: any) {
         console.error("Failed to send registration email, but user was created:", emailError.message);
         // Do not re-throw the error, allow the successful response to be sent.
     }
 
-    return NextResponse.json({ message: "User created successfully", uid: userRecord.uid }, { status: 201 });
+    return NextResponse.json({ message: "User created successfully", uid: userRecord.uid, branchId }, { status: 201 });
   } catch (error: any)
    {
     console.error("API Registration Error:", error);
@@ -76,3 +83,5 @@ export async function POST(request: Request) {
     return NextResponse.json({ message: message, error: error.message }, { status: 500 });
   }
 }
+
+    

@@ -51,7 +51,7 @@ export const sendEmail = async (data: EmailPayload) => {
   }
 };
 
-export const sendRegistrationNotification = async (userData: any, restaurantId?: string) => {
+export const sendRegistrationNotification = async (userData: any, restaurantId?: string, branchId?: string) => {
   const adminRecipient = EMAIL_TO;
   
   // Sanitize data before sending
@@ -96,6 +96,22 @@ export const sendRegistrationNotification = async (userData: any, restaurantId?:
 
     await sendEmail({ to: userData.email, subject, html });
   }
+  
+  // Send Branch ID to the newly registered hub
+  if (userData.userType === 'hub' && branchId) {
+    const subject = "Welcome! Here is Your Hub Branch ID";
+    const html = `
+      <p>Dear ${userData.branchName},</p>
+      <p>Thank you for registering your hub with us!</p>
+      <p>Your unique Branch ID is: <strong>${branchId}</strong></p>
+      <p>Please keep this ID for your records. You will need it for future logins and support.</p>
+      <br>
+      <p>Best regards,</p>
+      <p>The Manvaasam Team</p>
+    `;
+
+    await sendEmail({ to: userData.email, subject, html });
+  }
 
 };
 
@@ -118,3 +134,5 @@ export const sendPasswordResetEmail = async ({email, link}: {email: string, link
         html,
     });
 }
+
+    

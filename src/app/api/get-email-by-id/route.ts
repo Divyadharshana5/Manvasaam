@@ -4,25 +4,35 @@ import { adminDb } from "@/lib/firebase-admin";
 
 export async function POST(request: Request) {
   try {
-    const { restaurantId } = await request.json();
+    const { restaurantId, branchId, userType } = await request.json();
 
-    if (!restaurantId) {
-      return NextResponse.json({ message: "Restaurant ID is required." }, { status: 400 });
+    if (!restaurantId && !branchId) {
+      return NextResponse.json({ message: "Restaurant ID or Branch ID is required." }, { status: 400 });
     }
 
-    // Find user by their restaurantId in Firestore
     const usersRef = adminDb.collection("users");
-    const snapshot = await usersRef.where("restaurantId", "==", restaurantId).limit(1).get();
+    let snapshot;
 
-    if (snapshot.empty) {
-      return NextResponse.json({ message: "Restaurant not found." }, { status: 404 });
+    if (restaurantId) {
+        snapshot = await usersRef.where("restaurantId", "==", restaurantId).limit(1).get();
+        if (snapshot.empty) {
+            return NextResponse.json({ message: "Restaurant not found." }, { status: 404 });
+        }
+    } else if (branchId && userType === 'hub') {
+        snapshot = await usersRef.where("branchId", "==", branchId).where("userType", "==", "hub").limit(1).get();
+         if (snapshot.empty) {
+            return NextResponse.json({ message: "Hub not found." }, { status: 404 });
+        }
+    } else {
+        return NextResponse.json({ message: "Invalid request parameters." }, { status: 400 });
     }
+
 
     const userData = snapshot.docs[0].data();
     const email = userData.email;
 
     if (!email) {
-      return NextResponse.json({ message: "Email not found for this restaurant." }, { status: 404 });
+      return NextResponse.json({ message: "Email not found for this user." }, { status: 404 });
     }
 
     return NextResponse.json({ email }, { status: 200 });
@@ -32,3 +42,5 @@ export async function POST(request: Request) {
     return NextResponse.json({ message: "Failed to retrieve email.", error: error.message }, { status: 500 });
   }
 }
+
+    

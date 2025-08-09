@@ -11,19 +11,24 @@ export async function POST(request: Request) {
   }
 
   try {
-    const { identifier } = await request.json();
+    const { identifier, userType } = await request.json();
     if (!identifier) {
-      return NextResponse.json({ message: "Email or Restaurant ID is required." }, { status: 400 });
+      return NextResponse.json({ message: "Email or ID is required." }, { status: 400 });
     }
 
     let email: string | undefined;
+    const usersRef = adminDb.collection("users");
 
-    // Check if the identifier is an email or a Restaurant ID
+    // Check if the identifier is an email or an ID
     if (identifier.includes('@')) {
         email = identifier;
+    } else if (userType === 'hub') {
+        const snapshot = await usersRef.where("branchId", "==", identifier).limit(1).get();
+        if (!snapshot.empty) {
+            email = snapshot.docs[0].data().email;
+        }
     } else {
-        // Assume it's a Restaurant ID, find the user in Firestore
-        const usersRef = adminDb.collection("users");
+        // Assume it's a Restaurant ID
         const snapshot = await usersRef.where("restaurantId", "==", identifier).limit(1).get();
         if (!snapshot.empty) {
             email = snapshot.docs[0].data().email;
@@ -59,3 +64,5 @@ export async function POST(request: Request) {
     return NextResponse.json({ message: errorMessage, error: error.message }, { status: 500 });
   }
 }
+
+    
