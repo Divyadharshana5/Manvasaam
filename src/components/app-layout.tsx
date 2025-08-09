@@ -59,14 +59,14 @@ export function AppLayout({ children }: { children: React.ReactNode }) {
   const isAuthPage = authPages.includes(pathname);
   
   const menuItems = [
-    { href: "/dashboard", label: t.sidebar.dashboard, icon: LayoutDashboard, section: "General" },
-    { href: "/dashboard/profile", label: t.sidebar.profile, icon: UserIcon, section: "General" },
+    { href: "/dashboard", label: t.sidebar.dashboard, icon: LayoutDashboard, section: "Customer" },
+    { href: "/dashboard/profile", label: t.sidebar.profile, icon: UserIcon, section: "Customer" },
     { href: "/dashboard/orders", label: t.sidebar.orders, icon: ShoppingCart, section: "Customer" },
     { href: "/dashboard/products", label: t.sidebar.products, icon: Package, section: "Customer" },
     { href: "/dashboard/track", label: t.sidebar.track, icon: Map, section: "Customer" },
     { href: "/dashboard/matchmaking", label: t.sidebar.matchmaking, icon: HeartHandshake, section: "Customer" },
-    { href: "/dashboard/marketing", label: t.sidebar.marketing, icon: Megaphone, section: "Other" },
-    { href: "/dashboard/faq", label: t.sidebar.faq, icon: HelpCircle, section: "Other" },
+    { href: "/dashboard/marketing", label: t.sidebar.marketing, icon: Megaphone, section: "Customer" },
+    { href: "/dashboard/faq", label: t.sidebar.faq, icon: HelpCircle, section: "Customer" },
   ];
 
   const handleSignOut = async () => {
@@ -122,7 +122,7 @@ export function AppLayout({ children }: { children: React.ReactNode }) {
         <SidebarContent>
           {Object.entries(groupedMenuItems).map(([section, items]) => (
             <SidebarGroup key={section}>
-              <SidebarGroupLabel>{section}</SidebarGroupLabel>
+              <SidebarGroupLabel>Customer</SidebarGroupLabel>
               <SidebarMenu>
                 {items.map((item) => (
                   <SidebarMenuItem key={item.href}>
