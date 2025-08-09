@@ -349,6 +349,7 @@ export default function FarmerCustomerAuthPage() {
       const email = loginForm.getValues("email");
       if (!email) {
           toast({ variant: "destructive", title: "Email required", description: "Please enter your email address to reset your password."});
+          setLoading(false);
           return;
       }
 
@@ -358,9 +359,10 @@ export default function FarmerCustomerAuthPage() {
         body: JSON.stringify({ identifier: email }),
       });
 
+      const result = await response.json();
+
       if (!response.ok) {
-        const errorData = await response.json();
-        throw new Error(errorData.message || 'Failed to send reset link.');
+        throw new Error(result.message || 'Failed to send reset link.');
       }
 
       toast({

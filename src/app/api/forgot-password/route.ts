@@ -4,6 +4,12 @@ import { adminAuth, adminDb } from "@/lib/firebase-admin";
 import { sendPasswordResetEmail } from "@/lib/email";
 
 export async function POST(request: Request) {
+  // Check if email service is configured
+  if (!process.env.EMAIL_SERVER_USER || !process.env.EMAIL_SERVER_PASSWORD) {
+    console.error("Email service not configured. Please set EMAIL_SERVER_USER and EMAIL_SERVER_PASSWORD in your .env file.");
+    return NextResponse.json({ message: "The email service is not configured on the server. Please contact support." }, { status: 500 });
+  }
+
   try {
     const { identifier } = await request.json();
     if (!identifier) {
@@ -27,7 +33,7 @@ export async function POST(request: Request) {
     // If no email was found either directly or via ID, exit gracefully to prevent user enumeration.
     if (!email) {
       console.log(`Password reset requested for non-existent identifier: ${identifier}`);
-      return NextResponse.json({ message: "Password reset email sent." }, { status: 200 });
+      return NextResponse.json({ message: "If an account exists with that identifier, a password reset email has been sent." }, { status: 200 });
     }
 
     // Check if the user actually exists in Firebase Auth
@@ -36,7 +42,7 @@ export async function POST(request: Request) {
     } catch (error: any) {
         if (error.code === 'auth/user-not-found') {
             console.log(`Password reset requested for non-existent user: ${email}`);
-            return NextResponse.json({ message: "Password reset email sent." }, { status: 200 });
+            return NextResponse.json({ message: "If an account exists with that identifier, a password reset email has been sent." }, { status: 200 });
         }
         throw error; // Re-throw other errors
     }

@@ -146,6 +146,7 @@ export default function RestaurantAuthPage() {
       const restaurantId = loginForm.getValues("restaurantId");
       if (!restaurantId) {
           toast({ variant: "destructive", title: "Restaurant ID required", description: "Please enter your Restaurant ID to reset your password."});
+          setLoading(false);
           return;
       }
       
@@ -155,9 +156,10 @@ export default function RestaurantAuthPage() {
         body: JSON.stringify({ identifier: restaurantId }),
       });
 
+      const result = await response.json();
+
       if (!response.ok) {
-        const errorData = await response.json();
-        throw new Error(errorData.message || 'Failed to send reset link.');
+        throw new Error(result.message || 'Failed to send reset link.');
       }
 
       toast({
