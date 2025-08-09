@@ -70,10 +70,6 @@ const registerSchema = z.object({
 });
 
 
-const forgotPasswordSchema = z.object({
-  email: z.string().email({ message: "Please enter a valid email address." }),
-});
-
 function RegisterForm({
     onRegisterSubmit,
     loading,
@@ -293,8 +289,7 @@ export default function FarmerCustomerAuthPage() {
   const { toast } = useToast();
   const router = useRouter();
   const [activeTab, setActiveTab] = useState("login");
-  const [authMode, setAuthMode] = useState("email"); 
-  const [isForgotPassDialogOpen, setIsForgotPassDialogOpen] = useState(false);
+  const [authMode, setAuthMode] = useState("email");
   const videoRef = useRef<HTMLVideoElement>(null);
   const [hasCameraPermission, setHasCameraPermission] = useState<boolean | null>(null);
   const { t } = useLanguage();
@@ -348,17 +343,40 @@ export default function FarmerCustomerAuthPage() {
     },
   });
 
-  const forgotPasswordForm = useForm<z.infer<typeof forgotPasswordSchema>>({
-    resolver: zodResolver(forgotPasswordSchema),
-    defaultValues: { email: "" },
-  });
+  async function onForgotPassword() {
+    setLoading(true);
+    try {
+      const email = loginForm.getValues("email");
+      if (!email) {
+          toast({ variant: "destructive", title: "Email required", description: "Please enter your email address to reset your password."});
+          return;
+      }
 
-  const handleForgotPasswordOpen = useCallback(() => {
-    const email = loginForm.getValues("email");
-    if (email) {
-      forgotPasswordForm.setValue("email", email);
+      const response = await fetch('/api/forgot-password', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ identifier: email }),
+      });
+
+      if (!response.ok) {
+        const errorData = await response.json();
+        throw new Error(errorData.message || 'Failed to send reset link.');
+      }
+
+      toast({
+        title: "Password Reset Email Sent",
+        description: "Please check your inbox for instructions to reset your password.",
+      });
+    } catch (error: any) {
+      toast({
+        variant: "destructive",
+        title: "Request Failed",
+        description: error.message,
+      });
+    } finally {
+      setLoading(false);
     }
-  }, [loginForm, forgotPasswordForm]);
+  }
 
   const handleFaceLogin = async () => {
     if (!videoRef.current) return;
@@ -455,37 +473,6 @@ export default function FarmerCustomerAuthPage() {
     }
   }
 
-  async function onForgotPassword(values: z.infer<typeof forgotPasswordSchema>) {
-    setLoading(true);
-    try {
-      const response = await fetch('/api/forgot-password', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ identifier: values.email }),
-      });
-
-      if (!response.ok) {
-        const errorData = await response.json();
-        throw new Error(errorData.message || 'Failed to send reset link.');
-      }
-
-      toast({
-        title: "Password Reset Email Sent",
-        description: "Please check your inbox for instructions to reset your password.",
-      });
-      setIsForgotPassDialogOpen(false);
-      forgotPasswordForm.reset();
-    } catch (error: any) {
-      toast({
-        variant: "destructive",
-        title: "Request Failed",
-        description: error.message,
-      });
-    } finally {
-      setLoading(false);
-    }
-  }
-
   return (
     <Card className="w-full max-w-md bg-card/80 backdrop-blur-lg border-2 border-primary/20 shadow-lg">
       <CardHeader className="text-center">
@@ -527,39 +514,7 @@ export default function FarmerCustomerAuthPage() {
                         <FormItem>
                           <div className="flex justify-between items-center">
                             <FormLabel>{t.auth.passwordLabel}</FormLabel>
-                            <Dialog open={isForgotPassDialogOpen} onOpenChange={setIsForgotPassDialogOpen}>
-                              <DialogTrigger asChild>
-                                <Button variant="link" size="sm" type="button" className="p-0 h-auto text-xs" onClick={handleForgotPasswordOpen}>{t.auth.forgotPassword}</Button>
-                              </DialogTrigger>
-                              <DialogContent>
-                                <DialogHeader>
-                                  <DialogTitle>{t.auth.forgotPasswordTitle}</DialogTitle>
-                                  <DialogDescription>{t.auth.forgotPasswordDesc}</DialogDescription>
-                                </DialogHeader>
-                                <Form {...forgotPasswordForm}>
-                                  <form onSubmit={forgotPasswordForm.handleSubmit(onForgotPassword)} className="space-y-4">
-                                    <FormField
-                                      control={forgotPasswordForm.control}
-                                      name="email"
-                                      render={({ field }) => (
-                                        <FormItem>
-                                          <FormLabel>{t.auth.emailLabel}</FormLabel>
-                                          <FormControl><Input type="email" placeholder="m@example.com" {...field} /></FormControl>
-                                          <FormMessage />
-                                        </FormItem>
-                                      )}
-                                    />
-                                    <DialogFooter>
-                                      <DialogClose asChild><Button type="button" variant="secondary" disabled={loading}>{t.auth.cancel}</Button></DialogClose>
-                                      <Button type="submit" disabled={loading}>
-                                        {loading && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
-                                        {t.auth.sendResetLink}
-                                      </Button>
-                                    </DialogFooter>
-                                  </form>
-                                </Form>
-                              </DialogContent>
-                            </Dialog>
+                            <Button variant="link" size="sm" type="button" className="p-0 h-auto text-xs" onClick={onForgotPassword} disabled={loading}>{t.auth.forgotPassword}</Button>
                           </div>
                           <FormControl><Input type="password" {...field} /></FormControl>
                           <FormMessage />

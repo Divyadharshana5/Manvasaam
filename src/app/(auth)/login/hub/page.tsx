@@ -1,7 +1,7 @@
 
 "use client";
 
-import { useState, useCallback } from "react";
+import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import * as z from "zod";
@@ -28,16 +28,6 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { signInWithEmailAndPassword } from "firebase/auth";
 import { useRouter } from "next/navigation";
 import { auth } from "@/lib/firebase";
-import {
-  Dialog,
-  DialogContent,
-  DialogHeader,
-  DialogTitle,
-  DialogDescription,
-  DialogFooter,
-  DialogTrigger,
-  DialogClose,
-} from "@/components/ui/dialog";
 import { useLanguage } from "@/context/language-context";
 
 const loginSchema = z.object({
@@ -56,17 +46,12 @@ const registerSchema = z.object({
   path: ["confirmPassword"],
 });
 
-const forgotPasswordSchema = z.object({
-  email: z.string().email({ message: "Please enter a valid email address." }),
-});
-
 
 export default function HubAuthPage() {
   const [loading, setLoading] = useState(false);
   const { toast } = useToast();
   const router = useRouter();
   const [activeTab, setActiveTab] = useState("login");
-  const [isForgotPassDialogOpen, setIsForgotPassDialogOpen] = useState(false);
   const { t } = useLanguage();
 
   const loginForm = useForm<z.infer<typeof loginSchema>>({
@@ -84,18 +69,6 @@ export default function HubAuthPage() {
       confirmPassword: "",
     },
   });
-
-  const forgotPasswordForm = useForm<z.infer<typeof forgotPasswordSchema>>({
-    resolver: zodResolver(forgotPasswordSchema),
-    defaultValues: { email: "" },
-  });
-  
-  const handleForgotPasswordOpen = useCallback(() => {
-    const email = loginForm.getValues("email");
-    if (email) {
-      forgotPasswordForm.setValue("email", email);
-    }
-  }, [loginForm, forgotPasswordForm]);
 
   async function onLogin(values: z.infer<typeof loginSchema>) {
     setLoading(true);
@@ -148,13 +121,19 @@ export default function HubAuthPage() {
     }
   }
   
-  async function onForgotPassword(values: z.infer<typeof forgotPasswordSchema>) {
+  async function onForgotPassword() {
     setLoading(true);
     try {
+       const email = loginForm.getValues("email");
+      if (!email) {
+          toast({ variant: "destructive", title: "Email required", description: "Please enter your email address to reset your password."});
+          return;
+      }
+      
       const response = await fetch('/api/forgot-password', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ identifier: values.email }),
+        body: JSON.stringify({ identifier: email }),
       });
 
       if (!response.ok) {
@@ -166,8 +145,6 @@ export default function HubAuthPage() {
         title: "Password Reset Email Sent",
         description: "Please check your inbox for instructions to reset your password.",
       });
-      setIsForgotPassDialogOpen(false);
-      forgotPasswordForm.reset();
     } catch (error: any) {
       toast({
         variant: "destructive",
@@ -216,49 +193,9 @@ export default function HubAuthPage() {
                     <FormItem>
                       <div className="flex justify-between items-center">
                         <FormLabel>{t.auth.passwordLabel}</FormLabel>
-                        <Dialog open={isForgotPassDialogOpen} onOpenChange={setIsForgotPassDialogOpen}>
-                           <DialogTrigger asChild>
-                            <Button variant="link" size="sm" type="button" className="p-0 h-auto text-xs" onClick={handleForgotPasswordOpen}>
-                              {t.auth.forgotPassword}
-                            </Button>
-                          </DialogTrigger>
-                          <DialogContent>
-                            <DialogHeader>
-                              <DialogTitle>{t.auth.forgotPasswordTitle}</DialogTitle>
-                              <DialogDescription>
-                                {t.auth.forgotPasswordDesc}
-                              </DialogDescription>
-                            </DialogHeader>
-                            <Form {...forgotPasswordForm}>
-                              <form onSubmit={forgotPasswordForm.handleSubmit(onForgotPassword)} className="space-y-4">
-                                <FormField
-                                  control={forgotPasswordForm.control}
-                                  name="email"
-                                  render={({ field }) => (
-                                    <FormItem>
-                                      <FormLabel>{t.auth.emailLabel}</FormLabel>
-                                      <FormControl>
-                                        <Input type="email" placeholder="m@example.com" {...field} />
-                                      </FormControl>
-                                      <FormMessage />
-                                    </FormItem>
-                                  )}
-                                />
-                                <DialogFooter>
-                                  <DialogClose asChild>
-                                    <Button type="button" variant="secondary" disabled={loading}>
-                                      {t.auth.cancel}
-                                    </Button>
-                                  </DialogClose>
-                                  <Button type="submit" disabled={loading}>
-                                    {loading && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
-                                    {t.auth.sendResetLink}
-                                  </Button>
-                                </DialogFooter>
-                              </form>
-                            </Form>
-                          </DialogContent>
-                        </Dialog>
+                        <Button variant="link" size="sm" type="button" className="p-0 h-auto text-xs" onClick={onForgotPassword} disabled={loading}>
+                          {t.auth.forgotPassword}
+                        </Button>
                       </div>
                       <FormControl>
                         <Input type="password" {...field} />

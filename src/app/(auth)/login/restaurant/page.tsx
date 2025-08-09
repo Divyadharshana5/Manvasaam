@@ -1,7 +1,7 @@
 
 "use client";
 
-import { useState, useCallback } from "react";
+import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import * as z from "zod";
@@ -28,16 +28,6 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { signInWithEmailAndPassword } from "firebase/auth";
 import { useRouter } from "next/navigation";
 import { auth } from "@/lib/firebase";
-import {
-  Dialog,
-  DialogContent,
-  DialogHeader,
-  DialogTitle,
-  DialogDescription,
-  DialogFooter,
-  DialogTrigger,
-  DialogClose,
-} from "@/components/ui/dialog";
 import { useLanguage } from "@/context/language-context";
 
 const loginSchema = z.object({
@@ -57,16 +47,12 @@ const registerSchema = z.object({
   path: ["confirmPassword"],
 });
 
-const forgotPasswordSchema = z.object({
-  identifier: z.string().min(1, { message: "Please enter your Restaurant ID or email." }),
-});
 
 export default function RestaurantAuthPage() {
   const [loading, setLoading] = useState(false);
   const { toast } = useToast();
   const router = useRouter();
   const [activeTab, setActiveTab] = useState("login");
-  const [isForgotPassDialogOpen, setIsForgotPassDialogOpen] = useState(false);
   const { t } = useLanguage();
 
   const loginForm = useForm<z.infer<typeof loginSchema>>({
@@ -84,11 +70,6 @@ export default function RestaurantAuthPage() {
       password: "",
       confirmPassword: "",
     },
-  });
-
-  const forgotPasswordForm = useForm<z.infer<typeof forgotPasswordSchema>>({
-    resolver: zodResolver(forgotPasswordSchema),
-    defaultValues: { identifier: "" },
   });
 
   async function onLogin(values: z.infer<typeof loginSchema>) {
@@ -159,13 +140,19 @@ export default function RestaurantAuthPage() {
     }
   }
 
-  async function onForgotPassword(values: z.infer<typeof forgotPasswordSchema>) {
+  async function onForgotPassword() {
     setLoading(true);
     try {
+      const restaurantId = loginForm.getValues("restaurantId");
+      if (!restaurantId) {
+          toast({ variant: "destructive", title: "Restaurant ID required", description: "Please enter your Restaurant ID to reset your password."});
+          return;
+      }
+      
       const response = await fetch('/api/forgot-password', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(values),
+        body: JSON.stringify({ identifier: restaurantId }),
       });
 
       if (!response.ok) {
@@ -177,8 +164,6 @@ export default function RestaurantAuthPage() {
         title: "Password Reset Email Sent",
         description: "If an account exists, you will receive an email with reset instructions.",
       });
-      setIsForgotPassDialogOpen(false);
-      forgotPasswordForm.reset();
     } catch (error: any) {
       toast({
         variant: "destructive",
@@ -227,49 +212,9 @@ export default function RestaurantAuthPage() {
                     <FormItem>
                       <div className="flex justify-between items-center">
                         <FormLabel>{t.auth.passwordLabel}</FormLabel>
-                        <Dialog open={isForgotPassDialogOpen} onOpenChange={setIsForgotPassDialogOpen}>
-                           <DialogTrigger asChild>
-                            <Button variant="link" size="sm" type="button" className="p-0 h-auto text-xs">
-                              {t.auth.forgotPassword}
-                            </Button>
-                          </DialogTrigger>
-                          <DialogContent>
-                            <DialogHeader>
-                              <DialogTitle>{t.auth.forgotPasswordTitle}</DialogTitle>
-                              <DialogDescription>
-                                {t.auth.forgotPasswordRestaurantDesc}
-                              </DialogDescription>
-                            </DialogHeader>
-                            <Form {...forgotPasswordForm}>
-                              <form onSubmit={forgotPasswordForm.handleSubmit(onForgotPassword)} className="space-y-4">
-                                <FormField
-                                  control={forgotPasswordForm.control}
-                                  name="identifier"
-                                  render={({ field }) => (
-                                    <FormItem>
-                                      <FormLabel>{t.auth.restaurantIdOrEmailLabel}</FormLabel>
-                                      <FormControl>
-                                        <Input placeholder={t.auth.restaurantIdOrEmailPlaceholder} {...field} />
-                                      </FormControl>
-                                      <FormMessage />
-                                    </FormItem>
-                                  )}
-                                />
-                                <DialogFooter>
-                                  <DialogClose asChild>
-                                    <Button type="button" variant="secondary" disabled={loading}>
-                                      {t.auth.cancel}
-                                    </Button>
-                                  </DialogClose>
-                                  <Button type="submit" disabled={loading}>
-                                    {loading && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
-                                    {t.auth.sendResetLink}
-                                  </Button>
-                                </DialogFooter>
-                              </form>
-                            </Form>
-                          </DialogContent>
-                        </Dialog>
+                        <Button variant="link" size="sm" type="button" className="p-0 h-auto text-xs" onClick={onForgotPassword} disabled={loading}>
+                          {t.auth.forgotPassword}
+                        </Button>
                       </div>
                       <FormControl>
                         <Input type="password" {...field} />
