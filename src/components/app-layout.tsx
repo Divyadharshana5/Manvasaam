@@ -111,7 +111,16 @@ export function AppLayout({ children }: { children: React.ReactNode }) {
     return currentItem ? currentItem.label : t.sidebar.dashboard;
   }
 
-  const sidebarHeading = userProfile?.userType === 'farmer' ? "Farmer" : "Customer";
+  const getSidebarHeading = () => {
+    switch (userProfile?.userType) {
+      case 'farmer':
+        return 'Farmer';
+      case 'hub':
+        return 'Hub';
+      default:
+        return 'Customer';
+    }
+  };
 
 
   return (
@@ -137,7 +146,7 @@ export function AppLayout({ children }: { children: React.ReactNode }) {
         </SidebarHeader>
         <SidebarContent>
             <SidebarGroup>
-              <SidebarGroupLabel>{sidebarHeading}</SidebarGroupLabel>
+              <SidebarGroupLabel>{getSidebarHeading()}</SidebarGroupLabel>
               <SidebarMenu>
                 {menuItems.map((item) => (
                   <SidebarMenuItem key={item.href}>
