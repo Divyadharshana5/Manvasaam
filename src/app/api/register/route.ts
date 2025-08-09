@@ -57,11 +57,12 @@ export async function POST(request: Request) {
     // Store additional user information in Firestore
     await adminDb.collection("users").doc(userRecord.uid).set(firestoreData);
 
-    // Send email notification
+    // Send email notification, but don't let it block the registration process
     try {
         await sendRegistrationNotification(data, restaurantId);
     } catch (emailError: any) {
-        console.error("Failed to send registration email:", emailError.message);
+        console.error("Failed to send registration email, but user was created:", emailError.message);
+        // Do not re-throw the error, allow the successful response to be sent.
     }
 
     return NextResponse.json({ message: "User created successfully", uid: userRecord.uid }, { status: 201 });
