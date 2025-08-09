@@ -244,7 +244,20 @@ export default function HubAuthPage() {
                     </FormItem>
                   )}
                 />
-                 <FormField
+                <FormField
+                  control={registerForm.control}
+                  name="email"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel>{t.auth.hubAdminEmailLabel}</FormLabel>
+                      <FormControl>
+                        <Input type="email" placeholder="hub-admin@example.com" {...field} />
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+                <FormField
                   control={registerForm.control}
                   name="location"
                   render={({ field }) => (
@@ -265,19 +278,6 @@ export default function HubAuthPage() {
                       <FormLabel>{t.auth.phoneLabel}</FormLabel>
                       <FormControl>
                         <Input type="tel" placeholder="123-456-7890" {...field} />
-                      </FormControl>
-                      <FormMessage />
-                    </FormItem>
-                  )}
-                />
-                <FormField
-                  control={registerForm.control}
-                  name="email"
-                  render={({ field }) => (
-                    <FormItem>
-                      <FormLabel>{t.auth.hubAdminEmailLabel}</FormLabel>
-                      <FormControl>
-                        <Input type="email" placeholder="hub-admin@example.com" {...field} />
                       </FormControl>
                       <FormMessage />
                     </FormItem>
