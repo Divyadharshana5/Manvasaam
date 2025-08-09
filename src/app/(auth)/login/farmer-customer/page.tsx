@@ -59,14 +59,6 @@ const registerSchema = z.object({
 }).refine((data) => data.password === data.confirmPassword, {
   message: "Passwords don't match",
   path: ["confirmPassword"],
-}).refine((data) => {
-    if (data.userType === 'farmer') {
-        return !!data.photoDataUri;
-    }
-    return true;
-}, {
-    message: "Please capture a photo for face registration.",
-    path: ["photoDataUri"],
 });
 
 
@@ -181,7 +173,7 @@ function RegisterForm({
                         name="photoDataUri"
                         render={({ field }) => (
                             <FormItem>
-                                <FormLabel>{t.auth.faceReg}</FormLabel>
+                                <FormLabel>{t.auth.faceReg} (Optional)</FormLabel>
                                 <Card className="p-4 bg-muted/50 border-dashed border-2">
                                        <CardContent className="p-0">
                                             {!facePhoto ? (
