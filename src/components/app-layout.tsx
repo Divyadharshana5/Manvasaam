@@ -41,6 +41,9 @@ import { useRouter } from "next/navigation";
 import { useToast } from "@/hooks/use-toast";
 import { useLanguage } from "@/context/language-context";
 
+interface UserProfile {
+  userType?: string;
+}
 
 const authPages = [
   "/",
@@ -57,6 +60,25 @@ export function AppLayout({ children }: { children: React.ReactNode }) {
   const { toast } = useToast();
   const { t } = useLanguage();
   const isAuthPage = authPages.includes(pathname);
+  const [userProfile, setUserProfile] = React.useState<UserProfile | null>(null);
+
+   React.useEffect(() => {
+    async function fetchUserProfile() {
+      if (user) {
+        try {
+          const response = await fetch(`/api/users/${user.uid}`);
+          if (!response.ok) {
+            throw new Error("Failed to fetch user profile");
+          }
+          const data = await response.json();
+          setUserProfile(data);
+        } catch (error) {
+          console.error(error);
+        }
+      }
+    }
+    fetchUserProfile();
+  }, [user]);
   
   const menuItems = [
     { href: "/dashboard", label: t.sidebar.dashboard, icon: LayoutDashboard, section: "Customer" },
@@ -89,13 +111,7 @@ export function AppLayout({ children }: { children: React.ReactNode }) {
     return currentItem ? currentItem.label : t.sidebar.dashboard;
   }
 
-  const groupedMenuItems = menuItems.reduce((acc, item) => {
-    if (!acc[item.section]) {
-      acc[item.section] = [];
-    }
-    acc[item.section].push(item);
-    return acc;
-  }, {} as Record<string, typeof menuItems>);
+  const sidebarHeading = userProfile?.userType === 'farmer' ? "Farmer" : "Customer";
 
 
   return (
@@ -120,11 +136,10 @@ export function AppLayout({ children }: { children: React.ReactNode }) {
           </div>
         </SidebarHeader>
         <SidebarContent>
-          {Object.entries(groupedMenuItems).map(([section, items]) => (
-            <SidebarGroup key={section}>
-              <SidebarGroupLabel>Customer</SidebarGroupLabel>
+            <SidebarGroup>
+              <SidebarGroupLabel>{sidebarHeading}</SidebarGroupLabel>
               <SidebarMenu>
-                {items.map((item) => (
+                {menuItems.map((item) => (
                   <SidebarMenuItem key={item.href}>
                     <Link href={item.href} legacyBehavior passHref>
                       <SidebarMenuButton
@@ -139,7 +154,6 @@ export function AppLayout({ children }: { children: React.ReactNode }) {
                 ))}
               </SidebarMenu>
             </SidebarGroup>
-          ))}
         </SidebarContent>
         <SidebarFooter>
             <div className="p-2">
