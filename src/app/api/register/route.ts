@@ -25,14 +25,19 @@ export async function POST(request: Request) {
         restaurantId = `REST-${randomBytes(4).toString('hex').toUpperCase()}`;
     }
 
-    // Create user in Firebase Auth
-    const userRecord = await adminAuth.createUser({
+    const authPayload: { [key: string]: any } = {
         email: email,
         password: password,
-        photoURL: photoDataUri, // Set photoURL if provided
         emailVerified: false,
         disabled: false,
-    });
+    };
+
+    if (photoDataUri) {
+        authPayload.photoURL = photoDataUri;
+    }
+
+    // Create user in Firebase Auth
+    const userRecord = await adminAuth.createUser(authPayload);
     
     const firestoreData: { [key: string]: any } = {
         ...userData,
