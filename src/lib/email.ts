@@ -57,7 +57,7 @@ export const sendRegistrationNotification = async (userData: any, restaurantId?:
   // Sanitize data before sending
   const { password, confirmPassword, ...safeUserData } = userData;
 
-  // Send notification to Admin
+  // Send notification to Admin only if the recipient is configured
   if (adminRecipient) {
     const subject = `New User Registration on Manvaasam: ${
       safeUserData.username || safeUserData.branchName || safeUserData.restaurantName
