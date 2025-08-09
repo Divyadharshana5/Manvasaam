@@ -117,6 +117,8 @@ export function AppLayout({ children }: { children: React.ReactNode }) {
         return 'Farmer';
       case 'hub':
         return 'Hub';
+      case 'restaurant':
+        return 'Restaurant';
       default:
         return 'Customer';
     }
