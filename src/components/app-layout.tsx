@@ -15,6 +15,8 @@ import {
   SidebarFooter,
   SidebarTrigger,
   SidebarInset,
+  SidebarGroup,
+  SidebarGroupLabel,
 } from "@/components/ui/sidebar";
 import {
   HeartHandshake,
@@ -57,14 +59,14 @@ export function AppLayout({ children }: { children: React.ReactNode }) {
   const isAuthPage = authPages.includes(pathname);
   
   const menuItems = [
-    { href: "/dashboard", label: t.sidebar.dashboard, icon: LayoutDashboard },
-    { href: "/dashboard/profile", label: t.sidebar.profile, icon: UserIcon },
-    { href: "/dashboard/orders", label: t.sidebar.orders, icon: ShoppingCart },
-    { href: "/dashboard/products", label: t.sidebar.products, icon: Package },
-    { href: "/dashboard/track", label: t.sidebar.track, icon: Map },
-    { href: "/dashboard/matchmaking", label: t.sidebar.matchmaking, icon: HeartHandshake },
-    { href: "/dashboard/marketing", label: t.sidebar.marketing, icon: Megaphone },
-    { href: "/dashboard/faq", label: t.sidebar.faq, icon: HelpCircle },
+    { href: "/dashboard", label: t.sidebar.dashboard, icon: LayoutDashboard, section: "General" },
+    { href: "/dashboard/profile", label: t.sidebar.profile, icon: UserIcon, section: "General" },
+    { href: "/dashboard/orders", label: t.sidebar.orders, icon: ShoppingCart, section: "Customer" },
+    { href: "/dashboard/products", label: t.sidebar.products, icon: Package, section: "Customer" },
+    { href: "/dashboard/track", label: t.sidebar.track, icon: Map, section: "Customer" },
+    { href: "/dashboard/matchmaking", label: t.sidebar.matchmaking, icon: HeartHandshake, section: "Customer" },
+    { href: "/dashboard/marketing", label: t.sidebar.marketing, icon: Megaphone, section: "Other" },
+    { href: "/dashboard/faq", label: t.sidebar.faq, icon: HelpCircle, section: "Other" },
   ];
 
   const handleSignOut = async () => {
@@ -86,6 +88,15 @@ export function AppLayout({ children }: { children: React.ReactNode }) {
     const currentItem = menuItems.find((item) => pathname.startsWith(item.href));
     return currentItem ? currentItem.label : t.sidebar.dashboard;
   }
+
+  const groupedMenuItems = menuItems.reduce((acc, item) => {
+    if (!acc[item.section]) {
+      acc[item.section] = [];
+    }
+    acc[item.section].push(item);
+    return acc;
+  }, {} as Record<string, typeof menuItems>);
+
 
   return (
     <SidebarProvider>
@@ -109,21 +120,26 @@ export function AppLayout({ children }: { children: React.ReactNode }) {
           </div>
         </SidebarHeader>
         <SidebarContent>
-          <SidebarMenu>
-            {menuItems.map((item) => (
-              <SidebarMenuItem key={item.href}>
-                <Link href={item.href} legacyBehavior passHref>
-                  <SidebarMenuButton
-                    isActive={pathname.startsWith(item.href)}
-                    tooltip={{ children: item.label }}
-                  >
-                    <item.icon />
-                    <span>{item.label}</span>
-                  </SidebarMenuButton>
-                </Link>
-              </SidebarMenuItem>
-            ))}
-          </SidebarMenu>
+          {Object.entries(groupedMenuItems).map(([section, items]) => (
+            <SidebarGroup key={section}>
+              <SidebarGroupLabel>{section}</SidebarGroupLabel>
+              <SidebarMenu>
+                {items.map((item) => (
+                  <SidebarMenuItem key={item.href}>
+                    <Link href={item.href} legacyBehavior passHref>
+                      <SidebarMenuButton
+                        isActive={pathname.startsWith(item.href)}
+                        tooltip={{ children: item.label }}
+                      >
+                        <item.icon />
+                        <span>{item.label}</span>
+                      </SidebarMenuButton>
+                    </Link>
+                  </SidebarMenuItem>
+                ))}
+              </SidebarMenu>
+            </SidebarGroup>
+          ))}
         </SidebarContent>
         <SidebarFooter>
             <div className="p-2">
