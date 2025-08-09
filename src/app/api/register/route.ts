@@ -68,7 +68,7 @@ export async function POST(request: Request) {
     return NextResponse.json({ message: "User created successfully", uid: userRecord.uid }, { status: 201 });
   } catch (error: any)
    {
-    console.error("API Error:", error);
+    console.error("API Registration Error:", error);
     let message = "Failed to create user";
     if (error.code === 'auth/email-already-exists') {
         message = "An account with this email already exists.";
