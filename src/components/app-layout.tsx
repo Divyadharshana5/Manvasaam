@@ -80,7 +80,7 @@ export function AppLayout({ children }: { children: React.ReactNode }) {
     fetchUserProfile();
   }, [user]);
   
-  const menuItems = [
+  const allMenuItems = [
     { href: "/dashboard", label: t.sidebar.dashboard, icon: LayoutDashboard, section: "Customer" },
     { href: "/dashboard/profile", label: t.sidebar.profile, icon: UserIcon, section: "Customer" },
     { href: "/dashboard/orders", label: t.sidebar.orders, icon: ShoppingCart, section: "Customer" },
@@ -90,6 +90,11 @@ export function AppLayout({ children }: { children: React.ReactNode }) {
     { href: "/dashboard/marketing", label: t.sidebar.marketing, icon: Megaphone, section: "Customer" },
     { href: "/dashboard/faq", label: t.sidebar.faq, icon: HelpCircle, section: "Customer" },
   ];
+  
+  const menuItems = userProfile?.userType === 'hub' 
+    ? allMenuItems.filter(item => item.href !== '/dashboard/matchmaking') 
+    : allMenuItems;
+
 
   const handleSignOut = async () => {
     try {
