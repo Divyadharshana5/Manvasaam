@@ -45,6 +45,7 @@ const customerStats = {
   newProducts: [
       { name: "Organic Strawberries" },
       { name: "Fresh Basil" },
+      { name: "Artisanal Cheese" },
   ],
   lastWeekPurchases: [
       { id: "ORD001", date: "2024-07-20", total: "₹150.75" },
@@ -273,17 +274,7 @@ function DashboardComponent() {
 
   const renderCustomerDashboard = () => (
     <div className="space-y-6">
-       <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
-        <Card>
-          <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-            <CardTitle className="text-sm font-medium">Pending Orders</CardTitle>
-            <ListOrdered className="h-4 w-4 text-muted-foreground" />
-          </CardHeader>
-          <CardContent>
-            <div className="text-2xl font-bold">{customerStats.pendingOrders}</div>
-            <p className="text-xs text-muted-foreground">Orders being processed or shipped</p>
-          </CardContent>
-        </Card>
+       <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-2">
         <Card>
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
             <CardTitle className="text-sm font-medium">Completed Orders</CardTitle>
@@ -291,81 +282,61 @@ function DashboardComponent() {
           </CardHeader>
           <CardContent>
             <div className="text-2xl font-bold">{customerStats.completedOrders}</div>
-            <p className="text-xs text-muted-foreground">Total orders successfully delivered</p>
+            <p className="text-xs text-muted-foreground">Total orders you've successfully placed</p>
           </CardContent>
         </Card>
         <Card>
-          <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-            <CardTitle className="text-sm font-medium">Total Spent</CardTitle>
-            <DollarSign className="h-4 w-4 text-muted-foreground" />
+          <CardHeader>
+            <CardTitle>Last Week's Purchases</CardTitle>
+            <CardDescription>
+              A quick look at your recent buys.
+            </CardDescription>
           </CardHeader>
           <CardContent>
-            <div className="text-2xl font-bold">{customerStats.totalSpent}</div>
-            <p className="text-xs text-muted-foreground">Your lifetime spending with Manvaasam</p>
+            <Table>
+                <TableHeader>
+                    <TableRow>
+                        <TableHead>Order ID</TableHead>
+                        <TableHead>Date</TableHead>
+                        <TableHead className="text-right">Total</TableHead>
+                    </TableRow>
+                </TableHeader>
+                <TableBody>
+                {customerStats.lastWeekPurchases.map((order) => (
+                    <TableRow key={order.id}>
+                        <TableCell className="font-medium">{order.id}</TableCell>
+                        <TableCell>{order.date}</TableCell>
+                        <TableCell className="text-right">{order.total}</TableCell>
+                    </TableRow>
+                ))}
+                </TableBody>
+            </Table>
           </CardContent>
         </Card>
       </div>
        <Card>
         <CardHeader>
-          <CardTitle>Recent Orders</CardTitle>
+          <CardTitle>New Product Updates</CardTitle>
           <CardDescription>
-            Here's a quick look at your most recent activity.
+            Check out the latest fresh products available from our farmers!
           </CardDescription>
         </CardHeader>
         <CardContent>
-          <Table>
-            <TableHeader>
-              <TableRow>
-                <TableHead>Order ID</TableHead>
-                <TableHead>Date</TableHead>
-                <TableHead>Status</TableHead>
-                <TableHead className="text-right">Total</TableHead>
-              </TableRow>
-            </TableHeader>
-            <TableBody>
-              {customerStats.recentOrders.map((order) => (
-                <TableRow key={order.id}>
-                  <TableCell className="font-medium">{order.id}</TableCell>
-                  <TableCell>{order.date}</TableCell>
-                  <TableCell>
-                    <Badge variant="outline" className={getStatusBadgeClass(order.status)}>{order.status}</Badge>
-                  </TableCell>
-                  <TableCell className="text-right">{order.total}</TableCell>
-                </TableRow>
+          <ul className="space-y-3">
+              {customerStats.newProducts.map((product) => (
+                <li key={product.name} className="flex items-center gap-3">
+                  <Sparkles className="h-5 w-5 text-primary" />
+                  <span className="font-medium">{product.name}</span>
+                </li>
               ))}
-            </TableBody>
-          </Table>
+            </ul>
         </CardContent>
         <CardFooter>
           <Button asChild size="sm" className="w-full">
-            <Link href="/dashboard/orders">View All Orders</Link>
+            <Link href="/dashboard/products"><ShoppingCart className="mr-2 h-4 w-4" />Browse All Products</Link>
           </Button>
         </CardFooter>
       </Card>
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-        <Card className="flex flex-col items-center justify-center p-6 text-center">
-            <CardHeader>
-                <CardTitle>Ready for Something New?</CardTitle>
-                <CardDescription>Explore fresh produce from local farmers.</CardDescription>
-            </CardHeader>
-            <CardContent>
-                <Button asChild>
-                    <Link href="/dashboard/products"><ShoppingCart className="mr-2"/>Browse Products</Link>
-                </Button>
-            </CardContent>
-        </Card>
-        <Card className="flex flex-col items-center justify-center p-6 text-center">
-            <CardHeader>
-                <CardTitle>Need Help?</CardTitle>
-                <CardDescription>Find answers to common questions.</CardDescription>
-            </CardHeader>
-            <CardContent>
-                <Button asChild variant="outline">
-                    <Link href="/dashboard/faq">Visit FAQ</Link>
-                </Button>
-            </CardContent>
-        </Card>
-      </div>
     </div>
   );
   
