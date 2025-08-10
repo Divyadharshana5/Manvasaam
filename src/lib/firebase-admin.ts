@@ -1,4 +1,5 @@
 import admin from 'firebase-admin';
+import 'dotenv/config';
 
 const serviceAccount = {
   projectId: 'manvaasam-h50ej',
@@ -11,7 +12,7 @@ if (!admin.apps.length) {
     admin.initializeApp({
       credential: admin.credential.cert(serviceAccount as admin.ServiceAccount),
     });
-    console.log('✅ Firebase Admin initialized with hardcoded credentials');
+    console.log('✅ Firebase Admin initialized');
   } catch (error) {
     console.error('❌ Firebase Admin initialization error:', error);
   }
