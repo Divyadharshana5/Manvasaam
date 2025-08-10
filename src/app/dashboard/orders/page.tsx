@@ -203,10 +203,10 @@ export default function OrdersPage() {
                     </TableHeader>
                     <TableBody>
                     {filteredOrders.map((order) => (
-                        <TableRow key={order.id} >
-                        <TableCell className="font-medium" onClick={() => handleRowClick(order)}>{order.id}</TableCell>
-                        <TableCell onClick={() => handleRowClick(order)}>{order.customer.name}</TableCell>
-                        <TableCell onClick={() => handleRowClick(order)}>
+                        <TableRow key={order.id} onClick={() => handleRowClick(order)} className={order.status !== 'Cancelled' ? 'cursor-pointer' : ''}>
+                        <TableCell className="font-medium">{order.id}</TableCell>
+                        <TableCell>{order.customer.name}</TableCell>
+                        <TableCell>
                             <Badge
                                 variant="outline"
                                 className={getStatusBadgeClass(order.status)}
@@ -214,10 +214,10 @@ export default function OrdersPage() {
                                 {order.status}
                             </Badge>
                         </TableCell>
-                        <TableCell onClick={() => handleRowClick(order)}>
+                        <TableCell>
                             {new Date(order.date).toLocaleDateString()}
                         </TableCell>
-                        <TableCell className="text-right" onClick={() => handleRowClick(order)}>
+                        <TableCell className="text-right">
                             {order.total.toLocaleString("en-US", {
                             style: "currency",
                             currency: "INR",
@@ -225,7 +225,7 @@ export default function OrdersPage() {
                         </TableCell>
                          <TableCell className="text-center">
                             { (order.status === 'Shipped' || order.status === 'Processing') && (
-                                <Button asChild variant="outline" size="sm">
+                                <Button asChild variant="outline" size="sm" onClick={(e) => e.stopPropagation()}>
                                     <Link href={`/dashboard/track?orderId=${order.id}`}>
                                         <LocateFixed className="mr-2 h-4 w-4" />
                                         {t.orders.trackLive}
