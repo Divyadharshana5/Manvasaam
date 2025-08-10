@@ -7,7 +7,7 @@ import { useAuth } from "@/hooks/use-auth";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import { Skeleton } from "@/components/ui/skeleton";
-import { DollarSign, Package, Users, Activity, ShoppingCart, Truck, PackageX } from "lucide-react";
+import { DollarSign, Package, Users, Activity, ShoppingCart, Truck, PackageX, ListOrdered, CheckCircle } from "lucide-react";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { useLanguage, LanguageProvider } from "@/context/language-context";
@@ -36,6 +36,19 @@ const farmerStats = {
     { name: "Tomatoes" },
   ]
 };
+
+// Mock data for customer dashboard
+const customerStats = {
+  pendingOrders: 2,
+  completedOrders: 18,
+  totalSpent: "₹12,850.75",
+  recentOrders: [
+    { id: "ORD001", date: "2024-07-20", status: "Delivered", total: "₹150.75" },
+    { id: "ORD005", date: "2024-07-21", status: "Processing", total: "₹99.99" },
+    { id: "ORD002", date: "2024-07-19", status: "Shipped", total: "₹85.50" },
+  ],
+};
+
 
 function DashboardComponent() {
   const { user, loading } = useAuth();
@@ -236,6 +249,139 @@ function DashboardComponent() {
       </div>
     </div>
   );
+  
+  const getStatusBadgeClass = (status: string) => {
+    switch (status) {
+        case "Delivered":
+            return "bg-green-500/20 text-green-700 border-green-500/30 hover:bg-green-500/30";
+        case "Shipped":
+            return "bg-yellow-500/20 text-yellow-700 border-yellow-500/30 hover:bg-yellow-500/30";
+        case "Processing":
+            return "bg-blue-500/20 text-blue-700 border-blue-500/30 hover:bg-blue-500/30";
+        default:
+            return "";
+    }
+  }
+
+  const renderCustomerDashboard = () => (
+    <div className="space-y-6">
+       <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
+        <Card>
+          <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+            <CardTitle className="text-sm font-medium">Pending Orders</CardTitle>
+            <ListOrdered className="h-4 w-4 text-muted-foreground" />
+          </CardHeader>
+          <CardContent>
+            <div className="text-2xl font-bold">{customerStats.pendingOrders}</div>
+            <p className="text-xs text-muted-foreground">Orders being processed or shipped</p>
+          </CardContent>
+        </Card>
+        <Card>
+          <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+            <CardTitle className="text-sm font-medium">Completed Orders</CardTitle>
+            <CheckCircle className="h-4 w-4 text-muted-foreground" />
+          </CardHeader>
+          <CardContent>
+            <div className="text-2xl font-bold">{customerStats.completedOrders}</div>
+            <p className="text-xs text-muted-foreground">Orders successfully delivered</p>
+          </CardContent>
+        </Card>
+        <Card>
+          <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+            <CardTitle className="text-sm font-medium">Total Spent</CardTitle>
+            <DollarSign className="h-4 w-4 text-muted-foreground" />
+          </CardHeader>
+          <CardContent>
+            <div className="text-2xl font-bold">{customerStats.totalSpent}</div>
+            <p className="text-xs text-muted-foreground">Your lifetime spending with Manvaasam</p>
+          </CardContent>
+        </Card>
+      </div>
+      <Card>
+        <CardHeader>
+            <CardTitle>Recent Orders</CardTitle>
+            <CardDescription>A quick look at your most recent activity.</CardDescription>
+        </CardHeader>
+        <CardContent>
+            <Table>
+                <TableHeader>
+                    <TableRow>
+                        <TableHead>Order ID</TableHead>
+                        <TableHead>Date</TableHead>
+                        <TableHead>Status</TableHead>
+                        <TableHead className="text-right">Total</TableHead>
+                    </TableRow>
+                </TableHeader>
+                <TableBody>
+                    {customerStats.recentOrders.map(order => (
+                        <TableRow key={order.id}>
+                            <TableCell className="font-medium">{order.id}</TableCell>
+                            <TableCell>{order.date}</TableCell>
+                            <TableCell><Badge variant="outline" className={getStatusBadgeClass(order.status)}>{order.status}</Badge></TableCell>
+                            <TableCell className="text-right">{order.total}</TableCell>
+                        </TableRow>
+                    ))}
+                </TableBody>
+            </Table>
+        </CardContent>
+         <CardFooter className="flex justify-between items-center">
+            <p className="text-sm text-muted-foreground">Want to see more? Go to the orders page.</p>
+            <Button asChild size="sm">
+                <Link href="/dashboard/orders">View All Orders</Link>
+            </Button>
+        </CardFooter>
+      </Card>
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+        <Card className="flex flex-col items-center justify-center p-6 text-center">
+            <CardHeader>
+                <CardTitle>Ready for Something New?</CardTitle>
+                <CardDescription>Explore fresh produce from local farmers.</CardDescription>
+            </CardHeader>
+            <CardContent>
+                <Button asChild>
+                    <Link href="/dashboard/products"><ShoppingCart className="mr-2"/>Browse Products</Link>
+                </Button>
+            </CardContent>
+        </Card>
+        <Card className="flex flex-col items-center justify-center p-6 text-center">
+            <CardHeader>
+                <CardTitle>Need Help?</CardTitle>
+                <CardDescription>Find answers to common questions.</CardDescription>
+            </CardHeader>
+            <CardContent>
+                <Button asChild variant="outline">
+                    <Link href="/dashboard/faq">Visit FAQ</Link>
+                </Button>
+            </CardContent>
+        </Card>
+      </div>
+    </div>
+  );
+  
+  const renderContent = () => {
+      if (isLoading) {
+          return (
+             <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
+                <Skeleton className="h-32 w-full" />
+                <Skeleton className="h-32 w-full" />
+                <Skeleton className="h-32 w-full" />
+                <Skeleton className="h-32 w-full" />
+             </div>
+          );
+      }
+      
+      switch (userProfile?.userType) {
+          case 'farmer':
+              return renderFarmerDashboard();
+          case 'customer':
+              return renderCustomerDashboard();
+          case 'restaurant':
+          case 'hub':
+          default:
+              return renderGeneralDashboard();
+      }
+  }
+
 
   return (
     <AppLayout>
@@ -252,17 +398,7 @@ function DashboardComponent() {
             )}
           </div>
         </div>
-        
-        {isLoading ? (
-          <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
-            <Skeleton className="h-32 w-full" />
-            <Skeleton className="h-32 w-full" />
-            <Skeleton className="h-32 w-full" />
-            <Skeleton className="h-32 w-full" />
-          </div>
-        ) : (
-          userProfile?.userType === 'farmer' ? renderFarmerDashboard() : renderGeneralDashboard()
-        )}
+        {renderContent()}
       </div>
     </AppLayout>
   );
