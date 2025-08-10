@@ -1,7 +1,7 @@
 
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import * as z from "zod";
@@ -54,6 +54,11 @@ export default function HubAuthPage() {
   const router = useRouter();
   const [activeTab, setActiveTab] = useState("login");
   const { t } = useLanguage();
+  const [isClient, setIsClient] = useState(false);
+
+  useEffect(() => {
+    setIsClient(true);
+  }, []);
 
   const loginForm = useForm<z.infer<typeof loginSchema>>({
     resolver: zodResolver(loginSchema),
@@ -171,6 +176,10 @@ export default function HubAuthPage() {
     } finally {
       setLoading(false);
     }
+  }
+
+  if (!isClient) {
+    return null;
   }
 
   return (
@@ -321,7 +330,3 @@ export default function HubAuthPage() {
     </Card>
   );
 }
-
-    
-    
-    
