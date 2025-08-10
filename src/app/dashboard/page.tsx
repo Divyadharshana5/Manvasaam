@@ -22,7 +22,7 @@ interface UserProfile {
 
 // Mock data for farmer dashboard
 const farmerStats = {
-  totalSales: 152,
+  totalSales: "₹1,25,300.00",
   pendingShipments: 12,
   customerCount: 48,
   totalProfit: "₹95,600.50",
@@ -163,11 +163,11 @@ function DashboardComponent() {
         <Card>
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
             <CardTitle className="text-sm font-medium">Total Sales</CardTitle>
-            <ShoppingCart className="h-4 w-4 text-muted-foreground" />
+            <DollarSign className="h-4 w-4 text-muted-foreground" />
           </CardHeader>
           <CardContent>
             <div className="text-2xl font-bold">{farmerStats.totalSales}</div>
-            <p className="text-xs text-muted-foreground">Number of items sold</p>
+            <p className="text-xs text-muted-foreground">Total revenue from sales</p>
           </CardContent>
         </Card>
         <Card>
@@ -187,7 +187,7 @@ function DashboardComponent() {
           </CardHeader>
           <CardContent>
             <div className="text-2xl font-bold">{farmerStats.customerCount}</div>
-            <p className="text-xs text-muted-foreground">Customers linked to you</p>
+            <p className="text-xs text-muted-foreground">Active customers</p>
           </CardContent>
         </Card>
         <Card>
