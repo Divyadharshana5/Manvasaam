@@ -7,7 +7,7 @@ import { useAuth } from "@/hooks/use-auth";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import { Skeleton } from "@/components/ui/skeleton";
-import { DollarSign, Package, Users, Activity, ShoppingCart, Truck, PackageX, ListOrdered, CheckCircle } from "lucide-react";
+import { DollarSign, Package, Users, Activity, ShoppingCart, Truck, PackageX, ListOrdered, CheckCircle, Sparkles } from "lucide-react";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { useLanguage, LanguageProvider } from "@/context/language-context";
@@ -42,6 +42,14 @@ const customerStats = {
   pendingOrders: 2,
   completedOrders: 18,
   totalSpent: "₹12,850.75",
+  newProducts: [
+      { name: "Organic Strawberries" },
+      { name: "Fresh Basil" },
+  ],
+  lastWeekPurchases: [
+      { id: "ORD001", date: "2024-07-20", total: "₹150.75" },
+      { id: "ORD002", date: "2024-07-19", total: "₹85.50" },
+  ],
   recentOrders: [
     { id: "ORD001", date: "2024-07-20", status: "Delivered", total: "₹150.75" },
     { id: "ORD005", date: "2024-07-21", status: "Processing", total: "₹99.99" },
@@ -283,7 +291,7 @@ function DashboardComponent() {
           </CardHeader>
           <CardContent>
             <div className="text-2xl font-bold">{customerStats.completedOrders}</div>
-            <p className="text-xs text-muted-foreground">Orders successfully delivered</p>
+            <p className="text-xs text-muted-foreground">Total orders successfully delivered</p>
           </CardContent>
         </Card>
         <Card>
@@ -297,40 +305,60 @@ function DashboardComponent() {
           </CardContent>
         </Card>
       </div>
-      <Card>
-        <CardHeader>
-            <CardTitle>Recent Orders</CardTitle>
-            <CardDescription>A quick look at your most recent activity.</CardDescription>
-        </CardHeader>
-        <CardContent>
-            <Table>
-                <TableHeader>
-                    <TableRow>
-                        <TableHead>Order ID</TableHead>
-                        <TableHead>Date</TableHead>
-                        <TableHead>Status</TableHead>
-                        <TableHead className="text-right">Total</TableHead>
-                    </TableRow>
-                </TableHeader>
-                <TableBody>
-                    {customerStats.recentOrders.map(order => (
-                        <TableRow key={order.id}>
-                            <TableCell className="font-medium">{order.id}</TableCell>
-                            <TableCell>{order.date}</TableCell>
-                            <TableCell><Badge variant="outline" className={getStatusBadgeClass(order.status)}>{order.status}</Badge></TableCell>
-                            <TableCell className="text-right">{order.total}</TableCell>
-                        </TableRow>
-                    ))}
-                </TableBody>
-            </Table>
-        </CardContent>
-         <CardFooter className="flex justify-between items-center">
-            <p className="text-sm text-muted-foreground">Want to see more? Go to the orders page.</p>
-            <Button asChild size="sm">
-                <Link href="/dashboard/orders">View All Orders</Link>
-            </Button>
-        </CardFooter>
-      </Card>
+       <div className="grid gap-4 md:grid-cols-2">
+            <Card>
+                <CardHeader>
+                    <CardTitle>New Products Available</CardTitle>
+                    <CardDescription>Check out the latest additions.</CardDescription>
+                </CardHeader>
+                <CardContent>
+                    <ul className="space-y-2">
+                        {customerStats.newProducts.map(product => (
+                            <li key={product.name} className="flex items-center gap-2 text-sm">
+                                <Sparkles className="h-4 w-4 text-primary" />
+                                <span>{product.name}</span>
+                            </li>
+                        ))}
+                    </ul>
+                </CardContent>
+                <CardFooter>
+                    <Button asChild size="sm" variant="outline" className="w-full">
+                        <Link href="/dashboard/products">Browse All Products</Link>
+                    </Button>
+                </CardFooter>
+            </Card>
+            <Card>
+                <CardHeader>
+                    <CardTitle>Last Week's Purchases</CardTitle>
+                    <CardDescription>A summary of your recent buys.</CardDescription>
+                </CardHeader>
+                <CardContent>
+                    <Table>
+                        <TableHeader>
+                            <TableRow>
+                                <TableHead>Order ID</TableHead>
+                                <TableHead>Date</TableHead>
+                                <TableHead className="text-right">Total</TableHead>
+                            </TableRow>
+                        </TableHeader>
+                        <TableBody>
+                            {customerStats.lastWeekPurchases.map(order => (
+                                <TableRow key={order.id}>
+                                    <TableCell>{order.id}</TableCell>
+                                    <TableCell>{order.date}</TableCell>
+                                    <TableCell className="text-right">{order.total}</TableCell>
+                                </TableRow>
+                            ))}
+                        </TableBody>
+                    </Table>
+                </CardContent>
+                <CardFooter>
+                    <Button asChild size="sm" className="w-full">
+                        <Link href="/dashboard/orders">View All Orders</Link>
+                    </Button>
+                </CardFooter>
+            </Card>
+        </div>
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
         <Card className="flex flex-col items-center justify-center p-6 text-center">
             <CardHeader>
@@ -411,3 +439,5 @@ export default function DashboardPage() {
     </LanguageProvider>
   )
 }
+
+    
