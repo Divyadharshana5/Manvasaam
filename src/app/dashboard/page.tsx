@@ -305,60 +305,43 @@ function DashboardComponent() {
           </CardContent>
         </Card>
       </div>
-       <div className="grid gap-4 md:grid-cols-2">
-            <Card>
-                <CardHeader>
-                    <CardTitle>New Products Available</CardTitle>
-                    <CardDescription>Check out the latest additions.</CardDescription>
-                </CardHeader>
-                <CardContent>
-                    <ul className="space-y-2">
-                        {customerStats.newProducts.map(product => (
-                            <li key={product.name} className="flex items-center gap-2 text-sm">
-                                <Sparkles className="h-4 w-4 text-primary" />
-                                <span>{product.name}</span>
-                            </li>
-                        ))}
-                    </ul>
-                </CardContent>
-                <CardFooter>
-                    <Button asChild size="sm" variant="outline" className="w-full">
-                        <Link href="/dashboard/products">Browse All Products</Link>
-                    </Button>
-                </CardFooter>
-            </Card>
-            <Card>
-                <CardHeader>
-                    <CardTitle>Last Week's Purchases</CardTitle>
-                    <CardDescription>A summary of your recent buys.</CardDescription>
-                </CardHeader>
-                <CardContent>
-                    <Table>
-                        <TableHeader>
-                            <TableRow>
-                                <TableHead>Order ID</TableHead>
-                                <TableHead>Date</TableHead>
-                                <TableHead className="text-right">Total</TableHead>
-                            </TableRow>
-                        </TableHeader>
-                        <TableBody>
-                            {customerStats.lastWeekPurchases.map(order => (
-                                <TableRow key={order.id}>
-                                    <TableCell>{order.id}</TableCell>
-                                    <TableCell>{order.date}</TableCell>
-                                    <TableCell className="text-right">{order.total}</TableCell>
-                                </TableRow>
-                            ))}
-                        </TableBody>
-                    </Table>
-                </CardContent>
-                <CardFooter>
-                    <Button asChild size="sm" className="w-full">
-                        <Link href="/dashboard/orders">View All Orders</Link>
-                    </Button>
-                </CardFooter>
-            </Card>
-        </div>
+       <Card>
+        <CardHeader>
+          <CardTitle>Recent Orders</CardTitle>
+          <CardDescription>
+            Here's a quick look at your most recent activity.
+          </CardDescription>
+        </CardHeader>
+        <CardContent>
+          <Table>
+            <TableHeader>
+              <TableRow>
+                <TableHead>Order ID</TableHead>
+                <TableHead>Date</TableHead>
+                <TableHead>Status</TableHead>
+                <TableHead className="text-right">Total</TableHead>
+              </TableRow>
+            </TableHeader>
+            <TableBody>
+              {customerStats.recentOrders.map((order) => (
+                <TableRow key={order.id}>
+                  <TableCell className="font-medium">{order.id}</TableCell>
+                  <TableCell>{order.date}</TableCell>
+                  <TableCell>
+                    <Badge variant="outline" className={getStatusBadgeClass(order.status)}>{order.status}</Badge>
+                  </TableCell>
+                  <TableCell className="text-right">{order.total}</TableCell>
+                </TableRow>
+              ))}
+            </TableBody>
+          </Table>
+        </CardContent>
+        <CardFooter>
+          <Button asChild size="sm" className="w-full">
+            <Link href="/dashboard/orders">View All Orders</Link>
+          </Button>
+        </CardFooter>
+      </Card>
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
         <Card className="flex flex-col items-center justify-center p-6 text-center">
             <CardHeader>
@@ -439,5 +422,3 @@ export default function DashboardPage() {
     </LanguageProvider>
   )
 }
-
-    
