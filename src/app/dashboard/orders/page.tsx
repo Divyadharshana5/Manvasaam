@@ -165,7 +165,7 @@ export default function OrdersPage() {
           </div>
         </div>
         <Card className="shadow-lg border-2 border-primary/10">
-          <CardHeader className="flex flex-col md:flex-row justify-between items-center gap-2">
+          <CardHeader className="flex flex-col md:flex-row justify-between md:items-center gap-2">
             <div className="flex-1">
               <CardTitle>{t.orders.cardTitle}</CardTitle>
               <CardDescription>

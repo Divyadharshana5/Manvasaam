@@ -142,7 +142,7 @@ export default function MarketingPage() {
                 <CardHeader>
                     <CardTitle>Generating...</CardTitle>
                 </CardHeader>
-                <CardContent className="flex flex-col items-center justify-center space-y-4">
+                <CardContent className="flex flex-col items-center justify-center space-y-4 h-full min-h-[300px]">
                     <Loader2 className="h-16 w-16 animate-spin text-primary" />
                     <p className="text-muted-foreground">AI is crafting your post...</p>
                 </CardContent>

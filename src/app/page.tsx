@@ -83,7 +83,7 @@ export default function HomePage() {
 
       <main className="flex-1 flex flex-col items-center justify-center pt-24 px-4 relative z-10">
         <section className="text-center w-full max-w-4xl mx-auto">
-          <h1 className="text-4xl md:text-6xl font-bold text-foreground tracking-tight text-center mb-12" style={{ textShadow: '0 2px 4px rgba(0, 0, 0, 0.4)' }}>{t.tagline}</h1>
+          <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-foreground tracking-tight text-center mb-12" style={{ textShadow: '0 2px 4px rgba(0, 0, 0, 0.4)' }}>{t.tagline}</h1>
           <h2 className="text-3xl font-bold mb-8 text-foreground [text-shadow:_0_1px_2px_rgb(0_0_0_/_20%)]">{t.joinCommunity}</h2>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
             {userRoles.map((role) => (

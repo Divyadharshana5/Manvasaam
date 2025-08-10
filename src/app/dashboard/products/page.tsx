@@ -287,7 +287,7 @@ export default function ProductsPage() {
                 {/* Vegetables Section */}
                 <div>
                     <h3 className="text-xl font-semibold flex items-center gap-2 mb-4"><Carrot className="text-primary"/>Vegetables</h3>
-                    <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+                    <div className="grid gap-6 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
                        {farmerData.products.vegetables.map(product => (
                             <Card key={product.id} className="overflow-hidden shadow-lg hover:shadow-xl transition-shadow duration-300">
                                 <CardContent className="p-0">
@@ -319,7 +319,7 @@ export default function ProductsPage() {
                 {/* Fruits Section */}
                 <div>
                     <h3 className="text-xl font-semibold flex items-center gap-2 mb-4"><Apple className="text-primary"/>Fruits</h3>
-                    <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+                    <div className="grid gap-6 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
                        {farmerData.products.fruits.map(product => (
                             <Card key={product.id} className="overflow-hidden shadow-lg hover:shadow-xl transition-shadow duration-300">
                                 <CardContent className="p-0">
@@ -351,7 +351,7 @@ export default function ProductsPage() {
                 {/* Dairy Products Section */}
                 <div>
                     <h3 className="text-xl font-semibold flex items-center gap-2 mb-4"><Milk className="text-primary"/>Dairy Products</h3>
-                    <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+                    <div className="grid gap-6 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
                        {farmerData.products.dairy.map(product => (
                             <Card key={product.id} className="overflow-hidden shadow-lg hover:shadow-xl transition-shadow duration-300">
                                 <CardContent className="p-0">
