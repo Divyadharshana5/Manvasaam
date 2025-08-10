@@ -37,9 +37,9 @@ const loginSchema = z.object({
 
 const registerSchema = z.object({
   branchName: z.string().min(2, { message: "Branch name must be at least 2 characters." }),
+  email: z.string().email({ message: "A valid email is required for the hub account." }),
   location: z.string().min(3, { message: "Location is required." }),
   phone: z.string().min(10, { message: "Please enter a valid phone number." }),
-  email: z.string().email({ message: "A valid email is required for the hub account." }),
   password: z.string().min(6, { message: "Password must be at least 6 characters." }),
   confirmPassword: z.string(),
 }).refine((data) => data.password === data.confirmPassword, {
@@ -69,9 +69,9 @@ export default function HubAuthPage() {
     resolver: zodResolver(registerSchema),
     defaultValues: {
       branchName: "",
+      email: "",
       location: "",
       phone: "",
-      email: "",
       password: "",
       confirmPassword: "",
     },
@@ -196,9 +196,9 @@ export default function HubAuthPage() {
             <TabsTrigger value="login">{t.auth.login}</TabsTrigger>
             <TabsTrigger value="register">{t.auth.register}</TabsTrigger>
           </TabsList>
-          <TabsContent value="login">
+          <TabsContent value="login" className="pt-4">
             <Form {...loginForm}>
-              <form onSubmit={loginForm.handleSubmit(onLogin)} className="space-y-4 pt-4">
+              <form onSubmit={loginForm.handleSubmit(onLogin)} className="space-y-4">
                 <FormField
                   control={loginForm.control}
                   name="branchId"
@@ -237,9 +237,9 @@ export default function HubAuthPage() {
               </form>
             </Form>
           </TabsContent>
-          <TabsContent value="register">
+          <TabsContent value="register" className="pt-4">
             <Form {...registerForm}>
-              <form onSubmit={registerForm.handleSubmit(onRegister)} className="space-y-4 pt-4">
+              <form onSubmit={registerForm.handleSubmit(onRegister)} className="space-y-4">
                  <FormField
                   control={registerForm.control}
                   name="branchName"
