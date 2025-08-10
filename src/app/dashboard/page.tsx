@@ -259,22 +259,9 @@ function DashboardComponent() {
     </div>
   );
   
-  const getStatusBadgeClass = (status: string) => {
-    switch (status) {
-        case "Delivered":
-            return "bg-green-500/20 text-green-700 border-green-500/30 hover:bg-green-500/30";
-        case "Shipped":
-            return "bg-yellow-500/20 text-yellow-700 border-yellow-500/30 hover:bg-yellow-500/30";
-        case "Processing":
-            return "bg-blue-500/20 text-blue-700 border-blue-500/30 hover:bg-blue-500/30";
-        default:
-            return "";
-    }
-  }
-
   const renderCustomerDashboard = () => (
     <div className="space-y-6">
-       <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-2">
+       <div className="grid gap-4 md:grid-cols-2">
         <Card>
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
             <CardTitle className="text-sm font-medium">Completed Orders</CardTitle>
@@ -393,3 +380,5 @@ export default function DashboardPage() {
     </LanguageProvider>
   )
 }
+
+    
