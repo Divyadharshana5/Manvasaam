@@ -30,7 +30,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" suppressHydrationWarning>
-      <body className={`${ptSans.variable} font-body antialiased`}>
+      <body className={`${ptSans.variable} font-sans antialiased`}>
         <LanguageProvider>
           <AuthProvider>{children}</AuthProvider>
         </LanguageProvider>
