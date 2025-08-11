@@ -329,15 +329,15 @@ export default function HomePage() {
                     {t.sidebar.voiceAssistant}
                 </Button>
               </DialogTrigger>
-              <DialogContent>
-                 <DialogHeader className="text-center">
+              <DialogContent className="sm:max-w-md w-[90vw] rounded-lg">
+                 <DialogHeader className="text-center pt-4">
                     <DialogTitle>Voice Assistant</DialogTitle>
                     <DialogDescription>
                     Ask me to navigate to a page, like "Go to the restaurant registration page".
                     </DialogDescription>
                 </DialogHeader>
 
-                <div className="space-y-6">
+                <div className="space-y-6 py-4">
                     {hasMicrophonePermission === false && (
                         <Alert variant="destructive" className="mb-4">
                         <MicOff className="h-4 w-4" />
@@ -362,7 +362,7 @@ export default function HomePage() {
                     
                     {assistantState === 'listening' && <div className="text-center text-destructive animate-pulse">Listening...</div>}
                     
-                    <div className="min-h-[8rem] space-y-4">
+                    <div className="min-h-[8rem] space-y-4 px-2">
                         {transcribedText && (
                             <Alert>
                                 <Mic className="h-4 w-4" />
@@ -455,3 +455,4 @@ export default function HomePage() {
     </div>
   );
 }
+
