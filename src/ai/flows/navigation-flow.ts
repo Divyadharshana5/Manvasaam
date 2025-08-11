@@ -39,7 +39,7 @@ const translations: Record<string, Record<string, string>> = {
   },
   hubLogin: {
     English: "It seems you want to go to the Hub Login page. Should I proceed?",
-    Tamil: "நீங்கள் ஹப் உள்நுழைவு பக்கத்திற்குச் செல்ல விரும்புகிறீர்கள் என்று தெரிகிறது. நான் தொடரலாமா?",
+    Tamil: "நீங்கள் ஹப் உள்நுழைவு பக்கத்திற்குச் செல்ல விரும்புகிறீர்கள் என்று தெரிகிறது. నేను ಮುಂದುವರಿಯಬೇಕೇ?",
     Malayalam: "നിങ്ങൾ ഹബ് ലോഗിൻ പേജിലേക്ക് പോകാൻ ആഗ്രഹിക്കുന്നു എന്ന് തോന്നുന്നു. ഞാൻ തുടരണോ?",
     Telugu: "మీరు హబ్ లాగిన్ పేజీకి వెళ్లాలనుకుంటున్నారని అనిపిస్తుంది. నేను కొనసాగించాలా?",
     Hindi: "ऐसा लगता है कि आप हब लॉगिन पृष्ठ पर जाना चाहते हैं। क्या मुझे आगे बढ़ना चाहिए?",
@@ -51,7 +51,7 @@ const translations: Record<string, Record<string, string>> = {
   },
   faq: {
     English: "It sounds like you have a question. Would you like me to take you to the FAQ page?",
-    Tamil: "உங்களுக்கு ஒரு கேள்வி இருப்பது போல் தெரிகிறது. நான் உங்களை அடிக்கடி கேட்கப்படும் கேள்விகள் பக்கத்திற்கு அழைத்துச் செல்லட்டுமா?",
+    Tamil: "உங்களுக்கு ஒரு கேள்வி இருப்பது போல் தெரிகிறது. నేను మిమ్మల్ని తరచుగా అడిగే ప్రశ్నల పేజీకి తీసుకెళ్లాలా?",
     Malayalam: "നിങ്ങൾക്കൊരു ചോദ്യമുണ്ടെന്ന് തോന്നുന്നു. ഞാൻ നിങ്ങളെ പതിവുചോദ്യങ്ങൾ പേജിലേക്ക് കൊണ്ടുപോകണോ?",
     Telugu: "మీకు ఒక ప్రశ్న ఉన్నట్లు అనిపిస్తుంది. నేను మిమ్మల్ని తరచుగా అడిగే ప్రశ్నల పేజీకి తీసుకెళ్లాలా?",
     Hindi: "ऐसा लगता है कि आपका कोई प्रश्न है। क्या आप चाहते हैं कि मैं आपको अक्सर पूछे जाने वाले प्रश्न पृष्ठ पर ले जाऊं?",
@@ -153,5 +153,3 @@ const understandNavigationFlow = ai.defineFlow(
 export async function understandNavigation(input: NavigationInput): Promise<NavigationOutput> {
   return understandNavigationFlow(input);
 }
-
-    
