@@ -77,10 +77,9 @@ export const NavigationInputSchema = z.object({
 });
 export type NavigationInput = z.infer<typeof NavigationInputSchema>;
 
-// The AI will now return a page key instead of a full message.
 const AiNavigationOutputSchema = z.object({
   intent: z.enum(['navigate', 'faq', 'none']).describe("The user's intent."),
-  pageKey: z.enum(['restaurantRegistration', 'farmerCustomerLogin', 'hubLogin', 'faq', 'none']).optional().describe("The key for the page to navigate to (e.g., 'restaurantRegistration', 'faq')."),
+  pageKey: z.enum(['restaurantRegistration', 'farmerCustomerLogin', 'hubLogin', 'faq', 'none', '/login/restaurant', '/login/farmer-customer', '/login/hub', '/dashboard/faq']).optional().describe("The key or path for the page to navigate to (e.g., 'restaurantRegistration', '/login/restaurant', 'faq')."),
 });
 
 export const NavigationOutputSchema = z.object({
@@ -122,11 +121,24 @@ const understandNavigationFlow = ai.defineFlow(
         return { intent: 'none' };
     }
     
-    // Look up the translation based on the pageKey and language.
-    const confirmationMessage = translations[output.pageKey]?.[input.language] || translations[output.pageKey]?.['English'];
-    const pagePath = pagePaths[output.pageKey];
+    // Determine the page path and key, whether the AI returned a key or a full path
+    let pageKey = output.pageKey;
+    let pagePath = pagePaths[pageKey];
 
-    if (!confirmationMessage || !pagePath) {
+    if (pageKey.startsWith('/')) {
+        pagePath = pageKey;
+        // Find the key corresponding to the path to look up translations
+        pageKey = Object.keys(pagePaths).find(key => pagePaths[key] === pagePath) || 'none';
+    }
+    
+    if (!pagePath || pageKey === 'none') {
+        return { intent: 'none' };
+    }
+
+    // Look up the translation based on the determined pageKey and language.
+    const confirmationMessage = translations[pageKey]?.[input.language] || translations[pageKey]?.['English'];
+
+    if (!confirmationMessage) {
        return { intent: 'none' };
     }
     
@@ -141,3 +153,5 @@ const understandNavigationFlow = ai.defineFlow(
 export async function understandNavigation(input: NavigationInput): Promise<NavigationOutput> {
   return understandNavigationFlow(input);
 }
+
+    
