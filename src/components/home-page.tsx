@@ -367,6 +367,28 @@ export default function HomePage() {
 
   const buttonState = getButtonState();
 
+  const containerVariants = {
+    hidden: { opacity: 0 },
+    visible: {
+      opacity: 1,
+      transition: {
+        staggerChildren: 0.15,
+        delayChildren: 0.4,
+      },
+    },
+  };
+
+  const itemVariants = {
+    hidden: { y: 20, opacity: 0 },
+    visible: {
+      y: 0,
+      opacity: 1,
+      transition: {
+        duration: 0.5,
+      },
+    },
+  };
+
   return (
     <motion.div>
       <motion.header
@@ -475,35 +497,36 @@ export default function HomePage() {
         <div className="absolute inset-0 bg-background/60 z-0"></div>
         <motion.section
           className="text-center w-full max-w-4xl mx-auto z-10"
-          initial={{ opacity: 0, y: 50 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6 }}
+          initial="hidden"
+          animate="visible"
+          variants={containerVariants}
         >
           <motion.h1
             className="text-4xl md:text-5xl lg:text-6xl font-bold text-foreground tracking-tight text-center mb-12 [text-shadow:_0_2px_4px_rgb(0_0_0_/_30%)]"
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5, delay: 0.2 }}
+            variants={itemVariants}
           >
             {t.tagline}
           </motion.h1>
           <motion.h2
             className="text-3xl font-bold mb-8 text-foreground [text-shadow:_0_1px_2px_rgb(0_0_0_/_20%)]"
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5, delay: 0.4 }}
+            variants={itemVariants}
           >
             {t.joinCommunity}
           </motion.h2>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-            {userRoles.map((role, index) => (
+          <motion.div
+            className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8"
+            variants={containerVariants}
+            initial="hidden"
+            animate="visible"
+          >
+            {userRoles.map((role) => (
               <motion.div
                 key={role.name}
-                initial={{ opacity: 0, scale: 0.8 }}
-                animate={{ opacity: 1, scale: 1 }}
-                transition={{ duration: 0.5, delay: 0.6 + index * 0.1 }}
+                variants={itemVariants}
+                whileHover={{ scale: 1.05, y: -5 }}
+                transition={{ type: "spring", stiffness: 300 }}
               >
-                <Card className="bg-card/80 backdrop-blur-xl border-2 border-primary/20 rounded-2xl shadow-lg hover:shadow-2xl hover:scale-105 transition-all duration-300 p-6 flex flex-col h-full">
+                <Card className="bg-card/80 backdrop-blur-xl border-2 border-primary/20 rounded-2xl shadow-lg hover:shadow-2xl transition-shadow duration-300 p-6 flex flex-col h-full">
                   <CardHeader className="items-center flex-shrink-0">
                     {role.icon}
                   </CardHeader>
@@ -533,7 +556,7 @@ export default function HomePage() {
                 </Card>
               </motion.div>
             ))}
-          </div>
+          </motion.div>
         </motion.section>
 
         <motion.section
