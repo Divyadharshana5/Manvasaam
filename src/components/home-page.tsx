@@ -423,17 +423,21 @@ export default function HomePage() {
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.5 }}
       >
-        <Link href="/" className="flex items-center gap-2">
-          <ManvaasamLogo width={32} height={32} />
-          <span className="text-xl font-bold text-primary">Manvaasam</span>
-        </Link>
+        <motion.div whileHover={{ scale: 1.05, rotate: -5 }}>
+          <Link href="/" className="flex items-center gap-2">
+            <ManvaasamLogo width={32} height={32} />
+            <span className="text-xl font-bold text-primary">Manvaasam</span>
+          </Link>
+        </motion.div>
         <div className="flex items-center gap-4">
           <Dialog open={isAssistantOpen} onOpenChange={setIsAssistantOpen}>
             <DialogTrigger asChild>
-              <Button variant="ghost" className="hover:bg-primary/90 hover:text-primary-foreground">
-                <Mic className="mr-2 h-4 w-4" />
-                {t.sidebar.voiceAssistant}
-              </Button>
+              <motion.div whileHover={{ scale: 1.1 }}>
+                <Button variant="ghost" className="hover:bg-primary/90 hover:text-primary-foreground">
+                  <Mic className="mr-2 h-4 w-4" />
+                  {t.sidebar.voiceAssistant}
+                </Button>
+              </motion.div>
             </DialogTrigger>
             <DialogContent className="sm:max-w-md w-[90vw] rounded-lg">
               <DialogHeader className="text-center pt-4">
@@ -494,10 +498,12 @@ export default function HomePage() {
 
           <DropdownMenu>
             <DropdownMenuTrigger asChild>
-              <Button variant="outline" className="hover:bg-primary/90 hover:text-primary-foreground hover:border-primary/90">
-                <Languages className="mr-2 h-4 w-4" />
-                {selectedLanguage}
-              </Button>
+              <motion.div whileHover={{ scale: 1.1 }}>
+                <Button variant="outline" className="hover:bg-primary/90 hover:text-primary-foreground hover:border-primary/90">
+                  <Languages className="mr-2 h-4 w-4" />
+                  {selectedLanguage}
+                </Button>
+              </motion.div>
             </DropdownMenuTrigger>
             <DropdownMenuContent>
               {languages.map((lang) => (
@@ -623,9 +629,15 @@ export default function HomePage() {
           </Card>
         </motion.section>
       </main>
-      <footer className="w-full p-4 text-center text-foreground/80 mt-12 [text-shadow:_0_1px_2px_rgb(0_0_0_/_20%)] relative z-10">
+      <motion.footer
+        className="w-full p-4 text-center text-foreground/80 mt-12 [text-shadow:_0_1px_2px_rgb(0_0_0_/_20%)] relative z-10"
+        initial={{ opacity: 0, y: 50 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true, amount: 0.5 }}
+        transition={{ duration: 0.6 }}
+      >
         © {new Date().getFullYear()} Manvaasam. {t.footer}
-      </footer>
+      </motion.footer>
     </motion.div>
   );
 }
