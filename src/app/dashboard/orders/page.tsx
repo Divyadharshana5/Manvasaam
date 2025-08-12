@@ -9,6 +9,7 @@ import {
   CardTitle,
   CardContent,
   CardDescription,
+  CardFooter,
 } from "@/components/ui/card";
 import {
   Table,
@@ -29,10 +30,11 @@ import {
     DialogTitle,
     DialogDescription,
 } from "@/components/ui/dialog";
-import { MapPin, PackageCheck, CalendarClock, Truck, LocateFixed } from "lucide-react";
+import { MapPin, PackageCheck, CalendarClock, Truck, LocateFixed, MoreVertical } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
 import { useLanguage } from "@/context/language-context";
+import { cn } from "@/lib/utils";
 
 
 interface ShippingDetails {
@@ -147,7 +149,7 @@ export default function OrdersPage() {
         case "Cancelled":
             return "bg-red-500/20 text-red-700 border-red-500/30";
         default:
-            return "";
+            return "bg-muted text-muted-foreground border";
     }
   }
 
@@ -183,61 +185,92 @@ export default function OrdersPage() {
           </CardHeader>
           <CardContent>
             {loading ? (
-              <div className="space-y-2">
+              <div className="space-y-4">
                 {[...Array(5)].map((_, i) => (
-                  <Skeleton key={i} className="h-16 w-full" />
+                  <Skeleton key={i} className="h-20 w-full" />
                 ))}
               </div>
             ) : (
-             <div className="overflow-x-auto">
-                <Table>
-                    <TableHeader>
-                    <TableRow>
-                        <TableHead>{t.orders.orderId}</TableHead>
-                        <TableHead>{t.orders.customer}</TableHead>
-                        <TableHead>{t.orders.status}</TableHead>
-                        <TableHead>{t.orders.date}</TableHead>
-                        <TableHead className="text-right">{t.orders.total}</TableHead>
-                        <TableHead className="text-center">{t.orders.actions}</TableHead>
-                    </TableRow>
-                    </TableHeader>
-                    <TableBody>
-                    {filteredOrders.map((order) => (
-                        <TableRow key={order.id} onClick={() => handleRowClick(order)} className={order.status !== 'Cancelled' ? 'cursor-pointer' : ''}>
-                        <TableCell className="font-medium">{order.id}</TableCell>
-                        <TableCell>{order.customer.name}</TableCell>
-                        <TableCell>
-                            <Badge
-                                variant="outline"
-                                className={getStatusBadgeClass(order.status)}
-                            >
-                                {order.status}
-                            </Badge>
-                        </TableCell>
-                        <TableCell>
-                            {new Date(order.date).toLocaleDateString()}
-                        </TableCell>
-                        <TableCell className="text-right">
-                            {order.total.toLocaleString("en-US", {
-                            style: "currency",
-                            currency: "INR",
-                            })}
-                        </TableCell>
-                         <TableCell className="text-center">
-                            { (order.status === 'Shipped' || order.status === 'Processing') && (
-                                <Button asChild variant="outline" size="sm" onClick={(e) => e.stopPropagation()}>
-                                    <Link href={`/dashboard/track?orderId=${order.id}`}>
-                                        <LocateFixed className="mr-2 h-4 w-4" />
-                                        {t.orders.trackLive}
-                                    </Link>
-                                </Button>
-                            )}
-                        </TableCell>
+             <>
+                <div className="hidden md:block">
+                    <Table>
+                        <TableHeader>
+                        <TableRow>
+                            <TableHead>{t.orders.orderId}</TableHead>
+                            <TableHead>{t.orders.customer}</TableHead>
+                            <TableHead>{t.orders.status}</TableHead>
+                            <TableHead>{t.orders.date}</TableHead>
+                            <TableHead className="text-right">{t.orders.total}</TableHead>
+                            <TableHead className="text-center">{t.orders.actions}</TableHead>
                         </TableRow>
+                        </TableHeader>
+                        <TableBody>
+                        {filteredOrders.map((order) => (
+                            <TableRow key={order.id} onClick={() => handleRowClick(order)} className={cn(order.status !== 'Cancelled' ? 'cursor-pointer hover:shadow-md' : 'opacity-60', "transition-shadow")}>
+                            <TableCell className="font-medium">{order.id}</TableCell>
+                            <TableCell>{order.customer.name}</TableCell>
+                            <TableCell>
+                                <Badge
+                                    variant="outline"
+                                    className={getStatusBadgeClass(order.status)}
+                                >
+                                    {order.status}
+                                </Badge>
+                            </TableCell>
+                            <TableCell>
+                                {new Date(order.date).toLocaleDateString()}
+                            </TableCell>
+                            <TableCell className="text-right">
+                                {order.total.toLocaleString("en-US", {
+                                style: "currency",
+                                currency: "INR",
+                                })}
+                            </TableCell>
+                            <TableCell className="text-center">
+                                { (order.status === 'Shipped' || order.status === 'Processing') && (
+                                    <Button asChild variant="outline" size="sm" onClick={(e) => e.stopPropagation()}>
+                                        <Link href={`/dashboard/track?orderId=${order.id}`}>
+                                            <LocateFixed className="mr-2 h-4 w-4" />
+                                            {t.orders.trackLive}
+                                        </Link>
+                                    </Button>
+                                )}
+                            </TableCell>
+                            </TableRow>
+                        ))}
+                        </TableBody>
+                    </Table>
+                </div>
+                <div className="grid grid-cols-1 gap-4 md:hidden">
+                    {filteredOrders.map((order) => (
+                         <Card key={order.id} onClick={() => handleRowClick(order)} className={cn(order.status !== 'Cancelled' ? 'cursor-pointer active:scale-[0.98]' : 'opacity-70', "transition-transform")}>
+                            <CardHeader>
+                                <div className="flex justify-between items-start">
+                                    <div>
+                                        <CardTitle className="text-base">{order.id}</CardTitle>
+                                        <CardDescription>{order.customer.name}</CardDescription>
+                                    </div>
+                                    <Badge variant="outline" className={cn("text-xs", getStatusBadgeClass(order.status))}>{order.status}</Badge>
+                                </div>
+                            </CardHeader>
+                            <CardContent className="flex justify-between items-center text-sm">
+                                <p>{new Date(order.date).toLocaleDateString()}</p>
+                                <p className="font-semibold">{order.total.toLocaleString("en-US", { style: "currency", currency: "INR" })}</p>
+                            </CardContent>
+                             {(order.status === 'Shipped' || order.status === 'Processing') && (
+                                <CardFooter>
+                                    <Button asChild variant="outline" size="sm" className="w-full" onClick={(e) => e.stopPropagation()}>
+                                        <Link href={`/dashboard/track?orderId=${order.id}`}>
+                                            <LocateFixed className="mr-2 h-4 w-4" />
+                                            {t.orders.trackLive}
+                                        </Link>
+                                    </Button>
+                                </CardFooter>
+                             )}
+                         </Card>
                     ))}
-                    </TableBody>
-                </Table>
-             </div>
+                </div>
+             </>
             )}
           </CardContent>
         </Card>
@@ -301,4 +334,6 @@ export default function OrdersPage() {
     </AppLayout>
   );
 }
+    
+
     
