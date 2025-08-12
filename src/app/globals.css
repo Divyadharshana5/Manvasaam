@@ -33,6 +33,11 @@
     --sidebar-accent-foreground: 0 0% 98%;
     --sidebar-border: 140 80% 15%;
     --sidebar-ring: 120 40% 65%;
+    --chart-1: hsl(var(--primary));
+    --chart-2: 220 80% 50%;
+    --chart-3: 0 80% 50%;
+    --chart-4: 40 80% 50%;
+    --chart-5: 280 80% 50%;
   }
 
   .dark {
@@ -63,6 +68,11 @@
     --sidebar-accent-foreground: 0 0% 98%;
     --sidebar-border: 240 3.7% 15.9%;
     --sidebar-ring: 142.1 76.2% 36.3%;
+    --chart-1: hsl(var(--primary));
+    --chart-2: 220 80% 60%;
+    --chart-3: 0 80% 60%;
+    --chart-4: 40 80% 60%;
+    --chart-5: 280 80% 60%;
   }
 }
 
@@ -74,5 +84,3 @@
     @apply bg-background text-foreground font-body;
   }
 }
-
-    

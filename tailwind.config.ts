@@ -127,8 +127,10 @@ export default {
           '75%': { transform: 'rotate(8deg)' },
         },
         'blink': {
-            '0%, 100%': { opacity: '1' },
-            '50%': { opacity: '0.6' },
+            '0%, 100%': { color: 'var(--color-chart-1)' },
+            '25%': { color: 'var(--color-chart-2)' },
+            '50%': { color: 'var(--color-chart-3)' },
+            '75%': { color: 'var(--color-chart-4)' },
         }
       },
       animation: {
@@ -139,7 +141,7 @@ export default {
         'ken-burns': 'ken-burns 20s ease-out infinite',
         'arrow-flow': 'arrow-flow 1.5s ease-in-out infinite',
         'shake': 'shake 0.4s ease-in-out',
-        'blink': 'blink 1.5s ease-in-out infinite',
+        'blink': 'blink 2.5s ease-in-out infinite',
       },
     },
   },
