@@ -15,7 +15,7 @@ import { useLanguage } from "@/context/language-context";
 import { Button } from "@/components/ui/button";
 import { Textarea } from "@/components/ui/textarea";
 import { Label } from "@/components/ui/label";
-import { Loader2, Sparkles, BarChart, LineChart } from "lucide-react";
+import { Loader2, Sparkles } from "lucide-react";
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 import Image from "next/image";
 import { generateMarketingPost } from "@/ai/flows/marketing-flow";
@@ -25,7 +25,7 @@ import {
   ChartTooltip,
   ChartTooltipContent,
 } from "@/components/ui/chart"
-import { Bar, BarChart as RechartsBarChart, CartesianGrid, XAxis, ResponsiveContainer, Line, LineChart as RechartsLineChart } from "recharts"
+import { Bar, BarChart as RechartsBarChart, CartesianGrid, XAxis, Line, LineChart as RechartsLineChart } from "recharts"
 
 
 const barChartData = [
@@ -101,7 +101,7 @@ export default function MarketingPage() {
         </div>
 
         <div className="grid gap-6 lg:grid-cols-2">
-           <Card>
+           <Card className="shadow-lg border-2 border-primary/10">
             <CardHeader>
               <CardTitle>AI Social Media Post Generator</CardTitle>
               <CardDescription>
@@ -138,7 +138,7 @@ export default function MarketingPage() {
           </Card>
 
           {isLoading && (
-            <Card>
+            <Card className="shadow-lg border-2 border-primary/10">
                 <CardHeader>
                     <CardTitle>Generating...</CardTitle>
                 </CardHeader>
@@ -150,7 +150,7 @@ export default function MarketingPage() {
           )}
 
           {generatedContent && (
-             <Card>
+             <Card className="shadow-lg border-2 border-primary/10">
                 <CardHeader>
                     <CardTitle>Generated Content</CardTitle>
                 </CardHeader>
@@ -170,7 +170,7 @@ export default function MarketingPage() {
         <div className="space-y-4">
             <h3 className="text-2xl font-bold tracking-tight">Campaign Analytics</h3>
             <div className="grid gap-6 md:grid-cols-2">
-                <Card>
+                <Card className="shadow-lg border-2 border-primary/10">
                     <CardHeader>
                         <CardTitle>Monthly Reach</CardTitle>
                         <CardDescription>Total user reach from posts per month.</CardDescription>
@@ -186,7 +186,7 @@ export default function MarketingPage() {
                         </ChartContainer>
                     </CardContent>
                 </Card>
-                <Card>
+                <Card className="shadow-lg border-2 border-primary/10">
                     <CardHeader>
                         <CardTitle>Weekly Clicks</CardTitle>
                         <CardDescription>Total clicks from all campaigns this week.</CardDescription>
