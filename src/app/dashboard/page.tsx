@@ -1,10 +1,9 @@
-
 import { AppLayout } from "@/components/app-layout";
 import { Card, CardHeader, CardTitle, CardContent, CardDescription, CardFooter } from "@/components/ui/card";
 import { DollarSign, Package, Users, Activity, ShoppingCart, Truck, PackageX, CheckCircle, Sparkles } from "lucide-react";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
-import { LanguageProvider, getTranslations } from "@/context/language-context";
+import { translations } from "@/context/language-context";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import { Badge } from "@/components/ui/badge";
 import { adminAuth, adminDb } from "@/lib/firebase-admin";
@@ -70,6 +69,13 @@ async function getUserProfile(uid: string): Promise<UserProfile | null> {
     }
 }
 
+function getTranslations() {
+    const cookieStore = cookies();
+    const langCookie = cookieStore.get('manvaasam-language')?.value as keyof typeof translations | undefined;
+    const selectedLanguage = langCookie && translations[langCookie] ? langCookie : 'English';
+    return translations[selectedLanguage];
+}
+
 export default async function DashboardPage() {
   const cookieStore = cookies();
   const sessionCookie = cookieStore.get("session")?.value;
@@ -86,7 +92,9 @@ export default async function DashboardPage() {
   }
 
   const userProfile = await getUserProfile(decodedToken.uid);
-  const t = await getTranslations();
+  
+  const t = getTranslations();
+
 
   const displayName = userProfile?.username || userProfile?.branchName || userProfile?.email;
 
@@ -362,22 +370,22 @@ export default async function DashboardPage() {
 
 
   return (
-    <LanguageProvider>
-        <AppLayout>
-        <div className="flex-1 space-y-4 p-4 md:p-8 pt-6">
-            <div className="flex items-center justify-between space-y-2">
-            <div>
-                <h2 className="text-3xl font-bold tracking-tight">
-                    {t.dashboard.title}
-                </h2>
-                <p className="text-muted-foreground">
-                    {t.dashboard.welcome}, {displayName}!
-                </p>
-            </div>
-            </div>
-            {renderContent()}
-        </div>
-        </AppLayout>
-    </LanguageProvider>
+      <AppLayout>
+      <div className="flex-1 space-y-4 p-4 md:p-8 pt-6">
+          <div className="flex items-center justify-between space-y-2">
+          <div>
+              <h2 className="text-3xl font-bold tracking-tight">
+                  {t.dashboard.title}
+              </h2>
+              <p className="text-muted-foreground">
+                  {t.dashboard.welcome}, {displayName}!
+              </p>
+          </div>
+          </div>
+          {renderContent()}
+      </div>
+      </AppLayout>
   );
 }
+
+    

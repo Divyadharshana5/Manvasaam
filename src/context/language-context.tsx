@@ -2,7 +2,6 @@
 "use client";
 
 import React, { createContext, useState, useContext, ReactNode, useEffect } from 'react';
-import { cookies } from 'next/headers';
 
 export const translations = {
   English: {
@@ -282,13 +281,13 @@ export const translations = {
       phoneLabel: "தொலைபேசி எண்",
       confirmPasswordLabel: "கடவுச்சொல்லை உறுதிப்படுத்தவும்",
       createAccount: "கணக்கை உருவாக்கு",
-      hubPortal: "மையம் போர்டல்",
+      hubPortal: "மையம் போர்டల్",
       hubDesc: "தளவாடங்களை நிர்வகிக்கவும் மற்றும் எங்கள் நெட்வொர்க்கை இணைக்கவும்.",
       branchNameLabel: "கிளை பெயர்",
       branchIdLabel: "கிளை ஐடி",
       hubAdminEmailLabel: "மைய நிர்வாகி மின்னஞ்சல்",
       registerHub: "மையத்தை பதிவு செய்யுங்கள்",
-      restaurantPortal: "உணவக போர்டல்",
+      restaurantPortal: "உணவக போர்டల్",
       restaurantDesc: "உங்கள் கணக்கை அணுகவும் அல்லது உங்கள் உணவகத்தை பதிவு செய்யவும்.",
       restaurantIdLabel: "உணவக ஐடி",
       restaurantIdPlaceholder: "உங்கள் தனிப்பட்ட உணவக ஐடி",
@@ -397,7 +396,7 @@ export const translations = {
         specializesIn: "இதில் நிபுணத்துவம் பெற்றது:",
         sendInquiry: "விசாரணை அனுப்பு",
         dialogTitle: "தொடர்பு கொள்ள",
-        dialogDescription: "அவர்களின் விளைப்பொருட்கள் பற்றி விசாரிக்க সরাসরি ஒரு செய்தியை அனுப்பவும்.",
+        dialogDescription: "அவர்களின் விளைப்பொருட்கள் பற்றி விசாரிக்க সরাসরি একটি செய்தியை அனுப்பவும்.",
         subjectLabel: "பொருள்",
         subjectPlaceholder: "எ.கா., புதிய தக்காளி பற்றிய விசாரணை",
         messageLabel: "செய்தி",
@@ -1092,12 +1091,12 @@ export const translations = {
       getStarted: "ಪ್ರಾರಂಭಿಸಲು ಸೈನ್ ಇನ್ ಮಾಡಿ ಅಥವಾ ಖಾತೆಯನ್ನು ರಚಿಸಿ.",
       login: "ಲಾಗಿನ್ ಮಾಡಿ",
       register: "ನೋಂದಣಿ ಮಾಡಿ",
-      emailPassword: "ಇಮೇಲ್ ಮತ್ತು ಪಾಸ್ವರ್ಡ್",
+      emailPassword: "ಇಮೇಲ್ ಮತ್ತು ಪಾಸ್ವರ್డ్",
       farmerFaceSignIn: "ರೈತ ಮುಖ ಸೈನ್-ಇన్",
       emailLabel: "ಇಮೇಲ್",
-      passwordLabel: "ಪಾಸ್ವರ್ಡ್",
-      forgotPassword: "ಪಾಸ್ವರ್ಡ್ ಮರೆತಿರಾ?",
-      forgotPasswordTitle: "ಪಾಸ್ವರ್ಡ್ ಮರೆತಿರಾ",
+      passwordLabel: "ಪಾಸ್ವರ್డ్",
+      forgotPassword: "ಪಾಸ್ವರ್డ్ ಮರೆತಿರಾ?",
+      forgotPasswordTitle: "ಪಾಸ್ವರ್డ్ ಮರೆತಿರಾ",
       forgotPasswordDesc: "ನಿಮ್ಮ ಇಮೇಲ್ ಅನ್ನು ನಮೂದಿಸಿ ಮತ್ತು ನಾವು ಮರುಹೊಂದಿಸುವ ಲಿಂಕ್ ಅನ್ನು ಕಳುಹಿಸುತ್ತೇವೆ.",
       sendResetLink: "ಮರುಹೊಂದಿಸುವ ಲಿಂಕ್ ಕಳುಹಿಸಿ",
       cancel: "ರದ್ದುಮಾಡಿ",
@@ -1112,7 +1111,7 @@ export const translations = {
       retakePhoto: "ಫೋಟೋವನ್ನು ಮರುಪಡೆಯಿರಿ",
       usernameLabel: "ಬಳಕೆದಾರಹೆಸರು",
       phoneLabel: "ದೂರವಾಣಿ ಸಂಖ್ಯೆ",
-      confirmPasswordLabel: "ಪಾಸ್ವರ್ಡ್ ದೃಢೀಕರಿಸಿ",
+      confirmPasswordLabel: "ಪಾಸ್ವರ್డ్ ದೃಢೀಕರಿಸಿ",
       createAccount: "ಖಾತೆ ತೆರೆ",
       hubPortal: "ಹಬ್ ಪೋರ್ಟಲ್",
       hubDesc: "ಲಾಜಿಸ್ಟಿಕ್ಸ್ ಅನ್ನು ನಿರ್ವಹಿಸಿ ಮತ್ತು ನಮ್ಮ ನೆಟ್ವರ್ಕ್ ಅನ್ನು ಸಂಪರ್ಕಿಸಿ.",
@@ -1124,7 +1123,7 @@ export const translations = {
       restaurantDesc: "ನಿಮ್ಮ ಖಾತೆಯನ್ನು ಪ್ರವೇಶಿಸಿ ಅಥವಾ ನಿಮ್ಮ ರೆಸ್ಟೋರೆಂಟ್ ಅನ್ನು ನೋಂದಾಯಿಸಿ.",
       restaurantIdLabel: "ರೆಸ್ಟೋರೆಂಟ್ ಐಡಿ",
       restaurantIdPlaceholder: "ನಿಮ್ಮ ಅನನ್ಯ ರೆಸ್ಟೋರೆಂಟ್ ಐಡಿ",
-      forgotPasswordRestaurantDesc: "ಪಾಸ್ವರ್ಡ್ ಮರುಹೊಂದಿಸುವ ಲಿಂಕ್ ಅನ್ನು ಸ್ವೀಕರಿಸಲು ನಿಮ್ಮ ರೆಸ್ಟೋರೆಂಟ್ ಐಡಿ ಅಥವಾ ಇಮೇಲ್ ಅನ್ನು ನಮೂದಿಸಿ.",
+      forgotPasswordRestaurantDesc: "ಪಾಸ್ವರ್డ్ ಮರುಹೊಂದಿಸುವ ಲಿಂಕ್ ಅನ್ನು ಸ್ವೀಕರಿಸಲು ನಿಮ್ಮ ರೆಸ್ಟೋರೆಂಟ್ ಐಡಿ ಅಥವಾ ಇಮೇಲ್ ಅನ್ನು ನಮೂದಿಸಿ.",
       restaurantIdOrEmailLabel: "ರೆಸ್ಟೋರೆಂಟ್ ಐಡಿ ಅಥವಾ ಇಮೇಲ್",
       restaurantIdOrEmailPlaceholder: "ಐಡಿ ಅಥವಾ ಇಮೇಲ್",
       restaurantNameLabel: "ರೆಸ್ಟೋರೆಂಟ್ ಹೆಸರು",
@@ -1930,7 +1929,7 @@ export const translations = {
       passwordLabel: "මුරපදය",
       forgotPassword: "මුරපදය අමතක වුණා ද?",
       forgotPasswordTitle: "මුරපදය අමතක වුණා ද",
-      forgotPasswordDesc: "ඔබගේ විද්‍යුත් තැපෑල ඇතුළත් කරන්න, අපි යළි පිහිටුවීමේ සබැඳියක් එවන්නෙමු.",
+      forgotPasswordDesc: "ඔබගේ විද්‍යುත් තැපෑල ඇතුළත් කරන්න, අපි යළි පිහිටුවීමේ සබැඳියක් එවන්නෙමු.",
       sendResetLink: "යළි පිහිටුවීමේ සබැඳිය යවන්න",
       cancel: "අუা करें",
       signIn: "පුරනය වන්න",
@@ -2099,13 +2098,6 @@ interface LanguageContextType {
 
 const LanguageContext = createContext<LanguageContextType | undefined>(undefined);
 
-export const getTranslations = async () => {
-    const cookieStore = cookies();
-    const langCookie = cookieStore.get('manvaasam-language')?.value as Language | undefined;
-    const selectedLanguage = langCookie && translations[langCookie] ? langCookie : 'English';
-    return translations[selectedLanguage];
-}
-
 export const LanguageProvider = ({ children }: { children: ReactNode }) => {
   const [selectedLanguage, setSelectedLanguage] = useState<Language>('English');
 
@@ -2129,7 +2121,7 @@ export const LanguageProvider = ({ children }: { children: ReactNode }) => {
   return (
     <LanguageContext.Provider value={{ selectedLanguage, setSelectedLanguage: handleSetLanguage, t }}>
       {children}
-    </LanguageContext.Provider>
+    </Language-Context.Provider>
   );
 };
 
@@ -2140,3 +2132,5 @@ export const useLanguage = () => {
   }
   return context;
 };
+
+    
