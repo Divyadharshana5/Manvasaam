@@ -78,17 +78,27 @@ const navTranslations: Record<string, Record<string, string>> = {
     English: "It seems you want to go to the Hub Login page. Should I proceed?",
   },
   faq: {
-    English: "It sounds like you have a question. Would you like me to take you to the FAQ page?",
-    Tamil: "உங்களுக்கு ஒரு கேள்வி இருப்பது போல் தெரிகிறது. నేను మిమ్మల్ని తరచుగా అడిగే ప్రశ్నల పేజీకి తీసుకెళ్లాలా?",
-    Malayalam: "നിങ്ങൾക്കൊരു ചോദ്യമുണ്ടെന്ന് തോന്നുന്നു. ഞാൻ നിങ്ങളെ പതിവുചോദ്യങ്ങൾ പേജിലേക്ക് കൊണ്ടുപോകണോ?",
-    Telugu: "మీకు ఒక ప్రశ్న ఉన్నట్లు అనిపిస్తుంది. నేను మిమ్మల్ని తరచుగా అడిగే ప్రశ్నల పేజీకి తీసుకెళ్లాలా?",
-    Hindi: "ऐसा लगता है कि आपका कोई प्रश्न है। क्या आप चाहते हैं कि मैं आपको अक्सर पूछे जाने वाले प्रश्न पृष्ठ पर ले जाऊं?",
-    Kannada: "ನೀವು ರೆಸ್ಟೋರೆಂಟ್ ನೋಂದಣಿ ಪುಟಕ್ಕೆ ಹೋಗಲು ಬಯಸುತ್ತೀರಿ ಎಂದು ತೋರುತ್ತದೆ. ನಾನು ನಿಮ್ಮನ್ನು ಅಲ್ಲಿಗೆ ಕರೆದೊಯ್ಯಬೇಕೇ?",
-    Bengali: "মনে হচ্ছে আপনি রেস্টুরেন্ট রেজিস্ট্রেশন পৃষ্ঠাতে যেতে চান। আমি কি আপনাকে সেখানে নিয়ে যাব?",
-    Arabic: "يبدو أنك تريد الذهاب إلى صفحة تسجيل المطعم. هل يجب أن آخذك إلى هناك؟",
-    Urdu: "ایسا لگتا ہے کہ آپ کا کوئی سوال ہے۔ کیا آپ چاہتے ہیں کہ میں آپ کو عمومی سوالات کے صفحے پر لے جاؤں؟",
-    Srilanka: "ඔබට ප්‍රශ්නයක් ඇති බව පෙනේ. මම ඔබව නිතර අසන පැන පිටුවට ගෙන යාමට කැමතිද?",
-  }
+    English:
+      "It sounds like you have a question. Would you like me to take you to the FAQ page?",
+    Tamil:
+      "உங்களுக்கு ஒரு கேள்வி இருப்பது போல் தெரிகிறது. నేను మిమ్మల్ని తరచుగా అడిగే ప్రశ్నల పేజీకి తీసుకెళ్లాలా?",
+    Malayalam:
+      "നിങ്ങൾക്കൊരു ചോദ്യമുണ്ടെന്ന് തോന്നുന്നു. ഞാൻ നിങ്ങളെ പതിവുചോദ്യങ്ങൾ പേജിലേക്ക് കൊണ്ടുപോകണോ?",
+    Telugu:
+      "మీకు ఒక ప్రశ్న ఉన్నట్లు అనిపిస్తుంది. నేను మిమ్మల్ని తరచుగా అడిగే ప్రశ్నల పేజీకి తీసుకెళ్లాలా?",
+    Hindi:
+      "ऐसा लगता है कि आपका कोई प्रश्न है। क्या आप चाहते हैं कि मैं आपको अक्सर पूछे जाने वाले प्रश्न पृष्ठ पर ले जाऊं?",
+    Kannada:
+      "ನೀವು ರೆಸ್ಟೋರೆಂಟ್ ನೋಂದಣಿ ಪುಟಕ್ಕೆ ಹೋಗಲು ಬಯಸುತ್ತೀರಿ ಎಂದು ತೋರುತ್ತದೆ. ನಾನು ನಿಮ್ಮನ್ನು ಅಲ್ಲಿಗೆ ಕರೆದೊಯ್ಯಬೇಕೇ?",
+    Bengali:
+      "মনে হচ্ছে আপনি রেস্টুরেন্ট রেজিস্ট্রেশন পৃষ্ঠাতে যেতে চান। আমি কি আপনাকে সেখানে নিয়ে যাব?",
+    Arabic:
+      "يبدو أنك تريد الذهاب إلى صفحة تسجيل المطعم. هل يجب أن آخذك إلى هناك؟",
+    Urdu:
+      "ایسا لگتا ہے کہ آپ کا کوئی سوال ہے۔ کیا آپ چاہتے ہیں کہ میں آپ کو عمومی سوالات کے صفحے پر لے جاؤں؟",
+    Srilanka:
+      "ඔබට ප්‍රශ්නයක් ඇති බව පෙනේ. මම ඔබව නිතර අසන පැන පිටුවට ගෙන යාමට කැමතිද?",
+  },
 };
 
 export default function HomePage() {
@@ -101,8 +111,8 @@ export default function HomePage() {
   const [lastResponse, setLastResponse] = useState("");
   const [navigationConfirmation, setNavigationConfirmation] =
     useState<NavigationConfirmation | null>(null);
-    
-  const [isContinueLoading, setIsContinueLoading] = useState(false);
+
+  const [loadingRoleHref, setLoadingRoleHref] = useState<string | null>(null);
 
   const [transcribedText, setTranscribedText] = useState("");
   const mediaRecorderRef = useRef<MediaRecorder | null>(null);
@@ -257,7 +267,9 @@ export default function HomePage() {
             await speak(confirmationMessage);
             setAssistantState("confirming_navigation");
           } else {
-            await speak(`I'm sorry, I couldn't find the right page for "${transcript}".`);
+            await speak(
+              `I'm sorry, I couldn't find the right page for "${transcript}".`
+            );
           }
         } else {
           await speak(
@@ -347,17 +359,11 @@ export default function HomePage() {
         };
     }
   };
-  
-  const handleContinueClick = () => {
-    setIsContinueLoading(true);
+
+  const handleContinueClick = (href: string) => {
+    setLoadingRoleHref(href);
     // The actual navigation is handled by the Link component.
     // The loading state is just for user feedback.
-    // We can add a small delay to ensure the user sees the loader.
-    setTimeout(() => {
-        // In a real app, you might not need this if the next page loads quickly.
-        // If the next page is slow, you might listen for router events to turn this off.
-        setIsContinueLoading(false);
-    }, 2000); // Reset after 2 seconds just in case.
   };
 
   const buttonState = getButtonState();
@@ -463,7 +469,10 @@ export default function HomePage() {
       </motion.header>
 
       <main className="flex min-h-screen flex-col items-center justify-center pt-24 px-4 relative z-10">
-        <div className="absolute inset-0 z-0 bg-cover bg-center bg-ken-burns" style={{ backgroundImage: "url('/bg-agri.png')" }}></div>
+        <div
+          className="absolute inset-0 z-0 bg-cover bg-center bg-ken-burns"
+          style={{ backgroundImage: "url('/bg-agri.png')" }}
+        ></div>
         <div className="absolute inset-0 bg-background/60 z-0"></div>
         <motion.section
           className="text-center w-full max-w-4xl mx-auto z-10"
@@ -479,10 +488,12 @@ export default function HomePage() {
           >
             {t.tagline}
           </motion.h1>
-          <motion.h2 className="text-3xl font-bold mb-8 text-foreground [text-shadow:_0_1px_2px_rgb(0_0_0_/_20%)]"
+          <motion.h2
+            className="text-3xl font-bold mb-8 text-foreground [text-shadow:_0_1px_2px_rgb(0_0_0_/_20%)]"
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5, delay: 0.4 }}>
+            transition={{ duration: 0.5, delay: 0.4 }}
+          >
             {t.joinCommunity}
           </motion.h2>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
@@ -494,17 +505,32 @@ export default function HomePage() {
                 transition={{ duration: 0.5, delay: 0.6 + index * 0.1 }}
               >
                 <Card className="bg-card/80 backdrop-blur-xl border-2 border-primary/20 rounded-2xl shadow-lg hover:shadow-2xl hover:scale-105 transition-all duration-300 p-6 flex flex-col h-full">
-                  <CardHeader className="items-center flex-shrink-0">{role.icon}</CardHeader>
+                  <CardHeader className="items-center flex-shrink-0">
+                    {role.icon}
+                  </CardHeader>
                   <CardContent className="text-center flex-grow flex flex-col justify-between">
                     <div>
-                      <CardTitle className="mt-4 text-2xl">{role.name}</CardTitle>
+                      <CardTitle className="mt-4 text-2xl">
+                        {role.name}
+                      </CardTitle>
                       <p className="text-muted-foreground my-4">
                         {role.description}
                       </p>
                     </div>
-                    <Button asChild className="w-full mt-auto" onClick={handleContinueClick} disabled={isContinueLoading}>
+                    <Button
+                      asChild
+                      className="w-full mt-auto"
+                      onClick={() => handleContinueClick(role.href)}
+                      disabled={loadingRoleHref === role.href}
+                    >
                       <Link href={role.href}>
-                        {isContinueLoading ? <Loader2 className="mr-2 h-4 w-4 animate-spin" /> : <>{t.continue} <ArrowRight className="ml-2 h-4 w-4" /></>}
+                        {loadingRoleHref === role.href ? (
+                          <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                        ) : (
+                          <>
+                            {t.continue} <ArrowRight className="ml-2 h-4 w-4" />
+                          </>
+                        )}
                       </Link>
                     </Button>
                   </CardContent>
@@ -521,27 +547,30 @@ export default function HomePage() {
           viewport={{ once: true, amount: 0.5 }}
           transition={{ duration: 0.6 }}
         >
-          <h2
-            className="text-3xl font-bold mb-4 text-foreground [text-shadow:_0_1px_2px_rgb(0_0_0_/_20%)]"
-          >
+          <h2 className="text-3xl font-bold mb-4 text-foreground [text-shadow:_0_1px_2px_rgb(0_0_0_/_20%)]">
             {t.ourMission}
           </h2>
-          <p
-            className="text-lg text-foreground/90 mb-8 max-w-3xl mx-auto [text-shadow:_0_1px_2px_rgb(0_0_0_/_20%)]"
-          >
+          <p className="text-lg text-foreground/90 mb-8 max-w-3xl mx-auto [text-shadow:_0_1px_2px_rgb(0_0_0_/_20%)]">
             {t.missionStatement}
           </p>
           <Card className="bg-card/80 backdrop-blur-xl border border-primary/20 rounded-2xl shadow-lg p-6">
-                <CardContent className="p-0 sm:p-6">
-                    <div className="flex flex-col sm:flex-row items-center justify-center gap-4 text-lg font-semibold text-foreground">
-                        <span>{t.roles.farmer.name}</span>
-                        <ArrowRight size={24} className="text-primary animate-arrow-flow sm:rotate-0 rotate-90" />
-                        <span>{t.roles.hub.name}</span>
-                        <ArrowRight size={24} className="text-primary animate-arrow-flow sm:rotate-0 rotate-90" style={{ animationDelay: '0.5s' }} />
-                        <span>{t.roles.customer.name}</span>
-                    </div>
-                </CardContent>
-            </Card>
+            <CardContent className="p-0 sm:p-6">
+              <div className="flex flex-col sm:flex-row items-center justify-center gap-4 text-lg font-semibold text-foreground">
+                <span>{t.roles.farmer.name}</span>
+                <ArrowRight
+                  size={24}
+                  className="text-primary animate-arrow-flow sm:rotate-0 rotate-90"
+                />
+                <span>{t.roles.hub.name}</span>
+                <ArrowRight
+                  size={24}
+                  className="text-primary animate-arrow-flow sm:rotate-0 rotate-90"
+                  style={{ animationDelay: "0.5s" }}
+                />
+                <span>{t.roles.customer.name}</span>
+              </div>
+            </CardContent>
+          </Card>
         </motion.section>
       </main>
       <footer className="w-full p-4 text-center text-foreground/80 mt-12 [text-shadow:_0_1px_2px_rgb(0_0_0_/_20%)] relative z-10">
