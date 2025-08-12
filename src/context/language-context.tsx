@@ -2,6 +2,7 @@
 "use client";
 
 import React, { createContext, useState, useContext, ReactNode, useEffect } from 'react';
+import { cookies } from 'next/headers';
 
 export const translations = {
   English: {
@@ -396,7 +397,7 @@ export const translations = {
         specializesIn: "இதில் நிபுணத்துவம் பெற்றது:",
         sendInquiry: "விசாரணை அனுப்பு",
         dialogTitle: "தொடர்பு கொள்ள",
-        dialogDescription: "அவர்களின் விளைப்பொருட்கள் பற்றி விசாரிக்க நேரடியாக ஒரு செய்தியை அனுப்பவும்.",
+        dialogDescription: "அவர்களின் விளைப்பொருட்கள் பற்றி விசாரிக்க সরাসরি ஒரு செய்தியை அனுப்பவும்.",
         subjectLabel: "பொருள்",
         subjectPlaceholder: "எ.கா., புதிய தக்காளி பற்றிய விசாரணை",
         messageLabel: "செய்தி",
@@ -1092,7 +1093,7 @@ export const translations = {
       login: "ಲಾಗಿನ್ ಮಾಡಿ",
       register: "ನೋಂದಣಿ ಮಾಡಿ",
       emailPassword: "ಇಮೇಲ್ ಮತ್ತು ಪಾಸ್ವರ್ಡ್",
-      farmerFaceSignIn: "ರೈತ ಮುಖ ಸೈನ್-ಇನ್",
+      farmerFaceSignIn: "ರೈತ ಮುಖ ಸೈನ್-ಇన్",
       emailLabel: "ಇಮೇಲ್",
       passwordLabel: "ಪಾಸ್ವರ್ಡ್",
       forgotPassword: "ಪಾಸ್ವರ್ಡ್ ಮರೆತಿರಾ?",
@@ -1160,7 +1161,7 @@ export const translations = {
       cancel: "ರದ್ದುಮಾಡಿ",
       updateSuccessTitle: "ಯಶಸ್ಸು",
       updateSuccessDescription: "ನಿಮ್ಮ ಪ್ರೊಫೈಲ್ ಯಶಸ್ವಿಯಾಗಿ ನವೀಕರಿಸಲಾಗಿದೆ.",
-      updateErrorTitle: "ನವೀಕರಣ ವಿಫಲವಾಗಿದೆ",
+      updateErrorTitle: "ನವೀಕರಣ ವಿಫలವಾಗಿದೆ",
       loadError: "ಬಳಕೆದಾರ ಪ್ರೊಫೈಲ್ ಲೋಡ್ ಮಾಡಲು ಸಾಧ್ಯವಾಗಲಿಲ್ಲ.",
       emailLabel: "ಇಮೇಲ್",
       phoneLabel: "ದೂರವಾಣಿ",
@@ -2024,7 +2025,7 @@ export const translations = {
     },
     products: {
         title: "නිෂ්පාදන",
-        description: "අපගේ ගොවීන්ගෙන් සෘජුවම නැවුම් නිෂ්පාදන බ්‍රවුස් කර මිලදී ගන්න.",
+        description: "අපගේ ගොვීන්ගෙන් සෘජුවම නැවුම් නිෂ්පාදන බ්‍රවුස් කර මිලදී ගන්න.",
         freshCarrots: "නැවුම් කැරට්",
         kgPrice: "1kg - රු.20",
         addToCart: "කරත්තයට එකතු කරන්න",
@@ -2098,6 +2099,13 @@ interface LanguageContextType {
 
 const LanguageContext = createContext<LanguageContextType | undefined>(undefined);
 
+export const getTranslations = async () => {
+    const cookieStore = cookies();
+    const langCookie = cookieStore.get('manvaasam-language')?.value as Language | undefined;
+    const selectedLanguage = langCookie && translations[langCookie] ? langCookie : 'English';
+    return translations[selectedLanguage];
+}
+
 export const LanguageProvider = ({ children }: { children: ReactNode }) => {
   const [selectedLanguage, setSelectedLanguage] = useState<Language>('English');
 
@@ -2112,6 +2120,7 @@ export const LanguageProvider = ({ children }: { children: ReactNode }) => {
     setSelectedLanguage(language);
     if (typeof window !== 'undefined') {
       localStorage.setItem('manvaasam-language', language);
+       document.cookie = `manvaasam-language=${language};path=/;max-age=31536000`;
     }
   };
   

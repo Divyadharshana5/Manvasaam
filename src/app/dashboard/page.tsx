@@ -1,23 +1,21 @@
 
-"use client";
-
 import { AppLayout } from "@/components/app-layout";
 import { Card, CardHeader, CardTitle, CardContent, CardDescription, CardFooter } from "@/components/ui/card";
-import { useAuth } from "@/hooks/use-auth";
-import { useRouter } from "next/navigation";
-import { useEffect, useState } from "react";
-import { Skeleton } from "@/components/ui/skeleton";
-import { DollarSign, Package, Users, Activity, ShoppingCart, Truck, PackageX, ListOrdered, CheckCircle, Sparkles } from "lucide-react";
+import { DollarSign, Package, Users, Activity, ShoppingCart, Truck, PackageX, CheckCircle, Sparkles } from "lucide-react";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
-import { useLanguage, LanguageProvider } from "@/context/language-context";
+import { LanguageProvider, getTranslations } from "@/context/language-context";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import { Badge } from "@/components/ui/badge";
+import { adminAuth, adminDb } from "@/lib/firebase-admin";
+import { cookies } from "next/headers";
+import { redirect } from "next/navigation";
 
 interface UserProfile {
   username?: string;
   userType?: string;
   branchName?: string;
+  email?: string;
 }
 
 // Mock data for farmer dashboard
@@ -59,44 +57,38 @@ const customerStats = {
 };
 
 
-function DashboardComponent() {
-  const { user, loading } = useAuth();
-  const router = useRouter();
-  const [userProfile, setUserProfile] = useState<UserProfile | null>(null);
-  const [profileLoading, setProfileLoading] = useState(true);
-  const { t } = useLanguage();
-
-  useEffect(() => {
-    if (!loading && !user) {
-      router.push("/");
-    }
-  }, [user, loading, router]);
-  
-  useEffect(() => {
-    async function fetchUserProfile() {
-      if (user) {
-        try {
-          const response = await fetch(`/api/users/${user.uid}`);
-          if (!response.ok) {
-            throw new Error("Failed to fetch user profile");
-          }
-          const data = await response.json();
-          setUserProfile(data);
-        } catch (error) {
-          console.error(error);
-        } finally {
-          setProfileLoading(false);
+async function getUserProfile(uid: string): Promise<UserProfile | null> {
+    try {
+        const userDoc = await adminDb.collection("users").doc(uid).get();
+        if (!userDoc.exists) {
+            return null;
         }
-      } else if (!loading) {
-        setProfileLoading(false);
-      }
+        return userDoc.data() as UserProfile;
+    } catch (error) {
+        console.error("Failed to fetch user profile:", error);
+        return null;
     }
-    fetchUserProfile();
-  }, [user, loading]);
+}
 
-  const displayName = userProfile?.username || userProfile?.branchName || user?.email;
+export default async function DashboardPage() {
+  const cookieStore = cookies();
+  const sessionCookie = cookieStore.get("session")?.value;
 
-  const isLoading = loading || profileLoading;
+  if (!sessionCookie) {
+    redirect("/");
+  }
+
+  let decodedToken;
+  try {
+    decodedToken = await adminAuth.verifySessionCookie(sessionCookie, true);
+  } catch (error) {
+    redirect("/");
+  }
+
+  const userProfile = await getUserProfile(decodedToken.uid);
+  const t = await getTranslations();
+
+  const displayName = userProfile?.username || userProfile?.branchName || userProfile?.email;
 
   const renderGeneralDashboard = () => (
     <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
@@ -356,17 +348,6 @@ function DashboardComponent() {
   );
   
   const renderContent = () => {
-      if (isLoading) {
-          return (
-             <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
-                <Skeleton className="h-32 w-full" />
-                <Skeleton className="h-32 w-full" />
-                <Skeleton className="h-32 w-full" />
-                <Skeleton className="h-32 w-full" />
-             </div>
-          );
-      }
-      
       switch (userProfile?.userType) {
           case 'farmer':
               return renderFarmerDashboard();
@@ -381,32 +362,22 @@ function DashboardComponent() {
 
 
   return (
-    <AppLayout>
-      <div className="flex-1 space-y-4 p-4 md:p-8 pt-6">
-        <div className="flex items-center justify-between space-y-2">
-          <div>
-            <h2 className="text-3xl font-bold tracking-tight">
-              {isLoading ? t.dashboard.loading : t.dashboard.title}
-            </h2>
-            {!isLoading && (
-              <p className="text-muted-foreground">
-                {t.dashboard.welcome}, {displayName}!
-              </p>
-            )}
-          </div>
+    <LanguageProvider>
+        <AppLayout>
+        <div className="flex-1 space-y-4 p-4 md:p-8 pt-6">
+            <div className="flex items-center justify-between space-y-2">
+            <div>
+                <h2 className="text-3xl font-bold tracking-tight">
+                    {t.dashboard.title}
+                </h2>
+                <p className="text-muted-foreground">
+                    {t.dashboard.welcome}, {displayName}!
+                </p>
+            </div>
+            </div>
+            {renderContent()}
         </div>
-        {renderContent()}
-      </div>
-    </AppLayout>
+        </AppLayout>
+    </LanguageProvider>
   );
 }
-
-export default function DashboardPage() {
-  return (
-    <LanguageProvider>
-      <DashboardComponent />
-    </LanguageProvider>
-  )
-}
-
-    
