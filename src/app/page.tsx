@@ -70,34 +70,17 @@ const navTranslations: Record<string, Record<string, string>> = {
       "It sounds like you want to go to the Restaurant Registration page. Should I take you there?",
   },
   farmerCustomerLogin: {
-    English: "It looks like you want to go to the Farmer and Customer login page. Shall I take you there?",
-    Tamil: "நீங்கள் விவசாயி மற்றும் வாடிக்கையாளர் உள்நுழைவு பக்கத்திற்குச் செல்ல விரும்புகிறீர்கள் என்று தெரிகிறது. நான் உங்களை அங்கு அழைத்துச் செல்லட்டுமா?",
-    Malayalam: "നിങ്ങൾ കർഷകന്റെയും ഉപഭോക്താവിന്റെയും ലോഗിൻ പേജിലേക്ക് പോകാൻ ആഗ്രഹിക്കുന്നു എന്ന് തോന്നുന്നു. ഞാൻ നിങ്ങളെ അവിടെ കൊണ്ടുപോകണോ?",
-    Telugu: "మీరు రైతు మరియు కస్టమర్ లాగిన్ పేజీకి వెళ్లాలనుకుంటున్నారని అనిపిస్తుంది. నేను మిమ్మల్ని అక్కడికి తీసుకెళ్లాలా?",
-    Hindi: "ऐसा लगता है कि आप किसान और ग्राहक लॉगिन पृष्ठ पर जाना चाहते हैं। क्या मैं आपको वहां ले जाऊं?",
-    Kannada: "ನೀವು ರೈತ ಮತ್ತು ಗ್ರಾಹಕರ ಲಾಗಿನ್ ಪುಟಕ್ಕೆ ಹೋಗಲು ಬಯಸುತ್ತೀರಿ ಎಂದು ತೋರುತ್ತದೆ. ನಾನು ನಿಮ್ಮನ್ನು ಅಲ್ಲಿಗೆ ಕರೆದೊಯ್ಯಬೇಕೇ?",
-    Bengali: "মনে হচ্ছে আপনি কৃষক এবং গ্রাহক লগইন পৃষ্ঠাতে যেতে চান। আমি কি আপনাকে সেখানে নিয়ে যাব?",
-    Arabic: "يبدو أنك تريد الذهاب إلى صفحة تسجيل دخول المزارع والعميل. هل آخذك إلى هناك؟",
-    Urdu: "ایسا लगता ہے کہ آپ کسان اور گاہک لاگ ان صفحہ پر جانا چاہتے ہیں۔ کیا میں آپ کو وہاں لے جاؤں؟",
-    Srilanka: "ඔබට ගොවි සහ පාරිභෝගික පිවිසුම් පිටුවට යාමට අවශ්‍ය බව පෙනේ. මම ඔබව එතැනට ගෙන යා යුතුද?",
+    English:
+      "It looks like you want to go to the Farmer and Customer login page. Shall I take you there?",
   },
   hubLogin: {
     English: "It seems you want to go to the Hub Login page. Should I proceed?",
   },
   faq: {
-    English: "It sounds like you have a question. Would you like me to take you to the FAQ page?",
-    Tamil: "உங்களுக்கு ஒரு கேள்வி இருப்பது போல் தெரிகிறது. ನಾನು ನಿಮ್ಮನ್ನು FAQ ಪುಟಕ್ಕೆ ಕರೆದೊಯ್ಯಬೇಕೇ?",
-    Malayalam: "നിങ്ങൾക്കൊരു ചോദ്യമുണ്ടെന്ന് തോന്നുന്നു. ഞാൻ നിങ്ങളെ പതിവുചോദ്യങ്ങൾ പേജിലേക്ക് കൊണ്ടുപോകണോ?",
-    Telugu: "మీకు ఒక ప్రశ్న ఉన్నట్లు అనిపిస్తుంది. నేను మిమ్మల్ని తరచుగా అడిగే ప్రశ్నల పేజీకి తీసుకెళ్లాలా?",
-    Hindi: "ऐसा लगता है कि आपका कोई प्रश्न है। क्या आप चाहते हैं कि मैं आपको अक्सर पूछे जाने वाले प्रश्न पृष्ठ पर ले जाऊं?",
-    Kannada: "ನಿಮಗೆ ಒಂದು ಪ್ರಶ್ನೆ ಇದೆ ಎಂದು ತೋರುತ್ತದೆ. ನಾನು ನಿಮ್ಮನ್ನು FAQ ಪುಟಕ್ಕೆ ಕರೆದೊಯ್ಯಬೇಕೇ?",
-    Bengali: "মনে হচ্ছে আপনার একটি প্রশ্ন আছে। আমি কি আপনাকে প্রায়শই জিজ্ঞাসিত প্রশ্নাবলী পৃষ্ঠাতে নিয়ে যাব?",
-    Arabic: "يبدو أن لديك سؤال. هل تود أن آخذك إلى صفحة الأسئلة الشائعة؟",
-    Urdu: "ایسا لگتا ہے کہ آپ کا کوئی سوال ہے۔ کیا آپ چاہتے ہیں کہ میں آپ کو عمومی سوالات کے صفحے پر لے جاؤں؟",
-    Srilanka: "ඔබට ප්‍රශ්නයක් ඇති බව පෙනේ. මම ඔබව නිතර අසන පැන පිටුවට ගෙන යාමට කැමතිද?",
-  }
+    English:
+      "It sounds like you have a question. Would you like me to take you to the FAQ page?",
+  },
 };
-
 
 export default function HomePage() {
   const { selectedLanguage, setSelectedLanguage, t } = useLanguage();
@@ -107,7 +90,8 @@ export default function HomePage() {
   const [isAssistantOpen, setIsAssistantOpen] = useState(false);
   const [assistantState, setAssistantState] = useState<AssistantState>("idle");
   const [lastResponse, setLastResponse] = useState("");
-  const [navigationConfirmation, setNavigationConfirmation] = useState<NavigationConfirmation | null>(null);
+  const [navigationConfirmation, setNavigationConfirmation] =
+    useState<NavigationConfirmation | null>(null);
 
   const [transcribedText, setTranscribedText] = useState("");
   const mediaRecorderRef = useRef<MediaRecorder | null>(null);
@@ -357,79 +341,64 @@ export default function HomePage() {
 
   const buttonState = getButtonState();
 
-  const handleRoleClick = (roleName: string) => {
-    setLoadingRole(roleName);
-    // The actual navigation is handled by the Link component.
-    // The loading state will be reset when the user navigates away or back.
-  };
-
-  useEffect(() => {
-    // Reset loading state if the user navigates back to the page
-    const handleRouteChange = () => setLoadingRole(null);
-    window.addEventListener('popstate', handleRouteChange);
-    return () => {
-      window.removeEventListener('popstate', handleRouteChange);
-    };
-  }, []);
-
   return (
-    <div className="flex flex-col min-h-screen">
-      <header className="fixed top-0 left-0 right-0 z-50 flex items-center justify-between p-4 bg-background/50 backdrop-blur-sm">
+    <motion.div>
+      <motion.header
+        className="fixed top-0 left-0 right-0 z-50 flex items-center justify-between p-4 bg-background/50 backdrop-blur-sm"
+        // HEADER
+
+        initial={{ opacity: 0, y: -50 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.5 }}
+      >
         <Link href="/" className="flex items-center gap-2">
           <ManvaasamLogo width={32} height={32} />
           <span className="text-xl font-bold text-primary">Manvaasam</span>
         </Link>
         <div className="flex items-center gap-4">
-             <Dialog open={isAssistantOpen} onOpenChange={setIsAssistantOpen}>
-              <DialogTrigger asChild>
-                <Button variant="ghost">
-                    <Mic className="mr-2 h-4 w-4" />
-                    {t.sidebar.voiceAssistant}
-                </Button>
-              </DialogTrigger>
-              <DialogContent className="sm:max-w-md w-[90vw] rounded-lg">
-                 <DialogHeader className="text-center pt-4">
-                    <DialogTitle>Voice Assistant</DialogTitle>
-                    <DialogDescription>
-                    Ask me to navigate to a page, like "Go to the restaurant registration page".
-                    </DialogDescription>
-                </DialogHeader>
+          {/* VOICE ASSISTANT DIALOG */}
+          <Dialog open={isAssistantOpen} onOpenChange={setIsAssistantOpen}>
+            <DialogTrigger asChild>
+              <Button variant="ghost">
+                <Mic className="mr-2 h-4 w-4" />
+                {t.sidebar.voiceAssistant}
+              </Button>
+            </DialogTrigger>
+            <DialogContent className="sm:max-w-md w-[90vw] rounded-lg">
+              <DialogHeader className="text-center pt-4">
+                <DialogTitle>Voice Assistant</DialogTitle>
+                <DialogDescription>
+                  Ask me to navigate to a page, like "Go to the restaurant
+                  registration page".
+                </DialogDescription>
+              </DialogHeader>
+              <div className="space-y-6 py-4">
+                <div className="flex justify-center">
+                  <Button
+                    onClick={buttonState.onClick}
+                    disabled={buttonState.disabled}
+                    variant={(buttonState.variant as any) || "default"}
+                    className="w-48 h-16 text-lg"
+                  >
+                    {buttonState.icon}
+                    {buttonState.text}
+                  </Button>
+                </div>
 
-                <div className="space-y-6 py-4">
-                    {hasMicrophonePermission === false && (
-                        <Alert variant="destructive" className="mb-4">
-                        <MicOff className="h-4 w-4" />
-                        <AlertTitle>Microphone Access Denied</AlertTitle>
-                        <AlertDescription>
-                            You have denied microphone access. Please go to your browser settings to enable it for this site.
-                        </AlertDescription>
-                        </Alert>
-                    )}
-                
-                    <div className="flex justify-center">
-                        <Button 
-                            onClick={buttonState.onClick} 
-                            disabled={buttonState.disabled} 
-                            variant={buttonState.variant as any}
-                            className="w-48 h-16 text-lg"
-                        >
-                            {buttonState.icon}
-                            {buttonState.text}
-                        </Button>
-                    </div>
-                    
-                    {assistantState === 'listening' && <div className="text-center text-destructive animate-pulse">Listening...</div>}
-                    
-                    <div className="min-h-[8rem] space-y-4 px-2">
-                        {transcribedText && (
-                            <Alert>
-                                <Mic className="h-4 w-4" />
-                                <AlertTitle>You Said:</AlertTitle>
-                                <AlertDescription>
-                                {transcribedText}
-                                </AlertDescription>
-                            </Alert>
-                        )}
+                {assistantState === "listening" && (
+                  <div className="text-center text-destructive animate-pulse">
+                    Listening...
+                  </div>
+                )}
+
+                <div className="min-h-[8rem] space-y-4 px-2">
+                  {transcribedText && (
+                    <Alert>
+                      <Mic className="h-4 w-4" />
+                      <AlertTitle>You Said:</AlertTitle>
+                      <AlertDescription>{transcribedText}</AlertDescription>
+                    </Alert>
+                  )}
 
                   {lastResponse && (
                     <Alert>
@@ -476,36 +445,101 @@ export default function HomePage() {
         </div>
       </motion.header>
 
-      <main className="flex-1 flex flex-col items-center justify-center pt-24 px-4 relative z-10">
-        <section className="text-center w-full max-w-4xl mx-auto">
-          <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-foreground tracking-tight text-center mb-12" style={{ textShadow: '0 2px 4px rgba(0, 0, 0, 0.4)' }}>{t.tagline}</h1>
-          <h2 className="text-3xl font-bold mb-8 text-foreground [text-shadow:_0_1px_2px_rgb(0_0_0_/_20%)]">{t.joinCommunity}</h2>
+      {/* MAIN */}
+      <motion.main
+        className="flex-1 flex flex-col items-center justify-center pt-24 px-4 relative z-10"
+        initial={{ opacity: 0 }} // Initial state when not in view
+        animate={{ opacity: 1 }} // Animate to this state when in view
+        viewport={{ amount: 0.5 }} // Trigger when 50% visible
+        transition={{ delay: 0.3 }}
+      >
+        <motion.section
+          className="text-center w-full max-w-4xl mx-auto"
+          initial={{ opacity: 0, y: 50 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6 }} // Initial page load animation
+          whileInView={{ opacity: 1, y: 0 }} // Animate when in view
+          viewport={{ amount: 0.5 }} // Trigger when 50% visible
+        >
+          {/* This section animates on page load, not on scroll */}
+          <motion.h1
+            className="text-4xl md:text-5xl lg:text-6xl font-bold text-foreground tracking-tight text-center mb-12"
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: false, amount: 0.5 }}
+            transition={{ duration: 0.5 }} // Animation duration
+          >
+            {t.tagline}
+          </motion.h1>
+          <motion.h2 className="text-3xl font-bold mb-8 text-foreground"
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+
+            viewport={{ once: false, amount: 0.5 }}
+            transition={{ duration: 0.5, delay: 0.1 }}>
+            {t.joinCommunity}
+          </motion.h2>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-            {userRoles.map((role) => (
-              <Card
+            {userRoles.map((role, index) => (
+              <motion.div
                 key={role.name}
                 className="bg-card/80 backdrop-blur-xl border border-primary/20 rounded-2xl shadow-lg hover:shadow-2xl transition-all duration-300 p-6"
+                initial={{ opacity: 0, scale: 0.8 }}
+                animate={{ opacity: 1, scale: 1 }} // Animate when in view
+                viewport={{ amount: 0.5 }} // Trigger when 50% visible
+                transition={{ duration: 0.5, delay: index * 0.1 + 0.1 }} // Adjust delay for scroll animation
               >
-                <CardHeader className="items-center">
-                  {role.icon}
+                <Card>
+                  <CardHeader className="items-center">{role.icon}</CardHeader>
                   <CardTitle className="mt-4 text-2xl">{role.name}</CardTitle>
-                </CardHeader>
-                <CardContent className="text-center">
-                  <p className="text-muted-foreground mb-6">{role.description}</p>
-                  <Button asChild className="w-full">
-                    <Link href={role.href}>
-                      {t.continue} <ArrowRight className="ml-2 h-4 w-4" />
-                    </Link>
-                  </Button>
-                </CardContent>
-              </Card>
+                  <CardContent className="text-center">
+                    <p className="text-muted-foreground mb-6">
+                      {role.description}
+                    </p>
+                    <Button asChild className="w-full">
+                      <Link href={role.href}>
+                        {t.continue} <ArrowRight className="ml-2 h-4 w-4" />
+                      </Link>
+                    </Button>
+                  </CardContent>
+                </Card>
+              </motion.div>
             ))}
           </div>
         </motion.section>
 
-        <section className="w-full max-w-4xl mx-auto mt-20 text-center">
-           <h2 className="text-3xl font-bold mb-4 text-foreground [text-shadow:_0_1px_2px_rgb(0_0_0_/_20%)]">{t.ourMission}</h2>
-           <p className="text-lg text-foreground/90 mb-8 max-w-3xl mx-auto [text-shadow:_0_1px_2px_rgb(0_0_0_/_20%)]">{t.missionStatement}</p>
+        {/* OUR MISSION */}
+        <motion.section
+          className="w-full max-w-4xl mx-auto mt-20 text-center"
+          initial={{ opacity: 0, y: 50 }}
+          whileInView={{ opacity: 1, y: 0 }} // Animate when in view
+          viewport={{ amount: 0.5 }}
+          transition={{ duration: 0.6 }} // Animation duration
+        >
+          <motion.h2
+            className="text-3xl font-bold mb-4 text-foreground"
+            initial={{ opacity: 0, y: 20 }} // Initial state when not in view
+            whileInView={{ opacity: 1, y: 0 }} // Animate to this state when in view
+            viewport={{ amount: 0.5 }} // Trigger when 50% visible
+            transition={{ duration: 0.5, delay: 0.2 }} // Animation duration and delay
+          >
+            {t.ourMission}
+          </motion.h2>
+          <motion.p
+            className="text-lg text-foreground/90 mb-8 max-w-3xl mx-auto"
+            initial={{ opacity: 0, y: 20 }} // Initial state when not in view
+            whileInView={{ opacity: 1, y: 0 }} // Animate to this state when in view
+            viewport={{ amount: 0.5 }} // Trigger when 50% visible
+            transition={{ duration: 0.5, delay: 0.4 }} // Animation duration and delay
+          >
+            {t.missionStatement}
+          </motion.p>
+          <motion.div
+            initial={{ opacity: 0, scale: 0.8 }} // Initial state when not in view
+            whileInView={{ opacity: 1, scale: 1 }} // Animate to this state when in view
+            viewport={{ amount: 0.5 }} // Trigger when 50% visible
+            transition={{ duration: 0.5, delay: 0.6 }} // Animation duration and delay
+          >
             <Card className="bg-card/80 backdrop-blur-xl border border-primary/20 rounded-2xl shadow-lg p-6">
             <CardContent className="p-6">
               <div className="flex items-center justify-center gap-4 text-lg font-semibold text-foreground">
@@ -517,11 +551,11 @@ export default function HomePage() {
               </div>
             </CardContent>
           </Card>
+          
           </motion.div>
-        </motion.section>
-
+         </motion.section>
+        
       </motion.main>
-
       {/* FOOTER */}
       <motion.footer
         className="w-full p-4 text-center text-foreground/80 mt-12 relative z-10"
