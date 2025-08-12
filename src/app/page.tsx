@@ -97,7 +97,7 @@ const navTranslations: Record<string, Record<string, string>> = {
     Kannada: "ನಿಮಗೆ ಒಂದು ಪ್ರಶ್ನೆ ಇದೆ ಎಂದು ತೋರುತ್ತದೆ. ನಾನು ನಿಮ್ಮನ್ನು FAQ ಪುಟಕ್ಕೆ ಕರೆದೊಯ್ಯಬೇಕೇ?",
     Bengali: "মনে হচ্ছে আপনার একটি প্রশ্ন আছে। আমি কি আপনাকে প্রায়শই জিজ্ঞাসিত প্রশ্নাবলী পৃষ্ঠাতে নিয়ে যাব?",
     Arabic: "يبدو أن لديك سؤال. هل تود أن آخذك إلى صفحة الأسئلة الشائعة؟",
-    Urdu: "ایسا لگتا ہے کہ آپ کا کوئی سوال ہے۔ کیا آپ چاہتے ہیں کہ میں آپ کو عمومی سوالات کے صفحے پر لے جاؤں؟",
+    Urdu: "ایسا लगता ہے کہ آپ کا کوئی سوال ہے۔ کیا آپ چاہتے ہیں کہ میں آپ کو عمومی سوالات کے صفحے پر لے جاؤں؟",
     Srilanka: "ඔබට ප්‍රශ්නයක් ඇති බව පෙනේ. මම ඔබව නිතර අසන පැන පිටුවට ගෙන යාමට කැමතිද?",
   }
 };
@@ -465,9 +465,9 @@ export default function HomePage() {
                 <CardContent className="p-6">
                     <div className="flex items-center justify-center gap-4 text-lg font-semibold text-foreground">
                         <span>{t.roles.farmer.name}</span>
-                        <ArrowRight size={24} className="text-primary"/>
+                        <ArrowRight size={24} className="text-primary animate-arrow-flow" />
                         <span>{t.roles.hub.name}</span>
-                        <ArrowRight size={24} className="text-primary"/>
+                        <ArrowRight size={24} className="text-primary animate-arrow-flow" style={{ animationDelay: '0.5s' }} />
                         <span>{t.roles.customer.name}</span>
                     </div>
                 </CardContent>
@@ -480,4 +480,3 @@ export default function HomePage() {
     </div>
   );
 }
-
