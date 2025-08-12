@@ -5,7 +5,7 @@ export function ManvaasamLogo(props: Omit<React.ComponentProps<typeof Image>, 's
  const { width = 32, height = 32, ...rest } = props;
   return (
     <Image
-      src="/logo.svg"
+      src="/bg-agri.png"
       width={Number(width)}
       height={Number(height)}
       alt="Manvaasam Logo"

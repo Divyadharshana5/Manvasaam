@@ -17,9 +17,9 @@ export const metadata: Metadata = {
   title: "Manvaasam",
   description: "Empowering Farmers, Delivering Freshness.",
   icons: {
-    icon: "/logo.svg",
-    shortcut: "/logo.svg",
-    apple: "/logo.svg",
+    icon: "/bg-agri.png",
+    shortcut: "/bg-agri.png",
+    apple: "/bg-agri.png",
   },
 };
 
