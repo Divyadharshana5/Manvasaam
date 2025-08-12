@@ -112,6 +112,7 @@ export default function HomePage() {
   const [assistantState, setAssistantState] = useState<AssistantState>("idle");
   const [lastResponse, setLastResponse] = useState("");
   const [navigationConfirmation, setNavigationConfirmation] = useState<NavigationConfirmation | null>(null);
+  const [loadingRole, setLoadingRole] = useState<string | null>(null);
 
   const [transcribedText, setTranscribedText] = useState("");
   const mediaRecorderRef = useRef<MediaRecorder | null>(null);
@@ -314,6 +315,21 @@ export default function HomePage() {
 
   const buttonState = getButtonState();
 
+  const handleRoleClick = (roleName: string) => {
+    setLoadingRole(roleName);
+    // The actual navigation is handled by the Link component.
+    // The loading state will be reset when the user navigates away or back.
+  };
+
+  useEffect(() => {
+    // Reset loading state if the user navigates back to the page
+    const handleRouteChange = () => setLoadingRole(null);
+    window.addEventListener('popstate', handleRouteChange);
+    return () => {
+      window.removeEventListener('popstate', handleRouteChange);
+    };
+  }, []);
+
   return (
     <div className="flex flex-col min-h-screen">
       <div className="fixed inset-0 bg-cover bg-center bg-ken-burns" style={{backgroundImage: "url('/bg-agri.png')", zIndex: 0}}></div>
@@ -426,9 +442,14 @@ export default function HomePage() {
                   <CardContent className="text-center flex-grow">
                     <p className="text-muted-foreground mb-6">{role.description}</p>
                   </CardContent>
-                  <Button asChild className="w-full mt-auto">
+                  <Button asChild className="w-full mt-auto" onClick={() => handleRoleClick(role.name)} disabled={loadingRole === role.name}>
                       <Link href={role.href}>
-                        {t.continue} <ArrowRight className="ml-2 h-4 w-4" />
+                        {loadingRole === role.name ? (
+                            <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                        ) : (
+                            <ArrowRight className="ml-2 h-4 w-4" />
+                        )}
+                        {loadingRole === role.name ? "Loading..." : t.continue}
                       </Link>
                     </Button>
                 </Card>
@@ -459,3 +480,4 @@ export default function HomePage() {
     </div>
   );
 }
+
