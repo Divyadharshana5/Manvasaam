@@ -2,17 +2,31 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { motion, useMotionValue } from "framer-motion";
+import { motion, useMotionValue, useSpring } from "framer-motion";
 
 const CustomCursor = () => {
   const [isHovering, setIsHovering] = useState(false);
-  const cursorX = useMotionValue(-100);
-  const cursorY = useMotionValue(-100);
+  
+  const cursorDotX = useMotionValue(-100);
+  const cursorDotY = useMotionValue(-100);
+  
+  const cursorRingX = useMotionValue(-100);
+  const cursorRingY = useMotionValue(-100);
+  
+  const springConfig = { damping: 25, stiffness: 500 };
+  const cursorDotXSpring = useSpring(cursorDotX, springConfig);
+  const cursorDotYSpring = useSpring(cursorDotY, springConfig);
+  
+  const cursorRingXSpring = useSpring(cursorRingX, springConfig);
+  const cursorRingYSpring = useSpring(cursorRingY, springConfig);
+
 
   useEffect(() => {
     const moveCursor = (e: MouseEvent) => {
-      cursorX.set(e.clientX);
-      cursorY.set(e.clientY);
+      cursorDotX.set(e.clientX);
+      cursorDotY.set(e.clientY);
+      cursorRingX.set(e.clientX);
+      cursorRingY.set(e.clientY);
     };
 
     const handleMouseOver = (e: MouseEvent) => {
@@ -38,25 +52,34 @@ const CustomCursor = () => {
       document.removeEventListener("mouseover", handleMouseOver);
       document.removeEventListener("mouseout", handleMouseOut);
     };
-  }, [cursorX, cursorY]);
+  }, [cursorDotX, cursorDotY, cursorRingX, cursorRingY]);
 
   return (
-    <motion.div
-      className="custom-cursor"
-      style={{
-        translateX: cursorX,
-        translateY: cursorY,
-      }}
-      animate={{
-        scale: isHovering ? 1.5 : 1,
-        opacity: isHovering ? 0.7 : 1
-      }}
-      transition={{
-        type: "spring",
-        stiffness: 500,
-        damping: 30,
-      }}
-    />
+    <>
+       <motion.div
+        className="cursor-ring"
+        style={{
+          translateX: cursorRingXSpring,
+          translateY: cursorRingYSpring,
+        }}
+         animate={{
+            scale: isHovering ? 1.5 : 1,
+            opacity: isHovering ? 0.7 : 1
+        }}
+        transition={{
+            type: "spring",
+            stiffness: 300,
+            damping: 20,
+        }}
+      />
+      <motion.div
+        className="cursor-dot"
+        style={{
+          translateX: cursorDotXSpring,
+          translateY: cursorDotYSpring,
+        }}
+      />
+    </>
   );
 };
 

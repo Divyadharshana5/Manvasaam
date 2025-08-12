@@ -1,17 +1,29 @@
 
-.custom-cursor {
+.cursor-dot,
+.cursor-ring {
     position: fixed;
-    top: -10px; /* Offset to center */
-    left: -10px; /* Offset to center */
-    width: 20px;
-    height: 20px;
-    border: 2px solid hsl(var(--primary));
-    border-radius: 50%;
+    top: 0;
+    left: 0;
     pointer-events: none;
     z-index: 9999;
-    mix-blend-mode: difference;
-    background-color: white;
 }
+
+.cursor-dot {
+    width: 8px;
+    height: 8px;
+    background-color: hsl(var(--primary));
+    border-radius: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.cursor-ring {
+    width: 30px;
+    height: 30px;
+    border: 2px solid hsl(var(--primary) / 0.5);
+    border-radius: 50%;
+    transform: translate(-50%, -50%);
+}
+
 
 /* Hide the default cursor for all elements */
 * {
