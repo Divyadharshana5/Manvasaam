@@ -29,16 +29,6 @@ import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { signInWithEmailAndPassword, signInWithCustomToken } from "firebase/auth";
 import { useRouter } from "next/navigation";
 import { auth } from "@/lib/firebase";
-import {
-  Dialog,
-  DialogContent,
-  DialogHeader,
-  DialogTitle,
-  DialogDescription,
-  DialogFooter,
-  DialogTrigger,
-  DialogClose,
-} from "@/components/ui/dialog";
 import { Alert, AlertTitle, AlertDescription } from "@/components/ui/alert";
 import Image from "next/image";
 import { useLanguage } from "@/context/language-context";
@@ -66,10 +56,20 @@ function RegisterForm({
     onRegisterSubmit,
     loading,
     form,
+    videoRef,
+    hasCameraPermission,
+    isCameraActive,
+    startCamera,
+    stopCamera,
 }: {
     onRegisterSubmit: (values: z.infer<typeof registerSchema>) => void;
     loading: boolean;
     form: any;
+    videoRef: React.RefObject<HTMLVideoElement>;
+    hasCameraPermission: boolean | null;
+    isCameraActive: boolean;
+    startCamera: () => void;
+    stopCamera: () => void;
 }) {
     const { t } = useLanguage();
     const userType = useWatch({
@@ -78,33 +78,6 @@ function RegisterForm({
     });
     
     const [facePhoto, setFacePhoto] = useState<string | null>(null);
-    const videoRef = useRef<HTMLVideoElement>(null);
-    const [hasCameraPermission, setHasCameraPermission] = useState<boolean | null>(null);
-    const [isCameraActive, setIsCameraActive] = useState(false);
-
-    const startCamera = useCallback(async () => {
-        if (isCameraActive) return;
-        try {
-            const stream = await navigator.mediaDevices.getUserMedia({ video: true });
-            setHasCameraPermission(true);
-            if (videoRef.current) {
-                videoRef.current.srcObject = stream;
-            }
-            setIsCameraActive(true);
-        } catch (error) {
-            console.error("Error accessing camera:", error);
-            setHasCameraPermission(false);
-        }
-    }, [isCameraActive]);
-
-    const stopCamera = useCallback(() => {
-        if (videoRef.current && videoRef.current.srcObject) {
-            const stream = videoRef.current.srcObject as MediaStream;
-            stream.getTracks().forEach(track => track.stop());
-            videoRef.current.srcObject = null;
-        }
-        setIsCameraActive(false);
-    }, []);
 
     useEffect(() => {
         if (userType === 'farmer' && !facePhoto) {
@@ -112,11 +85,7 @@ function RegisterForm({
         } else {
             stopCamera();
         }
-        
-        return () => {
-            stopCamera();
-        }
-    }, [userType, form, startCamera, stopCamera, facePhoto]);
+    }, [userType, facePhoto, startCamera, stopCamera]);
 
     const handleCaptureFace = () => {
         if (!videoRef.current) return;
@@ -284,38 +253,54 @@ export default function FarmerCustomerAuthPage() {
   const [authMode, setAuthMode] = useState("email");
   const videoRef = useRef<HTMLVideoElement>(null);
   const [hasCameraPermission, setHasCameraPermission] = useState<boolean | null>(null);
+  const [isCameraActive, setIsCameraActive] = useState(false);
   const { t } = useLanguage();
 
-
-  useEffect(() => {
-    if (activeTab === 'login' && authMode === 'face') {
-      const getCameraPermission = async () => {
-        try {
-          const stream = await navigator.mediaDevices.getUserMedia({ video: true });
-          setHasCameraPermission(true);
-          if (videoRef.current) {
+  const startCamera = useCallback(async () => {
+    if (isCameraActive || hasCameraPermission === false) return;
+    try {
+        const stream = await navigator.mediaDevices.getUserMedia({ video: true });
+        setHasCameraPermission(true);
+        if (videoRef.current) {
             videoRef.current.srcObject = stream;
-          }
-        } catch (error) {
-          console.error("Error accessing camera:", error);
-          setHasCameraPermission(false);
-          toast({
+        }
+        setIsCameraActive(true);
+    } catch (error) {
+        console.error("Error accessing camera:", error);
+        setHasCameraPermission(false);
+        toast({
             variant: "destructive",
             title: "Camera Access Denied",
-            description: "Please enable camera permissions to use this feature.",
-          });
-        }
-      };
-      getCameraPermission();
-    } else {
-        // Stop camera stream when not in use
-        if (videoRef.current && videoRef.current.srcObject) {
-            const stream = videoRef.current.srcObject as MediaStream;
-            stream.getTracks().forEach(track => track.stop());
-            videoRef.current.srcObject = null;
-        }
+            description: "Please enable camera permissions in your browser settings to use face authentication.",
+        });
     }
-  }, [activeTab, authMode, toast]);
+  }, [isCameraActive, hasCameraPermission, toast]);
+
+  const stopCamera = useCallback(() => {
+    if (videoRef.current && videoRef.current.srcObject) {
+        const stream = videoRef.current.srcObject as MediaStream;
+        stream.getTracks().forEach(track => track.stop());
+        videoRef.current.srcObject = null;
+    }
+    setIsCameraActive(false);
+  }, []);
+
+  useEffect(() => {
+    const isFaceAuthVisible = activeTab === 'login' && authMode === 'face';
+    const isRegisterFarmerVisible = activeTab === 'register'; // We'll refine this inside the component
+
+    if (isFaceAuthVisible) {
+        startCamera();
+    } else if (!isRegisterFarmerVisible) {
+        stopCamera();
+    }
+    
+    // Cleanup on component unmount
+    return () => {
+        stopCamera();
+    };
+  }, [activeTab, authMode, startCamera, stopCamera]);
+  
 
   const loginForm = useForm<z.infer<typeof loginSchema>>({
     resolver: zodResolver(loginSchema),
@@ -545,6 +530,11 @@ export default function FarmerCustomerAuthPage() {
                 onRegisterSubmit={onRegister}
                 loading={loading}
                 form={registerForm}
+                videoRef={videoRef}
+                hasCameraPermission={hasCameraPermission}
+                isCameraActive={isCameraActive}
+                startCamera={startCamera}
+                stopCamera={stopCamera}
               />
           </TabsContent>
         </Tabs>
@@ -552,3 +542,4 @@ export default function FarmerCustomerAuthPage() {
     </Card>
   );
 }
+
