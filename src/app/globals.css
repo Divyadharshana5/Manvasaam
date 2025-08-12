@@ -11,7 +11,7 @@
     --card-foreground: 120 10% 5%;
     --popover: 0 0% 100%;
     --popover-foreground: 120 10% 5%;
-    --primary: 140 80% 20%;
+    --primary: 84 44% 49%;
     --primary-foreground: 0 0% 100%;
     --secondary: 80 10% 95%;
     --secondary-foreground: 80 25% 15%;
@@ -23,7 +23,7 @@
     --destructive-foreground: 0 0% 98%;
     --border: 120 10% 75%;
     --input: 120 10% 75%;
-    --ring: 140 80% 20%;
+    --ring: 84 44% 49%;
     --radius: 0.5rem;
     --sidebar-background: 140 80% 10%;
     --sidebar-foreground: 0 0% 98%;
@@ -82,5 +82,8 @@
   }
   body {
     @apply bg-background text-foreground font-body;
+  }
+  .custom-cursor-container {
+    cursor: none;
   }
 }
