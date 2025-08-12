@@ -158,55 +158,55 @@ function DashboardComponent() {
   );
 
   const renderFarmerDashboard = () => (
-    <div className="space-y-4">
-      <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
+    <div className="space-y-6">
+      <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-4">
         <Card>
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
             <CardTitle className="text-sm font-medium">Total Sales</CardTitle>
-            <DollarSign className="h-4 w-4 text-muted-foreground" />
+            <DollarSign className="h-6 w-6 text-muted-foreground" />
           </CardHeader>
           <CardContent>
-            <div className="text-2xl font-bold">{farmerStats.totalSales}</div>
-            <p className="text-xs text-muted-foreground">Total revenue from sales</p>
+            <div className="text-3xl font-bold">{farmerStats.totalSales}</div>
+            <p className="text-xs text-muted-foreground">Total revenue from all sales</p>
           </CardContent>
         </Card>
         <Card>
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
             <CardTitle className="text-sm font-medium">Pending Shipments</CardTitle>
-            <Truck className="h-4 w-4 text-muted-foreground" />
+            <Truck className="h-6 w-6 text-muted-foreground" />
           </CardHeader>
           <CardContent>
-            <div className="text-2xl font-bold">{farmerStats.pendingShipments}</div>
-            <p className="text-xs text-muted-foreground">Orders to be shipped</p>
+            <div className="text-3xl font-bold">{farmerStats.pendingShipments}</div>
+            <p className="text-xs text-muted-foreground">Orders awaiting shipment</p>
           </CardContent>
         </Card>
         <Card>
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
             <CardTitle className="text-sm font-medium">Your Customers</CardTitle>
-            <Users className="h-4 w-4 text-muted-foreground" />
+            <Users className="h-6 w-6 text-muted-foreground" />
           </CardHeader>
           <CardContent>
-            <div className="text-2xl font-bold">{farmerStats.customerCount}</div>
-            <p className="text-xs text-muted-foreground">Active customers</p>
+            <div className="text-3xl font-bold">{farmerStats.customerCount}</div>
+            <p className="text-xs text-muted-foreground">Total active customers</p>
           </CardContent>
         </Card>
         <Card>
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
             <CardTitle className="text-sm font-medium">Total Profit</CardTitle>
-            <DollarSign className="h-4 w-4 text-muted-foreground" />
+            <DollarSign className="h-6 w-6 text-muted-foreground" />
           </CardHeader>
           <CardContent>
-            <div className="text-2xl font-bold">{farmerStats.totalProfit}</div>
-            <p className="text-xs text-muted-foreground">Profit earned via the app</p>
+            <div className="text-3xl font-bold">{farmerStats.totalProfit}</div>
+            <p className="text-xs text-muted-foreground">Profit earned via the application</p>
           </CardContent>
         </Card>
       </div>
 
-      <div className="grid gap-4 md:grid-cols-2">
+      <div className="grid gap-6 lg:grid-cols-2">
         <Card>
             <CardHeader>
                 <CardTitle>Recent Orders</CardTitle>
-                <CardDescription>The latest orders for your products.</CardDescription>
+                <CardDescription>A list of the latest orders for your products.</CardDescription>
             </CardHeader>
             <CardContent>
                 <Table>
@@ -220,7 +220,7 @@ function DashboardComponent() {
                     <TableBody>
                         {farmerStats.recentOrders.map(order => (
                             <TableRow key={order.id}>
-                                <TableCell>{order.id}</TableCell>
+                                <TableCell className="font-medium">{order.id}</TableCell>
                                 <TableCell>{order.customer}</TableCell>
                                 <TableCell><Badge variant={order.status === 'Shipped' ? 'secondary' : 'default'}>{order.status}</Badge></TableCell>
                             </TableRow>
@@ -236,14 +236,14 @@ function DashboardComponent() {
         </Card>
          <Card>
             <CardHeader>
-                <CardTitle>Out of Stock</CardTitle>
-                <CardDescription>These products are currently unavailable.</CardDescription>
+                <CardTitle>Out of Stock Products</CardTitle>
+                <CardDescription>These products are currently unavailable to customers.</CardDescription>
             </CardHeader>
             <CardContent>
-                <ul className="space-y-2">
+                <ul className="space-y-3">
                     {farmerStats.outOfStock.map(product => (
-                        <li key={product.name} className="flex items-center gap-2 text-sm">
-                            <PackageX className="h-4 w-4 text-destructive" />
+                        <li key={product.name} className="flex items-center gap-3 text-sm font-medium">
+                            <PackageX className="h-5 w-5 text-destructive" />
                             <span>{product.name}</span>
                         </li>
                     ))}
@@ -251,7 +251,7 @@ function DashboardComponent() {
             </CardContent>
             <CardFooter>
                 <Button asChild size="sm" variant="outline" className="w-full">
-                    <Link href="/dashboard/products">Manage Products</Link>
+                    <Link href="/dashboard/products">Manage Product Inventory</Link>
                 </Button>
             </CardFooter>
         </Card>
@@ -408,7 +408,3 @@ export default function DashboardPage() {
     </LanguageProvider>
   )
 }
-
-    
-
-    
