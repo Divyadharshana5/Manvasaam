@@ -1923,7 +1923,7 @@ export const translations = {
       getStarted: "ආරම්භ කිරීමට පුරනය වන්න හෝ ගිණුමක් සාදන්න.",
       login: "ඇතුල් වන්න",
       register: "ලියාපදිංචි වන්න",
-      emailPassword: "විද්‍යුත් තැපෑල සහ මුරපදය",
+      emailPassword: "විද්‍යುත් තැපෑල සහ මුරපදය",
       farmerFaceSignIn: "ගොවි මුහුණ පුරනය වීම",
       emailLabel: "විද්යුත් තැපෑල",
       passwordLabel: "මුරපදය",
@@ -2015,7 +2015,7 @@ export const translations = {
         actions: "ක්‍රියා",
         trackLive: "සජීවීව නිරීක්ෂණය කරන්න",
         dialogTitle: "ඇණවුම් ලුහුබැඳීම",
-        dialogDescription: "ඔබගේ ඇණවුම සඳහා සජීවී නැව්ගත කිරීමේ සහ බෙදා හැරීමේ යාවත්කාලීන කිරීම්.",
+        dialogDescription: "ඔබගේ ඇණවුම සඳහා සජීವී නැව්ගත කිරීමේ සහ බෙදා හැරීමේ යාවත්කාලීන කිරීම්.",
         currentLocation: "වත්මන් ස්ථානය",
         reachedState: "ඔබගේ ප්‍රාන්තයට ළඟා විය",
         estimatedDelivery: "ඇස්තමේන්තුගත බෙදාහැරීම",
@@ -2055,7 +2055,7 @@ export const translations = {
         orderFailDescription: "යම් දෙයක් වැරදී ඇත.",
     },
     matchmaking: {
-        title: "ගොවි ගැලපීම",
+        title: "ගොವಿ ගැලපීම",
         description: "නැවුම් අමුද්‍රව්‍ය ලබා ගැනීමට ගොවීන් සමඟ සෘජුවම සම්බන්ධ වන්න.",
         specializesIn: "විශේෂඥ:",
         sendInquiry: "විමසීමක් යවන්න",
@@ -2121,7 +2121,7 @@ export const LanguageProvider = ({ children }: { children: ReactNode }) => {
   return (
     <LanguageContext.Provider value={{ selectedLanguage, setSelectedLanguage: handleSetLanguage, t }}>
       {children}
-    </Language-Context.Provider>
+    </LanguageContext.Provider>
   );
 };
 
@@ -2132,5 +2132,3 @@ export const useLanguage = () => {
   }
   return context;
 };
-
-    
