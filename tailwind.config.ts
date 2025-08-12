@@ -121,6 +121,11 @@ export default {
           '50%': { transform: 'translateX(5px)', opacity: '1' },
           '100%': { transform: 'translateX(-5px)', opacity: '0.5' },
         },
+        'shake': {
+          '0%, 100%': { transform: 'rotate(0deg)' },
+          '25%': { transform: 'rotate(-8deg)' },
+          '75%': { transform: 'rotate(8deg)' },
+        }
       },
       animation: {
         'accordion-down': 'accordion-down 0.2s ease-out',
@@ -129,10 +134,9 @@ export default {
         'fade-in': 'fade-in 0.6s ease-out forwards',
         'ken-burns': 'ken-burns 20s ease-out infinite',
         'arrow-flow': 'arrow-flow 1.5s ease-in-out infinite',
+        'shake': 'shake 0.4s ease-in-out',
       },
     },
   },
   plugins: [require('tailwindcss-animate')],
 } satisfies Config;
-
-    

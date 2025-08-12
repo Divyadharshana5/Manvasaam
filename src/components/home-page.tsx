@@ -523,9 +523,11 @@ export default function HomePage() {
                 variants={itemVariants}
                 whileHover={{ scale: 1.05, y: -5 }}
               >
-                <Card className="bg-card/80 backdrop-blur-xl border-2 border-primary/20 rounded-2xl shadow-lg hover:shadow-2xl transition-shadow duration-300 p-6 flex flex-col h-full">
+                <Card className="group bg-card/80 backdrop-blur-xl border-2 border-primary/20 rounded-2xl shadow-lg hover:shadow-2xl transition-shadow duration-300 p-6 flex flex-col h-full">
                   <CardHeader className="items-center flex-shrink-0">
-                    {role.icon}
+                    <div className="group-hover:animate-shake">
+                      {role.icon}
+                    </div>
                   </CardHeader>
                   <CardContent className="text-center flex-grow flex flex-col justify-between">
                     <div>
@@ -595,5 +597,3 @@ export default function HomePage() {
     </motion.div>
   );
 }
-
-    
