@@ -48,17 +48,12 @@ const registerSchema = z.object({
 });
 
 
-export default function HubAuthPage() {
+function HubAuthComponent() {
   const [loading, setLoading] = useState(false);
   const { toast } = useToast();
   const router = useRouter();
   const [activeTab, setActiveTab] = useState("login");
   const { t } = useLanguage();
-  const [isClient, setIsClient] = useState(false);
-
-  useEffect(() => {
-    setIsClient(true);
-  }, []);
 
   const loginForm = useForm<z.infer<typeof loginSchema>>({
     resolver: zodResolver(loginSchema),
@@ -176,10 +171,6 @@ export default function HubAuthPage() {
     } finally {
       setLoading(false);
     }
-  }
-
-  if (!isClient) {
-    return null;
   }
 
   return (
@@ -329,4 +320,15 @@ export default function HubAuthPage() {
       </CardContent>
     </Card>
   );
+}
+
+
+export default function HubAuthPage() {
+    const [isClient, setIsClient] = useState(false)
+ 
+    useEffect(() => {
+        setIsClient(true)
+    }, [])
+ 
+    return isClient ? <HubAuthComponent /> : null
 }
