@@ -376,6 +376,30 @@ export default function HomePage() {
       },
     },
   };
+  
+  const headingContainerVariants: Variants = {
+    hidden: { opacity: 0 },
+    visible: {
+      opacity: 1,
+      transition: {
+        staggerChildren: 0.15,
+        delayChildren: 0.3,
+      },
+    },
+  };
+
+  const headingWordVariants: Variants = {
+    hidden: { y: 20, opacity: 0 },
+    visible: {
+      y: 0,
+      opacity: 1,
+      transition: {
+        type: "spring",
+        stiffness: 120,
+        damping: 14,
+      },
+    },
+  };
 
   const itemVariants: Variants = {
     hidden: { y: 20, opacity: 0 },
@@ -388,6 +412,8 @@ export default function HomePage() {
       },
     },
   };
+
+  const taglineWords = t.tagline.split(" ");
 
   return (
     <motion.div>
@@ -503,9 +529,15 @@ export default function HomePage() {
         >
           <motion.h1
             className="text-4xl md:text-5xl lg:text-6xl font-bold text-foreground tracking-tight text-center mb-12 [text-shadow:_0_2px_4px_rgb(0_0_0_/_30%)]"
-            variants={itemVariants}
+            variants={headingContainerVariants}
+            initial="hidden"
+            animate="visible"
           >
-            {t.tagline}
+            {taglineWords.map((word, index) => (
+                <motion.span key={index} className="inline-block mr-[0.25em]" variants={headingWordVariants}>
+                    {word}
+                </motion.span>
+            ))}
           </motion.h1>
           <motion.h2
             className="text-3xl font-bold mb-8 text-foreground [text-shadow:_0_1px_2px_rgb(0_0_0_/_20%)]"
