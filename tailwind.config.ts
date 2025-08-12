@@ -125,6 +125,10 @@ export default {
           '0%, 100%': { transform: 'rotate(0deg)' },
           '25%': { transform: 'rotate(-8deg)' },
           '75%': { transform: 'rotate(8deg)' },
+        },
+        'blink': {
+            '0%, 100%': { opacity: '1' },
+            '50%': { opacity: '0.6' },
         }
       },
       animation: {
@@ -135,6 +139,7 @@ export default {
         'ken-burns': 'ken-burns 20s ease-out infinite',
         'arrow-flow': 'arrow-flow 1.5s ease-in-out infinite',
         'shake': 'shake 0.4s ease-in-out',
+        'blink': 'blink 1.5s ease-in-out infinite',
       },
     },
   },

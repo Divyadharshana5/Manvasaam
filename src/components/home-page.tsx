@@ -531,7 +531,7 @@ export default function HomePage() {
                   </CardHeader>
                   <CardContent className="text-center flex-grow flex flex-col justify-between">
                     <div>
-                      <CardTitle className="mt-4 text-2xl">
+                      <CardTitle className="mt-4 text-2xl animate-blink">
                         {role.name}
                       </CardTitle>
                       <p className="text-muted-foreground my-4">
