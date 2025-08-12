@@ -408,32 +408,33 @@ export default function HomePage() {
 
       <main className="flex-1 flex flex-col items-center justify-center pt-24 px-4 relative z-10">
         <section className="text-center w-full max-w-4xl mx-auto">
-          <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-foreground tracking-tight text-center mb-12" style={{ textShadow: '0 2px 4px rgba(0, 0, 0, 0.4)' }}>{t.tagline}</h1>
-          <h2 className="text-3xl font-bold mb-8 text-foreground [text-shadow:_0_1px_2px_rgb(0_0_0_/_20%)]">{t.joinCommunity}</h2>
+          <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-foreground tracking-tight text-center mb-12 animate-fade-in-up" style={{ textShadow: '0 2px 4px rgba(0, 0, 0, 0.4)' }}>{t.tagline}</h1>
+          <h2 className="text-3xl font-bold mb-8 text-foreground [text-shadow:_0_1px_2px_rgb(0_0_0_/_20%)] animate-fade-in-up" style={{ animationDelay: '200ms' }}>{t.joinCommunity}</h2>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-            {userRoles.map((role) => (
-              <Card
-                key={role.name}
-                className="bg-card/80 backdrop-blur-xl border border-primary/20 rounded-2xl shadow-lg hover:shadow-2xl transition-all duration-300 p-6"
-              >
-                <CardHeader className="items-center">
-                  {role.icon}
-                  <CardTitle className="mt-4 text-2xl">{role.name}</CardTitle>
-                </CardHeader>
-                <CardContent className="text-center">
-                  <p className="text-muted-foreground mb-6">{role.description}</p>
-                  <Button asChild className="w-full">
-                    <Link href={role.href}>
-                      {t.continue} <ArrowRight className="ml-2 h-4 w-4" />
-                    </Link>
-                  </Button>
-                </CardContent>
-              </Card>
+            {userRoles.map((role, index) => (
+              <div key={role.name} className="animate-fade-in" style={{ animationDelay: `${400 + index * 150}ms`}}>
+                <Card
+                  className="bg-card/80 backdrop-blur-xl border border-primary/20 rounded-2xl shadow-lg hover:shadow-2xl transition-all duration-300 p-6 h-full flex flex-col"
+                >
+                  <CardHeader className="items-center">
+                    {role.icon}
+                    <CardTitle className="mt-4 text-2xl">{role.name}</CardTitle>
+                  </CardHeader>
+                  <CardContent className="text-center flex-grow">
+                    <p className="text-muted-foreground mb-6">{role.description}</p>
+                  </CardContent>
+                  <Button asChild className="w-full mt-auto">
+                      <Link href={role.href}>
+                        {t.continue} <ArrowRight className="ml-2 h-4 w-4" />
+                      </Link>
+                    </Button>
+                </Card>
+              </div>
             ))}
           </div>
         </section>
 
-        <section className="w-full max-w-4xl mx-auto mt-20 text-center">
+        <section className="w-full max-w-4xl mx-auto mt-20 text-center animate-fade-in" style={{ animationDelay: '1000ms' }}>
            <h2 className="text-3xl font-bold mb-4 text-foreground [text-shadow:_0_1px_2px_rgb(0_0_0_/_20%)]">{t.ourMission}</h2>
            <p className="text-lg text-foreground/90 mb-8 max-w-3xl mx-auto [text-shadow:_0_1px_2px_rgb(0_0_0_/_20%)]">{t.missionStatement}</p>
             <Card className="bg-card/80 backdrop-blur-xl border border-primary/20 rounded-2xl shadow-lg p-6">
