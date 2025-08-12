@@ -5,13 +5,13 @@
 
 @layer base {
   :root {
-    --background: 80 80% 96%;
+    --background: 0 0% 100%;
     --foreground: 80 10% 20%;
     --card: 0 0% 100%;
     --card-foreground: 80 10% 5%;
     --popover: 0 0% 100%;
     --popover-foreground: 80 10% 5%;
-    --primary: 80 61% 40%;
+    --primary: 120 50% 30%;
     --primary-foreground: 80 0% 100%;
     --secondary: 80 10% 95%;
     --secondary-foreground: 80 25% 15%;
@@ -23,7 +23,7 @@
     --destructive-foreground: 0 0% 98%;
     --border: 80 10% 75%;
     --input: 80 10% 75%;
-    --ring: 80 61% 40%;
+    --ring: 120 50% 30%;
     --radius: 0.5rem;
     --sidebar-background: 80 80% 10%;
     --sidebar-foreground: 0 0% 98%;
@@ -47,7 +47,7 @@
     --card-foreground: 0 0% 98%;
     --popover: 80 25% 10%;
     --popover-foreground: 0 0% 98%;
-    --primary: 80 61% 40%;
+    --primary: 120 50% 30%;
     --primary-foreground: 80 0% 100%;
     --secondary: 80 10% 15%;
     --secondary-foreground: 0 0% 98%;
