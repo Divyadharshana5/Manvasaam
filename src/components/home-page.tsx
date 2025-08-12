@@ -494,7 +494,7 @@ export default function HomePage() {
 
           <DropdownMenu>
             <DropdownMenuTrigger asChild>
-              <Button variant="outline" className="hover:bg-primary/10 hover:border-primary/50">
+              <Button variant="outline" className="hover:bg-primary/90 hover:text-primary-foreground hover:border-primary/90">
                 <Languages className="mr-2 h-4 w-4" />
                 {selectedLanguage}
               </Button>
@@ -629,5 +629,3 @@ export default function HomePage() {
     </motion.div>
   );
 }
-
-    
