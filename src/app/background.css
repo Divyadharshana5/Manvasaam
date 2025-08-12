@@ -1,0 +1,17 @@
+
+.bg-ken-burns {
+  animation: ken-burns 20s ease-out infinite;
+  transform-origin: center center;
+}
+
+@keyframes ken-burns {
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.1);
+  }
+  100% {
+    transform: scale(1);
+  }
+}

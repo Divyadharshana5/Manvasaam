@@ -85,7 +85,7 @@ const navTranslations: Record<string, Record<string, string>> = {
     Kannada: "ನೀವು ಹಬ್ ಲಾಗಿನ್ ಪುಟಕ್ಕೆ ಹೋಗಲು ಬಯಸುತ್ತೀರಿ ಎಂದು ತೋರುತ್ತದೆ. ನಾನು ಮುಂದುವರಿಯಬೇಕೇ?",
     Bengali: "মনে হচ্ছে আপনি হাব লগইন পৃষ্ঠাতে যেতে চান। আমি কি এগিয়ে যাব?",
     Arabic: "يبدو أنك تريد الذهاب إلى صفحة تسجيل دخول المركز. هل أتابع؟",
-    Urdu: "ایسا लगता है کہ آپ حب لاگ ان صفحہ پر جانا چاہتے ہیں۔ کیا میں آگے بڑھوں؟",
+    Urdu: "ایسا لگتا ہے کہ آپ حب لاگ ان صفحہ پر جانا چاہتے ہیں۔ کیا میں آگے بڑھوں؟",
     Srilanka: "ඔබට හබ් පිවිසුම් පිටුවට යාමට අවශ්‍ය බව පෙනේ. මම ඉදිරියට යා යුතුද?",
   },
   faq: {
@@ -316,6 +316,9 @@ export default function HomePage() {
 
   return (
     <div className="flex flex-col min-h-screen">
+      <div className="fixed inset-0 bg-cover bg-center bg-ken-burns" style={{backgroundImage: "url('/bg-agri.png')", zIndex: 0}}></div>
+      <div className="fixed inset-0 bg-gradient-to-t from-background via-background/80 to-transparent z-0"></div>
+      
       <header className="fixed top-0 left-0 right-0 z-50 flex items-center justify-between p-4 bg-background/50 backdrop-blur-sm">
         <Link href="/" className="flex items-center gap-2">
           <ManvaasamLogo width={32} height={32} />
@@ -414,7 +417,7 @@ export default function HomePage() {
             {userRoles.map((role, index) => (
               <div key={role.name} className="animate-fade-in" style={{ animationDelay: `${400 + index * 150}ms`}}>
                 <Card
-                  className="bg-card/80 backdrop-blur-xl border border-primary/20 rounded-2xl shadow-lg hover:shadow-2xl transition-all duration-300 p-6 h-full flex flex-col"
+                  className="bg-card/80 backdrop-blur-xl border border-primary/20 rounded-2xl shadow-lg hover:shadow-2xl hover:scale-105 transition-all duration-300 p-6 h-full flex flex-col"
                 >
                   <CardHeader className="items-center">
                     {role.icon}
