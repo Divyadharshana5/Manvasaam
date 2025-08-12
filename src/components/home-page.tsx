@@ -362,8 +362,7 @@ export default function HomePage() {
 
   const handleContinueClick = (href: string) => {
     setLoadingRoleHref(href);
-    // The actual navigation is handled by the Link component.
-    // The loading state is just for user feedback.
+    router.push(href);
   };
 
   const buttonState = getButtonState();
@@ -383,7 +382,7 @@ export default function HomePage() {
         <div className="flex items-center gap-4">
           <Dialog open={isAssistantOpen} onOpenChange={setIsAssistantOpen}>
             <DialogTrigger asChild>
-              <Button variant="ghost">
+              <Button variant="ghost" className="hover:bg-primary/90 hover:text-primary-foreground">
                 <Mic className="mr-2 h-4 w-4" />
                 {t.sidebar.voiceAssistant}
               </Button>
@@ -447,7 +446,7 @@ export default function HomePage() {
 
           <DropdownMenu>
             <DropdownMenuTrigger asChild>
-              <Button variant="outline">
+              <Button variant="outline" className="hover:bg-primary/90 hover:text-primary-foreground hover:border-primary/90">
                 <Languages className="mr-2 h-4 w-4" />
                 {selectedLanguage}
               </Button>
@@ -518,20 +517,17 @@ export default function HomePage() {
                       </p>
                     </div>
                     <Button
-                      asChild
                       className="w-full mt-auto"
                       onClick={() => handleContinueClick(role.href)}
                       disabled={loadingRoleHref === role.href}
                     >
-                      <Link href={role.href}>
-                        {loadingRoleHref === role.href ? (
-                          <Loader2 className="mr-2 h-4 w-4 animate-spin" />
-                        ) : (
-                          <>
-                            {t.continue} <ArrowRight className="ml-2 h-4 w-4" />
-                          </>
-                        )}
-                      </Link>
+                      {loadingRoleHref === role.href ? (
+                        <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                      ) : (
+                        <>
+                          {t.continue} <ArrowRight className="ml-2 h-4 w-4" />
+                        </>
+                      )}
                     </Button>
                   </CardContent>
                 </Card>
