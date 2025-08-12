@@ -47,26 +47,19 @@ const CustomCursor = () => {
 
   return (
     <motion.div
-      className="custom-leaf-cursor"
+      className={cn(
+        "custom-cursor",
+      )}
       style={{
         translateX: cursorXSpring,
         translateY: cursorYSpring,
       }}
       animate={{
-        rotate: isHovering ? 15 : 0,
-        scale: isHovering ? 1.2 : 1,
+        width: isHovering ? 32 : 16,
+        height: isHovering ? 32 : 16,
       }}
-      transition={{ type: "spring", stiffness: 300, damping: 15 }}
-    >
-      <svg
-        xmlns="http://www.w3.org/2000/svg"
-        viewBox="0 0 24 24"
-        fill="currentColor"
-        className="h-full w-full"
-      >
-        <path d="M12.9,2.62a1,1,0,0,0-1.8,0L4.35,14.08A8,8,0,1,0,18.1,9.31l-4.1-6.2A1,1,0,0,0,12.9,2.62Z" />
-      </svg>
-    </motion.div>
+       transition={{ type: "spring", stiffness: 300, damping: 20 }}
+    />
   );
 };
 
