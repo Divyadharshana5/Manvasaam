@@ -189,7 +189,7 @@ function HubAuthComponent() {
           </TabsList>
           <TabsContent value="login" className="pt-4">
             <Form {...loginForm}>
-              <form onSubmit={loginForm.handleSubmit(onLogin)} className="space-y-4">
+              <form onSubmit={loginForm.handleSubmit(onLogin)} className="space-y-4" suppressHydrationWarning>
                 <FormField
                   control={loginForm.control}
                   name="branchId"
