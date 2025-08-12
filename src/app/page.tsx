@@ -411,13 +411,13 @@ export default function HomePage() {
 
       <main className="flex-1 flex flex-col items-center justify-center pt-24 px-4 relative z-10">
         <section className="text-center w-full max-w-4xl mx-auto">
-          <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-foreground tracking-tight text-center mb-12 animate-fade-in-up" style={{ textShadow: '0 2px 4px rgba(0, 0, 0, 0.4)' }}>{t.tagline}</h1>
+          <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-foreground tracking-tight text-center mb-12 animate-fade-in-up [text-shadow:_0_2px_4px_rgba(0,0,0,0.4)]">{t.tagline}</h1>
           <h2 className="text-3xl font-bold mb-8 text-foreground [text-shadow:_0_1px_2px_rgb(0_0_0_/_20%)] animate-fade-in-up" style={{ animationDelay: '200ms' }}>{t.joinCommunity}</h2>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
             {userRoles.map((role, index) => (
               <div key={role.name} className="animate-fade-in" style={{ animationDelay: `${400 + index * 150}ms`}}>
                 <Card
-                  className="bg-card/80 backdrop-blur-xl border border-primary/20 rounded-2xl shadow-lg hover:shadow-2xl hover:scale-105 transition-all duration-300 p-6 h-full flex flex-col"
+                  className="bg-card/80 backdrop-blur-xl border border-primary/20 rounded-2xl shadow-lg hover:shadow-2xl hover:scale-105 hover:border-primary/50 transition-all duration-300 p-6 h-full flex flex-col"
                 >
                   <CardHeader className="items-center">
                     {role.icon}

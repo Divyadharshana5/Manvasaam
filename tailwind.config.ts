@@ -110,9 +110,11 @@ export default {
           },
         },
         'ken-burns': {
-            '0%': { transform: 'scale(1)' },
-            '50%': { transform: 'scale(1.1)' },
-            '100%': { transform: 'scale(1)' },
+            '0%': { transform: 'scale(1) translate(0, 0)', 'transform-origin': 'center center' },
+            '25%': { transform: 'scale(1.05) translate(1%, -1%)', 'transform-origin': 'top left' },
+            '50%': { transform: 'scale(1.1) translate(-1%, 1%)', 'transform-origin': 'bottom right' },
+            '75%': { transform: 'scale(1.05) translate(-1%, -1%)', 'transform-origin': 'top right' },
+            '100%': { transform: 'scale(1) translate(0, 0)', 'transform-origin': 'center center' },
         },
       },
       animation: {
