@@ -2,7 +2,7 @@
 "use client";
 
 import Link from "next/link";
-import { motion } from "framer-motion";
+import { motion, Variants } from "framer-motion";
 import {
   Card,
   CardContent,
@@ -378,16 +378,28 @@ export default function HomePage() {
     },
   };
 
-  const itemVariants = {
-    hidden: { y: 20, opacity: 0 },
+  const itemVariants: Variants = {
+    hidden: { y: 20, opacity: 0, rotate: -5 },
     visible: {
       y: 0,
       opacity: 1,
+      rotate: 0,
       transition: {
-        duration: 0.5,
+        type: "spring",
+        stiffness: 100,
+        damping: 10,
       },
     },
   };
+
+  const iconWiggle: Variants = {
+      rest: { rotate: 0 },
+      hover: {
+        rotate: [0, -10, 10, -10, 10, 0],
+        transition: { duration: 0.4 }
+      }
+  }
+
 
   return (
     <motion.div>
@@ -523,12 +535,14 @@ export default function HomePage() {
               <motion.div
                 key={role.name}
                 variants={itemVariants}
-                whileHover={{ scale: 1.05, y: -5 }}
-                transition={{ type: "spring", stiffness: 300 }}
+                whileHover="hover"
+                animate="rest"
               >
                 <Card className="bg-card/80 backdrop-blur-xl border-2 border-primary/20 rounded-2xl shadow-lg hover:shadow-2xl transition-shadow duration-300 p-6 flex flex-col h-full">
                   <CardHeader className="items-center flex-shrink-0">
-                    {role.icon}
+                    <motion.div variants={iconWiggle}>
+                      {role.icon}
+                    </motion.div>
                   </CardHeader>
                   <CardContent className="text-center flex-grow flex flex-col justify-between">
                     <div>
