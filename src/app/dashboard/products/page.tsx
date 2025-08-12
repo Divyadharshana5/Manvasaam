@@ -238,7 +238,6 @@ function OrderForm({ product, onClose }: { product: Product, onClose: () => void
 export default function ProductsPage() {
     const [isOrderDialogOpen, setIsOrderDialogOpen] = useState(false);
     const [selectedProduct, setSelectedProduct] = useState<Product | null>(null);
-    const [isProductsVisible, setIsProductsVisible] = useState(false);
     const { toast } = useToast();
     const { t } = useLanguage();
 
@@ -267,22 +266,18 @@ export default function ProductsPage() {
         </div>
 
         <Card className="w-full">
-             <CardHeader className="cursor-pointer" onClick={() => setIsProductsVisible(!isProductsVisible)}>
-                <div className="flex items-center justify-between">
-                    <div className="flex items-center gap-4">
-                        <Avatar className="h-16 w-16">
-                            <AvatarImage src={farmerData.avatar} data-ai-hint={farmerData.dataAiHint} />
-                            <AvatarFallback><User /></AvatarFallback>
-                        </Avatar>
-                        <div>
-                            <CardTitle className="text-2xl">{farmerData.name}</CardTitle>
-                            <CardDescription>{farmerData.acres} Acres of Farmland</CardDescription>
-                        </div>
+             <CardHeader>
+                <div className="flex items-center gap-4">
+                    <Avatar className="h-16 w-16">
+                        <AvatarImage src={farmerData.avatar} data-ai-hint={farmerData.dataAiHint} />
+                        <AvatarFallback><User /></AvatarFallback>
+                    </Avatar>
+                    <div>
+                        <CardTitle className="text-2xl">{farmerData.name}</CardTitle>
+                        <CardDescription>{farmerData.acres} Acres of Farmland</CardDescription>
                     </div>
-                     <ChevronDown className={cn("h-6 w-6 text-muted-foreground transition-transform", isProductsVisible && "rotate-180")} />
                 </div>
             </CardHeader>
-           {isProductsVisible && (
             <CardContent className="space-y-8 pt-6">
                 {/* Vegetables Section */}
                 <div>
@@ -378,7 +373,6 @@ export default function ProductsPage() {
                     </div>
                 </div>
             </CardContent>
-           )}
         </Card>
       </div>
       <Dialog open={isOrderDialogOpen} onOpenChange={setIsOrderDialogOpen}>
@@ -389,3 +383,5 @@ export default function ProductsPage() {
     </AppLayout>
   );
 }
+
+    
