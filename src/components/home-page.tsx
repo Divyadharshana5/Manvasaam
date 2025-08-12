@@ -372,34 +372,22 @@ export default function HomePage() {
     visible: {
       opacity: 1,
       transition: {
-        staggerChildren: 0.15,
-        delayChildren: 0.4,
+        staggerChildren: 0.1,
       },
     },
   };
 
   const itemVariants: Variants = {
-    hidden: { y: 20, opacity: 0, rotate: -5 },
+    hidden: { y: 20, opacity: 0 },
     visible: {
       y: 0,
       opacity: 1,
-      rotate: 0,
       transition: {
         type: "spring",
         stiffness: 100,
-        damping: 10,
       },
     },
   };
-
-  const iconWiggle: Variants = {
-      rest: { rotate: 0 },
-      hover: {
-        rotate: [0, -10, 10, -10, 10, 0],
-        transition: { duration: 0.4 }
-      }
-  }
-
 
   return (
     <motion.div>
@@ -528,21 +516,16 @@ export default function HomePage() {
           <motion.div
             className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8"
             variants={containerVariants}
-            initial="hidden"
-            animate="visible"
           >
             {userRoles.map((role) => (
               <motion.div
                 key={role.name}
                 variants={itemVariants}
-                whileHover="hover"
-                animate="rest"
+                whileHover={{ scale: 1.05, y: -5 }}
               >
                 <Card className="bg-card/80 backdrop-blur-xl border-2 border-primary/20 rounded-2xl shadow-lg hover:shadow-2xl transition-shadow duration-300 p-6 flex flex-col h-full">
                   <CardHeader className="items-center flex-shrink-0">
-                    <motion.div variants={iconWiggle}>
-                      {role.icon}
-                    </motion.div>
+                    {role.icon}
                   </CardHeader>
                   <CardContent className="text-center flex-grow flex flex-col justify-between">
                     <div>
@@ -612,3 +595,5 @@ export default function HomePage() {
     </motion.div>
   );
 }
+
+    
