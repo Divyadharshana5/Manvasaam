@@ -490,10 +490,6 @@ export default function HomePage() {
         <motion.section
           style={{ opacity: heroOpacity, y: heroY }}
           className="text-center w-full max-w-4xl mx-auto z-10"
-          initial={{ opacity: 0, y: 50, scale: 0.95 }}
-          whileInView={{ opacity: 1, y: 0, scale: 1 }}
-          viewport={{ once: true, amount: 0.4 }}
-          transition={{ duration: 0.6 }}
         >
           <motion.h1
             className="text-4xl md:text-5xl lg:text-6xl font-bold text-foreground tracking-tight text-center mb-12 [text-shadow:0_2px_4px_rgb(0_0_0/_30%)]"
@@ -517,11 +513,11 @@ export default function HomePage() {
             {userRoles.map((role, index) => (
               <motion.div
                 key={role.name}
-                initial={{ opacity: 0, y: 40, scale: 0.95 }}
-                whileInView={{ opacity: 1, scale: 1, y: 0 }}
+                initial={{ opacity: 0, y: 50 }}
+                whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true, amount: 0.5 }}
-                transition={{ duration: 0.5, delay: 0.2 * index, ease: 'easeOut' }}
-                whileHover={{ scale: 1.07, y: -8 }}
+                transition={{ duration: 0.5, delay: index * 0.1 }}
+                whileHover={{ y: -8 }}
               >
                 <Card className="bg-card/80 backdrop-blur-xl border-2 border-primary/20 rounded-2xl shadow-lg hover:shadow-2xl hover:scale-105 transition-all duration-300 p-6 flex flex-col h-full">
                   <CardHeader className="items-center flex-shrink-0">
@@ -561,8 +557,8 @@ export default function HomePage() {
 
         <motion.section
           className="w-full max-w-4xl mx-auto mt-24 text-center z-10"
-          initial={{ opacity: 0, y: 50, scale: 0.95 }}
-          whileInView={{ opacity: 1, y: 0, scale: 1 }}
+          initial={{ opacity: 0, y: 50 }}
+          whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, amount: 0.5 }}
           transition={{ duration: 0.6 }}
         >
@@ -572,24 +568,31 @@ export default function HomePage() {
           <p className="text-lg text-foreground/90 mb-8 max-w-3xl mx-auto [text-shadow:0_1px_2px_rgb(0_0_0/_20%)]">
             {t.missionStatement}
           </p>
-          <Card className="bg-card/80 backdrop-blur-xl border border-primary/20 rounded-2xl shadow-lg p-6">
-            <CardContent className="p-0 sm:p-6">
-              <div className="flex flex-col sm:flex-row items-center justify-center gap-4 text-lg font-semibold text-foreground">
-                <span>{t.roles.farmer.name}</span>
-                <ArrowRight
-                  size={24}
-                  className="text-primary animate-arrow-flow sm:rotate-0 rotate-90"
-                />
-                <span>{t.roles.hub.name}</span>
-                <ArrowRight
-                  size={24}
-                  className="text-primary animate-arrow-flow sm:rotate-0 rotate-90"
-                  style={{ animationDelay: "0.5s" }}
-                />
-                <span>{t.roles.customer.name}</span>
-              </div>
-            </CardContent>
-          </Card>
+          <motion.div
+            initial={{ opacity: 0, scale: 0.95 }}
+            whileInView={{ opacity: 1, scale: 1 }}
+            viewport={{ once: true, amount: 0.5 }}
+            transition={{ duration: 0.5 }}
+          >
+            <Card className="bg-card/80 backdrop-blur-xl border border-primary/20 rounded-2xl shadow-lg p-6">
+              <CardContent className="p-0 sm:p-6">
+                <div className="flex flex-col sm:flex-row items-center justify-center gap-4 text-lg font-semibold text-foreground">
+                  <span>{t.roles.farmer.name}</span>
+                  <ArrowRight
+                    size={24}
+                    className="text-primary animate-arrow-flow sm:rotate-0 rotate-90"
+                  />
+                  <span>{t.roles.hub.name}</span>
+                  <ArrowRight
+                    size={24}
+                    className="text-primary animate-arrow-flow sm:rotate-0 rotate-90"
+                    style={{ animationDelay: "0.5s" }}
+                  />
+                  <span>{t.roles.customer.name}</span>
+                </div>
+              </CardContent>
+            </Card>
+          </motion.div>
         </motion.section>
       </main>
       <motion.footer 
