@@ -81,7 +81,7 @@ const navTranslations: Record<string, Record<string, string>> = {
     English:
       "It sounds like you have a question. Would you like me to take you to the FAQ page?",
     Tamil:
-      "உங்களுக்கு ஒரு கேள்வி இருப்பது போல் தெரிகிறது. நான் మిమ్మల్ని తరచుగా అడిగే ప్రశ్నల పేజీకి తీసుకెళ్లాలా?",
+      "உங்களுக்கு ஒரு கேள்வி இருப்பது போல் தெரிகிறது. నేను మిమ్మల్ని తరచుగా అడిగే ప్రశ్నల పేజీకి తీసుకెళ్లాలా?",
     Malayalam:
       "നിങ്ങൾക്കൊരു ചോദ്യമുണ്ടെന്ന് തോന്നുന്നു. ഞാൻ നിങ്ങളെ പതിവുചോദ്യങ്ങൾ പേജിലേക്ക് കൊണ്ടുപോകണോ?",
     Telugu:
@@ -493,7 +493,14 @@ export default function HomePage() {
           </h2>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
             {userRoles.map((role, index) => (
-              <motion.div key={role.name} whileHover={{ y: -8 }}>
+              <motion.div
+                key={role.name}
+                initial={{ opacity: 0, y: 50 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.6, delay: index * 0.1, ease: "easeOut" }}
+                whileHover={{ y: -8 }}
+              >
                 <Card className="bg-card/80 backdrop-blur-xl border-2 border-primary/20 rounded-2xl shadow-lg hover:shadow-2xl hover:scale-105 transition-all duration-300 p-6 flex flex-col h-full">
                   <CardHeader className="items-center flex-shrink-0">
                     {role.icon}
