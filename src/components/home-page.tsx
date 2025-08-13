@@ -375,14 +375,8 @@ export default function HomePage() {
   const buttonState = getButtonState();
 
   return (
-    <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 0.7 }}>
-      <motion.header
-        className="fixed top-0 left-0 right-0 z-50 flex items-center justify-between p-4 bg-background/50 backdrop-blur-sm"
-        initial={{ opacity: 0, y: -50 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true }}
-        transition={{ duration: 0.5 }}
-      >
+    <div className="relative">
+      <header className="fixed top-0 left-0 right-0 z-50 flex items-center justify-between p-4 bg-background/50 backdrop-blur-sm">
         <Link href="/" className="flex items-center gap-2">
           <motion.div whileHover={{ scale: 1.1, rotate: 5 }}>
             <ManvaasamLogo width={32} height={32} />
@@ -479,9 +473,9 @@ export default function HomePage() {
             </DropdownMenuContent>
           </DropdownMenu>
         </div>
-      </motion.header>
+      </header>
 
-  <main className="flex min-h-screen flex-col items-center justify-center pt-24 px-4 relative z-10">
+      <main className="flex min-h-screen flex-col items-center justify-center pt-24 px-4">
         <div
           className="absolute inset-0 z-0 bg-cover bg-center bg-no-repeat bg-fixed bg-ken-burns"
           style={{ backgroundImage: "url('/bg-2.png')" }}
@@ -491,34 +485,15 @@ export default function HomePage() {
           style={{ opacity: heroOpacity, y: heroY }}
           className="text-center w-full max-w-4xl mx-auto z-10"
         >
-          <motion.h1
-            className="text-4xl md:text-5xl lg:text-6xl font-bold text-foreground tracking-tight text-center mb-12 [text-shadow:0_2px_4px_rgb(0_0_0/_30%)]"
-            initial={{ opacity: 0, y: 40 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, amount: 0.7 }}
-            transition={{ duration: 0.7, ease: 'easeOut' }}
-          >
+          <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-foreground tracking-tight text-center mb-12 [text-shadow:0_2px_4px_rgb(0_0_0/_30%)]">
             {t.tagline}
-          </motion.h1>
-          <motion.h2
-            className="text-3xl font-bold mb-8 text-foreground [text-shadow:0_1px_2px_rgb(0_0_0/_20%)]"
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, amount: 0.7 }}
-            transition={{ duration: 0.6, delay: 0.3, ease: 'easeOut' }}
-          >
+          </h1>
+          <h2 className="text-3xl font-bold mb-8 text-foreground [text-shadow:0_1px_2px_rgb(0_0_0/_20%)]">
             {t.joinCommunity}
-          </motion.h2>
+          </h2>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
             {userRoles.map((role, index) => (
-              <motion.div
-                key={role.name}
-                initial={{ opacity: 0, y: 50 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true, amount: 0.5 }}
-                transition={{ duration: 0.5, delay: index * 0.1 }}
-                whileHover={{ y: -8 }}
-              >
+              <motion.div key={role.name} whileHover={{ y: -8 }}>
                 <Card className="bg-card/80 backdrop-blur-xl border-2 border-primary/20 rounded-2xl shadow-lg hover:shadow-2xl hover:scale-105 transition-all duration-300 p-6 flex flex-col h-full">
                   <CardHeader className="items-center flex-shrink-0">
                     {role.icon}
@@ -555,55 +530,42 @@ export default function HomePage() {
           </div>
         </motion.section>
 
-        <motion.section
-          className="w-full max-w-4xl mx-auto mt-24 text-center z-10"
-          initial={{ opacity: 0, y: 50 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, amount: 0.5 }}
-          transition={{ duration: 0.6 }}
-        >
+        <section className="w-full max-w-4xl mx-auto mt-24 text-center z-10">
           <h2 className="text-3xl font-bold mb-4 text-foreground [text-shadow:0_1px_2px_rgb(0_0_0/_20%)]">
             {t.ourMission}
           </h2>
           <p className="text-lg text-foreground/90 mb-8 max-w-3xl mx-auto [text-shadow:0_1px_2px_rgb(0_0_0/_20%)]">
             {t.missionStatement}
           </p>
-          <motion.div
-            initial={{ opacity: 0, scale: 0.95 }}
-            whileInView={{ opacity: 1, scale: 1 }}
-            viewport={{ once: true, amount: 0.5 }}
-            transition={{ duration: 0.5 }}
-          >
-            <Card className="bg-card/80 backdrop-blur-xl border border-primary/20 rounded-2xl shadow-lg p-6">
-              <CardContent className="p-0 sm:p-6">
-                <div className="flex flex-col sm:flex-row items-center justify-center gap-4 text-lg font-semibold text-foreground">
-                  <span>{t.roles.farmer.name}</span>
-                  <ArrowRight
-                    size={24}
-                    className="text-primary animate-arrow-flow sm:rotate-0 rotate-90"
-                  />
-                  <span>{t.roles.hub.name}</span>
-                  <ArrowRight
-                    size={24}
-                    className="text-primary animate-arrow-flow sm:rotate-0 rotate-90"
-                    style={{ animationDelay: "0.5s" }}
-                  />
-                  <span>{t.roles.customer.name}</span>
-                </div>
-              </CardContent>
-            </Card>
-          </motion.div>
-        </motion.section>
+          <Card className="bg-card/80 backdrop-blur-xl border border-primary/20 rounded-2xl shadow-lg p-6">
+            <CardContent className="p-0 sm:p-6">
+              <div className="flex flex-col sm:flex-row items-center justify-center gap-4 text-lg font-semibold text-foreground">
+                <span>{t.roles.farmer.name}</span>
+                <ArrowRight
+                  size={24}
+                  className="text-primary animate-arrow-flow sm:rotate-0 rotate-90"
+                />
+                <span>{t.roles.hub.name}</span>
+                <ArrowRight
+                  size={24}
+                  className="text-primary animate-arrow-flow sm:rotate-0 rotate-90"
+                  style={{ animationDelay: "0.5s" }}
+                />
+                <span>{t.roles.customer.name}</span>
+              </div>
+            </CardContent>
+          </Card>
+        </section>
       </main>
       <motion.footer 
-        className="w-full p-4 text-center text-foreground/80 mt-12 [text-shadow:0_1px_2px_rgb(0_0_0/_20%)] relative z-10"
+        className="w-full p-4 text-center text-foreground/80 mt-12 [text-shadow:0_1px_2px_rgb(0_0_0/_20%)] z-10"
         initial={{ opacity: 0, y: 50 }}
         whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true, amount: 0.5 }}
-        transition={{ duration: 0.6, delay: 0.2 }}
+        viewport={{ once: true }}
+        transition={{ duration: 0.6, delay: 0.2, ease: "easeOut" }}
       >
         © {new Date().getFullYear()} Manvaasam. {t.footer}
       </motion.footer>
-    </motion.div>
+    </div>
   );
 }
