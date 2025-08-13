@@ -106,13 +106,8 @@ export default async function DashboardPage() {
 
   const userProfile = await getUserProfile(decodedToken.uid);
 
-  // Get translations with fallback
-  const langCookie = cookieStore.get("manvaasam-language")?.value as
-    | keyof typeof translations
-    | undefined;
-  const selectedLanguage =
-    langCookie && translations[langCookie] ? langCookie : "English";
-  const t = translations[selectedLanguage] || translations.English || {
+  // Get translations with robust fallback
+  const defaultTranslations = {
     dashboard: {
       title: "Dashboard",
       welcome: "Welcome back",
@@ -124,6 +119,27 @@ export default async function DashboardPage() {
       viewProfile: "View your profile",
     }
   };
+
+  let t = defaultTranslations;
+  
+  try {
+    if (translations && typeof translations === 'object') {
+      const langCookie = cookieStore.get("manvaasam-language")?.value as
+        | keyof typeof translations
+        | undefined;
+      const selectedLanguage =
+        langCookie && translations[langCookie] ? langCookie : "English";
+      
+      if (translations[selectedLanguage] && translations[selectedLanguage].dashboard) {
+        t = translations[selectedLanguage];
+      } else if (translations.English && translations.English.dashboard) {
+        t = translations.English;
+      }
+    }
+  } catch (error) {
+    console.error("Error loading translations:", error);
+    // t remains as defaultTranslations
+  }
 
   const displayName =
     userProfile?.username || userProfile?.branchName || userProfile?.email;
