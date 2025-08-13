@@ -1,4 +1,3 @@
-
 import { adminAuth } from "@/lib/firebase-admin";
 import { NextResponse } from "next/server";
 import { cookies } from "next/headers";
@@ -27,7 +26,7 @@ export async function POST(request: Request) {
       httpOnly: true,
       secure: true,
     };
-    cookies().set(options);
+    (await cookies()).set(options);
 
     return NextResponse.json({ status: "success" }, { status: 200 });
   } catch (error: any) {
