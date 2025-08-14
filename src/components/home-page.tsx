@@ -362,8 +362,9 @@ export default function HomePage() {
 
   const handleContinueClick = (href: string) => {
     setLoadingRoleHref(href);
-    // The actual navigation is handled by the Link component.
-    // The loading state is just for user feedback.
+    setTimeout(() => {
+        router.push(href);
+    }, 500); // 500ms delay to show loading spinner
   };
 
   // Add scroll-based animation for the hero section
@@ -515,20 +516,17 @@ export default function HomePage() {
                       </p>
                     </div>
                     <Button
-                      asChild
                       className="w-full mt-auto"
                       onClick={() => handleContinueClick(role.href)}
                       disabled={loadingRoleHref === role.href}
                     >
-                      <Link href={role.href}>
-                        {loadingRoleHref === role.href ? (
-                          <Loader2 className="mr-2 h-4 w-4 animate-spin" />
-                        ) : (
-                          <>
-                            {t.continue} <ArrowRight className="ml-2 h-4 w-4" />
-                          </>
-                        )}
-                      </Link>
+                      {loadingRoleHref === role.href ? (
+                        <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                      ) : (
+                        <>
+                          {t.continue} <ArrowRight className="ml-2 h-4 w-4" />
+                        </>
+                      )}
                     </Button>
                   </CardContent>
                 </Card>
