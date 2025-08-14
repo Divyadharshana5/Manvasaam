@@ -31,6 +31,7 @@ import { auth } from "@/lib/firebase";
 import { useLanguage } from "@/context/language-context";
 
 const loginSchema = z.object({
+  restaurantName: z.string().min(1, { message: "Restaurant name is required." }),
   email: z.string().email({ message: "Please enter a valid email." }),
   password: z.string().min(1, { message: "Password is required." }),
 });
@@ -57,7 +58,7 @@ export default function RestaurantAuthPage() {
 
   const loginForm = useForm<z.infer<typeof loginSchema>>({
     resolver: zodResolver(loginSchema),
-    defaultValues: { email: "", password: "" },
+    defaultValues: { restaurantName: "", email: "", password: "" },
   });
 
   const registerForm = useForm<z.infer<typeof registerSchema>>({
@@ -182,6 +183,19 @@ export default function RestaurantAuthPage() {
           <TabsContent value="login">
             <Form {...loginForm}>
               <form onSubmit={loginForm.handleSubmit(onLogin)} className="space-y-4 pt-4">
+                <FormField
+                  control={loginForm.control}
+                  name="restaurantName"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel>{t.auth.restaurantNameLabel}</FormLabel>
+                      <FormControl>
+                        <Input placeholder="The Fresh Table" {...field} />
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
                 <FormField
                   control={loginForm.control}
                   name="email"
