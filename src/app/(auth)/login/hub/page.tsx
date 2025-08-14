@@ -29,6 +29,8 @@ import { signInWithEmailAndPassword } from "firebase/auth";
 import { useRouter } from "next/navigation";
 import { auth } from "@/lib/firebase";
 import { useLanguage } from "@/context/language-context";
+import Link from "next/link";
+import { ManvaasamLogo } from "@/components/icons";
 
 const loginSchema = z.object({
   branchName: z.string().min(1, { message: "Branch name is required." }),
