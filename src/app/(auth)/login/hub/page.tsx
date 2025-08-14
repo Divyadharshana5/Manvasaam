@@ -284,7 +284,7 @@ function HubAuthComponent() {
                     <FormItem>
                       <FormLabel>{t.auth.phoneLabel}</FormLabel>
                       <FormControl>
-                        <Input type="tel" placeholder="123-456-7890" {...field} />
+                        <Input type="tel" placeholder="123-456-7890" maxLength={10} {...field} />
                       </FormControl>
                       <FormMessage />
                     </FormItem>

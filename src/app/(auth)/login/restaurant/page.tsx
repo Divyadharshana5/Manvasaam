@@ -274,7 +274,7 @@ export default function RestaurantAuthPage() {
                     <FormItem>
                       <FormLabel>{t.auth.restaurantPhoneLabel}</FormLabel>
                       <FormControl>
-                        <Input type="tel" placeholder="123-456-7890" {...field} />
+                        <Input type="tel" placeholder="123-456-7890" maxLength={10} {...field} />
                       </FormControl>
                       <FormMessage />
                     </FormItem>

@@ -212,7 +212,7 @@ function RegisterForm({
                 render={({ field }) => (
                     <FormItem>
                     <FormLabel>{t.auth.phoneLabel}</FormLabel>
-                    <FormControl><Input type="tel" placeholder="123-456-7890" {...field} /></FormControl>
+                    <FormControl><Input type="tel" placeholder="123-456-7890" maxLength={10} {...field} /></FormControl>
                     <FormMessage />
                     </FormItem>
                 )}
