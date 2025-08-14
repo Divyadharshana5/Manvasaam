@@ -41,7 +41,11 @@ const registerSchema = z.object({
   email: z.string().email({ message: "A valid email is required for the hub account." }),
   location: z.string().min(3, { message: "Location is required." }),
   phone: z.string().min(10, { message: "Please enter a valid phone number." }),
-  password: z.string().min(6, { message: "Password must be at least 6 characters." }),
+  password: z.string()
+    .min(8, { message: "Password must be at least 8 characters long." })
+    .regex(/[A-Z]/, { message: "Password must contain at least one uppercase letter." })
+    .regex(/[!@#$%^&*(),.?":{}|<>]/, { message: "Password must contain at least one special character." })
+    .refine(s => !s.includes(' '), "Password cannot contain spaces."),
   confirmPassword: z.string(),
 }).refine((data) => data.password === data.confirmPassword, {
   message: "Passwords don't match",
