@@ -31,6 +31,7 @@ import { auth } from "@/lib/firebase";
 import { useLanguage } from "@/context/language-context";
 
 const loginSchema = z.object({
+  branchName: z.string().min(1, { message: "Branch name is required." }),
   email: z.string().email({ message: "Please enter a valid email." }),
   password: z.string().min(1, { message: "Password is required." }),
 });
@@ -57,7 +58,7 @@ function HubAuthComponent() {
 
   const loginForm = useForm<z.infer<typeof loginSchema>>({
     resolver: zodResolver(loginSchema),
-    defaultValues: { email: "", password: "" },
+    defaultValues: { branchName: "", email: "", password: "" },
   });
 
   const registerForm = useForm<z.infer<typeof registerSchema>>({
@@ -82,7 +83,7 @@ function HubAuthComponent() {
         toast({
             variant: "destructive",
             title: "Login Failed",
-            description: "Invalid email or password.",
+            description: "Invalid credentials or branch name.",
         });
     } finally {
         setLoading(false);
@@ -110,7 +111,7 @@ function HubAuthComponent() {
         }
 
         toast({ title: "Hub Registration Successful", description: `Please log in with your email and password.` });
-        loginForm.reset({ email: values.email, password: ""});
+        loginForm.reset({ branchName: values.branchName, email: values.email, password: ""});
         setActiveTab("login");
     } catch (error: any) {
         toast({
@@ -177,6 +178,19 @@ function HubAuthComponent() {
           <TabsContent value="login" className="pt-4">
             <Form {...loginForm}>
               <form onSubmit={loginForm.handleSubmit(onLogin)} className="space-y-4" suppressHydrationWarning>
+                 <FormField
+                  control={loginForm.control}
+                  name="branchName"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel>{t.auth.branchNameLabel}</FormLabel>
+                      <FormControl>
+                        <Input placeholder="Central Hub" {...field} />
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
                 <FormField
                   control={loginForm.control}
                   name="email"
