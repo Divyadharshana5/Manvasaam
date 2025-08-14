@@ -1,44 +1,25 @@
 
-.custom-cursor {
-    position: fixed;
-    top: -10px; /* Half of initial width/height */
-    left: -10px; /* Half of initial width/height */
-    width: 20px;
-    height: 20px;
-    
-    background-color: hsla(var(--primary-foreground), 0.9);
-    border-radius: 50%;
-    
-    box-shadow: 0 0 10px hsla(var(--primary), 0.7),
-                0 0 20px hsla(var(--primary), 0.5),
-                0 0 30px hsla(var(--accent), 0.5);
-
-    pointer-events: none;
-    z-index: 9999;
-    
-    transition: transform 0.2s ease-out, scale 0.2s ease-out;
-    animation: pulse 4s ease-in-out infinite;
+.cursor-dot,
+.cursor-trail {
+  position: fixed;
+  top: 0;
+  left: 0;
+  pointer-events: none;
+  border-radius: 50%;
+  mix-blend-mode: difference;
+  z-index: 9999;
 }
 
-@keyframes pulse {
-    0% {
-        transform: scale(1);
-        box-shadow: 0 0 10px hsla(var(--primary), 0.7),
-                    0 0 20px hsla(var(--primary), 0.5),
-                    0 0 30px hsla(var(--accent), 0.5);
-    }
-    50% {
-        transform: scale(0.9);
-        box-shadow: 0 0 15px hsla(var(--primary), 0.8),
-                    0 0 25px hsla(var(--primary), 0.6),
-                    0 0 40px hsla(var(--accent), 0.6);
-    }
-    100% {
-        transform: scale(1);
-        box-shadow: 0 0 10px hsla(var(--primary), 0.7),
-                    0 0 20px hsla(var(--primary), 0.5),
-                    0 0 30px hsla(var(--accent), 0.5);
-    }
+.cursor-dot {
+  background-color: white;
+  width: 8px;
+  height: 8px;
+  
+}
+
+.cursor-trail {
+  background-color: white;
+  will-change: transform;
 }
 
 * {

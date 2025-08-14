@@ -1,18 +1,18 @@
 
 "use client";
 
-import { useEffect, useState }from "react";
+import { useEffect, useState } from "react";
 import { motion, useMotionValue, useSpring } from "framer-motion";
+
+const TRAIL_LENGTH = 8; // Number of trailing dots
 
 const CustomCursor = () => {
   const [isHovering, setIsHovering] = useState(false);
-  
+
   const cursorX = useMotionValue(-100);
   const cursorY = useMotionValue(-100);
 
-  const springConfig = { damping: 25, stiffness: 400, mass: 0.3 };
-  const springX = useSpring(cursorX, springConfig);
-  const springY = useSpring(cursorY, springConfig);
+  const springConfig = { damping: 25, stiffness: 700, mass: 0.5 };
 
   useEffect(() => {
     const moveCursor = (e: MouseEvent) => {
@@ -42,17 +42,40 @@ const CustomCursor = () => {
   }, [cursorX, cursorY]);
 
   return (
-    <motion.div
-      className="custom-cursor"
-      style={{
-        translateX: springX,
-        translateY: springY,
-      }}
-      animate={{
-        scale: isHovering ? 1.5 : 1,
-      }}
-      transition={{ type: 'spring', damping: 15, stiffness: 200, mass: 0.3 }}
-    />
+    <>
+      {Array.from({ length: TRAIL_LENGTH }).map((_, i) => {
+        const springX = useSpring(cursorX, {
+          ...springConfig,
+          damping: 20 + i * 5,
+        });
+        const springY = useSpring(cursorY, {
+          ...springConfig,
+          damping: 20 + i * 5,
+        });
+
+        const isHead = i === 0;
+        
+        return (
+          <motion.div
+            key={i}
+            className={isHead ? "cursor-dot" : "cursor-trail"}
+            style={{
+              translateX: springX,
+              translateY: springY,
+              scale: isHead ? (isHovering ? 1.5 : 1) : (TRAIL_LENGTH - i) / TRAIL_LENGTH,
+              x: '-50%',
+              y: '-50%',
+            }}
+            transition={{
+                type: 'spring',
+                damping: 15,
+                stiffness: 200,
+                mass: 0.3
+            }}
+          />
+        );
+      })}
+    </>
   );
 };
 
