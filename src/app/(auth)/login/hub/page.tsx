@@ -111,7 +111,9 @@ function HubAuthComponent() {
         }
 
         toast({ title: "Hub Registration Successful", description: `Please log in with your email and password.` });
-        loginForm.reset({ branchName: values.branchName, email: values.email, password: ""});
+        loginForm.setValue("branchName", values.branchName);
+        loginForm.setValue("email", values.email);
+        loginForm.setValue("password", "");
         setActiveTab("login");
     } catch (error: any) {
         toast({
