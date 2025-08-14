@@ -6,10 +6,11 @@ import { motion, useMotionValue, useSpring } from "framer-motion";
 
 const CustomCursor = () => {
   const [isHovering, setIsHovering] = useState(false);
+  
   const cursorX = useMotionValue(-100);
   const cursorY = useMotionValue(-100);
 
-  const springConfig = { damping: 25, stiffness: 300, mass: 0.5 };
+  const springConfig = { damping: 25, stiffness: 400, mass: 0.3 };
   const springX = useSpring(cursorX, springConfig);
   const springY = useSpring(cursorY, springConfig);
 
@@ -47,12 +48,10 @@ const CustomCursor = () => {
         translateX: springX,
         translateY: springY,
       }}
-       animate={{
-          width: isHovering ? 60 : 30,
-          height: isHovering ? 60 : 30,
-          opacity: isHovering ? 0.8 : 1,
-        }}
-        transition={{ type: 'spring', damping: 15, stiffness: 200, mass: 0.3 }}
+      animate={{
+        scale: isHovering ? 1.5 : 1,
+      }}
+      transition={{ type: 'spring', damping: 15, stiffness: 200, mass: 0.3 }}
     />
   );
 };

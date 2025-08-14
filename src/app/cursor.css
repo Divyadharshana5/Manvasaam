@@ -1,33 +1,44 @@
 
 .custom-cursor {
     position: fixed;
-    top: -15px; /* Half of initial width/height */
-    left: -15px; /* Half of initial width/height */
-    width: 30px;
-    height: 30px;
+    top: -10px; /* Half of initial width/height */
+    left: -10px; /* Half of initial width/height */
+    width: 20px;
+    height: 20px;
+    
+    background-color: hsla(var(--primary-foreground), 0.9);
     border-radius: 50%;
+    
+    box-shadow: 0 0 10px hsla(var(--primary), 0.7),
+                0 0 20px hsla(var(--primary), 0.5),
+                0 0 30px hsla(var(--accent), 0.5);
+
     pointer-events: none;
     z-index: 9999;
     
-    background: linear-gradient(
-      135deg, 
-      hsla(var(--primary), 0.8), 
-      hsla(var(--accent), 0.8),
-      hsla(var(--primary), 0.5),
-      hsla(220, 80%, 70%, 0.8)
-    );
-    background-size: 400% 400%;
-    
-    animation: liquid-gradient 10s ease infinite;
-    
-    filter: blur(5px);
-    transition: width 0.3s ease, height 0.3s ease, opacity 0.3s ease;
+    transition: transform 0.2s ease-out, scale 0.2s ease-out;
+    animation: pulse 4s ease-in-out infinite;
 }
 
-@keyframes liquid-gradient {
-    0% { background-position: 0% 50%; }
-    50% { background-position: 100% 50%; }
-    100% { background-position: 0% 50%; }
+@keyframes pulse {
+    0% {
+        transform: scale(1);
+        box-shadow: 0 0 10px hsla(var(--primary), 0.7),
+                    0 0 20px hsla(var(--primary), 0.5),
+                    0 0 30px hsla(var(--accent), 0.5);
+    }
+    50% {
+        transform: scale(0.9);
+        box-shadow: 0 0 15px hsla(var(--primary), 0.8),
+                    0 0 25px hsla(var(--primary), 0.6),
+                    0 0 40px hsla(var(--accent), 0.6);
+    }
+    100% {
+        transform: scale(1);
+        box-shadow: 0 0 10px hsla(var(--primary), 0.7),
+                    0 0 20px hsla(var(--primary), 0.5),
+                    0 0 30px hsla(var(--accent), 0.5);
+    }
 }
 
 * {
