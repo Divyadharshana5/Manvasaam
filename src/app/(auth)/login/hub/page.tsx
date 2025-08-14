@@ -31,7 +31,7 @@ import { auth } from "@/lib/firebase";
 import { useLanguage } from "@/context/language-context";
 
 const loginSchema = z.object({
-  branchId: z.string().min(1, { message: "Branch ID is required." }),
+  email: z.string().email({ message: "Please enter a valid email." }),
   password: z.string().min(1, { message: "Password is required." }),
 });
 
@@ -57,7 +57,7 @@ function HubAuthComponent() {
 
   const loginForm = useForm<z.infer<typeof loginSchema>>({
     resolver: zodResolver(loginSchema),
-    defaultValues: { branchId: "", password: "" },
+    defaultValues: { email: "", password: "" },
   });
 
   const registerForm = useForm<z.infer<typeof registerSchema>>({
@@ -75,25 +75,14 @@ function HubAuthComponent() {
   async function onLogin(values: z.infer<typeof loginSchema>) {
     setLoading(true);
     try {
-        const emailRes = await fetch('/api/get-email-by-id', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ branchId: values.branchId, userType: 'hub' }),
-        });
-
-        if (!emailRes.ok) {
-            throw new Error("Invalid Branch ID or password.");
-        }
-        const { email } = await emailRes.json();
-        
-        await signInWithEmailAndPassword(auth, email, values.password);
+        await signInWithEmailAndPassword(auth, values.email, values.password);
         toast({ title: "Login Successful", description: "Welcome back, Hub Manager!" });
         router.push("/dashboard");
     } catch (error: any) {
         toast({
             variant: "destructive",
             title: "Login Failed",
-            description: error.message,
+            description: "Invalid email or password.",
         });
     } finally {
         setLoading(false);
@@ -120,10 +109,8 @@ function HubAuthComponent() {
             throw new Error(errorData.message || 'Failed to save hub details.');
         }
 
-        const { branchId } = await response.json();
-
-        toast({ title: "Hub Registration Successful", description: `Your new Branch ID is: ${branchId}. Please use it to log in.` });
-        loginForm.reset({ branchId: branchId, password: ""});
+        toast({ title: "Hub Registration Successful", description: `Please log in with your email and password.` });
+        loginForm.reset({ email: values.email, password: ""});
         setActiveTab("login");
     } catch (error: any) {
         toast({
@@ -139,9 +126,9 @@ function HubAuthComponent() {
   async function onForgotPassword() {
     setLoading(true);
     try {
-       const branchId = loginForm.getValues("branchId");
-      if (!branchId) {
-          toast({ variant: "destructive", title: "Branch ID required", description: "Please enter your Branch ID to reset your password."});
+       const email = loginForm.getValues("email");
+      if (!email) {
+          toast({ variant: "destructive", title: "Email required", description: "Please enter your email to reset your password."});
           setLoading(false);
           return;
       }
@@ -149,7 +136,7 @@ function HubAuthComponent() {
       const response = await fetch('/api/forgot-password', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ identifier: branchId, userType: 'hub' }),
+        body: JSON.stringify({ identifier: email, userType: 'hub' }),
       });
 
       const result = await response.json();
@@ -192,12 +179,12 @@ function HubAuthComponent() {
               <form onSubmit={loginForm.handleSubmit(onLogin)} className="space-y-4" suppressHydrationWarning>
                 <FormField
                   control={loginForm.control}
-                  name="branchId"
+                  name="email"
                   render={({ field }) => (
                     <FormItem>
-                      <FormLabel>{t.auth.branchIdLabel}</FormLabel>
+                      <FormLabel>{t.auth.emailLabel}</FormLabel>
                       <FormControl>
-                        <Input placeholder="HUB-XXXX" {...field} />
+                        <Input placeholder="hub-admin@example.com" {...field} />
                       </FormControl>
                       <FormMessage />
                     </FormItem>

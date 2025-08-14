@@ -31,7 +31,7 @@ import { auth } from "@/lib/firebase";
 import { useLanguage } from "@/context/language-context";
 
 const loginSchema = z.object({
-  restaurantId: z.string().min(1, { message: "Restaurant ID is required." }),
+  email: z.string().email({ message: "Please enter a valid email." }),
   password: z.string().min(1, { message: "Password is required." }),
 });
 
@@ -57,7 +57,7 @@ export default function RestaurantAuthPage() {
 
   const loginForm = useForm<z.infer<typeof loginSchema>>({
     resolver: zodResolver(loginSchema),
-    defaultValues: { restaurantId: "", password: "" },
+    defaultValues: { email: "", password: "" },
   });
 
   const registerForm = useForm<z.infer<typeof registerSchema>>({
@@ -75,20 +75,7 @@ export default function RestaurantAuthPage() {
   async function onLogin(values: z.infer<typeof loginSchema>) {
     setLoading(true);
     try {
-      // 1. Get email from restaurant ID
-      const emailRes = await fetch('/api/get-email-by-id', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ restaurantId: values.restaurantId }),
-      });
-
-      if (!emailRes.ok) {
-        throw new Error("Invalid Restaurant ID or password.");
-      }
-      const { email } = await emailRes.json();
-
-      // 2. Sign in with email and password
-      await signInWithEmailAndPassword(auth, email, values.password);
+      await signInWithEmailAndPassword(auth, values.email, values.password);
 
       toast({ title: "Login Successful", description: "Welcome back, Restaurant Manager!" });
       router.push("/dashboard");
@@ -96,7 +83,7 @@ export default function RestaurantAuthPage() {
       toast({
         variant: "destructive",
         title: "Login Failed",
-        description: error.message,
+        description: "Invalid email or password.",
       });
     } finally {
       setLoading(false);
@@ -125,10 +112,11 @@ export default function RestaurantAuthPage() {
 
       toast({
         title: "Restaurant Registration Successful",
-        description: "Please check your email for your unique Restaurant ID.",
+        description: "Your registration is complete. Please log in.",
       });
       registerForm.reset();
       setActiveTab("login");
+      loginForm.setValue("email", values.email);
     } catch (error: any) {
       toast({
         variant: "destructive",
@@ -143,9 +131,9 @@ export default function RestaurantAuthPage() {
   async function onForgotPassword() {
     setLoading(true);
     try {
-      const restaurantId = loginForm.getValues("restaurantId");
-      if (!restaurantId) {
-          toast({ variant: "destructive", title: "Restaurant ID required", description: "Please enter your Restaurant ID to reset your password."});
+      const email = loginForm.getValues("email");
+      if (!email) {
+          toast({ variant: "destructive", title: "Email required", description: "Please enter your email to reset your password."});
           setLoading(false);
           return;
       }
@@ -153,7 +141,7 @@ export default function RestaurantAuthPage() {
       const response = await fetch('/api/forgot-password', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ identifier: restaurantId }),
+        body: JSON.stringify({ identifier: email }),
       });
 
       const result = await response.json();
@@ -196,12 +184,12 @@ export default function RestaurantAuthPage() {
               <form onSubmit={loginForm.handleSubmit(onLogin)} className="space-y-4 pt-4">
                 <FormField
                   control={loginForm.control}
-                  name="restaurantId"
+                  name="email"
                   render={({ field }) => (
                     <FormItem>
-                      <FormLabel>{t.auth.restaurantIdLabel}</FormLabel>
+                      <FormLabel>{t.auth.emailLabel}</FormLabel>
                       <FormControl>
-                        <Input placeholder={t.auth.restaurantIdPlaceholder} {...field} />
+                        <Input placeholder="contact@thefreshtable.com" {...field} />
                       </FormControl>
                       <FormMessage />
                     </FormItem>
