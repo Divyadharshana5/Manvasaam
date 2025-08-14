@@ -393,20 +393,17 @@ export default function HomePage() {
   return (
     <div className="relative">
       <header className="fixed top-0 left-0 right-0 z-50 flex items-center justify-between p-4 bg-background/50 backdrop-blur-sm">
-        <Link href="/" className="flex items-center gap-2">
-          <motion.div whileHover={{ scale: 1.1, rotate: 5 }}>
+        <motion.div
+          whileHover={{
+            rotate: [0, -3, 3, -3, 3, 0],
+            transition: { duration: 0.5 },
+          }}
+        >
+          <Link href="/" className="flex items-center gap-2">
             <ManvaasamLogo width={32} height={32} />
-          </motion.div>
-          <motion.span
-            whileHover={{
-              rotate: [0, -2, 2, -2, 2, 0],
-              transition: { duration: 0.4 },
-            }}
-            className="text-xl font-bold text-primary"
-          >
-            Manvaasam
-          </motion.span>
-        </Link>
+            <span className="text-xl font-bold text-primary">Manvaasam</span>
+          </Link>
+        </motion.div>
         <div className="flex items-center gap-4">
           <Dialog open={isAssistantOpen} onOpenChange={setIsAssistantOpen}>
             <DialogTrigger asChild>
@@ -501,7 +498,7 @@ export default function HomePage() {
 
       <main className="flex min-h-screen flex-col items-center justify-center pt-24 px-4">
         <div
-          className="absolute inset-0 z-0 bg-cover bg-center bg-no-repeat bg-fixed bg-ken-burns"
+          className="absolute inset-0 z-0 bg-cover bg-center bg-no-repeat bg-fixed"
           style={{ backgroundImage: "url('/bg-2.png')" }}
         ></div>
         <div className="absolute inset-0 bg-background/60 z-0"></div>
