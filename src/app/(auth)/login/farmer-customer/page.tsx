@@ -212,7 +212,7 @@ function RegisterForm({
                 render={({ field }) => (
                     <FormItem>
                     <FormLabel>{t.auth.phoneLabel}</FormLabel>
-                    <FormControl><Input type="tel" placeholder="123-456-7890" maxLength={10} {...field} /></FormControl>
+                    <FormControl><Input type="tel" placeholder="123-456-7890" maxLength={10} {...field} onInput={(e) => { e.currentTarget.value = e.currentTarget.value.replace(/[^0-9]/g, ''); }} /></FormControl>
                     <FormMessage />
                     </FormItem>
                 )}
@@ -457,96 +457,102 @@ export default function FarmerCustomerAuthPage() {
   }
 
   return (
-    <Card className="w-full max-w-md bg-card/80 backdrop-blur-lg border-2 border-primary/20 shadow-lg">
-      <CardHeader className="text-center">
-        <CardTitle>{t.auth.welcome}</CardTitle>
-        <CardDescription>{t.auth.getStarted}</CardDescription>
-      </CardHeader>
-      <CardContent>
-        <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full">
-          <TabsList className="grid w-full grid-cols-2">
-            <TabsTrigger value="login">{t.auth.login}</TabsTrigger>
-            <TabsTrigger value="register">{t.auth.register}</TabsTrigger>
-          </TabsList>
-          <TabsContent value="login">
-            <Tabs value={authMode} onValueChange={setAuthMode} className="w-full">
+    <div className="flex min-h-screen flex-col items-center justify-center p-4">
+      <div className="w-full max-w-md">
+        <div className="mb-8 flex justify-center">
+            <Link href="/" className="flex items-center gap-2">
+                <ManvaasamLogo width={40} height={40} />
+                <span className="text-2xl font-bold text-primary">Manvaasam</span>
+            </Link>
+        </div>
+        <Card className="w-full max-w-md bg-card/80 backdrop-blur-lg border-2 border-primary/20 shadow-lg">
+          <CardHeader className="text-center">
+            <CardTitle>{t.auth.welcome}</CardTitle>
+            <CardDescription>{t.auth.getStarted}</CardDescription>
+          </CardHeader>
+          <CardContent>
+            <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full">
               <TabsList className="grid w-full grid-cols-2">
-                <TabsTrigger value="email">{t.auth.emailPassword}</TabsTrigger>
-                <TabsTrigger value="face">{t.auth.farmerFaceSignIn}</TabsTrigger>
+                <TabsTrigger value="login">{t.auth.login}</TabsTrigger>
+                <TabsTrigger value="register">{t.auth.register}</TabsTrigger>
               </TabsList>
-              <TabsContent value="email" className="pt-4">
-                <Form {...loginForm}>
-                  <form onSubmit={loginForm.handleSubmit(onLogin)} className="space-y-4">
-                    <FormField
-                      control={loginForm.control}
-                      name="email"
-                      render={({ field }) => (
-                        <FormItem>
-                          <FormLabel>{t.auth.emailLabel}</FormLabel>
-                          <FormControl>
-                            <Input type="email" placeholder="m@example.com" {...field} />
-                          </FormControl>
-                          <FormMessage />
-                        </FormItem>
-                      )}
-                    />
-                    <FormField
-                      control={loginForm.control}
-                      name="password"
-                      render={({ field }) => (
-                        <FormItem>
-                          <div className="flex justify-between items-center">
-                            <FormLabel>{t.auth.passwordLabel}</FormLabel>
-                            <Button variant="link" size="sm" type="button" className="p-0 h-auto text-xs" onClick={onForgotPassword} disabled={loading}>{t.auth.forgotPassword}</Button>
-                          </div>
-                          <FormControl><Input type="password" {...field} /></FormControl>
-                          <FormMessage />
-                        </FormItem>
-                      )}
-                    />
-                    <Button type="submit" className="w-full" disabled={loading}>
+              <TabsContent value="login">
+                <Tabs value={authMode} onValueChange={setAuthMode} className="w-full">
+                  <TabsList className="grid w-full grid-cols-2">
+                    <TabsTrigger value="email">{t.auth.emailPassword}</TabsTrigger>
+                    <TabsTrigger value="face">{t.auth.farmerFaceSignIn}</TabsTrigger>
+                  </TabsList>
+                  <TabsContent value="email" className="pt-4">
+                    <Form {...loginForm}>
+                      <form onSubmit={loginForm.handleSubmit(onLogin)} className="space-y-4">
+                        <FormField
+                          control={loginForm.control}
+                          name="email"
+                          render={({ field }) => (
+                            <FormItem>
+                              <FormLabel>{t.auth.emailLabel}</FormLabel>
+                              <FormControl>
+                                <Input type="email" placeholder="m@example.com" {...field} />
+                              </FormControl>
+                              <FormMessage />
+                            </FormItem>
+                          )}
+                        />
+                        <FormField
+                          control={loginForm.control}
+                          name="password"
+                          render={({ field }) => (
+                            <FormItem>
+                              <div className="flex justify-between items-center">
+                                <FormLabel>{t.auth.passwordLabel}</FormLabel>
+                                <Button variant="link" size="sm" type="button" className="p-0 h-auto text-xs" onClick={onForgotPassword} disabled={loading}>{t.auth.forgotPassword}</Button>
+                              </div>
+                              <FormControl><Input type="password" {...field} /></FormControl>
+                              <FormMessage />
+                            </FormItem>
+                          )}
+                        />
+                        <Button type="submit" className="w-full" disabled={loading}>
+                          {loading && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
+                          {t.auth.login}
+                        </Button>
+                      </form>
+                    </Form>
+                  </TabsContent>
+                  <TabsContent value="face" className="pt-4 space-y-4">
+                    <div className="relative aspect-video w-full overflow-hidden rounded-lg border bg-muted">
+                        <video ref={videoRef} className="w-full h-full object-cover" autoPlay muted playsInline />
+                        {hasCameraPermission === false && (
+                             <div className="absolute inset-0 flex flex-col items-center justify-center bg-black/60 text-white p-4">
+                                <Camera className="h-10 w-10 mb-2"/>
+                                <p className="text-center font-semibold">Camera access denied.</p>
+                                <p className="text-center text-sm">Please enable camera permissions in your browser settings.</p>
+                            </div>
+                        )}
+                    </div>
+                    <Button onClick={handleFaceLogin} className="w-full" disabled={loading || hasCameraPermission !== true}>
                       {loading && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
-                      {t.auth.login}
+                      {t.auth.signIn}
                     </Button>
-                  </form>
-                </Form>
+                  </TabsContent>
+                </Tabs>
               </TabsContent>
-              <TabsContent value="face" className="pt-4 space-y-4">
-                <div className="relative aspect-video w-full overflow-hidden rounded-lg border bg-muted">
-                    <video ref={videoRef} className="w-full h-full object-cover" autoPlay muted playsInline />
-                    {hasCameraPermission === false && (
-                         <div className="absolute inset-0 flex flex-col items-center justify-center bg-black/60 text-white p-4">
-                            <Camera className="h-10 w-10 mb-2"/>
-                            <p className="text-center font-semibold">Camera access denied.</p>
-                            <p className="text-center text-sm">Please enable camera permissions in your browser settings.</p>
-                        </div>
-                    )}
-                </div>
-                <Button onClick={handleFaceLogin} className="w-full" disabled={loading || hasCameraPermission !== true}>
-                  {loading && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
-                  {t.auth.signIn}
-                </Button>
+              <TabsContent value="register">
+                 <RegisterForm 
+                    onRegisterSubmit={onRegister}
+                    loading={loading}
+                    form={registerForm}
+                    videoRef={videoRef}
+                    hasCameraPermission={hasCameraPermission}
+                    isCameraActive={isCameraActive}
+                    startCamera={startCamera}
+                    stopCamera={stopCamera}
+                  />
               </TabsContent>
             </Tabs>
-          </TabsContent>
-          <TabsContent value="register">
-             <RegisterForm 
-                onRegisterSubmit={onRegister}
-                loading={loading}
-                form={registerForm}
-                videoRef={videoRef}
-                hasCameraPermission={hasCameraPermission}
-                isCameraActive={isCameraActive}
-                startCamera={startCamera}
-                stopCamera={stopCamera}
-              />
-          </TabsContent>
-        </Tabs>
-      </CardContent>
-    </Card>
+          </CardContent>
+        </Card>
+      </div>
+    </div>
   );
 }
-
-    
-
-    
