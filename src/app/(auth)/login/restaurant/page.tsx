@@ -39,7 +39,7 @@ const loginSchema = z.object({
 const registerSchema = z.object({
   restaurantName: z.string().min(2, { message: "Restaurant name must be at least 2 characters." }),
   email: z.string().email({ message: "A valid email is required." }),
-  phone: z.string().min(10, { message: "A valid phone number is required." }),
+  phone: z.string().regex(/^\d{10}$/, { message: "Phone number must be exactly 10 digits." }),
   location: z.string().min(3, { message: "Location is required." }),
   password: z.string()
     .min(8, { message: "Password must be at least 8 characters long." })
