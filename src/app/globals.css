@@ -83,7 +83,4 @@
   body {
     @apply bg-background text-foreground font-body;
   }
-  .custom-cursor-container {
-    cursor: none;
-  }
 }

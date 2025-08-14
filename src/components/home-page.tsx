@@ -95,7 +95,7 @@ const navTranslations: Record<string, Record<string, string>> = {
     Arabic:
       "يبدو أنك تريد الذهاب إلى صفحة تسجيل المطعم. هل يجب أن آخذك إلى هناك؟",
     Urdu:
-      "ایسا لگتا ہے کہ آپ کا کوئی سوال ہے۔ کیا آپ چاہتے ہیں کہ میں آپ کو عمومی سوالات کے صفحے پر لے جاؤں؟",
+      "ایسا लगता ہے کہ آپ کا کوئی سوال ہے۔ کیا آپ چاہتے ہیں کہ میں آپ کو عمومی سوالات کے صفحے پر لے جاؤں؟",
     Srilanka:
       "ඔබට ප්‍රශ්නයක් ඇති බව පෙනේ. මම ඔබව නිතර අසන පැන පිටුවට ගෙන යාමට කැමතිද?",
   },
@@ -478,6 +478,9 @@ export default function HomePage() {
         <div className="absolute inset-0 bg-background/60 z-0"></div>
         <motion.section
           className="text-center w-full max-w-4xl mx-auto z-10"
+          initial={{ opacity: 0, y: 50 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8, ease: "easeOut" }}
         >
           <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-foreground tracking-tight text-center mb-12 [text-shadow:0_2px_4px_rgb(0_0_0/_30%)]">
             {t.tagline}
@@ -489,6 +492,7 @@ export default function HomePage() {
             {userRoles.map((role, index) => (
               <motion.div
                 key={role.name}
+                className="group"
                 initial={{ opacity: 0, y: 50 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
@@ -497,7 +501,9 @@ export default function HomePage() {
               >
                 <Card className="bg-card/80 backdrop-blur-xl border-2 border-primary/20 rounded-2xl shadow-lg hover:shadow-2xl hover:scale-105 transition-all duration-300 p-6 flex flex-col h-full">
                   <CardHeader className="items-center flex-shrink-0">
-                    {role.icon}
+                    <div className="group-hover:animate-shake">
+                      {role.icon}
+                    </div>
                   </CardHeader>
                   <CardContent className="text-center flex-grow flex flex-col justify-between">
                     <div>

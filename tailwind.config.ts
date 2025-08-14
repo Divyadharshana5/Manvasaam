@@ -123,8 +123,8 @@ export default {
         },
         'shake': {
           '0%, 100%': { transform: 'rotate(0deg)' },
-          '25%': { transform: 'rotate(-8deg)' },
-          '75%': { transform: 'rotate(8deg)' },
+          '25%': { transform: 'rotate(-5deg)' },
+          '75%': { transform: 'rotate(5deg)' },
         },
         'blink': {
             '0%, 100%': { color: 'var(--color-chart-1)' },
@@ -140,7 +140,7 @@ export default {
         'fade-in': 'fade-in 0.6s ease-out forwards',
         'ken-burns': 'ken-burns 20s ease-out infinite',
         'arrow-flow': 'arrow-flow 1.5s ease-in-out infinite',
-        'shake': 'shake 0.4s ease-in-out',
+        'shake': 'shake 0.3s ease-in-out',
         'blink': 'blink 2.5s ease-in-out infinite',
       },
     },
