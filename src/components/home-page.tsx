@@ -397,7 +397,15 @@ export default function HomePage() {
           <motion.div whileHover={{ scale: 1.1, rotate: 5 }}>
             <ManvaasamLogo width={32} height={32} />
           </motion.div>
-          <span className="text-xl font-bold text-primary">Manvaasam</span>
+          <motion.span
+            whileHover={{
+              rotate: [0, -2, 2, -2, 2, 0],
+              transition: { duration: 0.4 },
+            }}
+            className="text-xl font-bold text-primary"
+          >
+            Manvaasam
+          </motion.span>
         </Link>
         <div className="flex items-center gap-4">
           <Dialog open={isAssistantOpen} onOpenChange={setIsAssistantOpen}>
