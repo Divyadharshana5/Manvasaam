@@ -1,33 +1,18 @@
 
-.custom-cursor-inner, .custom-cursor-outer {
+.custom-cursor {
     position: fixed;
-    top: 0; 
+    top: 0;
     left: 0;
+    width: 20px;
+    height: 20px;
     border-radius: 50%;
     pointer-events: none;
     z-index: 9999;
     transform: translate(-50%, -50%);
-}
-
-.custom-cursor-inner {
-    width: 8px;
-    height: 8px;
     background-color: hsl(var(--primary));
+    border: 2px solid transparent;
+    transition: background-color 0.3s ease, border-color 0.3s ease;
 }
-
-.custom-cursor-outer {
-    width: 30px;
-    height: 30px;
-    border: 2px solid hsl(var(--primary) / 0.5);
-    transition: width 0.3s ease, height 0.3s ease, border-color 0.3s ease;
-}
-
-.custom-cursor-outer.hovering {
-    width: 50px;
-    height: 50px;
-    border-color: hsl(var(--primary) / 0.8);
-}
-
 
 /* Hide the default cursor for all elements */
 * {
