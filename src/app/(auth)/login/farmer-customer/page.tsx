@@ -40,7 +40,7 @@ const loginSchema = z.object({
 
 const registerSchema = z.object({
   username: z.string().min(2, { message: "Username must be at least 2 characters." }),
-  email: z.string().email({ message: "Invalid email address." }),
+  email: z.string().email({ message: "Invalid email address." }).refine(email => email.endsWith('@gmail.com'), { message: "Email must be a @gmail.com address." }),
   phone: z.string().regex(/^\d{10}$/, { message: "Phone number must be exactly 10 digits." }),
   password: z.string()
     .min(8, { message: "Password must be at least 8 characters long." })
@@ -546,3 +546,5 @@ export default function FarmerCustomerAuthPage() {
     </Card>
   );
 }
+
+    

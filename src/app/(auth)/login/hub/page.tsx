@@ -38,7 +38,7 @@ const loginSchema = z.object({
 
 const registerSchema = z.object({
   branchName: z.string().min(2, { message: "Branch name must be at least 2 characters." }),
-  email: z.string().email({ message: "A valid email is required for the hub account." }),
+  email: z.string().email({ message: "A valid email is required for the hub account." }).refine(email => email.endsWith('@gmail.com'), { message: "Email must be a @gmail.com address." }),
   location: z.string().min(3, { message: "Location is required." }),
   phone: z.string().regex(/^\d{10}$/, { message: "Phone number must be exactly 10 digits." }),
   password: z.string()
@@ -339,3 +339,5 @@ export default function HubAuthPage() {
  
     return isClient ? <HubAuthComponent /> : null
 }
+
+    
