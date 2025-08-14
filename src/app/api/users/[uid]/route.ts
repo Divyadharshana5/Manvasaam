@@ -4,10 +4,10 @@ import { adminDb, adminAuth } from "@/lib/firebase-admin";
 
 export async function GET(
   request: Request,
-  { params }: { params: { uid: string } }
+  { params }: { params: Promise<{ uid: string }> }
 ) {
   try {
-    const uid = params.uid;
+    const { uid } = await params;
     if (!uid) {
       return NextResponse.json({ message: "User ID is required" }, { status: 400 });
     }
@@ -33,10 +33,10 @@ export async function GET(
 
 export async function PATCH(
   request: Request,
-  { params }: { params: { uid: string } }
+  { params }: { params: Promise<{ uid: string }> }
 ) {
   try {
-    const uid = params.uid;
+    const { uid } = await params;
     if (!uid) {
       return NextResponse.json({ message: "User ID is required" }, { status: 400 });
     }
