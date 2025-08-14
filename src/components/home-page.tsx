@@ -369,6 +369,27 @@ export default function HomePage() {
 
   const buttonState = getButtonState();
 
+  const sentence = {
+    hidden: { opacity: 1 },
+    visible: {
+      opacity: 1,
+      transition: {
+        delay: 0.2,
+        staggerChildren: 0.08,
+      },
+    },
+  };
+
+  const letter = {
+    hidden: { opacity: 0, y: 50 },
+    visible: {
+      opacity: 1,
+      y: 0,
+    },
+  };
+
+  const taglineWords = t.tagline.split(" ");
+
   return (
     <div className="relative">
       <header className="fixed top-0 left-0 right-0 z-50 flex items-center justify-between p-4 bg-background/50 backdrop-blur-sm">
@@ -476,12 +497,21 @@ export default function HomePage() {
           style={{ backgroundImage: "url('/bg-2.png')" }}
         ></div>
         <div className="absolute inset-0 bg-background/60 z-0"></div>
-        <motion.section
+        <section
           className="text-center w-full max-w-4xl mx-auto z-10"
         >
-          <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-foreground tracking-tight text-center mb-12 [text-shadow:0_2px_4px_rgb(0_0_0/_30%)]">
-            {t.tagline}
-          </h1>
+           <motion.h1
+            className="text-4xl md:text-5xl lg:text-6xl font-bold text-foreground tracking-tight text-center mb-12 [text-shadow:0_2px_4px_rgb(0_0_0/_30%)]"
+            variants={sentence}
+            initial="hidden"
+            animate="visible"
+          >
+            {taglineWords.map((word, index) => (
+              <motion.span key={word + "-" + index} variants={letter} className="inline-block">
+                {word}&nbsp;
+              </motion.span>
+            ))}
+          </motion.h1>
           <h2 className="text-3xl font-bold mb-8 text-foreground [text-shadow:0_1px_2px_rgb(0_0_0/_20%)]">
             {t.joinCommunity}
           </h2>
@@ -529,7 +559,7 @@ export default function HomePage() {
               </motion.div>
             ))}
           </div>
-        </motion.section>
+        </section>
 
         <section className="w-full max-w-4xl mx-auto mt-24 text-center z-10">
           <h2 className="text-3xl font-bold mb-4 text-foreground [text-shadow:0_1px_2px_rgb(0_0_0/_20%)]">
