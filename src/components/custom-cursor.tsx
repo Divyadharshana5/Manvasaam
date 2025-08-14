@@ -14,11 +14,21 @@ const CustomCursor = () => {
   const springConfig = { damping: 25, stiffness: 500 };
   const cursorXSpring = useSpring(cursorX, springConfig);
   const cursorYSpring = useSpring(cursorY, springConfig);
+  
+  const innerX = useMotionValue(-100);
+  const innerY = useMotionValue(-100);
+  
+  const innerSpringConfig = { damping: 30, stiffness: 700 };
+  const innerXSpring = useSpring(innerX, innerSpringConfig);
+  const innerYSpring = useSpring(innerY, innerSpringConfig);
+
 
   useEffect(() => {
     const moveCursor = (e: MouseEvent) => {
       cursorX.set(e.clientX);
       cursorY.set(e.clientY);
+      innerX.set(e.clientX);
+      innerY.set(e.clientY);
     };
 
     const handleMouseOver = (e: MouseEvent) => {
@@ -27,42 +37,40 @@ const CustomCursor = () => {
         setIsHovering(isInteractive);
     };
     
-    const handleMouseOut = (e: MouseEvent) => {
-        const target = e.target as HTMLElement;
-        const parent = target.parentElement;
-        const isInteractive = target.tagName === 'A' || target.tagName === 'BUTTON' || parent?.tagName === 'A' || parent?.tagName === 'BUTTON';
-        if (isInteractive) {
-            setIsHovering(false);
-        }
-    };
-
     window.addEventListener("mousemove", moveCursor);
-    document.addEventListener("mouseover", handleMouseOver);
-    document.addEventListener("mouseout", handleMouseOut);
+    document.addEventListener("mouseover", handleMouseOver, { passive: true });
+    document.addEventListener("mouseout", () => setIsHovering(false), { passive: true });
+
 
     return () => {
       window.removeEventListener("mousemove", moveCursor);
       document.removeEventListener("mouseover", handleMouseOver);
-      document.removeEventListener("mouseout", handleMouseOut);
+      document.removeEventListener("mouseout", () => setIsHovering(false));
     };
-  }, [cursorX, cursorY]);
+  }, [cursorX, cursorY, innerX, innerY]);
 
   return (
-    <motion.div
-      className={cn(
-        "custom-cursor",
-        isHovering && "hovering"
-      )}
-      style={{
-        translateX: cursorXSpring,
-        translateY: cursorYSpring,
-      }}
-      animate={{
-        width: isHovering ? 32 : 8,
-        height: isHovering ? 32 : 8,
-      }}
-      transition={{ type: "spring", stiffness: 400, damping: 30 }}
-    />
+    <>
+        <motion.div
+        className={cn(
+            "custom-cursor-inner",
+        )}
+        style={{
+            translateX: innerXSpring,
+            translateY: innerYSpring,
+        }}
+        />
+        <motion.div
+        className={cn(
+            "custom-cursor-outer",
+            isHovering && "hovering"
+        )}
+        style={{
+            translateX: cursorXSpring,
+            translateY: cursorYSpring,
+        }}
+        />
+    </>
   );
 };
 

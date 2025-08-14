@@ -1,32 +1,31 @@
 
-.custom-cursor {
+.custom-cursor-inner, .custom-cursor-outer {
     position: fixed;
-    top: -4px; 
-    left: -4px;
-    width: 8px;
-    height: 8px;
-    background-color: hsl(var(--primary));
+    top: 0; 
+    left: 0;
     border-radius: 50%;
     pointer-events: none;
     z-index: 9999;
-    transition: background-color 0.2s ease-in-out;
+    transform: translate(-50%, -50%);
 }
 
-.custom-cursor.hovering {
-    background-color: hsla(var(--primary), 0.2);
-    position: fixed;
-}
-
-.custom-cursor.hovering::after {
-    content: '';
-    position: absolute;
-    top: 50%;
-    left: 50%;
+.custom-cursor-inner {
     width: 8px;
     height: 8px;
     background-color: hsl(var(--primary));
-    border-radius: 50%;
-    transform: translate(-50%, -50%);
+}
+
+.custom-cursor-outer {
+    width: 30px;
+    height: 30px;
+    border: 2px solid hsl(var(--primary) / 0.5);
+    transition: width 0.3s ease, height 0.3s ease, border-color 0.3s ease;
+}
+
+.custom-cursor-outer.hovering {
+    width: 50px;
+    height: 50px;
+    border-color: hsl(var(--primary) / 0.8);
 }
 
 
