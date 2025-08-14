@@ -1,25 +1,33 @@
 
-.custom-cursor-container {
+.custom-cursor {
     position: fixed;
-    top: 0;
-    left: 0;
-    width: 100vw;
-    height: 100vh;
+    top: -15px; /* Half of initial width/height */
+    left: -15px; /* Half of initial width/height */
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
     pointer-events: none;
     z-index: 9999;
-    perspective: 800px;
+    
+    background: linear-gradient(
+      135deg, 
+      hsla(var(--primary), 0.8), 
+      hsla(var(--accent), 0.8),
+      hsla(var(--primary), 0.5),
+      hsla(220, 80%, 70%, 0.8)
+    );
+    background-size: 400% 400%;
+    
+    animation: liquid-gradient 10s ease infinite;
+    
+    filter: blur(5px);
+    transition: width 0.3s ease, height 0.3s ease, opacity 0.3s ease;
 }
 
-.custom-cursor {
-    position: absolute;
-    top: -12.5px;
-    left: -12.5px;
-    width: 25px;
-    height: 25px;
-    border-radius: 8px;
-    background-image: radial-gradient(circle at 30% 30%, hsla(var(--primary), 0.9), hsla(var(--primary), 0.6));
-    border-color: hsla(var(--primary), 0.8);
-    transform-style: preserve-3d;
+@keyframes liquid-gradient {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
 }
 
 * {
