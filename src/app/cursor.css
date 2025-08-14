@@ -9,12 +9,13 @@
     pointer-events: none;
     z-index: 9999;
     transform: translate(-50%, -50%);
-    background-color: hsl(var(--primary));
-    border: 2px solid transparent;
-    transition: background-color 0.3s ease, border-color 0.3s ease;
+    background-color: hsla(var(--primary), 0.3);
+    border: 1px solid hsla(var(--primary), 0.5);
+    backdrop-filter: blur(2px);
+    box-shadow: 0 0 15px hsla(var(--primary), 0.5), 0 0 25px hsla(var(--primary), 0.3);
+    transition: width 0.3s ease, height 0.3s ease, box-shadow 0.3s ease, background-color 0.3s ease;
 }
 
-/* Hide the default cursor for all elements */
 * {
     cursor: none !important;
 }
