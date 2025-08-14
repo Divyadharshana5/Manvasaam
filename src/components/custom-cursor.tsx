@@ -29,7 +29,9 @@ const CustomCursor = () => {
     
     const handleMouseOut = (e: MouseEvent) => {
         const target = e.target as HTMLElement;
-        if (target.tagName === 'A' || target.tagName === 'BUTTON' || target.closest('a') || target.closest('button')) {
+        const parent = target.parentElement;
+        const isInteractive = target.tagName === 'A' || target.tagName === 'BUTTON' || parent?.tagName === 'A' || parent?.tagName === 'BUTTON';
+        if (isInteractive) {
             setIsHovering(false);
         }
     };
@@ -49,16 +51,17 @@ const CustomCursor = () => {
     <motion.div
       className={cn(
         "custom-cursor",
+        isHovering && "hovering"
       )}
       style={{
         translateX: cursorXSpring,
         translateY: cursorYSpring,
       }}
       animate={{
-        width: isHovering ? 32 : 16,
-        height: isHovering ? 32 : 16,
+        width: isHovering ? 32 : 8,
+        height: isHovering ? 32 : 8,
       }}
-       transition={{ type: "spring", stiffness: 300, damping: 20 }}
+      transition={{ type: "spring", stiffness: 400, damping: 30 }}
     />
   );
 };
