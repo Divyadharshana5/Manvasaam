@@ -2,7 +2,7 @@
 "use client";
 
 import Link from "next/link";
-import { motion, useScroll, useTransform } from "framer-motion";
+import { motion } from "framer-motion";
 import {
   Card,
   CardContent,
@@ -367,12 +367,6 @@ export default function HomePage() {
     }, 500); // 500ms delay to show loading spinner
   };
 
-  // Add scroll-based animation for the hero section
-  const { scrollY } = useScroll();
-  // Fade out and move up as you scroll down
-  const heroOpacity = useTransform(scrollY, [0, 300], [1, 0.2]);
-  const heroY = useTransform(scrollY, [0, 300], [0, -100]);
-
   const buttonState = getButtonState();
 
   return (
@@ -483,7 +477,6 @@ export default function HomePage() {
         ></div>
         <div className="absolute inset-0 bg-background/60 z-0"></div>
         <motion.section
-          style={{ opacity: heroOpacity, y: heroY }}
           className="text-center w-full max-w-4xl mx-auto z-10"
         >
           <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-foreground tracking-tight text-center mb-12 [text-shadow:0_2px_4px_rgb(0_0_0/_30%)]">
