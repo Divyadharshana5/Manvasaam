@@ -23,7 +23,7 @@ import {
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { useToast } from "@/hooks/use-toast";
-import { Loader2, Square, CheckSquare } from "lucide-react";
+import { Loader2, ToggleLeft, ToggleRight } from "lucide-react";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { signInWithEmailAndPassword } from "firebase/auth";
 import { useRouter } from "next/navigation";
@@ -229,7 +229,7 @@ function HubAuthComponent() {
                             <div className="relative">
                                 <Input type={showPassword ? "text" : "password"} {...field} />
                                 <Button type="button" variant="ghost" size="icon" className="absolute right-1 top-1/2 -translate-y-1/2 h-7 w-7" onClick={() => setShowPassword(!showPassword)}>
-                                    {showPassword ? <CheckSquare className="h-4 w-4" /> : <Square className="h-4 w-4" />}
+                                    {showPassword ? <ToggleRight className="h-4 w-4" /> : <ToggleLeft className="h-4 w-4" />}
                                 </Button>
                             </div>
                         </FormControl>
@@ -309,7 +309,7 @@ function HubAuthComponent() {
                             <div className="relative">
                                 <Input type={showPassword ? "text" : "password"} {...field} />
                                 <Button type="button" variant="ghost" size="icon" className="absolute right-1 top-1/2 -translate-y-1/2 h-7 w-7" onClick={() => setShowPassword(!showPassword)}>
-                                    {showPassword ? <CheckSquare className="h-4 w-4" /> : <Square className="h-4 w-4" />}
+                                    {showPassword ? <ToggleRight className="h-4 w-4" /> : <ToggleLeft className="h-4 w-4" />}
                                 </Button>
                             </div>
                         </FormControl>
@@ -327,7 +327,7 @@ function HubAuthComponent() {
                             <div className="relative">
                                 <Input type={showConfirmPassword ? "text" : "password"} {...field} />
                                 <Button type="button" variant="ghost" size="icon" className="absolute right-1 top-1/2 -translate-y-1/2 h-7 w-7" onClick={() => setShowConfirmPassword(!showConfirmPassword)}>
-                                    {showConfirmPassword ? <CheckSquare className="h-4 w-4" /> : <Square className="h-4 w-4" />}
+                                    {showConfirmPassword ? <ToggleRight className="h-4 w-4" /> : <ToggleLeft className="h-4 w-4" />}
                                 </Button>
                             </div>
                         </FormControl>
