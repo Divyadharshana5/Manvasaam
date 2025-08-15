@@ -109,12 +109,13 @@ function HubAuthComponent() {
             body: JSON.stringify(apiData),
         });
 
+        const result = await response.json();
+
         if (!response.ok) {
-            const errorData = await response.json();
-            throw new Error(errorData.message || 'Failed to save hub details.');
+            throw new Error(result.message || 'Failed to save hub details.');
         }
 
-        toast({ title: "Hub Registration Successful", description: `Please log in with your email and password.` });
+        toast({ title: "Hub Registration Successful", description: `Your branch ID is ${result.branchId}. Please log in.` });
         registerForm.reset();
         loginForm.setValue("branchName", values.branchName);
         loginForm.setValue("email", values.email);
