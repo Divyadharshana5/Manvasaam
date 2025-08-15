@@ -23,7 +23,7 @@ import {
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { useToast } from "@/hooks/use-toast";
-import { Loader2, Camera, UserCheck, RefreshCw } from "lucide-react";
+import { Loader2, Camera, UserCheck, RefreshCw, Eye, EyeOff } from "lucide-react";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { signInWithEmailAndPassword, signInWithCustomToken } from "firebase/auth";
@@ -82,6 +82,8 @@ function RegisterForm({
     });
     
     const [facePhoto, setFacePhoto] = useState<string | null>(null);
+    const [showPassword, setShowPassword] = useState(false);
+    const [showConfirmPassword, setShowConfirmPassword] = useState(false);
 
     useEffect(() => {
         if (userType === 'farmer' && !facePhoto) {
@@ -223,7 +225,14 @@ function RegisterForm({
                 render={({ field }) => (
                     <FormItem>
                     <FormLabel>{t.auth.passwordLabel}</FormLabel>
-                    <FormControl><Input type="password" {...field} /></FormControl>
+                    <FormControl>
+                        <div className="relative">
+                            <Input type={showPassword ? "text" : "password"} {...field} />
+                            <Button type="button" variant="ghost" size="icon" className="absolute right-1 top-1/2 -translate-y-1/2 h-7 w-7" onClick={() => setShowPassword(!showPassword)}>
+                                {showPassword ? <EyeOff className="h-4 w-4" /> : <Eye className="h-4 w-4" />}
+                            </Button>
+                        </div>
+                    </FormControl>
                     <FormMessage />
                     </FormItem>
                 )}
@@ -234,7 +243,14 @@ function RegisterForm({
                 render={({ field }) => (
                     <FormItem>
                     <FormLabel>{t.auth.confirmPasswordLabel}</FormLabel>
-                    <FormControl><Input type="password" {...field} /></FormControl>
+                    <FormControl>
+                       <div className="relative">
+                            <Input type={showConfirmPassword ? "text" : "password"} {...field} />
+                            <Button type="button" variant="ghost" size="icon" className="absolute right-1 top-1/2 -translate-y-1/2 h-7 w-7" onClick={() => setShowConfirmPassword(!showConfirmPassword)}>
+                                {showConfirmPassword ? <EyeOff className="h-4 w-4" /> : <Eye className="h-4 w-4" />}
+                            </Button>
+                        </div>
+                    </FormControl>
                     <FormMessage />
                     </FormItem>
                 )}
@@ -259,6 +275,7 @@ export default function FarmerCustomerAuthPage() {
   const [hasCameraPermission, setHasCameraPermission] = useState<boolean | null>(null);
   const [isCameraActive, setIsCameraActive] = useState(false);
   const { t } = useLanguage();
+  const [showPassword, setShowPassword] = useState(false);
 
   const startCamera = useCallback(async () => {
     if (isCameraActive || hasCameraPermission === false) return;
@@ -500,7 +517,14 @@ export default function FarmerCustomerAuthPage() {
                                 <FormLabel>{t.auth.passwordLabel}</FormLabel>
                                 <Button variant="link" size="sm" type="button" className="p-0 h-auto text-xs" onClick={onForgotPassword} disabled={loading}>{t.auth.forgotPassword}</Button>
                               </div>
-                              <FormControl><Input type="password" {...field} /></FormControl>
+                              <FormControl>
+                                <div className="relative">
+                                    <Input type={showPassword ? "text" : "password"} {...field} />
+                                    <Button type="button" variant="ghost" size="icon" className="absolute right-1 top-1/2 -translate-y-1/2 h-7 w-7" onClick={() => setShowPassword(!showPassword)}>
+                                        {showPassword ? <EyeOff className="h-4 w-4" /> : <Eye className="h-4 w-4" />}
+                                    </Button>
+                                </div>
+                               </FormControl>
                               <FormMessage />
                             </FormItem>
                           )}
@@ -548,3 +572,5 @@ export default function FarmerCustomerAuthPage() {
     </>
   );
 }
+
+    
