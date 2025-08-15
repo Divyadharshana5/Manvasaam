@@ -23,7 +23,7 @@ import {
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { useToast } from "@/hooks/use-toast";
-import { Loader2, Star, StarOff } from "lucide-react";
+import { Loader2, Lock, Unlock } from "lucide-react";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { signInWithEmailAndPassword } from "firebase/auth";
 import { useRouter } from "next/navigation";
@@ -230,7 +230,7 @@ export default function RestaurantAuthPage() {
                             <div className="relative">
                                 <Input type={showPassword ? "text" : "password"} {...field} />
                                 <Button type="button" variant="ghost" size="icon" className="absolute right-1 top-1/2 -translate-y-1/2 h-7 w-7" onClick={() => setShowPassword(!showPassword)}>
-                                    {showPassword ? <StarOff className="h-4 w-4" /> : <Star className="h-4 w-4" />}
+                                    {showPassword ? <Unlock className="h-4 w-4" /> : <Lock className="h-4 w-4" />}
                                 </Button>
                             </div>
                         </FormControl>
@@ -310,7 +310,7 @@ export default function RestaurantAuthPage() {
                             <div className="relative">
                                 <Input type={showPassword ? "text" : "password"} {...field} />
                                 <Button type="button" variant="ghost" size="icon" className="absolute right-1 top-1/2 -translate-y-1/2 h-7 w-7" onClick={() => setShowPassword(!showPassword)}>
-                                    {showPassword ? <StarOff className="h-4 w-4" /> : <Star className="h-4 w-4" />}
+                                    {showPassword ? <Unlock className="h-4 w-4" /> : <Lock className="h-4 w-4" />}
                                 </Button>
                             </div>
                         </FormControl>
@@ -328,7 +328,7 @@ export default function RestaurantAuthPage() {
                             <div className="relative">
                                 <Input type={showConfirmPassword ? "text" : "password"} {...field} />
                                 <Button type="button" variant="ghost" size="icon" className="absolute right-1 top-1/2 -translate-y-1/2 h-7 w-7" onClick={() => setShowConfirmPassword(!showConfirmPassword)}>
-                                    {showConfirmPassword ? <StarOff className="h-4 w-4" /> : <Star className="h-4 w-4" />}
+                                    {showConfirmPassword ? <Unlock className="h-4 w-4" /> : <Lock className="h-4 w-4" />}
                                 </Button>
                             </div>
                         </FormControl>
