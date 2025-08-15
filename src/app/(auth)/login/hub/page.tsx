@@ -23,7 +23,7 @@ import {
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { useToast } from "@/hooks/use-toast";
-import { Loader2, Shield, ShieldOff } from "lucide-react";
+import { Loader2, Square, CheckSquare } from "lucide-react";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { signInWithEmailAndPassword } from "firebase/auth";
 import { useRouter } from "next/navigation";
@@ -172,181 +172,179 @@ function HubAuthComponent() {
   }
 
   return (
-    <>
-            <Card className="w-full max-w-md bg-card/80 backdrop-blur-lg border-2 border-primary/20 shadow-lg">
-                <CardHeader className="text-center">
-                    <CardTitle>{t.auth.hubPortal}</CardTitle>
-                    <CardDescription>
-                    {t.auth.hubDesc}
-                    </CardDescription>
-                </CardHeader>
-                <CardContent>
-                    <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full">
-                    <TabsList className="grid w-full grid-cols-2">
-                        <TabsTrigger value="login">{t.auth.login}</TabsTrigger>
-                        <TabsTrigger value="register">{t.auth.register}</TabsTrigger>
-                    </TabsList>
-                    <TabsContent value="login" className="pt-4">
-                        <Form {...loginForm}>
-                        <form onSubmit={loginForm.handleSubmit(onLogin)} className="space-y-4" suppressHydrationWarning>
-                            <FormField
-                            control={loginForm.control}
-                            name="branchName"
-                            render={({ field }) => (
-                                <FormItem>
-                                <FormLabel>{t.auth.branchNameLabel}</FormLabel>
-                                <FormControl>
-                                    <Input placeholder="Central Hub" {...field} />
-                                </FormControl>
-                                <FormMessage />
-                                </FormItem>
-                            )}
-                            />
-                            <FormField
-                            control={loginForm.control}
-                            name="email"
-                            render={({ field }) => (
-                                <FormItem>
-                                <FormLabel>{t.auth.emailLabel}</FormLabel>
-                                <FormControl>
-                                    <Input placeholder="hub-admin@example.com" {...field} />
-                                </FormControl>
-                                <FormMessage />
-                                </FormItem>
-                            )}
-                            />
-                            <FormField
-                            control={loginForm.control}
-                            name="password"
-                            render={({ field }) => (
-                                <FormItem>
-                                <div className="flex justify-between items-center">
-                                    <FormLabel>{t.auth.passwordLabel}</FormLabel>
-                                    <Button variant="link" size="sm" type="button" className="p-0 h-auto text-xs" onClick={onForgotPassword} disabled={loading}>
-                                    {t.auth.forgotPassword}
-                                    </Button>
-                                </div>
-                                <FormControl>
-                                    <div className="relative">
-                                        <Input type={showPassword ? "text" : "password"} {...field} />
-                                        <Button type="button" variant="ghost" size="icon" className="absolute right-1 top-1/2 -translate-y-1/2 h-7 w-7" onClick={() => setShowPassword(!showPassword)}>
-                                            {showPassword ? <ShieldOff className="h-4 w-4" /> : <Shield className="h-4 w-4" />}
-                                        </Button>
-                                    </div>
-                                </FormControl>
-                                <FormMessage />
-                                </FormItem>
-                            )}
-                            />
-                            <Button type="submit" className="w-full" disabled={loading}>
-                            {loading && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
-                            {t.auth.login}
+    <Card className="w-full max-w-md bg-card/80 backdrop-blur-lg border-2 border-primary/20 shadow-lg">
+        <CardHeader className="text-center">
+            <CardTitle>{t.auth.hubPortal}</CardTitle>
+            <CardDescription>
+            {t.auth.hubDesc}
+            </CardDescription>
+        </CardHeader>
+        <CardContent>
+            <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full">
+            <TabsList className="grid w-full grid-cols-2">
+                <TabsTrigger value="login">{t.auth.login}</TabsTrigger>
+                <TabsTrigger value="register">{t.auth.register}</TabsTrigger>
+            </TabsList>
+            <TabsContent value="login" className="pt-4">
+                <Form {...loginForm}>
+                <form onSubmit={loginForm.handleSubmit(onLogin)} className="space-y-4" suppressHydrationWarning>
+                    <FormField
+                    control={loginForm.control}
+                    name="branchName"
+                    render={({ field }) => (
+                        <FormItem>
+                        <FormLabel>{t.auth.branchNameLabel}</FormLabel>
+                        <FormControl>
+                            <Input placeholder="Central Hub" {...field} />
+                        </FormControl>
+                        <FormMessage />
+                        </FormItem>
+                    )}
+                    />
+                    <FormField
+                    control={loginForm.control}
+                    name="email"
+                    render={({ field }) => (
+                        <FormItem>
+                        <FormLabel>{t.auth.emailLabel}</FormLabel>
+                        <FormControl>
+                            <Input placeholder="hub-admin@example.com" {...field} />
+                        </FormControl>
+                        <FormMessage />
+                        </FormItem>
+                    )}
+                    />
+                    <FormField
+                    control={loginForm.control}
+                    name="password"
+                    render={({ field }) => (
+                        <FormItem>
+                        <div className="flex justify-between items-center">
+                            <FormLabel>{t.auth.passwordLabel}</FormLabel>
+                            <Button variant="link" size="sm" type="button" className="p-0 h-auto text-xs" onClick={onForgotPassword} disabled={loading}>
+                            {t.auth.forgotPassword}
                             </Button>
-                        </form>
-                        </Form>
-                    </TabsContent>
-                    <TabsContent value="register" className="pt-4">
-                        <Form {...registerForm}>
-                        <form onSubmit={registerForm.handleSubmit(onRegister)} className="space-y-4">
-                            <FormField
-                            control={registerForm.control}
-                            name="branchName"
-                            render={({ field }) => (
-                                <FormItem>
-                                <FormLabel>{t.auth.branchNameLabel}</FormLabel>
-                                <FormControl>
-                                    <Input type="text" placeholder="Central Hub" {...field} />
-                                </FormControl>
-                                <FormMessage />
-                                </FormItem>
-                            )}
-                            />
-                            <FormField
-                            control={registerForm.control}
-                            name="email"
-                            render={({ field }) => (
-                                <FormItem>
-                                <FormLabel>{t.auth.hubAdminEmailLabel}</FormLabel>
-                                <FormControl>
-                                    <Input type="email" placeholder="hub-admin@example.com" {...field} />
-                                </FormControl>
-                                <FormMessage />
-                                </FormItem>
-                            )}
-                            />
-                            <FormField
-                            control={registerForm.control}
-                            name="location"
-                            render={({ field }) => (
-                                <FormItem>
-                                <FormLabel>{t.auth.locationLabel}</FormLabel>
-                                <FormControl>
-                                    <Input type="text" placeholder="City, State" {...field} />
-                                </FormControl>
-                                <FormMessage />
-                                </FormItem>
-                            )}
-                            />
-                            <FormField
-                            control={registerForm.control}
-                            name="phone"
-                            render={({ field }) => (
-                                <FormItem>
-                                <FormLabel>{t.auth.phoneLabel}</FormLabel>
-                                <FormControl>
-                                    <Input type="tel" placeholder="123-456-7890" maxLength={10} {...field} onInput={(e) => { e.currentTarget.value = e.currentTarget.value.replace(/[^0-9]/g, ''); }} />
-                                </FormControl>
-                                <FormMessage />
-                                </FormItem>
-                            )}
-                            />
-                            <FormField
-                            control={registerForm.control}
-                            name="password"
-                            render={({ field }) => (
-                                <FormItem>
-                                <FormLabel>{t.auth.passwordLabel}</FormLabel>
-                                <FormControl>
-                                    <div className="relative">
-                                        <Input type={showPassword ? "text" : "password"} {...field} />
-                                        <Button type="button" variant="ghost" size="icon" className="absolute right-1 top-1/2 -translate-y-1/2 h-7 w-7" onClick={() => setShowPassword(!showPassword)}>
-                                            {showPassword ? <ShieldOff className="h-4 w-4" /> : <Shield className="h-4 w-4" />}
-                                        </Button>
-                                    </div>
-                                </FormControl>
-                                <FormMessage />
-                                </FormItem>
-                            )}
-                            />
-                            <FormField
-                            control={registerForm.control}
-                            name="confirmPassword"
-                            render={({ field }) => (
-                                <FormItem>
-                                <FormLabel>{t.auth.confirmPasswordLabel}</FormLabel>
-                                <FormControl>
-                                    <div className="relative">
-                                        <Input type={showConfirmPassword ? "text" : "password"} {...field} />
-                                        <Button type="button" variant="ghost" size="icon" className="absolute right-1 top-1/2 -translate-y-1/2 h-7 w-7" onClick={() => setShowConfirmPassword(!showConfirmPassword)}>
-                                            {showConfirmPassword ? <ShieldOff className="h-4 w-4" /> : <Shield className="h-4 w-4" />}
-                                        </Button>
-                                    </div>
-                                </FormControl>
-                                <FormMessage />
-                                </FormItem>
-                            )}
-                            />
-                            <Button type="submit" className="w-full" disabled={loading}>
-                            {loading && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
-                            {t.auth.registerHub}
-                            </Button>
-                        </form>
-                        </Form>
-                    </TabsContent>
-                    </Tabs>
-                </CardContent>
-            </Card>
-    </>
+                        </div>
+                        <FormControl>
+                            <div className="relative">
+                                <Input type={showPassword ? "text" : "password"} {...field} />
+                                <Button type="button" variant="ghost" size="icon" className="absolute right-1 top-1/2 -translate-y-1/2 h-7 w-7" onClick={() => setShowPassword(!showPassword)}>
+                                    {showPassword ? <CheckSquare className="h-4 w-4" /> : <Square className="h-4 w-4" />}
+                                </Button>
+                            </div>
+                        </FormControl>
+                        <FormMessage />
+                        </FormItem>
+                    )}
+                    />
+                    <Button type="submit" className="w-full" disabled={loading}>
+                    {loading && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
+                    {t.auth.login}
+                    </Button>
+                </form>
+                </Form>
+            </TabsContent>
+            <TabsContent value="register" className="pt-4">
+                <Form {...registerForm}>
+                <form onSubmit={registerForm.handleSubmit(onRegister)} className="space-y-4">
+                    <FormField
+                    control={registerForm.control}
+                    name="branchName"
+                    render={({ field }) => (
+                        <FormItem>
+                        <FormLabel>{t.auth.branchNameLabel}</FormLabel>
+                        <FormControl>
+                            <Input type="text" placeholder="Central Hub" {...field} />
+                        </FormControl>
+                        <FormMessage />
+                        </FormItem>
+                    )}
+                    />
+                    <FormField
+                    control={registerForm.control}
+                    name="email"
+                    render={({ field }) => (
+                        <FormItem>
+                        <FormLabel>{t.auth.hubAdminEmailLabel}</FormLabel>
+                        <FormControl>
+                            <Input type="email" placeholder="hub-admin@example.com" {...field} />
+                        </FormControl>
+                        <FormMessage />
+                        </FormItem>
+                    )}
+                    />
+                    <FormField
+                    control={registerForm.control}
+                    name="location"
+                    render={({ field }) => (
+                        <FormItem>
+                        <FormLabel>{t.auth.locationLabel}</FormLabel>
+                        <FormControl>
+                            <Input type="text" placeholder="City, State" {...field} />
+                        </FormControl>
+                        <FormMessage />
+                        </FormItem>
+                    )}
+                    />
+                    <FormField
+                    control={registerForm.control}
+                    name="phone"
+                    render={({ field }) => (
+                        <FormItem>
+                        <FormLabel>{t.auth.phoneLabel}</FormLabel>
+                        <FormControl>
+                            <Input type="tel" placeholder="123-456-7890" maxLength={10} {...field} onInput={(e) => { e.currentTarget.value = e.currentTarget.value.replace(/[^0-9]/g, ''); }} />
+                        </FormControl>
+                        <FormMessage />
+                        </FormItem>
+                    )}
+                    />
+                    <FormField
+                    control={registerForm.control}
+                    name="password"
+                    render={({ field }) => (
+                        <FormItem>
+                        <FormLabel>{t.auth.passwordLabel}</FormLabel>
+                        <FormControl>
+                            <div className="relative">
+                                <Input type={showPassword ? "text" : "password"} {...field} />
+                                <Button type="button" variant="ghost" size="icon" className="absolute right-1 top-1/2 -translate-y-1/2 h-7 w-7" onClick={() => setShowPassword(!showPassword)}>
+                                    {showPassword ? <CheckSquare className="h-4 w-4" /> : <Square className="h-4 w-4" />}
+                                </Button>
+                            </div>
+                        </FormControl>
+                        <FormMessage />
+                        </FormItem>
+                    )}
+                    />
+                    <FormField
+                    control={registerForm.control}
+                    name="confirmPassword"
+                    render={({ field }) => (
+                        <FormItem>
+                        <FormLabel>{t.auth.confirmPasswordLabel}</FormLabel>
+                        <FormControl>
+                            <div className="relative">
+                                <Input type={showConfirmPassword ? "text" : "password"} {...field} />
+                                <Button type="button" variant="ghost" size="icon" className="absolute right-1 top-1/2 -translate-y-1/2 h-7 w-7" onClick={() => setShowConfirmPassword(!showConfirmPassword)}>
+                                    {showConfirmPassword ? <CheckSquare className="h-4 w-4" /> : <Square className="h-4 w-4" />}
+                                </Button>
+                            </div>
+                        </FormControl>
+                        <FormMessage />
+                        </FormItem>
+                    )}
+                    />
+                    <Button type="submit" className="w-full" disabled={loading}>
+                    {loading && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
+                    {t.auth.registerHub}
+                    </Button>
+                </form>
+                </Form>
+            </TabsContent>
+            </Tabs>
+        </CardContent>
+    </Card>
   );
 }
 
@@ -360,9 +358,3 @@ export default function HubAuthPage() {
  
     return isClient ? <HubAuthComponent /> : null
 }
-
-    
-
-    
-
-    
