@@ -23,7 +23,7 @@ import {
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { useToast } from "@/hooks/use-toast";
-import { Loader2, Camera, UserCheck, RefreshCw, ToggleLeft, ToggleRight } from "lucide-react";
+import { Loader2, Camera, UserCheck, RefreshCw, View, ViewOff } from "lucide-react";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { signInWithEmailAndPassword, signInWithCustomToken } from "firebase/auth";
@@ -229,7 +229,7 @@ function RegisterForm({
                         <div className="relative">
                             <Input type={showPassword ? "text" : "password"} {...field} />
                             <Button type="button" variant="ghost" size="icon" className="absolute right-1 top-1/2 -translate-y-1/2 h-7 w-7" onClick={() => setShowPassword(!showPassword)}>
-                                {showPassword ? <ToggleRight className="h-4 w-4" /> : <ToggleLeft className="h-4 w-4" />}
+                                {showPassword ? <ViewOff className="h-4 w-4" /> : <View className="h-4 w-4" />}
                             </Button>
                         </div>
                     </FormControl>
@@ -247,7 +247,7 @@ function RegisterForm({
                        <div className="relative">
                             <Input type={showConfirmPassword ? "text" : "password"} {...field} />
                             <Button type="button" variant="ghost" size="icon" className="absolute right-1 top-1/2 -translate-y-1/2 h-7 w-7" onClick={() => setShowConfirmPassword(!showConfirmPassword)}>
-                                {showConfirmPassword ? <ToggleRight className="h-4 w-4" /> : <ToggleLeft className="h-4 w-4" />}
+                                {showConfirmPassword ? <ViewOff className="h-4 w-4" /> : <View className="h-4 w-4" />}
                             </Button>
                         </div>
                     </FormControl>
@@ -520,7 +520,7 @@ export default function FarmerCustomerAuthPage() {
                             <div className="relative">
                                 <Input type={showPassword ? "text" : "password"} {...field} />
                                 <Button type="button" variant="ghost" size="icon" className="absolute right-1 top-1/2 -translate-y-1/2 h-7 w-7" onClick={() => setShowPassword(!showPassword)}>
-                                    {showPassword ? <ToggleRight className="h-4 w-4" /> : <ToggleLeft className="h-4 w-4" />}
+                                    {showPassword ? <ViewOff className="h-4 w-4" /> : <View className="h-4 w-4" />}
                                 </Button>
                             </div>
                            </FormControl>
@@ -570,3 +570,5 @@ export default function FarmerCustomerAuthPage() {
     </Card>
   );
 }
+
+    
