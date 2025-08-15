@@ -358,7 +358,3 @@ export default function HubAuthPage() {
  
     return isClient ? <HubAuthComponent /> : null
 }
-
-    
-
-    
