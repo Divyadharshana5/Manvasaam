@@ -117,20 +117,23 @@ export default async function DashboardPage() {
       productsSold: "Products Sold",
       yourProfile: "Your Profile",
       viewProfile: "View your profile",
-    }
+    },
   };
 
   let t = defaultTranslations;
-  
+
   try {
-    if (translations && typeof translations === 'object') {
+    if (translations && typeof translations === "object") {
       const langCookie = cookieStore.get("manvaasam-language")?.value as
         | keyof typeof translations
         | undefined;
       const selectedLanguage =
         langCookie && translations[langCookie] ? langCookie : "English";
-      
-      if (translations[selectedLanguage] && translations[selectedLanguage].dashboard) {
+
+      if (
+        translations[selectedLanguage] &&
+        translations[selectedLanguage].dashboard
+      ) {
         t = translations[selectedLanguage];
       } else if (translations.English && translations.English.dashboard) {
         t = translations.English;

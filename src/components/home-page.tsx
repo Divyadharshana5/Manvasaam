@@ -448,10 +448,10 @@ export default function HomePage() {
 
       <main className="flex min-h-screen flex-col items-center justify-center pt-24 px-4">
         <div
-          className="absolute inset-0 z-0 bg-cover bg-center bg-no-repeat bg-fixed"
-          style={{ backgroundImage: "url('/bg-2.png')" }}
+          className="absolute inset-0 z-0 bg-cover bg-center bg-no-repeat bg-fixed bg-ken-burns"
+          style={{ backgroundImage: "url('/bg-agri.png')" }}
         ></div>
-        <div className="absolute inset-0 bg-background/60 z-0"></div>
+        <div className="absolute inset-0 bg-background/30 z-0"></div>
         <section
           className="text-center w-full max-w-4xl mx-auto z-10"
         >
