@@ -64,15 +64,17 @@ export async function POST(request: Request) {
     // Store additional user information in Firestore
     await adminDb.collection("users").doc(userRecord.uid).set(firestoreData);
 
-    // Send email notification, but don't let it block the registration process
-    try {
-        await sendRegistrationNotification(data, restaurantId, branchId);
-    } catch (emailError: any) {
-        console.error("Failed to send registration email, but user was created:", emailError.message);
-        // Do not re-throw the error, allow the successful response to be sent.
-    }
+    // Send the response immediately
+    const response = NextResponse.json({ message: "User created successfully", uid: userRecord.uid, branchId }, { status: 201 });
 
-    return NextResponse.json({ message: "User created successfully", uid: userRecord.uid, branchId }, { status: 201 });
+    // Send email notification in the background without awaiting it
+    sendRegistrationNotification(data, restaurantId, branchId).catch(emailError => {
+        // Log errors but don't fail the request because of it
+        console.error("Failed to send registration email, but user was created:", emailError.message);
+    });
+
+    return response;
+    
   } catch (error: any)
    {
     console.error("API Registration Error:", error);
@@ -83,5 +85,3 @@ export async function POST(request: Request) {
     return NextResponse.json({ message: message, error: error.message }, { status: 500 });
   }
 }
-
-    

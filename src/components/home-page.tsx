@@ -2,7 +2,7 @@
 "use client";
 
 import Link from "next/link";
-import { motion, Variants } from "framer-motion";
+import { motion } from "framer-motion";
 import {
   Card,
   CardContent,
@@ -43,6 +43,7 @@ import { useState, useRef, useEffect } from "react";
 import { useToast } from "@/hooks/use-toast";
 import { useRouter } from "next/navigation";
 import { speechToText } from "@/ai/flows/stt-flow";
+import { understandNavigation } from "@/ai/flows/navigation-flow";
 import { textToSpeech } from "@/ai/flows/tts-flow";
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 
@@ -57,49 +58,6 @@ interface NavigationConfirmation {
   page: string;
   message: string;
 }
-
-const pagePaths: Record<string, string> = {
-  restaurantRegistration: "/login/restaurant",
-  farmerCustomerLogin: "/login/farmer-customer",
-  hubLogin: "/login/hub",
-  faq: "/dashboard/faq",
-};
-
-const navTranslations: Record<string, Record<string, string>> = {
-  restaurantRegistration: {
-    English:
-      "It sounds like you want to go to the Restaurant Registration page. Should I take you there?",
-  },
-  farmerCustomerLogin: {
-    English:
-      "It looks like you want to go to the Farmer and Customer login page. Shall I take you there?",
-  },
-  hubLogin: {
-    English: "It seems you want to go to the Hub Login page. Should I proceed?",
-  },
-  faq: {
-    English:
-      "It sounds like you have a question. Would you like me to take you to the FAQ page?",
-    Tamil:
-      "உங்களுக்கு ஒரு கேள்வி இருப்பது போல் தெரிகிறது. నేను మిమ్మల్ని తరచుగా అడిగే ప్రశ్నల పేజీకి తీసుకెళ్లాలా?",
-    Malayalam:
-      "നിങ്ങൾക്കൊരു ചോദ്യമുണ്ടെന്ന് തോന്നുന്നു. ഞാൻ നിങ്ങളെ പതിവുചോദ്യങ്ങൾ പേജിലേക്ക് കൊണ്ടുപോകണോ?",
-    Telugu:
-      "మీకు ఒక ప్రశ్న ఉన్నట్లు అనిపిస్తుంది. నేను మిమ్మల్ని తరచుగా అడిగే ప్రశ్నల పేజీకి తీసుకెళ్లాలా?",
-    Hindi:
-      "ऐसा लगता है कि आपका कोई प्रश्न है। क्या आप चाहते हैं कि मैं आपको अक्सर पूछे जाने वाले प्रश्न पृष्ठ पर ले जाऊं?",
-    Kannada:
-      "ನೀವು ರೆಸ್ಟೋರೆಂಟ್ ನೋಂದಣಿ ಪುಟಕ್ಕೆ ಹೋಗಲು ಬಯಸುತ್ತೀರಿ ಎಂದು ತೋರುತ್ತದೆ. ನಾನು ನಿಮ್ಮನ್ನು ಅಲ್ಲಿಗೆ ಕರೆದೊಯ್ಯಬೇಕೇ?",
-    Bengali:
-      "মনে হচ্ছে আপনি রেস্টুরেন্ট রেজিস্ট্রেশন পৃষ্ঠাতে যেতে চান। আমি কি আপনাকে সেখানে নিয়ে যাব?",
-    Arabic:
-      "يبدو أنك تريد الذهاب إلى صفحة تسجيل المطعم. هل يجب أن آخذك إلى هناك؟",
-    Urdu:
-      "ایسا لگتا ہے کہ آپ کا کوئی سوال ہے۔ کیا آپ چاہتے ہیں کہ میں آپ کو عمومی سوالات کے صفحے پر لے جاؤں؟",
-    Srilanka:
-      "ඔබට ප්‍රශ්නයක් ඇති බව පෙනේ. මම ඔබව නිතර අසන පැන පිටුවට ගෙන යාමට කැමතිද?",
-  },
-};
 
 export default function HomePage() {
   const { selectedLanguage, setSelectedLanguage, t } = useLanguage();
@@ -231,7 +189,7 @@ export default function HomePage() {
           audioDataUri: base64Audio,
           language: selectedLanguage,
         });
-        const { transcript, intent, pageKey } = sttResult;
+        const { transcript } = sttResult;
         setTranscribedText(transcript);
 
         if (navigationConfirmation) {
@@ -248,35 +206,26 @@ export default function HomePage() {
             return;
           }
         }
+        
+        const navResult = await understandNavigation({ text: transcript, language: selectedLanguage });
 
         if (
-          (intent === "navigate" || intent === "faq") &&
-          pageKey &&
-          pageKey !== "none"
+          (navResult.intent === "navigate" || navResult.intent === "faq") &&
+          navResult.page && navResult.confirmationMessage
         ) {
-          const pagePath = pagePaths[pageKey];
-          const confirmationMessage =
-            navTranslations[pageKey]?.[selectedLanguage] ||
-            navTranslations[pageKey]?.["English"];
-
-          if (pagePath && confirmationMessage) {
             setNavigationConfirmation({
-              page: pagePath,
-              message: confirmationMessage,
+              page: navResult.page,
+              message: navResult.confirmationMessage,
             });
-            await speak(confirmationMessage);
+            await speak(navResult.confirmationMessage);
             setAssistantState("confirming_navigation");
-          } else {
-            await speak(
-              `I'm sorry, I couldn't find the right page for "${transcript}".`
-            );
-          }
         } else {
           await speak(
             `I heard you say: "${transcript}". I can only help with navigation right now.`
           );
         }
-      } catch {
+      } catch (e) {
+        console.error(e);
         toast({
           variant: "destructive",
           title: "AI Processing Failed",
@@ -315,6 +264,7 @@ export default function HomePage() {
         if (assistantState !== "confirming_navigation") {
           setAssistantState("idle");
         } else {
+          // After speaking the confirmation, start listening for "yes/no"
           handleStartRecording();
         }
       };
@@ -362,68 +312,43 @@ export default function HomePage() {
 
   const handleContinueClick = (href: string) => {
     setLoadingRoleHref(href);
-    router.push(href);
+    setTimeout(() => {
+        router.push(href);
+    }, 150); // 150ms delay to show loading spinner
   };
 
   const buttonState = getButtonState();
 
-  const containerVariants = {
-    hidden: { opacity: 0 },
+  const sentence = {
+    hidden: { opacity: 1 },
     visible: {
       opacity: 1,
       transition: {
-        staggerChildren: 0.1,
-      },
-    },
-  };
-  
-  const headingContainerVariants: Variants = {
-    hidden: { opacity: 0 },
-    visible: {
-      opacity: 1,
-      transition: {
-        staggerChildren: 0.15,
-        delayChildren: 0.3,
+        delay: 0.2,
+        staggerChildren: 0.08,
       },
     },
   };
 
-  const headingWordVariants: Variants = {
-    hidden: { y: 20, opacity: 0 },
+  const letter = {
+    hidden: { opacity: 0, y: 50 },
     visible: {
-      y: 0,
       opacity: 1,
-      transition: {
-        type: "spring",
-        stiffness: 120,
-        damping: 14,
-      },
-    },
-  };
-
-  const itemVariants: Variants = {
-    hidden: { y: 20, opacity: 0 },
-    visible: {
       y: 0,
-      opacity: 1,
-      transition: {
-        type: "spring",
-        stiffness: 100,
-      },
     },
   };
 
   const taglineWords = t.tagline.split(" ");
 
   return (
-    <motion.div>
-      <motion.header
-        className="fixed top-0 left-0 right-0 z-50 flex items-center justify-between p-4 bg-background/50 backdrop-blur-sm"
-        initial={{ opacity: 0, y: -50 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.5 }}
-      >
-        <motion.div whileHover={{ scale: 1.05, rotate: -5 }}>
+    <div className="relative">
+      <header className="fixed top-0 left-0 right-0 z-50 flex items-center justify-between p-4 bg-background/50 backdrop-blur-sm">
+        <motion.div
+          whileHover={{
+            rotate: [0, -3, 3, -3, 3, 0],
+            transition: { duration: 0.5 },
+          }}
+        >
           <Link href="/" className="flex items-center gap-2">
             <ManvaasamLogo width={32} height={32} />
             <span className="text-xl font-bold text-primary">Manvaasam</span>
@@ -519,49 +444,44 @@ export default function HomePage() {
             </DropdownMenuContent>
           </DropdownMenu>
         </div>
-      </motion.header>
+      </header>
 
-      <main className="flex min-h-screen flex-col items-center justify-center pt-24 px-4 relative z-10">
+      <main className="flex min-h-screen flex-col items-center justify-center pt-24 px-4">
         <div
-          className="absolute inset-0 z-0 bg-cover bg-center bg-ken-burns"
-          style={{ backgroundImage: "url('/bg-agri.png')" }}
+          className="absolute inset-0 z-0 bg-cover bg-center bg-no-repeat bg-fixed"
+          style={{ backgroundImage: "url('/bg-2.png')" }}
         ></div>
         <div className="absolute inset-0 bg-background/60 z-0"></div>
-        <motion.section
+        <section
           className="text-center w-full max-w-4xl mx-auto z-10"
-          initial="hidden"
-          animate="visible"
-          variants={containerVariants}
         >
-          <motion.h1
-            className="text-4xl md:text-5xl lg:text-6xl font-bold text-foreground tracking-tight text-center mb-12 [text-shadow:_0_2px_4px_rgb(0_0_0_/_30%)]"
-            variants={headingContainerVariants}
+           <motion.h1
+            className="text-4xl md:text-5xl lg:text-6xl font-bold text-foreground tracking-tight text-center mb-12 [text-shadow:0_2px_4px_rgb(0_0_0/_30%)]"
+            variants={sentence}
             initial="hidden"
             animate="visible"
           >
             {taglineWords.map((word, index) => (
-                <motion.span key={index} className="inline-block mr-[0.25em]" variants={headingWordVariants}>
-                    {word}
-                </motion.span>
+              <motion.span key={word + "-" + index} variants={letter} className="inline-block">
+                {word}&nbsp;
+              </motion.span>
             ))}
           </motion.h1>
-          <motion.h2
-            className="text-3xl font-bold mb-8 text-foreground [text-shadow:_0_1px_2px_rgb(0_0_0_/_20%)]"
-            variants={itemVariants}
-          >
+          <h2 className="text-3xl font-bold mb-8 text-foreground [text-shadow:0_1px_2px_rgb(0_0_0/_20%)]">
             {t.joinCommunity}
-          </motion.h2>
-          <motion.div
-            className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8"
-            variants={containerVariants}
-          >
-            {userRoles.map((role) => (
+          </h2>
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+            {userRoles.map((role, index) => (
               <motion.div
                 key={role.name}
-                variants={itemVariants}
-                whileHover={{ scale: 1.05, y: -5 }}
+                className="group"
+                initial={{ opacity: 0, y: 50 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.4, delay: index * 0.1, ease: "easeOut" }}
+                whileHover={{ y: -8 }}
               >
-                <Card className="group bg-card/80 backdrop-blur-xl border-2 border-primary/20 rounded-2xl shadow-lg hover:shadow-2xl transition-shadow duration-300 p-6 flex flex-col h-full">
+                <Card className="bg-card/80 backdrop-blur-xl border-2 border-primary/20 rounded-2xl shadow-lg hover:shadow-2xl hover:scale-105 transition-all duration-300 p-6 flex flex-col h-full">
                   <CardHeader className="items-center flex-shrink-0">
                     <div className="group-hover:animate-shake">
                       {role.icon}
@@ -569,7 +489,7 @@ export default function HomePage() {
                   </CardHeader>
                   <CardContent className="text-center flex-grow flex flex-col justify-between">
                     <div>
-                      <CardTitle className="mt-4 text-2xl transition-all duration-300 group-hover:text-3xl group-hover:text-primary">
+                      <CardTitle className="mt-4 text-2xl transition-all duration-300 group-hover:text-primary group-hover:text-3xl group-hover:font-code">
                         {role.name}
                       </CardTitle>
                       <p className="text-muted-foreground my-4">
@@ -593,20 +513,14 @@ export default function HomePage() {
                 </Card>
               </motion.div>
             ))}
-          </motion.div>
-        </motion.section>
+          </div>
+        </section>
 
-        <motion.section
-          className="w-full max-w-4xl mx-auto mt-24 text-center z-10"
-          initial={{ opacity: 0, y: 50 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, amount: 0.5 }}
-          transition={{ duration: 0.6 }}
-        >
-          <h2 className="text-3xl font-bold mb-4 text-foreground [text-shadow:_0_1px_2px_rgb(0_0_0_/_20%)]">
+        <section className="w-full max-w-4xl mx-auto mt-24 text-center z-10">
+          <h2 className="text-3xl font-bold mb-4 text-foreground [text-shadow:0_1px_2px_rgb(0_0_0/_20%)]">
             {t.ourMission}
           </h2>
-          <p className="text-lg text-foreground/90 mb-8 max-w-3xl mx-auto [text-shadow:_0_1px_2px_rgb(0_0_0_/_20%)]">
+          <p className="text-lg text-foreground/90 mb-8 max-w-3xl mx-auto [text-shadow:0_1px_2px_rgb(0_0_0/_20%)]">
             {t.missionStatement}
           </p>
           <Card className="bg-card/80 backdrop-blur-xl border border-primary/20 rounded-2xl shadow-lg p-6">
@@ -627,17 +541,17 @@ export default function HomePage() {
               </div>
             </CardContent>
           </Card>
-        </motion.section>
+        </section>
       </main>
-      <motion.footer
-        className="w-full p-4 text-center text-foreground/80 mt-12 [text-shadow:_0_1px_2px_rgb(0_0_0_/_20%)] relative z-10"
+      <motion.footer 
+        className="w-full p-4 text-center text-foreground/80 mt-12 [text-shadow:0_1px_2px_rgb(0_0_0/_20%)] z-10"
         initial={{ opacity: 0, y: 50 }}
         whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true, amount: 0.5 }}
-        transition={{ duration: 0.6 }}
+        viewport={{ once: true }}
+        transition={{ duration: 0.4, delay: 0.2, ease: "easeOut" }}
       >
         © {new Date().getFullYear()} Manvaasam. {t.footer}
       </motion.footer>
-    </motion.div>
+    </div>
   );
 }

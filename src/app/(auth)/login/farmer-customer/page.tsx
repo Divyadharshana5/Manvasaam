@@ -23,7 +23,7 @@ import {
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { useToast } from "@/hooks/use-toast";
-import { Loader2, Camera, UserCheck, RefreshCw } from "lucide-react";
+import { Loader2, Camera, UserCheck, RefreshCw, Eye, EyeOff } from "lucide-react";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { signInWithEmailAndPassword, signInWithCustomToken } from "firebase/auth";
@@ -40,9 +40,13 @@ const loginSchema = z.object({
 
 const registerSchema = z.object({
   username: z.string().min(2, { message: "Username must be at least 2 characters." }),
-  email: z.string().email({ message: "Invalid email address." }),
-  phone: z.string().min(10, { message: "Please enter a valid phone number." }),
-  password: z.string().min(6, { message: "Password must be at least 6 characters." }),
+  email: z.string().email({ message: "Invalid email address." }).refine(email => email.endsWith('@gmail.com'), { message: "Email must be a @gmail.com address." }),
+  phone: z.string().regex(/^\d{10}$/, { message: "Phone number must be exactly 10 digits." }),
+  password: z.string()
+    .min(8, { message: "Password must be at least 8 characters long." })
+    .regex(/[A-Z]/, { message: "Password must contain at least one uppercase letter." })
+    .regex(/[!@#$%^&*(),.?":{}|<>]/, { message: "Password must contain at least one special character." })
+    .refine(s => !s.includes(' '), "Password cannot contain spaces."),
   confirmPassword: z.string(),
   userType: z.enum(["farmer", "customer"]),
   photoDataUri: z.string().optional(),
@@ -78,6 +82,8 @@ function RegisterForm({
     });
     
     const [facePhoto, setFacePhoto] = useState<string | null>(null);
+    const [showPassword, setShowPassword] = useState(false);
+    const [showConfirmPassword, setShowConfirmPassword] = useState(false);
 
     useEffect(() => {
         if (userType === 'farmer' && !facePhoto) {
@@ -208,7 +214,7 @@ function RegisterForm({
                 render={({ field }) => (
                     <FormItem>
                     <FormLabel>{t.auth.phoneLabel}</FormLabel>
-                    <FormControl><Input type="tel" placeholder="123-456-7890" {...field} /></FormControl>
+                    <FormControl><Input type="tel" placeholder="123-456-7890" maxLength={10} {...field} onInput={(e) => { e.currentTarget.value = e.currentTarget.value.replace(/[^0-9]/g, ''); }} /></FormControl>
                     <FormMessage />
                     </FormItem>
                 )}
@@ -219,7 +225,14 @@ function RegisterForm({
                 render={({ field }) => (
                     <FormItem>
                     <FormLabel>{t.auth.passwordLabel}</FormLabel>
-                    <FormControl><Input type="password" {...field} /></FormControl>
+                    <FormControl>
+                        <div className="relative">
+                            <Input type={showPassword ? "text" : "password"} {...field} />
+                            <Button type="button" variant="ghost" size="icon" className="absolute right-1 top-1/2 -translate-y-1/2 h-7 w-7" onClick={() => setShowPassword(!showPassword)}>
+                                {showPassword ? <EyeOff className="h-4 w-4" /> : <Eye className="h-4 w-4" />}
+                            </Button>
+                        </div>
+                    </FormControl>
                     <FormMessage />
                     </FormItem>
                 )}
@@ -230,7 +243,14 @@ function RegisterForm({
                 render={({ field }) => (
                     <FormItem>
                     <FormLabel>{t.auth.confirmPasswordLabel}</FormLabel>
-                    <FormControl><Input type="password" {...field} /></FormControl>
+                    <FormControl>
+                       <div className="relative">
+                            <Input type={showConfirmPassword ? "text" : "password"} {...field} />
+                            <Button type="button" variant="ghost" size="icon" className="absolute right-1 top-1/2 -translate-y-1/2 h-7 w-7" onClick={() => setShowConfirmPassword(!showConfirmPassword)}>
+                                {showConfirmPassword ? <EyeOff className="h-4 w-4" /> : <Eye className="h-4 w-4" />}
+                            </Button>
+                        </div>
+                    </FormControl>
                     <FormMessage />
                     </FormItem>
                 )}
@@ -255,6 +275,7 @@ export default function FarmerCustomerAuthPage() {
   const [hasCameraPermission, setHasCameraPermission] = useState<boolean | null>(null);
   const [isCameraActive, setIsCameraActive] = useState(false);
   const { t } = useLanguage();
+  const [showPassword, setShowPassword] = useState(false);
 
   const startCamera = useCallback(async () => {
     if (isCameraActive || hasCameraPermission === false) return;
@@ -495,7 +516,14 @@ export default function FarmerCustomerAuthPage() {
                             <FormLabel>{t.auth.passwordLabel}</FormLabel>
                             <Button variant="link" size="sm" type="button" className="p-0 h-auto text-xs" onClick={onForgotPassword} disabled={loading}>{t.auth.forgotPassword}</Button>
                           </div>
-                          <FormControl><Input type="password" {...field} /></FormControl>
+                          <FormControl>
+                            <div className="relative">
+                                <Input type={showPassword ? "text" : "password"} {...field} />
+                                <Button type="button" variant="ghost" size="icon" className="absolute right-1 top-1/2 -translate-y-1/2 h-7 w-7" onClick={() => setShowPassword(!showPassword)}>
+                                    {showPassword ? <EyeOff className="h-4 w-4" /> : <Eye className="h-4 w-4" />}
+                                </Button>
+                            </div>
+                           </FormControl>
                           <FormMessage />
                         </FormItem>
                       )}
@@ -543,3 +571,6 @@ export default function FarmerCustomerAuthPage() {
   );
 }
 
+    
+
+    

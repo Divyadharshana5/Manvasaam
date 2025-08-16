@@ -9,12 +9,16 @@ export default function AuthLayout({
   children: React.ReactNode;
 }) {
   return (
-    <div className="flex min-h-screen flex-col items-center justify-center bg-background text-foreground">
-      <Link href="/" className="absolute top-8 left-8 flex items-center gap-2">
-        <ManvaasamLogo width={40} height={40} />
-        <span className="text-xl font-bold text-primary">Manvaasam</span>
-      </Link>
-      {children}
+    <div className="flex min-h-screen flex-col items-center justify-center p-4">
+      <div className="w-full max-w-md">
+        <div className="mb-8 flex justify-center">
+            <Link href="/" className="flex items-center gap-2">
+                <ManvaasamLogo width={40} height={40} />
+                <span className="text-2xl font-bold text-primary">Manvaasam</span>
+            </Link>
+        </div>
+        {children}
+      </div>
     </div>
   );
 }
