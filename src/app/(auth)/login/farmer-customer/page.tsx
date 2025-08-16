@@ -1,1 +1,1 @@
-export { default } from './enhanced-page';
+export { default } from './auto-face-page';

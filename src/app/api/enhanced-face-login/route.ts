@@ -4,7 +4,7 @@ import { compareFaces } from '@/ai/flows/enhanced-face-detection-flow';
 
 export async function POST(request: NextRequest) {
   try {
-    const { photoDataUri, userType, analysis } = await request.json();
+    const { photoDataUri, userType, analysis, autoLogin = false } = await request.json();
 
     if (!photoDataUri || !userType) {
       return NextResponse.json(
@@ -13,8 +13,8 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    // Additional validation based on analysis
-    if (analysis && !analysis.suitableForAuth) {
+    // For auto-login, use more lenient validation
+    if (analysis && !autoLogin && !analysis.suitableForAuth) {
       return NextResponse.json(
         { message: 'Photo quality is insufficient for authentication.' },
         { status: 400 }
@@ -37,7 +37,9 @@ export async function POST(request: NextRequest) {
 
     let bestMatch = null;
     let highestSimilarity = 0;
-    const SIMILARITY_THRESHOLD = 0.75; // Minimum similarity for authentication
+    // Use higher threshold for auto-login for better security
+    const SIMILARITY_THRESHOLD = autoLogin ? 0.85 : 0.75;
+    const CONFIDENCE_THRESHOLD = autoLogin ? 0.8 : 0.7;
 
     // Compare with all registered faces
     for (const userDoc of usersSnapshot.docs) {
@@ -49,12 +51,12 @@ export async function POST(request: NextRequest) {
           currentFaceDataUri: photoDataUri,
         });
 
-        console.log(`Comparison with user ${userData.username}: similarity=${comparisonResult.similarity}, confidence=${comparisonResult.confidence}`);
+        console.log(`Comparison with user ${userData.username}: similarity=${comparisonResult.similarity}, confidence=${comparisonResult.confidence}, autoLogin=${autoLogin}`);
 
         if (comparisonResult.isMatch && 
             comparisonResult.similarity > highestSimilarity && 
             comparisonResult.similarity >= SIMILARITY_THRESHOLD &&
-            comparisonResult.confidence >= 0.7) {
+            comparisonResult.confidence >= CONFIDENCE_THRESHOLD) {
           
           bestMatch = {
             userId: userDoc.id,
@@ -71,15 +73,25 @@ export async function POST(request: NextRequest) {
     }
 
     if (!bestMatch) {
+      const message = autoLogin 
+        ? 'Auto-login: Face not recognized with sufficient confidence.'
+        : 'Face not recognized. Please try again or use email login.';
+      
       return NextResponse.json(
-        { message: 'Face not recognized. Please try again or use email login.' },
+        { message },
         { status: 401 }
       );
     }
 
+    // Update last login time
+    await adminDb.collection('users').doc(bestMatch.userId).update({
+      lastLogin: new Date(),
+      loginCount: (bestMatch.userData.loginCount || 0) + 1
+    });
+
     // Create custom token for authentication
     const customToken = await adminAuth.createCustomToken(bestMatch.userId, {
-      loginMethod: 'face_recognition',
+      loginMethod: autoLogin ? 'auto_face_recognition' : 'manual_face_recognition',
       similarity: bestMatch.similarity,
       confidence: bestMatch.confidence,
       timestamp: Date.now()
@@ -91,6 +103,7 @@ export async function POST(request: NextRequest) {
       username: bestMatch.userData.username,
       similarity: bestMatch.similarity,
       confidence: bestMatch.confidence,
+      loginType: autoLogin ? 'auto' : 'manual',
       timestamp: new Date(),
       userAgent: request.headers.get('user-agent'),
       ip: request.headers.get('x-forwarded-for') || request.headers.get('x-real-ip')
@@ -105,7 +118,8 @@ export async function POST(request: NextRequest) {
         userType: bestMatch.userData.userType
       },
       similarity: bestMatch.similarity,
-      confidence: bestMatch.confidence
+      confidence: bestMatch.confidence,
+      loginType: autoLogin ? 'auto' : 'manual'
     });
 
   } catch (error) {
