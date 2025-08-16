@@ -206,7 +206,7 @@ export default function OrdersPage() {
                         </TableHeader>
                         <TableBody>
                         {filteredOrders.map((order) => (
-                            <TableRow key={order.id} onClick={() => handleRowClick(order)} className={cn(order.status !== 'Cancelled' ? 'cursor-pointer hover:shadow-md' : 'opacity-60', "transition-shadow")}>
+                            <TableRow key={order.id} onClick={() => handleRowClick(order)} className={cn(order.status !== 'Cancelled' ? 'cursor-pointer hover:shadow-md' : 'opacity-60', "transition-shadow duration-300")}>
                             <TableCell className="font-medium">{order.id}</TableCell>
                             <TableCell>{order.customer.name}</TableCell>
                             <TableCell>
@@ -243,7 +243,7 @@ export default function OrdersPage() {
                 </div>
                 <div className="grid grid-cols-1 gap-4 md:hidden">
                     {filteredOrders.map((order) => (
-                         <Card key={order.id} onClick={() => handleRowClick(order)} className={cn(order.status !== 'Cancelled' ? 'cursor-pointer active:scale-[0.98]' : 'opacity-70', "transition-transform")}>
+                         <Card key={order.id} onClick={() => handleRowClick(order)} className={cn(order.status !== 'Cancelled' ? 'cursor-pointer active:scale-[0.98]' : 'opacity-70', "transition-transform duration-300")}>
                             <CardHeader>
                                 <div className="flex justify-between items-start">
                                     <div>
@@ -334,6 +334,8 @@ export default function OrdersPage() {
     </AppLayout>
   );
 }
+    
+
     
 
     

@@ -91,7 +91,7 @@ function RegisterForm({
         } else {
             stopCamera();
         }
-    }, [userType, facePhoto, startCamera, stopCamera, showPassword, showConfirmPassword]);
+    }, [userType, facePhoto, startCamera, stopCamera]);
 
     const handleCaptureFace = () => {
         if (!videoRef.current) return;
@@ -570,5 +570,7 @@ export default function FarmerCustomerAuthPage() {
     </Card>
   );
 }
+
+    
 
     

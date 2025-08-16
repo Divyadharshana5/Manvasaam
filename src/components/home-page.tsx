@@ -528,7 +528,7 @@ export default function HomePage() {
                 initial={{ opacity: 0, y: 50 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
-                transition={{ duration: 0.6, delay: index * 0.1, ease: "easeOut" }}
+                transition={{ duration: 0.4, delay: index * 0.1, ease: "easeOut" }}
                 whileHover={{ y: -8 }}
               >
                 <Card className="bg-card/80 backdrop-blur-xl border-2 border-primary/20 rounded-2xl shadow-lg hover:shadow-2xl hover:scale-105 transition-all duration-300 p-6 flex flex-col h-full">
@@ -598,10 +598,12 @@ export default function HomePage() {
         initial={{ opacity: 0, y: 50 }}
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true }}
-        transition={{ duration: 0.6, delay: 0.2, ease: "easeOut" }}
+        transition={{ duration: 0.4, delay: 0.2, ease: "easeOut" }}
       >
         © {new Date().getFullYear()} Manvaasam. {t.footer}
       </motion.footer>
     </div>
   );
 }
+
+    

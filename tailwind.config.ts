@@ -136,8 +136,8 @@ export default {
       animation: {
         'accordion-down': 'accordion-down 0.2s ease-out',
         'accordion-up': 'accordion-up 0.2s ease-out',
-        'fade-in-up': 'fade-in-up 0.6s ease-out forwards',
-        'fade-in': 'fade-in 0.6s ease-out forwards',
+        'fade-in-up': 'fade-in-up 0.4s ease-out forwards',
+        'fade-in': 'fade-in 0.4s ease-out forwards',
         'ken-burns': 'ken-burns 20s ease-out infinite',
         'arrow-flow': 'arrow-flow 1.5s ease-in-out infinite',
         'shake': 'shake 0.3s ease-in-out',
@@ -147,3 +147,5 @@ export default {
   },
   plugins: [require('tailwindcss-animate')],
 } satisfies Config;
+
+    
