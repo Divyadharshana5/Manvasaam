@@ -314,7 +314,7 @@ export default function HomePage() {
     setLoadingRoleHref(href);
     setTimeout(() => {
         router.push(href);
-    }, 500); // 500ms delay to show loading spinner
+    }, 150); // 150ms delay to show loading spinner
   };
 
   const buttonState = getButtonState();
