@@ -43,6 +43,7 @@ import { useState, useRef, useEffect } from "react";
 import { useToast } from "@/hooks/use-toast";
 import { useRouter } from "next/navigation";
 import { speechToText } from "@/ai/flows/stt-flow";
+import { understandNavigation } from "@/ai/flows/navigation-flow";
 import { textToSpeech } from "@/ai/flows/tts-flow";
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 
@@ -57,49 +58,6 @@ interface NavigationConfirmation {
   page: string;
   message: string;
 }
-
-const pagePaths: Record<string, string> = {
-  restaurantRegistration: "/login/restaurant",
-  farmerCustomerLogin: "/login/farmer-customer",
-  hubLogin: "/login/hub",
-  faq: "/dashboard/faq",
-};
-
-const navTranslations: Record<string, Record<string, string>> = {
-  restaurantRegistration: {
-    English:
-      "It sounds like you want to go to the Restaurant Registration page. Should I take you there?",
-  },
-  farmerCustomerLogin: {
-    English:
-      "It looks like you want to go to the Farmer and Customer login page. Shall I take you there?",
-  },
-  hubLogin: {
-    English: "It seems you want to go to the Hub Login page. Should I proceed?",
-  },
-  faq: {
-    English:
-      "It sounds like you have a question. Would you like me to take you to the FAQ page?",
-    Tamil:
-      "உங்களுக்கு ஒரு கேள்வி இருப்பது போல் தெரிகிறது. నేను మిమ్మల్ని తరచుగా అడిగే ప్రశ్నల పేజీకి తీసుకెళ్లాలా?",
-    Malayalam:
-      "നിങ്ങൾക്കൊരു ചോദ്യമുണ്ടെന്ന് തോന്നുന്നു. ഞാൻ നിങ്ങളെ പതിവുചോദ്യങ്ങൾ പേജിലേക്ക് കൊണ്ടുപോകണോ?",
-    Telugu:
-      "మీకు ఒక ప్రశ్న ఉన్నట్లు అనిపిస్తుంది. నేను మిమ్మల్ని తరచుగా అడిగే ప్రశ్నల పేజీకి తీసుకెళ్లాలా?",
-    Hindi:
-      "ऐसा लगता है कि आपका कोई प्रश्न है। क्या आप चाहते हैं कि मैं आपको अक्सर पूछे जाने वाले प्रश्न पृष्ठ पर ले जाऊं?",
-    Kannada:
-      "ನೀವು ರೆಸ್ಟೋರೆಂಟ್ ನೋಂದಣಿ ಪುಟಕ್ಕೆ ಹೋಗಲು ಬಯಸುತ್ತೀರಿ ಎಂದು ತೋರುತ್ತದೆ. ನಾನು ನಿಮ್ಮನ್ನು ಅಲ್ಲಿಗೆ ಕರೆದೊಯ್ಯಬೇಕೇ?",
-    Bengali:
-      "মনে হচ্ছে আপনি রেস্টুরেন্ট রেজিস্ট্রেশন পৃষ্ঠাতে যেতে চান। আমি কি আপনাকে সেখানে নিয়ে যাব?",
-    Arabic:
-      "يبدو أنك تريد الذهاب إلى صفحة تسجيل المطعم. هل يجب أن آخذك إلى هناك؟",
-    Urdu:
-      "ایسا لگتا ہے کہ آپ کا کوئی سوال ہے۔ کیا آپ چاہتے ہیں کہ میں آپ کو عمومی سوالات کے صفحے پر لے جاؤں؟",
-    Srilanka:
-      "ඔබට ප්‍රශ්නයක් ඇති බව පෙනේ. මම ඔබව නිතර අසන පැන පිටුවට ගෙන යාමට කැමතිද?",
-  },
-};
 
 export default function HomePage() {
   const { selectedLanguage, setSelectedLanguage, t } = useLanguage();
@@ -231,7 +189,7 @@ export default function HomePage() {
           audioDataUri: base64Audio,
           language: selectedLanguage,
         });
-        const { transcript, intent, pageKey } = sttResult;
+        const { transcript } = sttResult;
         setTranscribedText(transcript);
 
         if (navigationConfirmation) {
@@ -248,35 +206,26 @@ export default function HomePage() {
             return;
           }
         }
+        
+        const navResult = await understandNavigation({ text: transcript, language: selectedLanguage });
 
         if (
-          (intent === "navigate" || intent === "faq") &&
-          pageKey &&
-          pageKey !== "none"
+          (navResult.intent === "navigate" || navResult.intent === "faq") &&
+          navResult.page && navResult.confirmationMessage
         ) {
-          const pagePath = pagePaths[pageKey];
-          const confirmationMessage =
-            navTranslations[pageKey]?.[selectedLanguage] ||
-            navTranslations[pageKey]?.["English"];
-
-          if (pagePath && confirmationMessage) {
             setNavigationConfirmation({
-              page: pagePath,
-              message: confirmationMessage,
+              page: navResult.page,
+              message: navResult.confirmationMessage,
             });
-            await speak(confirmationMessage);
+            await speak(navResult.confirmationMessage);
             setAssistantState("confirming_navigation");
-          } else {
-            await speak(
-              `I'm sorry, I couldn't find the right page for "${transcript}".`
-            );
-          }
         } else {
           await speak(
             `I heard you say: "${transcript}". I can only help with navigation right now.`
           );
         }
-      } catch {
+      } catch (e) {
+        console.error(e);
         toast({
           variant: "destructive",
           title: "AI Processing Failed",
@@ -315,6 +264,7 @@ export default function HomePage() {
         if (assistantState !== "confirming_navigation") {
           setAssistantState("idle");
         } else {
+          // After speaking the confirmation, start listening for "yes/no"
           handleStartRecording();
         }
       };
@@ -605,5 +555,3 @@ export default function HomePage() {
     </div>
   );
 }
-
-    
