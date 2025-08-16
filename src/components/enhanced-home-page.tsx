@@ -486,15 +486,25 @@ export default function HomePage() {
           </div>
         </section>
 
-        <section className="w-full max-w-4xl mx-auto mt-24 text-center z-10">
-          <h2 className="text-3xl font-bold mb-4 text-foreground [text-shadow:0_1px_2px_rgb(0_0_0/_20%)]">
+        <section className="w-full max-w-5xl mx-auto mt-24 text-center z-10">
+          <motion.h2 
+            className="text-5xl md:text-6xl lg:text-7xl font-extrabold mb-12 text-yellow-400 [text-shadow:0_4px_12px_rgb(0_0_0/_70%)] tracking-wide"
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6, ease: "easeOut" }}
+          >
             {t.ourMission}
-          </h2>
-          <div className="bg-background/70 backdrop-blur-sm rounded-xl p-6 mb-8 max-w-3xl mx-auto border border-primary/20">
-            <p className="text-lg text-foreground font-medium leading-relaxed [text-shadow:0_1px_2px_rgb(0_0_0/_30%)]">
-              {t.missionStatement}
-            </p>
-          </div>
+          </motion.h2>
+          <motion.p 
+            className="text-2xl md:text-3xl lg:text-4xl font-bold leading-relaxed max-w-5xl mx-auto mb-12 text-emerald-300 [text-shadow:0_5px_15px_rgb(0_0_0/_90%)] py-6 px-4"
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6, delay: 0.2, ease: "easeOut" }}
+          >
+            {t.missionStatement}
+          </motion.p>
           <Card className="bg-card/80 backdrop-blur-xl border border-primary/20 rounded-2xl shadow-lg p-6">
             <CardContent className="p-0 sm:p-6">
               <div className="flex flex-col sm:flex-row items-center justify-center gap-4 text-lg font-semibold text-foreground">
@@ -520,7 +530,7 @@ export default function HomePage() {
         initial={{ opacity: 0, y: 50 }}
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true }}
-        transition={{ duration: 0.4, delay: 0.2, ease: "easeOut" }}
+        transition={{ duration: 0.6, delay: 0.2, ease: "easeOut" }}
       >
         © {new Date().getFullYear()} Manvaasam. {t.footer}
       </motion.footer>
