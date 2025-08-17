@@ -2,12 +2,7 @@
 
 import Link from "next/link";
 import { motion } from "framer-motion";
-import {
-  Card,
-  CardContent,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { ManvaasamLogo } from "@/components/icons";
 import {
@@ -29,7 +24,11 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import { useLanguage, translations, languages } from "@/context/language-context";
+import {
+  useLanguage,
+  translations,
+  languages,
+} from "@/context/language-context";
 import {
   Dialog,
   DialogContent,
@@ -46,11 +45,7 @@ import { enhancedUnderstandNavigation } from "@/ai/flows/enhanced-navigation-flo
 import { textToSpeech } from "@/ai/flows/tts-flow";
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 
-type AssistantState =
-  | "idle"
-  | "listening"
-  | "thinking"
-  | "speaking";
+type AssistantState = "idle" | "listening" | "thinking" | "speaking";
 
 export default function HomePage() {
   const { selectedLanguage, setSelectedLanguage, t } = useLanguage();
@@ -183,9 +178,9 @@ export default function HomePage() {
         setTranscribedText(transcript);
 
         // Use enhanced navigation understanding
-        const navResult = await enhancedUnderstandNavigation({ 
-          text: transcript, 
-          language: selectedLanguage 
+        const navResult = await enhancedUnderstandNavigation({
+          text: transcript,
+          language: selectedLanguage,
         });
 
         if (navResult.shouldNavigate && navResult.page) {
@@ -282,7 +277,7 @@ export default function HomePage() {
   const handleContinueClick = (href: string) => {
     setLoadingRoleHref(href);
     setTimeout(() => {
-        router.push(href);
+      router.push(href);
     }, 150); // 150ms delay to show loading spinner
   };
 
@@ -327,7 +322,10 @@ export default function HomePage() {
           <Dialog open={isAssistantOpen} onOpenChange={setIsAssistantOpen}>
             <DialogTrigger asChild>
               <motion.div whileHover={{ scale: 1.1 }}>
-                <Button variant="ghost" className="hover:bg-primary/90 hover:text-primary-foreground">
+                <Button
+                  variant="ghost"
+                  className="hover:bg-primary/90 hover:text-primary-foreground"
+                >
                   <Mic className="mr-2 h-4 w-4" />
                   {t.sidebar.voiceAssistant}
                 </Button>
@@ -337,9 +335,9 @@ export default function HomePage() {
               <DialogHeader className="text-center pt-4">
                 <DialogTitle>Enhanced Voice Assistant</DialogTitle>
                 <DialogDescription>
-                  Ask me anything! I can help you navigate, answer questions about Manvaasam, 
-                  or provide information about our platform. Try saying "What is Manvaasam?" 
-                  or "Take me to the dashboard".
+                  Ask me anything! I can help you navigate, answer questions
+                  about Manvaasam, or provide information about our platform.
+                  Try saying "What is Manvaasam?" or "Take me to the dashboard".
                 </DialogDescription>
               </DialogHeader>
               <div className="space-y-6 py-4">
@@ -394,7 +392,10 @@ export default function HomePage() {
           <DropdownMenu>
             <DropdownMenuTrigger asChild>
               <motion.div whileHover={{ scale: 1.1 }}>
-                <Button variant="outline" className="hover:bg-primary/90 hover:text-primary-foreground hover:border-primary/90">
+                <Button
+                  variant="outline"
+                  className="hover:bg-primary/90 hover:text-primary-foreground hover:border-primary/90"
+                >
                   <Languages className="mr-2 h-4 w-4" />
                   {selectedLanguage}
                 </Button>
@@ -422,17 +423,19 @@ export default function HomePage() {
           style={{ backgroundImage: "url('/bg-agri.png')" }}
         ></div>
         <div className="absolute inset-0 bg-background/30 z-0"></div>
-        <section
-          className="text-center w-full max-w-4xl mx-auto z-10"
-        >
-           <motion.h1
+        <section className="text-center w-full max-w-4xl mx-auto z-10">
+          <motion.h1
             className="text-4xl md:text-5xl lg:text-6xl font-bold text-foreground tracking-tight text-center mb-12 [text-shadow:0_2px_4px_rgb(0_0_0/_30%)]"
             variants={sentence}
             initial="hidden"
             animate="visible"
           >
             {taglineWords.map((word, index) => (
-              <motion.span key={word + "-" + index} variants={letter} className="inline-block">
+              <motion.span
+                key={word + "-" + index}
+                variants={letter}
+                className="inline-block"
+              >
                 {word}&nbsp;
               </motion.span>
             ))}
@@ -448,14 +451,16 @@ export default function HomePage() {
                 initial={{ opacity: 0, y: 50 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
-                transition={{ duration: 0.4, delay: index * 0.1, ease: "easeOut" }}
+                transition={{
+                  duration: 0.4,
+                  delay: index * 0.1,
+                  ease: "easeOut",
+                }}
                 whileHover={{ y: -8 }}
               >
                 <Card className="bg-card/80 backdrop-blur-xl border-2 border-primary/20 rounded-2xl shadow-lg hover:shadow-2xl hover:scale-105 transition-all duration-300 p-6 flex flex-col h-full">
                   <CardHeader className="items-center flex-shrink-0">
-                    <div className="group-hover:animate-shake">
-                      {role.icon}
-                    </div>
+                    <div className="group-hover:animate-shake">{role.icon}</div>
                   </CardHeader>
                   <CardContent className="text-center flex-grow flex flex-col justify-between">
                     <div>
@@ -487,8 +492,8 @@ export default function HomePage() {
         </section>
 
         <section className="w-full max-w-5xl mx-auto mt-24 text-center z-10">
-          <motion.h2 
-            className="text-5xl md:text-6xl lg:text-7xl font-extrabold mb-12 text-yellow-400 [text-shadow:0_4px_12px_rgb(0_0_0/_70%)] tracking-wide"
+          <motion.h2
+            className="text-2xl md:text-3xl lg:text-4xl font-bold mb-6 text-blue-400 [text-shadow:0_2px_6px_rgb(0_0_0/_70%)] tracking-wide"
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
@@ -496,8 +501,8 @@ export default function HomePage() {
           >
             {t.ourMission}
           </motion.h2>
-          <motion.p 
-            className="text-2xl md:text-3xl lg:text-4xl font-bold leading-relaxed max-w-5xl mx-auto mb-12 text-emerald-300 [text-shadow:0_5px_15px_rgb(0_0_0/_90%)] py-6 px-4"
+          <motion.p
+            className="text-lg md:text-xl lg:text-2xl font-medium leading-relaxed max-w-4xl mx-auto mb-8 text-white [text-shadow:0_2px_8px_rgb(0_0_0/_80%)] py-4 px-4"
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
@@ -525,7 +530,7 @@ export default function HomePage() {
           </Card>
         </section>
       </main>
-      <motion.footer 
+      <motion.footer
         className="w-full p-4 text-center text-foreground/80 mt-12 [text-shadow:0_1px_2px_rgb(0_0_0/_20%)] z-10"
         initial={{ opacity: 0, y: 50 }}
         whileInView={{ opacity: 1, y: 0 }}
