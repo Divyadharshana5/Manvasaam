@@ -440,7 +440,7 @@ export default function HomePage() {
               </motion.span>
             ))}
           </motion.h1>
-          <h2 className="text-3xl font-bold mb-8 text-foreground [text-shadow:0_1px_2px_rgb(0_0_0/_20%)]">
+          <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold mb-6 text-black [text-shadow:0_0_8px_rgb(255_255_255/_80%)] tracking-wide">
             {t.joinCommunity}
           </h2>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
@@ -493,7 +493,7 @@ export default function HomePage() {
 
         <section className="w-full max-w-5xl mx-auto mt-24 text-center z-10">
           <motion.h2
-            className="text-2xl md:text-3xl lg:text-4xl font-black mb-6 text-black [text-shadow:0_0_10px_rgb(255_255_255/_90%),0_0_20px_rgb(255_255_255/_60%)] tracking-wide bg-white/20 backdrop-blur-sm rounded-lg px-6 py-3"
+            className="text-2xl md:text-3xl lg:text-4xl font-black mb-6 text-black [text-shadow:0_0_10px_rgb(255_255_255/_90%),0_0_20px_rgb(255_255_255/_60%)] tracking-wide"
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
@@ -502,7 +502,7 @@ export default function HomePage() {
             {t.ourMission}
           </motion.h2>
           <motion.p
-            className="text-lg md:text-xl lg:text-2xl font-bold leading-relaxed max-w-4xl mx-auto mb-8 text-black [text-shadow:0_0_8px_rgb(255_255_255/_80%),0_0_16px_rgb(255_255_255/_50%)] py-4 px-6 bg-white/15 backdrop-blur-sm rounded-lg"
+            className="text-lg md:text-xl lg:text-2xl font-bold leading-relaxed max-w-4xl mx-auto mb-8 text-white [text-shadow:0_2px_8px_rgb(0_0_0/_80%)] py-4 px-4"
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
