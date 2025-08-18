@@ -545,13 +545,100 @@ export default function HomePage() {
         </section>
       </main>
       <motion.footer
-        className="w-full p-4 sm:p-6 text-center text-foreground/80 mt-8 sm:mt-12 [text-shadow:0_1px_2px_rgb(0_0_0/_20%)] z-10 text-sm sm:text-base"
+        className="w-full bg-background/80 backdrop-blur-sm border-t border-primary/20 mt-16 sm:mt-20 z-10"
         initial={{ opacity: 0, y: 50 }}
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true }}
         transition={{ duration: 0.6, delay: 0.2, ease: "easeOut" }}
       >
-        © {new Date().getFullYear()} Manvaasam. {t.footer}
+        <div className="max-w-6xl mx-auto px-4 sm:px-6 py-8 sm:py-12">
+          <div className="grid grid-cols-1 md:grid-cols-4 gap-6 sm:gap-8">
+            {/* Company Info */}
+            <div className="md:col-span-2 space-y-4">
+              <div className="flex items-center gap-2">
+                <ManvaasamLogo width={32} height={32} />
+                <span className="text-xl font-bold text-primary">
+                  Manvaasam
+                </span>
+              </div>
+              <p className="text-sm text-muted-foreground leading-relaxed max-w-md">
+                {t.tagline}
+              </p>
+              <p className="text-xs text-muted-foreground">
+                Connecting farmers directly with customers, restaurants, and
+                distribution hubs for fresh, quality produce.
+              </p>
+            </div>
+
+            {/* Quick Links */}
+            <div className="space-y-4">
+              <h3 className="font-semibold text-foreground">Quick Links</h3>
+              <div className="space-y-2 text-sm">
+                <Link
+                  href="/login/farmer-customer"
+                  className="block text-muted-foreground hover:text-primary transition-colors"
+                >
+                  Farmer Login
+                </Link>
+                <Link
+                  href="/login/farmer-customer"
+                  className="block text-muted-foreground hover:text-primary transition-colors"
+                >
+                  Customer Login
+                </Link>
+                <Link
+                  href="/login/hub"
+                  className="block text-muted-foreground hover:text-primary transition-colors"
+                >
+                  Hub Login
+                </Link>
+                <Link
+                  href="/login/restaurant"
+                  className="block text-muted-foreground hover:text-primary transition-colors"
+                >
+                  Restaurant Login
+                </Link>
+              </div>
+            </div>
+
+            {/* Contact Info */}
+            <div className="space-y-4">
+              <h3 className="font-semibold text-foreground">Contact</h3>
+              <div className="space-y-2 text-sm text-muted-foreground">
+                <p>Email: support@manvaasam.com</p>
+                <p>Phone: +91 9876543210</p>
+                <p>Address: Agricultural Hub, India</p>
+              </div>
+            </div>
+          </div>
+
+          {/* Bottom Bar */}
+          <div className="border-t border-primary/10 mt-8 pt-6 flex flex-col sm:flex-row justify-between items-center gap-4">
+            <p className="text-xs sm:text-sm text-muted-foreground text-center sm:text-left">
+              © {new Date().getFullYear()} Manvaasam. {t.footer}
+            </p>
+            <div className="flex items-center gap-4 text-xs text-muted-foreground">
+              <Link
+                href="/privacy"
+                className="hover:text-primary transition-colors"
+              >
+                Privacy Policy
+              </Link>
+              <Link
+                href="/terms"
+                className="hover:text-primary transition-colors"
+              >
+                Terms of Service
+              </Link>
+              <Link
+                href="/support"
+                className="hover:text-primary transition-colors"
+              >
+                Support
+              </Link>
+            </div>
+          </div>
+        </div>
       </motion.footer>
     </div>
   );

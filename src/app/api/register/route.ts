@@ -36,10 +36,6 @@ export async function POST(request: Request) {
       disabled: false,
     };
 
-    if (photoDataUri) {
-      authPayload.photoURL = photoDataUri;
-    }
-
     // Create user in Firebase Auth
     const userRecord = await adminAuth.createUser(authPayload);
 
@@ -50,8 +46,9 @@ export async function POST(request: Request) {
       createdAt: new Date().toISOString(),
     };
 
-    if (photoDataUri) {
-      firestoreData.photoURL = photoDataUri;
+    if (passkeyCredentialId) {
+      firestoreData.passkeyCredentialId = passkeyCredentialId;
+      firestoreData.authMethod = "passkey";
     }
     if (restaurantId) {
       firestoreData.restaurantId = restaurantId;
