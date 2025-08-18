@@ -782,7 +782,21 @@ export default function EnhancedFarmerCustomerAuthPage() {
       }
 
       const { token, user } = await response.json();
-      await signInWithCustomToken(auth, token);
+      const userCredential = await signInWithCustomToken(auth, token);
+
+      // Get ID token and create session cookie
+      const idToken = await userCredential.user.getIdToken();
+      const sessionResponse = await fetch("/api/login", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ idToken }),
+      });
+
+      if (!sessionResponse.ok) {
+        throw new Error("Failed to create session");
+      }
 
       setPasskeyLoginStatus((prev) =>
         prev
@@ -825,7 +839,26 @@ export default function EnhancedFarmerCustomerAuthPage() {
   async function onLogin(values: z.infer<typeof loginSchema>) {
     setLoading(true);
     try {
-      await signInWithEmailAndPassword(auth, values.email, values.password);
+      const userCredential = await signInWithEmailAndPassword(
+        auth,
+        values.email,
+        values.password
+      );
+
+      // Get ID token and create session cookie
+      const idToken = await userCredential.user.getIdToken();
+      const response = await fetch("/api/login", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ idToken }),
+      });
+
+      if (!response.ok) {
+        throw new Error("Failed to create session");
+      }
+
       toast({ title: "Login Successful", description: "Welcome back!" });
       router.push("/dashboard");
     } catch (error: any) {
@@ -844,7 +877,7 @@ export default function EnhancedFarmerCustomerAuthPage() {
     try {
       // Only send required fields to API
       const { confirmPassword, ...apiData } = values;
-      const response = await fetch("/api/enhanced-register", {
+      const response = await fetch("/api/register", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(apiData),
