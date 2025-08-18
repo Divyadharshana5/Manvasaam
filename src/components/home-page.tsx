@@ -545,26 +545,28 @@ export default function HomePage() {
         </section>
       </main>
       <motion.footer
-        className="w-full bg-background/80 backdrop-blur-sm border-t border-primary/20 mt-16 sm:mt-20 z-10"
+        className="w-full bg-gradient-to-r from-primary/5 via-background/95 to-primary/5 backdrop-blur-md border-t-2 border-primary/30 mt-16 sm:mt-20 z-10 shadow-lg"
         initial={{ opacity: 0, y: 50 }}
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true }}
         transition={{ duration: 0.6, delay: 0.2, ease: "easeOut" }}
       >
-        <div className="max-w-6xl mx-auto px-4 sm:px-6 py-8 sm:py-12">
+        <div className="max-w-6xl mx-auto px-4 sm:px-6 py-10 sm:py-16">
           <div className="grid grid-cols-1 md:grid-cols-4 gap-6 sm:gap-8">
             {/* Company Info */}
-            <div className="md:col-span-2 space-y-4">
-              <div className="flex items-center gap-2">
-                <ManvaasamLogo width={32} height={32} />
-                <span className="text-xl font-bold text-primary">
+            <div className="md:col-span-2 space-y-6">
+              <div className="flex items-center gap-3">
+                <div className="p-2 bg-primary/10 rounded-lg">
+                  <ManvaasamLogo width={36} height={36} />
+                </div>
+                <span className="text-2xl font-bold bg-gradient-to-r from-primary to-primary/70 bg-clip-text text-transparent">
                   Manvaasam
                 </span>
               </div>
-              <p className="text-sm text-muted-foreground leading-relaxed max-w-md">
+              <p className="text-base text-foreground/80 leading-relaxed max-w-md font-medium">
                 {t.tagline}
               </p>
-              <p className="text-xs text-muted-foreground">
+              <p className="text-sm text-muted-foreground leading-relaxed">
                 Connecting farmers directly with customers, restaurants, and
                 distribution hubs for fresh, quality produce.
               </p>
