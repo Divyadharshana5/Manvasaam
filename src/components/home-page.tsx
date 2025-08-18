@@ -41,7 +41,7 @@ import { useState, useRef, useEffect } from "react";
 import { useToast } from "@/hooks/use-toast";
 import { useRouter } from "next/navigation";
 import { speechToText } from "@/ai/flows/stt-flow";
-import { enhancedUnderstandNavigation } from "@/ai/flows/enhanced-navigation-flow";
+import { understandNavigation } from "@/ai/flows/navigation-flow";
 import { textToSpeech } from "@/ai/flows/tts-flow";
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 
@@ -177,8 +177,8 @@ export default function HomePage() {
         const { transcript } = sttResult;
         setTranscribedText(transcript);
 
-        // Use enhanced navigation understanding
-        const navResult = await enhancedUnderstandNavigation({
+        // Use navigation understanding
+        const navResult = await understandNavigation({
           text: transcript,
           language: selectedLanguage,
         });
