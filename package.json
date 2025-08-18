@@ -3,10 +3,11 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "next dev",
-    "start": "next start",
-    "lint": "next lint",
-    "typecheck": "tsc --noEmit"
+  "dev": "next dev",
+  "build": "next build",
+  "start": "next start",
+  "lint": "next lint",
+  "typecheck": "tsc --noEmit"
   },
   "dependencies": {
     "@genkit-ai/googleai": "^1.14.1",
@@ -59,9 +60,9 @@
   },
   "devDependencies": {
     "@types/mongodb": "^4.0.7",
-    "@types/node": "^20",
+    "@types/node": "20.19.10",
     "@types/nodemailer": "^6.4.15",
-    "@types/react": "^18",
+    "@types/react": "18.3.23",
     "@types/react-dom": "^18",
     "@types/wav": "^1.0.4",
     "genkit-cli": "^1.14.1",

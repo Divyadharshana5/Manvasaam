@@ -1,8 +1,7 @@
-
 "use client";
 
 import Link from "next/link";
-import { motion } from "framer-motion";
+import { motion, useScroll, useTransform } from "framer-motion";
 import {
   Card,
   CardContent,
@@ -81,7 +80,7 @@ const navTranslations: Record<string, Record<string, string>> = {
     English:
       "It sounds like you have a question. Would you like me to take you to the FAQ page?",
     Tamil:
-      "உங்களுக்கு ஒரு கேள்வி இருப்பது போல் தெரிகிறது. నేను మిమ్మల్ని తరచుగా అడిగే ప్రశ్నల పేజీకి తీసుకెళ్లాలా?",
+      "உங்களுக்கு ஒரு கேள்வி இருப்பது போல் தெரிகிறது. நான் మిమ్మల్ని తరచుగా అడిగే ప్రశ்னల பக்கம் கொண்டு செல்லலாமா?",
     Malayalam:
       "നിങ്ങൾക്കൊരു ചോദ്യമുണ്ടെന്ന് തോന്നുന്നു. ഞാൻ നിങ്ങളെ പതിവുചോദ്യങ്ങൾ പേജിലേക്ക് കൊണ്ടുപോകണോ?",
     Telugu:
@@ -366,14 +365,21 @@ export default function HomePage() {
     // The loading state is just for user feedback.
   };
 
+  // Add scroll-based animation for the hero section
+  const { scrollY } = useScroll();
+  // Fade out and move up as you scroll down
+  const heroOpacity = useTransform(scrollY, [0, 300], [1, 0.2]);
+  const heroY = useTransform(scrollY, [0, 300], [0, -100]);
+
   const buttonState = getButtonState();
 
   return (
-    <motion.div>
+    <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 0.7 }}>
       <motion.header
         className="fixed top-0 left-0 right-0 z-50 flex items-center justify-between p-4 bg-background/50 backdrop-blur-sm"
         initial={{ opacity: 0, y: -50 }}
-        animate={{ opacity: 1, y: 0 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true }}
         transition={{ duration: 0.5 }}
       >
         <Link href="/" className="flex items-center gap-2">
@@ -468,31 +474,46 @@ export default function HomePage() {
         </div>
       </motion.header>
 
-      <main className="flex min-h-screen flex-col items-center justify-center pt-24 px-4 relative z-10">
+  <main className="flex min-h-screen flex-col items-center justify-center pt-24 px-4 relative z-10">
+        {/* Glassmorphism background */}
         <div
-          className="absolute inset-0 z-0 bg-cover bg-center bg-ken-burns"
-          style={{ backgroundImage: "url('/bg-agri.png')" }}
+          className="absolute inset-0 z-0 bg-cover bg-center bg-no-repeat bg-fixed"
+          style={{
+            background: "linear-gradient(135deg, #e6f9ec 0%, #d0f5e3 100%)",
+          }}
         ></div>
-        <div className="absolute inset-0 bg-background/60 z-0"></div>
+        <div
+          className="absolute inset-0 z-0"
+          style={{
+            background: "rgba(220, 255, 220, 0.45)",
+            backdropFilter: "blur(16px)",
+            WebkitBackdropFilter: "blur(16px)",
+            border: "1px solid rgba(180, 255, 200, 0.25)",
+          }}
+        ></div>
         <motion.section
+          style={{ opacity: heroOpacity, y: heroY }}
           className="text-center w-full max-w-4xl mx-auto z-10"
-          initial={{ opacity: 0, y: 50 }}
-          animate={{ opacity: 1, y: 0 }}
+          initial={{ opacity: 0, y: 50, scale: 0.95 }}
+          whileInView={{ opacity: 1, y: 0, scale: 1 }}
+          viewport={{ once: true, amount: 0.4 }}
           transition={{ duration: 0.6 }}
         >
           <motion.h1
             className="text-4xl md:text-5xl lg:text-6xl font-bold text-foreground tracking-tight text-center mb-12 [text-shadow:_0_2px_4px_rgb(0_0_0_/_30%)]"
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5, delay: 0.2 }}
+            initial={{ opacity: 0, y: 40 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, amount: 0.7 }}
+            transition={{ duration: 0.7, ease: 'easeOut' }}
           >
             {t.tagline}
           </motion.h1>
           <motion.h2
             className="text-3xl font-bold mb-8 text-foreground [text-shadow:_0_1px_2px_rgb(0_0_0_/_20%)]"
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5, delay: 0.4 }}
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, amount: 0.7 }}
+            transition={{ duration: 0.6, delay: 0.3, ease: 'easeOut' }}
           >
             {t.joinCommunity}
           </motion.h2>
@@ -500,11 +521,13 @@ export default function HomePage() {
             {userRoles.map((role, index) => (
               <motion.div
                 key={role.name}
-                initial={{ opacity: 0, scale: 0.8 }}
-                animate={{ opacity: 1, scale: 1 }}
-                transition={{ duration: 0.5, delay: 0.6 + index * 0.1 }}
+                initial={{ opacity: 0, y: 40, scale: 0.95 }}
+                whileInView={{ opacity: 1, scale: 1, y: 0 }}
+                viewport={{ once: true, amount: 0.5 }}
+                transition={{ duration: 0.5, delay: 0.2 * index, ease: 'easeOut' }}
+                whileHover={{ scale: 1.07, y: -8 }}
               >
-                <Card className="bg-card/80 backdrop-blur-xl border-2 border-primary/20 rounded-2xl shadow-lg hover:shadow-2xl hover:scale-105 transition-all duration-300 p-6 flex flex-col h-full">
+                <Card className="bg-white/40 backdrop-blur-xl border border-green-200 rounded-2xl shadow-lg hover:shadow-2xl transition-all duration-300 p-6 flex flex-col h-full">
                   <CardHeader className="items-center flex-shrink-0">
                     {role.icon}
                   </CardHeader>
@@ -542,8 +565,8 @@ export default function HomePage() {
 
         <motion.section
           className="w-full max-w-4xl mx-auto mt-24 text-center z-10"
-          initial={{ opacity: 0, y: 50 }}
-          whileInView={{ opacity: 1, y: 0 }}
+          initial={{ opacity: 0, y: 50, scale: 0.95 }}
+          whileInView={{ opacity: 1, y: 0, scale: 1 }}
           viewport={{ once: true, amount: 0.5 }}
           transition={{ duration: 0.6 }}
         >
