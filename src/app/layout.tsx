@@ -17,6 +17,7 @@ export const metadata: Metadata = {
   description: "Empowering Farmers, Delivering Freshness.",
   viewport:
     "width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no",
+  manifest: "/manifest.json",
   icons: {
     icon: [
       { url: "/bg-agri.png", sizes: "32x32", type: "image/png" },
