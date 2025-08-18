@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useRef, useEffect, useCallback } from "react";
+import { useState, useEffect } from "react";
 import { useForm, useWatch } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import * as z from "zod";
@@ -29,7 +29,6 @@ import {
   EyeOff,
   CheckCircle,
   AlertCircle,
-  Zap,
   Shield,
   Fingerprint,
   Key,
@@ -43,10 +42,8 @@ import {
 } from "firebase/auth";
 import { useRouter } from "next/navigation";
 import { auth } from "@/lib/firebase";
-import { Alert, AlertTitle, AlertDescription } from "@/components/ui/alert";
+import { Alert, AlertDescription } from "@/components/ui/alert";
 import { Badge } from "@/components/ui/badge";
-import { Progress } from "@/components/ui/progress";
-import Image from "next/image";
 import { useLanguage } from "@/context/language-context";
 
 const loginSchema = z.object({
@@ -415,15 +412,15 @@ function RegisterForm({
                   <Shield className="h-4 w-4" />
                   Passkey Authentication (Enhanced Security)
                 </FormLabel>
-                <Card className="p-4 bg-muted/50 border-dashed border-2">
+                <Card className="p-3 sm:p-4 bg-muted/50 border-dashed border-2">
                   <CardContent className="p-0">
                     {!passkeyStatus?.registered ? (
-                      <div className="space-y-4">
+                      <div className="space-y-3 sm:space-y-4">
                         <div className="text-center space-y-2">
-                          <div className="flex items-center justify-center w-16 h-16 mx-auto bg-primary/10 rounded-full">
-                            <Fingerprint className="h-8 w-8 text-primary" />
+                          <div className="flex items-center justify-center w-12 h-12 sm:w-16 sm:h-16 mx-auto bg-primary/10 rounded-full">
+                            <Fingerprint className="h-6 w-6 sm:h-8 sm:w-8 text-primary" />
                           </div>
-                          <p className="text-sm text-muted-foreground">
+                          <p className="text-xs sm:text-sm text-muted-foreground px-2">
                             Secure biometric authentication using your device's
                             built-in sensors
                           </p>
@@ -439,39 +436,53 @@ function RegisterForm({
                           disabled={
                             !passkeyStatus?.supported || isRegisteringPasskey
                           }
-                          className="w-full"
+                          className="w-full text-sm sm:text-base py-2 sm:py-3"
                         >
                           {isRegisteringPasskey ? (
                             <>
-                              <Loader2 className="mr-2 h-4 w-4 animate-spin" />
-                              Registering Passkey...
+                              <Loader2 className="mr-1 sm:mr-2 h-3 w-3 sm:h-4 sm:w-4 animate-spin" />
+                              <span className="hidden sm:inline">
+                                Registering Passkey...
+                              </span>
+                              <span className="sm:hidden">Registering...</span>
                             </>
                           ) : (
                             <>
-                              <Fingerprint className="mr-2 h-4 w-4" />
-                              Register Passkey
+                              <Fingerprint className="mr-1 sm:mr-2 h-3 w-3 sm:h-4 sm:w-4" />
+                              <span className="hidden sm:inline">
+                                Register Passkey
+                              </span>
+                              <span className="sm:hidden">Register</span>
                             </>
                           )}
                         </Button>
                       </div>
                     ) : (
-                      <div className="space-y-4">
-                        <div className="text-sm font-medium text-green-600 flex items-center justify-center">
-                          <UserCheck className="mr-2 h-4 w-4" />
-                          Passkey Registered Successfully
+                      <div className="space-y-3 sm:space-y-4">
+                        <div className="text-xs sm:text-sm font-medium text-green-600 flex items-center justify-center">
+                          <UserCheck className="mr-1 sm:mr-2 h-3 w-3 sm:h-4 sm:w-4" />
+                          <span className="hidden sm:inline">
+                            Passkey Registered Successfully
+                          </span>
+                          <span className="sm:hidden">
+                            Registered Successfully
+                          </span>
                         </div>
-                        <div className="flex items-center justify-center w-16 h-16 mx-auto bg-green-100 rounded-full">
-                          <Lock className="h-8 w-8 text-green-600" />
+                        <div className="flex items-center justify-center w-12 h-12 sm:w-16 sm:h-16 mx-auto bg-green-100 rounded-full">
+                          <Lock className="h-6 w-6 sm:h-8 sm:w-8 text-green-600" />
                         </div>
                         <PasskeyStatusDisplay status={passkeyStatus} />
                         <Button
                           type="button"
                           variant="outline"
                           onClick={handleResetPasskey}
-                          className="w-full"
+                          className="w-full text-sm sm:text-base py-2 sm:py-3"
                         >
-                          <Key className="mr-2 h-4 w-4" />
-                          Register New Passkey
+                          <Key className="mr-1 sm:mr-2 h-3 w-3 sm:h-4 sm:w-4" />
+                          <span className="hidden sm:inline">
+                            Register New Passkey
+                          </span>
+                          <span className="sm:hidden">New Passkey</span>
                         </Button>
                       </div>
                     )}
@@ -872,14 +883,14 @@ export default function EnhancedFarmerCustomerAuthPage() {
   }
 
   return (
-    <Card className="w-full max-w-md bg-card/80 backdrop-blur-lg border-2 border-primary/20 shadow-lg">
-      <CardHeader className="text-center">
-        <CardTitle className="flex items-center justify-center gap-2">
-          <Shield className="h-5 w-5 text-primary" />
+    <Card className="w-full max-w-md mx-4 sm:mx-auto bg-card/80 backdrop-blur-lg border-2 border-primary/20 shadow-lg">
+      <CardHeader className="text-center px-4 sm:px-6 py-4 sm:py-6">
+        <CardTitle className="flex items-center justify-center gap-2 text-lg sm:text-xl">
+          <Shield className="h-4 w-4 sm:h-5 sm:w-5 text-primary" />
           {t.auth.welcome}
         </CardTitle>
-        <CardDescription>
-          Enhanced security with AI-powered face recognition
+        <CardDescription className="text-sm sm:text-base">
+          Enhanced security with passkey authentication
         </CardDescription>
       </CardHeader>
       <CardContent>
@@ -979,16 +990,19 @@ export default function EnhancedFarmerCustomerAuthPage() {
                   </form>
                 </Form>
               </TabsContent>
-              <TabsContent value="passkey" className="pt-4 space-y-4">
-                <div className="text-center space-y-4">
-                  <div className="flex items-center justify-center w-20 h-20 mx-auto bg-primary/10 rounded-full">
-                    <Fingerprint className="h-10 w-10 text-primary" />
+              <TabsContent
+                value="passkey"
+                className="pt-3 sm:pt-4 space-y-3 sm:space-y-4"
+              >
+                <div className="text-center space-y-3 sm:space-y-4">
+                  <div className="flex items-center justify-center w-16 h-16 sm:w-20 sm:h-20 mx-auto bg-primary/10 rounded-full">
+                    <Fingerprint className="h-8 w-8 sm:h-10 sm:w-10 text-primary" />
                   </div>
-                  <div>
-                    <h3 className="font-semibold text-lg">
+                  <div className="px-2">
+                    <h3 className="font-semibold text-base sm:text-lg">
                       Passkey Authentication
                     </h3>
-                    <p className="text-sm text-muted-foreground">
+                    <p className="text-xs sm:text-sm text-muted-foreground">
                       Use your device's biometric sensors for secure login
                     </p>
                   </div>
@@ -999,22 +1013,30 @@ export default function EnhancedFarmerCustomerAuthPage() {
                 )}
 
                 {authenticatingPasskey && (
-                  <div className="text-center py-4">
-                    <Loader2 className="h-8 w-8 animate-spin mx-auto mb-2" />
-                    <p className="text-sm text-muted-foreground">
-                      Authenticating with passkey...
+                  <div className="text-center py-3 sm:py-4">
+                    <Loader2 className="h-6 w-6 sm:h-8 sm:w-8 animate-spin mx-auto mb-2" />
+                    <p className="text-xs sm:text-sm text-muted-foreground">
+                      <span className="hidden sm:inline">
+                        Authenticating with passkey...
+                      </span>
+                      <span className="sm:hidden">Authenticating...</span>
                     </p>
                   </div>
                 )}
 
                 <Button
                   onClick={handlePasskeyLogin}
-                  className="w-full"
+                  className="w-full text-sm sm:text-base py-2 sm:py-3"
                   disabled={loading || !passkeyLoginStatus?.supported}
                 >
-                  {loading && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
-                  <Fingerprint className="mr-2 h-4 w-4" />
-                  Authenticate with Passkey
+                  {loading && (
+                    <Loader2 className="mr-1 sm:mr-2 h-3 w-3 sm:h-4 sm:w-4 animate-spin" />
+                  )}
+                  <Fingerprint className="mr-1 sm:mr-2 h-3 w-3 sm:h-4 sm:w-4" />
+                  <span className="hidden sm:inline">
+                    Authenticate with Passkey
+                  </span>
+                  <span className="sm:hidden">Authenticate</span>
                 </Button>
               </TabsContent>
             </Tabs>

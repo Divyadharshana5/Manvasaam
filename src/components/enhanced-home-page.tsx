@@ -305,8 +305,8 @@ export default function HomePage() {
   const taglineWords = t.tagline.split(" ");
 
   return (
-    <div className="relative">
-      <header className="fixed top-0 left-0 right-0 z-50 flex items-center justify-between p-3 sm:p-4 bg-background/50 backdrop-blur-sm">
+    <div className="relative mobile-container">
+      <header className="fixed top-0 left-0 right-0 z-50 flex items-center justify-between p-3 sm:p-4 bg-background/50 backdrop-blur-sm border-b border-background/10">
         <motion.div
           whileHover={{
             rotate: [0, -3, 3, -3, 3, 0],
@@ -423,13 +423,13 @@ export default function HomePage() {
         </div>
       </header>
 
-      <main className="flex min-h-screen flex-col items-center justify-center pt-16 sm:pt-20 md:pt-24 px-3 sm:px-4 md:px-6">
+      <main className="flex min-h-screen flex-col items-center justify-center pt-16 sm:pt-20 md:pt-24 px-4 sm:px-6 md:px-8">
         <div
           className="absolute inset-0 z-0 bg-cover bg-center bg-no-repeat bg-fixed bg-ken-burns"
           style={{ backgroundImage: "url('/bg-agri.png')" }}
         ></div>
         <div className="absolute inset-0 bg-background/30 z-0"></div>
-        <section className="text-center w-full max-w-6xl mx-auto z-10">
+        <section className="text-center w-full max-w-7xl mx-auto z-10 px-2 sm:px-4">
           <motion.h1
             className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl font-bold text-foreground tracking-tight text-center mb-8 sm:mb-10 md:mb-12 [text-shadow:0_2px_4px_rgb(0_0_0/_30%)] px-2"
             variants={sentence}
@@ -449,7 +449,7 @@ export default function HomePage() {
           <h2 className="text-xl sm:text-2xl md:text-3xl lg:text-4xl font-bold mb-4 sm:mb-5 md:mb-6 text-black [text-shadow:0_0_8px_rgb(255_255_255/_80%)] tracking-wide px-2">
             {t.joinCommunity}
           </h2>
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6 md:gap-8">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6 md:gap-8 px-2 sm:px-0">
             {userRoles.map((role, index) => (
               <motion.div
                 key={role.name}
@@ -462,18 +462,20 @@ export default function HomePage() {
                   delay: index * 0.1,
                   ease: "easeOut",
                 }}
-                whileHover={{ y: -8 }}
+                whileHover={{ y: -4 }}
               >
-                <Card className="bg-card/80 backdrop-blur-xl border-2 border-primary/20 rounded-2xl shadow-lg hover:shadow-2xl hover:scale-105 transition-all duration-300 p-6 flex flex-col h-full">
-                  <CardHeader className="items-center flex-shrink-0">
-                    <div className="group-hover:animate-shake">{role.icon}</div>
+                <Card className="bg-card/80 backdrop-blur-xl border-2 border-primary/20 rounded-2xl shadow-lg hover:shadow-2xl hover:scale-105 transition-all duration-300 p-4 sm:p-6 flex flex-col h-full min-h-[280px] sm:min-h-[320px]">
+                  <CardHeader className="items-center flex-shrink-0 pb-2 sm:pb-4">
+                    <div className="group-hover:animate-shake text-4xl sm:text-5xl">
+                      {role.icon}
+                    </div>
                   </CardHeader>
-                  <CardContent className="text-center flex-grow flex flex-col justify-between">
+                  <CardContent className="text-center flex-grow flex flex-col justify-between p-0">
                     <div>
-                      <CardTitle className="mt-4 text-2xl transition-all duration-300 group-hover:text-primary group-hover:text-3xl group-hover:font-code">
+                      <CardTitle className="mt-2 sm:mt-4 text-lg sm:text-xl lg:text-2xl transition-all duration-300 group-hover:text-primary group-hover:scale-105">
                         {role.name}
                       </CardTitle>
-                      <p className="text-muted-foreground my-4">
+                      <p className="text-muted-foreground my-3 sm:my-4 text-sm sm:text-base leading-relaxed">
                         {role.description}
                       </p>
                     </div>
@@ -497,9 +499,9 @@ export default function HomePage() {
           </div>
         </section>
 
-        <section className="w-full max-w-5xl mx-auto mt-24 text-center z-10">
+        <section className="w-full max-w-6xl mx-auto mt-16 sm:mt-20 md:mt-24 text-center z-10 px-4 sm:px-6">
           <motion.h2
-            className="text-2xl md:text-3xl lg:text-4xl font-black mb-6 text-black [text-shadow:0_0_10px_rgb(255_255_255/_90%),0_0_20px_rgb(255_255_255/_60%)] tracking-wide"
+            className="text-xl sm:text-2xl md:text-3xl lg:text-4xl font-black mb-4 sm:mb-6 text-black [text-shadow:0_0_10px_rgb(255_255_255/_90%),0_0_20px_rgb(255_255_255/_60%)] tracking-wide"
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
@@ -508,7 +510,7 @@ export default function HomePage() {
             {t.ourMission}
           </motion.h2>
           <motion.p
-            className="text-lg md:text-xl lg:text-2xl font-bold leading-relaxed max-w-4xl mx-auto mb-8 text-white [text-shadow:0_2px_8px_rgb(0_0_0/_80%)] py-4 px-4"
+            className="text-base sm:text-lg md:text-xl lg:text-2xl font-bold leading-relaxed max-w-5xl mx-auto mb-6 sm:mb-8 text-white [text-shadow:0_2px_8px_rgb(0_0_0/_80%)] py-3 sm:py-4 px-2 sm:px-4"
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
@@ -516,28 +518,34 @@ export default function HomePage() {
           >
             {t.missionStatement}
           </motion.p>
-          <Card className="bg-card/80 backdrop-blur-xl border border-primary/20 rounded-2xl shadow-lg p-6">
-            <CardContent className="p-0 sm:p-6">
-              <div className="flex flex-col sm:flex-row items-center justify-center gap-4 text-lg font-semibold text-foreground">
-                <span>{t.roles.farmer.name}</span>
+          <Card className="bg-card/80 backdrop-blur-xl border border-primary/20 rounded-2xl shadow-lg p-4 sm:p-6 mx-2 sm:mx-0">
+            <CardContent className="p-0 sm:p-4">
+              <div className="flex flex-col sm:flex-row items-center justify-center gap-3 sm:gap-4 text-base sm:text-lg font-semibold text-foreground">
+                <span className="text-center px-2 py-1 rounded-lg bg-primary/10">
+                  {t.roles.farmer.name}
+                </span>
                 <ArrowRight
-                  size={24}
-                  className="text-primary animate-arrow-flow sm:rotate-0 rotate-90"
+                  size={20}
+                  className="text-primary animate-arrow-flow sm:rotate-0 rotate-90 flex-shrink-0"
                 />
-                <span>{t.roles.hub.name}</span>
+                <span className="text-center px-2 py-1 rounded-lg bg-primary/10">
+                  {t.roles.hub.name}
+                </span>
                 <ArrowRight
-                  size={24}
-                  className="text-primary animate-arrow-flow sm:rotate-0 rotate-90"
+                  size={20}
+                  className="text-primary animate-arrow-flow sm:rotate-0 rotate-90 flex-shrink-0"
                   style={{ animationDelay: "0.5s" }}
                 />
-                <span>{t.roles.customer.name}</span>
+                <span className="text-center px-2 py-1 rounded-lg bg-primary/10">
+                  {t.roles.customer.name}
+                </span>
               </div>
             </CardContent>
           </Card>
         </section>
       </main>
       <motion.footer
-        className="w-full p-4 text-center text-foreground/80 mt-12 [text-shadow:0_1px_2px_rgb(0_0_0/_20%)] z-10"
+        className="w-full p-4 sm:p-6 text-center text-foreground/80 mt-8 sm:mt-12 [text-shadow:0_1px_2px_rgb(0_0_0/_20%)] z-10 text-sm sm:text-base"
         initial={{ opacity: 0, y: 50 }}
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true }}
