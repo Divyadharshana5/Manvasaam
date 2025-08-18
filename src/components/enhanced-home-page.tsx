@@ -306,28 +306,34 @@ export default function HomePage() {
 
   return (
     <div className="relative">
-      <header className="fixed top-0 left-0 right-0 z-50 flex items-center justify-between p-4 bg-background/50 backdrop-blur-sm">
+      <header className="fixed top-0 left-0 right-0 z-50 flex items-center justify-between p-3 sm:p-4 bg-background/50 backdrop-blur-sm">
         <motion.div
           whileHover={{
             rotate: [0, -3, 3, -3, 3, 0],
             transition: { duration: 0.5 },
           }}
         >
-          <Link href="/" className="flex items-center gap-2">
-            <ManvaasamLogo width={32} height={32} />
-            <span className="text-xl font-bold text-primary">Manvaasam</span>
+          <Link href="/" className="flex items-center gap-1 sm:gap-2">
+            <ManvaasamLogo width={28} height={28} className="sm:w-8 sm:h-8" />
+            <span className="text-lg sm:text-xl font-bold text-primary">
+              Manvaasam
+            </span>
           </Link>
         </motion.div>
-        <div className="flex items-center gap-4">
+        <div className="flex items-center gap-2 sm:gap-4">
           <Dialog open={isAssistantOpen} onOpenChange={setIsAssistantOpen}>
             <DialogTrigger asChild>
               <motion.div whileHover={{ scale: 1.1 }}>
                 <Button
                   variant="ghost"
-                  className="hover:bg-primary/90 hover:text-primary-foreground"
+                  size="sm"
+                  className="hover:bg-primary/90 hover:text-primary-foreground text-xs sm:text-sm px-2 sm:px-4"
                 >
-                  <Mic className="mr-2 h-4 w-4" />
-                  {t.sidebar.voiceAssistant}
+                  <Mic className="mr-1 sm:mr-2 h-3 w-3 sm:h-4 sm:w-4" />
+                  <span className="hidden sm:inline">
+                    {t.sidebar.voiceAssistant}
+                  </span>
+                  <span className="sm:hidden">Voice</span>
                 </Button>
               </motion.div>
             </DialogTrigger>
@@ -417,15 +423,15 @@ export default function HomePage() {
         </div>
       </header>
 
-      <main className="flex min-h-screen flex-col items-center justify-center pt-24 px-4">
+      <main className="flex min-h-screen flex-col items-center justify-center pt-16 sm:pt-20 md:pt-24 px-3 sm:px-4 md:px-6">
         <div
           className="absolute inset-0 z-0 bg-cover bg-center bg-no-repeat bg-fixed bg-ken-burns"
           style={{ backgroundImage: "url('/bg-agri.png')" }}
         ></div>
         <div className="absolute inset-0 bg-background/30 z-0"></div>
-        <section className="text-center w-full max-w-4xl mx-auto z-10">
+        <section className="text-center w-full max-w-6xl mx-auto z-10">
           <motion.h1
-            className="text-4xl md:text-5xl lg:text-6xl font-bold text-foreground tracking-tight text-center mb-12 [text-shadow:0_2px_4px_rgb(0_0_0/_30%)]"
+            className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl font-bold text-foreground tracking-tight text-center mb-8 sm:mb-10 md:mb-12 [text-shadow:0_2px_4px_rgb(0_0_0/_30%)] px-2"
             variants={sentence}
             initial="hidden"
             animate="visible"
@@ -440,10 +446,10 @@ export default function HomePage() {
               </motion.span>
             ))}
           </motion.h1>
-          <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold mb-6 text-black [text-shadow:0_0_8px_rgb(255_255_255/_80%)] tracking-wide">
+          <h2 className="text-xl sm:text-2xl md:text-3xl lg:text-4xl font-bold mb-4 sm:mb-5 md:mb-6 text-black [text-shadow:0_0_8px_rgb(255_255_255/_80%)] tracking-wide px-2">
             {t.joinCommunity}
           </h2>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6 md:gap-8">
             {userRoles.map((role, index) => (
               <motion.div
                 key={role.name}

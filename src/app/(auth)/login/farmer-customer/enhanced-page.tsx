@@ -24,16 +24,16 @@ import { Input } from "@/components/ui/input";
 import { useToast } from "@/hooks/use-toast";
 import {
   Loader2,
-  Camera,
   UserCheck,
-  RefreshCw,
   Eye,
   EyeOff,
   CheckCircle,
   AlertCircle,
   Zap,
   Shield,
-  Scan,
+  Fingerprint,
+  Key,
+  Lock,
 } from "lucide-react";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
@@ -48,7 +48,6 @@ import { Badge } from "@/components/ui/badge";
 import { Progress } from "@/components/ui/progress";
 import Image from "next/image";
 import { useLanguage } from "@/context/language-context";
-import { enhancedDetectFace } from "@/ai/flows/enhanced-face-detection-flow";
 
 const loginSchema = z.object({
   email: z.string().email({ message: "Invalid email address." }),
@@ -66,11 +65,9 @@ const registerSchema = z
       .refine((email) => email.endsWith("@gmail.com"), {
         message: "Email must be a @gmail.com address.",
       }),
-    phone: z
-      .string()
-      .regex(/^\d{10}$/, {
-        message: "Phone number must be exactly 10 digits.",
-      }),
+    phone: z.string().regex(/^\d{10}$/, {
+      message: "Phone number must be exactly 10 digits.",
+    }),
     password: z
       .string()
       .min(8, { message: "Password must be at least 8 characters long." })
@@ -83,56 +80,51 @@ const registerSchema = z
       .refine((s) => !s.includes(" "), "Password cannot contain spaces."),
     confirmPassword: z.string(),
     userType: z.enum(["farmer", "customer"]),
-    photoDataUri: z.string().optional(),
+    passkeyCredentialId: z.string().optional(),
   })
   .refine((data) => data.password === data.confirmPassword, {
     message: "Passwords don't match",
     path: ["confirmPassword"],
   });
 
-interface FaceAnalysis {
-  quality: "excellent" | "good" | "fair" | "poor";
-  positioning: {
-    centered: boolean;
-    frontFacing: boolean;
-    eyesVisible: boolean;
-    mouthVisible: boolean;
-  };
-  lighting: "excellent" | "good" | "fair" | "poor";
-  clarity: "excellent" | "good" | "fair" | "poor";
-  suitableForAuth: boolean;
+interface PasskeyStatus {
+  supported: boolean;
+  registered: boolean;
+  credentialId?: string;
   feedback: string;
-  confidence: number;
+  status: "ready" | "registering" | "authenticating" | "error" | "success";
 }
 
-function FaceAnalysisDisplay({ analysis }: { analysis: FaceAnalysis | null }) {
-  if (!analysis) return null;
+function PasskeyStatusDisplay({ status }: { status: PasskeyStatus | null }) {
+  if (!status) return null;
 
-  const getQualityColor = (quality: string) => {
-    switch (quality) {
-      case "excellent":
-        return "text-green-600";
-      case "good":
+  const getStatusColor = (statusType: string) => {
+    switch (statusType) {
+      case "ready":
         return "text-blue-600";
-      case "fair":
-        return "text-yellow-600";
-      case "poor":
+      case "success":
+        return "text-green-600";
+      case "error":
         return "text-red-600";
+      case "registering":
+      case "authenticating":
+        return "text-yellow-600";
       default:
         return "text-gray-600";
     }
   };
 
-  const getQualityBadge = (quality: string) => {
-    switch (quality) {
-      case "excellent":
-        return "bg-green-100 text-green-800";
-      case "good":
+  const getStatusBadge = (statusType: string) => {
+    switch (statusType) {
+      case "ready":
         return "bg-blue-100 text-blue-800";
-      case "fair":
-        return "bg-yellow-100 text-yellow-800";
-      case "poor":
+      case "success":
+        return "bg-green-100 text-green-800";
+      case "error":
         return "bg-red-100 text-red-800";
+      case "registering":
+      case "authenticating":
+        return "bg-yellow-100 text-yellow-800";
       default:
         return "bg-gray-100 text-gray-800";
     }
@@ -141,9 +133,12 @@ function FaceAnalysisDisplay({ analysis }: { analysis: FaceAnalysis | null }) {
   return (
     <div className="space-y-3 p-4 bg-muted/50 rounded-lg border">
       <div className="flex items-center justify-between">
-        <h4 className="font-medium">Face Analysis</h4>
-        <Badge className={getQualityBadge(analysis.quality)}>
-          {analysis.quality.toUpperCase()}
+        <h4 className="font-medium flex items-center gap-2">
+          <Fingerprint className="h-4 w-4" />
+          Passkey Status
+        </h4>
+        <Badge className={getStatusBadge(status.status)}>
+          {status.status.toUpperCase()}
         </Badge>
       </div>
 
@@ -151,71 +146,49 @@ function FaceAnalysisDisplay({ analysis }: { analysis: FaceAnalysis | null }) {
         <div className="flex items-center gap-2">
           <div
             className={`w-2 h-2 rounded-full ${
-              analysis.positioning.centered ? "bg-green-500" : "bg-red-500"
+              status.supported ? "bg-green-500" : "bg-red-500"
             }`}
           />
-          <span>Centered</span>
+          <span>Browser Support</span>
         </div>
         <div className="flex items-center gap-2">
           <div
             className={`w-2 h-2 rounded-full ${
-              analysis.positioning.frontFacing ? "bg-green-500" : "bg-red-500"
+              status.registered ? "bg-green-500" : "bg-yellow-500"
             }`}
           />
-          <span>Front Facing</span>
-        </div>
-        <div className="flex items-center gap-2">
-          <div
-            className={`w-2 h-2 rounded-full ${
-              analysis.positioning.eyesVisible ? "bg-green-500" : "bg-red-500"
-            }`}
-          />
-          <span>Eyes Visible</span>
-        </div>
-        <div className="flex items-center gap-2">
-          <div
-            className={`w-2 h-2 rounded-full ${
-              analysis.positioning.mouthVisible ? "bg-green-500" : "bg-red-500"
-            }`}
-          />
-          <span>Mouth Visible</span>
+          <span>Registered</span>
         </div>
       </div>
 
-      <div className="space-y-2">
-        <div className="flex justify-between text-sm">
-          <span>Lighting:</span>
-          <span className={getQualityColor(analysis.lighting)}>
-            {analysis.lighting}
+      {status.credentialId && (
+        <div className="text-xs text-muted-foreground">
+          <span>Credential ID: </span>
+          <span className="font-mono">
+            {status.credentialId.slice(0, 16)}...
           </span>
         </div>
-        <div className="flex justify-between text-sm">
-          <span>Clarity:</span>
-          <span className={getQualityColor(analysis.clarity)}>
-            {analysis.clarity}
-          </span>
-        </div>
-        <div className="flex justify-between text-sm">
-          <span>Confidence:</span>
-          <span>{Math.round(analysis.confidence * 100)}%</span>
-        </div>
-      </div>
+      )}
 
-      <Progress value={analysis.confidence * 100} className="h-2" />
-
-      {analysis.feedback && (
+      {status.feedback && (
         <Alert
           className={
-            analysis.suitableForAuth ? "border-green-200" : "border-yellow-200"
+            status.status === "success"
+              ? "border-green-200"
+              : status.status === "error"
+              ? "border-red-200"
+              : "border-blue-200"
           }
         >
-          {analysis.suitableForAuth ? (
+          {status.status === "success" ? (
             <CheckCircle className="h-4 w-4 text-green-600" />
+          ) : status.status === "error" ? (
+            <AlertCircle className="h-4 w-4 text-red-600" />
           ) : (
-            <AlertCircle className="h-4 w-4 text-yellow-600" />
+            <Key className="h-4 w-4 text-blue-600" />
           )}
           <AlertDescription className="text-sm">
-            {analysis.feedback}
+            {status.feedback}
           </AlertDescription>
         </Alert>
       )}
@@ -227,20 +200,10 @@ function RegisterForm({
   onRegisterSubmit,
   loading,
   form,
-  videoRef,
-  hasCameraPermission,
-  isCameraActive,
-  startCamera,
-  stopCamera,
 }: {
   onRegisterSubmit: (values: z.infer<typeof registerSchema>) => void;
   loading: boolean;
   form: any;
-  videoRef: React.RefObject<HTMLVideoElement>;
-  hasCameraPermission: boolean | null;
-  isCameraActive: boolean;
-  startCamera: () => void;
-  stopCamera: () => void;
 }) {
   const { t } = useLanguage();
   const { toast } = useToast();
@@ -249,103 +212,156 @@ function RegisterForm({
     name: "userType",
   });
 
-  const [facePhoto, setFacePhoto] = useState<string | null>(null);
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
-  const [faceAnalysis, setFaceAnalysis] = useState<FaceAnalysis | null>(null);
-  const [analyzingFace, setAnalyzingFace] = useState(false);
+  const [passkeyStatus, setPasskeyStatus] = useState<PasskeyStatus | null>(
+    null
+  );
+  const [isRegisteringPasskey, setIsRegisteringPasskey] = useState(false);
 
   useEffect(() => {
-    if (userType === "farmer" && !facePhoto) {
-      startCamera();
-    } else {
-      stopCamera();
+    if (userType === "farmer") {
+      checkPasskeySupport();
     }
-  }, [userType, facePhoto, startCamera, stopCamera]);
+  }, [userType]);
 
-  const analyzeFacePhoto = async (photoDataUri: string) => {
-    setAnalyzingFace(true);
+  const checkPasskeySupport = async () => {
     try {
-      const result = await enhancedDetectFace({
-        photoDataUri,
-        purpose: "registration",
+      const isSupported =
+        window.PublicKeyCredential &&
+        (await PublicKeyCredential.isUserVerifyingPlatformAuthenticatorAvailable());
+
+      setPasskeyStatus({
+        supported: isSupported,
+        registered: false,
+        feedback: isSupported
+          ? "Your device supports passkey authentication"
+          : "Passkey authentication is not supported on this device",
+        status: isSupported ? "ready" : "error",
       });
-
-      setFaceAnalysis({
-        quality: result.quality,
-        positioning: result.positioning,
-        lighting: result.lighting,
-        clarity: result.clarity,
-        suitableForAuth: result.suitableForAuth,
-        feedback: result.feedback,
-        confidence: result.confidence,
-      });
-
-      if (!result.faceDetected) {
-        toast({
-          variant: "destructive",
-          title: "No Face Detected",
-          description:
-            "Please ensure your face is clearly visible in the camera.",
-        });
-        return false;
-      }
-
-      if (result.faceCount > 1) {
-        toast({
-          variant: "destructive",
-          title: "Multiple Faces Detected",
-          description: "Please ensure only one person is in the frame.",
-        });
-        return false;
-      }
-
-      return true;
     } catch (error) {
-      console.error("Face analysis error:", error);
+      console.error("Passkey support check failed:", error);
+      setPasskeyStatus({
+        supported: false,
+        registered: false,
+        feedback: "Unable to check passkey support",
+        status: "error",
+      });
+    }
+  };
+
+  const handleRegisterPasskey = async () => {
+    if (!passkeyStatus?.supported) {
       toast({
         variant: "destructive",
-        title: "Analysis Failed",
-        description: "Unable to analyze face photo. Please try again.",
+        title: "Passkey Not Supported",
+        description: "Your device doesn't support passkey authentication.",
       });
-      return false;
+      return;
+    }
+
+    setIsRegisteringPasskey(true);
+    setPasskeyStatus((prev) =>
+      prev ? { ...prev, status: "registering" } : null
+    );
+
+    try {
+      // Generate a challenge for passkey registration
+      const challenge = new Uint8Array(32);
+      crypto.getRandomValues(challenge);
+
+      const email = form.getValues("email");
+      const username = form.getValues("username");
+
+      if (!email || !username) {
+        throw new Error("Please fill in email and username first");
+      }
+
+      const credential = (await navigator.credentials.create({
+        publicKey: {
+          challenge,
+          rp: {
+            name: "Manvaasam",
+            id: window.location.hostname,
+          },
+          user: {
+            id: new TextEncoder().encode(email),
+            name: email,
+            displayName: username,
+          },
+          pubKeyCredParams: [{ alg: -7, type: "public-key" }],
+          authenticatorSelection: {
+            authenticatorAttachment: "platform",
+            userVerification: "required",
+          },
+          timeout: 60000,
+        },
+      })) as PublicKeyCredential;
+
+      if (credential) {
+        const credentialId = Array.from(new Uint8Array(credential.rawId))
+          .map((b) => b.toString(16).padStart(2, "0"))
+          .join("");
+
+        form.setValue("passkeyCredentialId", credentialId, {
+          shouldValidate: true,
+        });
+
+        setPasskeyStatus({
+          supported: true,
+          registered: true,
+          credentialId,
+          feedback:
+            "Passkey registered successfully! You can now use biometric authentication.",
+          status: "success",
+        });
+      }
+    } catch (error: any) {
+      console.error("Passkey registration failed:", error);
+      setPasskeyStatus((prev) =>
+        prev
+          ? {
+              ...prev,
+              feedback:
+                error.message ||
+                "Failed to register passkey. Please try again.",
+              status: "error",
+            }
+          : null
+      );
+
+      toast({
+        variant: "destructive",
+        title: "Passkey Registration Failed",
+        description:
+          error.message || "Unable to register passkey. Please try again.",
+      });
     } finally {
-      setAnalyzingFace(false);
+      setIsRegisteringPasskey(false);
     }
   };
 
-  const handleCaptureFace = async () => {
-    if (!videoRef.current) return;
-
-    const canvas = document.createElement("canvas");
-    canvas.width = videoRef.current.videoWidth;
-    canvas.height = videoRef.current.videoHeight;
-    const context = canvas.getContext("2d");
-    context?.drawImage(videoRef.current, 0, 0, canvas.width, canvas.height);
-    const dataUri = canvas.toDataURL("image/jpeg");
-
-    const isValid = await analyzeFacePhoto(dataUri);
-    if (isValid) {
-      setFacePhoto(dataUri);
-      form.setValue("photoDataUri", dataUri, { shouldValidate: true });
-      form.clearErrors("photoDataUri");
-      stopCamera();
-    }
-  };
-
-  const handleRetake = () => {
-    setFacePhoto(null);
-    setFaceAnalysis(null);
-    form.setValue("photoDataUri", undefined, { shouldValidate: true });
-    startCamera();
+  const handleResetPasskey = () => {
+    setPasskeyStatus((prev) =>
+      prev
+        ? {
+            ...prev,
+            registered: false,
+            credentialId: undefined,
+            feedback: "Ready to register a new passkey",
+            status: "ready",
+          }
+        : null
+    );
+    form.setValue("passkeyCredentialId", undefined, { shouldValidate: true });
   };
 
   const onSubmit = (values: z.infer<typeof registerSchema>) => {
-    if (userType === "farmer" && !faceAnalysis?.suitableForAuth) {
+    if (userType === "farmer" && !passkeyStatus?.registered) {
       toast({
         variant: "destructive",
-        title: "Photo Quality Issue",
-        description: "Please capture a better quality photo for registration.",
+        title: "Passkey Required",
+        description: "Please register a passkey for enhanced security.",
       });
       return;
     }
@@ -392,72 +408,48 @@ function RegisterForm({
         {userType === "farmer" && (
           <FormField
             control={form.control}
-            name="photoDataUri"
+            name="passkeyCredentialId"
             render={({ field }) => (
               <FormItem>
                 <FormLabel className="flex items-center gap-2">
                   <Shield className="h-4 w-4" />
-                  {t.auth.faceReg} (Enhanced Security)
+                  Passkey Authentication (Enhanced Security)
                 </FormLabel>
                 <Card className="p-4 bg-muted/50 border-dashed border-2">
                   <CardContent className="p-0">
-                    {!facePhoto ? (
-                      <div className="space-y-2">
-                        <p className="text-sm text-muted-foreground text-center">
-                          Advanced face recognition with real-time quality
-                          analysis
-                        </p>
-                        <div className="relative aspect-video w-full overflow-hidden rounded-lg border bg-background">
-                          <video
-                            ref={videoRef}
-                            className="w-full h-full object-cover"
-                            autoPlay
-                            muted
-                            playsInline
-                          />
-                          {hasCameraPermission === false && (
-                            <div className="absolute inset-0 flex flex-col items-center justify-center bg-black/60 text-white p-4">
-                              <Camera className="h-10 w-10 mb-2" />
-                              <p className="text-center font-semibold">
-                                Camera access denied.
-                              </p>
-                              <p className="text-sm text-center">
-                                Please enable camera permissions in your browser
-                                settings.
-                              </p>
-                            </div>
-                          )}
-                          {isCameraActive && (
-                            <div className="absolute top-2 right-2">
-                              <Badge
-                                variant="secondary"
-                                className="bg-green-100 text-green-800"
-                              >
-                                <div className="w-2 h-2 bg-green-500 rounded-full mr-1 animate-pulse" />
-                                Live
-                              </Badge>
-                            </div>
-                          )}
+                    {!passkeyStatus?.registered ? (
+                      <div className="space-y-4">
+                        <div className="text-center space-y-2">
+                          <div className="flex items-center justify-center w-16 h-16 mx-auto bg-primary/10 rounded-full">
+                            <Fingerprint className="h-8 w-8 text-primary" />
+                          </div>
+                          <p className="text-sm text-muted-foreground">
+                            Secure biometric authentication using your device's
+                            built-in sensors
+                          </p>
                         </div>
+
+                        {passkeyStatus && (
+                          <PasskeyStatusDisplay status={passkeyStatus} />
+                        )}
+
                         <Button
                           type="button"
-                          onClick={handleCaptureFace}
+                          onClick={handleRegisterPasskey}
                           disabled={
-                            !isCameraActive ||
-                            hasCameraPermission === false ||
-                            analyzingFace
+                            !passkeyStatus?.supported || isRegisteringPasskey
                           }
                           className="w-full"
                         >
-                          {analyzingFace ? (
+                          {isRegisteringPasskey ? (
                             <>
                               <Loader2 className="mr-2 h-4 w-4 animate-spin" />
-                              Analyzing...
+                              Registering Passkey...
                             </>
                           ) : (
                             <>
-                              <Scan className="mr-2 h-4 w-4" />
-                              {t.auth.capturePhoto}
+                              <Fingerprint className="mr-2 h-4 w-4" />
+                              Register Passkey
                             </>
                           )}
                         </Button>
@@ -466,25 +458,20 @@ function RegisterForm({
                       <div className="space-y-4">
                         <div className="text-sm font-medium text-green-600 flex items-center justify-center">
                           <UserCheck className="mr-2 h-4 w-4" />
-                          Photo Captured Successfully
+                          Passkey Registered Successfully
                         </div>
-                        <div className="relative aspect-video w-full overflow-hidden rounded-lg border">
-                          <Image
-                            src={facePhoto}
-                            alt="Captured face"
-                            layout="fill"
-                            objectFit="cover"
-                          />
+                        <div className="flex items-center justify-center w-16 h-16 mx-auto bg-green-100 rounded-full">
+                          <Lock className="h-8 w-8 text-green-600" />
                         </div>
-                        <FaceAnalysisDisplay analysis={faceAnalysis} />
+                        <PasskeyStatusDisplay status={passkeyStatus} />
                         <Button
                           type="button"
                           variant="outline"
-                          onClick={handleRetake}
+                          onClick={handleResetPasskey}
                           className="w-full"
                         >
-                          <RefreshCw className="mr-2 h-4 w-4" />{" "}
-                          {t.auth.retakePhoto}
+                          <Key className="mr-2 h-4 w-4" />
+                          Register New Passkey
                         </Button>
                       </div>
                     )}
@@ -619,67 +606,42 @@ export default function EnhancedFarmerCustomerAuthPage() {
   const router = useRouter();
   const [activeTab, setActiveTab] = useState("login");
   const [authMode, setAuthMode] = useState("email");
-  const videoRef = useRef<HTMLVideoElement>(null);
-  const [hasCameraPermission, setHasCameraPermission] = useState<
-    boolean | null
-  >(null);
-  const [isCameraActive, setIsCameraActive] = useState(false);
   const { t } = useLanguage();
   const [showPassword, setShowPassword] = useState(false);
-  const [faceLoginAnalysis, setFaceLoginAnalysis] =
-    useState<FaceAnalysis | null>(null);
-  const [analyzingLogin, setAnalyzingLogin] = useState(false);
-
-  const startCamera = useCallback(async () => {
-    if (isCameraActive || hasCameraPermission === false) return;
-    try {
-      const stream = await navigator.mediaDevices.getUserMedia({
-        video: {
-          width: { ideal: 1280 },
-          height: { ideal: 720 },
-          facingMode: "user",
-        },
-      });
-      setHasCameraPermission(true);
-      if (videoRef.current) {
-        videoRef.current.srcObject = stream;
-      }
-      setIsCameraActive(true);
-    } catch (error) {
-      console.error("Error accessing camera:", error);
-      setHasCameraPermission(false);
-      toast({
-        variant: "destructive",
-        title: "Camera Access Denied",
-        description:
-          "Please enable camera permissions in your browser settings to use face authentication.",
-      });
-    }
-  }, [isCameraActive, hasCameraPermission, toast]);
-
-  const stopCamera = useCallback(() => {
-    if (videoRef.current && videoRef.current.srcObject) {
-      const stream = videoRef.current.srcObject as MediaStream;
-      stream.getTracks().forEach((track) => track.stop());
-      videoRef.current.srcObject = null;
-    }
-    setIsCameraActive(false);
-  }, []);
+  const [passkeyLoginStatus, setPasskeyLoginStatus] =
+    useState<PasskeyStatus | null>(null);
+  const [authenticatingPasskey, setAuthenticatingPasskey] = useState(false);
 
   useEffect(() => {
-    const isFaceAuthVisible = activeTab === "login" && authMode === "face";
-    const isRegisterFarmerVisible = activeTab === "register";
-
-    if (isFaceAuthVisible) {
-      startCamera();
-    } else if (!isRegisterFarmerVisible) {
-      stopCamera();
+    if (authMode === "passkey") {
+      checkPasskeyLoginSupport();
     }
+  }, [authMode]);
 
-    return () => {
-      stopCamera();
-    };
-  }, [activeTab, authMode, startCamera, stopCamera]);
+  const checkPasskeyLoginSupport = async () => {
+    try {
+      const isSupported =
+        window.PublicKeyCredential &&
+        (await PublicKeyCredential.isUserVerifyingPlatformAuthenticatorAvailable());
+
+      setPasskeyLoginStatus({
+        supported: isSupported,
+        registered: false,
+        feedback: isSupported
+          ? "Ready for passkey authentication"
+          : "Passkey authentication is not supported on this device",
+        status: isSupported ? "ready" : "error",
+      });
+    } catch (error) {
+      console.error("Passkey support check failed:", error);
+      setPasskeyLoginStatus({
+        supported: false,
+        registered: false,
+        feedback: "Unable to check passkey support",
+        status: "error",
+      });
+    }
+  };
 
   const loginForm = useForm<z.infer<typeof loginSchema>>({
     resolver: zodResolver(loginSchema),
@@ -695,7 +657,7 @@ export default function EnhancedFarmerCustomerAuthPage() {
       password: "",
       confirmPassword: "",
       userType: "customer",
-      photoDataUri: undefined,
+      passkeyCredentialId: undefined,
     },
   });
 
@@ -742,78 +704,110 @@ export default function EnhancedFarmerCustomerAuthPage() {
     }
   }
 
-  const handleFaceLogin = async () => {
-    if (!videoRef.current) return;
-    setLoading(true);
-    setAnalyzingLogin(true);
+  const handlePasskeyLogin = async () => {
+    if (!passkeyLoginStatus?.supported) {
+      toast({
+        variant: "destructive",
+        title: "Passkey Not Supported",
+        description: "Your device doesn't support passkey authentication.",
+      });
+      return;
+    }
 
-    const canvas = document.createElement("canvas");
-    canvas.width = videoRef.current.videoWidth;
-    canvas.height = videoRef.current.videoHeight;
-    const context = canvas.getContext("2d");
-    context?.drawImage(videoRef.current, 0, 0, canvas.width, canvas.height);
-    const photoDataUri = canvas.toDataURL("image/jpeg");
+    setLoading(true);
+    setAuthenticatingPasskey(true);
+    setPasskeyLoginStatus((prev) =>
+      prev ? { ...prev, status: "authenticating" } : null
+    );
 
     try {
-      // First analyze the face quality
-      const analysis = await enhancedDetectFace({
-        photoDataUri,
-        purpose: "authentication",
-      });
+      // Generate a challenge for passkey authentication
+      const challenge = new Uint8Array(32);
+      crypto.getRandomValues(challenge);
 
-      setFaceLoginAnalysis({
-        quality: analysis.quality,
-        positioning: analysis.positioning,
-        lighting: analysis.lighting,
-        clarity: analysis.clarity,
-        suitableForAuth: analysis.suitableForAuth,
-        feedback: analysis.feedback,
-        confidence: analysis.confidence,
-      });
+      const credential = (await navigator.credentials.get({
+        publicKey: {
+          challenge,
+          rpId: window.location.hostname,
+          userVerification: "required",
+          timeout: 60000,
+        },
+      })) as PublicKeyCredential;
 
-      if (!analysis.faceDetected) {
-        throw new Error(
-          "No face detected. Please ensure your face is clearly visible."
-        );
+      if (!credential) {
+        throw new Error("No passkey credential found");
       }
 
-      if (!analysis.suitableForAuth) {
-        throw new Error(`Photo quality insufficient: ${analysis.feedback}`);
-      }
-
-      // Proceed with face login
-      const response = await fetch("/api/enhanced-face-login", {
+      // Send credential to server for verification
+      const response = await fetch("/api/passkey-login", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
-          photoDataUri,
+          credentialId: Array.from(new Uint8Array(credential.rawId))
+            .map((b) => b.toString(16).padStart(2, "0"))
+            .join(""),
           userType: "farmer",
-          analysis: analysis,
+          authenticatorData: Array.from(
+            new Uint8Array(
+              (
+                credential.response as AuthenticatorAssertionResponse
+              ).authenticatorData
+            )
+          ),
+          signature: Array.from(
+            new Uint8Array(
+              (credential.response as AuthenticatorAssertionResponse).signature
+            )
+          ),
+          clientDataJSON: Array.from(
+            new Uint8Array(credential.response.clientDataJSON)
+          ),
         }),
       });
 
       if (!response.ok) {
         const errorData = await response.json();
-        throw new Error(errorData.message || "Face login failed.");
+        throw new Error(errorData.message || "Passkey authentication failed.");
       }
 
       const { token, user } = await response.json();
       await signInWithCustomToken(auth, token);
 
+      setPasskeyLoginStatus((prev) =>
+        prev
+          ? {
+              ...prev,
+              feedback: "Authentication successful!",
+              status: "success",
+            }
+          : null
+      );
+
       toast({
-        title: "Face Login Successful",
+        title: "Passkey Login Successful",
         description: `Welcome back, ${user.username}!`,
       });
       router.push("/dashboard");
     } catch (error: any) {
+      setPasskeyLoginStatus((prev) =>
+        prev
+          ? {
+              ...prev,
+              feedback:
+                error.message || "Authentication failed. Please try again.",
+              status: "error",
+            }
+          : null
+      );
+
       toast({
         variant: "destructive",
-        title: "Face Login Failed",
-        description: error.message,
+        title: "Passkey Login Failed",
+        description: error.message || "Unable to authenticate with passkey.",
       });
     } finally {
       setLoading(false);
-      setAnalyzingLogin(false);
+      setAuthenticatingPasskey(false);
     }
   };
 
@@ -902,9 +896,12 @@ export default function EnhancedFarmerCustomerAuthPage() {
             >
               <TabsList className="grid w-full grid-cols-2">
                 <TabsTrigger value="email">{t.auth.emailPassword}</TabsTrigger>
-                <TabsTrigger value="face" className="flex items-center gap-1">
-                  <Zap className="h-3 w-3" />
-                  Smart Face Login
+                <TabsTrigger
+                  value="passkey"
+                  className="flex items-center gap-1"
+                >
+                  <Fingerprint className="h-3 w-3" />
+                  Passkey Login
                 </TabsTrigger>
               </TabsList>
               <TabsContent value="email" className="pt-4">
@@ -982,60 +979,42 @@ export default function EnhancedFarmerCustomerAuthPage() {
                   </form>
                 </Form>
               </TabsContent>
-              <TabsContent value="face" className="pt-4 space-y-4">
-                <div className="relative aspect-video w-full overflow-hidden rounded-lg border bg-muted">
-                  <video
-                    ref={videoRef}
-                    className="w-full h-full object-cover"
-                    autoPlay
-                    muted
-                    playsInline
-                  />
-                  {hasCameraPermission === false && (
-                    <div className="absolute inset-0 flex flex-col items-center justify-center bg-black/60 text-white p-4">
-                      <Camera className="h-10 w-10 mb-2" />
-                      <p className="text-center font-semibold">
-                        Camera access denied.
-                      </p>
-                      <p className="text-center text-sm">
-                        Please enable camera permissions in your browser
-                        settings.
-                      </p>
-                    </div>
-                  )}
-                  {isCameraActive && (
-                    <div className="absolute top-2 right-2">
-                      <Badge
-                        variant="secondary"
-                        className="bg-green-100 text-green-800"
-                      >
-                        <div className="w-2 h-2 bg-green-500 rounded-full mr-1 animate-pulse" />
-                        Live
-                      </Badge>
-                    </div>
-                  )}
-                  {analyzingLogin && (
-                    <div className="absolute inset-0 flex items-center justify-center bg-black/50">
-                      <div className="text-white text-center">
-                        <Loader2 className="h-8 w-8 animate-spin mx-auto mb-2" />
-                        <p>Analyzing face...</p>
-                      </div>
-                    </div>
-                  )}
+              <TabsContent value="passkey" className="pt-4 space-y-4">
+                <div className="text-center space-y-4">
+                  <div className="flex items-center justify-center w-20 h-20 mx-auto bg-primary/10 rounded-full">
+                    <Fingerprint className="h-10 w-10 text-primary" />
+                  </div>
+                  <div>
+                    <h3 className="font-semibold text-lg">
+                      Passkey Authentication
+                    </h3>
+                    <p className="text-sm text-muted-foreground">
+                      Use your device's biometric sensors for secure login
+                    </p>
+                  </div>
                 </div>
 
-                {faceLoginAnalysis && (
-                  <FaceAnalysisDisplay analysis={faceLoginAnalysis} />
+                {passkeyLoginStatus && (
+                  <PasskeyStatusDisplay status={passkeyLoginStatus} />
+                )}
+
+                {authenticatingPasskey && (
+                  <div className="text-center py-4">
+                    <Loader2 className="h-8 w-8 animate-spin mx-auto mb-2" />
+                    <p className="text-sm text-muted-foreground">
+                      Authenticating with passkey...
+                    </p>
+                  </div>
                 )}
 
                 <Button
-                  onClick={handleFaceLogin}
+                  onClick={handlePasskeyLogin}
                   className="w-full"
-                  disabled={loading || hasCameraPermission !== true}
+                  disabled={loading || !passkeyLoginStatus?.supported}
                 >
                   {loading && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
-                  <Scan className="mr-2 h-4 w-4" />
-                  Smart Face Login
+                  <Fingerprint className="mr-2 h-4 w-4" />
+                  Authenticate with Passkey
                 </Button>
               </TabsContent>
             </Tabs>
@@ -1045,11 +1024,6 @@ export default function EnhancedFarmerCustomerAuthPage() {
               onRegisterSubmit={onRegister}
               loading={loading}
               form={registerForm}
-              videoRef={videoRef}
-              hasCameraPermission={hasCameraPermission}
-              isCameraActive={isCameraActive}
-              startCamera={startCamera}
-              stopCamera={stopCamera}
             />
           </TabsContent>
         </Tabs>

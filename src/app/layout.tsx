@@ -1,22 +1,22 @@
-
 import type { Metadata } from "next";
 import "./globals.css";
 import "./background.css";
 import { AuthProvider } from "@/hooks/use-auth";
 import { Toaster } from "@/components/ui/toaster";
 import { LanguageProvider } from "@/context/language-context";
-import { PT_Sans } from 'next/font/google'
+import { PT_Sans } from "next/font/google";
 
 const ptSans = PT_Sans({
-  subsets: ['latin'],
-  weight: ['400', '700'],
-  variable: '--font-pt-sans',
-})
-
+  subsets: ["latin"],
+  weight: ["400", "700"],
+  variable: "--font-pt-sans",
+});
 
 export const metadata: Metadata = {
   title: "Manvaasam",
   description: "Empowering Farmers, Delivering Freshness.",
+  viewport:
+    "width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no",
   icons: {
     icon: "/bg-agri.png",
     shortcut: "/bg-agri.png",
