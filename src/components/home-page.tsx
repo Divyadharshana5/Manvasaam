@@ -70,8 +70,17 @@ export default function HomePage() {
   const [audioUrl, setAudioUrl] = useState("");
   const audioRef = useRef<HTMLAudioElement | null>(null);
 
+  // Progressive loading state for better performance
+  const [isContentLoaded, setIsContentLoaded] = useState(false);
+
   // Memoize expensive calculations for better performance
   const taglineWords = useMemo(() => t.tagline.split(" "), [t.tagline]);
+
+  // Check for reduced motion preference for better performance
+  const prefersReducedMotion = useMemo(() => {
+    if (typeof window === "undefined") return false;
+    return window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  }, []);
 
   const userRoles = useMemo(
     () => [
@@ -294,24 +303,31 @@ export default function HomePage() {
 
   const buttonState = getButtonState();
 
-  const sentence = {
-    hidden: { opacity: 1 },
-    visible: {
-      opacity: 1,
-      transition: {
-        delay: 0.2,
-        staggerChildren: 0.08,
+  // Optimized animation variants with reduced motion support
+  const sentence = useMemo(
+    () => ({
+      hidden: { opacity: 1 },
+      visible: {
+        opacity: 1,
+        transition: prefersReducedMotion
+          ? { duration: 0.1 }
+          : { delay: 0.2, staggerChildren: 0.08 },
       },
-    },
-  };
+    }),
+    [prefersReducedMotion]
+  );
 
-  const letter = {
-    hidden: { opacity: 0, y: 50 },
-    visible: {
-      opacity: 1,
-      y: 0,
-    },
-  };
+  const letter = useMemo(
+    () => ({
+      hidden: { opacity: 0, y: prefersReducedMotion ? 0 : 50 },
+      visible: {
+        opacity: 1,
+        y: 0,
+        transition: prefersReducedMotion ? { duration: 0.1 } : undefined,
+      },
+    }),
+    [prefersReducedMotion]
+  );
 
   return (
     <LazyMotion features={domAnimation}>
@@ -333,7 +349,7 @@ export default function HomePage() {
           <div className="flex items-center gap-2 sm:gap-4">
             <Dialog open={isAssistantOpen} onOpenChange={setIsAssistantOpen}>
               <DialogTrigger asChild>
-                <motion.div whileHover={{ scale: 1.1 }}>
+                <m.div whileHover={{ scale: 1.1 }}>
                   <Button
                     variant="ghost"
                     size="sm"
@@ -345,7 +361,7 @@ export default function HomePage() {
                     </span>
                     <span className="sm:hidden">Voice</span>
                   </Button>
-                </motion.div>
+                </m.div>
               </DialogTrigger>
               <DialogContent className="sm:max-w-md w-[90vw] rounded-lg">
                 <DialogHeader className="text-center pt-4">
