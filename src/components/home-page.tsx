@@ -183,11 +183,11 @@ export default function HomePage() {
           language: selectedLanguage,
         });
 
-        if (navResult.shouldNavigate && navResult.page) {
+        if (navResult.shouldNavigate && navResult.pageKey) {
           // Direct navigation with informative response
           await speak(navResult.message);
           setTimeout(() => {
-            router.push(navResult.page!);
+            router.push(navResult.pageKey!);
             setIsAssistantOpen(false);
           }, 2500); // Give time for the response to be heard
         } else {
@@ -545,29 +545,57 @@ export default function HomePage() {
         </section>
       </main>
       <motion.footer
-        className="w-full bg-background/80 backdrop-blur-sm border-t border-primary/20 mt-16 sm:mt-20 z-10"
+        className="relative w-full bg-gradient-to-br from-primary/5 via-background/95 to-primary/10 backdrop-blur-md border-t-2 border-primary/30 mt-16 sm:mt-20 z-10 overflow-hidden"
         initial={{ opacity: 0, y: 50 }}
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true }}
         transition={{ duration: 0.6, delay: 0.2, ease: "easeOut" }}
       >
-        <div className="max-w-6xl mx-auto px-4 sm:px-6 py-8 sm:py-12">
-          <div className="grid grid-cols-1 md:grid-cols-4 gap-6 sm:gap-8">
-            {/* Company Info */}
-            <div className="md:col-span-2 space-y-4">
-              <div className="flex items-center gap-2">
-                <ManvaasamLogo width={32} height={32} />
-                <span className="text-xl font-bold text-primary">
-                  Manvaasam
-                </span>
+        {/* Decorative Background Elements */}
+        <div className="absolute inset-0 opacity-5">
+          <div className="absolute top-0 left-0 w-32 h-32 bg-primary rounded-full -translate-x-16 -translate-y-16"></div>
+          <div className="absolute bottom-0 right-0 w-24 h-24 bg-primary rounded-full translate-x-12 translate-y-12"></div>
+          <div className="absolute top-1/2 left-1/4 w-16 h-16 bg-primary/50 rounded-full"></div>
+        </div>
+        <div className="relative max-w-7xl mx-auto px-4 sm:px-6 py-12 sm:py-16">
+          {/* Main Footer Content */}
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12">
+            {/* Company Info - Takes more space */}
+            <div className="lg:col-span-5 space-y-6">
+              <motion.div
+                className="flex items-center gap-3"
+                whileHover={{ scale: 1.02 }}
+                transition={{ duration: 0.2 }}
+              >
+                <div className="relative">
+                  <div className="absolute inset-0 bg-primary/20 rounded-full blur-md"></div>
+                  <div className="relative bg-white/90 p-2 rounded-full shadow-lg">
+                    <ManvaasamLogo width={40} height={40} />
+                  </div>
+                </div>
+                <div>
+                  <span className="text-2xl font-bold bg-gradient-to-r from-primary to-green-600 bg-clip-text text-transparent">
+                    Manvaasam
+                  </span>
+                  <p className="text-xs text-muted-foreground font-medium">
+                    Agricultural Excellence
+                  </p>
+                </div>
+              </motion.div>
+
+              <div className="space-y-3">
+                <p className="text-base text-foreground/90 leading-relaxed font-medium">
+                  {t.tagline}
+                </p>
+                <p className="text-sm text-muted-foreground leading-relaxed">
+                  🌾 Connecting farmers directly with customers, restaurants,
+                  and distribution hubs for fresh, quality produce.
+                </p>
+                <div className="flex items-center gap-2 text-sm text-primary font-medium">
+                  <span className="w-2 h-2 bg-primary rounded-full animate-pulse"></span>
+                  Empowering Agriculture Through Technology
+                </div>
               </div>
-              <p className="text-sm text-muted-foreground leading-relaxed max-w-md">
-                {t.tagline}
-              </p>
-              <p className="text-xs text-muted-foreground">
-                Connecting farmers directly with customers, restaurants, and
-                distribution hubs for fresh, quality produce.
-              </p>
             </div>
 
             {/* Quick Links */}
