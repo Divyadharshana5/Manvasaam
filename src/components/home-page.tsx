@@ -598,72 +598,233 @@ export default function HomePage() {
               </div>
             </div>
 
-            {/* Quick Links */}
-            <div className="space-y-4">
-              <h3 className="font-semibold text-foreground">Quick Links</h3>
-              <div className="space-y-2 text-sm">
-                <Link
-                  href="/login/farmer-customer"
-                  className="block text-muted-foreground hover:text-primary transition-colors"
+            {/* Quick Access */}
+            <div className="lg:col-span-3 space-y-6">
+              <div>
+                <h3 className="text-lg font-bold text-foreground mb-1 flex items-center gap-2">
+                  <span className="w-1 h-6 bg-gradient-to-b from-primary to-green-600 rounded-full"></span>
+                  Quick Access
+                </h3>
+                <p className="text-xs text-muted-foreground mb-4">
+                  Access your account
+                </p>
+              </div>
+              <div className="grid grid-cols-2 lg:grid-cols-1 gap-3">
+                <motion.div
+                  whileHover={{ x: 4 }}
+                  transition={{ duration: 0.2 }}
                 >
-                  Farmer Login
-                </Link>
-                <Link
-                  href="/login/farmer-customer"
-                  className="block text-muted-foreground hover:text-primary transition-colors"
+                  <Link
+                    href="/login/farmer-customer"
+                    className="flex items-center gap-3 p-3 rounded-lg bg-white/50 hover:bg-primary/10 border border-primary/20 hover:border-primary/40 transition-all duration-200 group"
+                  >
+                    <span className="text-lg">🌾</span>
+                    <div>
+                      <span className="text-sm font-medium text-foreground group-hover:text-primary">
+                        Farmer Login
+                      </span>
+                      <p className="text-xs text-muted-foreground">
+                        Manage crops
+                      </p>
+                    </div>
+                  </Link>
+                </motion.div>
+                <motion.div
+                  whileHover={{ x: 4 }}
+                  transition={{ duration: 0.2 }}
                 >
-                  Customer Login
-                </Link>
-                <Link
-                  href="/login/hub"
-                  className="block text-muted-foreground hover:text-primary transition-colors"
+                  <Link
+                    href="/login/farmer-customer"
+                    className="flex items-center gap-3 p-3 rounded-lg bg-white/50 hover:bg-primary/10 border border-primary/20 hover:border-primary/40 transition-all duration-200 group"
+                  >
+                    <span className="text-lg">🛒</span>
+                    <div>
+                      <span className="text-sm font-medium text-foreground group-hover:text-primary">
+                        Customer Login
+                      </span>
+                      <p className="text-xs text-muted-foreground">
+                        Fresh produce
+                      </p>
+                    </div>
+                  </Link>
+                </motion.div>
+                <motion.div
+                  whileHover={{ x: 4 }}
+                  transition={{ duration: 0.2 }}
                 >
-                  Hub Login
-                </Link>
-                <Link
-                  href="/login/restaurant"
-                  className="block text-muted-foreground hover:text-primary transition-colors"
+                  <Link
+                    href="/login/hub"
+                    className="flex items-center gap-3 p-3 rounded-lg bg-white/50 hover:bg-primary/10 border border-primary/20 hover:border-primary/40 transition-all duration-200 group"
+                  >
+                    <span className="text-lg">🏢</span>
+                    <div>
+                      <span className="text-sm font-medium text-foreground group-hover:text-primary">
+                        Hub Login
+                      </span>
+                      <p className="text-xs text-muted-foreground">
+                        Distribution
+                      </p>
+                    </div>
+                  </Link>
+                </motion.div>
+                <motion.div
+                  whileHover={{ x: 4 }}
+                  transition={{ duration: 0.2 }}
                 >
-                  Restaurant Login
-                </Link>
+                  <Link
+                    href="/login/restaurant"
+                    className="flex items-center gap-3 p-3 rounded-lg bg-white/50 hover:bg-primary/10 border border-primary/20 hover:border-primary/40 transition-all duration-200 group"
+                  >
+                    <span className="text-lg">🍽️</span>
+                    <div>
+                      <span className="text-sm font-medium text-foreground group-hover:text-primary">
+                        Restaurant
+                      </span>
+                      <p className="text-xs text-muted-foreground">
+                        Bulk orders
+                      </p>
+                    </div>
+                  </Link>
+                </motion.div>
               </div>
             </div>
 
-            {/* Contact Info */}
-            <div className="space-y-4">
-              <h3 className="font-semibold text-foreground">Contact</h3>
-              <div className="space-y-2 text-sm text-muted-foreground">
-                <p>Email: support@manvaasam.com</p>
-                <p>Phone: +91 9876543210</p>
-                <p>Address: Agricultural Hub, India</p>
+            {/* Contact & Support */}
+            <div className="lg:col-span-4 space-y-6">
+              <div>
+                <h3 className="text-lg font-bold text-foreground mb-1 flex items-center gap-2">
+                  <span className="w-1 h-6 bg-gradient-to-b from-primary to-green-600 rounded-full"></span>
+                  Get in Touch
+                </h3>
+                <p className="text-xs text-muted-foreground mb-4">
+                  We're here to help
+                </p>
+              </div>
+
+              <div className="space-y-4">
+                <motion.div
+                  className="flex items-center gap-4 p-4 rounded-lg bg-white/30 border border-primary/20"
+                  whileHover={{ scale: 1.02 }}
+                  transition={{ duration: 0.2 }}
+                >
+                  <div className="w-10 h-10 bg-primary/10 rounded-full flex items-center justify-center">
+                    <span className="text-lg">📧</span>
+                  </div>
+                  <div>
+                    <p className="text-sm font-medium text-foreground">
+                      Email Support
+                    </p>
+                    <p className="text-xs text-primary font-medium">
+                      support@manvaasam.com
+                    </p>
+                  </div>
+                </motion.div>
+
+                <motion.div
+                  className="flex items-center gap-4 p-4 rounded-lg bg-white/30 border border-primary/20"
+                  whileHover={{ scale: 1.02 }}
+                  transition={{ duration: 0.2 }}
+                >
+                  <div className="w-10 h-10 bg-primary/10 rounded-full flex items-center justify-center">
+                    <span className="text-lg">📞</span>
+                  </div>
+                  <div>
+                    <p className="text-sm font-medium text-foreground">
+                      Phone Support
+                    </p>
+                    <p className="text-xs text-primary font-medium">
+                      +91 9876543210
+                    </p>
+                  </div>
+                </motion.div>
+
+                <motion.div
+                  className="flex items-center gap-4 p-4 rounded-lg bg-white/30 border border-primary/20"
+                  whileHover={{ scale: 1.02 }}
+                  transition={{ duration: 0.2 }}
+                >
+                  <div className="w-10 h-10 bg-primary/10 rounded-full flex items-center justify-center">
+                    <span className="text-lg">📍</span>
+                  </div>
+                  <div>
+                    <p className="text-sm font-medium text-foreground">
+                      Location
+                    </p>
+                    <p className="text-xs text-muted-foreground">
+                      Agricultural Hub, India
+                    </p>
+                  </div>
+                </motion.div>
               </div>
             </div>
           </div>
 
-          {/* Bottom Bar */}
-          <div className="border-t border-primary/10 mt-8 pt-6 flex flex-col sm:flex-row justify-between items-center gap-4">
-            <p className="text-xs sm:text-sm text-muted-foreground text-center sm:text-left">
-              © {new Date().getFullYear()} Manvaasam. {t.footer}
-            </p>
-            <div className="flex items-center gap-4 text-xs text-muted-foreground">
-              <Link
-                href="/privacy"
-                className="hover:text-primary transition-colors"
-              >
-                Privacy Policy
-              </Link>
-              <Link
-                href="/terms"
-                className="hover:text-primary transition-colors"
-              >
-                Terms of Service
-              </Link>
-              <Link
-                href="/support"
-                className="hover:text-primary transition-colors"
-              >
-                Support
-              </Link>
+          {/* Decorative Divider */}
+          <div className="relative mt-12 mb-8">
+            <div className="absolute inset-0 flex items-center">
+              <div className="w-full border-t-2 border-gradient-to-r from-transparent via-primary/30 to-transparent"></div>
+            </div>
+            <div className="relative flex justify-center">
+              <div className="bg-background px-4">
+                <div className="w-8 h-1 bg-gradient-to-r from-primary to-green-600 rounded-full"></div>
+              </div>
+            </div>
+          </div>
+
+          {/* Enhanced Bottom Bar */}
+          <div className="bg-gradient-to-r from-primary/5 via-transparent to-primary/5 rounded-2xl p-6 border border-primary/20">
+            <div className="flex flex-col lg:flex-row justify-between items-center gap-6">
+              {/* Copyright Section */}
+              <div className="text-center lg:text-left">
+                <div className="flex items-center justify-center lg:justify-start gap-2 mb-2">
+                  <span className="w-2 h-2 bg-primary rounded-full animate-pulse"></span>
+                  <p className="text-sm font-bold text-foreground">
+                    © {new Date().getFullYear()} Manvaasam
+                  </p>
+                  <span className="w-2 h-2 bg-primary rounded-full animate-pulse"></span>
+                </div>
+                <p className="text-xs text-muted-foreground">
+                  {t.footer} • Empowering Agriculture Through Innovation
+                </p>
+              </div>
+
+              {/* Legal Links */}
+              <div className="flex items-center gap-6">
+                <motion.div whileHover={{ scale: 1.05 }}>
+                  <Link
+                    href="/privacy"
+                    className="text-sm text-muted-foreground hover:text-primary transition-all duration-200 hover:underline decoration-primary/50 underline-offset-4"
+                  >
+                    Privacy Policy
+                  </Link>
+                </motion.div>
+                <div className="w-1 h-4 bg-primary/20 rounded-full"></div>
+                <motion.div whileHover={{ scale: 1.05 }}>
+                  <Link
+                    href="/terms"
+                    className="text-sm text-muted-foreground hover:text-primary transition-all duration-200 hover:underline decoration-primary/50 underline-offset-4"
+                  >
+                    Terms of Service
+                  </Link>
+                </motion.div>
+                <div className="w-1 h-4 bg-primary/20 rounded-full"></div>
+                <motion.div whileHover={{ scale: 1.05 }}>
+                  <Link
+                    href="/support"
+                    className="text-sm text-muted-foreground hover:text-primary transition-all duration-200 hover:underline decoration-primary/50 underline-offset-4"
+                  >
+                    Support
+                  </Link>
+                </motion.div>
+              </div>
+            </div>
+
+            {/* Additional Footer Info */}
+            <div className="mt-4 pt-4 border-t border-primary/10 text-center">
+              <p className="text-xs text-muted-foreground">
+                🌱 Building sustainable agriculture for a better tomorrow • Made
+                with ❤️ in India
+              </p>
             </div>
           </div>
         </div>
