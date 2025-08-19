@@ -48,11 +48,9 @@ const registerSchema = z
       .refine((email) => email.endsWith("@gmail.com"), {
         message: "Email must be a @gmail.com address.",
       }),
-    phone: z
-      .string()
-      .regex(/^\d{10}$/, {
-        message: "Phone number must be exactly 10 digits.",
-      }),
+    phone: z.string().regex(/^\d{10}$/, {
+      message: "Phone number must be exactly 10 digits.",
+    }),
     location: z.string().min(3, { message: "Location is required." }),
     password: z
       .string()
@@ -255,7 +253,7 @@ export default function RestaurantAuthPage() {
                       <FormLabel>{t.auth.emailLabel}</FormLabel>
                       <FormControl>
                         <Input
-                          placeholder="contact@thefreshtable.com"
+                          placeholder="slytherinpls8@gmail.com"
                           {...field}
                         />
                       </FormControl>
@@ -345,7 +343,7 @@ export default function RestaurantAuthPage() {
                       <FormControl>
                         <Input
                           type="email"
-                          placeholder="contact@thefreshtable.com"
+                          placeholder="slytherinpls8@gmail.com"
                           {...field}
                         />
                       </FormControl>
