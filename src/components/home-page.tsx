@@ -635,23 +635,27 @@ export default function HomePage() {
 
               {/* Right: Contact Info */}
               <div className="flex items-center gap-4 text-xs text-muted-foreground">
-                <motion.div
-                  className="flex items-center gap-1.5 hover:text-primary transition-colors cursor-pointer"
-                  whileHover={{ scale: 1.05 }}
-                >
-                  <span className="text-sm">📧</span>
-                  <span className="hidden sm:inline">
-                    slytherinpls8@gmail.com
-                  </span>
-                  <span className="sm:hidden">Email</span>
+                <motion.div whileHover={{ scale: 1.05 }}>
+                  <a
+                    href="mailto:slytherinpls8@gmail.com?subject=Inquiry%20from%20Manvaasam%20Website&body=Hello%20Manvaasam%20Team,%0A%0AI%20am%20interested%20in%20learning%20more%20about%20your%20agricultural%20platform.%0A%0AThank%20you!"
+                    className="flex items-center gap-1.5 hover:text-primary transition-colors cursor-pointer"
+                  >
+                    <span className="text-sm">📧</span>
+                    <span className="hidden sm:inline">
+                      slytherinpls8@gmail.com
+                    </span>
+                    <span className="sm:hidden">Email</span>
+                  </a>
                 </motion.div>
-                <motion.div
-                  className="flex items-center gap-1.5 hover:text-primary transition-colors cursor-pointer"
-                  whileHover={{ scale: 1.05 }}
-                >
-                  <span className="text-sm">📞</span>
-                  <span className="hidden sm:inline">+91 9876543210</span>
-                  <span className="sm:hidden">Call</span>
+                <motion.div whileHover={{ scale: 1.05 }}>
+                  <a
+                    href="tel:+919876543210"
+                    className="flex items-center gap-1.5 hover:text-primary transition-colors cursor-pointer"
+                  >
+                    <span className="text-sm">📞</span>
+                    <span className="hidden sm:inline">+91 9876543210</span>
+                    <span className="sm:hidden">Call</span>
+                  </a>
                 </motion.div>
               </div>
             </div>
