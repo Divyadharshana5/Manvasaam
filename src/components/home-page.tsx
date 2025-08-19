@@ -545,34 +545,101 @@ export default function HomePage() {
         </section>
       </main>
       <motion.footer
-        className="relative w-full bg-gradient-to-r from-primary/5 via-background/95 to-primary/5 backdrop-blur-sm border-t border-primary/20 mt-16 sm:mt-20 z-10"
-        initial={{ opacity: 0, y: 30 }}
+        className="relative w-full bg-gradient-to-r from-primary/10 via-white/95 to-primary/10 backdrop-blur-md border-t-2 border-primary/30 shadow-lg mt-12 sm:mt-16 z-10"
+        initial={{ opacity: 0, y: 20 }}
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true }}
-        transition={{ duration: 0.5, ease: "easeOut" }}
+        transition={{ duration: 0.4, ease: "easeOut" }}
       >
-        <div className="max-w-4xl mx-auto px-4 sm:px-6 py-8 sm:py-10">
-          {/* Centered Compact Footer */}
-          <div className="text-center space-y-6">
-            {/* Company Branding */}
-            <motion.div
-              className="flex items-center justify-center gap-3"
-              whileHover={{ scale: 1.02 }}
-              transition={{ duration: 0.2 }}
-            >
-              <div className="relative">
-                <ManvaasamLogo width={32} height={32} />
-              </div>
-              <span className="text-xl font-bold bg-gradient-to-r from-primary to-green-600 bg-clip-text text-transparent">
-                Manvaasam
-              </span>
-            </motion.div>
+        {/* Decorative top border */}
+        <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-primary via-green-500 to-primary"></div>
 
-            {/* Tagline */}
-            <p className="text-sm text-muted-foreground max-w-md mx-auto">
-              🌾 Connecting farmers directly with customers, restaurants, and
-              distribution hubs for fresh, quality produce.
-            </p>
+        <div className="max-w-6xl mx-auto px-4 sm:px-6 py-4 sm:py-5">
+          {/* Ultra Compact Footer */}
+          <div className="space-y-4">
+            {/* Main Footer Content - Single Row Layout */}
+            <div className="flex flex-col lg:flex-row items-center justify-between gap-4 lg:gap-8">
+
+              {/* Left: Company Branding */}
+              <motion.div
+                className="flex items-center gap-3"
+                whileHover={{ scale: 1.02 }}
+                transition={{ duration: 0.2 }}
+              >
+                <div className="relative">
+                  <div className="absolute inset-0 bg-primary/20 rounded-full blur-sm"></div>
+                  <div className="relative bg-white p-1.5 rounded-full shadow-md">
+                    <ManvaasamLogo width={28} height={28} />
+                  </div>
+                </div>
+                <div>
+                  <span className="text-lg font-bold bg-gradient-to-r from-primary to-green-600 bg-clip-text text-transparent">
+                    Manvaasam
+                  </span>
+                  <p className="text-xs text-muted-foreground">Agricultural Excellence</p>
+                </div>
+              </motion.div>
+
+              {/* Center: Quick Access Links */}
+              <div className="flex items-center gap-3 lg:gap-4">
+                <motion.div whileHover={{ scale: 1.1, y: -2 }} transition={{ duration: 0.2 }}>
+                  <Link
+                    href="/login/farmer-customer"
+                    className="flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-gradient-to-r from-green-50 to-primary/5 hover:from-primary/10 hover:to-green-100 border border-primary/20 hover:border-primary/40 transition-all duration-200 text-xs font-medium text-foreground hover:text-primary shadow-sm hover:shadow-md"
+                  >
+                    <span className="text-sm">🌾</span>
+                    <span>Farmer</span>
+                  </Link>
+                </motion.div>
+                <motion.div whileHover={{ scale: 1.1, y: -2 }} transition={{ duration: 0.2 }}>
+                  <Link
+                    href="/login/farmer-customer"
+                    className="flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-gradient-to-r from-blue-50 to-primary/5 hover:from-primary/10 hover:to-blue-100 border border-primary/20 hover:border-primary/40 transition-all duration-200 text-xs font-medium text-foreground hover:text-primary shadow-sm hover:shadow-md"
+                  >
+                    <span className="text-sm">🛒</span>
+                    <span>Customer</span>
+                  </Link>
+                </motion.div>
+                <motion.div whileHover={{ scale: 1.1, y: -2 }} transition={{ duration: 0.2 }}>
+                  <Link
+                    href="/login/hub"
+                    className="flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-gradient-to-r from-purple-50 to-primary/5 hover:from-primary/10 hover:to-purple-100 border border-primary/20 hover:border-primary/40 transition-all duration-200 text-xs font-medium text-foreground hover:text-primary shadow-sm hover:shadow-md"
+                  >
+                    <span className="text-sm">🏢</span>
+                    <span>Hub</span>
+                  </Link>
+                </motion.div>
+                <motion.div whileHover={{ scale: 1.1, y: -2 }} transition={{ duration: 0.2 }}>
+                  <Link
+                    href="/login/restaurant"
+                    className="flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-gradient-to-r from-orange-50 to-primary/5 hover:from-primary/10 hover:to-orange-100 border border-primary/20 hover:border-primary/40 transition-all duration-200 text-xs font-medium text-foreground hover:text-primary shadow-sm hover:shadow-md"
+                  >
+                    <span className="text-sm">🍽️</span>
+                    <span>Restaurant</span>
+                  </Link>
+                </motion.div>
+              </div>
+
+              {/* Right: Contact Info */}
+              <div className="flex items-center gap-4 text-xs text-muted-foreground">
+                <motion.div
+                  className="flex items-center gap-1.5 hover:text-primary transition-colors cursor-pointer"
+                  whileHover={{ scale: 1.05 }}
+                >
+                  <span className="text-sm">📧</span>
+                  <span className="hidden sm:inline">support@manvaasam.com</span>
+                  <span className="sm:hidden">Email</span>
+                </motion.div>
+                <motion.div
+                  className="flex items-center gap-1.5 hover:text-primary transition-colors cursor-pointer"
+                  whileHover={{ scale: 1.05 }}
+                >
+                  <span className="text-sm">📞</span>
+                  <span className="hidden sm:inline">+91 9876543210</span>
+                  <span className="sm:hidden">Call</span>
+                </motion.div>
+              </div>
+            </div>
 
             {/* Quick Links */}
             <div className="flex flex-wrap justify-center gap-4 sm:gap-6">
