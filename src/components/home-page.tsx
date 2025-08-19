@@ -634,53 +634,19 @@ export default function HomePage() {
               </div>
 
               {/* Right: Contact Info */}
-              <div className="flex items-center gap-4 text-xs text-muted-foreground">
-                <motion.div
-                  whileHover={{
-                    scale: 1.1,
-                    y: -2,
-                    transition: { duration: 0.2 },
-                  }}
-                  whileTap={{
-                    scale: 0.95,
-                    transition: { duration: 0.1 },
-                  }}
-                >
-                  <a
-                    href="mailto:slytherinpls8@gmail.com?subject=Contact%20Manvaasam%20-%20Agricultural%20Platform%20Inquiry&body=Dear%20Manvaasam%20Team,%0A%0AI%20hope%20this%20email%20finds%20you%20well.%20I%20am%20reaching%20out%20to%20inquire%20about%20your%20agricultural%20platform%20and%20would%20like%20to%20learn%20more%20about:%0A%0A%E2%9C%85%20How%20to%20get%20started%20as%20a%20farmer/customer%0A%E2%9C%85%20Platform%20features%20and%20benefits%0A%E2%9C%85%20Pricing%20and%20subscription%20options%0A%E2%9C%85%20Support%20and%20assistance%20available%0A%0APlease%20provide%20me%20with%20more%20information%20or%20schedule%20a%20call%20at%20your%20convenience.%0A%0AThank%20you%20for%20your%20time%20and%20I%20look%20forward%20to%20hearing%20from%20you%20soon.%0A%0ABest%20regards,%0A[Your%20Name]%0A[Your%20Contact%20Information]"
-                    className="flex items-center gap-1.5 px-3 py-2 rounded-lg bg-white/60 hover:bg-primary/10 border border-primary/20 hover:border-primary/40 hover:text-primary transition-all duration-200 hover:shadow-md"
-                    title="Send email to Manvaasam Support"
-                  >
-                    <span className="text-lg">📧</span>
-                    <span className="hidden sm:inline font-medium">
-                      slytherinpls8@gmail.com
-                    </span>
-                    <span className="sm:hidden font-medium">Email Us</span>
-                  </a>
-                </motion.div>
-                <motion.div
-                  whileHover={{
-                    scale: 1.1,
-                    y: -2,
-                    transition: { duration: 0.2 },
-                  }}
-                  whileTap={{
-                    scale: 0.95,
-                    transition: { duration: 0.1 },
-                  }}
-                >
-                  <a
-                    href="tel:+919876543210"
-                    className="flex items-center gap-1.5 px-3 py-2 rounded-lg bg-white/60 hover:bg-green-100 border border-green-200 hover:border-green-400 hover:text-green-600 transition-all duration-200 hover:shadow-md"
-                    title="Call Manvaasam Support"
-                  >
-                    <span className="text-lg">📞</span>
-                    <span className="hidden sm:inline font-medium">
-                      +91 9876543210
-                    </span>
-                    <span className="sm:hidden font-medium">Call Us</span>
-                  </a>
-                </motion.div>
+              <div className="flex items-center gap-6 text-sm text-muted-foreground">
+                <div className="flex items-center gap-2">
+                  <span>📧</span>
+                  <span>slytherinpls8@gmail.com</span>
+                </div>
+                <div className="flex items-center gap-2">
+                  <span>📞</span>
+                  <span>+91 9876543210</span>
+                </div>
+                <div className="flex items-center gap-2">
+                  <span>�</span>
+                  <span>Agricultural Hub, India</span>
+                </div>
               </div>
             </div>
 
