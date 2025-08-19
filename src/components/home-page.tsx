@@ -545,58 +545,34 @@ export default function HomePage() {
         </section>
       </main>
       <motion.footer
-        className="relative w-full bg-gradient-to-br from-primary/5 via-background/95 to-primary/10 backdrop-blur-md border-t-2 border-primary/30 mt-16 sm:mt-20 z-10 overflow-hidden"
-        initial={{ opacity: 0, y: 50 }}
+        className="relative w-full bg-gradient-to-r from-primary/5 via-background/95 to-primary/5 backdrop-blur-sm border-t border-primary/20 mt-16 sm:mt-20 z-10"
+        initial={{ opacity: 0, y: 30 }}
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true }}
-        transition={{ duration: 0.6, delay: 0.2, ease: "easeOut" }}
+        transition={{ duration: 0.5, ease: "easeOut" }}
       >
-        {/* Decorative Background Elements */}
-        <div className="absolute inset-0 opacity-5">
-          <div className="absolute top-0 left-0 w-32 h-32 bg-primary rounded-full -translate-x-16 -translate-y-16"></div>
-          <div className="absolute bottom-0 right-0 w-24 h-24 bg-primary rounded-full translate-x-12 translate-y-12"></div>
-          <div className="absolute top-1/2 left-1/4 w-16 h-16 bg-primary/50 rounded-full"></div>
-        </div>
-        <div className="relative max-w-7xl mx-auto px-4 sm:px-6 py-12 sm:py-16">
-          {/* Main Footer Content */}
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12">
-            {/* Company Info - Takes more space */}
-            <div className="lg:col-span-5 space-y-6">
-              <motion.div
-                className="flex items-center gap-3"
-                whileHover={{ scale: 1.02 }}
-                transition={{ duration: 0.2 }}
-              >
-                <div className="relative">
-                  <div className="absolute inset-0 bg-primary/20 rounded-full blur-md"></div>
-                  <div className="relative bg-white/90 p-2 rounded-full shadow-lg">
-                    <ManvaasamLogo width={40} height={40} />
-                  </div>
-                </div>
-                <div>
-                  <span className="text-2xl font-bold bg-gradient-to-r from-primary to-green-600 bg-clip-text text-transparent">
-                    Manvaasam
-                  </span>
-                  <p className="text-xs text-muted-foreground font-medium">
-                    Agricultural Excellence
-                  </p>
-                </div>
-              </motion.div>
-
-              <div className="space-y-3">
-                <p className="text-base text-foreground/90 leading-relaxed font-medium">
-                  {t.tagline}
-                </p>
-                <p className="text-sm text-muted-foreground leading-relaxed">
-                  🌾 Connecting farmers directly with customers, restaurants,
-                  and distribution hubs for fresh, quality produce.
-                </p>
-                <div className="flex items-center gap-2 text-sm text-primary font-medium">
-                  <span className="w-2 h-2 bg-primary rounded-full animate-pulse"></span>
-                  Empowering Agriculture Through Technology
-                </div>
+        <div className="max-w-4xl mx-auto px-4 sm:px-6 py-8 sm:py-10">
+          {/* Centered Compact Footer */}
+          <div className="text-center space-y-6">
+            {/* Company Branding */}
+            <motion.div
+              className="flex items-center justify-center gap-3"
+              whileHover={{ scale: 1.02 }}
+              transition={{ duration: 0.2 }}
+            >
+              <div className="relative">
+                <ManvaasamLogo width={32} height={32} />
               </div>
-            </div>
+              <span className="text-xl font-bold bg-gradient-to-r from-primary to-green-600 bg-clip-text text-transparent">
+                Manvaasam
+              </span>
+            </motion.div>
+
+            {/* Tagline */}
+            <p className="text-sm text-muted-foreground max-w-md mx-auto">
+              🌾 Connecting farmers directly with customers, restaurants, and
+              distribution hubs for fresh, quality produce.
+            </p>
 
             {/* Quick Access */}
             <div className="lg:col-span-3 space-y-6">
