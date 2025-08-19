@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { motion } from "framer-motion";
-import { ArrowLeft, Shield, Lock, Users, Database } from "lucide-react";
+import { ArrowLeft, Shield, Lock, Users, Database, Mail } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 
@@ -50,42 +50,32 @@ export default function PrivacyPage() {
             <p className="text-xs text-gray-500">Updated: December 2024</p>
           </div>
 
-          {/* Quick Overview */}
-          <motion.div variants={fadeInUp}>
-            <Card className="border-primary/20 bg-primary/5">
-              <CardHeader>
-                <CardTitle className="flex items-center gap-2">
-                  <Eye className="h-5 w-5 text-primary" />
-                  Quick Overview
-                </CardTitle>
-              </CardHeader>
-              <CardContent>
-                <div className="grid md:grid-cols-3 gap-4">
-                  <div className="text-center p-4">
-                    <Lock className="h-8 w-8 text-primary mx-auto mb-2" />
-                    <h3 className="font-semibold">Data Protection</h3>
-                    <p className="text-sm text-gray-600">
-                      We use industry-standard encryption
-                    </p>
-                  </div>
-                  <div className="text-center p-4">
-                    <Users className="h-8 w-8 text-primary mx-auto mb-2" />
-                    <h3 className="font-semibold">No Sharing</h3>
-                    <p className="text-sm text-gray-600">
-                      We never sell your personal data
-                    </p>
-                  </div>
-                  <div className="text-center p-4">
-                    <Database className="h-8 w-8 text-primary mx-auto mb-2" />
-                    <h3 className="font-semibold">Your Control</h3>
-                    <p className="text-sm text-gray-600">
-                      You can delete your data anytime
-                    </p>
-                  </div>
+          {/* Key Points */}
+          <Card className="border-primary/20 bg-primary/5">
+            <CardContent className="p-4">
+              <div className="grid md:grid-cols-3 gap-4 text-center">
+                <div className="space-y-2">
+                  <Lock className="h-6 w-6 text-primary mx-auto" />
+                  <h3 className="font-medium text-sm">Secure</h3>
+                  <p className="text-xs text-gray-600">
+                    Industry-standard encryption
+                  </p>
                 </div>
-              </CardContent>
-            </Card>
-          </motion.div>
+                <div className="space-y-2">
+                  <Users className="h-6 w-6 text-primary mx-auto" />
+                  <h3 className="font-medium text-sm">Private</h3>
+                  <p className="text-xs text-gray-600">
+                    We never sell your data
+                  </p>
+                </div>
+                <div className="space-y-2">
+                  <Database className="h-6 w-6 text-primary mx-auto" />
+                  <h3 className="font-medium text-sm">Your Control</h3>
+                  <p className="text-xs text-gray-600">Delete data anytime</p>
+                </div>
+              </div>
+            </CardContent>
+          </Card>
 
           {/* Information We Collect */}
           <motion.div variants={fadeInUp}>
