@@ -267,12 +267,11 @@ function RegisterForm({
       const challenge = new Uint8Array(32);
       crypto.getRandomValues(challenge);
 
-      const email = form.getValues("email");
-      const username = form.getValues("username");
-
-      if (!email || !username) {
-        throw new Error("Please fill in email and username first");
-      }
+      // Generate a unique temporary ID for fingerprint registration
+      const tempUserId = `farmer_${Date.now()}_${Math.random()
+        .toString(36)
+        .substr(2, 9)}`;
+      const tempEmail = `${tempUserId}@temp.manvaasam.local`;
 
       const credential = (await navigator.credentials.create({
         publicKey: {
@@ -282,9 +281,9 @@ function RegisterForm({
             id: window.location.hostname,
           },
           user: {
-            id: new TextEncoder().encode(email),
-            name: email,
-            displayName: username,
+            id: new TextEncoder().encode(tempUserId),
+            name: tempEmail,
+            displayName: "Farmer User",
           },
           pubKeyCredParams: [{ alg: -7, type: "public-key" }],
           authenticatorSelection: {
@@ -309,7 +308,7 @@ function RegisterForm({
           registered: true,
           credentialId,
           feedback:
-            "Passkey registered successfully! You can now use biometric authentication.",
+            "Fingerprint registered successfully! You can now use fingerprint login.",
           status: "success",
         });
       }
@@ -321,7 +320,7 @@ function RegisterForm({
               ...prev,
               feedback:
                 error.message ||
-                "Failed to register passkey. Please try again.",
+                "Failed to register fingerprint. Please try again or skip this step.",
               status: "error",
             }
           : null
@@ -329,9 +328,10 @@ function RegisterForm({
 
       toast({
         variant: "destructive",
-        title: "Passkey Registration Failed",
+        title: "Fingerprint Setup Failed",
         description:
-          error.message || "Unable to register passkey. Please try again.",
+          error.message ||
+          "Unable to setup fingerprint. Please try again or skip this step.",
       });
     } finally {
       setIsRegisteringPasskey(false);
@@ -345,7 +345,7 @@ function RegisterForm({
             ...prev,
             registered: false,
             credentialId: undefined,
-            feedback: "Ready to register a new passkey",
+            feedback: "Ready to register your fingerprint",
             status: "ready",
           }
         : null
@@ -402,10 +402,10 @@ function RegisterForm({
             render={({ field }) => (
               <FormItem>
                 <FormLabel className="flex items-center gap-2">
-                  <Shield className="h-4 w-4" />
-                  Fingerprint Authentication (Optional - For Enhanced Security)
-                  <span className="text-xs text-muted-foreground font-normal ml-2">
-                    • Recommended for tech-savvy users
+                  <Fingerprint className="h-4 w-4" />
+                  Quick Fingerprint Setup (Optional)
+                  <span className="text-xs text-green-600 font-normal ml-2">
+                    • No details required - just your fingerprint!
                   </span>
                 </FormLabel>
                 <Card className="p-3 sm:p-4 bg-muted/50 border-dashed border-2">
@@ -414,10 +414,9 @@ function RegisterForm({
                     <div className="flex items-start gap-2">
                       <div className="text-blue-600 text-sm">ℹ️</div>
                       <div className="text-xs text-blue-800">
-                        <strong>For New Users:</strong> Fingerprint login is
-                        completely optional. If you're not comfortable with
-                        technology, you can skip this step and use your password
-                        to login.
+                        <strong>Quick Setup:</strong> You can set up your
+                        fingerprint right now - no other details needed! Or skip
+                        this step and use password login instead.
                       </div>
                     </div>
                   </div>
@@ -429,11 +428,12 @@ function RegisterForm({
                             <Fingerprint className="h-6 w-6 sm:h-8 sm:w-8 text-primary" />
                           </div>
                           <p className="text-xs sm:text-sm text-muted-foreground px-2">
-                            <strong>Optional:</strong> Use your phone's
-                            fingerprint, face unlock, or PIN for faster login.
+                            <strong>Simple & Fast:</strong> Just touch your
+                            fingerprint sensor - no typing required!
                             <br />
                             <span className="text-green-600 text-xs">
-                              ✓ You can skip this and use password login instead
+                              ✓ Works with your phone's fingerprint, face
+                              unlock, or PIN
                             </span>
                           </p>
                         </div>
@@ -455,18 +455,20 @@ function RegisterForm({
                               <>
                                 <Loader2 className="mr-1 sm:mr-2 h-3 w-3 sm:h-4 sm:w-4 animate-spin" />
                                 <span className="hidden sm:inline">
-                                  Setting up Fingerprint...
+                                  Touch Your Fingerprint Sensor...
                                 </span>
-                                <span className="sm:hidden">Setting up...</span>
+                                <span className="sm:hidden">
+                                  Touch Sensor...
+                                </span>
                               </>
                             ) : (
                               <>
                                 <Fingerprint className="mr-1 sm:mr-2 h-3 w-3 sm:h-4 sm:w-4" />
                                 <span className="hidden sm:inline">
-                                  Setup Fingerprint Login
+                                  Touch Fingerprint to Register
                                 </span>
                                 <span className="sm:hidden">
-                                  Setup Fingerprint
+                                  Touch Fingerprint
                                 </span>
                               </>
                             )}
