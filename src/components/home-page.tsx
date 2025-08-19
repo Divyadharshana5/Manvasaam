@@ -574,95 +574,56 @@ export default function HomePage() {
               distribution hubs for fresh, quality produce.
             </p>
 
-            {/* Quick Access */}
-            <div className="lg:col-span-3 space-y-6">
-              <div>
-                <h3 className="text-lg font-bold text-foreground mb-1 flex items-center gap-2">
-                  <span className="w-1 h-6 bg-gradient-to-b from-primary to-green-600 rounded-full"></span>
-                  Quick Access
-                </h3>
-                <p className="text-xs text-muted-foreground mb-4">
-                  Access your account
-                </p>
-              </div>
-              <div className="grid grid-cols-2 lg:grid-cols-1 gap-3">
-                <motion.div
-                  whileHover={{ x: 4 }}
-                  transition={{ duration: 0.2 }}
+            {/* Quick Links */}
+            <div className="flex flex-wrap justify-center gap-4 sm:gap-6">
+              <motion.div
+                whileHover={{ scale: 1.05 }}
+                transition={{ duration: 0.2 }}
+              >
+                <Link
+                  href="/login/farmer-customer"
+                  className="flex items-center gap-2 px-4 py-2 rounded-full bg-white/60 hover:bg-primary/10 border border-primary/20 hover:border-primary/40 transition-all duration-200 text-sm font-medium text-foreground hover:text-primary"
                 >
-                  <Link
-                    href="/login/farmer-customer"
-                    className="flex items-center gap-3 p-3 rounded-lg bg-white/50 hover:bg-primary/10 border border-primary/20 hover:border-primary/40 transition-all duration-200 group"
-                  >
-                    <span className="text-lg">🌾</span>
-                    <div>
-                      <span className="text-sm font-medium text-foreground group-hover:text-primary">
-                        Farmer Login
-                      </span>
-                      <p className="text-xs text-muted-foreground">
-                        Manage crops
-                      </p>
-                    </div>
-                  </Link>
-                </motion.div>
-                <motion.div
-                  whileHover={{ x: 4 }}
-                  transition={{ duration: 0.2 }}
+                  <span>🌾</span>
+                  Farmer
+                </Link>
+              </motion.div>
+              <motion.div
+                whileHover={{ scale: 1.05 }}
+                transition={{ duration: 0.2 }}
+              >
+                <Link
+                  href="/login/farmer-customer"
+                  className="flex items-center gap-2 px-4 py-2 rounded-full bg-white/60 hover:bg-primary/10 border border-primary/20 hover:border-primary/40 transition-all duration-200 text-sm font-medium text-foreground hover:text-primary"
                 >
-                  <Link
-                    href="/login/farmer-customer"
-                    className="flex items-center gap-3 p-3 rounded-lg bg-white/50 hover:bg-primary/10 border border-primary/20 hover:border-primary/40 transition-all duration-200 group"
-                  >
-                    <span className="text-lg">🛒</span>
-                    <div>
-                      <span className="text-sm font-medium text-foreground group-hover:text-primary">
-                        Customer Login
-                      </span>
-                      <p className="text-xs text-muted-foreground">
-                        Fresh produce
-                      </p>
-                    </div>
-                  </Link>
-                </motion.div>
-                <motion.div
-                  whileHover={{ x: 4 }}
-                  transition={{ duration: 0.2 }}
+                  <span>🛒</span>
+                  Customer
+                </Link>
+              </motion.div>
+              <motion.div
+                whileHover={{ scale: 1.05 }}
+                transition={{ duration: 0.2 }}
+              >
+                <Link
+                  href="/login/hub"
+                  className="flex items-center gap-2 px-4 py-2 rounded-full bg-white/60 hover:bg-primary/10 border border-primary/20 hover:border-primary/40 transition-all duration-200 text-sm font-medium text-foreground hover:text-primary"
                 >
-                  <Link
-                    href="/login/hub"
-                    className="flex items-center gap-3 p-3 rounded-lg bg-white/50 hover:bg-primary/10 border border-primary/20 hover:border-primary/40 transition-all duration-200 group"
-                  >
-                    <span className="text-lg">🏢</span>
-                    <div>
-                      <span className="text-sm font-medium text-foreground group-hover:text-primary">
-                        Hub Login
-                      </span>
-                      <p className="text-xs text-muted-foreground">
-                        Distribution
-                      </p>
-                    </div>
-                  </Link>
-                </motion.div>
-                <motion.div
-                  whileHover={{ x: 4 }}
-                  transition={{ duration: 0.2 }}
+                  <span>🏢</span>
+                  Hub
+                </Link>
+              </motion.div>
+              <motion.div
+                whileHover={{ scale: 1.05 }}
+                transition={{ duration: 0.2 }}
+              >
+                <Link
+                  href="/login/restaurant"
+                  className="flex items-center gap-2 px-4 py-2 rounded-full bg-white/60 hover:bg-primary/10 border border-primary/20 hover:border-primary/40 transition-all duration-200 text-sm font-medium text-foreground hover:text-primary"
                 >
-                  <Link
-                    href="/login/restaurant"
-                    className="flex items-center gap-3 p-3 rounded-lg bg-white/50 hover:bg-primary/10 border border-primary/20 hover:border-primary/40 transition-all duration-200 group"
-                  >
-                    <span className="text-lg">🍽️</span>
-                    <div>
-                      <span className="text-sm font-medium text-foreground group-hover:text-primary">
-                        Restaurant
-                      </span>
-                      <p className="text-xs text-muted-foreground">
-                        Bulk orders
-                      </p>
-                    </div>
-                  </Link>
-                </motion.div>
-              </div>
+                  <span>🍽️</span>
+                  Restaurant
+                </Link>
+              </motion.div>
             </div>
 
             {/* Contact & Support */}
