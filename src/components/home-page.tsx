@@ -678,28 +678,58 @@ export default function HomePage() {
 
               {/* Right: Legal Links */}
               <div className="flex items-center gap-3 text-xs text-muted-foreground">
-                <motion.div whileHover={{ scale: 1.05 }}>
+                <motion.div
+                  whileHover={{
+                    scale: 1.1,
+                    y: -2,
+                    transition: { duration: 0.2 },
+                  }}
+                  whileTap={{
+                    scale: 0.95,
+                    transition: { duration: 0.1 },
+                  }}
+                >
                   <Link
                     href="/privacy"
-                    className="hover:text-primary transition-colors"
+                    className="relative px-2 py-1 rounded-md hover:text-primary hover:bg-primary/10 transition-all duration-200 hover:shadow-sm border border-transparent hover:border-primary/20"
                   >
                     Privacy
                   </Link>
                 </motion.div>
-                <span>•</span>
-                <motion.div whileHover={{ scale: 1.05 }}>
+                <span className="text-primary/30">•</span>
+                <motion.div
+                  whileHover={{
+                    scale: 1.1,
+                    y: -2,
+                    transition: { duration: 0.2 },
+                  }}
+                  whileTap={{
+                    scale: 0.95,
+                    transition: { duration: 0.1 },
+                  }}
+                >
                   <Link
                     href="/terms"
-                    className="hover:text-primary transition-colors"
+                    className="relative px-2 py-1 rounded-md hover:text-primary hover:bg-primary/10 transition-all duration-200 hover:shadow-sm border border-transparent hover:border-primary/20"
                   >
                     Terms
                   </Link>
                 </motion.div>
-                <span>•</span>
-                <motion.div whileHover={{ scale: 1.05 }}>
+                <span className="text-primary/30">•</span>
+                <motion.div
+                  whileHover={{
+                    scale: 1.1,
+                    y: -2,
+                    transition: { duration: 0.2 },
+                  }}
+                  whileTap={{
+                    scale: 0.95,
+                    transition: { duration: 0.1 },
+                  }}
+                >
                   <Link
                     href="/support"
-                    className="hover:text-primary transition-colors"
+                    className="relative px-2 py-1 rounded-md hover:text-primary hover:bg-primary/10 transition-all duration-200 hover:shadow-sm border border-transparent hover:border-primary/20"
                   >
                     Support
                   </Link>
