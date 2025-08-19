@@ -112,6 +112,15 @@ export default function HomePage() {
     [t.roles]
   );
 
+  // Progressive loading effect for better performance
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setIsContentLoaded(true);
+    }, 100); // Small delay to allow initial render
+
+    return () => clearTimeout(timer);
+  }, []);
+
   useEffect(() => {
     const checkMicrophonePermission = async () => {
       try {
