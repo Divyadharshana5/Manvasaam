@@ -626,75 +626,21 @@ export default function HomePage() {
               </motion.div>
             </div>
 
-            {/* Contact & Support */}
-            <div className="lg:col-span-4 space-y-6">
-              <div>
-                <h3 className="text-lg font-bold text-foreground mb-1 flex items-center gap-2">
-                  <span className="w-1 h-6 bg-gradient-to-b from-primary to-green-600 rounded-full"></span>
-                  Get in Touch
-                </h3>
-                <p className="text-xs text-muted-foreground mb-4">
-                  We're here to help
-                </p>
+            {/* Contact Info */}
+            <div className="flex flex-wrap justify-center gap-6 text-sm text-muted-foreground">
+              <div className="flex items-center gap-2">
+                <span>📧</span>
+                <span>support@manvaasam.com</span>
               </div>
-
-              <div className="space-y-4">
-                <motion.div
-                  className="flex items-center gap-4 p-4 rounded-lg bg-white/30 border border-primary/20"
-                  whileHover={{ scale: 1.02 }}
-                  transition={{ duration: 0.2 }}
-                >
-                  <div className="w-10 h-10 bg-primary/10 rounded-full flex items-center justify-center">
-                    <span className="text-lg">📧</span>
-                  </div>
-                  <div>
-                    <p className="text-sm font-medium text-foreground">
-                      Email Support
-                    </p>
-                    <p className="text-xs text-primary font-medium">
-                      support@manvaasam.com
-                    </p>
-                  </div>
-                </motion.div>
-
-                <motion.div
-                  className="flex items-center gap-4 p-4 rounded-lg bg-white/30 border border-primary/20"
-                  whileHover={{ scale: 1.02 }}
-                  transition={{ duration: 0.2 }}
-                >
-                  <div className="w-10 h-10 bg-primary/10 rounded-full flex items-center justify-center">
-                    <span className="text-lg">📞</span>
-                  </div>
-                  <div>
-                    <p className="text-sm font-medium text-foreground">
-                      Phone Support
-                    </p>
-                    <p className="text-xs text-primary font-medium">
-                      +91 9876543210
-                    </p>
-                  </div>
-                </motion.div>
-
-                <motion.div
-                  className="flex items-center gap-4 p-4 rounded-lg bg-white/30 border border-primary/20"
-                  whileHover={{ scale: 1.02 }}
-                  transition={{ duration: 0.2 }}
-                >
-                  <div className="w-10 h-10 bg-primary/10 rounded-full flex items-center justify-center">
-                    <span className="text-lg">📍</span>
-                  </div>
-                  <div>
-                    <p className="text-sm font-medium text-foreground">
-                      Location
-                    </p>
-                    <p className="text-xs text-muted-foreground">
-                      Agricultural Hub, India
-                    </p>
-                  </div>
-                </motion.div>
+              <div className="flex items-center gap-2">
+                <span>📞</span>
+                <span>+91 9876543210</span>
+              </div>
+              <div className="flex items-center gap-2">
+                <span>📍</span>
+                <span>Agricultural Hub, India</span>
               </div>
             </div>
-          </div>
 
           {/* Decorative Divider */}
           <div className="relative mt-12 mb-8">
