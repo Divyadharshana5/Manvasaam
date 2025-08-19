@@ -642,75 +642,45 @@ export default function HomePage() {
               </div>
             </div>
 
-          {/* Decorative Divider */}
-          <div className="relative mt-12 mb-8">
-            <div className="absolute inset-0 flex items-center">
-              <div className="w-full border-t-2 border-gradient-to-r from-transparent via-primary/30 to-transparent"></div>
-            </div>
-            <div className="relative flex justify-center">
-              <div className="bg-background px-4">
-                <div className="w-8 h-1 bg-gradient-to-r from-primary to-green-600 rounded-full"></div>
-              </div>
-            </div>
-          </div>
+            {/* Divider */}
+            <div className="w-16 h-px bg-gradient-to-r from-transparent via-primary/30 to-transparent mx-auto"></div>
 
-          {/* Enhanced Bottom Bar */}
-          <div className="bg-gradient-to-r from-primary/5 via-transparent to-primary/5 rounded-2xl p-6 border border-primary/20">
-            <div className="flex flex-col lg:flex-row justify-between items-center gap-6">
-              {/* Copyright Section */}
-              <div className="text-center lg:text-left">
-                <div className="flex items-center justify-center lg:justify-start gap-2 mb-2">
-                  <span className="w-2 h-2 bg-primary rounded-full animate-pulse"></span>
-                  <p className="text-sm font-bold text-foreground">
-                    © {new Date().getFullYear()} Manvaasam
-                  </p>
-                  <span className="w-2 h-2 bg-primary rounded-full animate-pulse"></span>
-                </div>
-                <p className="text-xs text-muted-foreground">
-                  {t.footer} • Empowering Agriculture Through Innovation
+            {/* Copyright & Links */}
+            <div className="space-y-3">
+              <div className="flex items-center justify-center gap-2">
+                <span className="w-1.5 h-1.5 bg-primary rounded-full animate-pulse"></span>
+                <p className="text-sm font-medium text-foreground">
+                  © {new Date().getFullYear()} Manvaasam
                 </p>
+                <span className="w-1.5 h-1.5 bg-primary rounded-full animate-pulse"></span>
               </div>
 
-              {/* Legal Links */}
-              <div className="flex items-center gap-6">
+              <div className="flex flex-wrap justify-center gap-4 text-xs text-muted-foreground">
                 <motion.div whileHover={{ scale: 1.05 }}>
-                  <Link
-                    href="/privacy"
-                    className="text-sm text-muted-foreground hover:text-primary transition-all duration-200 hover:underline decoration-primary/50 underline-offset-4"
-                  >
+                  <Link href="/privacy" className="hover:text-primary transition-colors">
                     Privacy Policy
                   </Link>
                 </motion.div>
-                <div className="w-1 h-4 bg-primary/20 rounded-full"></div>
+                <span>•</span>
                 <motion.div whileHover={{ scale: 1.05 }}>
-                  <Link
-                    href="/terms"
-                    className="text-sm text-muted-foreground hover:text-primary transition-all duration-200 hover:underline decoration-primary/50 underline-offset-4"
-                  >
+                  <Link href="/terms" className="hover:text-primary transition-colors">
                     Terms of Service
                   </Link>
                 </motion.div>
-                <div className="w-1 h-4 bg-primary/20 rounded-full"></div>
+                <span>•</span>
                 <motion.div whileHover={{ scale: 1.05 }}>
-                  <Link
-                    href="/support"
-                    className="text-sm text-muted-foreground hover:text-primary transition-all duration-200 hover:underline decoration-primary/50 underline-offset-4"
-                  >
+                  <Link href="/support" className="hover:text-primary transition-colors">
                     Support
                   </Link>
                 </motion.div>
               </div>
-            </div>
 
-            {/* Additional Footer Info */}
-            <div className="mt-4 pt-4 border-t border-primary/10 text-center">
               <p className="text-xs text-muted-foreground">
                 🌱 Building sustainable agriculture for a better tomorrow • Made
                 with ❤️ in India
               </p>
             </div>
           </div>
-        </div>
       </motion.footer>
     </div>
   );
