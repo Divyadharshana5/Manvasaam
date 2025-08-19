@@ -667,63 +667,27 @@ export default function HomePage() {
               </p>
 
               {/* Right: Legal Links */}
-              <div className="flex items-center gap-3 text-xs text-muted-foreground">
-                <motion.div
-                  whileHover={{
-                    scale: 1.1,
-                    y: -2,
-                    transition: { duration: 0.2 },
-                  }}
-                  whileTap={{
-                    scale: 0.95,
-                    transition: { duration: 0.1 },
-                  }}
+              <div className="flex items-center gap-4 text-xs text-muted-foreground">
+                <Link
+                  href="/privacy"
+                  className="hover:text-primary transition-colors"
                 >
-                  <Link
-                    href="/privacy"
-                    className="relative px-2 py-1 rounded-md hover:text-primary hover:bg-primary/10 transition-all duration-200 hover:shadow-sm border border-transparent hover:border-primary/20"
-                  >
-                    Privacy
-                  </Link>
-                </motion.div>
-                <span className="text-primary/30">•</span>
-                <motion.div
-                  whileHover={{
-                    scale: 1.1,
-                    y: -2,
-                    transition: { duration: 0.2 },
-                  }}
-                  whileTap={{
-                    scale: 0.95,
-                    transition: { duration: 0.1 },
-                  }}
+                  Privacy Policy
+                </Link>
+                <span>•</span>
+                <Link
+                  href="/terms"
+                  className="hover:text-primary transition-colors"
                 >
-                  <Link
-                    href="/terms"
-                    className="relative px-2 py-1 rounded-md hover:text-primary hover:bg-primary/10 transition-all duration-200 hover:shadow-sm border border-transparent hover:border-primary/20"
-                  >
-                    Terms
-                  </Link>
-                </motion.div>
-                <span className="text-primary/30">•</span>
-                <motion.div
-                  whileHover={{
-                    scale: 1.1,
-                    y: -2,
-                    transition: { duration: 0.2 },
-                  }}
-                  whileTap={{
-                    scale: 0.95,
-                    transition: { duration: 0.1 },
-                  }}
+                  Terms of Service
+                </Link>
+                <span>•</span>
+                <Link
+                  href="/support"
+                  className="hover:text-primary transition-colors"
                 >
-                  <Link
-                    href="/support"
-                    className="relative px-2 py-1 rounded-md hover:text-primary hover:bg-primary/10 transition-all duration-200 hover:shadow-sm border border-transparent hover:border-primary/20"
-                  >
-                    Support
-                  </Link>
-                </motion.div>
+                  Support
+                </Link>
               </div>
             </div>
           </div>
