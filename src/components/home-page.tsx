@@ -559,7 +559,6 @@ export default function HomePage() {
           <div className="space-y-4">
             {/* Main Footer Content - Single Row Layout */}
             <div className="flex flex-col lg:flex-row items-center justify-between gap-4 lg:gap-8">
-
               {/* Left: Company Branding */}
               <motion.div
                 className="flex items-center gap-3"
@@ -576,13 +575,18 @@ export default function HomePage() {
                   <span className="text-lg font-bold bg-gradient-to-r from-primary to-green-600 bg-clip-text text-transparent">
                     Manvaasam
                   </span>
-                  <p className="text-xs text-muted-foreground">Agricultural Excellence</p>
+                  <p className="text-xs text-muted-foreground">
+                    Agricultural Excellence
+                  </p>
                 </div>
               </motion.div>
 
               {/* Center: Quick Access Links */}
               <div className="flex items-center gap-3 lg:gap-4">
-                <motion.div whileHover={{ scale: 1.1, y: -2 }} transition={{ duration: 0.2 }}>
+                <motion.div
+                  whileHover={{ scale: 1.1, y: -2 }}
+                  transition={{ duration: 0.2 }}
+                >
                   <Link
                     href="/login/farmer-customer"
                     className="flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-gradient-to-r from-green-50 to-primary/5 hover:from-primary/10 hover:to-green-100 border border-primary/20 hover:border-primary/40 transition-all duration-200 text-xs font-medium text-foreground hover:text-primary shadow-sm hover:shadow-md"
@@ -591,7 +595,10 @@ export default function HomePage() {
                     <span>Farmer</span>
                   </Link>
                 </motion.div>
-                <motion.div whileHover={{ scale: 1.1, y: -2 }} transition={{ duration: 0.2 }}>
+                <motion.div
+                  whileHover={{ scale: 1.1, y: -2 }}
+                  transition={{ duration: 0.2 }}
+                >
                   <Link
                     href="/login/farmer-customer"
                     className="flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-gradient-to-r from-blue-50 to-primary/5 hover:from-primary/10 hover:to-blue-100 border border-primary/20 hover:border-primary/40 transition-all duration-200 text-xs font-medium text-foreground hover:text-primary shadow-sm hover:shadow-md"
@@ -600,7 +607,10 @@ export default function HomePage() {
                     <span>Customer</span>
                   </Link>
                 </motion.div>
-                <motion.div whileHover={{ scale: 1.1, y: -2 }} transition={{ duration: 0.2 }}>
+                <motion.div
+                  whileHover={{ scale: 1.1, y: -2 }}
+                  transition={{ duration: 0.2 }}
+                >
                   <Link
                     href="/login/hub"
                     className="flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-gradient-to-r from-purple-50 to-primary/5 hover:from-primary/10 hover:to-purple-100 border border-primary/20 hover:border-primary/40 transition-all duration-200 text-xs font-medium text-foreground hover:text-primary shadow-sm hover:shadow-md"
@@ -609,7 +619,10 @@ export default function HomePage() {
                     <span>Hub</span>
                   </Link>
                 </motion.div>
-                <motion.div whileHover={{ scale: 1.1, y: -2 }} transition={{ duration: 0.2 }}>
+                <motion.div
+                  whileHover={{ scale: 1.1, y: -2 }}
+                  transition={{ duration: 0.2 }}
+                >
                   <Link
                     href="/login/restaurant"
                     className="flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-gradient-to-r from-orange-50 to-primary/5 hover:from-primary/10 hover:to-orange-100 border border-primary/20 hover:border-primary/40 transition-all duration-200 text-xs font-medium text-foreground hover:text-primary shadow-sm hover:shadow-md"
@@ -627,7 +640,9 @@ export default function HomePage() {
                   whileHover={{ scale: 1.05 }}
                 >
                   <span className="text-sm">📧</span>
-                  <span className="hidden sm:inline">support@manvaasam.com</span>
+                  <span className="hidden sm:inline">
+                    support@manvaasam.com
+                  </span>
                   <span className="sm:hidden">Email</span>
                 </motion.div>
                 <motion.div
@@ -641,113 +656,54 @@ export default function HomePage() {
               </div>
             </div>
 
-            {/* Quick Links */}
-            <div className="flex flex-wrap justify-center gap-4 sm:gap-6">
-              <motion.div
-                whileHover={{ scale: 1.05 }}
-                transition={{ duration: 0.2 }}
-              >
-                <Link
-                  href="/login/farmer-customer"
-                  className="flex items-center gap-2 px-4 py-2 rounded-full bg-white/60 hover:bg-primary/10 border border-primary/20 hover:border-primary/40 transition-all duration-200 text-sm font-medium text-foreground hover:text-primary"
-                >
-                  <span>🌾</span>
-                  Farmer
-                </Link>
-              </motion.div>
-              <motion.div
-                whileHover={{ scale: 1.05 }}
-                transition={{ duration: 0.2 }}
-              >
-                <Link
-                  href="/login/farmer-customer"
-                  className="flex items-center gap-2 px-4 py-2 rounded-full bg-white/60 hover:bg-primary/10 border border-primary/20 hover:border-primary/40 transition-all duration-200 text-sm font-medium text-foreground hover:text-primary"
-                >
-                  <span>🛒</span>
-                  Customer
-                </Link>
-              </motion.div>
-              <motion.div
-                whileHover={{ scale: 1.05 }}
-                transition={{ duration: 0.2 }}
-              >
-                <Link
-                  href="/login/hub"
-                  className="flex items-center gap-2 px-4 py-2 rounded-full bg-white/60 hover:bg-primary/10 border border-primary/20 hover:border-primary/40 transition-all duration-200 text-sm font-medium text-foreground hover:text-primary"
-                >
-                  <span>🏢</span>
-                  Hub
-                </Link>
-              </motion.div>
-              <motion.div
-                whileHover={{ scale: 1.05 }}
-                transition={{ duration: 0.2 }}
-              >
-                <Link
-                  href="/login/restaurant"
-                  className="flex items-center gap-2 px-4 py-2 rounded-full bg-white/60 hover:bg-primary/10 border border-primary/20 hover:border-primary/40 transition-all duration-200 text-sm font-medium text-foreground hover:text-primary"
-                >
-                  <span>🍽️</span>
-                  Restaurant
-                </Link>
-              </motion.div>
-            </div>
-
-            {/* Contact Info */}
-            <div className="flex flex-wrap justify-center gap-6 text-sm text-muted-foreground">
+            {/* Bottom Bar - Ultra Compact */}
+            <div className="flex flex-col sm:flex-row items-center justify-between gap-2 pt-3 border-t border-primary/10">
+              {/* Left: Copyright */}
               <div className="flex items-center gap-2">
-                <span>📧</span>
-                <span>support@manvaasam.com</span>
-              </div>
-              <div className="flex items-center gap-2">
-                <span>📞</span>
-                <span>+91 9876543210</span>
-              </div>
-              <div className="flex items-center gap-2">
-                <span>📍</span>
-                <span>Agricultural Hub, India</span>
-              </div>
-            </div>
-
-            {/* Divider */}
-            <div className="w-16 h-px bg-gradient-to-r from-transparent via-primary/30 to-transparent mx-auto"></div>
-
-            {/* Copyright & Links */}
-            <div className="space-y-3">
-              <div className="flex items-center justify-center gap-2">
-                <span className="w-1.5 h-1.5 bg-primary rounded-full animate-pulse"></span>
-                <p className="text-sm font-medium text-foreground">
+                <span className="w-1 h-1 bg-primary rounded-full animate-pulse"></span>
+                <p className="text-xs font-medium text-foreground">
                   © {new Date().getFullYear()} Manvaasam
                 </p>
-                <span className="w-1.5 h-1.5 bg-primary rounded-full animate-pulse"></span>
+                <span className="w-1 h-1 bg-primary rounded-full animate-pulse"></span>
               </div>
 
-              <div className="flex flex-wrap justify-center gap-4 text-xs text-muted-foreground">
+              {/* Center: Tagline */}
+              <p className="text-xs text-muted-foreground text-center">
+                🌱 Empowering Agriculture Through Technology
+              </p>
+
+              {/* Right: Legal Links */}
+              <div className="flex items-center gap-3 text-xs text-muted-foreground">
                 <motion.div whileHover={{ scale: 1.05 }}>
-                  <Link href="/privacy" className="hover:text-primary transition-colors">
-                    Privacy Policy
+                  <Link
+                    href="/privacy"
+                    className="hover:text-primary transition-colors"
+                  >
+                    Privacy
                   </Link>
                 </motion.div>
                 <span>•</span>
                 <motion.div whileHover={{ scale: 1.05 }}>
-                  <Link href="/terms" className="hover:text-primary transition-colors">
-                    Terms of Service
+                  <Link
+                    href="/terms"
+                    className="hover:text-primary transition-colors"
+                  >
+                    Terms
                   </Link>
                 </motion.div>
                 <span>•</span>
                 <motion.div whileHover={{ scale: 1.05 }}>
-                  <Link href="/support" className="hover:text-primary transition-colors">
+                  <Link
+                    href="/support"
+                    className="hover:text-primary transition-colors"
+                  >
                     Support
                   </Link>
                 </motion.div>
               </div>
-
-              <p className="text-xs text-muted-foreground">
-                🌱 Building sustainable agriculture for a better tomorrow • Made
-                with ❤️ in India
-              </p>
             </div>
           </div>
+        </div>
       </motion.footer>
     </div>
   );
