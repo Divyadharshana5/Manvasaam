@@ -641,7 +641,7 @@ export default function HomePage() {
                 >
                   <span className="text-sm">📧</span>
                   <span className="hidden sm:inline">
-                    support@manvaasam.com
+                    slytherinpls8@gmail.com
                   </span>
                   <span className="sm:hidden">Email</span>
                 </motion.div>
