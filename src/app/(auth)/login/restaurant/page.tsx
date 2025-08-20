@@ -343,7 +343,7 @@ export default function RestaurantAuthPage() {
                       <FormControl>
                         <Input
                           type="email"
-                          placeholder="slytherinpls8@gmail.com"
+                          placeholder="restaurant@gmail.com"
                           {...field}
                         />
                       </FormControl>
