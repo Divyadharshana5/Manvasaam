@@ -50,15 +50,30 @@ export default function SupportPage() {
   );
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-purple-50 to-green-50">
+    <div className="min-h-screen bg-gradient-to-br from-purple-50 via-blue-50 to-green-50">
+      {/* Decorative Background Elements */}
+      <div className="absolute inset-0 overflow-hidden pointer-events-none">
+        <div className="absolute top-32 left-16 w-40 h-40 bg-purple-200/30 rounded-full blur-3xl"></div>
+        <div className="absolute top-20 right-12 w-32 h-32 bg-blue-200/30 rounded-full blur-3xl"></div>
+        <div className="absolute bottom-32 left-1/4 w-36 h-36 bg-green-200/30 rounded-full blur-3xl"></div>
+        <div className="absolute bottom-20 right-1/3 w-28 h-28 bg-indigo-200/30 rounded-full blur-3xl"></div>
+      </div>
+
       {/* Header */}
-      <header className="bg-white/90 backdrop-blur-sm border-b sticky top-0 z-50">
-        <div className="container mx-auto px-4 py-3 flex items-center justify-center">
-          <div className="flex items-center gap-2">
-            <HelpCircle className="h-5 w-5 text-primary" />
-            <h1 className="text-lg font-semibold text-primary">
-              Support Center
-            </h1>
+      <header className="relative bg-white/95 backdrop-blur-md border-b border-primary/20 sticky top-0 z-50 shadow-sm">
+        <div className="container mx-auto px-4 py-4 flex items-center justify-center">
+          <div className="flex items-center gap-3">
+            <div className="p-2 bg-gradient-to-br from-purple-500 to-blue-500 rounded-xl shadow-lg">
+              <HelpCircle className="h-6 w-6 text-white" />
+            </div>
+            <div>
+              <h1 className="text-xl font-bold bg-gradient-to-r from-purple-600 to-blue-600 bg-clip-text text-transparent">
+                Support Center
+              </h1>
+              <p className="text-xs text-muted-foreground">
+                We're here to help you
+              </p>
+            </div>
           </div>
         </div>
       </header>
