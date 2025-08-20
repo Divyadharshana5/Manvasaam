@@ -201,7 +201,7 @@ export default function FarmerAuthPage() {
 
       toast({
         title: "Login Successful",
-        description: "Redirecting to dashboard in 5 seconds...",
+        description: "Welcome back,farmer...",
       });
       setTimeout(() => {
         router.push("/dashboard/farmer");
