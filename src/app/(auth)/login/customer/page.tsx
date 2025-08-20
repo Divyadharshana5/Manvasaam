@@ -155,8 +155,10 @@ export default function CustomerAuthPage() {
         throw new Error("Failed to create session");
       }
 
-      router.push("/dashboard");
-      toast({ title: "Login Successful", description: "Welcome back!" });
+      toast({ title: "Login Successful", description: "Redirecting to dashboard in 5 seconds..." });
+      setTimeout(() => {
+        router.push("/dashboard");
+      }, 5000);
     } catch (error: any) {
       toast({
         variant: "destructive",

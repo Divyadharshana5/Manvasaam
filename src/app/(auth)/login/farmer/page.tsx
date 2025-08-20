@@ -169,11 +169,13 @@ export default function FarmerAuthPage() {
       
       // Fast fingerprint login
       setTimeout(() => {
-        router.push("/dashboard/farmer");
         toast({
           title: "Login Successful!",
-          description: "Welcome to your Farmer Dashboard!",
+          description: "Redirecting to dashboard in 5 seconds...",
         });
+        setTimeout(() => {
+          router.push("/dashboard/farmer");
+        }, 5000);
       }, 1500);
     } catch (error: any) {
       toast({
@@ -208,8 +210,10 @@ export default function FarmerAuthPage() {
         throw new Error("Failed to create session");
       }
 
-      router.push("/dashboard/farmer");
-      toast({ title: "Login Successful", description: "Welcome back!" });
+      toast({ title: "Login Successful", description: "Redirecting to dashboard in 5 seconds..." });
+      setTimeout(() => {
+        router.push("/dashboard/farmer");
+      }, 5000);
     } catch (error: any) {
       toast({
         variant: "destructive",

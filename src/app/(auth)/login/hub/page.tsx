@@ -118,11 +118,13 @@ function HubAuthComponent() {
         throw new Error("Failed to create session");
       }
 
-      router.push("/dashboard/hub");
       toast({
         title: "Login Successful",
-        description: "Welcome back, Hub Manager!",
+        description: "Redirecting to dashboard in 5 seconds...",
       });
+      setTimeout(() => {
+        router.push("/dashboard/hub");
+      }, 5000);
     } catch (error: any) {
       toast({
         variant: "destructive",
