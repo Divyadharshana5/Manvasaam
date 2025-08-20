@@ -208,10 +208,10 @@ export default function TermsPage() {
             </CardContent>
           </Card>
 
-          {/* Back Button */}
-          <div className="text-center pt-4">
+          {/* Return Button */}
+          <div className="text-center pt-6">
             <Link href="/">
-              <Button className="gap-2">
+              <Button className="gap-3 px-6 py-3 bg-gradient-to-r from-blue-500 to-indigo-500 hover:from-blue-600 hover:to-indigo-600 text-white shadow-lg hover:shadow-xl transition-all duration-300 rounded-xl">
                 <ArrowLeft className="h-4 w-4" />
                 Return to Manvaasam
               </Button>

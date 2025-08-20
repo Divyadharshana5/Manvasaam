@@ -109,41 +109,83 @@ export default function SupportPage() {
           </div>
 
           {/* Quick Contact */}
-          <div className="grid md:grid-cols-3 gap-4">
-            <Card className="hover:shadow-md transition-shadow cursor-pointer">
-              <CardContent className="p-4 text-center">
-                <MessageCircle className="h-8 w-8 text-primary mx-auto mb-2" />
-                <h3 className="font-medium text-sm mb-1">Live Chat</h3>
-                <p className="text-xs text-gray-600 mb-3">Get instant help</p>
-                <Button size="sm" className="w-full text-xs">
-                  Start Chat
-                </Button>
-              </CardContent>
-            </Card>
+          <div className="grid md:grid-cols-3 gap-6">
+            <motion.div
+              whileHover={{ scale: 1.05, y: -5 }}
+              transition={{ duration: 0.2 }}
+            >
+              <Card className="relative border-0 bg-gradient-to-br from-white/80 to-purple-50/80 backdrop-blur-sm shadow-xl hover:shadow-2xl transition-all duration-300 cursor-pointer">
+                <CardContent className="p-6 text-center">
+                  <div className="w-12 h-12 bg-gradient-to-br from-purple-500 to-purple-600 rounded-xl flex items-center justify-center mx-auto mb-4 shadow-lg">
+                    <MessageCircle className="h-6 w-6 text-white" />
+                  </div>
+                  <h3 className="font-semibold text-base mb-2 text-gray-800">
+                    Live Chat
+                  </h3>
+                  <p className="text-sm text-gray-600 mb-4">
+                    Get instant responses from our support team
+                  </p>
+                  <Button
+                    size="sm"
+                    className="w-full bg-gradient-to-r from-purple-500 to-purple-600 hover:from-purple-600 hover:to-purple-700 text-white shadow-md"
+                  >
+                    Start Chat
+                  </Button>
+                </CardContent>
+              </Card>
+            </motion.div>
 
-            <Card className="hover:shadow-md transition-shadow cursor-pointer">
-              <CardContent className="p-4 text-center">
-                <Phone className="h-8 w-8 text-primary mx-auto mb-2" />
-                <h3 className="font-medium text-sm mb-1">Phone Support</h3>
-                <p className="text-xs text-gray-600 mb-3">Speak with experts</p>
-                <Button variant="outline" size="sm" className="w-full text-xs">
-                  <a href="tel:+919876543210">Call Now</a>
-                </Button>
-              </CardContent>
-            </Card>
+            <motion.div
+              whileHover={{ scale: 1.05, y: -5 }}
+              transition={{ duration: 0.2 }}
+            >
+              <Card className="relative border-0 bg-gradient-to-br from-white/80 to-blue-50/80 backdrop-blur-sm shadow-xl hover:shadow-2xl transition-all duration-300 cursor-pointer">
+                <CardContent className="p-6 text-center">
+                  <div className="w-12 h-12 bg-gradient-to-br from-blue-500 to-blue-600 rounded-xl flex items-center justify-center mx-auto mb-4 shadow-lg">
+                    <Phone className="h-6 w-6 text-white" />
+                  </div>
+                  <h3 className="font-semibold text-base mb-2 text-gray-800">
+                    Phone Support
+                  </h3>
+                  <p className="text-sm text-gray-600 mb-4">
+                    Speak directly with our experts
+                  </p>
+                  <Button
+                    variant="outline"
+                    size="sm"
+                    className="w-full border-blue-200 hover:bg-blue-50 hover:border-blue-300 transition-colors"
+                  >
+                    <a href="tel:+919876543210">Call Now</a>
+                  </Button>
+                </CardContent>
+              </Card>
+            </motion.div>
 
-            <Card className="hover:shadow-md transition-shadow cursor-pointer">
-              <CardContent className="p-4 text-center">
-                <Mail className="h-8 w-8 text-primary mx-auto mb-2" />
-                <h3 className="font-medium text-sm mb-1">Email Support</h3>
-                <p className="text-xs text-gray-600 mb-3">
-                  Send detailed message
-                </p>
-                <Button variant="outline" size="sm" className="w-full text-xs">
-                  <a href="mailto:slytherinpls8@gmail.com">Email Us</a>
-                </Button>
-              </CardContent>
-            </Card>
+            <motion.div
+              whileHover={{ scale: 1.05, y: -5 }}
+              transition={{ duration: 0.2 }}
+            >
+              <Card className="relative border-0 bg-gradient-to-br from-white/80 to-green-50/80 backdrop-blur-sm shadow-xl hover:shadow-2xl transition-all duration-300 cursor-pointer">
+                <CardContent className="p-6 text-center">
+                  <div className="w-12 h-12 bg-gradient-to-br from-green-500 to-green-600 rounded-xl flex items-center justify-center mx-auto mb-4 shadow-lg">
+                    <Mail className="h-6 w-6 text-white" />
+                  </div>
+                  <h3 className="font-semibold text-base mb-2 text-gray-800">
+                    Email Support
+                  </h3>
+                  <p className="text-sm text-gray-600 mb-4">
+                    Send detailed messages for complex issues
+                  </p>
+                  <Button
+                    variant="outline"
+                    size="sm"
+                    className="w-full border-green-200 hover:bg-green-50 hover:border-green-300 transition-colors"
+                  >
+                    <a href="mailto:slytherinpls8@gmail.com">Email Us</a>
+                  </Button>
+                </CardContent>
+              </Card>
+            </motion.div>
           </div>
 
           {/* Support Hours */}
@@ -247,10 +289,10 @@ export default function SupportPage() {
             </CardContent>
           </Card>
 
-          {/* Back Button */}
-          <div className="text-center pt-4">
+          {/* Return Button */}
+          <div className="text-center pt-6">
             <Link href="/">
-              <Button className="gap-2">
+              <Button className="gap-3 px-6 py-3 bg-gradient-to-r from-purple-500 to-blue-500 hover:from-purple-600 hover:to-blue-600 text-white shadow-lg hover:shadow-xl transition-all duration-300 rounded-xl">
                 <ArrowLeft className="h-4 w-4" />
                 Return to Manvaasam
               </Button>
