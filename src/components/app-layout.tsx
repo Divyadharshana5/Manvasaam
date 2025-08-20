@@ -40,6 +40,7 @@ import { signOut } from "firebase/auth";
 import { useRouter } from "next/navigation";
 import { useToast } from "@/hooks/use-toast";
 import { useLanguage } from "@/context/language-context";
+import { VoiceAssistant } from "@/components/voice-assistant";
 
 interface UserProfile {
   userType?: string;
@@ -213,14 +214,17 @@ export function AppLayout({ children }: { children: React.ReactNode }) {
               {getPageTitle()}
             </h1>
           </div>
-          <div className="flex items-center gap-2">
-            <span className="text-sm font-medium">{user?.email}</span>
-            <Avatar>
-              <AvatarImage src={user?.photoURL || undefined} />
-              <AvatarFallback>
-                <UserIcon />
-              </AvatarFallback>
-            </Avatar>
+          <div className="flex items-center gap-4">
+            <VoiceAssistant />
+            <div className="flex items-center gap-2">
+              <span className="text-sm font-medium">{user?.email}</span>
+              <Avatar>
+                <AvatarImage src={user?.photoURL || undefined} />
+                <AvatarFallback>
+                  <UserIcon />
+                </AvatarFallback>
+              </Avatar>
+            </div>
           </div>
         </header>
         <main className="flex-1">{children}</main>

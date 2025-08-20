@@ -3,8 +3,6 @@
  * @fileOverview A text-to-speech AI flow.
  *
  * - textToSpeech - A function that converts text to speech.
- * - TextToSpeechInputSchema - The input schema for the textToSpeech function.
- * - TextToSpeechOutputSchema - The output schema for the textToSpeech function.
  */
 
 import {ai} from '@/ai/genkit';
@@ -12,13 +10,13 @@ import {googleAI} from '@genkit-ai/googleai';
 import {z} from 'genkit';
 import wav from 'wav';
 
-export const TextToSpeechInputSchema = z.string();
-export type TextToSpeechInput = z.infer<typeof TextToSpeechInputSchema>;
+const TextToSpeechInputSchema = z.string();
+type TextToSpeechInput = z.infer<typeof TextToSpeechInputSchema>;
 
-export const TextToSpeechOutputSchema = z.object({
+const TextToSpeechOutputSchema = z.object({
   audioDataUri: z.string().describe("The base64 encoded WAV audio data URI."),
 });
-export type TextToSpeechOutput = z.infer<typeof TextToSpeechOutputSchema>;
+type TextToSpeechOutput = z.infer<typeof TextToSpeechOutputSchema>;
 
 
 async function toWav(

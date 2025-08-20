@@ -4,14 +4,12 @@
  * @fileOverview A speech-to-text AI flow.
  *
  * - speechToText - A function that transcribes audio to text.
- * - SpeechToTextInputSchema - The input schema for the speechToText function.
- * - SpeechToTextOutputSchema - The output schema for the speechToText function.
  */
 
 import {ai} from '@/ai/genkit';
 import {z} from 'genkit';
 
-export const SpeechToTextInputSchema = z.object({
+const SpeechToTextInputSchema = z.object({
   audioDataUri: z
     .string()
     .describe(
@@ -19,21 +17,20 @@ export const SpeechToTextInputSchema = z.object({
     ),
   language: z.string().optional().describe("The language of the audio recording (e.g., 'English', 'Tamil')."),
 });
-export type SpeechToTextInput = z.infer<typeof SpeechToTextInputSchema>;
+type SpeechToTextInput = z.infer<typeof SpeechToTextInputSchema>;
 
 const SttOutputSchema = z.object({
   transcript: z.string().describe("The transcribed text from the audio."),
 });
 
-export const SpeechToTextOutputSchema = SttOutputSchema;
-export type SpeechToTextOutput = z.infer<typeof SpeechToTextOutputSchema>;
+type SpeechToTextOutput = z.infer<typeof SttOutputSchema>;
 
 
 const speechToTextFlow = ai.defineFlow(
   {
     name: 'speechToTextFlow',
     inputSchema: SpeechToTextInputSchema,
-    outputSchema: SpeechToTextOutputSchema,
+    outputSchema: SttOutputSchema,
   },
   async ({ audioDataUri, language }) => {
 

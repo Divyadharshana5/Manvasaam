@@ -4,21 +4,19 @@
  * @fileOverview A marketing content generation AI flow.
  *
  * - generateMarketingPost - A function that generates a social media post and an image.
- * - MarketingPostInputSchema - The input schema for the generateMarketingPost function.
- * - MarketingPostOutputSchema - The output schema for the generateMarketingPost function.
  */
 
 import { ai } from '@/ai/genkit';
 import { z } from 'genkit';
 
-export const MarketingPostInputSchema = z.string();
-export type MarketingPostInput = z.infer<typeof MarketingPostInputSchema>;
+const MarketingPostInputSchema = z.string();
+type MarketingPostInput = z.infer<typeof MarketingPostInputSchema>;
 
-export const MarketingPostOutputSchema = z.object({
+const MarketingPostOutputSchema = z.object({
   post: z.string().describe("The generated social media post copy. It should be engaging and exciting."),
   image: z.string().describe("A data URI for the generated image."),
 });
-export type MarketingPostOutput = z.infer<typeof MarketingPostOutputSchema>;
+type MarketingPostOutput = z.infer<typeof MarketingPostOutputSchema>;
 
 const marketingPostFlow = ai.defineFlow(
   {

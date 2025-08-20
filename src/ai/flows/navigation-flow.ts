@@ -71,8 +71,8 @@ const NavigationOutputSchema = z.object({
   shouldNavigate: z.boolean().describe('Whether navigation should occur'),
 });
 
-export type NavigationInput = z.infer<typeof NavigationInputSchema>;
-export type NavigationOutput = z.infer<typeof NavigationOutputSchema>;
+type NavigationInput = z.infer<typeof NavigationInputSchema>;
+type NavigationOutput = z.infer<typeof NavigationOutputSchema>;
 
 const navigationPrompt = ai.definePrompt(
   {
