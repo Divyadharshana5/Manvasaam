@@ -119,7 +119,7 @@ export default function RestaurantAuthPage() {
       }
 
       toast({
-        title: "Login Successful",
+        title: "Login successful, welcome back",
         description: "Redirecting to dashboard in 5 seconds...",
       });
       setTimeout(() => {
