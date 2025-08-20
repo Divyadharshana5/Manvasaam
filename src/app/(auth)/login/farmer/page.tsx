@@ -161,7 +161,7 @@ export default function FarmerAuthPage() {
         toast({
           title: "Login successful",
           description: "Welcome back,farmer...",
-          duration: 3000,
+          duration: 2000,
         });
         setTimeout(() => {
           router.push("/dashboard/farmer");
@@ -203,7 +203,7 @@ export default function FarmerAuthPage() {
       toast({
         title: "Login successful",
         description: "Welcome back,farmer...",
-        duration: 3000,
+        duration: 2000,
       });
       setTimeout(() => {
         router.push("/dashboard/farmer");

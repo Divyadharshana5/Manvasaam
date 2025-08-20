@@ -2,18 +2,17 @@ import admin from "firebase-admin";
 import "dotenv/config";
 
 const serviceAccount = {
-  projectId: process.env.FIREBASE_PROJECT_ID || process.env.NEXT_PUBLIC_FIREBASE_PROJECT_ID,
-  privateKey: (process.env.FIREBASE_PRIVATE_KEY || process.env.NEXT_PUBLIC_FIREBASE_PRIVATE_KEY)
-    ? (process.env.FIREBASE_PRIVATE_KEY || process.env.NEXT_PUBLIC_FIREBASE_PRIVATE_KEY)!.replace(/\\n/g, "\n")
-    : "",
-  clientEmail: process.env.FIREBASE_CLIENT_EMAIL || process.env.NEXT_PUBLIC_FIREBASE_CLIENT_EMAIL,
+  projectId: process.env.NEXT_PUBLIC_PROJECT_ID || "",
+  privateKey: 
+    process.env.NEXT_PUBLIC_FIREBASE_PRIVATE_KEY!.replace(/\\n/g, "\n")
+    || "",
+  clientEmail:  process.env.NEXT_PUBLIC_FIREBASE_CLIENT_EMAIL || "",
 };
 
 // Validate required environment variables
 const isConfigValid = serviceAccount.projectId &&
                      serviceAccount.privateKey &&
-                     serviceAccount.clientEmail &&
-                     serviceAccount.privateKey !== "-----BEGIN PRIVATE KEY-----\nMIIEvQIBADANBgkqhkiG9w0BAQEFAASCBKcwggSjAgEAAoIBAQC5+2X8Z9QJ7K3m\nYour-actual-private-key-content-here\n-----END PRIVATE KEY-----";
+                     serviceAccount.clientEmail;
 
 let isFirebaseInitialized = false;
 

@@ -117,9 +117,9 @@ function HubAuthComponent() {
       }
 
       toast({
-        title: "Login successful, welcome back",
-        description: "Redirecting to dashboard in 5 seconds...",
-        duration: 3000,
+        title: "Login successful",
+        description: "Welcome back to dashboard...",
+        duration: 2000,
       });
       setTimeout(() => {
         router.push("/dashboard/hub");
