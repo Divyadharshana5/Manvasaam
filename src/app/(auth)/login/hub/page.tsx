@@ -47,11 +47,9 @@ const registerSchema = z
         message: "Email must be a @gmail.com address.",
       }),
     location: z.string().min(3, { message: "Location is required." }),
-    phone: z
-      .string()
-      .regex(/^\d{10}$/, {
-        message: "Phone number must be exactly 10 digits.",
-      }),
+    phone: z.string().regex(/^\d{10}$/, {
+      message: "Phone number must be exactly 10 digits.",
+    }),
     password: z
       .string()
       .min(8, { message: "Password must be at least 8 characters long." })
@@ -120,7 +118,7 @@ function HubAuthComponent() {
 
       toast({
         title: "Login Successful",
-        description: "Redirecting to dashboard in 5 seconds...",
+        description: "Welcome to your Hub Dashboard!",
       });
       setTimeout(() => {
         router.push("/dashboard/hub");

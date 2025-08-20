@@ -155,7 +155,10 @@ export default function CustomerAuthPage() {
         throw new Error("Failed to create session");
       }
 
-      toast({ title: "Login Successful", description: "Redirecting to dashboard in 5 seconds..." });
+      toast({
+        title: "Login Successful",
+        description: "Welcome back to your dashboard...",
+      });
       setTimeout(() => {
         router.push("/dashboard");
       }, 5000);
@@ -354,10 +357,8 @@ export default function CustomerAuthPage() {
                           maxLength={10}
                           {...field}
                           onInput={(e) => {
-                            e.currentTarget.value = e.currentTarget.value.replace(
-                              /[^0-9]/g,
-                              ""
-                            );
+                            e.currentTarget.value =
+                              e.currentTarget.value.replace(/[^0-9]/g, "");
                           }}
                         />
                       </FormControl>

@@ -119,8 +119,8 @@ export default function RestaurantAuthPage() {
       }
 
       toast({
-        title: "Login successful, welcome back",
-        description: "Redirecting to dashboard in 5 seconds...",
+        title: "Login successful",
+        description: "Welcome back to your dashboard...",
       });
       setTimeout(() => {
         router.push("/dashboard");

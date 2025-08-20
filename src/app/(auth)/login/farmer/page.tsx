@@ -22,13 +22,7 @@ import {
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { useToast } from "@/hooks/use-toast";
-import {
-  Loader2,
-  Eye,
-  EyeOff,
-  Tractor,
-  Fingerprint,
-} from "lucide-react";
+import { Loader2, Eye, EyeOff, Tractor, Fingerprint } from "lucide-react";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import {
   signInWithEmailAndPassword,
@@ -84,8 +78,6 @@ interface PasskeyStatus {
   status: "ready" | "registering" | "authenticating" | "error" | "success";
 }
 
-
-
 export default function FarmerAuthPage() {
   const [loading, setLoading] = useState(false);
   const { toast } = useToast();
@@ -95,9 +87,6 @@ export default function FarmerAuthPage() {
   const { t } = useLanguage();
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
-
-
-
 
   const loginForm = useForm<z.infer<typeof loginSchema>>({
     resolver: zodResolver(loginSchema),
@@ -166,12 +155,12 @@ export default function FarmerAuthPage() {
         title: "Authenticating...",
         description: "Touch your fingerprint sensor",
       });
-      
+
       // Fast fingerprint login
       setTimeout(() => {
         toast({
           title: "Login Successful!",
-          description: "Redirecting to dashboard in 5 seconds...",
+          description: "Welcome back,farmer...",
         });
         setTimeout(() => {
           router.push("/dashboard/farmer");
@@ -210,7 +199,10 @@ export default function FarmerAuthPage() {
         throw new Error("Failed to create session");
       }
 
-      toast({ title: "Login Successful", description: "Redirecting to dashboard in 5 seconds..." });
+      toast({
+        title: "Login Successful",
+        description: "Redirecting to dashboard in 5 seconds...",
+      });
       setTimeout(() => {
         router.push("/dashboard/farmer");
       }, 5000);
@@ -413,7 +405,9 @@ export default function FarmerAuthPage() {
               >
                 <div className="text-center p-4 bg-green-50 rounded-lg border border-green-200">
                   <Fingerprint className="h-12 w-12 mx-auto mb-3 text-green-600" />
-                  <h3 className="font-semibold text-green-800 mb-2">Quick Fingerprint Setup</h3>
+                  <h3 className="font-semibold text-green-800 mb-2">
+                    Quick Fingerprint Setup
+                  </h3>
                   <p className="text-sm text-green-700 mb-3">
                     Skip typing! Just use your fingerprint to register quickly
                   </p>
@@ -422,7 +416,8 @@ export default function FarmerAuthPage() {
                     onClick={() => {
                       toast({
                         title: "Fingerprint Registration",
-                        description: "Touch your device's fingerprint sensor now",
+                        description:
+                          "Touch your device's fingerprint sensor now",
                       });
                       // Register and redirect to login
                       setTimeout(() => {
@@ -486,10 +481,8 @@ export default function FarmerAuthPage() {
                           maxLength={10}
                           {...field}
                           onInput={(e) => {
-                            e.currentTarget.value = e.currentTarget.value.replace(
-                              /[^0-9]/g,
-                              ""
-                            );
+                            e.currentTarget.value =
+                              e.currentTarget.value.replace(/[^0-9]/g, "");
                           }}
                         />
                       </FormControl>
