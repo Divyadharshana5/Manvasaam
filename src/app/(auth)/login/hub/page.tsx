@@ -118,11 +118,11 @@ function HubAuthComponent() {
         throw new Error("Failed to create session");
       }
 
+      router.push("/dashboard/hub");
       toast({
         title: "Login Successful",
         description: "Welcome back, Hub Manager!",
       });
-      router.push("/dashboard/hub");
     } catch (error: any) {
       toast({
         variant: "destructive",
@@ -176,11 +176,11 @@ function HubAuthComponent() {
           });
 
           if (loginResponse.ok) {
+            router.push("/dashboard/hub");
             toast({
               title: "Login Successful",
               description: "Welcome to your Hub Dashboard!",
             });
-            router.push("/dashboard/hub");
             return;
           }
         } catch (loginError) {

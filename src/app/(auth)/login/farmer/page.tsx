@@ -28,14 +28,6 @@ import {
   EyeOff,
   Tractor,
   Fingerprint,
-  UserCheck,
-  CheckCircle,
-  AlertCircle,
-  Key,
-  Lock,
-  Square,
-  Mic,
-  MicOff,
 } from "lucide-react";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import {
@@ -44,8 +36,7 @@ import {
 } from "firebase/auth";
 import { useRouter } from "next/navigation";
 import { auth } from "@/lib/firebase";
-import { Alert, AlertDescription } from "@/components/ui/alert";
-import { Badge } from "@/components/ui/badge";
+
 import { useLanguage } from "@/context/language-context";
 
 const loginSchema = z.object({
@@ -93,90 +84,7 @@ interface PasskeyStatus {
   status: "ready" | "registering" | "authenticating" | "error" | "success";
 }
 
-function PasskeyStatusDisplay({ status }: { status: PasskeyStatus | null }) {
-  if (!status) return null;
 
-  const getStatusBadge = (statusType: string) => {
-    switch (statusType) {
-      case "ready":
-        return "bg-blue-100 text-blue-800";
-      case "success":
-        return "bg-green-100 text-green-800";
-      case "error":
-        return "bg-red-100 text-red-800";
-      case "registering":
-      case "authenticating":
-        return "bg-yellow-100 text-yellow-800";
-      default:
-        return "bg-gray-100 text-gray-800";
-    }
-  };
-
-  return (
-    <div className="space-y-3 p-4 bg-muted/50 rounded-lg border">
-      <div className="flex items-center justify-between">
-        <h4 className="font-medium flex items-center gap-2">
-          <Fingerprint className="h-4 w-4" />
-          Passkey Status
-        </h4>
-        <Badge className={getStatusBadge(status.status)}>
-          {status.status.toUpperCase()}
-        </Badge>
-      </div>
-
-      <div className="grid grid-cols-2 gap-2 text-sm">
-        <div className="flex items-center gap-2">
-          <div
-            className={`w-2 h-2 rounded-full ${
-              status.supported ? "bg-green-500" : "bg-red-500"
-            }`}
-          />
-          <span>Browser Support</span>
-        </div>
-        <div className="flex items-center gap-2">
-          <div
-            className={`w-2 h-2 rounded-full ${
-              status.registered ? "bg-green-500" : "bg-yellow-500"
-            }`}
-          />
-          <span>Registered</span>
-        </div>
-      </div>
-
-      {status.credentialId && (
-        <div className="text-xs text-muted-foreground">
-          <span>Credential ID: </span>
-          <span className="font-mono">
-            {status.credentialId.slice(0, 16)}...
-          </span>
-        </div>
-      )}
-
-      {status.feedback && (
-        <Alert
-          className={
-            status.status === "success"
-              ? "border-green-200"
-              : status.status === "error"
-              ? "border-red-200"
-              : "border-blue-200"
-          }
-        >
-          {status.status === "success" ? (
-            <CheckCircle className="h-4 w-4 text-green-600" />
-          ) : status.status === "error" ? (
-            <AlertCircle className="h-4 w-4 text-red-600" />
-          ) : (
-            <Key className="h-4 w-4 text-blue-600" />
-          )}
-          <AlertDescription className="text-sm">
-            {status.feedback}
-          </AlertDescription>
-        </Alert>
-      )}
-    </div>
-  );
-}
 
 export default function FarmerAuthPage() {
   const [loading, setLoading] = useState(false);
@@ -187,75 +95,9 @@ export default function FarmerAuthPage() {
   const { t } = useLanguage();
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
-  const [passkeyLoginStatus, setPasskeyLoginStatus] =
-    useState<PasskeyStatus | null>(null);
-  const [authenticatingPasskey, setAuthenticatingPasskey] = useState(false);
-  const [passkeyStatus, setPasskeyStatus] = useState<PasskeyStatus | null>(
-    null
-  );
-  const [isRegisteringPasskey, setIsRegisteringPasskey] = useState(false);
 
-  useEffect(() => {
-    if (authMode === "passkey") {
-      checkPasskeyLoginSupport();
-    }
-  }, [authMode]);
 
-  useEffect(() => {
-    if (activeTab === "register") {
-      checkPasskeySupport();
-    }
-  }, [activeTab]);
 
-  const checkPasskeyLoginSupport = async () => {
-    try {
-      const isSupported =
-        window.PublicKeyCredential &&
-        (await PublicKeyCredential.isUserVerifyingPlatformAuthenticatorAvailable());
-
-      setPasskeyLoginStatus({
-        supported: isSupported,
-        registered: false,
-        feedback: isSupported
-          ? "Ready for passkey authentication"
-          : "Passkey authentication is not supported on this device",
-        status: isSupported ? "ready" : "error",
-      });
-    } catch (error) {
-      console.error("Passkey support check failed:", error);
-      setPasskeyLoginStatus({
-        supported: false,
-        registered: false,
-        feedback: "Unable to check passkey support",
-        status: "error",
-      });
-    }
-  };
-
-  const checkPasskeySupport = async () => {
-    try {
-      const isSupported =
-        window.PublicKeyCredential &&
-        (await PublicKeyCredential.isUserVerifyingPlatformAuthenticatorAvailable());
-
-      setPasskeyStatus({
-        supported: isSupported,
-        registered: false,
-        feedback: isSupported
-          ? "Your device supports passkey authentication"
-          : "Passkey authentication is not supported on this device",
-        status: isSupported ? "ready" : "error",
-      });
-    } catch (error) {
-      console.error("Passkey support check failed:", error);
-      setPasskeyStatus({
-        supported: false,
-        registered: false,
-        feedback: "Unable to check passkey support",
-        status: "error",
-      });
-    }
-  };
 
   const loginForm = useForm<z.infer<typeof loginSchema>>({
     resolver: zodResolver(loginSchema),
@@ -318,181 +160,34 @@ export default function FarmerAuthPage() {
   }
 
   const handlePasskeyLogin = async () => {
-    if (!passkeyLoginStatus?.supported) {
-      toast({
-        variant: "destructive",
-        title: "Passkey Not Supported",
-        description: "Your device doesn't support passkey authentication.",
-      });
-      return;
-    }
-
     setLoading(true);
-    setAuthenticatingPasskey(true);
-    setPasskeyLoginStatus((prev) =>
-      prev ? { ...prev, status: "authenticating" } : null
-    );
-
     try {
       const challenge = new Uint8Array(32);
       crypto.getRandomValues(challenge);
 
-      const credential = (await navigator.credentials.get({
+      await navigator.credentials.get({
         publicKey: {
           challenge,
           rpId: window.location.hostname,
           userVerification: "required",
           timeout: 60000,
         },
-      })) as PublicKeyCredential;
+      });
 
-      if (!credential) {
-        throw new Error("No passkey found. Please register first or use email login.");
-      }
-
-      // For demo purposes, simulate successful login without backend
+      router.push("/dashboard");
       toast({
-        title: "Passkey Login Successful",
+        title: "Fingerprint Login Successful",
         description: "Welcome back, Farmer!",
       });
-      router.push("/dashboard");
-      
     } catch (error: any) {
-      let errorMessage = "No passkey registered. Please register first or use email login.";
-      
-      if (error.name === "NotAllowedError") {
-        errorMessage = "Authentication cancelled or failed. Please try again.";
-      } else if (error.name === "InvalidStateError") {
-        errorMessage = "No passkey found. Please register first.";
-      } else if (error.message) {
-        errorMessage = error.message;
-      }
-
-      setPasskeyLoginStatus((prev) =>
-        prev
-          ? {
-              ...prev,
-              feedback: errorMessage,
-              status: "error",
-            }
-          : null
-      );
-
       toast({
         variant: "destructive",
-        title: "Passkey Login Failed",
-        description: errorMessage,
+        title: "Fingerprint Login Failed",
+        description: "Please register first or use email login.",
       });
     } finally {
       setLoading(false);
-      setAuthenticatingPasskey(false);
     }
-  };
-
-  const handleRegisterPasskey = async () => {
-    if (!passkeyStatus?.supported) {
-      toast({
-        variant: "destructive",
-        title: "Passkey Not Supported",
-        description: "Your device doesn't support passkey authentication.",
-      });
-      return;
-    }
-
-    setIsRegisteringPasskey(true);
-    setPasskeyStatus((prev) =>
-      prev ? { ...prev, status: "registering" } : null
-    );
-
-    try {
-      const challenge = new Uint8Array(32);
-      crypto.getRandomValues(challenge);
-
-      const tempUserId = `farmer_${Date.now()}_${Math.random()
-        .toString(36)
-        .substr(2, 9)}`;
-      const tempEmail = `${tempUserId}@temp.manvaasam.local`;
-
-      const credential = (await navigator.credentials.create({
-        publicKey: {
-          challenge,
-          rp: {
-            name: "Manvaasam",
-            id: window.location.hostname,
-          },
-          user: {
-            id: new TextEncoder().encode(tempUserId),
-            name: tempEmail,
-            displayName: "Farmer User",
-          },
-          pubKeyCredParams: [{ alg: -7, type: "public-key" }],
-          authenticatorSelection: {
-            authenticatorAttachment: "platform",
-            userVerification: "required",
-          },
-          timeout: 60000,
-        },
-      })) as PublicKeyCredential;
-
-      if (credential) {
-        const credentialId = Array.from(new Uint8Array(credential.rawId))
-          .map((b) => b.toString(16).padStart(2, "0"))
-          .join("");
-
-        registerForm.setValue("passkeyCredentialId", credentialId, {
-          shouldValidate: true,
-        });
-
-        setPasskeyStatus({
-          supported: true,
-          registered: true,
-          credentialId,
-          feedback:
-            "Fingerprint registered successfully! You can now use fingerprint login.",
-          status: "success",
-        });
-      }
-    } catch (error: any) {
-      console.error("Passkey registration failed:", error);
-      setPasskeyStatus((prev) =>
-        prev
-          ? {
-              ...prev,
-              feedback:
-                error.message ||
-                "Failed to register fingerprint. Please try again or skip this step.",
-              status: "error",
-            }
-          : null
-      );
-
-      toast({
-        variant: "destructive",
-        title: "Fingerprint Setup Failed",
-        description:
-          error.message ||
-          "Unable to setup fingerprint. Please try again or skip this step.",
-      });
-    } finally {
-      setIsRegisteringPasskey(false);
-    }
-  };
-
-  const handleResetPasskey = () => {
-    setPasskeyStatus((prev) =>
-      prev
-        ? {
-            ...prev,
-            registered: false,
-            credentialId: undefined,
-            feedback: "Ready to register your fingerprint",
-            status: "ready",
-          }
-        : null
-    );
-    registerForm.setValue("passkeyCredentialId", undefined, {
-      shouldValidate: true,
-    });
   };
 
   async function onLogin(values: z.infer<typeof loginSchema>) {
@@ -517,8 +212,8 @@ export default function FarmerAuthPage() {
         throw new Error("Failed to create session");
       }
 
-      toast({ title: "Login Successful", description: "Welcome back!" });
       router.push("/dashboard");
+      toast({ title: "Login Successful", description: "Welcome back!" });
     } catch (error: any) {
       toast({
         variant: "destructive",
@@ -688,52 +383,24 @@ export default function FarmerAuthPage() {
                 value="passkey"
                 className="pt-3 sm:pt-4 space-y-3 sm:space-y-4"
               >
-                <div className="text-center space-y-3 sm:space-y-4">
-                  <div className="flex items-center justify-center w-16 h-16 sm:w-20 sm:h-20 mx-auto bg-primary/10 rounded-full">
-                    <Fingerprint className="h-8 w-8 sm:h-10 sm:w-10 text-primary" />
+                <div className="text-center space-y-4">
+                  <div className="flex items-center justify-center w-16 h-16 mx-auto bg-primary/10 rounded-full">
+                    <Fingerprint className="h-8 w-8 text-primary" />
                   </div>
-                  <div className="px-2">
-                    <h3 className="font-semibold text-base sm:text-lg">
-                      Passkey Authentication
-                    </h3>
-                    <p className="text-xs sm:text-sm text-muted-foreground">
-                      Use your device's biometric sensors for secure login
-                    </p>
-                    <div className="mt-2 p-2 bg-yellow-50 border border-yellow-200 rounded text-xs text-yellow-800">
-                      <strong>Note:</strong> You must register a passkey first during account creation to use this feature.
-                    </div>
-                  </div>
+                  <h3 className="font-semibold text-lg">Fingerprint Login</h3>
                 </div>
-
-                {passkeyLoginStatus && (
-                  <PasskeyStatusDisplay status={passkeyLoginStatus} />
-                )}
-
-                {authenticatingPasskey && (
-                  <div className="text-center py-3 sm:py-4">
-                    <Loader2 className="h-6 w-6 sm:h-8 sm:w-8 animate-spin mx-auto mb-2" />
-                    <p className="text-xs sm:text-sm text-muted-foreground">
-                      <span className="hidden sm:inline">
-                        Authenticating with passkey...
-                      </span>
-                      <span className="sm:hidden">Authenticating...</span>
-                    </p>
-                  </div>
-                )}
 
                 <Button
                   onClick={handlePasskeyLogin}
-                  className="w-full text-sm sm:text-base py-2 sm:py-3 animate-pulse hover:animate-none"
-                  disabled={loading || !passkeyLoginStatus?.supported}
+                  className="w-full py-3"
+                  disabled={loading}
                 >
-                  {loading && (
-                    <Loader2 className="mr-1 sm:mr-2 h-3 w-3 sm:h-4 sm:w-4 animate-spin" />
+                  {loading ? (
+                    <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                  ) : (
+                    <Fingerprint className="mr-2 h-4 w-4" />
                   )}
-                  <Fingerprint className="mr-1 sm:mr-2 h-3 w-3 sm:h-4 sm:w-4" />
-                  <span className="hidden sm:inline">
-                    👆 Touch Your Device's Fingerprint Sensor
-                  </span>
-                  <span className="sm:hidden">👆 Touch Sensor</span>
+                  {loading ? "Authenticating..." : "Use Fingerprint"}
                 </Button>
               </TabsContent>
             </Tabs>
@@ -744,138 +411,12 @@ export default function FarmerAuthPage() {
                 onSubmit={registerForm.handleSubmit(onRegister)}
                 className="space-y-4"
               >
-                <FormField
-                  control={registerForm.control}
-                  name="passkeyCredentialId"
-                  render={({ field }) => (
-                    <FormItem>
-                      <FormLabel className="flex items-center gap-2">
-                        <Fingerprint className="h-4 w-4" />
-                        Quick Fingerprint Setup (Optional)
-                        <span className="text-xs text-green-600 font-normal ml-2">
-                          • No details required - just your fingerprint!
-                        </span>
-                      </FormLabel>
-                      <Card className="p-3 sm:p-4 bg-muted/50 border-dashed border-2">
-                        <div className="mb-4 p-2 bg-blue-50 border border-blue-200 rounded-lg">
-                          <div className="flex items-start gap-2">
-                            <div className="text-blue-600 text-sm">ℹ️</div>
-                            <div className="text-xs text-blue-800">
-                              <strong>Quick Setup:</strong> You can set up your
-                              fingerprint right now - no other details needed!
-                              Or skip this step and use password login instead.
-                            </div>
-                          </div>
-                        </div>
-                        <CardContent className="p-0">
-                          {!passkeyStatus?.registered ? (
-                            <div className="space-y-3 sm:space-y-4">
-                              <div className="text-center space-y-2">
-                                <div className="flex items-center justify-center w-12 h-12 sm:w-16 sm:h-16 mx-auto bg-primary/10 rounded-full">
-                                  <Fingerprint className="h-6 w-6 sm:h-8 sm:w-8 text-primary" />
-                                </div>
-                                <p className="text-xs sm:text-sm text-muted-foreground px-2">
-                                  <strong>Simple & Fast:</strong> Just touch your
-                                  fingerprint sensor - no typing required!
-                                  <br />
-                                  <span className="text-green-600 text-xs">
-                                    ✓ Works with your phone's fingerprint, face
-                                    unlock, or PIN
-                                  </span>
-                                </p>
-                              </div>
-
-                              {passkeyStatus && (
-                                <PasskeyStatusDisplay status={passkeyStatus} />
-                              )}
-
-                              <div className="space-y-2">
-                                <Button
-                                  type="button"
-                                  onClick={handleRegisterPasskey}
-                                  disabled={
-                                    !passkeyStatus?.supported ||
-                                    isRegisteringPasskey
-                                  }
-                                  className="w-full text-sm sm:text-base py-2 sm:py-3"
-                                >
-                                  {isRegisteringPasskey ? (
-                                    <>
-                                      <Loader2 className="mr-1 sm:mr-2 h-3 w-3 sm:h-4 sm:w-4 animate-spin" />
-                                      <span className="hidden sm:inline">
-                                        Touch Your Fingerprint Sensor...
-                                      </span>
-                                      <span className="sm:hidden">
-                                        Touch Sensor...
-                                      </span>
-                                    </>
-                                  ) : (
-                                    <>
-                                      <Fingerprint className="mr-1 sm:mr-2 h-3 w-3 sm:h-4 sm:w-4" />
-                                      <span className="hidden sm:inline">
-                                        Touch Fingerprint to Register
-                                      </span>
-                                      <span className="sm:hidden">
-                                        Touch Fingerprint
-                                      </span>
-                                    </>
-                                  )}
-                                </Button>
-
-                                <Button
-                                  type="button"
-                                  variant="outline"
-                                  onClick={() => {
-                                    setPasskeyStatus({
-                                      supported: false,
-                                      registered: false,
-                                      credentialId: "",
-                                      feedback:
-                                        "Fingerprint setup skipped. You can use password login.",
-                                      status: "ready",
-                                    });
-                                  }}
-                                  className="w-full text-xs sm:text-sm py-1.5 sm:py-2 border-dashed text-muted-foreground hover:text-foreground"
-                                >
-                                  ✋ Skip Fingerprint Setup (Use Password Only)
-                                </Button>
-                              </div>
-                            </div>
-                          ) : (
-                            <div className="space-y-3 sm:space-y-4">
-                              <div className="text-xs sm:text-sm font-medium text-green-600 flex items-center justify-center">
-                                <UserCheck className="mr-1 sm:mr-2 h-3 w-3 sm:h-4 sm:w-4" />
-                                <span className="hidden sm:inline">
-                                  {passkeyStatus?.credentialId
-                                    ? "Fingerprint Setup Complete"
-                                    : "Setup Complete - Password Login Ready"}
-                                </span>
-                                <span className="sm:hidden">Setup Complete</span>
-                              </div>
-                              <div className="flex items-center justify-center w-12 h-12 sm:w-16 sm:h-16 mx-auto bg-green-100 rounded-full">
-                                <Lock className="h-6 w-6 sm:h-8 sm:w-8 text-green-600" />
-                              </div>
-                              <PasskeyStatusDisplay status={passkeyStatus} />
-                              <Button
-                                type="button"
-                                variant="outline"
-                                onClick={handleResetPasskey}
-                                className="w-full text-sm sm:text-base py-2 sm:py-3"
-                              >
-                                <Key className="mr-1 sm:mr-2 h-3 w-3 sm:h-4 sm:w-4" />
-                                <span className="hidden sm:inline">
-                                  Register New Passkey
-                                </span>
-                                <span className="sm:hidden">New Passkey</span>
-                              </Button>
-                            </div>
-                          )}
-                        </CardContent>
-                      </Card>
-                      <FormMessage className="pt-1" />
-                    </FormItem>
-                  )}
-                />
+                <div className="text-center p-3 bg-blue-50 rounded-lg border border-blue-200">
+                  <Fingerprint className="h-8 w-8 mx-auto mb-2 text-blue-600" />
+                  <p className="text-sm text-blue-800">
+                    <strong>Tip:</strong> Set up fingerprint login after registration for faster access
+                  </p>
+                </div>
                 <FormField
                   control={registerForm.control}
                   name="username"

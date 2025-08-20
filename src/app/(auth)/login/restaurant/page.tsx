@@ -118,11 +118,11 @@ export default function RestaurantAuthPage() {
         throw new Error("Failed to create session");
       }
 
+      router.push("/dashboard");
       toast({
         title: "Login Successful",
         description: "Welcome back, Restaurant Manager!",
       });
-      router.push("/dashboard");
     } catch (error: any) {
       toast({
         variant: "destructive",
