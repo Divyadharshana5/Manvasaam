@@ -60,6 +60,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" suppressHydrationWarning>
+      <head />
       <body className={`${ptSans.variable} font-sans antialiased`}>
         <LanguageProvider>
           <AuthProvider>{children}</AuthProvider>
