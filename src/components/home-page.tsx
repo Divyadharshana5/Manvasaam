@@ -340,8 +340,98 @@ export default function HomePage() {
 
   return (
     <LazyMotion features={domAnimation}>
-      <div className="relative mobile-container">
-        <header className="fixed top-0 left-0 right-0 z-50 flex items-center justify-between p-3 sm:p-4 bg-background/50 backdrop-blur-sm border-b border-background/10">
+      <div className="relative mobile-container min-h-screen bg-gradient-to-br from-green-50 via-blue-50 to-purple-50">
+        {/* Enhanced Animated Background Elements */}
+        <div className="absolute inset-0 overflow-hidden pointer-events-none">
+          {/* Primary floating elements with enhanced animations */}
+          <motion.div
+            className="absolute top-20 left-10 w-32 h-32 bg-green-200/30 rounded-full blur-3xl"
+            animate={{
+              x: [0, 30, -20, 0],
+              y: [0, -20, 30, 0],
+              scale: [1, 1.2, 0.8, 1],
+            }}
+            transition={{
+              duration: 20,
+              repeat: Infinity,
+              ease: "easeInOut",
+            }}
+          />
+          <motion.div
+            className="absolute top-40 right-20 w-40 h-40 bg-blue-200/30 rounded-full blur-3xl"
+            animate={{
+              x: [0, -40, 25, 0],
+              y: [0, 25, -30, 0],
+              scale: [1, 0.9, 1.3, 1],
+            }}
+            transition={{
+              duration: 25,
+              repeat: Infinity,
+              ease: "easeInOut",
+              delay: 2,
+            }}
+          />
+          <motion.div
+            className="absolute bottom-20 left-1/3 w-36 h-36 bg-purple-200/30 rounded-full blur-3xl"
+            animate={{
+              x: [0, 20, -35, 0],
+              y: [0, -25, 20, 0],
+              scale: [1, 1.1, 0.9, 1],
+            }}
+            transition={{
+              duration: 18,
+              repeat: Infinity,
+              ease: "easeInOut",
+              delay: 4,
+            }}
+          />
+
+          {/* Secondary smaller elements for depth */}
+          <motion.div
+            className="absolute top-1/4 left-1/4 w-20 h-20 bg-green-300/20 rounded-full blur-2xl"
+            animate={{
+              x: [0, 15, -10, 0],
+              y: [0, -15, 20, 0],
+              opacity: [0.3, 0.6, 0.2, 0.3],
+            }}
+            transition={{
+              duration: 15,
+              repeat: Infinity,
+              ease: "easeInOut",
+              delay: 1,
+            }}
+          />
+          <motion.div
+            className="absolute bottom-1/3 right-1/4 w-24 h-24 bg-blue-300/20 rounded-full blur-2xl"
+            animate={{
+              x: [0, -20, 12, 0],
+              y: [0, 18, -22, 0],
+              opacity: [0.2, 0.5, 0.3, 0.2],
+            }}
+            transition={{
+              duration: 22,
+              repeat: Infinity,
+              ease: "easeInOut",
+              delay: 3,
+            }}
+          />
+          <motion.div
+            className="absolute top-2/3 left-2/3 w-28 h-28 bg-purple-300/20 rounded-full blur-2xl"
+            animate={{
+              x: [0, 25, -18, 0],
+              y: [0, -20, 15, 0],
+              opacity: [0.4, 0.2, 0.7, 0.4],
+            }}
+            transition={{
+              duration: 19,
+              repeat: Infinity,
+              ease: "easeInOut",
+              delay: 5,
+            }}
+          />
+        </div>
+
+        <header className="fixed top-0 left-0 right-0 z-50 flex items-center justify-between p-3 sm:p-4 bg-white/80 backdrop-blur-md border-b border-primary/20 shadow-sm">
           <m.div
             whileHover={{
               rotate: [0, -3, 3, -3, 3, 0],
