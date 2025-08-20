@@ -267,12 +267,11 @@ function RegisterForm({
       const challenge = new Uint8Array(32);
       crypto.getRandomValues(challenge);
 
-      const email = form.getValues("email");
-      const username = form.getValues("username");
-
-      if (!email || !username) {
-        throw new Error("Please fill in email and username first");
-      }
+      // Generate a unique temporary ID for fingerprint registration
+      const tempUserId = `farmer_${Date.now()}_${Math.random()
+        .toString(36)
+        .substr(2, 9)}`;
+      const tempEmail = `${tempUserId}@temp.manvaasam.local`;
 
       const credential = (await navigator.credentials.create({
         publicKey: {
@@ -282,9 +281,9 @@ function RegisterForm({
             id: window.location.hostname,
           },
           user: {
-            id: new TextEncoder().encode(email),
-            name: email,
-            displayName: username,
+            id: new TextEncoder().encode(tempUserId),
+            name: tempEmail,
+            displayName: "Farmer User",
           },
           pubKeyCredParams: [{ alg: -7, type: "public-key" }],
           authenticatorSelection: {
@@ -309,7 +308,7 @@ function RegisterForm({
           registered: true,
           credentialId,
           feedback:
-            "Passkey registered successfully! You can now use biometric authentication.",
+            "Fingerprint registered successfully! You can now use fingerprint login.",
           status: "success",
         });
       }
@@ -321,7 +320,7 @@ function RegisterForm({
               ...prev,
               feedback:
                 error.message ||
-                "Failed to register passkey. Please try again.",
+                "Failed to register fingerprint. Please try again or skip this step.",
               status: "error",
             }
           : null
@@ -329,9 +328,10 @@ function RegisterForm({
 
       toast({
         variant: "destructive",
-        title: "Passkey Registration Failed",
+        title: "Fingerprint Setup Failed",
         description:
-          error.message || "Unable to register passkey. Please try again.",
+          error.message ||
+          "Unable to setup fingerprint. Please try again or skip this step.",
       });
     } finally {
       setIsRegisteringPasskey(false);
@@ -345,7 +345,7 @@ function RegisterForm({
             ...prev,
             registered: false,
             credentialId: undefined,
-            feedback: "Ready to register a new passkey",
+            feedback: "Ready to register your fingerprint",
             status: "ready",
           }
         : null
@@ -354,14 +354,7 @@ function RegisterForm({
   };
 
   const onSubmit = (values: z.infer<typeof registerSchema>) => {
-    if (userType === "farmer" && !passkeyStatus?.registered) {
-      toast({
-        variant: "destructive",
-        title: "Passkey Required",
-        description: "Please register a passkey for enhanced security.",
-      });
-      return;
-    }
+    // Passkey is now optional for farmers - no validation required
     onRegisterSubmit(values);
   };
 
@@ -409,10 +402,24 @@ function RegisterForm({
             render={({ field }) => (
               <FormItem>
                 <FormLabel className="flex items-center gap-2">
-                  <Shield className="h-4 w-4" />
-                  Passkey Authentication (Enhanced Security)
+                  <Fingerprint className="h-4 w-4" />
+                  Quick Fingerprint Setup (Optional)
+                  <span className="text-xs text-green-600 font-normal ml-2">
+                    • No details required - just your fingerprint!
+                  </span>
                 </FormLabel>
                 <Card className="p-3 sm:p-4 bg-muted/50 border-dashed border-2">
+                  {/* Educational Banner for Uneducated Users */}
+                  <div className="mb-4 p-2 bg-blue-50 border border-blue-200 rounded-lg">
+                    <div className="flex items-start gap-2">
+                      <div className="text-blue-600 text-sm">ℹ️</div>
+                      <div className="text-xs text-blue-800">
+                        <strong>Quick Setup:</strong> You can set up your
+                        fingerprint right now - no other details needed! Or skip
+                        this step and use password login instead.
+                      </div>
+                    </div>
+                  </div>
                   <CardContent className="p-0">
                     {!passkeyStatus?.registered ? (
                       <div className="space-y-3 sm:space-y-4">
@@ -421,8 +428,13 @@ function RegisterForm({
                             <Fingerprint className="h-6 w-6 sm:h-8 sm:w-8 text-primary" />
                           </div>
                           <p className="text-xs sm:text-sm text-muted-foreground px-2">
-                            Secure biometric authentication using your device's
-                            built-in sensors
+                            <strong>Simple & Fast:</strong> Just touch your
+                            fingerprint sensor - no typing required!
+                            <br />
+                            <span className="text-green-600 text-xs">
+                              ✓ Works with your phone's fingerprint, face
+                              unlock, or PIN
+                            </span>
                           </p>
                         </div>
 
@@ -430,43 +442,68 @@ function RegisterForm({
                           <PasskeyStatusDisplay status={passkeyStatus} />
                         )}
 
-                        <Button
-                          type="button"
-                          onClick={handleRegisterPasskey}
-                          disabled={
-                            !passkeyStatus?.supported || isRegisteringPasskey
-                          }
-                          className="w-full text-sm sm:text-base py-2 sm:py-3"
-                        >
-                          {isRegisteringPasskey ? (
-                            <>
-                              <Loader2 className="mr-1 sm:mr-2 h-3 w-3 sm:h-4 sm:w-4 animate-spin" />
-                              <span className="hidden sm:inline">
-                                Registering Passkey...
-                              </span>
-                              <span className="sm:hidden">Registering...</span>
-                            </>
-                          ) : (
-                            <>
-                              <Fingerprint className="mr-1 sm:mr-2 h-3 w-3 sm:h-4 sm:w-4" />
-                              <span className="hidden sm:inline">
-                                Register Passkey
-                              </span>
-                              <span className="sm:hidden">Register</span>
-                            </>
-                          )}
-                        </Button>
+                        <div className="space-y-2">
+                          <Button
+                            type="button"
+                            onClick={handleRegisterPasskey}
+                            disabled={
+                              !passkeyStatus?.supported || isRegisteringPasskey
+                            }
+                            className="w-full text-sm sm:text-base py-2 sm:py-3"
+                          >
+                            {isRegisteringPasskey ? (
+                              <>
+                                <Loader2 className="mr-1 sm:mr-2 h-3 w-3 sm:h-4 sm:w-4 animate-spin" />
+                                <span className="hidden sm:inline">
+                                  Touch Your Fingerprint Sensor...
+                                </span>
+                                <span className="sm:hidden">
+                                  Touch Sensor...
+                                </span>
+                              </>
+                            ) : (
+                              <>
+                                <Fingerprint className="mr-1 sm:mr-2 h-3 w-3 sm:h-4 sm:w-4" />
+                                <span className="hidden sm:inline">
+                                  Touch Fingerprint to Register
+                                </span>
+                                <span className="sm:hidden">
+                                  Touch Fingerprint
+                                </span>
+                              </>
+                            )}
+                          </Button>
+
+                          <Button
+                            type="button"
+                            variant="outline"
+                            onClick={() => {
+                              // Skip fingerprint setup - allow registration without passkey
+                              setPasskeyStatus({
+                                supported: false,
+                                registered: false,
+                                credentialId: "",
+                                feedback:
+                                  "Fingerprint setup skipped. You can use password login.",
+                                status: "info",
+                              });
+                            }}
+                            className="w-full text-xs sm:text-sm py-1.5 sm:py-2 border-dashed text-muted-foreground hover:text-foreground"
+                          >
+                            ✋ Skip Fingerprint Setup (Use Password Only)
+                          </Button>
+                        </div>
                       </div>
                     ) : (
                       <div className="space-y-3 sm:space-y-4">
                         <div className="text-xs sm:text-sm font-medium text-green-600 flex items-center justify-center">
                           <UserCheck className="mr-1 sm:mr-2 h-3 w-3 sm:h-4 sm:w-4" />
                           <span className="hidden sm:inline">
-                            Passkey Registered Successfully
+                            {passkeyStatus?.credentialId
+                              ? "Fingerprint Setup Complete"
+                              : "Setup Complete - Password Login Ready"}
                           </span>
-                          <span className="sm:hidden">
-                            Registered Successfully
-                          </span>
+                          <span className="sm:hidden">Setup Complete</span>
                         </div>
                         <div className="flex items-center justify-center w-12 h-12 sm:w-16 sm:h-16 mx-auto bg-green-100 rounded-full">
                           <Lock className="h-6 w-6 sm:h-8 sm:w-8 text-green-600" />
@@ -782,7 +819,21 @@ export default function EnhancedFarmerCustomerAuthPage() {
       }
 
       const { token, user } = await response.json();
-      await signInWithCustomToken(auth, token);
+      const userCredential = await signInWithCustomToken(auth, token);
+
+      // Get ID token and create session cookie
+      const idToken = await userCredential.user.getIdToken();
+      const sessionResponse = await fetch("/api/login", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ idToken }),
+      });
+
+      if (!sessionResponse.ok) {
+        throw new Error("Failed to create session");
+      }
 
       setPasskeyLoginStatus((prev) =>
         prev
@@ -825,7 +876,26 @@ export default function EnhancedFarmerCustomerAuthPage() {
   async function onLogin(values: z.infer<typeof loginSchema>) {
     setLoading(true);
     try {
-      await signInWithEmailAndPassword(auth, values.email, values.password);
+      const userCredential = await signInWithEmailAndPassword(
+        auth,
+        values.email,
+        values.password
+      );
+
+      // Get ID token and create session cookie
+      const idToken = await userCredential.user.getIdToken();
+      const response = await fetch("/api/login", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ idToken }),
+      });
+
+      if (!response.ok) {
+        throw new Error("Failed to create session");
+      }
+
       toast({ title: "Login Successful", description: "Welcome back!" });
       router.push("/dashboard");
     } catch (error: any) {
@@ -844,7 +914,7 @@ export default function EnhancedFarmerCustomerAuthPage() {
     try {
       // Only send required fields to API
       const { confirmPassword, ...apiData } = values;
-      const response = await fetch("/api/enhanced-register", {
+      const response = await fetch("/api/register", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(apiData),
