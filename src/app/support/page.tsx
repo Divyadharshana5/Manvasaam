@@ -86,16 +86,26 @@ export default function SupportPage() {
           className="space-y-6"
         >
           {/* Hero */}
-          <div className="text-center space-y-3">
-            <div className="inline-flex items-center justify-center w-12 h-12 bg-primary/10 rounded-full">
-              <HelpCircle className="h-6 w-6 text-primary" />
+          <div className="relative text-center space-y-6 py-8">
+            <div className="relative inline-flex items-center justify-center w-20 h-20 bg-gradient-to-br from-purple-100 to-blue-100 rounded-2xl shadow-lg">
+              <div className="absolute inset-0 bg-gradient-to-br from-purple-500/20 to-blue-500/20 rounded-2xl blur-xl"></div>
+              <HelpCircle className="relative h-10 w-10 text-purple-600" />
             </div>
-            <h1 className="text-2xl font-bold text-gray-900">
-              How can we help?
-            </h1>
-            <p className="text-gray-600 max-w-xl mx-auto">
-              Get support for your Manvaasam experience.
-            </p>
+            <div className="space-y-3">
+              <h1 className="text-3xl md:text-4xl font-bold bg-gradient-to-r from-gray-900 to-gray-700 bg-clip-text text-transparent">
+                How can we help you?
+              </h1>
+              <p className="text-lg text-gray-600 max-w-2xl mx-auto leading-relaxed">
+                Get instant support for your Manvaasam experience with our
+                comprehensive help center
+              </p>
+              <div className="inline-flex items-center gap-2 px-4 py-2 bg-purple-50 border border-purple-200 rounded-full">
+                <div className="w-2 h-2 bg-purple-500 rounded-full animate-pulse"></div>
+                <p className="text-sm text-purple-700 font-medium">
+                  24/7 Support Available
+                </p>
+              </div>
+            </div>
           </div>
 
           {/* Quick Contact */}

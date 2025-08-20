@@ -17,15 +17,30 @@ import { Alert, AlertDescription } from "@/components/ui/alert";
 
 export default function TermsPage() {
   return (
-    <div className="min-h-screen bg-gradient-to-br from-blue-50 to-green-50">
+    <div className="min-h-screen bg-gradient-to-br from-blue-50 via-indigo-50 to-green-50">
+      {/* Decorative Background Elements */}
+      <div className="absolute inset-0 overflow-hidden pointer-events-none">
+        <div className="absolute top-24 left-12 w-36 h-36 bg-blue-200/30 rounded-full blur-3xl"></div>
+        <div className="absolute top-40 right-16 w-32 h-32 bg-indigo-200/30 rounded-full blur-3xl"></div>
+        <div className="absolute bottom-24 left-1/4 w-40 h-40 bg-green-200/30 rounded-full blur-3xl"></div>
+        <div className="absolute bottom-40 right-1/4 w-28 h-28 bg-blue-300/30 rounded-full blur-3xl"></div>
+      </div>
+
       {/* Header */}
-      <header className="bg-white/90 backdrop-blur-sm border-b sticky top-0 z-50">
-        <div className="container mx-auto px-4 py-3 flex items-center justify-center">
-          <div className="flex items-center gap-2">
-            <FileText className="h-5 w-5 text-primary" />
-            <h1 className="text-lg font-semibold text-primary">
-              Terms of Service
-            </h1>
+      <header className="relative bg-white/95 backdrop-blur-md border-b border-primary/20 sticky top-0 z-50 shadow-sm">
+        <div className="container mx-auto px-4 py-4 flex items-center justify-center">
+          <div className="flex items-center gap-3">
+            <div className="p-2 bg-gradient-to-br from-blue-500 to-indigo-500 rounded-xl shadow-lg">
+              <FileText className="h-6 w-6 text-white" />
+            </div>
+            <div>
+              <h1 className="text-xl font-bold bg-gradient-to-r from-blue-600 to-indigo-600 bg-clip-text text-transparent">
+                Terms of Service
+              </h1>
+              <p className="text-xs text-muted-foreground">
+                Platform usage guidelines
+              </p>
+            </div>
           </div>
         </div>
       </header>
@@ -38,17 +53,26 @@ export default function TermsPage() {
           className="space-y-6"
         >
           {/* Hero */}
-          <div className="text-center space-y-3">
-            <div className="inline-flex items-center justify-center w-12 h-12 bg-primary/10 rounded-full">
-              <Scale className="h-6 w-6 text-primary" />
+          <div className="relative text-center space-y-6 py-8">
+            <div className="relative inline-flex items-center justify-center w-20 h-20 bg-gradient-to-br from-blue-100 to-indigo-100 rounded-2xl shadow-lg">
+              <div className="absolute inset-0 bg-gradient-to-br from-blue-500/20 to-indigo-500/20 rounded-2xl blur-xl"></div>
+              <Scale className="relative h-10 w-10 text-blue-600" />
             </div>
-            <h1 className="text-2xl font-bold text-gray-900">
-              Terms of Service
-            </h1>
-            <p className="text-gray-600 max-w-xl mx-auto">
-              Rules and guidelines for using the Manvaasam platform.
-            </p>
-            <p className="text-xs text-gray-500">Updated: December 2024</p>
+            <div className="space-y-3">
+              <h1 className="text-3xl md:text-4xl font-bold bg-gradient-to-r from-gray-900 to-gray-700 bg-clip-text text-transparent">
+                Terms of Service
+              </h1>
+              <p className="text-lg text-gray-600 max-w-2xl mx-auto leading-relaxed">
+                Rules and guidelines for using the Manvaasam platform
+                responsibly
+              </p>
+              <div className="inline-flex items-center gap-2 px-4 py-2 bg-blue-50 border border-blue-200 rounded-full">
+                <div className="w-2 h-2 bg-blue-500 rounded-full animate-pulse"></div>
+                <p className="text-sm text-blue-700 font-medium">
+                  Updated: December 2024
+                </p>
+              </div>
+            </div>
           </div>
 
           {/* Important Notice */}
