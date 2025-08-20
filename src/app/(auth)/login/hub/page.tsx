@@ -122,7 +122,7 @@ function HubAuthComponent() {
         title: "Login Successful",
         description: "Welcome back, Hub Manager!",
       });
-      router.push("/dashboard");
+      router.push("/dashboard/hub");
     } catch (error: any) {
       toast({
         variant: "destructive",
@@ -143,7 +143,7 @@ function HubAuthComponent() {
         ...rest,
       };
 
-      const response = await fetch("/api/register", {
+      const response = await fetch("/api/enhanced-register", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(apiData),
@@ -157,8 +157,38 @@ function HubAuthComponent() {
 
       toast({
         title: "Hub Registration Successful",
-        description: `Your branch ID is ${result.branchId}. Please log in.`,
+        description: `Your branch ID is ${result.branchId}. Redirecting to dashboard...`,
       });
+
+      // If in mock mode or registration successful, auto-login and redirect
+      if (result.mockMode || result.uid) {
+        // Simulate login process
+        try {
+          // Create a mock ID token for login
+          const mockIdToken = `mock-token-${Date.now()}`;
+
+          const loginResponse = await fetch("/api/login", {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify({ idToken: mockIdToken }),
+          });
+
+          if (loginResponse.ok) {
+            toast({
+              title: "Login Successful",
+              description: "Welcome to your Hub Dashboard!",
+            });
+            router.push("/dashboard/hub");
+            return;
+          }
+        } catch (loginError) {
+          console.error("Auto-login failed:", loginError);
+        }
+      }
+
+      // Fallback to manual login
       registerForm.reset();
       loginForm.setValue("branchName", values.branchName);
       loginForm.setValue("email", values.email);

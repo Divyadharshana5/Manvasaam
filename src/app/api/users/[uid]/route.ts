@@ -12,6 +12,18 @@ export async function GET(
       return NextResponse.json({ message: "User ID is required" }, { status: 400 });
     }
 
+    // Check if Firebase is configured
+    if (!adminDb) {
+      // Return mock user data for demo mode
+      return NextResponse.json({
+        uid: uid,
+        userType: uid.includes('hub') ? 'hub' : 'customer',
+        username: uid.includes('hub') ? 'Hub Manager' : 'Customer',
+        email: uid.includes('hub') ? 'hub@demo.com' : 'customer@demo.com',
+        mockMode: true
+      }, { status: 200 });
+    }
+
     const userDoc = await adminDb.collection("users").doc(uid).get();
 
     if (!userDoc.exists) {

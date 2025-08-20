@@ -104,7 +104,25 @@ export default async function DashboardPage() {
     redirect("/");
   }
 
-  const userProfile = await getUserProfile(decodedToken.uid);
+  // Check if we're in mock mode (when Firebase is not configured)
+  const mockMode = !adminAuth;
+  let userProfile: any;
+
+  if (mockMode) {
+    // In mock mode, check if this is a hub user based on the session cookie
+    if (sessionCookie && sessionCookie.includes("mock-session")) {
+      // For demo purposes, redirect to hub dashboard in mock mode
+      redirect("/dashboard/hub");
+    }
+    userProfile = null; // Default to customer view in mock mode
+  } else {
+    userProfile = await getUserProfile(decodedToken.uid);
+
+    // Redirect hub users to their specific dashboard
+    if (userProfile?.userType === "hub") {
+      redirect("/dashboard/hub");
+    }
+  }
 
   // Get translations with robust fallback
   const defaultTranslations = {

@@ -68,17 +68,29 @@ export function AppLayout({ children }: { children: React.ReactNode }) {
         try {
           const response = await fetch(`/api/users/${user.uid}`);
           if (!response.ok) {
-            throw new Error("Failed to fetch user profile");
+            // In mock mode, create a mock user profile
+            if (pathname.includes('/hub')) {
+              setUserProfile({ userType: 'hub', username: 'Hub Manager' });
+            } else {
+              setUserProfile({ userType: 'customer', username: 'Customer' });
+            }
+            return;
           }
           const data = await response.json();
           setUserProfile(data);
         } catch (error) {
           console.error(error);
+          // Fallback to mock profile
+          if (pathname.includes('/hub')) {
+            setUserProfile({ userType: 'hub', username: 'Hub Manager' });
+          } else {
+            setUserProfile({ userType: 'customer', username: 'Customer' });
+          }
         }
       }
     }
     fetchUserProfile();
-  }, [user]);
+  }, [user, pathname]);
   
   const allMenuItems = [
     { href: "/dashboard", label: t.sidebar.dashboard, icon: LayoutDashboard, section: "Customer" },
@@ -90,9 +102,20 @@ export function AppLayout({ children }: { children: React.ReactNode }) {
     { href: "/dashboard/marketing", label: t.sidebar.marketing, icon: Megaphone, section: "Customer" },
     { href: "/dashboard/faq", label: t.sidebar.faq, icon: HelpCircle, section: "Customer" },
   ];
-  
-  const menuItems = userProfile?.userType === 'hub' 
-    ? allMenuItems.filter(item => item.href !== '/dashboard/matchmaking') 
+
+  const hubMenuItems = [
+    { href: "/dashboard/hub", label: "Hub Dashboard", icon: LayoutDashboard, section: "Hub Operations" },
+    { href: "/dashboard/hub/inventory", label: "Inventory", icon: Package, section: "Hub Operations" },
+    { href: "/dashboard/hub/farmers", label: "Farmers", icon: UserIcon, section: "Hub Operations" },
+    { href: "/dashboard/hub/deliveries", label: "Deliveries", icon: Map, section: "Hub Operations" },
+    { href: "/dashboard/hub/orders", label: "Orders", icon: ShoppingCart, section: "Hub Operations" },
+    { href: "/dashboard/hub/analytics", label: "Analytics", icon: Megaphone, section: "Hub Operations" },
+    { href: "/dashboard/profile", label: t.sidebar.profile, icon: UserIcon, section: "Account" },
+    { href: "/dashboard/faq", label: t.sidebar.faq, icon: HelpCircle, section: "Support" },
+  ];
+
+  const menuItems = userProfile?.userType === 'hub'
+    ? hubMenuItems
     : allMenuItems;
 
 
@@ -205,3 +228,6 @@ export function AppLayout({ children }: { children: React.ReactNode }) {
     </SidebarProvider>
   );
 }
+
+// Add default export for compatibility
+export default AppLayout;

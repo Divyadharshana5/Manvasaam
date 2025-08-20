@@ -1,9 +1,40 @@
-import { adminAuth } from "@/lib/firebase-admin";
+import { adminAuth, isFirebaseInitialized } from "@/lib/firebase-admin";
 import { NextResponse } from "next/server";
 import { cookies } from "next/headers";
 
 export async function POST(request: Request) {
   try {
+    // Check if Firebase is properly initialized
+    const mockMode = !isFirebaseInitialized || !adminAuth;
+
+    if (mockMode) {
+      console.log("⚠️ Running in mock mode - Firebase not configured");
+      // In mock mode, we'll simulate the login process
+      const { idToken } = await request.json();
+
+      if (!idToken) {
+        return NextResponse.json(
+          { message: "ID token is required." },
+          { status: 400 }
+        );
+      }
+
+      // Create a mock session cookie
+      const mockSessionCookie = `mock-session-${Date.now()}-${Math.random().toString(36).substr(2, 9)}`;
+      const expiresIn = 60 * 60 * 24 * 5 * 1000; // 5 days
+
+      const options = {
+        name: "session",
+        value: mockSessionCookie,
+        maxAge: expiresIn,
+        httpOnly: true,
+        secure: false, // Set to false for localhost
+      };
+      (await cookies()).set(options);
+
+      return NextResponse.json({ status: "success", mockMode: true }, { status: 200 });
+    }
+
     const { idToken } = await request.json();
     if (!idToken) {
       return NextResponse.json(
