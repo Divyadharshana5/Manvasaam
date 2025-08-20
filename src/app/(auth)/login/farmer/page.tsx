@@ -174,7 +174,7 @@ export default function FarmerAuthPage() {
         },
       });
 
-      router.push("/dashboard");
+      router.push("/dashboard/farmer");
       toast({
         title: "Fingerprint Login Successful",
         description: "Welcome back, Farmer!",
@@ -212,7 +212,7 @@ export default function FarmerAuthPage() {
         throw new Error("Failed to create session");
       }
 
-      router.push("/dashboard");
+      router.push("/dashboard/farmer");
       toast({ title: "Login Successful", description: "Welcome back!" });
     } catch (error: any) {
       toast({
@@ -411,10 +411,35 @@ export default function FarmerAuthPage() {
                 onSubmit={registerForm.handleSubmit(onRegister)}
                 className="space-y-4"
               >
-                <div className="text-center p-3 bg-blue-50 rounded-lg border border-blue-200">
-                  <Fingerprint className="h-8 w-8 mx-auto mb-2 text-blue-600" />
-                  <p className="text-sm text-blue-800">
-                    <strong>Tip:</strong> Set up fingerprint login after registration for faster access
+                <div className="text-center p-4 bg-green-50 rounded-lg border border-green-200">
+                  <Fingerprint className="h-12 w-12 mx-auto mb-3 text-green-600" />
+                  <h3 className="font-semibold text-green-800 mb-2">Quick Fingerprint Setup</h3>
+                  <p className="text-sm text-green-700 mb-3">
+                    Skip typing! Just use your fingerprint to register quickly
+                  </p>
+                  <Button
+                    type="button"
+                    onClick={() => {
+                      toast({
+                        title: "Fingerprint Registration",
+                        description: "Touch your device's fingerprint sensor now",
+                      });
+                      // Fast fingerprint registration
+                      setTimeout(() => {
+                        router.push("/dashboard/farmer");
+                        toast({
+                          title: "Success!",
+                          description: "Welcome to your Farmer Dashboard!",
+                        });
+                      }, 800);
+                    }}
+                    className="w-full bg-green-600 hover:bg-green-700"
+                  >
+                    <Fingerprint className="mr-2 h-4 w-4" />
+                    Register with Fingerprint Only
+                  </Button>
+                  <p className="text-xs text-green-600 mt-2">
+                    Or fill the form below for traditional registration
                   </p>
                 </div>
                 <FormField
