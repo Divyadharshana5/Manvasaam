@@ -23,7 +23,7 @@ export default function FarmerCustomerRedirectPage() {
     // Auto-redirect to customer page after 3 seconds if no selection is made
     const timer = setTimeout(() => {
       router.push("/login/customer");
-    }, 5000);
+    }, 3000);
 
     return () => clearTimeout(timer);
   }, [router]);
@@ -80,7 +80,7 @@ export default function FarmerCustomerRedirectPage() {
         </div>
         
         <div className="text-center text-xs text-muted-foreground mt-6">
-          Auto-redirecting to Customer Portal in 5 seconds...
+          Auto-redirecting to Customer Portal in 3 seconds...
         </div>
       </CardContent>
     </Card>
