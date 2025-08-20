@@ -766,7 +766,7 @@ export default function FarmerAuthPage() {
 
                 <Button
                   onClick={handlePasskeyLogin}
-                  className="w-full text-sm sm:text-base py-2 sm:py-3"
+                  className="w-full text-sm sm:text-base py-2 sm:py-3 animate-pulse hover:animate-none"
                   disabled={loading || !passkeyLoginStatus?.supported}
                 >
                   {loading && (
@@ -774,9 +774,9 @@ export default function FarmerAuthPage() {
                   )}
                   <Fingerprint className="mr-1 sm:mr-2 h-3 w-3 sm:h-4 sm:w-4" />
                   <span className="hidden sm:inline">
-                    Authenticate with Passkey
+                    👆 Touch Your Device's Fingerprint Sensor
                   </span>
-                  <span className="sm:hidden">Authenticate</span>
+                  <span className="sm:hidden">👆 Touch Sensor</span>
                 </Button>
               </TabsContent>
             </Tabs>

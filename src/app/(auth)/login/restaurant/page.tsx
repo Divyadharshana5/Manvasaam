@@ -252,10 +252,7 @@ export default function RestaurantAuthPage() {
                     <FormItem>
                       <FormLabel>{t.auth.emailLabel}</FormLabel>
                       <FormControl>
-                        <Input
-                          placeholder="slytherinpls8@gmail.com"
-                          {...field}
-                        />
+                        <Input placeholder="restaurant@gmail.com" {...field} />
                       </FormControl>
                       <FormMessage />
                     </FormItem>
