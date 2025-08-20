@@ -8,25 +8,29 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 
 export default function PrivacyPage() {
   return (
-    <div className="min-h-screen bg-gradient-to-br from-green-50 to-blue-50">
+    <div className="min-h-screen bg-gradient-to-br from-green-50 via-blue-50 to-purple-50">
+      {/* Decorative Background Elements */}
+      <div className="absolute inset-0 overflow-hidden pointer-events-none">
+        <div className="absolute top-20 left-10 w-32 h-32 bg-green-200/30 rounded-full blur-3xl"></div>
+        <div className="absolute top-40 right-20 w-40 h-40 bg-blue-200/30 rounded-full blur-3xl"></div>
+        <div className="absolute bottom-20 left-1/3 w-36 h-36 bg-purple-200/30 rounded-full blur-3xl"></div>
+      </div>
+
       {/* Header */}
-      <header className="bg-white/90 backdrop-blur-sm border-b sticky top-0 z-50">
-        <div className="container mx-auto px-4 py-3 flex items-center justify-between">
-          <Link href="/">
-            <Button
-              variant="ghost"
-              size="sm"
-              className="gap-2 hover:bg-primary/10"
-            >
-              <ArrowLeft className="h-4 w-4" />
-              Back
-            </Button>
-          </Link>
-          <div className="flex items-center gap-2">
-            <Shield className="h-5 w-5 text-primary" />
-            <h1 className="text-lg font-semibold text-primary">
-              Privacy Policy
-            </h1>
+      <header className="relative bg-white/95 backdrop-blur-md border-b border-primary/20 sticky top-0 z-50 shadow-sm">
+        <div className="container mx-auto px-4 py-4 flex items-center justify-center">
+          <div className="flex items-center gap-3">
+            <div className="p-2 bg-gradient-to-br from-green-500 to-blue-500 rounded-xl shadow-lg">
+              <Shield className="h-6 w-6 text-white" />
+            </div>
+            <div>
+              <h1 className="text-xl font-bold bg-gradient-to-r from-green-600 to-blue-600 bg-clip-text text-transparent">
+                Privacy Policy
+              </h1>
+              <p className="text-xs text-muted-foreground">
+                Your data protection matters
+              </p>
+            </div>
           </div>
         </div>
       </header>
@@ -39,40 +43,74 @@ export default function PrivacyPage() {
           className="space-y-6"
         >
           {/* Hero */}
-          <div className="text-center space-y-3">
-            <div className="inline-flex items-center justify-center w-12 h-12 bg-primary/10 rounded-full">
-              <Shield className="h-6 w-6 text-primary" />
+          <div className="relative text-center space-y-6 py-8">
+            <div className="relative inline-flex items-center justify-center w-20 h-20 bg-gradient-to-br from-green-100 to-blue-100 rounded-2xl shadow-lg">
+              <div className="absolute inset-0 bg-gradient-to-br from-green-500/20 to-blue-500/20 rounded-2xl blur-xl"></div>
+              <Shield className="relative h-10 w-10 text-green-600" />
             </div>
-            <h1 className="text-2xl font-bold text-gray-900">Privacy Policy</h1>
-            <p className="text-gray-600 max-w-xl mx-auto">
-              How we collect, use, and protect your information on Manvaasam.
-            </p>
-            <p className="text-xs text-gray-500">Updated: December 2024</p>
+            <div className="space-y-3">
+              <h1 className="text-3xl md:text-4xl font-bold bg-gradient-to-r from-gray-900 to-gray-700 bg-clip-text text-transparent">
+                Privacy Policy
+              </h1>
+              <p className="text-lg text-gray-600 max-w-2xl mx-auto leading-relaxed">
+                How we collect, use, and protect your information on Manvaasam
+                platform
+              </p>
+              <div className="inline-flex items-center gap-2 px-4 py-2 bg-green-50 border border-green-200 rounded-full">
+                <div className="w-2 h-2 bg-green-500 rounded-full animate-pulse"></div>
+                <p className="text-sm text-green-700 font-medium">
+                  Updated: December 2024
+                </p>
+              </div>
+            </div>
           </div>
 
           {/* Key Points */}
-          <Card className="border-primary/20 bg-primary/5">
-            <CardContent className="p-4">
-              <div className="grid md:grid-cols-3 gap-4 text-center">
-                <div className="space-y-2">
-                  <Lock className="h-6 w-6 text-primary mx-auto" />
-                  <h3 className="font-medium text-sm">Secure</h3>
-                  <p className="text-xs text-gray-600">
-                    Industry-standard encryption
+          <Card className="relative border-0 bg-gradient-to-br from-white/80 to-green-50/80 backdrop-blur-sm shadow-xl">
+            <CardContent className="p-6">
+              <div className="grid md:grid-cols-3 gap-6 text-center">
+                <motion.div
+                  className="space-y-3 p-4 rounded-xl bg-white/60 backdrop-blur-sm border border-green-200/50 hover:shadow-lg transition-all duration-300"
+                  whileHover={{ scale: 1.05, y: -5 }}
+                >
+                  <div className="w-12 h-12 bg-gradient-to-br from-green-500 to-green-600 rounded-xl flex items-center justify-center mx-auto shadow-lg">
+                    <Lock className="h-6 w-6 text-white" />
+                  </div>
+                  <h3 className="font-semibold text-base text-gray-800">
+                    Secure
+                  </h3>
+                  <p className="text-sm text-gray-600 leading-relaxed">
+                    Industry-standard encryption protects your data
                   </p>
-                </div>
-                <div className="space-y-2">
-                  <Users className="h-6 w-6 text-primary mx-auto" />
-                  <h3 className="font-medium text-sm">Private</h3>
-                  <p className="text-xs text-gray-600">
-                    We never sell your data
+                </motion.div>
+                <motion.div
+                  className="space-y-3 p-4 rounded-xl bg-white/60 backdrop-blur-sm border border-blue-200/50 hover:shadow-lg transition-all duration-300"
+                  whileHover={{ scale: 1.05, y: -5 }}
+                >
+                  <div className="w-12 h-12 bg-gradient-to-br from-blue-500 to-blue-600 rounded-xl flex items-center justify-center mx-auto shadow-lg">
+                    <Users className="h-6 w-6 text-white" />
+                  </div>
+                  <h3 className="font-semibold text-base text-gray-800">
+                    Private
+                  </h3>
+                  <p className="text-sm text-gray-600 leading-relaxed">
+                    We never sell or share your personal data
                   </p>
-                </div>
-                <div className="space-y-2">
-                  <Database className="h-6 w-6 text-primary mx-auto" />
-                  <h3 className="font-medium text-sm">Your Control</h3>
-                  <p className="text-xs text-gray-600">Delete data anytime</p>
-                </div>
+                </motion.div>
+                <motion.div
+                  className="space-y-3 p-4 rounded-xl bg-white/60 backdrop-blur-sm border border-purple-200/50 hover:shadow-lg transition-all duration-300"
+                  whileHover={{ scale: 1.05, y: -5 }}
+                >
+                  <div className="w-12 h-12 bg-gradient-to-br from-purple-500 to-purple-600 rounded-xl flex items-center justify-center mx-auto shadow-lg">
+                    <Database className="h-6 w-6 text-white" />
+                  </div>
+                  <h3 className="font-semibold text-base text-gray-800">
+                    Your Control
+                  </h3>
+                  <p className="text-sm text-gray-600 leading-relaxed">
+                    Delete or modify your data anytime
+                  </p>
+                </motion.div>
               </div>
             </CardContent>
           </Card>

@@ -20,17 +20,7 @@ export default function TermsPage() {
     <div className="min-h-screen bg-gradient-to-br from-blue-50 to-green-50">
       {/* Header */}
       <header className="bg-white/90 backdrop-blur-sm border-b sticky top-0 z-50">
-        <div className="container mx-auto px-4 py-3 flex items-center justify-between">
-          <Link href="/">
-            <Button
-              variant="ghost"
-              size="sm"
-              className="gap-2 hover:bg-primary/10"
-            >
-              <ArrowLeft className="h-4 w-4" />
-              Back
-            </Button>
-          </Link>
+        <div className="container mx-auto px-4 py-3 flex items-center justify-center">
           <div className="flex items-center gap-2">
             <FileText className="h-5 w-5 text-primary" />
             <h1 className="text-lg font-semibold text-primary">
