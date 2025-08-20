@@ -86,106 +86,76 @@ export default function SupportPage() {
         >
           {/* Hero */}
           <div className="relative text-center space-y-6 py-8">
-            <div className="relative inline-flex items-center justify-center w-20 h-20 bg-gradient-to-br from-purple-100 to-blue-100 rounded-2xl shadow-lg">
-              <div className="absolute inset-0 bg-gradient-to-br from-purple-500/20 to-blue-500/20 rounded-2xl blur-xl"></div>
-              <HelpCircle className="relative h-10 w-10 text-purple-600" />
+            <div className="relative inline-flex items-center justify-center w-20 h-20 bg-gradient-to-br from-green-100 to-blue-100 rounded-2xl shadow-lg">
+              <div className="absolute inset-0 bg-gradient-to-br from-green-500/20 to-blue-500/20 rounded-2xl blur-xl"></div>
+              <HelpCircle className="relative h-10 w-10 text-green-600" />
             </div>
             <div className="space-y-3">
               <h1 className="text-3xl md:text-4xl font-bold bg-gradient-to-r from-gray-900 to-gray-700 bg-clip-text text-transparent">
-                How can we help you?
+                Support Center
               </h1>
               <p className="text-lg text-gray-600 max-w-2xl mx-auto leading-relaxed">
-                Get instant support for your Manvaasam experience with our
-                comprehensive help center
+                How we collect, use, and protect your information on Manvaasam
+                platform
               </p>
-              <div className="inline-flex items-center gap-2 px-4 py-2 bg-purple-50 border border-purple-200 rounded-full">
-                <div className="w-2 h-2 bg-purple-500 rounded-full animate-pulse"></div>
-                <p className="text-sm text-purple-700 font-medium">
-                  24/7 Support Available
+              <div className="inline-flex items-center gap-2 px-4 py-2 bg-green-50 border border-green-200 rounded-full">
+                <div className="w-2 h-2 bg-green-500 rounded-full animate-pulse"></div>
+                <p className="text-sm text-green-700 font-medium">
+                  Updated: December 2024
                 </p>
               </div>
             </div>
           </div>
 
-          {/* Quick Contact */}
-          <div className="grid md:grid-cols-3 gap-6">
-            <motion.div
-              whileHover={{ scale: 1.05, y: -5 }}
-              transition={{ duration: 0.2 }}
-            >
-              <Card className="relative border-0 bg-gradient-to-br from-white/80 to-purple-50/80 backdrop-blur-sm shadow-xl hover:shadow-2xl transition-all duration-300 cursor-pointer">
-                <CardContent className="p-6 text-center">
-                  <div className="w-12 h-12 bg-gradient-to-br from-purple-500 to-purple-600 rounded-xl flex items-center justify-center mx-auto mb-4 shadow-lg">
+          {/* Key Points */}
+          <Card className="relative border-0 bg-gradient-to-br from-white/80 to-green-50/80 backdrop-blur-sm shadow-xl">
+            <CardContent className="p-6">
+              <div className="grid md:grid-cols-3 gap-6 text-center">
+                <motion.div
+                  className="space-y-3 p-4 rounded-xl bg-white/60 backdrop-blur-sm border border-green-200/50 hover:shadow-lg transition-all duration-300"
+                  whileHover={{ scale: 1.05, y: -5 }}
+                >
+                  <div className="w-12 h-12 bg-gradient-to-br from-green-500 to-green-600 rounded-xl flex items-center justify-center mx-auto shadow-lg">
                     <MessageCircle className="h-6 w-6 text-white" />
                   </div>
-                  <h3 className="font-semibold text-base mb-2 text-gray-800">
+                  <h3 className="font-semibold text-base text-gray-800">
                     Live Chat
                   </h3>
-                  <p className="text-sm text-gray-600 mb-4">
+                  <p className="text-sm text-gray-600 leading-relaxed">
                     Get instant responses from our support team
                   </p>
-                  <Button
-                    size="sm"
-                    className="w-full bg-gradient-to-r from-purple-500 to-purple-600 hover:from-purple-600 hover:to-purple-700 text-white shadow-md"
-                  >
-                    Start Chat
-                  </Button>
-                </CardContent>
-              </Card>
-            </motion.div>
-
-            <motion.div
-              whileHover={{ scale: 1.05, y: -5 }}
-              transition={{ duration: 0.2 }}
-            >
-              <Card className="relative border-0 bg-gradient-to-br from-white/80 to-blue-50/80 backdrop-blur-sm shadow-xl hover:shadow-2xl transition-all duration-300 cursor-pointer">
-                <CardContent className="p-6 text-center">
-                  <div className="w-12 h-12 bg-gradient-to-br from-blue-500 to-blue-600 rounded-xl flex items-center justify-center mx-auto mb-4 shadow-lg">
+                </motion.div>
+                <motion.div
+                  className="space-y-3 p-4 rounded-xl bg-white/60 backdrop-blur-sm border border-blue-200/50 hover:shadow-lg transition-all duration-300"
+                  whileHover={{ scale: 1.05, y: -5 }}
+                >
+                  <div className="w-12 h-12 bg-gradient-to-br from-blue-500 to-blue-600 rounded-xl flex items-center justify-center mx-auto shadow-lg">
                     <Phone className="h-6 w-6 text-white" />
                   </div>
-                  <h3 className="font-semibold text-base mb-2 text-gray-800">
+                  <h3 className="font-semibold text-base text-gray-800">
                     Phone Support
                   </h3>
-                  <p className="text-sm text-gray-600 mb-4">
+                  <p className="text-sm text-gray-600 leading-relaxed">
                     Speak directly with our experts
                   </p>
-                  <Button
-                    variant="outline"
-                    size="sm"
-                    className="w-full border-blue-200 hover:bg-blue-50 hover:border-blue-300 transition-colors"
-                  >
-                    <a href="tel:+919876543210">Call Now</a>
-                  </Button>
-                </CardContent>
-              </Card>
-            </motion.div>
-
-            <motion.div
-              whileHover={{ scale: 1.05, y: -5 }}
-              transition={{ duration: 0.2 }}
-            >
-              <Card className="relative border-0 bg-gradient-to-br from-white/80 to-green-50/80 backdrop-blur-sm shadow-xl hover:shadow-2xl transition-all duration-300 cursor-pointer">
-                <CardContent className="p-6 text-center">
-                  <div className="w-12 h-12 bg-gradient-to-br from-green-500 to-green-600 rounded-xl flex items-center justify-center mx-auto mb-4 shadow-lg">
+                </motion.div>
+                <motion.div
+                  className="space-y-3 p-4 rounded-xl bg-white/60 backdrop-blur-sm border border-purple-200/50 hover:shadow-lg transition-all duration-300"
+                  whileHover={{ scale: 1.05, y: -5 }}
+                >
+                  <div className="w-12 h-12 bg-gradient-to-br from-purple-500 to-purple-600 rounded-xl flex items-center justify-center mx-auto shadow-lg">
                     <Mail className="h-6 w-6 text-white" />
                   </div>
-                  <h3 className="font-semibold text-base mb-2 text-gray-800">
+                  <h3 className="font-semibold text-base text-gray-800">
                     Email Support
                   </h3>
-                  <p className="text-sm text-gray-600 mb-4">
+                  <p className="text-sm text-gray-600 leading-relaxed">
                     Send detailed messages for complex issues
                   </p>
-                  <Button
-                    variant="outline"
-                    size="sm"
-                    className="w-full border-green-200 hover:bg-green-50 hover:border-green-300 transition-colors"
-                  >
-                    <a href="mailto:slytherinpls8@gmail.com">Email Us</a>
-                  </Button>
-                </CardContent>
-              </Card>
-            </motion.div>
-          </div>
+                </motion.div>
+              </div>
+            </CardContent>
+          </Card>
 
           {/* Support Hours */}
           <Card className="border-primary/20 bg-primary/5">
@@ -291,7 +261,7 @@ export default function SupportPage() {
           {/* Return Button */}
           <div className="text-center pt-6">
             <Link href="/">
-              <Button className="gap-3 px-6 py-3 bg-gradient-to-r from-purple-500 to-blue-500 hover:from-purple-600 hover:to-blue-600 text-white shadow-lg hover:shadow-xl transition-all duration-300 rounded-xl">
+              <Button className="gap-3 px-6 py-3 bg-gradient-to-r from-green-500 to-blue-500 hover:from-green-600 hover:to-blue-600 text-white shadow-lg hover:shadow-xl transition-all duration-300 rounded-xl">
                 <ArrowLeft className="h-4 w-4" />
                 Return to Manvaasam
               </Button>
