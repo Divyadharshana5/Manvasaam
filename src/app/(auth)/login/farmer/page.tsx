@@ -159,8 +159,8 @@ export default function FarmerAuthPage() {
       // Fast fingerprint login
       setTimeout(() => {
         toast({
-          title: "Login successful, welcome back, farmer",
-          description: "Redirecting to dashboard in 5 seconds...",
+          title: "Login successful",
+          description: "Welcome back,farmer...",
           duration: 3000,
         });
         setTimeout(() => {
@@ -201,8 +201,8 @@ export default function FarmerAuthPage() {
       }
 
       toast({
-        title: "Login successful, welcome back, farmer",
-        description: "Redirecting to dashboard in 5 seconds...",
+        title: "Login successful",
+        description: "Welcome back,farmer...",
         duration: 3000,
       });
       setTimeout(() => {
