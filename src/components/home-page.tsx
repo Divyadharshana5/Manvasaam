@@ -87,13 +87,13 @@ export default function HomePage() {
       {
         name: t.roles.farmer.name,
         description: t.roles.farmer.description,
-        href: "/login/farmer-customer",
+        href: "/login/farmer",
         icon: <Tractor className="h-12 w-12 text-primary" />,
       },
       {
         name: t.roles.customer.name,
         description: t.roles.customer.description,
-        href: "/login/farmer-customer",
+        href: "/login/customer",
         icon: <Users className="h-12 w-12 text-primary" />,
       },
       {
@@ -305,9 +305,7 @@ export default function HomePage() {
 
   const handleContinueClick = (href: string) => {
     setLoadingRoleHref(href);
-    setTimeout(() => {
-      router.push(href);
-    }, 150); // 150ms delay to show loading spinner
+    router.push(href);
   };
 
   const buttonState = getButtonState();
@@ -714,7 +712,7 @@ export default function HomePage() {
                     transition={{ duration: 0.2 }}
                   >
                     <Link
-                      href="/login/farmer-customer"
+                      href="/login/farmer"
                       className="flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-gradient-to-r from-green-50 to-primary/5 hover:from-primary/10 hover:to-green-100 border border-primary/20 hover:border-primary/40 transition-all duration-200 text-xs font-medium text-foreground hover:text-primary shadow-sm hover:shadow-md"
                     >
                       <span className="text-sm">🌾</span>
@@ -726,7 +724,7 @@ export default function HomePage() {
                     transition={{ duration: 0.2 }}
                   >
                     <Link
-                      href="/login/farmer-customer"
+                      href="/login/customer"
                       className="flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-gradient-to-r from-blue-50 to-primary/5 hover:from-primary/10 hover:to-blue-100 border border-primary/20 hover:border-primary/40 transition-all duration-200 text-xs font-medium text-foreground hover:text-primary shadow-sm hover:shadow-md"
                     >
                       <span className="text-sm">🛒</span>
