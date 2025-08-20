@@ -1,10 +1,36 @@
 import { NextResponse } from "next/server";
-import { adminAuth, adminDb } from "@/lib/firebase-admin";
+import { adminAuth, adminDb, isFirebaseInitialized } from "@/lib/firebase-admin";
 import { sendRegistrationNotification } from "@/lib/email";
 import { randomBytes } from "crypto";
 
 export async function POST(request: Request) {
   try {
+    // Check if Firebase is properly initialized
+    const mockMode = !isFirebaseInitialized || !adminAuth || !adminDb;
+
+    if (mockMode) {
+      console.log("⚠️ Running in mock mode - Firebase not configured");
+      // In mock mode, we'll simulate the registration process
+      const data = await request.json();
+      const { userType } = data;
+
+      let branchId: string | undefined = undefined;
+      if (userType === "hub") {
+        branchId = `HUB-${Math.random().toString(36).substr(2, 6).toUpperCase()}`;
+      }
+
+      // Simulate successful registration
+      return NextResponse.json(
+        {
+          message: "User created successfully (Mock Mode)",
+          uid: `mock-uid-${Date.now()}`,
+          branchId,
+          mockMode: true
+        },
+        { status: 201 }
+      );
+    }
+
     const data = await request.json();
     const { email, password, passkeyCredentialId, ...userData } = data;
     const { userType } = userData;
