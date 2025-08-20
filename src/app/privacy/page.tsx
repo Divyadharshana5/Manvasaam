@@ -198,34 +198,19 @@ export default function PrivacyPage() {
           </Card>
 
           {/* Contact */}
-          <Card className="relative border-0 bg-gradient-to-br from-green-50/80 to-blue-50/80 backdrop-blur-sm shadow-xl">
-            <CardContent className="p-6 text-center">
-              <div className="space-y-4">
-                <div className="inline-flex items-center justify-center w-12 h-12 bg-gradient-to-br from-green-500 to-blue-500 rounded-xl shadow-lg">
-                  <Mail className="h-6 w-6 text-white" />
-                </div>
-                <div>
-                  <h3 className="font-semibold text-lg text-gray-800 mb-2">
-                    Have Questions?
-                  </h3>
-                  <p className="text-sm text-gray-600 mb-4">
-                    Contact us about privacy concerns or data protection
-                  </p>
-                </div>
-                <div className="space-y-3">
-                  <div className="flex items-center justify-center gap-3 p-3 bg-white/60 rounded-lg border border-green-200/50">
-                    <Mail className="h-4 w-4 text-green-600" />
-                    <span className="text-sm font-medium text-gray-700">
-                      slytherinpls8@gmail.com
-                    </span>
-                  </div>
-                  <div className="flex items-center justify-center gap-3 p-3 bg-white/60 rounded-lg border border-blue-200/50">
-                    <span className="text-sm">📞</span>
-                    <span className="text-sm font-medium text-gray-700">
-                      +91 9876543210
-                    </span>
-                  </div>
-                </div>
+          <Card className="border-primary/20 bg-primary/5">
+            <CardContent className="p-4 text-center">
+              <div className="flex items-center justify-center gap-2 mb-2">
+                <Mail className="h-4 w-4 text-primary" />
+                <h3 className="font-medium text-sm">Questions about Privacy?</h3>
+              </div>
+              <div className="text-xs space-y-1">
+                <p>
+                  <strong>Email:</strong> slytherinpls8@gmail.com
+                </p>
+                <p>
+                  <strong>Phone:</strong> +91 9876543210
+                </p>
               </div>
             </CardContent>
           </Card>
