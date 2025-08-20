@@ -156,8 +156,9 @@ export default function CustomerAuthPage() {
       }
 
       toast({
-        title: "Login Successful",
-        description: "Welcome back to your dashboard...",
+        title: "Login successful, welcome back",
+        description: "Redirecting to dashboard in 5 seconds...",
+        duration: 3000,
       });
       setTimeout(() => {
         router.push("/dashboard");
