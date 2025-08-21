@@ -120,10 +120,10 @@ export default function RestaurantAuthPage() {
 
       toast({
         title: "Login successful",
-        description: "Redirecting to dashboard...",
+        description: "Redirecting to restaurant dashboard...",
         duration: 1000,
       });
-      router.push("/dashboard");
+      router.push("/dashboard/restaurant");
     } catch (error: any) {
       toast({
         variant: "destructive",
