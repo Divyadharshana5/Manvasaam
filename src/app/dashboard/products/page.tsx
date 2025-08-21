@@ -300,7 +300,7 @@ export default function ProductsPage() {
                             <Card key={product.id} className="overflow-hidden shadow-lg hover:shadow-xl transition-shadow duration-300">
                                 <CardContent className="p-0">
                                     <div className="relative aspect-video">
-                                        <Image src={product.image} alt={product.name} layout="fill" objectFit="cover" data-ai-hint={product.dataAiHint} />
+                                        <Image src={product.image} alt={product.name} fill className="object-cover" data-ai-hint={product.dataAiHint} />
                                     </div>
                                     <div className="p-4">
                                         <h4 className="font-bold text-lg">{product.name}</h4>
@@ -332,7 +332,7 @@ export default function ProductsPage() {
                             <Card key={product.id} className="overflow-hidden shadow-lg hover:shadow-xl transition-shadow duration-300">
                                 <CardContent className="p-0">
                                     <div className="relative aspect-video">
-                                        <Image src={product.image} alt={product.name} layout="fill" objectFit="cover" data-ai-hint={product.dataAiHint} />
+                                        <Image src={product.image} alt={product.name} fill className="object-cover" data-ai-hint={product.dataAiHint} />
                                     </div>
                                     <div className="p-4">
                                         <h4 className="font-bold text-lg">{product.name}</h4>
@@ -364,7 +364,7 @@ export default function ProductsPage() {
                             <Card key={product.id} className="overflow-hidden shadow-lg hover:shadow-xl transition-shadow duration-300">
                                 <CardContent className="p-0">
                                     <div className="relative aspect-video">
-                                        <Image src={product.image} alt={product.name} layout="fill" objectFit="cover" data-ai-hint={product.dataAiHint} />
+                                        <Image src={product.image} alt={product.name} fill className="object-cover" data-ai-hint={product.dataAiHint} />
                                     </div>
                                     <div className="p-4">
                                         <h4 className="font-bold text-lg">{product.name}</h4>
