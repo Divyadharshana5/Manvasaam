@@ -133,6 +133,19 @@ export default function ProductsPage() {
   const [searchTerm, setSearchTerm] = useState("");
   const [activeCategory, setActiveCategory] = useState("all");
   const [sortBy, setSortBy] = useState("name");
+  const [isOrderDialogOpen, setIsOrderDialogOpen] = useState(false);
+  const [selectedProduct, setSelectedProduct] = useState<typeof products[0] | null>(null);
+
+  const handleOrderClick = (product: typeof products[0]) => {
+    setSelectedProduct(product);
+    setIsOrderDialogOpen(true);
+  };
+
+  const handlePlaceOrder = () => {
+    // Add order logic here
+    alert(`Order placed for ${selectedProduct?.name}!`);
+    setIsOrderDialogOpen(false);
+  };
 
 
   const filteredProducts = products
@@ -286,74 +299,13 @@ export default function ProductsPage() {
               </div>
               
               <div className="mt-4 pt-4 border-t">
-                <Dialog>
-                  <DialogTrigger asChild>
-                    <Button className="w-full h-10 font-medium">
-                      <ShoppingCart className="mr-2 h-4 w-4" />
-                      Order Now
-                    </Button>
-                  </DialogTrigger>
-                  <DialogContent className="sm:max-w-lg">
-                    <DialogHeader>
-                      <DialogTitle className="text-xl">Order {product.name}</DialogTitle>
-                      <DialogDescription>
-                        Place a bulk order for organic {product.name} from {product.farmer}
-                      </DialogDescription>
-                    </DialogHeader>
-                    <div className="space-y-6">
-                      <div className="grid grid-cols-2 gap-4 p-4 bg-muted/50 rounded-lg">
-                        <div>
-                          <p className="text-sm font-medium text-muted-foreground">Farmer</p>
-                          <p className="font-medium">{product.farmer}</p>
-                        </div>
-                        <div>
-                          <p className="text-sm font-medium text-muted-foreground">Location</p>
-                          <p className="font-medium">{product.location}</p>
-                        </div>
-                        <div>
-                          <p className="text-sm font-medium text-muted-foreground">Price</p>
-                          <p className="font-medium text-primary">{product.price}</p>
-                        </div>
-                        <div>
-                          <p className="text-sm font-medium text-muted-foreground">Available</p>
-                          <p className="font-medium">{product.stock}</p>
-                        </div>
-                      </div>
-                      
-                      <div className="space-y-4">
-                        <div className="space-y-2">
-                          <label className="text-sm font-medium">Quantity Required *</label>
-                          <Input 
-                            placeholder="e.g., 50kg for weekly supply" 
-                            className="h-10"
-                          />
-                        </div>
-                        <div className="space-y-2">
-                          <label className="text-sm font-medium">Preferred Delivery Date *</label>
-                          <Input type="date" className="h-10" />
-                        </div>
-                        <div className="space-y-2">
-                          <label className="text-sm font-medium">Special Requirements</label>
-                          <Input 
-                            placeholder="e.g., specific packaging, delivery time..." 
-                            className="h-10"
-                          />
-                        </div>
-                      </div>
-                      
-                      <div className="flex gap-3 pt-2">
-                        <Button className="flex-1 h-11">
-                          <ShoppingCart className="mr-2 h-4 w-4" />
-                          Place Order
-                        </Button>
-                        <Button variant="outline" className="h-11">
-                          <Phone className="mr-2 h-4 w-4" />
-                          Call Farmer
-                        </Button>
-                      </div>
-                    </div>
-                  </DialogContent>
-                </Dialog>
+                <Button 
+                  className="w-full h-10 font-medium bg-primary hover:bg-primary/90 text-primary-foreground" 
+                  onClick={() => handleOrderClick(product)}
+                >
+                  <ShoppingCart className="mr-2 h-4 w-4" />
+                  Order Now
+                </Button>
               </div>
             </CardContent>
           </Card>
@@ -371,6 +323,74 @@ export default function ProductsPage() {
           </CardContent>
         </Card>
       )}
+
+      {/* Order Dialog */}
+      <Dialog open={isOrderDialogOpen} onOpenChange={setIsOrderDialogOpen}>
+        <DialogContent className="sm:max-w-lg">
+          <DialogHeader>
+            <DialogTitle className="text-xl">
+              Order {selectedProduct?.name}
+            </DialogTitle>
+            <DialogDescription>
+              Place a bulk order for organic {selectedProduct?.name} from {selectedProduct?.farmer}
+            </DialogDescription>
+          </DialogHeader>
+          {selectedProduct && (
+            <div className="space-y-6">
+              <div className="grid grid-cols-2 gap-4 p-4 bg-muted/50 rounded-lg">
+                <div>
+                  <p className="text-sm font-medium text-muted-foreground">Farmer</p>
+                  <p className="font-medium">{selectedProduct.farmer}</p>
+                </div>
+                <div>
+                  <p className="text-sm font-medium text-muted-foreground">Location</p>
+                  <p className="font-medium">{selectedProduct.location}</p>
+                </div>
+                <div>
+                  <p className="text-sm font-medium text-muted-foreground">Price</p>
+                  <p className="font-medium text-primary">{selectedProduct.price}</p>
+                </div>
+                <div>
+                  <p className="text-sm font-medium text-muted-foreground">Available</p>
+                  <p className="font-medium">{selectedProduct.stock}</p>
+                </div>
+              </div>
+              
+              <div className="space-y-4">
+                <div className="space-y-2">
+                  <label className="text-sm font-medium">Quantity Required *</label>
+                  <Input 
+                    placeholder="e.g., 50kg for weekly supply" 
+                    className="h-10"
+                  />
+                </div>
+                <div className="space-y-2">
+                  <label className="text-sm font-medium">Preferred Delivery Date *</label>
+                  <Input type="date" className="h-10" />
+                </div>
+                <div className="space-y-2">
+                  <label className="text-sm font-medium">Special Requirements</label>
+                  <Input 
+                    placeholder="e.g., specific packaging, delivery time..." 
+                    className="h-10"
+                  />
+                </div>
+              </div>
+              
+              <div className="flex gap-3 pt-2">
+                <Button className="flex-1 h-11" onClick={handlePlaceOrder}>
+                  <ShoppingCart className="mr-2 h-4 w-4" />
+                  Place Order
+                </Button>
+                <Button variant="outline" className="h-11">
+                  <Phone className="mr-2 h-4 w-4" />
+                  Call Farmer
+                </Button>
+              </div>
+            </div>
+          )}
+        </DialogContent>
+      </Dialog>
     </div>
   );
 }
