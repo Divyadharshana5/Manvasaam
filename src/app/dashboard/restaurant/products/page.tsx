@@ -23,7 +23,17 @@ import {
   Wheat,
   Star,
   MapPin,
+  Plus,
+  Phone,
 } from "lucide-react";
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from "@/components/ui/dialog";
 
 const products = [
   {
@@ -125,6 +135,11 @@ export default function ProductsPage() {
   const [searchTerm, setSearchTerm] = useState("");
   const [activeCategory, setActiveCategory] = useState("all");
   const [sortBy, setSortBy] = useState("name");
+  const [selectedProduct, setSelectedProduct] = useState<typeof products[0] | null>(null);
+
+  const handleOrderProduct = (product: typeof products[0]) => {
+    setSelectedProduct(product);
+  };
 
   const filteredProducts = products
     .filter((product) => {
@@ -269,17 +284,76 @@ export default function ProductsPage() {
                   <span className="text-sm font-medium">{product.rating}</span>
                 </div>
               </div>
-              <div className="mt-4 pt-3 border-t">
-                <div className="flex items-center justify-between mb-3">
+              <div className="mt-4 pt-3 border-t space-y-3">
+                <div className="flex items-center justify-between">
                   <div>
                     <p className="text-lg font-bold">{product.price}</p>
                     <p className="text-sm text-muted-foreground">Stock: {product.stock}</p>
                   </div>
                 </div>
-                <Button className="w-full" size="sm">
-                  <ShoppingCart className="mr-2 h-4 w-4" />
-                  Order Now
-                </Button>
+                <div className="flex gap-2">
+                  <Dialog>
+                    <DialogTrigger asChild>
+                      <Button className="flex-1" size="sm" onClick={() => handleOrderProduct(product)}>
+                        <ShoppingCart className="mr-2 h-4 w-4" />
+                        Order Now
+                      </Button>
+                    </DialogTrigger>
+                    <DialogContent>
+                      <DialogHeader>
+                        <DialogTitle>Order {product.name}</DialogTitle>
+                        <DialogDescription>
+                          Place an order for organic {product.name} from {product.farmer}
+                        </DialogDescription>
+                      </DialogHeader>
+                      <div className="space-y-4">
+                        <div className="grid grid-cols-2 gap-4 text-sm">
+                          <div>
+                            <p className="font-medium">Farmer:</p>
+                            <p className="text-muted-foreground">{product.farmer}</p>
+                          </div>
+                          <div>
+                            <p className="font-medium">Location:</p>
+                            <p className="text-muted-foreground">{product.location}</p>
+                          </div>
+                          <div>
+                            <p className="font-medium">Price:</p>
+                            <p className="text-muted-foreground">{product.price}</p>
+                          </div>
+                          <div>
+                            <p className="font-medium">Available:</p>
+                            <p className="text-muted-foreground">{product.stock}</p>
+                          </div>
+                        </div>
+                        <div className="space-y-2">
+                          <label className="text-sm font-medium">Quantity needed:</label>
+                          <Input placeholder="Enter quantity (e.g., 50kg)" />
+                        </div>
+                        <div className="space-y-2">
+                          <label className="text-sm font-medium">Delivery date:</label>
+                          <Input type="date" />
+                        </div>
+                        <div className="space-y-2">
+                          <label className="text-sm font-medium">Special requirements:</label>
+                          <Input placeholder="Any special requirements..." />
+                        </div>
+                        <div className="flex gap-2">
+                          <Button className="flex-1">
+                            <ShoppingCart className="mr-2 h-4 w-4" />
+                            Place Order
+                          </Button>
+                          <Button variant="outline">
+                            <Phone className="mr-2 h-4 w-4" />
+                            Call Farmer
+                          </Button>
+                        </div>
+                      </div>
+                    </DialogContent>
+                  </Dialog>
+                  <Button variant="outline" size="sm">
+                    <Plus className="h-4 w-4" />
+                  </Button>
+                </div>
               </div>
             </CardContent>
           </Card>
