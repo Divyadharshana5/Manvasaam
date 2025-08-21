@@ -266,74 +266,87 @@ export default function ProductsPage() {
                 {getCategoryIcon(product.category)}
               </div>
             </div>
-            <CardContent className="p-4">
-              <div className="space-y-3">
-                <h3 className="font-semibold text-lg">{product.name}</h3>
+            <CardContent className="p-4 flex flex-col h-full">
+              <div className="flex-1 space-y-3">
+                <h3 className="font-semibold text-lg leading-tight">{product.name}</h3>
                 <div className="flex items-center gap-2 text-sm text-muted-foreground">
-                  <MapPin className="h-3 w-3" />
-                  <span>{product.farmer}, {product.location}</span>
+                  <MapPin className="h-3 w-3 flex-shrink-0" />
+                  <span className="truncate">{product.farmer}, {product.location}</span>
                 </div>
-                <div className="flex items-center gap-2">
-                  <Star className="h-4 w-4 fill-yellow-400 text-yellow-400" />
-                  <span className="text-sm font-medium">{product.rating}</span>
-                </div>
-                <div className="flex items-center justify-between pt-2">
-                  <div>
-                    <p className="text-lg font-bold">{product.price}</p>
-                    <p className="text-sm text-muted-foreground">Stock: {product.stock}</p>
+                <div className="flex items-center justify-between">
+                  <div className="flex items-center gap-2">
+                    <Star className="h-4 w-4 fill-yellow-400 text-yellow-400" />
+                    <span className="text-sm font-medium">{product.rating}</span>
                   </div>
                 </div>
+                <div className="pt-2">
+                  <p className="text-xl font-bold text-primary">{product.price}</p>
+                  <p className="text-sm text-muted-foreground">Available: {product.stock}</p>
+                </div>
+              </div>
+              
+              <div className="mt-4 pt-4 border-t">
                 <Dialog>
                   <DialogTrigger asChild>
-                    <Button className="w-full mt-3" onClick={() => handleOrderProduct(product)}>
+                    <Button className="w-full h-10 font-medium">
                       <ShoppingCart className="mr-2 h-4 w-4" />
                       Order Now
                     </Button>
                   </DialogTrigger>
-                  <DialogContent className="sm:max-w-md">
+                  <DialogContent className="sm:max-w-lg">
                     <DialogHeader>
-                      <DialogTitle>Order {product.name}</DialogTitle>
+                      <DialogTitle className="text-xl">Order {product.name}</DialogTitle>
                       <DialogDescription>
-                        Place an order for organic {product.name} from {product.farmer}
+                        Place a bulk order for organic {product.name} from {product.farmer}
                       </DialogDescription>
                     </DialogHeader>
-                    <div className="space-y-4">
-                      <div className="grid grid-cols-2 gap-4 text-sm">
+                    <div className="space-y-6">
+                      <div className="grid grid-cols-2 gap-4 p-4 bg-muted/50 rounded-lg">
                         <div>
-                          <p className="font-medium">Farmer:</p>
-                          <p className="text-muted-foreground">{product.farmer}</p>
+                          <p className="text-sm font-medium text-muted-foreground">Farmer</p>
+                          <p className="font-medium">{product.farmer}</p>
                         </div>
                         <div>
-                          <p className="font-medium">Location:</p>
-                          <p className="text-muted-foreground">{product.location}</p>
+                          <p className="text-sm font-medium text-muted-foreground">Location</p>
+                          <p className="font-medium">{product.location}</p>
                         </div>
                         <div>
-                          <p className="font-medium">Price:</p>
-                          <p className="text-muted-foreground">{product.price}</p>
+                          <p className="text-sm font-medium text-muted-foreground">Price</p>
+                          <p className="font-medium text-primary">{product.price}</p>
                         </div>
                         <div>
-                          <p className="font-medium">Available:</p>
-                          <p className="text-muted-foreground">{product.stock}</p>
+                          <p className="text-sm font-medium text-muted-foreground">Available</p>
+                          <p className="font-medium">{product.stock}</p>
                         </div>
                       </div>
-                      <div className="space-y-2">
-                        <label className="text-sm font-medium">Quantity needed:</label>
-                        <Input placeholder="Enter quantity (e.g., 50kg)" />
+                      
+                      <div className="space-y-4">
+                        <div className="space-y-2">
+                          <label className="text-sm font-medium">Quantity Required *</label>
+                          <Input 
+                            placeholder="e.g., 50kg for weekly supply" 
+                            className="h-10"
+                          />
+                        </div>
+                        <div className="space-y-2">
+                          <label className="text-sm font-medium">Preferred Delivery Date *</label>
+                          <Input type="date" className="h-10" />
+                        </div>
+                        <div className="space-y-2">
+                          <label className="text-sm font-medium">Special Requirements</label>
+                          <Input 
+                            placeholder="e.g., specific packaging, delivery time..." 
+                            className="h-10"
+                          />
+                        </div>
                       </div>
-                      <div className="space-y-2">
-                        <label className="text-sm font-medium">Delivery date:</label>
-                        <Input type="date" />
-                      </div>
-                      <div className="space-y-2">
-                        <label className="text-sm font-medium">Special requirements:</label>
-                        <Input placeholder="Any special requirements..." />
-                      </div>
-                      <div className="flex gap-2 pt-4">
-                        <Button className="flex-1">
+                      
+                      <div className="flex gap-3 pt-2">
+                        <Button className="flex-1 h-11">
                           <ShoppingCart className="mr-2 h-4 w-4" />
                           Place Order
                         </Button>
-                        <Button variant="outline">
+                        <Button variant="outline" className="h-11">
                           <Phone className="mr-2 h-4 w-4" />
                           Call Farmer
                         </Button>
