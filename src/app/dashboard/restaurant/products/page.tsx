@@ -262,57 +262,63 @@ export default function ProductsPage() {
       </div>
 
       {/* Products Grid */}
-      <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+      <div className="grid gap-6 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
         {filteredProducts.map((product) => (
-          <div key={product.id} className="bg-white rounded-xl border border-gray-200 shadow-sm hover:shadow-lg transition-all duration-300 overflow-hidden">
+          <div 
+            key={product.id} 
+            className="flex flex-col bg-white rounded-2xl border-2 border-gray-100 shadow-lg hover:shadow-xl hover:border-green-200 transition-all duration-300 overflow-hidden min-h-[500px]"
+          >
             {/* Product Image */}
-            <div className="aspect-square bg-gradient-to-br from-gray-100 to-gray-200 relative">
-              <div className="absolute top-3 left-3 flex gap-2">
+            <div className="h-48 bg-gradient-to-br from-green-50 to-green-100 relative flex-shrink-0">
+              <div className="absolute top-4 left-4 flex flex-col gap-2">
                 {product.organic && (
-                  <span className="bg-green-500 text-white text-xs font-semibold px-2 py-1 rounded-full">
-                    Organic
-                  </span>
+                  <div className="bg-green-600 text-white text-xs font-bold px-3 py-1 rounded-full shadow-md">
+                    🌱 Organic
+                  </div>
                 )}
                 {product.seasonal && (
-                  <span className="bg-orange-500 text-white text-xs font-semibold px-2 py-1 rounded-full">
-                    Seasonal
-                  </span>
+                  <div className="bg-orange-500 text-white text-xs font-bold px-3 py-1 rounded-full shadow-md">
+                    🍂 Seasonal
+                  </div>
                 )}
               </div>
-              <div className="absolute top-3 right-3">
+              <div className="absolute top-4 right-4 bg-white rounded-full p-2 shadow-md">
                 {getCategoryIcon(product.category)}
               </div>
             </div>
             
-            {/* Product Info */}
-            <div className="p-4 space-y-3">
-              <h3 className="font-bold text-lg text-gray-900">{product.name}</h3>
-              
-              <div className="flex items-center gap-2 text-sm text-gray-600">
-                <MapPin className="h-4 w-4" />
-                <span>{product.farmer}, {product.location}</span>
+            {/* Product Info - Flexible content area */}
+            <div className="flex-1 p-6 flex flex-col justify-between">
+              <div className="space-y-4">
+                <h3 className="font-bold text-xl text-gray-900 leading-tight">{product.name}</h3>
+                
+                <div className="flex items-center gap-2 text-gray-600">
+                  <MapPin className="h-4 w-4 text-green-600" />
+                  <span className="text-sm">{product.farmer}, {product.location}</span>
+                </div>
+                
+                <div className="flex items-center gap-2">
+                  <Star className="h-5 w-5 fill-yellow-400 text-yellow-400" />
+                  <span className="font-semibold text-gray-700">{product.rating}</span>
+                  <span className="text-sm text-gray-500">rating</span>
+                </div>
+                
+                <div className="bg-gray-50 rounded-lg p-3">
+                  <p className="text-3xl font-bold text-green-600">{product.price}</p>
+                  <p className="text-sm text-gray-600 mt-1">Available: {product.stock}</p>
+                </div>
               </div>
               
-              <div className="flex items-center gap-2">
-                <Star className="h-4 w-4 fill-yellow-400 text-yellow-400" />
-                <span className="text-sm font-medium">{product.rating}</span>
+              {/* Order Button - Always at bottom */}
+              <div className="mt-6 pt-4 border-t border-gray-100">
+                <button
+                  onClick={() => handleOrderClick(product)}
+                  className="w-full bg-gradient-to-r from-green-600 to-green-700 hover:from-green-700 hover:to-green-800 text-white font-bold py-4 px-6 rounded-xl transition-all duration-200 flex items-center justify-center gap-3 text-lg shadow-lg hover:shadow-xl transform hover:scale-[1.02] active:scale-[0.98]"
+                >
+                  <ShoppingCart className="h-6 w-6" />
+                  Order Now
+                </button>
               </div>
-              
-              <div className="space-y-1">
-                <p className="text-2xl font-bold text-green-600">{product.price}</p>
-                <p className="text-sm text-gray-500">Stock: {product.stock}</p>
-              </div>
-            </div>
-            
-            {/* Order Button */}
-            <div className="p-4 pt-0">
-              <button
-                onClick={() => handleOrderClick(product)}
-                className="w-full bg-green-600 hover:bg-green-700 text-white font-bold py-4 px-6 rounded-lg transition-colors duration-200 flex items-center justify-center gap-2 text-lg shadow-md hover:shadow-lg"
-              >
-                <ShoppingCart className="h-5 w-5" />
-                Order Now
-              </button>
             </div>
           </div>
         ))}
