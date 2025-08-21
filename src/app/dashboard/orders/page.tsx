@@ -34,6 +34,7 @@ import { MapPin, PackageCheck, CalendarClock, Truck, LocateFixed, MoreVertical }
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
 import { useLanguage } from "@/context/language-context";
+import { useRouter } from "next/navigation";
 import { cn } from "@/lib/utils";
 
 
@@ -96,6 +97,16 @@ export default function OrdersPage() {
   const [selectedOrder, setSelectedOrder] = useState<Order | null>(null);
   const [isDialogOpen, setIsDialogOpen] = useState(false);
   const { t } = useLanguage();
+  const router = useRouter();
+
+  // Redirect restaurant users to their specific orders page
+  useEffect(() => {
+    const userType = localStorage.getItem('userType');
+    if (userType === 'restaurant') {
+      router.replace('/dashboard/restaurant/orders');
+      return;
+    }
+  }, [router]);
 
   useEffect(() => {
     async function fetchOrders() {
