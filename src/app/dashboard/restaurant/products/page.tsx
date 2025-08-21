@@ -243,7 +243,7 @@ export default function ProductsPage() {
       {/* Products Grid */}
       <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
         {filteredProducts.map((product) => (
-          <Card key={product.id} className="overflow-hidden">
+          <Card key={product.id} className="overflow-hidden flex flex-col">
             <div className="aspect-square bg-muted relative">
               <div className="absolute top-2 left-2 flex gap-1">
                 {product.organic && (
@@ -257,27 +257,29 @@ export default function ProductsPage() {
                 {getCategoryIcon(product.category)}
               </div>
             </div>
-            <CardContent className="p-4">
-              <div className="space-y-2">
-                <h3 className="font-semibold text-lg">{product.name}</h3>
+            <CardContent className="p-4 flex flex-col h-full">
+              <div className="space-y-3 flex-1">
+                <h3 className="font-semibold text-lg line-clamp-2">{product.name}</h3>
                 <div className="flex items-center gap-2 text-sm text-muted-foreground">
-                  <MapPin className="h-3 w-3" />
-                  {product.farmer}, {product.location}
+                  <MapPin className="h-3 w-3 flex-shrink-0" />
+                  <span className="truncate">{product.farmer}, {product.location}</span>
                 </div>
                 <div className="flex items-center gap-2">
                   <Star className="h-4 w-4 fill-yellow-400 text-yellow-400" />
                   <span className="text-sm font-medium">{product.rating}</span>
                 </div>
-                <div className="flex items-center justify-between">
+              </div>
+              <div className="mt-4 pt-3 border-t">
+                <div className="flex items-center justify-between mb-3">
                   <div>
                     <p className="text-lg font-bold">{product.price}</p>
                     <p className="text-sm text-muted-foreground">Stock: {product.stock}</p>
                   </div>
-                  <Button size="sm">
-                    <ShoppingCart className="mr-2 h-4 w-4" />
-                    Order
-                  </Button>
                 </div>
+                <Button className="w-full" size="sm">
+                  <ShoppingCart className="mr-2 h-4 w-4" />
+                  Order Now
+                </Button>
               </div>
             </CardContent>
           </Card>
