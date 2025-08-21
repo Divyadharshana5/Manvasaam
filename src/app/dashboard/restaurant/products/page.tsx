@@ -265,23 +265,23 @@ export default function ProductsPage() {
       {/* Products Grid */}
       <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
         {filteredProducts.map((product) => (
-          <Card key={product.id} className="overflow-hidden flex flex-col">
+          <Card key={product.id} className="overflow-hidden flex flex-col h-full shadow-sm hover:shadow-md transition-shadow duration-200">
             <div className="aspect-square bg-muted relative">
               <div className="absolute top-2 left-2 flex gap-1">
                 {product.organic && (
-                  <Badge className="bg-green-100 text-green-800">Organic</Badge>
+                  <Badge className="bg-green-100 text-green-800 font-medium">Organic</Badge>
                 )}
                 {product.seasonal && (
-                  <Badge className="bg-orange-100 text-orange-800">Seasonal</Badge>
+                  <Badge className="bg-orange-100 text-orange-800 font-medium">Seasonal</Badge>
                 )}
               </div>
               <div className="absolute top-2 right-2">
                 {getCategoryIcon(product.category)}
               </div>
             </div>
-            <CardContent className="p-4 flex flex-col h-full">
-              <div className="flex-1 space-y-3">
-                <h3 className="font-semibold text-lg leading-tight">{product.name}</h3>
+            <CardContent className="p-4 flex flex-col flex-1">
+              <div className="flex-1 space-y-3 min-h-0">
+                <h3 className="font-semibold text-lg leading-tight line-clamp-2">{product.name}</h3>
                 <div className="flex items-center gap-2 text-sm text-muted-foreground">
                   <MapPin className="h-3 w-3 flex-shrink-0" />
                   <span className="truncate">{product.farmer}, {product.location}</span>
@@ -293,14 +293,14 @@ export default function ProductsPage() {
                   </div>
                 </div>
                 <div className="pt-2">
-                  <p className="text-xl font-bold text-primary">{product.price}</p>
+                  <p className="text-xl font-bold text-green-600">{product.price}</p>
                   <p className="text-sm text-muted-foreground">Available: {product.stock}</p>
                 </div>
               </div>
               
-              <div className="mt-4 pt-4 border-t">
+              <div className="mt-6 pt-4 border-t border-gray-200">
                 <Button 
-                  className="w-full h-12 font-semibold text-base bg-green-600 hover:bg-green-700 text-white shadow-md hover:shadow-lg transition-all duration-200 border-0" 
+                  className="w-full h-12 font-semibold text-base bg-green-600 hover:bg-green-700 active:bg-green-800 text-white shadow-md hover:shadow-lg transition-all duration-200 border-0 rounded-lg" 
                   onClick={() => handleOrderClick(product)}
                 >
                   <ShoppingCart className="mr-2 h-5 w-5" />
