@@ -66,7 +66,7 @@ const sidebarItems = [
   {
     title: "FAQ",
     href: "/dashboard/restaurant/faq",
-    icon: Settings,
+    icon: HelpCircle,
   },
   {
     title: "Settings",
