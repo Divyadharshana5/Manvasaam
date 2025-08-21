@@ -1,11 +1,10 @@
 "use client";
 
 import { useState } from "react";
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import {
   Select,
   SelectContent,
@@ -23,7 +22,6 @@ import {
   Wheat,
   Star,
   MapPin,
-  Plus,
   Phone,
 } from "lucide-react";
 import {
@@ -135,11 +133,7 @@ export default function ProductsPage() {
   const [searchTerm, setSearchTerm] = useState("");
   const [activeCategory, setActiveCategory] = useState("all");
   const [sortBy, setSortBy] = useState("name");
-  const [selectedProduct, setSelectedProduct] = useState<typeof products[0] | null>(null);
 
-  const handleOrderProduct = (product: typeof products[0]) => {
-    setSelectedProduct(product);
-  };
 
   const filteredProducts = products
     .filter((product) => {
