@@ -106,7 +106,6 @@ export function VoiceAssistant({ className }: VoiceAssistantProps) {
                     };
 
                     recognitionRef.current.onerror = (event) => {
-                        console.error('Speech recognition error:', event.error);
                         setIsListening(false);
                         setTranscript('');
 
@@ -121,11 +120,21 @@ export function VoiceAssistant({ className }: VoiceAssistantProps) {
                             recognitionRef.current.stop();
                         }
 
-                        toast({
-                            variant: "destructive",
-                            title: "Voice Recognition Error",
-                            description: "Please try again or check your microphone permissions."
-                        });
+                        // Handle different error types silently for network errors
+                        if (event.error === 'network') {
+                            // Network errors are common and expected, don't show error toast
+                            console.warn('Speech recognition network error (expected)');
+                            return;
+                        }
+
+                        // Only show toast for other types of errors
+                        if (event.error !== 'aborted' && event.error !== 'no-speech') {
+                            toast({
+                                variant: "destructive",
+                                title: "Voice Recognition Error",
+                                description: "Please try again or check your microphone permissions."
+                            });
+                        }
                     };
                 }
             }
