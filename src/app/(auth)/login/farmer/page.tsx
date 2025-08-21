@@ -160,12 +160,10 @@ export default function FarmerAuthPage() {
       setTimeout(() => {
         toast({
           title: "Login successful",
-          description: "Welcome back,farmer...",
-          duration: 2000,
+          description: "Redirecting to dashboard...",
+          duration: 1000,
         });
-        setTimeout(() => {
-          router.push("/dashboard/farmer");
-        }, 5000);
+        router.push("/dashboard/farmer");
       }, 1500);
     } catch (error: any) {
       toast({
@@ -202,12 +200,10 @@ export default function FarmerAuthPage() {
 
       toast({
         title: "Login successful",
-        description: "Welcome back,farmer...",
-        duration: 2000,
+        description: "Redirecting to dashboard...",
+        duration: 1000,
       });
-      setTimeout(() => {
-        router.push("/dashboard/farmer");
-      }, 5000);
+      router.push("/dashboard/farmer");
     } catch (error: any) {
       toast({
         variant: "destructive",
