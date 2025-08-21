@@ -43,6 +43,11 @@ const sidebarItems = [
     icon: Users,
   },
   {
+    title: "Matchmaking",
+    href: "/dashboard/restaurant/matchmaking",
+    icon: Users,
+  },
+  {
     title: "Payments",
     href: "/dashboard/restaurant/payments",
     icon: CreditCard,

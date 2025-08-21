@@ -13,6 +13,8 @@ import {
 } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import { Badge } from "@/components/ui/badge";
+import { Star } from "lucide-react";
 import { MapPin, Leaf, MessageSquare, Send, Loader2, Phone, Video } from "lucide-react";
 import {
   Dialog,
@@ -48,6 +50,10 @@ const farmers = [
     specialties: ["Tomatoes", "Onions", "Leafy Greens"],
     avatar: "https://placehold.co/100x100.png",
     dataAiHint: "indian farmer",
+    phone: "+91 98765 43210",
+    rating: 4.8,
+    experience: "10 years",
+    verified: true,
   },
   {
     name: "Anjali Devi",
@@ -55,6 +61,10 @@ const farmers = [
     specialties: ["Mangoes", "Coconuts", "Spices"],
     avatar: "https://placehold.co/100x100.png",
     dataAiHint: "indian farmer woman",
+    phone: "+91 87654 32109",
+    rating: 4.6,
+    experience: "8 years",
+    verified: true,
   },
   {
     name: "Sandeep Singh",
@@ -62,6 +72,10 @@ const farmers = [
     specialties: ["Wheat", "Potatoes", "Carrots"],
     avatar: "https://placehold.co/100x100.png",
     dataAiHint: "punjabi farmer",
+    phone: "+91 76543 21098",
+    rating: 4.9,
+    experience: "15 years",
+    verified: true,
   },
    {
     name: "Priya Patel",
@@ -69,6 +83,10 @@ const farmers = [
     specialties: ["Organic Milk", "Okra", "Chilies"],
     avatar: "https://placehold.co/100x100.png",
     dataAiHint: "gujarati woman",
+    phone: "+91 65432 10987",
+    rating: 4.7,
+    experience: "12 years",
+    verified: true,
   }
 ];
 
@@ -179,31 +197,72 @@ export default function MatchmakingPage() {
                             </CardDescription>
                         </div>
                     </CardHeader>
-                    <CardContent className="flex-grow">
-                        <h4 className="font-semibold mb-2 flex items-center gap-2"><Leaf className="h-4 w-4 text-primary"/> {t.matchmaking.specializesIn}</h4>
-                        <div className="flex flex-wrap gap-2">
-                            {farmer.specialties.map(specialty => (
-                                <span key={specialty} className="bg-muted px-2 py-1 text-xs rounded-full text-muted-foreground">{specialty}</span>
-                            ))}
+                    <CardContent className="flex-grow space-y-4">
+                        <div className="flex items-center gap-4 text-sm">
+                          <div className="flex items-center gap-1">
+                            <Star className="h-4 w-4 fill-yellow-400 text-yellow-400" />
+                            <span>{farmer.rating}</span>
+                          </div>
+                          <span>{farmer.experience}</span>
+                          {farmer.verified && (
+                            <Badge className="bg-green-100 text-green-800 text-xs">Verified</Badge>
+                          )}
+                        </div>
+                        
+                        <div>
+                          <h4 className="font-semibold mb-2 flex items-center gap-2">
+                            <Leaf className="h-4 w-4 text-primary"/> {t.matchmaking.specializesIn}
+                          </h4>
+                          <div className="flex flex-wrap gap-2">
+                              {farmer.specialties.map(specialty => (
+                                  <Badge key={specialty} variant="secondary" className="text-xs">{specialty}</Badge>
+                              ))}
+                          </div>
                         </div>
                     </CardContent>
-                    <CardFooter>
+                    <CardFooter className="flex gap-2">
                         <DialogTrigger asChild>
-                             <Button className="w-full">
+                             <Button variant="outline" className="flex-1">
                                 <MessageSquare className="mr-2 h-4 w-4" />
-                                {t.matchmaking.sendInquiry}
+                                Chat
                             </Button>
                         </DialogTrigger>
+                        <Button className="flex-1">
+                          <Phone className="mr-2 h-4 w-4" />
+                          Call
+                        </Button>
                     </CardFooter>
                 </Card>
                  <DialogContent>
                     <DialogHeader>
-                      <DialogTitle>{t.matchmaking.dialogTitle} {farmer.name}</DialogTitle>
+                      <DialogTitle>Chat with {farmer.name}</DialogTitle>
                       <DialogDescription>
-                        {t.matchmaking.dialogDescription}
+                        Start a conversation to discuss products and orders.
                       </DialogDescription>
                     </DialogHeader>
-                    <ContactFarmerForm farmerName={farmer.name} onClose={() => setIsDialogOpen(false)} />
+                    <div className="space-y-4">
+                      <div className="h-64 border rounded-lg p-4 bg-muted/20">
+                        <p className="text-sm text-muted-foreground text-center mt-20">
+                          Chat interface would be implemented here
+                        </p>
+                      </div>
+                      <div className="flex gap-2">
+                        <Input placeholder="Type your message..." className="flex-1" />
+                        <Button size="icon">
+                          <Send className="h-4 w-4" />
+                        </Button>
+                      </div>
+                      <div className="flex gap-2">
+                        <Button variant="outline" className="flex-1">
+                          <Video className="mr-2 h-4 w-4" />
+                          Video Call
+                        </Button>
+                        <Button variant="outline" className="flex-1">
+                          <Phone className="mr-2 h-4 w-4" />
+                          Voice Call
+                        </Button>
+                      </div>
+                    </div>
                   </DialogContent>
               </Dialog>
             ))}
