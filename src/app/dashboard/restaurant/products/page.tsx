@@ -300,10 +300,10 @@ export default function ProductsPage() {
               
               <div className="mt-4 pt-4 border-t">
                 <Button 
-                  className="w-full h-10 font-medium bg-primary hover:bg-primary/90 text-primary-foreground" 
+                  className="w-full h-12 font-semibold text-base bg-green-600 hover:bg-green-700 text-white shadow-md hover:shadow-lg transition-all duration-200 border-0" 
                   onClick={() => handleOrderClick(product)}
                 >
-                  <ShoppingCart className="mr-2 h-4 w-4" />
+                  <ShoppingCart className="mr-2 h-5 w-5" />
                   Order Now
                 </Button>
               </div>
