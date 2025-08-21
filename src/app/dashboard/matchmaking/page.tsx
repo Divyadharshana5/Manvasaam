@@ -13,7 +13,7 @@ import {
 } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-import { MapPin, Leaf, MessageSquare, Send, Loader2 } from "lucide-react";
+import { MapPin, Leaf, MessageSquare, Send, Loader2, Phone, Video } from "lucide-react";
 import {
   Dialog,
   DialogContent,
