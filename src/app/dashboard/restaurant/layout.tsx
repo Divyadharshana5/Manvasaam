@@ -19,6 +19,7 @@ import {
   Menu,
   ChefHat,
   Leaf,
+  HelpCircle,
 } from "lucide-react";
 
 const sidebarItems = [
@@ -61,6 +62,11 @@ const sidebarItems = [
     title: "Reports",
     href: "/dashboard/restaurant/reports",
     icon: BarChart3,
+  },
+  {
+    title: "FAQ",
+    href: "/dashboard/restaurant/faq",
+    icon: Settings,
   },
   {
     title: "Settings",
