@@ -30,7 +30,6 @@ import {
   DialogDescription,
   DialogHeader,
   DialogTitle,
-  DialogTrigger,
 } from "@/components/ui/dialog";
 
 const products = [
@@ -263,52 +262,59 @@ export default function ProductsPage() {
       </div>
 
       {/* Products Grid */}
-      <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+      <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
         {filteredProducts.map((product) => (
-          <Card key={product.id} className="overflow-hidden flex flex-col h-full shadow-sm hover:shadow-md transition-shadow duration-200">
-            <div className="aspect-square bg-muted relative">
-              <div className="absolute top-2 left-2 flex gap-1">
+          <div key={product.id} className="bg-white rounded-xl border border-gray-200 shadow-sm hover:shadow-lg transition-all duration-300 overflow-hidden">
+            {/* Product Image */}
+            <div className="aspect-square bg-gradient-to-br from-gray-100 to-gray-200 relative">
+              <div className="absolute top-3 left-3 flex gap-2">
                 {product.organic && (
-                  <Badge className="bg-green-100 text-green-800 font-medium">Organic</Badge>
+                  <span className="bg-green-500 text-white text-xs font-semibold px-2 py-1 rounded-full">
+                    Organic
+                  </span>
                 )}
                 {product.seasonal && (
-                  <Badge className="bg-orange-100 text-orange-800 font-medium">Seasonal</Badge>
+                  <span className="bg-orange-500 text-white text-xs font-semibold px-2 py-1 rounded-full">
+                    Seasonal
+                  </span>
                 )}
               </div>
-              <div className="absolute top-2 right-2">
+              <div className="absolute top-3 right-3">
                 {getCategoryIcon(product.category)}
               </div>
             </div>
-            <CardContent className="p-4 flex flex-col flex-1">
-              <div className="flex-1 space-y-3 min-h-0">
-                <h3 className="font-semibold text-lg leading-tight line-clamp-2">{product.name}</h3>
-                <div className="flex items-center gap-2 text-sm text-muted-foreground">
-                  <MapPin className="h-3 w-3 flex-shrink-0" />
-                  <span className="truncate">{product.farmer}, {product.location}</span>
-                </div>
-                <div className="flex items-center justify-between">
-                  <div className="flex items-center gap-2">
-                    <Star className="h-4 w-4 fill-yellow-400 text-yellow-400" />
-                    <span className="text-sm font-medium">{product.rating}</span>
-                  </div>
-                </div>
-                <div className="pt-2">
-                  <p className="text-xl font-bold text-green-600">{product.price}</p>
-                  <p className="text-sm text-muted-foreground">Available: {product.stock}</p>
-                </div>
+            
+            {/* Product Info */}
+            <div className="p-4 space-y-3">
+              <h3 className="font-bold text-lg text-gray-900">{product.name}</h3>
+              
+              <div className="flex items-center gap-2 text-sm text-gray-600">
+                <MapPin className="h-4 w-4" />
+                <span>{product.farmer}, {product.location}</span>
               </div>
               
-              <div className="mt-6 pt-4 border-t border-gray-200">
-                <Button 
-                  className="w-full h-12 font-semibold text-base bg-green-600 hover:bg-green-700 active:bg-green-800 text-white shadow-md hover:shadow-lg transition-all duration-200 border-0 rounded-lg" 
-                  onClick={() => handleOrderClick(product)}
-                >
-                  <ShoppingCart className="mr-2 h-5 w-5" />
-                  Order Now
-                </Button>
+              <div className="flex items-center gap-2">
+                <Star className="h-4 w-4 fill-yellow-400 text-yellow-400" />
+                <span className="text-sm font-medium">{product.rating}</span>
               </div>
-            </CardContent>
-          </Card>
+              
+              <div className="space-y-1">
+                <p className="text-2xl font-bold text-green-600">{product.price}</p>
+                <p className="text-sm text-gray-500">Stock: {product.stock}</p>
+              </div>
+            </div>
+            
+            {/* Order Button */}
+            <div className="p-4 pt-0">
+              <button
+                onClick={() => handleOrderClick(product)}
+                className="w-full bg-green-600 hover:bg-green-700 text-white font-bold py-4 px-6 rounded-lg transition-colors duration-200 flex items-center justify-center gap-2 text-lg shadow-md hover:shadow-lg"
+              >
+                <ShoppingCart className="h-5 w-5" />
+                Order Now
+              </button>
+            </div>
+          </div>
         ))}
       </div>
 
