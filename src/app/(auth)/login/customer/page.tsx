@@ -155,6 +155,9 @@ export default function CustomerAuthPage() {
         throw new Error("Failed to create session");
       }
 
+      // Store user type for proper routing
+      localStorage.setItem('userType', 'customer');
+
       toast({
         title: "Login successful",
         description: "Redirecting to dashboard...",

@@ -118,6 +118,9 @@ export default function RestaurantAuthPage() {
         throw new Error("Failed to create session");
       }
 
+      // Store user type for proper routing
+      localStorage.setItem('userType', 'restaurant');
+
       toast({
         title: "Login successful",
         description: "Redirecting to restaurant dashboard...",

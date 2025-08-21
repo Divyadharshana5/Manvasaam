@@ -116,6 +116,9 @@ function HubAuthComponent() {
         throw new Error("Failed to create session");
       }
 
+      // Store user type for proper routing
+      localStorage.setItem('userType', 'hub');
+
       toast({
         title: "Login successful",
         description: "Redirecting to dashboard...",

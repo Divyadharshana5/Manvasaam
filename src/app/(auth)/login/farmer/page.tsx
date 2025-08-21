@@ -198,6 +198,9 @@ export default function FarmerAuthPage() {
         throw new Error("Failed to create session");
       }
 
+      // Store user type for proper routing
+      localStorage.setItem('userType', 'farmer');
+
       toast({
         title: "Login successful",
         description: "Redirecting to dashboard...",

@@ -1,7 +1,7 @@
 
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { AppLayout } from "@/components/app-layout";
 import {
   Card,
@@ -240,6 +240,19 @@ export default function ProductsPage() {
     const [selectedProduct, setSelectedProduct] = useState<Product | null>(null);
     const { toast } = useToast();
     const { t } = useLanguage();
+    const router = useRouter();
+    const { user } = useAuth();
+
+    // Redirect restaurant users to their specific products page
+    useEffect(() => {
+        // Check if user is a restaurant user (you can implement your own logic here)
+        // For now, we'll check localStorage or user metadata
+        const userType = localStorage.getItem('userType');
+        if (userType === 'restaurant') {
+            router.replace('/dashboard/restaurant/products');
+            return;
+        }
+    }, [router]);
 
     const handleBuyNow = (product: Product) => {
         setSelectedProduct(product);
