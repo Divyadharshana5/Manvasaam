@@ -2,12 +2,61 @@
 @tailwind components;
 @tailwind utilities;
 
+/* Performance optimizations */
+@layer base {
+  /* Critical rendering optimizations */
+  * {
+    box-sizing: border-box;
+  }
+  
+  html {
+    font-display: swap;
+    scroll-behavior: smooth;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
+  }
+  
+  body {
+    margin: 0;
+    padding: 0;
+    overflow-x: hidden;
+    -webkit-overflow-scrolling: touch;
+  }
+  
+  /* Optimize images for performance */
+  img {
+    max-width: 100%;
+    height: auto;
+    loading: lazy;
+  }
+  
+  /* GPU acceleration for animations */
+  .gpu-accelerated {
+    transform: translateZ(0);
+    will-change: transform;
+  }
+  
+  /* Reduce motion for accessibility and performance */
+  @media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+      scroll-behavior: auto !important;
+    }
+  }
+}
+
 /* Mobile-specific improvements */
 @layer utilities {
   /* Prevent horizontal scroll on mobile */
   .mobile-container {
     max-width: 100vw;
     overflow-x: hidden;
+    contain: layout style paint;
   }
 
   /* Better touch targets for mobile */

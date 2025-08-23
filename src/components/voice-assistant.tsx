@@ -1,258 +1,258 @@
 "use client";
 
-import React, { useState, useEffect, useRef } from 'react';
-import { Mic, MicOff, Volume2 } from 'lucide-react';
-import { Button } from '@/components/ui/button';
-import { useRouter } from 'next/navigation';
-import { useToast } from '@/hooks/use-toast';
-import { cn } from '@/lib/utils';
+import { useState, useRef, useEffect, useCallback } from "react";
+import { Button } from "@/components/ui/button";
+import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
+import { useToast } from "@/hooks/use-toast";
+import { useRouter } from "next/navigation";
+import { useLanguage } from "@/context/language-context";
+import { Mic, Volume2, Square, Loader2, MicOff } from "lucide-react";
 
-interface VoiceAssistantProps {
-    className?: string;
-}
+// Dynamic imports for AI flows to reduce initial bundle size
+const speechToText = async (params: any) => {
+  const { speechToText } = await import("@/ai/flows/stt-flow");
+  return speechToText(params);
+};
 
-export function VoiceAssistant({ className }: VoiceAssistantProps) {
-    const [isListening, setIsListening] = useState(false);
-    const [isSupported, setIsSupported] = useState(false);
-    const [transcript, setTranscript] = useState('');
-    const recognitionRef = useRef<SpeechRecognition | null>(null);
-    const timeoutRef = useRef<NodeJS.Timeout | null>(null);
-    const router = useRouter();
-    const { toast } = useToast();
+const understandNavigation = async (params: any) => {
+  const { understandNavigation } = await import("@/ai/flows/navigation-flow");
+  return understandNavigation(params);
+};
 
-    // Navigation routes mapping
-    const navigationRoutes = {
-        dashboard: '/dashboard',
-        profile: '/dashboard/profile',
-        orders: '/dashboard/orders',
-        products: '/dashboard/products',
-        track: '/dashboard/track',
-        tracking: '/dashboard/track',
-        matchmaking: '/dashboard/matchmaking',
-        marketing: '/dashboard/marketing',
-        faq: '/dashboard/faq',
-        help: '/dashboard/faq',
-        'hub dashboard': '/dashboard/hub',
-        'hub inventory': '/dashboard/hub/inventory',
-        inventory: '/dashboard/hub/inventory',
-        farmers: '/dashboard/hub/farmers',
-        deliveries: '/dashboard/hub/deliveries',
-        analytics: '/dashboard/hub/analytics',
-        home: '/dashboard',
-        login: '/',
-        logout: '/logout',
-        'voice help': '/voice-assistant-help'
+const textToSpeech = async (text: string) => {
+  const { textToSpeech } = await import("@/ai/flows/tts-flow");
+  return textToSpeech(text);
+};
+
+type AssistantState = "idle" | "listening" | "thinking" | "speaking";
+
+export default function VoiceAssistant() {
+  const { selectedLanguage } = useLanguage();
+  const router = useRouter();
+  const { toast } = useToast();
+
+  const [assistantState, setAssistantState] = useState<AssistantState>("idle");
+  const [lastResponse, setLastResponse] = useState("");
+  const [transcribedText, setTranscribedText] = useState("");
+  const [audioUrl, setAudioUrl] = useState("");
+  const [hasMicrophonePermission, setHasMicrophonePermission] = useState<boolean | null>(null);
+
+  const mediaRecorderRef = useRef<MediaRecorder | null>(null);
+  const audioChunksRef = useRef<Blob[]>([]);
+  const audioRef = useRef<HTMLAudioElement | null>(null);
+
+  useEffect(() => {
+    const checkMicrophonePermission = async () => {
+      try {
+        const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
+        setHasMicrophonePermission(true);
+        stream.getTracks().forEach((track) => track.stop());
+      } catch {
+        setHasMicrophonePermission(false);
+      }
     };
+    checkMicrophonePermission();
+  }, []);
 
-    useEffect(() => {
-        // Check if speech recognition is supported
-        if (typeof window !== 'undefined') {
-            const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
-            if (SpeechRecognition) {
-                setIsSupported(true);
-                recognitionRef.current = new SpeechRecognition();
+  const handleStartRecording = async () => {
+    setTranscribedText("");
+    setLastResponse("");
+    setAudioUrl("");
 
-                if (recognitionRef.current) {
-                    recognitionRef.current.continuous = false;
-                    recognitionRef.current.interimResults = false;
-                    recognitionRef.current.lang = 'en-US';
-
-                    recognitionRef.current.onstart = () => {
-                        setIsListening(true);
-                        // Set timeout to auto-stop after 10 seconds
-                        timeoutRef.current = setTimeout(() => {
-                            if (recognitionRef.current && isListening) {
-                                recognitionRef.current.stop();
-                                toast({
-                                    title: "Voice Assistant",
-                                    description: "Listening timeout. Please try again."
-                                });
-                            }
-                        }, 10000);
-                    };
-
-                    recognitionRef.current.onend = () => {
-                        setIsListening(false);
-                        // Clear timeout
-                        if (timeoutRef.current) {
-                            clearTimeout(timeoutRef.current);
-                            timeoutRef.current = null;
-                        }
-                        // Clear transcript after a delay
-                        setTimeout(() => {
-                            setTranscript('');
-                        }, 3000);
-                    };
-
-                    recognitionRef.current.onresult = (event) => {
-                        const result = event.results[0][0].transcript.toLowerCase().trim();
-                        setTranscript(result);
-
-                        // Clear timeout since we got a result
-                        if (timeoutRef.current) {
-                            clearTimeout(timeoutRef.current);
-                            timeoutRef.current = null;
-                        }
-
-                        // Auto-stop after recognizing command
-                        if (recognitionRef.current) {
-                            recognitionRef.current.stop();
-                        }
-
-                        // Handle the command after stopping
-                        setTimeout(() => {
-                            handleVoiceCommand(result);
-                        }, 100);
-                    };
-
-                    recognitionRef.current.onerror = (event) => {
-                        setIsListening(false);
-                        setTranscript('');
-
-                        // Clear timeout
-                        if (timeoutRef.current) {
-                            clearTimeout(timeoutRef.current);
-                            timeoutRef.current = null;
-                        }
-
-                        // Stop recognition on error
-                        if (recognitionRef.current) {
-                            recognitionRef.current.stop();
-                        }
-
-                        // Handle different error types silently for network errors
-                        if (event.error === 'network') {
-                            // Network errors are common and expected, don't show error toast
-                            console.warn('Speech recognition network error (expected)');
-                            return;
-                        }
-
-                        // Only show toast for other types of errors
-                        if (event.error !== 'aborted' && event.error !== 'no-speech') {
-                            toast({
-                                variant: "destructive",
-                                title: "Voice Recognition Error",
-                                description: "Please try again or check your microphone permissions."
-                            });
-                        }
-                    };
-                }
-            }
-        }
-
-        return () => {
-            if (recognitionRef.current) {
-                recognitionRef.current.stop();
-            }
-            if (timeoutRef.current) {
-                clearTimeout(timeoutRef.current);
-            }
-        };
-    }, []);
-
-    const handleVoiceCommand = (command: string) => {
-        // Clean the command
-        const cleanCommand = command.replace(/^(go to|navigate to|open|show me|take me to)\s*/i, '').trim();
-
-        // Check for navigation commands
-        const route = navigationRoutes[cleanCommand as keyof typeof navigationRoutes];
-
-        if (route) {
-            speak(`Navigating to ${cleanCommand}`);
-            router.push(route);
-            toast({
-                title: "Navigation",
-                description: `Navigating to ${cleanCommand}`
-            });
-        } else if (cleanCommand.includes('help') || cleanCommand.includes('what can you do') || cleanCommand.includes('commands')) {
-            const helpMessage = "I can help you navigate through the app. Try saying: go to dashboard, open profile, show orders, or navigate to inventory. Say 'voice help' for more details.";
-            speak(helpMessage);
-            toast({
-                title: "Voice Assistant Help",
-                description: helpMessage
-            });
-        } else if (cleanCommand.includes('voice help') || cleanCommand === 'help page') {
-            speak("Opening voice assistant help page");
-            router.push('/voice-assistant-help');
-            toast({
-                title: "Voice Help",
-                description: "Opening voice assistant help page"
-            });
-        } else {
-            const errorMessage = "I'm dedicated to helping you navigate through this agricultural platform. Please say commands like 'go to dashboard', 'open profile', or 'show orders'. Say 'voice help' for more information.";
-            speak(errorMessage);
-            toast({
-                variant: "destructive",
-                title: "Command Not Recognized",
-                description: errorMessage
-            });
-        }
-    };
-
-    const speak = (text: string) => {
-        if ('speechSynthesis' in window) {
-            const utterance = new SpeechSynthesisUtterance(text);
-            utterance.rate = 0.8;
-            utterance.pitch = 1;
-            utterance.volume = 0.8;
-            window.speechSynthesis.speak(utterance);
-        }
-    };
-
-    const toggleListening = () => {
-        if (!recognitionRef.current) return;
-
-        if (isListening) {
-            recognitionRef.current.stop();
-        } else {
-            try {
-                recognitionRef.current.start();
-                toast({
-                    title: "Voice Assistant",
-                    description: "Listening... Say a navigation command."
-                });
-            } catch (error) {
-                console.error('Error starting recognition:', error);
-                toast({
-                    variant: "destructive",
-                    title: "Error",
-                    description: "Could not start voice recognition. Please check microphone permissions."
-                });
-            }
-        }
-    };
-
-    if (!isSupported) {
-        return null; // Don't render if not supported
+    if (hasMicrophonePermission === false) {
+      toast({
+        variant: "destructive",
+        title: "Microphone Access Denied",
+        description: "Please allow microphone access in your browser settings to use this feature.",
+      });
+      return;
     }
 
-    return (
-        <div className={cn("flex items-center gap-2", className)}>
-            <Button
-                variant={isListening ? "default" : "outline"}
-                size="sm"
-                onClick={toggleListening}
-                className={cn(
-                    "relative transition-all duration-200",
-                    isListening && "animate-pulse bg-red-500 hover:bg-red-600"
-                )}
-                title="Voice Assistant - Click to speak navigation commands"
-            >
-                {isListening ? (
-                    <MicOff className="h-4 w-4" />
-                ) : (
-                    <Mic className="h-4 w-4" />
-                )}
-                {isListening && (
-                    <span className="absolute -top-1 -right-1 h-3 w-3 bg-red-400 rounded-full animate-ping" />
-                )}
-            </Button>
+    try {
+      const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
+      setHasMicrophonePermission(true);
+      mediaRecorderRef.current = new MediaRecorder(stream, { mimeType: "audio/webm" });
+      audioChunksRef.current = [];
 
-            {transcript && (
-                <div className="hidden md:block text-xs text-muted-foreground max-w-32 truncate">
-                    "{transcript}"
-                </div>
-            )}
+      mediaRecorderRef.current.ondataavailable = (event) => {
+        audioChunksRef.current.push(event.data);
+      };
+
+      mediaRecorderRef.current.onstop = processAudio;
+      mediaRecorderRef.current.start();
+      setAssistantState("listening");
+    } catch {
+      setHasMicrophonePermission(false);
+      toast({
+        variant: "destructive",
+        title: "Microphone Access Denied",
+        description: "Please allow microphone access in your browser settings to use this feature.",
+      });
+    }
+  };
+
+  const handleStopRecording = () => {
+    if (mediaRecorderRef.current && assistantState === "listening") {
+      mediaRecorderRef.current.stop();
+      mediaRecorderRef.current.stream.getTracks().forEach((track) => track.stop());
+    }
+  };
+
+  const processAudio = async () => {
+    setAssistantState("thinking");
+    const audioBlob = new Blob(audioChunksRef.current, { type: "audio/webm" });
+    const reader = new FileReader();
+    reader.readAsDataURL(audioBlob);
+    reader.onloadend = async () => {
+      const base64Audio = reader.result as string;
+      try {
+        const sttResult = await speechToText({
+          audioDataUri: base64Audio,
+          language: selectedLanguage,
+        });
+        const { transcript } = sttResult;
+        setTranscribedText(transcript);
+
+        const navResult = await understandNavigation({
+          text: transcript,
+          language: selectedLanguage,
+        });
+
+        if (navResult.shouldNavigate && navResult.pageKey) {
+          await speak(navResult.message);
+          setTimeout(() => {
+            router.push(navResult.pageKey!);
+          }, 2500);
+        } else {
+          await speak(navResult.message);
+        }
+      } catch (e) {
+        console.error(e);
+        toast({
+          variant: "destructive",
+          title: "AI Processing Failed",
+          description: "An unexpected error occurred.",
+        });
+        setAssistantState("idle");
+      }
+    };
+  };
+
+  const speak = useCallback(async (text: string) => {
+    if (!text.trim()) {
+      setAssistantState("idle");
+      return;
+    }
+    setAssistantState("speaking");
+    setLastResponse(text);
+    setAudioUrl("");
+    try {
+      const result = await textToSpeech(text);
+      setAudioUrl(result.audioDataUri);
+    } catch {
+      toast({
+        variant: "destructive",
+        title: "Conversion Failed",
+        description: "An unexpected error occurred.",
+      });
+      setAssistantState("idle");
+    }
+  }, [selectedLanguage, toast]);
+
+  useEffect(() => {
+    if (audioUrl && audioRef.current) {
+      audioRef.current.play().catch(() => {});
+      audioRef.current.onended = () => {
+        setAssistantState("idle");
+      };
+    } else if (assistantState === "speaking" && !audioUrl) {
+      setAssistantState("idle");
+    }
+  }, [audioUrl, assistantState]);
+
+  const getButtonState = () => {
+    if (hasMicrophonePermission === false)
+      return {
+        disabled: true,
+        text: "Mic Disabled",
+        icon: <MicOff className="mr-2 h-6 w-6" />,
+      };
+    switch (assistantState) {
+      case "listening":
+        return {
+          disabled: false,
+          text: "Stop",
+          onClick: handleStopRecording,
+          variant: "destructive",
+          icon: <Square className="mr-2 h-6 w-6" />,
+        };
+      case "thinking":
+      case "speaking":
+        return {
+          disabled: true,
+          text: "Processing...",
+          icon: <Loader2 className="h-6 w-6 animate-spin" />,
+        };
+      case "idle":
+      default:
+        return {
+          disabled: false,
+          text: "Ask",
+          onClick: handleStartRecording,
+          variant: "default",
+          icon: <Mic className="mr-2 h-6 w-6" />,
+        };
+    }
+  };
+
+  const buttonState = getButtonState();
+
+  return (
+    <div className="space-y-6 py-4">
+      <div className="flex justify-center">
+        <Button
+          onClick={buttonState.onClick}
+          disabled={buttonState.disabled}
+          variant={(buttonState.variant as any) || "default"}
+          className="w-48 h-16 text-lg"
+        >
+          {buttonState.icon}
+          {buttonState.text}
+        </Button>
+      </div>
+
+      {assistantState === "listening" && (
+        <div className="text-center text-destructive animate-pulse">
+          Listening...
         </div>
-    );
+      )}
+
+      <div className="min-h-[8rem] space-y-4 px-2">
+        {transcribedText && (
+          <Alert>
+            <Mic className="h-4 w-4" />
+            <AlertTitle>You Said:</AlertTitle>
+            <AlertDescription>{transcribedText}</AlertDescription>
+          </Alert>
+        )}
+
+        {lastResponse && (
+          <Alert>
+            <Volume2 className="h-4 w-4" />
+            <AlertTitle>Assistant Response:</AlertTitle>
+            <AlertDescription>
+              {lastResponse}
+              {audioUrl && (
+                <audio
+                  ref={audioRef}
+                  src={audioUrl}
+                  className="w-full mt-2"
+                />
+              )}
+            </AlertDescription>
+          </Alert>
+        )}
+      </div>
+    </div>
+  );
 }
