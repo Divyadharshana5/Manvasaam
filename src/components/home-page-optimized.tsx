@@ -470,12 +470,42 @@ export default function HomePage() {
               </div>
             </div>
 
-            <div className="flex flex-col sm:flex-row items-center justify-between gap-2 pt-3 border-t border-primary/10">
+            <div className="flex flex-col sm:flex-row items-center justify-between gap-4 pt-3 border-t border-primary/10">
               <div className="flex items-center gap-2">
                 <span className="w-1 h-1 bg-primary rounded-full animate-pulse"></span>
                 <p className="text-xs font-medium text-foreground">
                   © {new Date().getFullYear()} Manvaasam. All rights reserved.
                 </p>
+              </div>
+              
+              {/* Legal and Support Links */}
+              <div className="flex items-center gap-4 text-xs">
+                <motion.div whileHover={{ scale: 1.05 }} transition={{ duration: 0.2 }}>
+                  <Link
+                    href="/privacy"
+                    className="text-muted-foreground hover:text-primary transition-colors duration-200 hover:underline"
+                  >
+                    Privacy Policy
+                  </Link>
+                </motion.div>
+                <span className="text-muted-foreground">•</span>
+                <motion.div whileHover={{ scale: 1.05 }} transition={{ duration: 0.2 }}>
+                  <Link
+                    href="/terms"
+                    className="text-muted-foreground hover:text-primary transition-colors duration-200 hover:underline"
+                  >
+                    Terms of Service
+                  </Link>
+                </motion.div>
+                <span className="text-muted-foreground">•</span>
+                <motion.div whileHover={{ scale: 1.05 }} transition={{ duration: 0.2 }}>
+                  <Link
+                    href="/support"
+                    className="text-muted-foreground hover:text-primary transition-colors duration-200 hover:underline"
+                  >
+                    Support
+                  </Link>
+                </motion.div>
               </div>
             </div>
           </div>
