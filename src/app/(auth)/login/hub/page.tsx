@@ -171,53 +171,92 @@ function HubAuthComponent() {
       const result = await response.json();
 
       if (!response.ok) {
-        throw new Error(result.message || "Failed to save hub details.");
+        throw new Error(result.message || "Failed to register hub.");
       }
 
+      // Show success message with branch ID
       toast({
-        title: "Hub Registration Successful",
-        description: `Your branch ID is ${result.branchId}. Redirecting to dashboard...`,
+        title: "Hub Registration Successful!",
+        description: `Your branch ID is ${result.branchId}. Please save this ID for future reference.`,
+        duration: 4000,
       });
 
-      // If in mock mode or registration successful, auto-login and redirect
-      if (result.mockMode || result.uid) {
-        // Simulate login process
-        try {
-          // Create a mock ID token for login
-          const mockIdToken = `mock-token-${Date.now()}`;
-
-          const loginResponse = await fetch("/api/login", {
-            method: "POST",
-            headers: {
-              "Content-Type": "application/json",
-            },
-            body: JSON.stringify({ idToken: mockIdToken }),
-          });
-
-          if (loginResponse.ok) {
-            router.push("/dashboard/hub");
-            toast({
-              title: "Login Successful",
-              description: "Welcome to your Hub Dashboard!",
-            });
-            return;
-          }
-        } catch (loginError) {
-          console.error("Auto-login failed:", loginError);
-        }
+      // Store the branch ID for future use
+      if (result.branchId) {
+        localStorage.setItem('branchId', result.branchId);
       }
 
-      // Fallback to manual login
+      // Auto-login after successful registration
+      try {
+        let idToken: string;
+        
+        if (result.mockMode) {
+          // In mock mode, create a mock token
+          idToken = `mock-token-${Date.now()}-${values.email}`;
+        } else {
+          // Try to authenticate with Firebase using the registered credentials
+          try {
+            const userCredential = await signInWithEmailAndPassword(
+              auth,
+              values.email,
+              values.password
+            );
+            idToken = await userCredential.user.getIdToken();
+          } catch (authError) {
+            // If Firebase auth fails, use mock token
+            idToken = `mock-token-${Date.now()}-${values.email}`;
+          }
+        }
+
+        // Create session
+        const loginResponse = await fetch("/api/login", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({ idToken }),
+        });
+
+        if (loginResponse.ok) {
+          // Store user info
+          localStorage.setItem('userType', 'hub');
+          localStorage.setItem('branchName', values.branchName);
+          
+          toast({
+            title: "Auto-login Successful",
+            description: "Welcome to your Hub Dashboard!",
+            duration: 2000,
+          });
+
+          // Redirect to dashboard
+          setTimeout(() => {
+            router.push("/dashboard/hub");
+          }, 1500);
+          return;
+        }
+      } catch (loginError) {
+        console.error("Auto-login failed:", loginError);
+      }
+
+      // If auto-login fails, switch to login tab with pre-filled data
+      toast({
+        title: "Registration Complete",
+        description: "Please log in with your new credentials.",
+        duration: 3000,
+      });
+
       registerForm.reset();
       loginForm.setValue("branchName", values.branchName);
       loginForm.setValue("email", values.email);
       loginForm.setValue("password", "");
       setActiveTab("login");
+
     } catch (error: any) {
+      console.error("Registration error:", error);
       toast({
         variant: "destructive",
         title: "Registration Failed",
-        description: error.message,
+        description: error.message || "Failed to register hub. Please try again.",
       });
     } finally {
       setLoading(false);

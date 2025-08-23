@@ -1,66 +1,80 @@
-# Firebase Setup Guide
+# Firebase Setup Guide for Hub Authentication
 
-## Issue: Registration Failed Error
+## Environment Variables Required
 
-The "Registration Failed" error with "Unexpected token '<' at position 0 is not valid JSON" occurs because Firebase Admin SDK is not properly configured.
+Create a `.env.local` file in your project root with the following variables:
 
-## Root Cause
-
-The `.env.local` file contains placeholder values instead of actual Firebase service account credentials, causing the Firebase Admin SDK to fail initialization and return HTML error pages instead of JSON responses.
-
-## Solution
-
-### Step 1: Get Firebase Service Account Credentials
-
-1. Go to [Firebase Console](https://console.firebase.google.com/)
-2. Select your project: `manvaasam-h50ej`
-3. Go to Project Settings (gear icon) → Service Accounts
-4. Click "Generate new private key"
-5. Download the JSON file
-
-### Step 2: Update Environment Variables
-
-Update the `.env.local` file with the actual values from your service account JSON:
-
+### For Production (Server-side only - more secure)
 ```env
-# Firebase Admin Configuration (Server-side only)
-FIREBASE_PROJECT_ID=manvaasam-h50ej
-FIREBASE_PRIVATE_KEY="-----BEGIN PRIVATE KEY-----\n[YOUR_ACTUAL_PRIVATE_KEY_HERE]\n-----END PRIVATE KEY-----"
-FIREBASE_CLIENT_EMAIL=[YOUR_SERVICE_ACCOUNT_EMAIL]@manvaasam-h50ej.iam.gserviceaccount.com
-
-# Firebase Client Configuration (Client-side) - Already configured
-NEXT_PUBLIC_FIREBASE_API_KEY=AIzaSyCX7QqJ2E-AsLqKiT2YmWYYqQ4PYFR7REo
-NEXT_PUBLIC_FIREBASE_AUTH_DOMAIN=manvaasam-h50ej.firebaseapp.com
-NEXT_PUBLIC_FIREBASE_PROJECT_ID=manvaasam-h50ej
-NEXT_PUBLIC_FIREBASE_STORAGE_BUCKET=manvaasam-h50ej.appspot.com
-NEXT_PUBLIC_FIREBASE_MESSAGING_SENDER_ID=901229086413
-NEXT_PUBLIC_FIREBASE_APP_ID=1:901229086413:web:b75f25596f1d7b84
+FIREBASE_PROJECT_ID=your-project-id
+FIREBASE_PRIVATE_KEY="-----BEGIN PRIVATE KEY-----\nYour private key here\n-----END PRIVATE KEY-----\n"
+FIREBASE_CLIENT_EMAIL=firebase-adminsdk-xxxxx@your-project-id.iam.gserviceaccount.com
 ```
 
-### Step 3: Restart Development Server
-
-After updating the environment variables:
-
-```bash
-npm run dev
+### For Development (Client-side accessible - less secure but easier for testing)
+```env
+NEXT_PUBLIC_PROJECT_ID=your-project-id
+NEXT_PUBLIC_FIREBASE_PRIVATE_KEY="-----BEGIN PRIVATE KEY-----\nYour private key here\n-----END PRIVATE KEY-----\n"
+NEXT_PUBLIC_FIREBASE_CLIENT_EMAIL=firebase-adminsdk-xxxxx@your-project-id.iam.gserviceaccount.com
 ```
 
-## What Was Fixed
+## How to Get These Values
 
-1. **Improved Error Handling**: Added proper validation for Firebase configuration
-2. **Better Error Messages**: APIs now return proper JSON error responses instead of HTML
-3. **Configuration Validation**: Added checks to ensure Firebase is properly initialized before processing requests
+1. **Go to Firebase Console**: https://console.firebase.google.com/
+2. **Select your project** or create a new one
+3. **Go to Project Settings** (gear icon)
+4. **Navigate to Service Accounts tab**
+5. **Click "Generate new private key"**
+6. **Download the JSON file**
 
-## Testing
+From the downloaded JSON file, extract:
+- `project_id` → `FIREBASE_PROJECT_ID`
+- `private_key` → `FIREBASE_PRIVATE_KEY` (keep the quotes and newlines)
+- `client_email` → `FIREBASE_CLIENT_EMAIL`
 
-After setting up the correct Firebase credentials:
+## Mock Mode
 
-1. Try registering a new user
-2. Check that you get proper JSON responses (success or error)
-3. Verify that Firebase Admin operations work correctly
+If Firebase is not configured, the application will run in **mock mode**:
+- ✅ Registration will work with mock data
+- ✅ Login will work with mock authentication
+- ✅ Sessions will be created locally
+- ⚠️ Data won't persist between server restarts
+- ⚠️ No real authentication security
+
+## Testing Hub Authentication
+
+### Registration Test:
+1. Go to `/login/hub`
+2. Click "Register" tab
+3. Fill in:
+   - Branch Name: "Test Hub"
+   - Email: "test@gmail.com"
+   - Location: "Test City"
+   - Phone: "1234567890"
+   - Password: "TestPass123!"
+   - Confirm Password: "TestPass123!"
+4. Click "Register Hub"
+
+### Login Test:
+1. Use the same credentials from registration
+2. Should redirect to `/dashboard/hub`
+
+## Troubleshooting
+
+### Common Issues:
+1. **"Firebase not configured"** - Check environment variables
+2. **"Invalid credentials"** - Verify email/password combination
+3. **"Session creation failed"** - Check API logs for detailed errors
+
+### Debug Steps:
+1. Check browser console for errors
+2. Check server logs for Firebase initialization status
+3. Verify environment variables are loaded correctly
+4. Test in mock mode first, then with real Firebase
 
 ## Security Notes
 
-- Never commit actual Firebase private keys to version control
-- Keep `.env.local` in your `.gitignore` file
-- Use environment variables for production deployment
+- Never commit `.env.local` to version control
+- Use server-side environment variables in production
+- Rotate Firebase keys regularly
+- Enable Firebase security rules for production use

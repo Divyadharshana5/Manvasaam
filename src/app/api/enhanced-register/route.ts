@@ -12,20 +12,39 @@ export async function POST(request: Request) {
       console.log("⚠️ Running in mock mode - Firebase not configured");
       // In mock mode, we'll simulate the registration process
       const data = await request.json();
-      const { userType } = data;
+      const { userType, email, branchName } = data;
+
+      // Validate required fields
+      if (!email || !userType) {
+        return NextResponse.json(
+          { message: "Email and user type are required." },
+          { status: 400 }
+        );
+      }
+
+      if (userType === "hub" && !branchName) {
+        return NextResponse.json(
+          { message: "Branch name is required for hub registration." },
+          { status: 400 }
+        );
+      }
 
       let branchId: string | undefined = undefined;
       if (userType === "hub") {
         branchId = `HUB-${Math.random().toString(36).substr(2, 6).toUpperCase()}`;
       }
 
+      console.log(`✅ Mock registration successful for ${userType}: ${email}`);
+      
       // Simulate successful registration
       return NextResponse.json(
         {
-          message: "User created successfully (Mock Mode)",
+          message: "Hub registered successfully (Mock Mode)",
           uid: `mock-uid-${Date.now()}`,
           branchId,
-          mockMode: true
+          mockMode: true,
+          email: email,
+          branchName: branchName
         },
         { status: 201 }
       );

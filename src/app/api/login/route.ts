@@ -19,6 +19,14 @@ export async function POST(request: Request) {
         );
       }
 
+      // Validate mock token format
+      if (!idToken.startsWith('mock-token-')) {
+        return NextResponse.json(
+          { message: "Invalid token format in mock mode." },
+          { status: 400 }
+        );
+      }
+
       // Create a mock session cookie
       const mockSessionCookie = `mock-session-${Date.now()}-${Math.random().toString(36).substr(2, 9)}`;
       const expiresIn = 60 * 60 * 24 * 5 * 1000; // 5 days
@@ -28,11 +36,17 @@ export async function POST(request: Request) {
         value: mockSessionCookie,
         maxAge: expiresIn,
         httpOnly: true,
-        secure: false, // Set to false for localhost
+        secure: process.env.NODE_ENV === 'production', // Secure in production only
+        sameSite: 'lax' as const,
       };
       (await cookies()).set(options);
 
-      return NextResponse.json({ status: "success", mockMode: true }, { status: 200 });
+      console.log("✅ Mock session created successfully");
+      return NextResponse.json({ 
+        status: "success", 
+        mockMode: true,
+        message: "Session created in mock mode"
+      }, { status: 200 });
     }
 
     const { idToken } = await request.json();
