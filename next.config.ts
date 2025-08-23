@@ -1,5 +1,5 @@
 
-import type {NextConfig} from 'next';
+import type { NextConfig } from 'next';
 
 const nextConfig: NextConfig = {
   /* config options here */
@@ -51,7 +51,7 @@ const nextConfig: NextConfig = {
       ...config.resolve.fallback,
       fs: false,
     };
-    
+
     // Production optimizations
     if (!dev && !isServer) {
       config.optimization.splitChunks = {
@@ -70,7 +70,7 @@ const nextConfig: NextConfig = {
         },
       };
     }
-    
+
     return config;
   },
   // Headers for caching
