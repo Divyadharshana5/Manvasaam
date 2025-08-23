@@ -5,7 +5,6 @@ import { AuthProvider } from "@/hooks/use-auth";
 import { Toaster } from "@/components/ui/toaster";
 import { LanguageProvider } from "@/context/language-context";
 import { PT_Sans } from "next/font/google";
-import ClientPerformanceMonitor from "@/components/client-performance-monitor";
 
 const ptSans = PT_Sans({
   subsets: ["latin"],
@@ -130,7 +129,6 @@ export default function RootLayout({
           <AuthProvider>{children}</AuthProvider>
         </LanguageProvider>
         <Toaster />
-        <ClientPerformanceMonitor />
       </body>
     </html>
   );
