@@ -123,7 +123,7 @@ export default function RestaurantAuthPage() {
 
       toast({
         title: "Login successful",
-        description: "Redirecting to restaurant dashboard...",
+        description: "Welcome to restaurant dashboard...",
         duration: 1000,
       });
       router.push("/dashboard/restaurant");
