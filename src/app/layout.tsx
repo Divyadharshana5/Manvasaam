@@ -5,12 +5,7 @@ import { AuthProvider } from "@/hooks/use-auth";
 import { Toaster } from "@/components/ui/toaster";
 import { LanguageProvider } from "@/context/language-context";
 import { PT_Sans } from "next/font/google";
-import dynamic from "next/dynamic";
-
-// Lazy load performance monitor for production
-const PerformanceMonitor = dynamic(() => import("@/components/performance-monitor"), {
-  ssr: false,
-});
+import ClientPerformanceMonitor from "@/components/client-performance-monitor";
 
 const ptSans = PT_Sans({
   subsets: ["latin"],
