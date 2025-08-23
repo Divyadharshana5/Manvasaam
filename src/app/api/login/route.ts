@@ -4,7 +4,7 @@ import { cookies } from "next/headers";
 
 export async function GET() {
   console.log("🔍 Login API health check");
-  return NextResponse.json({ 
+  return NextResponse.json({
     message: "Login API is working",
     timestamp: new Date().toISOString(),
     mockMode: !isFirebaseInitialized || !adminAuth,
@@ -14,7 +14,7 @@ export async function GET() {
 
 export async function POST(request: Request) {
   console.log("🔐 Login API called at", new Date().toISOString());
-  
+
   try {
     // Always return a valid JSON response, even for errors
     const headers = {
@@ -27,14 +27,14 @@ export async function POST(request: Request) {
     try {
       const requestText = await request.text();
       console.log("📝 Raw request:", requestText);
-      
+
       if (!requestText) {
         return new NextResponse(
           JSON.stringify({ message: "Empty request body", success: false }),
           { status: 400, headers }
         );
       }
-      
+
       body = JSON.parse(requestText);
       console.log("📦 Parsed body:", { hasIdToken: !!body.idToken });
     } catch (parseError) {
@@ -57,7 +57,7 @@ export async function POST(request: Request) {
 
     // Always use mock mode for now to ensure it works
     console.log("⚠️ Using mock mode for reliable testing");
-    
+
     // Create a simple mock session
     const mockSessionCookie = `mock-session-${Date.now()}`;
     const expiresIn = 60 * 60 * 24 * 5; // 5 days in seconds
@@ -75,27 +75,27 @@ export async function POST(request: Request) {
       });
 
       console.log("✅ Mock session created:", mockSessionCookie);
-      
-      const successResponse = { 
+
+      const successResponse = {
         success: true,
-        status: "success", 
+        status: "success",
         mockMode: true,
         message: "Login successful",
         timestamp: new Date().toISOString()
       };
-      
+
       console.log("📤 Sending success response:", successResponse);
-      
+
       return new NextResponse(
         JSON.stringify(successResponse),
         { status: 200, headers }
       );
-      
+
     } catch (cookieError) {
       console.error("❌ Cookie error:", cookieError);
       return new NextResponse(
-        JSON.stringify({ 
-          message: "Failed to create session", 
+        JSON.stringify({
+          message: "Failed to create session",
           success: false,
           error: String(cookieError)
         }),
@@ -105,19 +105,19 @@ export async function POST(request: Request) {
 
   } catch (error: any) {
     console.error("❌ Login API error:", error);
-    
+
     // Always return valid JSON
-    const errorResponse = { 
-      message: "Internal server error", 
+    const errorResponse = {
+      message: "Internal server error",
       success: false,
       error: error.message || String(error),
       timestamp: new Date().toISOString()
     };
-    
+
     return new NextResponse(
       JSON.stringify(errorResponse),
-      { 
-        status: 500, 
+      {
+        status: 500,
         headers: {
           'Content-Type': 'application/json',
           'Cache-Control': 'no-cache, no-store, must-revalidate',

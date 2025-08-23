@@ -81,6 +81,14 @@ export async function POST(request: Request) {
       disabled: false,
     };
 
+    // Ensure Firebase services are available
+    if (!adminAuth || !adminDb) {
+      return NextResponse.json(
+        { message: "Firebase services not available." },
+        { status: 503 }
+      );
+    }
+
     // Create user in Firebase Auth
     const userRecord = await adminAuth.createUser(authPayload);
 
@@ -103,6 +111,7 @@ export async function POST(request: Request) {
     }
 
     // Store additional user information in Firestore
+    // adminDb is guaranteed to be non-null here due to the check above
     await adminDb.collection("users").doc(userRecord.uid).set(firestoreData);
 
     // Send the response immediately
