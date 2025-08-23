@@ -184,7 +184,7 @@ function HubAuthComponent() {
 
       toast({
         title: "Login successful",
-        description: `Welcome to ${values.branchName}! ${responseData.mockMode ? '(Mock Mode)' : ''} Redirecting to dashboard...`,
+        description: `Welcome to ${values.branchName}! ${responseData.mockMode ? '(Mock Mode)' : ''} Welcome back to dashboard...`,
         duration: 2000,
       });
 
