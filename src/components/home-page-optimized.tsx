@@ -94,7 +94,20 @@ const AnimatedBackground = () => (
   </div>
 );
 
-const RoleCard = ({ role, index, onContinueClick, loadingRoleHref, t }) => (
+interface RoleCardProps {
+  role: {
+    name: string;
+    description: string;
+    href: string;
+    icon: React.ReactNode;
+  };
+  index: number;
+  onContinueClick: (href: string) => void;
+  loadingRoleHref: string | null;
+  t: any; // This comes from the language context
+}
+
+const RoleCard = ({ role, index, onContinueClick, loadingRoleHref, t }: RoleCardProps) => (
   <motion.div
     className="group"
     initial={{ opacity: 0, y: 50 }}
@@ -312,13 +325,13 @@ export default function HomePage() {
         <main className="flex min-h-screen flex-col items-center justify-center pt-16 sm:pt-20 md:pt-24 px-4 sm:px-6 md:px-8">
           <div
             className="absolute inset-0 z-0 bg-cover bg-center bg-no-repeat bg-fixed bg-ken-burns"
-            style={{ 
+            style={{
               backgroundImage: "url('/bg-agri.png')",
               willChange: 'transform'
             }}
           ></div>
           <div className="absolute inset-0 bg-background/30 z-0"></div>
-          
+
           <section className="text-center w-full max-w-7xl mx-auto z-10 px-2 sm:px-4">
             <motion.h1
               className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl font-bold text-foreground tracking-tight text-center mb-8 sm:mb-10 md:mb-12 [text-shadow:0_2px_4px_rgb(0_0_0/_30%)] px-2"
@@ -336,11 +349,11 @@ export default function HomePage() {
                 </motion.span>
               ))}
             </motion.h1>
-            
+
             <h2 className="text-xl sm:text-2xl md:text-3xl lg:text-4xl font-bold mb-4 sm:mb-5 md:mb-6 text-black [text-shadow:0_0_8px_rgb(255_255_255/_80%)] tracking-wide px-2">
               {t.joinCommunity}
             </h2>
-            
+
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6 md:gap-8 px-2 sm:px-0">
               {userRoles.map((role, index) => (
                 <RoleCard
@@ -365,7 +378,7 @@ export default function HomePage() {
             >
               {t.ourMission}
             </motion.h2>
-            
+
             <motion.p
               className="text-base sm:text-lg md:text-xl lg:text-2xl font-bold leading-relaxed max-w-5xl mx-auto mb-6 sm:mb-8 text-white [text-shadow:0_2px_8px_rgb(0_0_0/_80%)] py-3 sm:py-4 px-2 sm:px-4"
               initial={{ opacity: 0, y: 30 }}
@@ -375,7 +388,7 @@ export default function HomePage() {
             >
               {t.missionStatement}
             </motion.p>
-            
+
             <Card className="bg-card/80 backdrop-blur-xl border border-primary/20 rounded-2xl shadow-lg p-4 sm:p-6 mx-2 sm:mx-0">
               <CardContent className="p-0 sm:p-4">
                 <div className="flex flex-col sm:flex-row items-center justify-center gap-3 sm:gap-4 text-base sm:text-lg font-semibold text-foreground">
@@ -477,7 +490,7 @@ export default function HomePage() {
                   © {new Date().getFullYear()} Manvaasam. All rights reserved.
                 </p>
               </div>
-              
+
               {/* Legal and Support Links */}
               <div className="flex items-center gap-4 text-xs">
                 <motion.div whileHover={{ scale: 1.05 }} transition={{ duration: 0.2 }}>
