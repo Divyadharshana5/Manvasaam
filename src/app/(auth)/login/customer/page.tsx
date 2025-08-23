@@ -160,7 +160,7 @@ export default function CustomerAuthPage() {
 
       toast({
         title: "Login successful",
-        description: "Redirecting to dashboard...",
+        description: "Welcome back to dashboard...",
         duration: 1000,
       });
       router.push("/dashboard");
