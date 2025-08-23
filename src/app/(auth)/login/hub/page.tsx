@@ -115,7 +115,7 @@ function HubAuthComponent() {
         authMethod = "mock";
       }
 
-      console.log(`Attempting login with ${authMethod} method...`);
+      console.log(`🔐 Attempting login with ${authMethod} method...`);
 
       // Create session cookie
       const response = await fetch("/api/login", {
@@ -126,17 +126,32 @@ function HubAuthComponent() {
         body: JSON.stringify({ idToken }),
       });
 
+      console.log(`📡 API Response status: ${response.status}`);
+
       let responseData;
       try {
-        responseData = await response.json();
+        const responseText = await response.text();
+        console.log("📝 Raw response:", responseText);
+        
+        if (!responseText) {
+          throw new Error("Empty response from server");
+        }
+        
+        responseData = JSON.parse(responseText);
+        console.log("📦 Parsed response data:", responseData);
       } catch (parseError) {
-        console.error("Failed to parse response:", parseError);
-        throw new Error("Invalid server response");
+        console.error("❌ Failed to parse response:", parseError);
+        throw new Error(`Invalid server response: ${parseError instanceof Error ? parseError.message : 'Unknown parse error'}`);
       }
 
       if (!response.ok) {
-        console.error("Login API error:", responseData);
-        throw new Error(responseData.message || `Failed to create session (${response.status})`);
+        console.error("❌ Login API error:", responseData);
+        throw new Error(responseData?.message || `Failed to create session (${response.status})`);
+      }
+
+      if (!responseData || typeof responseData !== 'object') {
+        console.error("❌ Invalid response data:", responseData);
+        throw new Error("Invalid response format from server");
       }
 
       console.log("✅ Session created successfully:", responseData);
@@ -432,36 +447,63 @@ function HubAuthComponent() {
                   {t.auth.login}
                 </Button>
                 
-                {/* Debug button for testing - remove in production */}
+                {/* Debug buttons for testing - remove in production */}
                 {process.env.NODE_ENV === 'development' && (
-                  <Button 
-                    type="button" 
-                    variant="outline" 
-                    className="w-full mt-2" 
-                    onClick={async () => {
-                      try {
-                        const response = await fetch("/api/test-login", {
-                          method: "POST",
-                          headers: { "Content-Type": "application/json" },
-                          body: JSON.stringify({ test: true })
-                        });
-                        const result = await response.json();
-                        toast({
-                          title: response.ok ? "Test Success" : "Test Failed",
-                          description: result.message,
-                          variant: response.ok ? "default" : "destructive"
-                        });
-                      } catch (error: any) {
-                        toast({
-                          title: "Test Error",
-                          description: error.message,
-                          variant: "destructive"
-                        });
-                      }
-                    }}
-                  >
-                    🧪 Test API Connection
-                  </Button>
+                  <div className="space-y-2 mt-2">
+                    <Button 
+                      type="button" 
+                      variant="outline" 
+                      className="w-full" 
+                      onClick={async () => {
+                        try {
+                          const response = await fetch("/api/login");
+                          const result = await response.json();
+                          toast({
+                            title: "API Health Check",
+                            description: `Status: ${response.ok ? 'OK' : 'Error'} - ${result.message}`,
+                            variant: response.ok ? "default" : "destructive"
+                          });
+                        } catch (error: any) {
+                          toast({
+                            title: "Health Check Error",
+                            description: error.message,
+                            variant: "destructive"
+                          });
+                        }
+                      }}
+                    >
+                      🏥 Health Check
+                    </Button>
+                    <Button 
+                      type="button" 
+                      variant="outline" 
+                      className="w-full" 
+                      onClick={async () => {
+                        try {
+                          const testToken = `mock-token-${Date.now()}-test@example.com`;
+                          const response = await fetch("/api/login", {
+                            method: "POST",
+                            headers: { "Content-Type": "application/json" },
+                            body: JSON.stringify({ idToken: testToken })
+                          });
+                          const result = await response.json();
+                          toast({
+                            title: response.ok ? "Login Test Success" : "Login Test Failed",
+                            description: result.message || `Status: ${response.status}`,
+                            variant: response.ok ? "default" : "destructive"
+                          });
+                        } catch (error: any) {
+                          toast({
+                            title: "Login Test Error",
+                            description: error.message,
+                            variant: "destructive"
+                          });
+                        }
+                      }}
+                    >
+                      🧪 Test Login API
+                    </Button>
+                  </div>
                 )}
               </form>
             </Form>
