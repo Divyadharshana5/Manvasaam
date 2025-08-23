@@ -40,7 +40,7 @@ import { signOut } from "firebase/auth";
 import { useRouter } from "next/navigation";
 import { useToast } from "@/hooks/use-toast";
 import { useLanguage } from "@/context/language-context";
-import { VoiceAssistant } from "@/components/voice-assistant";
+import VoiceAssistant from "@/components/voice-assistant";
 
 interface UserProfile {
   userType?: string;
