@@ -130,7 +130,7 @@ export default function RootLayout({
           <AuthProvider>{children}</AuthProvider>
         </LanguageProvider>
         <Toaster />
-        {process.env.NODE_ENV === "development" && <PerformanceMonitor />}
+        <ClientPerformanceMonitor />
       </body>
     </html>
   );
