@@ -4,52 +4,9 @@ import { cookies } from "next/headers";
 
 export async function POST(request: Request) {
   try {
-    // Check if Firebase is properly initialized
-    const mockMode = !isFirebaseInitialized || !adminAuth;
+    const body = await request.json();
+    const { idToken } = body;
 
-    if (mockMode) {
-      console.log("⚠️ Running in mock mode - Firebase not configured");
-      // In mock mode, we'll simulate the login process
-      const { idToken } = await request.json();
-
-      if (!idToken) {
-        return NextResponse.json(
-          { message: "ID token is required." },
-          { status: 400 }
-        );
-      }
-
-      // Validate mock token format
-      if (!idToken.startsWith('mock-token-')) {
-        return NextResponse.json(
-          { message: "Invalid token format in mock mode." },
-          { status: 400 }
-        );
-      }
-
-      // Create a mock session cookie
-      const mockSessionCookie = `mock-session-${Date.now()}-${Math.random().toString(36).substr(2, 9)}`;
-      const expiresIn = 60 * 60 * 24 * 5 * 1000; // 5 days
-
-      const options = {
-        name: "session",
-        value: mockSessionCookie,
-        maxAge: expiresIn,
-        httpOnly: true,
-        secure: process.env.NODE_ENV === 'production', // Secure in production only
-        sameSite: 'lax' as const,
-      };
-      (await cookies()).set(options);
-
-      console.log("✅ Mock session created successfully");
-      return NextResponse.json({ 
-        status: "success", 
-        mockMode: true,
-        message: "Session created in mock mode"
-      }, { status: 200 });
-    }
-
-    const { idToken } = await request.json();
     if (!idToken) {
       return NextResponse.json(
         { message: "ID token is required." },
@@ -57,23 +14,85 @@ export async function POST(request: Request) {
       );
     }
 
-    // Set session expiration to 5 days.
-    const expiresIn = 60 * 60 * 24 * 5 * 1000;
-    const sessionCookie = await adminAuth.createSessionCookie(idToken, {
-      expiresIn,
-    });
+    // Check if Firebase is properly initialized
+    const mockMode = !isFirebaseInitialized || !adminAuth;
 
-    // Set cookie policy for session cookie.
-    const options = {
-      name: "session",
-      value: sessionCookie,
-      maxAge: expiresIn,
-      httpOnly: true,
-      secure: true,
-    };
-    (await cookies()).set(options);
+    if (mockMode) {
+      console.log("⚠️ Running in mock mode - Firebase not configured");
+      
+      // Validate mock token format (allow any format in mock mode for flexibility)
+      if (!idToken.includes('mock-token-') && !idToken.includes('test-')) {
+        console.log("Creating mock token for:", idToken);
+      }
 
-    return NextResponse.json({ status: "success" }, { status: 200 });
+      // Create a mock session cookie
+      const mockSessionCookie = `mock-session-${Date.now()}-${Math.random().toString(36).substring(2, 9)}`;
+      const expiresIn = 60 * 60 * 24 * 5; // 5 days in seconds
+
+      try {
+        const cookieStore = await cookies();
+        cookieStore.set({
+          name: "session",
+          value: mockSessionCookie,
+          maxAge: expiresIn,
+          httpOnly: true,
+          secure: process.env.NODE_ENV === 'production',
+          sameSite: 'lax',
+          path: '/',
+        });
+
+        console.log("✅ Mock session created successfully");
+        return NextResponse.json({ 
+          status: "success", 
+          mockMode: true,
+          message: "Session created in mock mode"
+        }, { status: 200 });
+      } catch (cookieError) {
+        console.error("Cookie setting error:", cookieError);
+        return NextResponse.json(
+          { message: "Failed to set session cookie.", error: cookieError },
+          { status: 500 }
+        );
+      }
+    }
+
+    // Firebase mode - only proceed if adminAuth is available
+    if (!adminAuth) {
+      return NextResponse.json(
+        { message: "Authentication service not available." },
+        { status: 503 }
+      );
+    }
+
+    try {
+      // Set session expiration to 5 days.
+      const expiresIn = 60 * 60 * 24 * 5 * 1000; // milliseconds
+      const sessionCookie = await adminAuth.createSessionCookie(idToken, {
+        expiresIn,
+      });
+
+      // Set cookie policy for session cookie.
+      const cookieStore = await cookies();
+      cookieStore.set({
+        name: "session",
+        value: sessionCookie,
+        maxAge: expiresIn / 1000, // convert to seconds
+        httpOnly: true,
+        secure: process.env.NODE_ENV === 'production',
+        sameSite: 'lax',
+        path: '/',
+      });
+
+      console.log("✅ Firebase session created successfully");
+      return NextResponse.json({ status: "success" }, { status: 200 });
+    } catch (firebaseError: any) {
+      console.error("Firebase session creation error:", firebaseError);
+      return NextResponse.json(
+        { message: "Failed to create Firebase session.", error: firebaseError.message },
+        { status: 500 }
+      );
+    }
+
   } catch (error: any) {
     console.error("API Login Error:", error);
     return NextResponse.json(

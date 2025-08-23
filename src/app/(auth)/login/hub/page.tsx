@@ -98,6 +98,7 @@ function HubAuthComponent() {
     try {
       // First, try to authenticate with Firebase
       let idToken: string;
+      let authMethod = "firebase";
       
       try {
         const userCredential = await signInWithEmailAndPassword(
@@ -106,11 +107,15 @@ function HubAuthComponent() {
           values.password
         );
         idToken = await userCredential.user.getIdToken();
+        console.log("✅ Firebase authentication successful");
       } catch (firebaseError: any) {
         // If Firebase auth fails, try mock authentication
-        console.log("Firebase auth failed, trying mock mode:", firebaseError.message);
-        idToken = `mock-token-${Date.now()}-${values.email}`;
+        console.log("Firebase auth failed, using mock mode:", firebaseError.message);
+        idToken = `mock-token-${Date.now()}-${values.email.replace('@', '-at-')}`;
+        authMethod = "mock";
       }
+
+      console.log(`Attempting login with ${authMethod} method...`);
 
       // Create session cookie
       const response = await fetch("/api/login", {
@@ -121,18 +126,29 @@ function HubAuthComponent() {
         body: JSON.stringify({ idToken }),
       });
 
-      if (!response.ok) {
-        const errorData = await response.json();
-        throw new Error(errorData.message || "Failed to create session");
+      let responseData;
+      try {
+        responseData = await response.json();
+      } catch (parseError) {
+        console.error("Failed to parse response:", parseError);
+        throw new Error("Invalid server response");
       }
+
+      if (!response.ok) {
+        console.error("Login API error:", responseData);
+        throw new Error(responseData.message || `Failed to create session (${response.status})`);
+      }
+
+      console.log("✅ Session created successfully:", responseData);
 
       // Store user type and branch info for proper routing
       localStorage.setItem('userType', 'hub');
       localStorage.setItem('branchName', values.branchName);
+      localStorage.setItem('authMethod', authMethod);
 
       toast({
         title: "Login successful",
-        description: `Welcome to ${values.branchName}! Redirecting to dashboard...`,
+        description: `Welcome to ${values.branchName}! ${responseData.mockMode ? '(Mock Mode)' : ''} Redirecting to dashboard...`,
         duration: 2000,
       });
 
@@ -143,10 +159,28 @@ function HubAuthComponent() {
 
     } catch (error: any) {
       console.error("Login error:", error);
+      
+      // Provide more specific error messages
+      let errorMessage = "Login failed. Please try again.";
+      
+      if (error.message.includes("auth/user-not-found")) {
+        errorMessage = "No account found with this email. Please register first.";
+      } else if (error.message.includes("auth/wrong-password")) {
+        errorMessage = "Incorrect password. Please try again.";
+      } else if (error.message.includes("auth/invalid-email")) {
+        errorMessage = "Invalid email format. Please check your email.";
+      } else if (error.message.includes("auth/too-many-requests")) {
+        errorMessage = "Too many failed attempts. Please try again later.";
+      } else if (error.message.includes("Failed to create session")) {
+        errorMessage = "Session creation failed. Please check your connection and try again.";
+      } else if (error.message) {
+        errorMessage = error.message;
+      }
+
       toast({
         variant: "destructive",
         title: "Login Failed",
-        description: error.message || "Invalid credentials. Please check your email, password, and branch name.",
+        description: errorMessage,
       });
     } finally {
       setLoading(false);
@@ -397,6 +431,38 @@ function HubAuthComponent() {
                   {loading && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
                   {t.auth.login}
                 </Button>
+                
+                {/* Debug button for testing - remove in production */}
+                {process.env.NODE_ENV === 'development' && (
+                  <Button 
+                    type="button" 
+                    variant="outline" 
+                    className="w-full mt-2" 
+                    onClick={async () => {
+                      try {
+                        const response = await fetch("/api/test-login", {
+                          method: "POST",
+                          headers: { "Content-Type": "application/json" },
+                          body: JSON.stringify({ test: true })
+                        });
+                        const result = await response.json();
+                        toast({
+                          title: response.ok ? "Test Success" : "Test Failed",
+                          description: result.message,
+                          variant: response.ok ? "default" : "destructive"
+                        });
+                      } catch (error: any) {
+                        toast({
+                          title: "Test Error",
+                          description: error.message,
+                          variant: "destructive"
+                        });
+                      }
+                    }}
+                  >
+                    🧪 Test API Connection
+                  </Button>
+                )}
               </form>
             </Form>
           </TabsContent>
