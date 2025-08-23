@@ -37,6 +37,17 @@
     will-change: transform;
   }
   
+  /* Custom loading animation */
+  @keyframes loading-progress {
+    0% { width: 0%; }
+    50% { width: 70%; }
+    100% { width: 100%; }
+  }
+  
+  .animate-loading-progress {
+    animation: loading-progress 2s ease-in-out infinite;
+  }
+  
   /* Reduce motion for accessibility and performance */
   @media (prefers-reduced-motion: reduce) {
     *,

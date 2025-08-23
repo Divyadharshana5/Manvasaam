@@ -13,23 +13,13 @@ export default function Loading() {
         <h2 className="mt-6 text-xl font-semibold text-primary">Loading Manvaasam</h2>
         <p className="mt-2 text-sm text-muted-foreground">Preparing your agricultural marketplace...</p>
         
-        {/* Progress indicator */}
+        {/* Progress indicator using Tailwind animations */}
         <div className="mt-4 w-48 mx-auto">
           <div className="h-1 bg-gray-200 rounded-full overflow-hidden">
-            <div className="h-full bg-primary rounded-full animate-pulse" style={{
-              animation: "loading-progress 2s ease-in-out infinite"
-            }}></div>
+            <div className="h-full bg-primary rounded-full animate-pulse w-full"></div>
           </div>
         </div>
       </div>
-      
-      <style jsx>{`
-        @keyframes loading-progress {
-          0% { width: 0%; }
-          50% { width: 70%; }
-          100% { width: 100%; }
-        }
-      `}</style>
     </div>
   );
 }
