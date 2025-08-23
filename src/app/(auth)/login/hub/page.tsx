@@ -446,65 +446,6 @@ function HubAuthComponent() {
                   {loading && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
                   {t.auth.login}
                 </Button>
-                
-                {/* Debug buttons for testing - remove in production */}
-                {process.env.NODE_ENV === 'development' && (
-                  <div className="space-y-2 mt-2">
-                    <Button 
-                      type="button" 
-                      variant="outline" 
-                      className="w-full" 
-                      onClick={async () => {
-                        try {
-                          const response = await fetch("/api/login");
-                          const result = await response.json();
-                          toast({
-                            title: "API Health Check",
-                            description: `Status: ${response.ok ? 'OK' : 'Error'} - ${result.message}`,
-                            variant: response.ok ? "default" : "destructive"
-                          });
-                        } catch (error: any) {
-                          toast({
-                            title: "Health Check Error",
-                            description: error.message,
-                            variant: "destructive"
-                          });
-                        }
-                      }}
-                    >
-                      🏥 Health Check
-                    </Button>
-                    <Button 
-                      type="button" 
-                      variant="outline" 
-                      className="w-full" 
-                      onClick={async () => {
-                        try {
-                          const testToken = `mock-token-${Date.now()}-test@example.com`;
-                          const response = await fetch("/api/login", {
-                            method: "POST",
-                            headers: { "Content-Type": "application/json" },
-                            body: JSON.stringify({ idToken: testToken })
-                          });
-                          const result = await response.json();
-                          toast({
-                            title: response.ok ? "Login Test Success" : "Login Test Failed",
-                            description: result.message || `Status: ${response.status}`,
-                            variant: response.ok ? "default" : "destructive"
-                          });
-                        } catch (error: any) {
-                          toast({
-                            title: "Login Test Error",
-                            description: error.message,
-                            variant: "destructive"
-                          });
-                        }
-                      }}
-                    >
-                      🧪 Test Login API
-                    </Button>
-                  </div>
-                )}
               </form>
             </Form>
           </TabsContent>
