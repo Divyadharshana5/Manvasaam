@@ -13,10 +13,10 @@ export default function Loading() {
         <h2 className="mt-6 text-xl font-semibold text-primary">Loading Manvaasam</h2>
         <p className="mt-2 text-sm text-muted-foreground">Preparing your agricultural marketplace...</p>
         
-        {/* Progress indicator using Tailwind animations */}
+        {/* Progress indicator using custom animation */}
         <div className="mt-4 w-48 mx-auto">
           <div className="h-1 bg-gray-200 rounded-full overflow-hidden">
-            <div className="h-full bg-primary rounded-full animate-pulse w-full"></div>
+            <div className="h-full bg-primary rounded-full animate-loading-progress"></div>
           </div>
         </div>
       </div>
