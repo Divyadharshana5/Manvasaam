@@ -117,44 +117,65 @@ function HubAuthComponent() {
 
       console.log(`🔐 Attempting login with ${authMethod} method...`);
 
-      // Create session cookie
-      const response = await fetch("/api/login", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ idToken }),
-      });
-
-      console.log(`📡 API Response status: ${response.status}`);
+      // Create session cookie with better error handling
+      let response;
+      try {
+        response = await fetch("/api/login", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            "Accept": "application/json",
+          },
+          body: JSON.stringify({ idToken }),
+        });
+        console.log(`📡 Response received - Status: ${response.status}, OK: ${response.ok}`);
+      } catch (fetchError) {
+        console.error("❌ Network error:", fetchError);
+        throw new Error("Network error: Unable to connect to server. Please check your connection.");
+      }
 
       let responseData;
       try {
         const responseText = await response.text();
-        console.log("📝 Raw response:", responseText);
+        console.log("📝 Raw response text:", responseText);
         
-        if (!responseText) {
-          throw new Error("Empty response from server");
+        if (!responseText || responseText.trim() === '') {
+          throw new Error("Server returned empty response");
         }
         
-        responseData = JSON.parse(responseText);
-        console.log("📦 Parsed response data:", responseData);
-      } catch (parseError) {
-        console.error("❌ Failed to parse response:", parseError);
-        throw new Error(`Invalid server response: ${parseError instanceof Error ? parseError.message : 'Unknown parse error'}`);
+        try {
+          responseData = JSON.parse(responseText);
+          console.log("📦 Parsed response:", responseData);
+        } catch (jsonError) {
+          console.error("❌ JSON parse error:", jsonError);
+          throw new Error(`Server returned invalid JSON: ${responseText.substring(0, 100)}...`);
+        }
+        
+      } catch (textError) {
+        console.error("❌ Response text error:", textError);
+        throw new Error("Failed to read server response");
       }
 
+      // Check if the response indicates success
       if (!response.ok) {
-        console.error("❌ Login API error:", responseData);
-        throw new Error(responseData?.message || `Failed to create session (${response.status})`);
+        const errorMessage = responseData?.message || `Server error (${response.status})`;
+        console.error("❌ Server error:", errorMessage);
+        throw new Error(errorMessage);
       }
 
+      // Validate response structure
       if (!responseData || typeof responseData !== 'object') {
-        console.error("❌ Invalid response data:", responseData);
+        console.error("❌ Invalid response structure:", responseData);
         throw new Error("Invalid response format from server");
       }
 
-      console.log("✅ Session created successfully:", responseData);
+      if (!responseData.success && responseData.success !== undefined) {
+        const errorMessage = responseData.message || "Login failed";
+        console.error("❌ Login failed:", errorMessage);
+        throw new Error(errorMessage);
+      }
+
+      console.log("✅ Login successful:", responseData);
 
       // Store user type and branch info for proper routing
       localStorage.setItem('userType', 'hub');
