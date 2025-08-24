@@ -221,15 +221,26 @@ export default function CustomerAuthPage() {
   }
 
   return (
-    <div className="animate-in slide-in-from-bottom-4 duration-700">
-      <Card className="w-full max-w-md mx-4 sm:mx-auto bg-card/80 backdrop-blur-lg border-2 border-primary/20 shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-[1.02]">
-        <CardHeader className="text-center px-4 sm:px-6 py-4 sm:py-6">
+    <div className="animate-in slide-in-from-bottom-4 duration-700 relative">
+      {/* Agricultural background pattern */}
+      <div className="absolute inset-0 bg-gradient-to-br from-emerald-50 via-green-50 to-lime-50 dark:from-emerald-950 dark:via-green-950 dark:to-lime-950 opacity-30 rounded-lg"></div>
+      <Card className="w-full max-w-md mx-4 sm:mx-auto bg-gradient-to-br from-emerald-50/90 via-green-50/90 to-lime-50/90 dark:from-emerald-950/90 dark:via-green-950/90 dark:to-lime-950/90 backdrop-blur-lg border-2 border-emerald-200/50 dark:border-emerald-700/50 shadow-lg hover:shadow-2xl transition-all duration-300 hover:scale-[1.02] relative overflow-hidden">
+        {/* Decorative agricultural elements */}
+        <div className="absolute top-0 right-0 w-20 h-20 bg-gradient-to-bl from-lime-200/20 to-transparent rounded-full"></div>
+        <div className="absolute bottom-0 left-0 w-16 h-16 bg-gradient-to-tr from-emerald-200/20 to-transparent rounded-full"></div>
+        
+        <CardHeader className="text-center px-4 sm:px-6 py-4 sm:py-6 relative z-10">
           <CardTitle className="flex items-center justify-center gap-2 text-lg sm:text-xl">
-            <ShoppingCart className="h-4 w-4 sm:h-5 sm:w-5 text-primary animate-bounce" />
-            <span className="animate-in slide-in-from-left-2 duration-500 delay-200">Customer Portal</span>
+            <div className="relative">
+              <ShoppingCart className="h-4 w-4 sm:h-5 sm:w-5 text-emerald-600 dark:text-emerald-400 animate-bounce" />
+              <div className="absolute -top-1 -right-1 w-2 h-2 bg-lime-400 rounded-full animate-ping"></div>
+            </div>
+            <span className="animate-in slide-in-from-left-2 duration-500 delay-200 bg-gradient-to-r from-emerald-700 via-green-600 to-lime-600 dark:from-emerald-400 dark:via-green-400 dark:to-lime-400 bg-clip-text text-transparent font-bold">
+              Fresh Market Portal
+            </span>
           </CardTitle>
-          <CardDescription className="text-sm sm:text-base animate-in fade-in duration-500 delay-300">
-            Access your customer account
+          <CardDescription className="text-sm sm:text-base animate-in fade-in duration-500 delay-300 text-emerald-700 dark:text-emerald-300">
+            🌱 Access fresh produce from local farms
           </CardDescription>
         </CardHeader>
       <CardContent>
