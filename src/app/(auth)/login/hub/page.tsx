@@ -376,20 +376,41 @@ function HubAuthComponent() {
   }
 
   return (
-    <div className="animate-in slide-in-from-left-4 duration-700">
-      <Card className="w-full max-w-md mx-4 sm:mx-auto bg-card/80 backdrop-blur-lg border-2 border-blue-200/30 shadow-lg hover:shadow-2xl transition-all duration-500 hover:scale-[1.02] bg-gradient-to-br from-blue-50/50 to-indigo-50/50 dark:from-blue-950/50 dark:to-indigo-950/50">
-        <CardHeader className="text-center px-4 sm:px-6 py-4 sm:py-6">
+    <div className="animate-in slide-in-from-left-4 duration-700 relative">
+      {/* Agricultural distribution center background */}
+      <div className="absolute inset-0 bg-gradient-to-br from-teal-50 via-cyan-50 to-blue-50 dark:from-teal-950 dark:via-cyan-950 dark:to-blue-950 opacity-40 rounded-lg"></div>
+      <div className="absolute inset-0 bg-[radial-gradient(circle_at_30%_80%,rgba(6,182,212,0.1),rgba(255,255,255,0))]"></div>
+      
+      <Card className="w-full max-w-md mx-4 sm:mx-auto bg-gradient-to-br from-teal-50/95 via-cyan-50/95 to-blue-50/95 dark:from-teal-950/95 dark:via-cyan-950/95 dark:to-blue-950/95 backdrop-blur-lg border-2 border-teal-200/60 dark:border-teal-700/60 shadow-lg hover:shadow-2xl transition-all duration-500 hover:scale-[1.02] relative overflow-hidden">
+        {/* Decorative distribution elements */}
+        <div className="absolute top-0 left-0 w-16 h-16 bg-gradient-to-br from-cyan-200/20 to-transparent rounded-full"></div>
+        <div className="absolute bottom-0 right-0 w-12 h-12 bg-gradient-to-tl from-teal-200/20 to-transparent rounded-full"></div>
+        <div className="absolute top-1/3 left-0 w-20 h-1 bg-gradient-to-r from-teal-300/30 to-transparent"></div>
+        <div className="absolute bottom-1/3 right-0 w-16 h-1 bg-gradient-to-l from-cyan-300/30 to-transparent"></div>
+        
+        <CardHeader className="text-center px-4 sm:px-6 py-4 sm:py-6 relative z-10">
           <CardTitle className="flex items-center justify-center gap-2 text-lg sm:text-xl">
-            <Building2 className="h-4 w-4 sm:h-5 sm:w-5 text-blue-600 animate-pulse" />
-            <span className="animate-in slide-in-from-bottom-2 duration-500 delay-200 bg-gradient-to-r from-blue-700 to-indigo-600 bg-clip-text text-transparent">{t.auth.hubPortal}</span>
+            <div className="relative">
+              <Building2 className="h-4 w-4 sm:h-5 sm:w-5 text-teal-600 dark:text-teal-400 animate-pulse" />
+              <div className="absolute -top-1 -right-1 w-2 h-2 bg-cyan-400 rounded-full animate-ping"></div>
+            </div>
+            <span className="animate-in slide-in-from-bottom-2 duration-500 delay-200 bg-gradient-to-r from-teal-700 via-cyan-600 to-blue-600 dark:from-teal-400 dark:via-cyan-400 dark:to-blue-400 bg-clip-text text-transparent font-bold">
+              🏢 Agricultural Hub Center
+            </span>
           </CardTitle>
-          <CardDescription className="text-sm sm:text-base animate-in fade-in duration-500 delay-300">{t.auth.hubDesc}</CardDescription>
+          <CardDescription className="text-sm sm:text-base animate-in fade-in duration-500 delay-300 text-teal-700 dark:text-teal-300">
+            🚛 Central distribution & logistics management
+          </CardDescription>
         </CardHeader>
       <CardContent>
-        <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full animate-in fade-in duration-500 delay-400">
-          <TabsList className="grid w-full grid-cols-2 bg-gradient-to-r from-blue-50 to-indigo-50 dark:from-blue-950 dark:to-indigo-950">
-            <TabsTrigger value="login" className="transition-all duration-300 hover:scale-105 hover:bg-blue-100 dark:hover:bg-blue-900">{t.auth.login}</TabsTrigger>
-            <TabsTrigger value="register" className="transition-all duration-300 hover:scale-105 hover:bg-blue-100 dark:hover:bg-blue-900">{t.auth.register}</TabsTrigger>
+        <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full animate-in fade-in duration-500 delay-400 relative z-10">
+          <TabsList className="grid w-full grid-cols-2 bg-gradient-to-r from-teal-100 via-cyan-100 to-blue-100 dark:from-teal-900 dark:via-cyan-900 dark:to-blue-900 border border-teal-200 dark:border-teal-700">
+            <TabsTrigger value="login" className="transition-all duration-300 hover:scale-105 hover:bg-teal-200 dark:hover:bg-teal-800 data-[state=active]:bg-teal-300 dark:data-[state=active]:bg-teal-700 data-[state=active]:text-teal-900 dark:data-[state=active]:text-teal-100">
+              🏢 {t.auth.login}
+            </TabsTrigger>
+            <TabsTrigger value="register" className="transition-all duration-300 hover:scale-105 hover:bg-cyan-200 dark:hover:bg-cyan-800 data-[state=active]:bg-cyan-300 dark:data-[state=active]:bg-cyan-700 data-[state=active]:text-cyan-900 dark:data-[state=active]:text-cyan-100">
+              🚛 {t.auth.register}
+            </TabsTrigger>
           </TabsList>
           <TabsContent value="login" className="pt-4 animate-in slide-in-from-right-4 duration-500">
             <Form {...loginForm}>
