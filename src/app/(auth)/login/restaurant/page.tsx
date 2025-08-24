@@ -266,11 +266,11 @@ export default function RestaurantAuthPage() {
                   name="restaurantName"
                   render={({ field }) => (
                     <FormItem>
-                      <FormLabel>{t.auth.restaurantNameLabel}</FormLabel>
+                      <FormLabel className="text-rose-700 dark:text-rose-300 font-medium">{t.auth.restaurantNameLabel}</FormLabel>
                       <FormControl>
-                        <Input placeholder="The Fresh Table" {...field} />
+                        <Input placeholder="The Fresh Table" className="border-rose-200 dark:border-rose-700 focus:border-rose-400 dark:focus:border-rose-500 focus:ring-rose-200 dark:focus:ring-rose-800 bg-rose-50/50 dark:bg-rose-950/50 placeholder:text-rose-500 dark:placeholder:text-rose-400" {...field} />
                       </FormControl>
-                      <FormMessage />
+                      <FormMessage className="text-red-600 dark:text-red-400" />
                     </FormItem>
                   )}
                 />
@@ -279,11 +279,11 @@ export default function RestaurantAuthPage() {
                   name="email"
                   render={({ field }) => (
                     <FormItem>
-                      <FormLabel>{t.auth.emailLabel}</FormLabel>
+                      <FormLabel className="text-rose-700 dark:text-rose-300 font-medium">{t.auth.emailLabel}</FormLabel>
                       <FormControl>
-                        <Input placeholder="restaurant@gmail.com" {...field} />
+                        <Input placeholder="restaurant@gmail.com" className="border-rose-200 dark:border-rose-700 focus:border-rose-400 dark:focus:border-rose-500 focus:ring-rose-200 dark:focus:ring-rose-800 bg-rose-50/50 dark:bg-rose-950/50 placeholder:text-rose-500 dark:placeholder:text-rose-400" {...field} />
                       </FormControl>
-                      <FormMessage />
+                      <FormMessage className="text-red-600 dark:text-red-400" />
                     </FormItem>
                   )}
                 />
@@ -293,12 +293,12 @@ export default function RestaurantAuthPage() {
                   render={({ field }) => (
                     <FormItem>
                       <div className="flex justify-between items-center">
-                        <FormLabel>{t.auth.passwordLabel}</FormLabel>
+                        <FormLabel className="text-rose-700 dark:text-rose-300 font-medium">{t.auth.passwordLabel}</FormLabel>
                         <Button
                           variant="link"
                           size="sm"
                           type="button"
-                          className="p-0 h-auto text-xs"
+                          className="p-0 h-auto text-xs text-rose-600 dark:text-rose-400 hover:text-rose-800 dark:hover:text-rose-200"
                           onClick={onForgotPassword}
                           disabled={loading}
                         >
@@ -309,24 +309,25 @@ export default function RestaurantAuthPage() {
                         <div className="relative">
                           <Input
                             type={showPassword ? "text" : "password"}
+                            className="border-rose-200 dark:border-rose-700 focus:border-rose-400 dark:focus:border-rose-500 focus:ring-rose-200 dark:focus:ring-rose-800 bg-rose-50/50 dark:bg-rose-950/50"
                             {...field}
                           />
                           <Button
                             type="button"
                             variant="ghost"
                             size="icon"
-                            className="absolute right-1 top-1/2 -translate-y-1/2 h-7 w-7"
+                            className="absolute right-1 top-1/2 -translate-y-1/2 h-7 w-7 hover:bg-rose-100 dark:hover:bg-rose-900"
                             onClick={() => setShowPassword(!showPassword)}
                           >
                             {showPassword ? (
-                              <EyeOff className="h-4 w-4" />
+                              <EyeOff className="h-4 w-4 text-rose-600 dark:text-rose-400" />
                             ) : (
-                              <Eye className="h-4 w-4" />
+                              <Eye className="h-4 w-4 text-rose-600 dark:text-rose-400" />
                             )}
                           </Button>
                         </div>
                       </FormControl>
-                      <FormMessage />
+                      <FormMessage className="text-red-600 dark:text-red-400" />
                     </FormItem>
                   )}
                 />
