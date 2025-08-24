@@ -22,7 +22,7 @@ import {
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { useToast } from "@/hooks/use-toast";
-import { Loader2, Eye, EyeOff } from "lucide-react";
+import { Loader2, Eye, EyeOff, ChefHat } from "lucide-react";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { signInWithEmailAndPassword } from "firebase/auth";
 import { useRouter } from "next/navigation";
@@ -219,10 +219,13 @@ export default function RestaurantAuthPage() {
   }
 
   return (
-    <Card className="w-full max-w-md">
-      <CardHeader className="text-center">
-        <CardTitle>{t.auth.restaurantPortal}</CardTitle>
-        <CardDescription>{t.auth.restaurantDesc}</CardDescription>
+    <Card className="w-full max-w-md mx-4 sm:mx-auto bg-card/80 backdrop-blur-lg border-2 border-primary/20 shadow-lg">
+      <CardHeader className="text-center px-4 sm:px-6 py-4 sm:py-6">
+        <CardTitle className="flex items-center justify-center gap-2 text-lg sm:text-xl">
+          <ChefHat className="h-4 w-4 sm:h-5 sm:w-5 text-primary" />
+          {t.auth.restaurantPortal}
+        </CardTitle>
+        <CardDescription className="text-sm sm:text-base">{t.auth.restaurantDesc}</CardDescription>
       </CardHeader>
       <CardContent>
         <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full">
