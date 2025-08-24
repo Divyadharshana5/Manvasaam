@@ -219,20 +219,41 @@ export default function RestaurantAuthPage() {
   }
 
   return (
-    <div className="animate-in slide-in-from-right-4 duration-700">
-      <Card className="w-full max-w-md mx-4 sm:mx-auto bg-card/80 backdrop-blur-lg border-2 border-orange-200/30 shadow-lg hover:shadow-2xl transition-all duration-500 hover:scale-[1.02] bg-gradient-to-br from-orange-50/50 to-red-50/50 dark:from-orange-950/50 dark:to-red-950/50">
-        <CardHeader className="text-center px-4 sm:px-6 py-4 sm:py-6">
+    <div className="animate-in slide-in-from-right-4 duration-700 relative">
+      {/* Farm-to-table restaurant background */}
+      <div className="absolute inset-0 bg-gradient-to-br from-rose-50 via-pink-50 to-red-50 dark:from-rose-950 dark:via-pink-950 dark:to-red-950 opacity-40 rounded-lg"></div>
+      <div className="absolute inset-0 bg-[radial-gradient(circle_at_70%_20%,rgba(244,63,94,0.1),rgba(255,255,255,0))]"></div>
+      
+      <Card className="w-full max-w-md mx-4 sm:mx-auto bg-gradient-to-br from-rose-50/95 via-pink-50/95 to-red-50/95 dark:from-rose-950/95 dark:via-pink-950/95 dark:to-red-950/95 backdrop-blur-lg border-2 border-rose-200/60 dark:border-rose-700/60 shadow-lg hover:shadow-2xl transition-all duration-500 hover:scale-[1.02] relative overflow-hidden">
+        {/* Decorative culinary elements */}
+        <div className="absolute top-2 left-2 w-6 h-6 bg-gradient-to-br from-pink-300/30 to-transparent rounded-full"></div>
+        <div className="absolute bottom-4 right-4 w-10 h-10 bg-gradient-to-tl from-rose-300/20 to-transparent rounded-full"></div>
+        <div className="absolute top-1/2 right-0 w-14 h-1 bg-gradient-to-l from-red-300/30 to-transparent"></div>
+        <div className="absolute bottom-1/4 left-0 w-8 h-8 bg-gradient-to-r from-pink-200/20 to-transparent rounded-full"></div>
+        
+        <CardHeader className="text-center px-4 sm:px-6 py-4 sm:py-6 relative z-10">
           <CardTitle className="flex items-center justify-center gap-2 text-lg sm:text-xl">
-            <ChefHat className="h-4 w-4 sm:h-5 sm:w-5 text-orange-600 animate-bounce" />
-            <span className="animate-in slide-in-from-left-2 duration-500 delay-200 bg-gradient-to-r from-orange-700 to-red-600 bg-clip-text text-transparent">{t.auth.restaurantPortal}</span>
+            <div className="relative">
+              <ChefHat className="h-4 w-4 sm:h-5 sm:w-5 text-rose-600 dark:text-rose-400 animate-bounce" />
+              <div className="absolute -top-1 -right-1 w-2 h-2 bg-pink-400 rounded-full animate-pulse"></div>
+            </div>
+            <span className="animate-in slide-in-from-left-2 duration-500 delay-200 bg-gradient-to-r from-rose-700 via-pink-600 to-red-600 dark:from-rose-400 dark:via-pink-400 dark:to-red-400 bg-clip-text text-transparent font-bold">
+              👨‍🍳 Farm-to-Table Restaurant
+            </span>
           </CardTitle>
-          <CardDescription className="text-sm sm:text-base animate-in fade-in duration-500 delay-300">{t.auth.restaurantDesc}</CardDescription>
+          <CardDescription className="text-sm sm:text-base animate-in fade-in duration-500 delay-300 text-rose-700 dark:text-rose-300">
+            🍽️ Fresh ingredients from local agricultural partners
+          </CardDescription>
         </CardHeader>
       <CardContent>
-        <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full animate-in fade-in duration-500 delay-400">
-          <TabsList className="grid w-full grid-cols-2 bg-gradient-to-r from-orange-50 to-red-50 dark:from-orange-950 dark:to-red-950">
-            <TabsTrigger value="login" className="transition-all duration-300 hover:scale-105 hover:bg-orange-100 dark:hover:bg-orange-900">{t.auth.login}</TabsTrigger>
-            <TabsTrigger value="register" className="transition-all duration-300 hover:scale-105 hover:bg-orange-100 dark:hover:bg-orange-900">{t.auth.register}</TabsTrigger>
+        <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full animate-in fade-in duration-500 delay-400 relative z-10">
+          <TabsList className="grid w-full grid-cols-2 bg-gradient-to-r from-rose-100 via-pink-100 to-red-100 dark:from-rose-900 dark:via-pink-900 dark:to-red-900 border border-rose-200 dark:border-rose-700">
+            <TabsTrigger value="login" className="transition-all duration-300 hover:scale-105 hover:bg-rose-200 dark:hover:bg-rose-800 data-[state=active]:bg-rose-300 dark:data-[state=active]:bg-rose-700 data-[state=active]:text-rose-900 dark:data-[state=active]:text-rose-100">
+              🍽️ {t.auth.login}
+            </TabsTrigger>
+            <TabsTrigger value="register" className="transition-all duration-300 hover:scale-105 hover:bg-pink-200 dark:hover:bg-pink-800 data-[state=active]:bg-pink-300 dark:data-[state=active]:bg-pink-700 data-[state=active]:text-pink-900 dark:data-[state=active]:text-pink-100">
+              👨‍🍳 {t.auth.register}
+            </TabsTrigger>
           </TabsList>
           <TabsContent value="login" className="animate-in slide-in-from-bottom-4 duration-500">
             <Form {...loginForm}>
