@@ -264,15 +264,16 @@ export default function CustomerAuthPage() {
                     name="email"
                     render={({ field }) => (
                       <FormItem>
-                        <FormLabel>{t.auth.emailLabel}</FormLabel>
+                        <FormLabel className="text-emerald-700 dark:text-emerald-300 font-medium">{t.auth.emailLabel}</FormLabel>
                         <FormControl>
                           <Input
                             type="email"
                             placeholder="customer@example.com"
+                            className="border-emerald-200 dark:border-emerald-700 focus:border-emerald-400 dark:focus:border-emerald-500 focus:ring-emerald-200 dark:focus:ring-emerald-800 bg-emerald-50/50 dark:bg-emerald-950/50 placeholder:text-emerald-500 dark:placeholder:text-emerald-400"
                             {...field}
                           />
                         </FormControl>
-                        <FormMessage />
+                        <FormMessage className="text-red-600 dark:text-red-400" />
                       </FormItem>
                     )}
                   />
@@ -282,12 +283,12 @@ export default function CustomerAuthPage() {
                     render={({ field }) => (
                       <FormItem>
                         <div className="flex justify-between items-center">
-                          <FormLabel>{t.auth.passwordLabel}</FormLabel>
+                          <FormLabel className="text-emerald-700 dark:text-emerald-300 font-medium">{t.auth.passwordLabel}</FormLabel>
                           <Button
                             variant="link"
                             size="sm"
                             type="button"
-                            className="p-0 h-auto text-xs"
+                            className="p-0 h-auto text-xs text-emerald-600 dark:text-emerald-400 hover:text-emerald-800 dark:hover:text-emerald-200"
                             onClick={onForgotPassword}
                             disabled={loading}
                           >
@@ -298,19 +299,20 @@ export default function CustomerAuthPage() {
                           <div className="relative">
                             <Input
                               type={showPassword ? "text" : "password"}
+                              className="border-emerald-200 dark:border-emerald-700 focus:border-emerald-400 dark:focus:border-emerald-500 focus:ring-emerald-200 dark:focus:ring-emerald-800 bg-emerald-50/50 dark:bg-emerald-950/50"
                               {...field}
                             />
                             <Button
                               type="button"
                               variant="ghost"
                               size="icon"
-                              className="absolute right-1 top-1/2 -translate-y-1/2 h-7 w-7"
+                              className="absolute right-1 top-1/2 -translate-y-1/2 h-7 w-7 hover:bg-emerald-100 dark:hover:bg-emerald-900"
                               onClick={() => setShowPassword(!showPassword)}
                             >
                               {showPassword ? (
-                                <EyeOff className="h-4 w-4" />
+                                <EyeOff className="h-4 w-4 text-emerald-600 dark:text-emerald-400" />
                               ) : (
-                                <Eye className="h-4 w-4" />
+                                <Eye className="h-4 w-4 text-emerald-600 dark:text-emerald-400" />
                               )}
                             </Button>
                           </div>
@@ -319,9 +321,9 @@ export default function CustomerAuthPage() {
                       </FormItem>
                     )}
                   />
-                  <Button type="submit" className="w-full" disabled={loading}>
+                  <Button type="submit" className="w-full bg-gradient-to-r from-emerald-600 via-green-600 to-lime-600 hover:from-emerald-700 hover:via-green-700 hover:to-lime-700 text-white border-0 shadow-lg hover:shadow-xl transition-all duration-300" disabled={loading}>
                     {loading && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
-                    {t.auth.login}
+                    🛒 {t.auth.login}
                   </Button>
                 </form>
               </Form>
@@ -337,11 +339,11 @@ export default function CustomerAuthPage() {
                     name="username"
                     render={({ field }) => (
                       <FormItem>
-                        <FormLabel>{t.auth.usernameLabel}</FormLabel>
+                        <FormLabel className="text-emerald-700 dark:text-emerald-300 font-medium">{t.auth.usernameLabel}</FormLabel>
                         <FormControl>
-                          <Input type="text" placeholder="John Doe" {...field} />
+                          <Input type="text" placeholder="John Doe" className="border-emerald-200 dark:border-emerald-700 focus:border-emerald-400 dark:focus:border-emerald-500 focus:ring-emerald-200 dark:focus:ring-emerald-800 bg-emerald-50/50 dark:bg-emerald-950/50 placeholder:text-emerald-500 dark:placeholder:text-emerald-400" {...field} />
                         </FormControl>
-                        <FormMessage />
+                        <FormMessage className="text-red-600 dark:text-red-400" />
                       </FormItem>
                     )}
                   />
@@ -350,15 +352,16 @@ export default function CustomerAuthPage() {
                     name="email"
                     render={({ field }) => (
                       <FormItem>
-                        <FormLabel>{t.auth.emailLabel}</FormLabel>
+                        <FormLabel className="text-emerald-700 dark:text-emerald-300 font-medium">{t.auth.emailLabel}</FormLabel>
                         <FormControl>
                           <Input
                             type="email"
                             placeholder="customer@gmail.com"
+                            className="border-emerald-200 dark:border-emerald-700 focus:border-emerald-400 dark:focus:border-emerald-500 focus:ring-emerald-200 dark:focus:ring-emerald-800 bg-emerald-50/50 dark:bg-emerald-950/50 placeholder:text-emerald-500 dark:placeholder:text-emerald-400"
                             {...field}
                           />
                         </FormControl>
-                        <FormMessage />
+                        <FormMessage className="text-red-600 dark:text-red-400" />
                       </FormItem>
                     )}
                   />
@@ -367,12 +370,13 @@ export default function CustomerAuthPage() {
                     name="phone"
                     render={({ field }) => (
                       <FormItem>
-                        <FormLabel>{t.auth.phoneLabel}</FormLabel>
+                        <FormLabel className="text-emerald-700 dark:text-emerald-300 font-medium">{t.auth.phoneLabel}</FormLabel>
                         <FormControl>
                           <Input
                             type="tel"
                             placeholder="1234567890"
                             maxLength={10}
+                            className="border-emerald-200 dark:border-emerald-700 focus:border-emerald-400 dark:focus:border-emerald-500 focus:ring-emerald-200 dark:focus:ring-emerald-800 bg-emerald-50/50 dark:bg-emerald-950/50 placeholder:text-emerald-500 dark:placeholder:text-emerald-400"
                             {...field}
                             onInput={(e) => {
                               e.currentTarget.value =
@@ -380,7 +384,7 @@ export default function CustomerAuthPage() {
                             }}
                           />
                         </FormControl>
-                        <FormMessage />
+                        <FormMessage className="text-red-600 dark:text-red-400" />
                       </FormItem>
                     )}
                   />
@@ -448,9 +452,9 @@ export default function CustomerAuthPage() {
                       </FormItem>
                     )}
                   />
-                  <Button type="submit" className="w-full" disabled={loading}>
+                  <Button type="submit" className="w-full bg-gradient-to-r from-lime-600 via-green-600 to-emerald-600 hover:from-lime-700 hover:via-green-700 hover:to-emerald-700 text-white border-0 shadow-lg hover:shadow-xl transition-all duration-300" disabled={loading}>
                     {loading && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
-                    {t.auth.createAccount}
+                    🌱 {t.auth.createAccount}
                   </Button>
                 </form>
               </Form>
