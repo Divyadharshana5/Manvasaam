@@ -265,22 +265,40 @@ export default function FarmerAuthPage() {
   }
 
   return (
-    <div className="animate-in slide-in-from-top-4 duration-700">
-      <Card className="w-full max-w-md mx-4 sm:mx-auto bg-card/80 backdrop-blur-lg border-2 border-green-200/30 shadow-lg hover:shadow-2xl transition-all duration-500 hover:scale-[1.02] bg-gradient-to-br from-green-50/50 to-emerald-50/50 dark:from-green-950/50 dark:to-emerald-950/50">
-        <CardHeader className="text-center px-4 sm:px-6 py-4 sm:py-6">
+    <div className="animate-in slide-in-from-top-4 duration-700 relative">
+      {/* Farm field background pattern */}
+      <div className="absolute inset-0 bg-gradient-to-br from-amber-50 via-yellow-50 to-orange-50 dark:from-amber-950 dark:via-yellow-950 dark:to-orange-950 opacity-40 rounded-lg"></div>
+      <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_120%,rgba(120,119,198,0.1),rgba(255,255,255,0))]"></div>
+      
+      <Card className="w-full max-w-md mx-4 sm:mx-auto bg-gradient-to-br from-amber-50/95 via-yellow-50/95 to-orange-50/95 dark:from-amber-950/95 dark:via-yellow-950/95 dark:to-orange-950/95 backdrop-blur-lg border-2 border-amber-200/60 dark:border-amber-700/60 shadow-lg hover:shadow-2xl transition-all duration-500 hover:scale-[1.02] relative overflow-hidden">
+        {/* Decorative farm elements */}
+        <div className="absolute top-2 right-2 w-8 h-8 bg-gradient-to-br from-yellow-300/30 to-orange-300/30 rounded-full"></div>
+        <div className="absolute bottom-2 left-2 w-6 h-6 bg-gradient-to-tr from-amber-300/30 to-yellow-300/30 rounded-full"></div>
+        <div className="absolute top-1/2 right-0 w-12 h-1 bg-gradient-to-l from-amber-300/20 to-transparent"></div>
+        
+        <CardHeader className="text-center px-4 sm:px-6 py-4 sm:py-6 relative z-10">
           <CardTitle className="flex items-center justify-center gap-2 text-lg sm:text-xl">
-            <Tractor className="h-4 w-4 sm:h-5 sm:w-5 text-green-600 animate-pulse" />
-            <span className="animate-in slide-in-from-right-2 duration-500 delay-200 bg-gradient-to-r from-green-700 to-emerald-600 bg-clip-text text-transparent">Farmer Portal</span>
+            <div className="relative">
+              <Tractor className="h-4 w-4 sm:h-5 sm:w-5 text-amber-600 dark:text-amber-400 animate-pulse" />
+              <div className="absolute -top-1 -right-1 w-2 h-2 bg-yellow-400 rounded-full animate-pulse"></div>
+            </div>
+            <span className="animate-in slide-in-from-right-2 duration-500 delay-200 bg-gradient-to-r from-amber-700 via-yellow-600 to-orange-600 dark:from-amber-400 dark:via-yellow-400 dark:to-orange-400 bg-clip-text text-transparent font-bold">
+              🚜 Farm Producer Portal
+            </span>
           </CardTitle>
-          <CardDescription className="text-sm sm:text-base animate-in fade-in duration-500 delay-300">
-            Enhanced security with passkey authentication
+          <CardDescription className="text-sm sm:text-base animate-in fade-in duration-500 delay-300 text-amber-700 dark:text-amber-300">
+            🌾 Enhanced security for agricultural professionals
           </CardDescription>
         </CardHeader>
       <CardContent>
-        <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full animate-in fade-in duration-500 delay-400">
-          <TabsList className="grid w-full grid-cols-2 bg-gradient-to-r from-green-50 to-emerald-50 dark:from-green-950 dark:to-emerald-950">
-            <TabsTrigger value="login" className="transition-all duration-300 hover:scale-105 hover:bg-green-100 dark:hover:bg-green-900">{t.auth.login}</TabsTrigger>
-            <TabsTrigger value="register" className="transition-all duration-300 hover:scale-105 hover:bg-green-100 dark:hover:bg-green-900">{t.auth.register}</TabsTrigger>
+        <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full animate-in fade-in duration-500 delay-400 relative z-10">
+          <TabsList className="grid w-full grid-cols-2 bg-gradient-to-r from-amber-100 via-yellow-100 to-orange-100 dark:from-amber-900 dark:via-yellow-900 dark:to-orange-900 border border-amber-200 dark:border-amber-700">
+            <TabsTrigger value="login" className="transition-all duration-300 hover:scale-105 hover:bg-amber-200 dark:hover:bg-amber-800 data-[state=active]:bg-amber-300 dark:data-[state=active]:bg-amber-700 data-[state=active]:text-amber-900 dark:data-[state=active]:text-amber-100">
+              🌾 {t.auth.login}
+            </TabsTrigger>
+            <TabsTrigger value="register" className="transition-all duration-300 hover:scale-105 hover:bg-yellow-200 dark:hover:bg-yellow-800 data-[state=active]:bg-yellow-300 dark:data-[state=active]:bg-yellow-700 data-[state=active]:text-yellow-900 dark:data-[state=active]:text-yellow-100">
+              🚜 {t.auth.register}
+            </TabsTrigger>
           </TabsList>
           <TabsContent value="login">
             <Tabs
