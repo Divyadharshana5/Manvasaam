@@ -377,11 +377,11 @@ export default function FarmerAuthPage() {
                 value="passkey"
                 className="pt-3 sm:pt-4 space-y-3 sm:space-y-4"
               >
-                <div className="text-center space-y-4">
-                  <div className="flex items-center justify-center w-16 h-16 mx-auto bg-primary/10 rounded-full">
-                    <Fingerprint className="h-8 w-8 text-primary" />
+                <div className="text-center space-y-4 animate-in zoom-in duration-500">
+                  <div className="flex items-center justify-center w-16 h-16 mx-auto bg-gradient-to-br from-green-100 to-emerald-100 dark:from-green-900 dark:to-emerald-900 rounded-full animate-pulse">
+                    <Fingerprint className="h-8 w-8 text-green-600 animate-bounce" />
                   </div>
-                  <h3 className="font-semibold text-lg">Fingerprint Login</h3>
+                  <h3 className="font-semibold text-lg animate-in slide-in-from-bottom-2 duration-500 delay-200">Fingerprint Login</h3>
                 </div>
 
                 <Button
@@ -564,7 +564,8 @@ export default function FarmerAuthPage() {
             </Form>
           </TabsContent>
         </Tabs>
-      </CardContent>
-    </Card>
+        </CardContent>
+      </Card>
+    </div>
   );
 }
