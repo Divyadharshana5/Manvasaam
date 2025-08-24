@@ -384,11 +384,11 @@ export default function FarmerAuthPage() {
                           </FormItem>
                         )}
                       />
-                      <Button type="submit" className="w-full" disabled={loading}>
+                      <Button type="submit" className="w-full bg-gradient-to-r from-amber-600 via-yellow-600 to-orange-600 hover:from-amber-700 hover:via-yellow-700 hover:to-orange-700 text-white border-0 shadow-lg hover:shadow-xl transition-all duration-300" disabled={loading}>
                         {loading && (
                           <Loader2 className="mr-2 h-4 w-4 animate-spin" />
                         )}
-                        {t.auth.login}
+                        🌾 {t.auth.login}
                       </Button>
                     </form>
                   </Form>
@@ -579,9 +579,9 @@ export default function FarmerAuthPage() {
                       </FormItem>
                     )}
                   />
-                  <Button type="submit" className="w-full" disabled={loading}>
+                  <Button type="submit" className="w-full bg-gradient-to-r from-orange-600 via-yellow-600 to-amber-600 hover:from-orange-700 hover:via-yellow-700 hover:to-amber-700 text-white border-0 shadow-lg hover:shadow-xl transition-all duration-300" disabled={loading}>
                     {loading && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
-                    {t.auth.createAccount}
+                    🚜 {t.auth.createAccount}
                   </Button>
                 </form>
               </Form>
