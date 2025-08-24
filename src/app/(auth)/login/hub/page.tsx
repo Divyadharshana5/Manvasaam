@@ -376,21 +376,22 @@ function HubAuthComponent() {
   }
 
   return (
-    <Card className="w-full max-w-md mx-4 sm:mx-auto bg-card/80 backdrop-blur-lg border-2 border-primary/20 shadow-lg">
-      <CardHeader className="text-center px-4 sm:px-6 py-4 sm:py-6">
-        <CardTitle className="flex items-center justify-center gap-2 text-lg sm:text-xl">
-          <Building2 className="h-4 w-4 sm:h-5 sm:w-5 text-primary" />
-          {t.auth.hubPortal}
-        </CardTitle>
-        <CardDescription className="text-sm sm:text-base">{t.auth.hubDesc}</CardDescription>
-      </CardHeader>
+    <div className="animate-in slide-in-from-left-4 duration-700">
+      <Card className="w-full max-w-md mx-4 sm:mx-auto bg-card/80 backdrop-blur-lg border-2 border-blue-200/30 shadow-lg hover:shadow-2xl transition-all duration-500 hover:scale-[1.02] bg-gradient-to-br from-blue-50/50 to-indigo-50/50 dark:from-blue-950/50 dark:to-indigo-950/50">
+        <CardHeader className="text-center px-4 sm:px-6 py-4 sm:py-6">
+          <CardTitle className="flex items-center justify-center gap-2 text-lg sm:text-xl">
+            <Building2 className="h-4 w-4 sm:h-5 sm:w-5 text-blue-600 animate-pulse" />
+            <span className="animate-in slide-in-from-bottom-2 duration-500 delay-200 bg-gradient-to-r from-blue-700 to-indigo-600 bg-clip-text text-transparent">{t.auth.hubPortal}</span>
+          </CardTitle>
+          <CardDescription className="text-sm sm:text-base animate-in fade-in duration-500 delay-300">{t.auth.hubDesc}</CardDescription>
+        </CardHeader>
       <CardContent>
-        <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full">
-          <TabsList className="grid w-full grid-cols-2">
-            <TabsTrigger value="login">{t.auth.login}</TabsTrigger>
-            <TabsTrigger value="register">{t.auth.register}</TabsTrigger>
+        <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full animate-in fade-in duration-500 delay-400">
+          <TabsList className="grid w-full grid-cols-2 bg-gradient-to-r from-blue-50 to-indigo-50 dark:from-blue-950 dark:to-indigo-950">
+            <TabsTrigger value="login" className="transition-all duration-300 hover:scale-105 hover:bg-blue-100 dark:hover:bg-blue-900">{t.auth.login}</TabsTrigger>
+            <TabsTrigger value="register" className="transition-all duration-300 hover:scale-105 hover:bg-blue-100 dark:hover:bg-blue-900">{t.auth.register}</TabsTrigger>
           </TabsList>
-          <TabsContent value="login" className="pt-4">
+          <TabsContent value="login" className="pt-4 animate-in slide-in-from-right-4 duration-500">
             <Form {...loginForm}>
               <form
                 onSubmit={loginForm.handleSubmit(onLogin)}
@@ -624,8 +625,9 @@ function HubAuthComponent() {
             </Form>
           </TabsContent>
         </Tabs>
-      </CardContent>
-    </Card>
+        </CardContent>
+      </Card>
+    </div>
   );
 }
 
