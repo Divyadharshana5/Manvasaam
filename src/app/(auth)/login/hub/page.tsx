@@ -451,12 +451,12 @@ function HubAuthComponent() {
                   render={({ field }) => (
                     <FormItem>
                       <div className="flex justify-between items-center">
-                        <FormLabel>{t.auth.passwordLabel}</FormLabel>
+                        <FormLabel className="text-teal-700 dark:text-teal-300 font-medium">{t.auth.passwordLabel}</FormLabel>
                         <Button
                           variant="link"
                           size="sm"
                           type="button"
-                          className="p-0 h-auto text-xs"
+                          className="p-0 h-auto text-xs text-teal-600 dark:text-teal-400 hover:text-teal-800 dark:hover:text-teal-200"
                           onClick={onForgotPassword}
                           disabled={loading}
                         >
@@ -467,24 +467,25 @@ function HubAuthComponent() {
                         <div className="relative">
                           <Input
                             type={showPassword ? "text" : "password"}
+                            className="border-teal-200 dark:border-teal-700 focus:border-teal-400 dark:focus:border-teal-500 focus:ring-teal-200 dark:focus:ring-teal-800 bg-teal-50/50 dark:bg-teal-950/50"
                             {...field}
                           />
                           <Button
                             type="button"
                             variant="ghost"
                             size="icon"
-                            className="absolute right-1 top-1/2 -translate-y-1/2 h-7 w-7"
+                            className="absolute right-1 top-1/2 -translate-y-1/2 h-7 w-7 hover:bg-teal-100 dark:hover:bg-teal-900"
                             onClick={() => setShowPassword(!showPassword)}
                           >
                             {showPassword ? (
-                              <EyeOff className="h-4 w-4" />
+                              <EyeOff className="h-4 w-4 text-teal-600 dark:text-teal-400" />
                             ) : (
-                              <Eye className="h-4 w-4" />
+                              <Eye className="h-4 w-4 text-teal-600 dark:text-teal-400" />
                             )}
                           </Button>
                         </div>
                       </FormControl>
-                      <FormMessage />
+                      <FormMessage className="text-red-600 dark:text-red-400" />
                     </FormItem>
                   )}
                 />
