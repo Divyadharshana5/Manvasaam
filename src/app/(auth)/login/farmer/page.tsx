@@ -327,15 +327,16 @@ export default function FarmerAuthPage() {
                         name="email"
                         render={({ field }) => (
                           <FormItem>
-                            <FormLabel>{t.auth.emailLabel}</FormLabel>
+                            <FormLabel className="text-amber-700 dark:text-amber-300 font-medium">{t.auth.emailLabel}</FormLabel>
                             <FormControl>
                               <Input
                                 type="email"
                                 placeholder="farmer@gmail.com"
+                                className="border-amber-200 dark:border-amber-700 focus:border-amber-400 dark:focus:border-amber-500 focus:ring-amber-200 dark:focus:ring-amber-800 bg-amber-50/50 dark:bg-amber-950/50 placeholder:text-amber-500 dark:placeholder:text-amber-400"
                                 {...field}
                               />
                             </FormControl>
-                            <FormMessage />
+                            <FormMessage className="text-red-600 dark:text-red-400" />
                           </FormItem>
                         )}
                       />
@@ -345,12 +346,12 @@ export default function FarmerAuthPage() {
                         render={({ field }) => (
                           <FormItem>
                             <div className="flex justify-between items-center">
-                              <FormLabel>{t.auth.passwordLabel}</FormLabel>
+                              <FormLabel className="text-amber-700 dark:text-amber-300 font-medium">{t.auth.passwordLabel}</FormLabel>
                               <Button
                                 variant="link"
                                 size="sm"
                                 type="button"
-                                className="p-0 h-auto text-xs"
+                                className="p-0 h-auto text-xs text-amber-600 dark:text-amber-400 hover:text-amber-800 dark:hover:text-amber-200"
                                 onClick={onForgotPassword}
                                 disabled={loading}
                               >
@@ -361,24 +362,25 @@ export default function FarmerAuthPage() {
                               <div className="relative">
                                 <Input
                                   type={showPassword ? "text" : "password"}
+                                  className="border-amber-200 dark:border-amber-700 focus:border-amber-400 dark:focus:border-amber-500 focus:ring-amber-200 dark:focus:ring-amber-800 bg-amber-50/50 dark:bg-amber-950/50"
                                   {...field}
                                 />
                                 <Button
                                   type="button"
                                   variant="ghost"
                                   size="icon"
-                                  className="absolute right-1 top-1/2 -translate-y-1/2 h-7 w-7"
+                                  className="absolute right-1 top-1/2 -translate-y-1/2 h-7 w-7 hover:bg-amber-100 dark:hover:bg-amber-900"
                                   onClick={() => setShowPassword(!showPassword)}
                                 >
                                   {showPassword ? (
-                                    <EyeOff className="h-4 w-4" />
+                                    <EyeOff className="h-4 w-4 text-amber-600 dark:text-amber-400" />
                                   ) : (
-                                    <Eye className="h-4 w-4" />
+                                    <Eye className="h-4 w-4 text-amber-600 dark:text-amber-400" />
                                   )}
                                 </Button>
                               </div>
                             </FormControl>
-                            <FormMessage />
+                            <FormMessage className="text-red-600 dark:text-red-400" />
                           </FormItem>
                         )}
                       />
