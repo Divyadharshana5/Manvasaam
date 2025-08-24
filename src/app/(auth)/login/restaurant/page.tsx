@@ -223,14 +223,14 @@ export default function RestaurantAuthPage() {
       {/* Farm-to-table restaurant background */}
       <div className="absolute inset-0 bg-gradient-to-br from-rose-50 via-pink-50 to-red-50 dark:from-rose-950 dark:via-pink-950 dark:to-red-950 opacity-40 rounded-lg"></div>
       <div className="absolute inset-0 bg-[radial-gradient(circle_at_70%_20%,rgba(244,63,94,0.1),rgba(255,255,255,0))]"></div>
-      
+
       <Card className="w-full max-w-md mx-4 sm:mx-auto bg-gradient-to-br from-rose-50/95 via-pink-50/95 to-red-50/95 dark:from-rose-950/95 dark:via-pink-950/95 dark:to-red-950/95 backdrop-blur-lg border-2 border-rose-200/60 dark:border-rose-700/60 shadow-lg hover:shadow-2xl transition-all duration-500 hover:scale-[1.02] relative overflow-hidden">
         {/* Decorative culinary elements */}
         <div className="absolute top-2 left-2 w-6 h-6 bg-gradient-to-br from-pink-300/30 to-transparent rounded-full"></div>
         <div className="absolute bottom-4 right-4 w-10 h-10 bg-gradient-to-tl from-rose-300/20 to-transparent rounded-full"></div>
         <div className="absolute top-1/2 right-0 w-14 h-1 bg-gradient-to-l from-red-300/30 to-transparent"></div>
         <div className="absolute bottom-1/4 left-0 w-8 h-8 bg-gradient-to-r from-pink-200/20 to-transparent rounded-full"></div>
-        
+
         <CardHeader className="text-center px-4 sm:px-6 py-4 sm:py-6 relative z-10">
           <CardTitle className="flex items-center justify-center gap-2 text-lg sm:text-xl">
             <div className="relative">
@@ -245,250 +245,250 @@ export default function RestaurantAuthPage() {
             🍽️ Fresh ingredients from local agricultural partners
           </CardDescription>
         </CardHeader>
-      <CardContent>
-        <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full animate-in fade-in duration-500 delay-400 relative z-10">
-          <TabsList className="grid w-full grid-cols-2 bg-gradient-to-r from-rose-100 via-pink-100 to-red-100 dark:from-rose-900 dark:via-pink-900 dark:to-red-900 border border-rose-200 dark:border-rose-700">
-            <TabsTrigger value="login" className="transition-all duration-300 hover:scale-105 hover:bg-rose-200 dark:hover:bg-rose-800 data-[state=active]:bg-rose-300 dark:data-[state=active]:bg-rose-700 data-[state=active]:text-rose-900 dark:data-[state=active]:text-rose-100">
-              🍽️ {t.auth.login}
-            </TabsTrigger>
-            <TabsTrigger value="register" className="transition-all duration-300 hover:scale-105 hover:bg-pink-200 dark:hover:bg-pink-800 data-[state=active]:bg-pink-300 dark:data-[state=active]:bg-pink-700 data-[state=active]:text-pink-900 dark:data-[state=active]:text-pink-100">
-              👨‍🍳 {t.auth.register}
-            </TabsTrigger>
-          </TabsList>
-          <TabsContent value="login" className="animate-in slide-in-from-bottom-4 duration-500">
-            <Form {...loginForm}>
-              <form
-                onSubmit={loginForm.handleSubmit(onLogin)}
-                className="space-y-4 pt-4"
-              >
-                <FormField
-                  control={loginForm.control}
-                  name="restaurantName"
-                  render={({ field }) => (
-                    <FormItem>
-                      <FormLabel className="text-rose-700 dark:text-rose-300 font-medium">{t.auth.restaurantNameLabel}</FormLabel>
-                      <FormControl>
-                        <Input placeholder="The Fresh Table" className="border-rose-200 dark:border-rose-700 focus:border-rose-400 dark:focus:border-rose-500 focus:ring-rose-200 dark:focus:ring-rose-800 bg-rose-50/50 dark:bg-rose-950/50 placeholder:text-rose-500 dark:placeholder:text-rose-400" {...field} />
-                      </FormControl>
-                      <FormMessage className="text-red-600 dark:text-red-400" />
-                    </FormItem>
-                  )}
-                />
-                <FormField
-                  control={loginForm.control}
-                  name="email"
-                  render={({ field }) => (
-                    <FormItem>
-                      <FormLabel className="text-rose-700 dark:text-rose-300 font-medium">{t.auth.emailLabel}</FormLabel>
-                      <FormControl>
-                        <Input placeholder="restaurant@gmail.com" className="border-rose-200 dark:border-rose-700 focus:border-rose-400 dark:focus:border-rose-500 focus:ring-rose-200 dark:focus:ring-rose-800 bg-rose-50/50 dark:bg-rose-950/50 placeholder:text-rose-500 dark:placeholder:text-rose-400" {...field} />
-                      </FormControl>
-                      <FormMessage className="text-red-600 dark:text-red-400" />
-                    </FormItem>
-                  )}
-                />
-                <FormField
-                  control={loginForm.control}
-                  name="password"
-                  render={({ field }) => (
-                    <FormItem>
-                      <div className="flex justify-between items-center">
-                        <FormLabel className="text-rose-700 dark:text-rose-300 font-medium">{t.auth.passwordLabel}</FormLabel>
-                        <Button
-                          variant="link"
-                          size="sm"
-                          type="button"
-                          className="p-0 h-auto text-xs text-rose-600 dark:text-rose-400 hover:text-rose-800 dark:hover:text-rose-200"
-                          onClick={onForgotPassword}
-                          disabled={loading}
-                        >
-                          {t.auth.forgotPassword}
-                        </Button>
-                      </div>
-                      <FormControl>
-                        <div className="relative">
-                          <Input
-                            type={showPassword ? "text" : "password"}
-                            className="border-rose-200 dark:border-rose-700 focus:border-rose-400 dark:focus:border-rose-500 focus:ring-rose-200 dark:focus:ring-rose-800 bg-rose-50/50 dark:bg-rose-950/50"
-                            {...field}
-                          />
+        <CardContent>
+          <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full animate-in fade-in duration-500 delay-400 relative z-10">
+            <TabsList className="grid w-full grid-cols-2 bg-gradient-to-r from-rose-100 via-pink-100 to-red-100 dark:from-rose-900 dark:via-pink-900 dark:to-red-900 border border-rose-200 dark:border-rose-700">
+              <TabsTrigger value="login" className="transition-all duration-300 hover:scale-105 hover:bg-rose-200 dark:hover:bg-rose-800 data-[state=active]:bg-rose-300 dark:data-[state=active]:bg-rose-700 data-[state=active]:text-rose-900 dark:data-[state=active]:text-rose-100">
+                🍽️ {t.auth.login}
+              </TabsTrigger>
+              <TabsTrigger value="register" className="transition-all duration-300 hover:scale-105 hover:bg-pink-200 dark:hover:bg-pink-800 data-[state=active]:bg-pink-300 dark:data-[state=active]:bg-pink-700 data-[state=active]:text-pink-900 dark:data-[state=active]:text-pink-100">
+                👨‍🍳 {t.auth.register}
+              </TabsTrigger>
+            </TabsList>
+            <TabsContent value="login" className="animate-in slide-in-from-bottom-4 duration-500">
+              <Form {...loginForm}>
+                <form
+                  onSubmit={loginForm.handleSubmit(onLogin)}
+                  className="space-y-4 pt-4"
+                >
+                  <FormField
+                    control={loginForm.control}
+                    name="restaurantName"
+                    render={({ field }) => (
+                      <FormItem>
+                        <FormLabel className="text-rose-700 dark:text-rose-300 font-medium">{t.auth.restaurantNameLabel}</FormLabel>
+                        <FormControl>
+                          <Input placeholder="The Fresh Table" className="border-rose-200 dark:border-rose-700 focus:border-rose-400 dark:focus:border-rose-500 focus:ring-rose-200 dark:focus:ring-rose-800 bg-rose-50/50 dark:bg-rose-950/50 placeholder:text-rose-500 dark:placeholder:text-rose-400" {...field} />
+                        </FormControl>
+                        <FormMessage className="text-red-600 dark:text-red-400" />
+                      </FormItem>
+                    )}
+                  />
+                  <FormField
+                    control={loginForm.control}
+                    name="email"
+                    render={({ field }) => (
+                      <FormItem>
+                        <FormLabel className="text-rose-700 dark:text-rose-300 font-medium">{t.auth.emailLabel}</FormLabel>
+                        <FormControl>
+                          <Input placeholder="restaurant@gmail.com" className="border-rose-200 dark:border-rose-700 focus:border-rose-400 dark:focus:border-rose-500 focus:ring-rose-200 dark:focus:ring-rose-800 bg-rose-50/50 dark:bg-rose-950/50 placeholder:text-rose-500 dark:placeholder:text-rose-400" {...field} />
+                        </FormControl>
+                        <FormMessage className="text-red-600 dark:text-red-400" />
+                      </FormItem>
+                    )}
+                  />
+                  <FormField
+                    control={loginForm.control}
+                    name="password"
+                    render={({ field }) => (
+                      <FormItem>
+                        <div className="flex justify-between items-center">
+                          <FormLabel className="text-rose-700 dark:text-rose-300 font-medium">{t.auth.passwordLabel}</FormLabel>
                           <Button
+                            variant="link"
+                            size="sm"
                             type="button"
-                            variant="ghost"
-                            size="icon"
-                            className="absolute right-1 top-1/2 -translate-y-1/2 h-7 w-7 hover:bg-rose-100 dark:hover:bg-rose-900"
-                            onClick={() => setShowPassword(!showPassword)}
+                            className="p-0 h-auto text-xs text-rose-600 dark:text-rose-400 hover:text-rose-800 dark:hover:text-rose-200"
+                            onClick={onForgotPassword}
+                            disabled={loading}
                           >
-                            {showPassword ? (
-                              <EyeOff className="h-4 w-4 text-rose-600 dark:text-rose-400" />
-                            ) : (
-                              <Eye className="h-4 w-4 text-rose-600 dark:text-rose-400" />
-                            )}
+                            {t.auth.forgotPassword}
                           </Button>
                         </div>
-                      </FormControl>
-                      <FormMessage className="text-red-600 dark:text-red-400" />
-                    </FormItem>
-                  )}
-                />
-                <Button type="submit" className="w-full bg-gradient-to-r from-rose-600 via-pink-600 to-red-600 hover:from-rose-700 hover:via-pink-700 hover:to-red-700 text-white border-0 shadow-lg hover:shadow-xl transition-all duration-300" disabled={loading}>
-                  {loading && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
-                  🍽️ {t.auth.login}
-                </Button>
-              </form>
-            </Form>
-          </TabsContent>
-          <TabsContent value="register" className="animate-in slide-in-from-top-4 duration-500">
-            <Form {...registerForm}>
-              <form
-                onSubmit={registerForm.handleSubmit(onRegister)}
-                className="space-y-4 pt-4"
-              >
-                <FormField
-                  control={registerForm.control}
-                  name="restaurantName"
-                  render={({ field }) => (
-                    <FormItem>
-                      <FormLabel>{t.auth.restaurantNameLabel}</FormLabel>
-                      <FormControl>
-                        <Input
-                          type="text"
-                          placeholder="The Fresh Table"
-                          {...field}
-                        />
-                      </FormControl>
-                      <FormMessage />
-                    </FormItem>
-                  )}
-                />
-                <FormField
-                  control={registerForm.control}
-                  name="email"
-                  render={({ field }) => (
-                    <FormItem>
-                      <FormLabel>{t.auth.restaurantEmailLabel}</FormLabel>
-                      <FormControl>
-                        <Input
-                          type="email"
-                          placeholder="restaurant@gmail.com"
-                          {...field}
-                        />
-                      </FormControl>
-                      <FormMessage />
-                    </FormItem>
-                  )}
-                />
-                <FormField
-                  control={registerForm.control}
-                  name="phone"
-                  render={({ field }) => (
-                    <FormItem>
-                      <FormLabel>{t.auth.restaurantPhoneLabel}</FormLabel>
-                      <FormControl>
-                        <Input
-                          type="tel"
-                          placeholder="123-456-7890"
-                          maxLength={10}
-                          {...field}
-                          onInput={(e) => {
-                            e.currentTarget.value =
-                              e.currentTarget.value.replace(/[^0-9]/g, "");
-                          }}
-                        />
-                      </FormControl>
-                      <FormMessage />
-                    </FormItem>
-                  )}
-                />
-                <FormField
-                  control={registerForm.control}
-                  name="location"
-                  render={({ field }) => (
-                    <FormItem>
-                      <FormLabel>{t.auth.locationLabel}</FormLabel>
-                      <FormControl>
-                        <Input
-                          type="text"
-                          placeholder="City, State"
-                          {...field}
-                        />
-                      </FormControl>
-                      <FormMessage />
-                    </FormItem>
-                  )}
-                />
-                <FormField
-                  control={registerForm.control}
-                  name="password"
-                  render={({ field }) => (
-                    <FormItem>
-                      <FormLabel>{t.auth.passwordLabel}</FormLabel>
-                      <FormControl>
-                        <div className="relative">
+                        <FormControl>
+                          <div className="relative">
+                            <Input
+                              type={showPassword ? "text" : "password"}
+                              className="border-rose-200 dark:border-rose-700 focus:border-rose-400 dark:focus:border-rose-500 focus:ring-rose-200 dark:focus:ring-rose-800 bg-rose-50/50 dark:bg-rose-950/50"
+                              {...field}
+                            />
+                            <Button
+                              type="button"
+                              variant="ghost"
+                              size="icon"
+                              className="absolute right-1 top-1/2 -translate-y-1/2 h-7 w-7 hover:bg-rose-100 dark:hover:bg-rose-900"
+                              onClick={() => setShowPassword(!showPassword)}
+                            >
+                              {showPassword ? (
+                                <EyeOff className="h-4 w-4 text-rose-600 dark:text-rose-400" />
+                              ) : (
+                                <Eye className="h-4 w-4 text-rose-600 dark:text-rose-400" />
+                              )}
+                            </Button>
+                          </div>
+                        </FormControl>
+                        <FormMessage className="text-red-600 dark:text-red-400" />
+                      </FormItem>
+                    )}
+                  />
+                  <Button type="submit" className="w-full bg-gradient-to-r from-rose-600 via-pink-600 to-red-600 hover:from-rose-700 hover:via-pink-700 hover:to-red-700 text-white border-0 shadow-lg hover:shadow-xl transition-all duration-300" disabled={loading}>
+                    {loading && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
+                    🍽️ {t.auth.login}
+                  </Button>
+                </form>
+              </Form>
+            </TabsContent>
+            <TabsContent value="register" className="animate-in slide-in-from-top-4 duration-500">
+              <Form {...registerForm}>
+                <form
+                  onSubmit={registerForm.handleSubmit(onRegister)}
+                  className="space-y-4 pt-4"
+                >
+                  <FormField
+                    control={registerForm.control}
+                    name="restaurantName"
+                    render={({ field }) => (
+                      <FormItem>
+                        <FormLabel>{t.auth.restaurantNameLabel}</FormLabel>
+                        <FormControl>
                           <Input
-                            type={showPassword ? "text" : "password"}
+                            type="text"
+                            placeholder="The Fresh Table"
                             {...field}
                           />
-                          <Button
-                            type="button"
-                            variant="ghost"
-                            size="icon"
-                            className="absolute right-1 top-1/2 -translate-y-1/2 h-7 w-7"
-                            onClick={() => setShowPassword(!showPassword)}
-                          >
-                            {showPassword ? (
-                              <EyeOff className="h-4 w-4" />
-                            ) : (
-                              <Eye className="h-4 w-4" />
-                            )}
-                          </Button>
-                        </div>
-                      </FormControl>
-                      <FormMessage />
-                    </FormItem>
-                  )}
-                />
-                <FormField
-                  control={registerForm.control}
-                  name="confirmPassword"
-                  render={({ field }) => (
-                    <FormItem>
-                      <FormLabel>{t.auth.confirmPasswordLabel}</FormLabel>
-                      <FormControl>
-                        <div className="relative">
+                        </FormControl>
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
+                  <FormField
+                    control={registerForm.control}
+                    name="email"
+                    render={({ field }) => (
+                      <FormItem>
+                        <FormLabel>{t.auth.restaurantEmailLabel}</FormLabel>
+                        <FormControl>
                           <Input
-                            type={showConfirmPassword ? "text" : "password"}
+                            type="email"
+                            placeholder="restaurant@gmail.com"
                             {...field}
                           />
-                          <Button
-                            type="button"
-                            variant="ghost"
-                            size="icon"
-                            className="absolute right-1 top-1/2 -translate-y-1/2 h-7 w-7"
-                            onClick={() =>
-                              setShowConfirmPassword(!showConfirmPassword)
-                            }
-                          >
-                            {showConfirmPassword ? (
-                              <EyeOff className="h-4 w-4" />
-                            ) : (
-                              <Eye className="h-4 w-4" />
-                            )}
-                          </Button>
-                        </div>
-                      </FormControl>
-                      <FormMessage />
-                    </FormItem>
-                  )}
-                />
-                <Button type="submit" className="w-full bg-gradient-to-r from-red-600 via-pink-600 to-rose-600 hover:from-red-700 hover:via-pink-700 hover:to-rose-700 text-white border-0 shadow-lg hover:shadow-xl transition-all duration-300" disabled={loading}>
-                  {loading && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
-                  👨‍🍳 {t.auth.registerRestaurant}
-                </Button>
-              </form>
-            </Form>
-          </TabsContent>
-        </Tabs>
+                        </FormControl>
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
+                  <FormField
+                    control={registerForm.control}
+                    name="phone"
+                    render={({ field }) => (
+                      <FormItem>
+                        <FormLabel>{t.auth.restaurantPhoneLabel}</FormLabel>
+                        <FormControl>
+                          <Input
+                            type="tel"
+                            placeholder="123-456-7890"
+                            maxLength={10}
+                            {...field}
+                            onInput={(e) => {
+                              e.currentTarget.value =
+                                e.currentTarget.value.replace(/[^0-9]/g, "");
+                            }}
+                          />
+                        </FormControl>
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
+                  <FormField
+                    control={registerForm.control}
+                    name="location"
+                    render={({ field }) => (
+                      <FormItem>
+                        <FormLabel>{t.auth.locationLabel}</FormLabel>
+                        <FormControl>
+                          <Input
+                            type="text"
+                            placeholder="City, State"
+                            {...field}
+                          />
+                        </FormControl>
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
+                  <FormField
+                    control={registerForm.control}
+                    name="password"
+                    render={({ field }) => (
+                      <FormItem>
+                        <FormLabel>{t.auth.passwordLabel}</FormLabel>
+                        <FormControl>
+                          <div className="relative">
+                            <Input
+                              type={showPassword ? "text" : "password"}
+                              {...field}
+                            />
+                            <Button
+                              type="button"
+                              variant="ghost"
+                              size="icon"
+                              className="absolute right-1 top-1/2 -translate-y-1/2 h-7 w-7"
+                              onClick={() => setShowPassword(!showPassword)}
+                            >
+                              {showPassword ? (
+                                <EyeOff className="h-4 w-4" />
+                              ) : (
+                                <Eye className="h-4 w-4" />
+                              )}
+                            </Button>
+                          </div>
+                        </FormControl>
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
+                  <FormField
+                    control={registerForm.control}
+                    name="confirmPassword"
+                    render={({ field }) => (
+                      <FormItem>
+                        <FormLabel>{t.auth.confirmPasswordLabel}</FormLabel>
+                        <FormControl>
+                          <div className="relative">
+                            <Input
+                              type={showConfirmPassword ? "text" : "password"}
+                              {...field}
+                            />
+                            <Button
+                              type="button"
+                              variant="ghost"
+                              size="icon"
+                              className="absolute right-1 top-1/2 -translate-y-1/2 h-7 w-7"
+                              onClick={() =>
+                                setShowConfirmPassword(!showConfirmPassword)
+                              }
+                            >
+                              {showConfirmPassword ? (
+                                <EyeOff className="h-4 w-4" />
+                              ) : (
+                                <Eye className="h-4 w-4" />
+                              )}
+                            </Button>
+                          </div>
+                        </FormControl>
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
+                  <Button type="submit" className="w-full bg-gradient-to-r from-red-600 via-pink-600 to-rose-600 hover:from-red-700 hover:via-pink-700 hover:to-rose-700 text-white border-0 shadow-lg hover:shadow-xl transition-all duration-300" disabled={loading}>
+                    {loading && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
+                    👨‍🍳 {t.auth.registerRestaurant}
+                  </Button>
+                </form>
+              </Form>
+            </TabsContent>
+          </Tabs>
         </CardContent>
       </Card>
     </div>
