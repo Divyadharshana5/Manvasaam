@@ -396,10 +396,12 @@ export default function FarmerAuthPage() {
                 className="pt-3 sm:pt-4 space-y-3 sm:space-y-4"
               >
                 <div className="text-center space-y-4 animate-in zoom-in duration-500">
-                  <div className="flex items-center justify-center w-16 h-16 mx-auto bg-gradient-to-br from-green-100 to-emerald-100 dark:from-green-900 dark:to-emerald-900 rounded-full animate-pulse">
-                    <Fingerprint className="h-8 w-8 text-green-600 animate-bounce" />
+                  <div className="flex items-center justify-center w-16 h-16 mx-auto bg-gradient-to-br from-amber-100 via-yellow-100 to-orange-100 dark:from-amber-900 dark:via-yellow-900 dark:to-orange-900 rounded-full animate-pulse border-2 border-amber-300 dark:border-amber-600">
+                    <Fingerprint className="h-8 w-8 text-amber-600 dark:text-amber-400 animate-bounce" />
                   </div>
-                  <h3 className="font-semibold text-lg animate-in slide-in-from-bottom-2 duration-500 delay-200">Fingerprint Login</h3>
+                  <h3 className="font-semibold text-lg animate-in slide-in-from-bottom-2 duration-500 delay-200 text-amber-800 dark:text-amber-200">
+                    🔐 Secure Farm Access
+                  </h3>
                 </div>
 
                 <Button
@@ -423,39 +425,40 @@ export default function FarmerAuthPage() {
                 onSubmit={registerForm.handleSubmit(onRegister)}
                 className="space-y-4"
               >
-                <div className="text-center p-4 bg-green-50 rounded-lg border border-green-200">
-                  <Fingerprint className="h-12 w-12 mx-auto mb-3 text-green-600" />
-                  <h3 className="font-semibold text-green-800 mb-2">
-                    Quick Fingerprint Setup
+                <div className="text-center p-4 bg-gradient-to-br from-amber-50 via-yellow-50 to-orange-50 dark:from-amber-950 dark:via-yellow-950 dark:to-orange-950 rounded-lg border-2 border-amber-200 dark:border-amber-700 relative overflow-hidden">
+                  <div className="absolute top-0 right-0 w-8 h-8 bg-yellow-300/20 rounded-full"></div>
+                  <Fingerprint className="h-12 w-12 mx-auto mb-3 text-amber-600 dark:text-amber-400" />
+                  <h3 className="font-semibold text-amber-800 dark:text-amber-200 mb-2">
+                    🌾 Quick Farm Registration
                   </h3>
-                  <p className="text-sm text-green-700 mb-3">
-                    Skip typing! Just use your fingerprint to register quickly
+                  <p className="text-sm text-amber-700 dark:text-amber-300 mb-3">
+                    🚜 Secure agricultural access with biometric authentication
                   </p>
                   <Button
                     type="button"
                     onClick={() => {
                       toast({
-                        title: "Fingerprint Registration",
+                        title: "🌾 Farm Registration",
                         description:
-                          "Touch your device's fingerprint sensor now",
+                          "🔐 Touch your device's fingerprint sensor now",
                       });
                       // Register and redirect to login
                       setTimeout(() => {
                         setActiveTab("login");
                         setAuthMode("passkey");
                         toast({
-                          title: "Registration Complete!",
-                          description: "Now use fingerprint to login",
+                          title: "🎉 Registration Complete!",
+                          description: "🚜 Now use fingerprint to access your farm portal",
                         });
                       }, 1500);
                     }}
-                    className="w-full bg-green-600 hover:bg-green-700"
+                    className="w-full bg-gradient-to-r from-amber-600 via-yellow-600 to-orange-600 hover:from-amber-700 hover:via-yellow-700 hover:to-orange-700 text-white border-0"
                   >
                     <Fingerprint className="mr-2 h-4 w-4" />
-                    Register with Fingerprint Only
+                    🌾 Register Farm with Biometrics
                   </Button>
-                  <p className="text-xs text-green-600 mt-2">
-                    Or fill the form below for traditional registration
+                  <p className="text-xs text-amber-600 dark:text-amber-400 mt-2">
+                    🌱 Or complete the traditional farm registration below
                   </p>
                 </div>
                 <FormField
