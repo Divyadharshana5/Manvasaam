@@ -269,13 +269,13 @@ export default function FarmerAuthPage() {
       {/* Farm field background pattern */}
       <div className="absolute inset-0 bg-gradient-to-br from-amber-50 via-yellow-50 to-orange-50 dark:from-amber-950 dark:via-yellow-950 dark:to-orange-950 opacity-40 rounded-lg"></div>
       <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_120%,rgba(120,119,198,0.1),rgba(255,255,255,0))]"></div>
-      
+
       <Card className="w-full max-w-md mx-4 sm:mx-auto bg-gradient-to-br from-amber-50/95 via-yellow-50/95 to-orange-50/95 dark:from-amber-950/95 dark:via-yellow-950/95 dark:to-orange-950/95 backdrop-blur-lg border-2 border-amber-200/60 dark:border-amber-700/60 shadow-lg hover:shadow-2xl transition-all duration-500 hover:scale-[1.02] relative overflow-hidden">
         {/* Decorative farm elements */}
         <div className="absolute top-2 right-2 w-8 h-8 bg-gradient-to-br from-yellow-300/30 to-orange-300/30 rounded-full"></div>
         <div className="absolute bottom-2 left-2 w-6 h-6 bg-gradient-to-tr from-amber-300/30 to-yellow-300/30 rounded-full"></div>
         <div className="absolute top-1/2 right-0 w-12 h-1 bg-gradient-to-l from-amber-300/20 to-transparent"></div>
-        
+
         <CardHeader className="text-center px-4 sm:px-6 py-4 sm:py-6 relative z-10">
           <CardTitle className="flex items-center justify-center gap-2 text-lg sm:text-xl">
             <div className="relative">
@@ -290,301 +290,301 @@ export default function FarmerAuthPage() {
             🌾 Enhanced security for agricultural professionals
           </CardDescription>
         </CardHeader>
-      <CardContent>
-        <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full animate-in fade-in duration-500 delay-400 relative z-10">
-          <TabsList className="grid w-full grid-cols-2 bg-gradient-to-r from-amber-100 via-yellow-100 to-orange-100 dark:from-amber-900 dark:via-yellow-900 dark:to-orange-900 border border-amber-200 dark:border-amber-700">
-            <TabsTrigger value="login" className="transition-all duration-300 hover:scale-105 hover:bg-amber-200 dark:hover:bg-amber-800 data-[state=active]:bg-amber-300 dark:data-[state=active]:bg-amber-700 data-[state=active]:text-amber-900 dark:data-[state=active]:text-amber-100">
-              🌾 {t.auth.login}
-            </TabsTrigger>
-            <TabsTrigger value="register" className="transition-all duration-300 hover:scale-105 hover:bg-yellow-200 dark:hover:bg-yellow-800 data-[state=active]:bg-yellow-300 dark:data-[state=active]:bg-yellow-700 data-[state=active]:text-yellow-900 dark:data-[state=active]:text-yellow-100">
-              🚜 {t.auth.register}
-            </TabsTrigger>
-          </TabsList>
-          <TabsContent value="login">
-            <Tabs
-              value={authMode}
-              onValueChange={setAuthMode}
-              className="w-full"
-            >
-              <TabsList className="grid w-full grid-cols-2">
-                <TabsTrigger value="email">{t.auth.emailPassword}</TabsTrigger>
-                <TabsTrigger
-                  value="passkey"
-                  className="flex items-center gap-1"
-                >
-                  <Fingerprint className="h-3 w-3" />
-                  Passkey Login
-                </TabsTrigger>
-              </TabsList>
-              <TabsContent value="email" className="pt-4">
-                <Form {...loginForm}>
-                  <form
-                    onSubmit={loginForm.handleSubmit(onLogin)}
-                    className="space-y-4"
+        <CardContent>
+          <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full animate-in fade-in duration-500 delay-400 relative z-10">
+            <TabsList className="grid w-full grid-cols-2 bg-gradient-to-r from-amber-100 via-yellow-100 to-orange-100 dark:from-amber-900 dark:via-yellow-900 dark:to-orange-900 border border-amber-200 dark:border-amber-700">
+              <TabsTrigger value="login" className="transition-all duration-300 hover:scale-105 hover:bg-amber-200 dark:hover:bg-amber-800 data-[state=active]:bg-amber-300 dark:data-[state=active]:bg-amber-700 data-[state=active]:text-amber-900 dark:data-[state=active]:text-amber-100">
+                🌾 {t.auth.login}
+              </TabsTrigger>
+              <TabsTrigger value="register" className="transition-all duration-300 hover:scale-105 hover:bg-yellow-200 dark:hover:bg-yellow-800 data-[state=active]:bg-yellow-300 dark:data-[state=active]:bg-yellow-700 data-[state=active]:text-yellow-900 dark:data-[state=active]:text-yellow-100">
+                🚜 {t.auth.register}
+              </TabsTrigger>
+            </TabsList>
+            <TabsContent value="login">
+              <Tabs
+                value={authMode}
+                onValueChange={setAuthMode}
+                className="w-full"
+              >
+                <TabsList className="grid w-full grid-cols-2">
+                  <TabsTrigger value="email">{t.auth.emailPassword}</TabsTrigger>
+                  <TabsTrigger
+                    value="passkey"
+                    className="flex items-center gap-1"
                   >
-                    <FormField
-                      control={loginForm.control}
-                      name="email"
-                      render={({ field }) => (
-                        <FormItem>
-                          <FormLabel>{t.auth.emailLabel}</FormLabel>
-                          <FormControl>
-                            <Input
-                              type="email"
-                              placeholder="farmer@gmail.com"
-                              {...field}
-                            />
-                          </FormControl>
-                          <FormMessage />
-                        </FormItem>
-                      )}
-                    />
-                    <FormField
-                      control={loginForm.control}
-                      name="password"
-                      render={({ field }) => (
-                        <FormItem>
-                          <div className="flex justify-between items-center">
-                            <FormLabel>{t.auth.passwordLabel}</FormLabel>
-                            <Button
-                              variant="link"
-                              size="sm"
-                              type="button"
-                              className="p-0 h-auto text-xs"
-                              onClick={onForgotPassword}
-                              disabled={loading}
-                            >
-                              {t.auth.forgotPassword}
-                            </Button>
-                          </div>
-                          <FormControl>
-                            <div className="relative">
+                    <Fingerprint className="h-3 w-3" />
+                    Passkey Login
+                  </TabsTrigger>
+                </TabsList>
+                <TabsContent value="email" className="pt-4">
+                  <Form {...loginForm}>
+                    <form
+                      onSubmit={loginForm.handleSubmit(onLogin)}
+                      className="space-y-4"
+                    >
+                      <FormField
+                        control={loginForm.control}
+                        name="email"
+                        render={({ field }) => (
+                          <FormItem>
+                            <FormLabel>{t.auth.emailLabel}</FormLabel>
+                            <FormControl>
                               <Input
-                                type={showPassword ? "text" : "password"}
+                                type="email"
+                                placeholder="farmer@gmail.com"
                                 {...field}
                               />
+                            </FormControl>
+                            <FormMessage />
+                          </FormItem>
+                        )}
+                      />
+                      <FormField
+                        control={loginForm.control}
+                        name="password"
+                        render={({ field }) => (
+                          <FormItem>
+                            <div className="flex justify-between items-center">
+                              <FormLabel>{t.auth.passwordLabel}</FormLabel>
                               <Button
+                                variant="link"
+                                size="sm"
                                 type="button"
-                                variant="ghost"
-                                size="icon"
-                                className="absolute right-1 top-1/2 -translate-y-1/2 h-7 w-7"
-                                onClick={() => setShowPassword(!showPassword)}
+                                className="p-0 h-auto text-xs"
+                                onClick={onForgotPassword}
+                                disabled={loading}
                               >
-                                {showPassword ? (
-                                  <EyeOff className="h-4 w-4" />
-                                ) : (
-                                  <Eye className="h-4 w-4" />
-                                )}
+                                {t.auth.forgotPassword}
                               </Button>
                             </div>
-                          </FormControl>
-                          <FormMessage />
-                        </FormItem>
-                      )}
-                    />
-                    <Button type="submit" className="w-full" disabled={loading}>
-                      {loading && (
-                        <Loader2 className="mr-2 h-4 w-4 animate-spin" />
-                      )}
-                      {t.auth.login}
-                    </Button>
-                  </form>
-                </Form>
-              </TabsContent>
-              <TabsContent
-                value="passkey"
-                className="pt-3 sm:pt-4 space-y-3 sm:space-y-4"
-              >
-                <div className="text-center space-y-4 animate-in zoom-in duration-500">
-                  <div className="flex items-center justify-center w-16 h-16 mx-auto bg-gradient-to-br from-amber-100 via-yellow-100 to-orange-100 dark:from-amber-900 dark:via-yellow-900 dark:to-orange-900 rounded-full animate-pulse border-2 border-amber-300 dark:border-amber-600">
-                    <Fingerprint className="h-8 w-8 text-amber-600 dark:text-amber-400 animate-bounce" />
-                  </div>
-                  <h3 className="font-semibold text-lg animate-in slide-in-from-bottom-2 duration-500 delay-200 text-amber-800 dark:text-amber-200">
-                    🔐 Secure Farm Access
-                  </h3>
-                </div>
-
-                <Button
-                  onClick={handlePasskeyLogin}
-                  className="w-full py-3"
-                  disabled={loading}
+                            <FormControl>
+                              <div className="relative">
+                                <Input
+                                  type={showPassword ? "text" : "password"}
+                                  {...field}
+                                />
+                                <Button
+                                  type="button"
+                                  variant="ghost"
+                                  size="icon"
+                                  className="absolute right-1 top-1/2 -translate-y-1/2 h-7 w-7"
+                                  onClick={() => setShowPassword(!showPassword)}
+                                >
+                                  {showPassword ? (
+                                    <EyeOff className="h-4 w-4" />
+                                  ) : (
+                                    <Eye className="h-4 w-4" />
+                                  )}
+                                </Button>
+                              </div>
+                            </FormControl>
+                            <FormMessage />
+                          </FormItem>
+                        )}
+                      />
+                      <Button type="submit" className="w-full" disabled={loading}>
+                        {loading && (
+                          <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                        )}
+                        {t.auth.login}
+                      </Button>
+                    </form>
+                  </Form>
+                </TabsContent>
+                <TabsContent
+                  value="passkey"
+                  className="pt-3 sm:pt-4 space-y-3 sm:space-y-4"
                 >
-                  {loading ? (
-                    <Loader2 className="mr-2 h-4 w-4 animate-spin" />
-                  ) : (
-                    <Fingerprint className="mr-2 h-4 w-4" />
-                  )}
-                  {loading ? "Authenticating..." : "Use Fingerprint"}
-                </Button>
-              </TabsContent>
-            </Tabs>
-          </TabsContent>
-          <TabsContent value="register" className="pt-4">
-            <Form {...registerForm}>
-              <form
-                onSubmit={registerForm.handleSubmit(onRegister)}
-                className="space-y-4"
-              >
-                <div className="text-center p-4 bg-gradient-to-br from-amber-50 via-yellow-50 to-orange-50 dark:from-amber-950 dark:via-yellow-950 dark:to-orange-950 rounded-lg border-2 border-amber-200 dark:border-amber-700 relative overflow-hidden">
-                  <div className="absolute top-0 right-0 w-8 h-8 bg-yellow-300/20 rounded-full"></div>
-                  <Fingerprint className="h-12 w-12 mx-auto mb-3 text-amber-600 dark:text-amber-400" />
-                  <h3 className="font-semibold text-amber-800 dark:text-amber-200 mb-2">
-                    🌾 Quick Farm Registration
-                  </h3>
-                  <p className="text-sm text-amber-700 dark:text-amber-300 mb-3">
-                    🚜 Secure agricultural access with biometric authentication
-                  </p>
+                  <div className="text-center space-y-4 animate-in zoom-in duration-500">
+                    <div className="flex items-center justify-center w-16 h-16 mx-auto bg-gradient-to-br from-amber-100 via-yellow-100 to-orange-100 dark:from-amber-900 dark:via-yellow-900 dark:to-orange-900 rounded-full animate-pulse border-2 border-amber-300 dark:border-amber-600">
+                      <Fingerprint className="h-8 w-8 text-amber-600 dark:text-amber-400 animate-bounce" />
+                    </div>
+                    <h3 className="font-semibold text-lg animate-in slide-in-from-bottom-2 duration-500 delay-200 text-amber-800 dark:text-amber-200">
+                      🔐 Secure Farm Access
+                    </h3>
+                  </div>
+
                   <Button
-                    type="button"
-                    onClick={() => {
-                      toast({
-                        title: "🌾 Farm Registration",
-                        description:
-                          "🔐 Touch your device's fingerprint sensor now",
-                      });
-                      // Register and redirect to login
-                      setTimeout(() => {
-                        setActiveTab("login");
-                        setAuthMode("passkey");
-                        toast({
-                          title: "🎉 Registration Complete!",
-                          description: "🚜 Now use fingerprint to access your farm portal",
-                        });
-                      }, 1500);
-                    }}
-                    className="w-full bg-gradient-to-r from-amber-600 via-yellow-600 to-orange-600 hover:from-amber-700 hover:via-yellow-700 hover:to-orange-700 text-white border-0"
+                    onClick={handlePasskeyLogin}
+                    className="w-full py-3"
+                    disabled={loading}
                   >
-                    <Fingerprint className="mr-2 h-4 w-4" />
-                    🌾 Register Farm with Biometrics
+                    {loading ? (
+                      <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                    ) : (
+                      <Fingerprint className="mr-2 h-4 w-4" />
+                    )}
+                    {loading ? "Authenticating..." : "Use Fingerprint"}
                   </Button>
-                  <p className="text-xs text-amber-600 dark:text-amber-400 mt-2">
-                    🌱 Or complete the traditional farm registration below
-                  </p>
-                </div>
-                <FormField
-                  control={registerForm.control}
-                  name="username"
-                  render={({ field }) => (
-                    <FormItem>
-                      <FormLabel>{t.auth.usernameLabel}</FormLabel>
-                      <FormControl>
-                        <Input type="text" placeholder="John Doe" {...field} />
-                      </FormControl>
-                      <FormMessage />
-                    </FormItem>
-                  )}
-                />
-                <FormField
-                  control={registerForm.control}
-                  name="email"
-                  render={({ field }) => (
-                    <FormItem>
-                      <FormLabel>{t.auth.emailLabel}</FormLabel>
-                      <FormControl>
-                        <Input
-                          type="email"
-                          placeholder="farmer@gmail.com"
-                          {...field}
-                        />
-                      </FormControl>
-                      <FormMessage />
-                    </FormItem>
-                  )}
-                />
-                <FormField
-                  control={registerForm.control}
-                  name="phone"
-                  render={({ field }) => (
-                    <FormItem>
-                      <FormLabel>{t.auth.phoneLabel}</FormLabel>
-                      <FormControl>
-                        <Input
-                          type="tel"
-                          placeholder="1234567890"
-                          maxLength={10}
-                          {...field}
-                          onInput={(e) => {
-                            e.currentTarget.value =
-                              e.currentTarget.value.replace(/[^0-9]/g, "");
-                          }}
-                        />
-                      </FormControl>
-                      <FormMessage />
-                    </FormItem>
-                  )}
-                />
-                <FormField
-                  control={registerForm.control}
-                  name="password"
-                  render={({ field }) => (
-                    <FormItem>
-                      <FormLabel>{t.auth.passwordLabel}</FormLabel>
-                      <FormControl>
-                        <div className="relative">
+                </TabsContent>
+              </Tabs>
+            </TabsContent>
+            <TabsContent value="register" className="pt-4">
+              <Form {...registerForm}>
+                <form
+                  onSubmit={registerForm.handleSubmit(onRegister)}
+                  className="space-y-4"
+                >
+                  <div className="text-center p-4 bg-gradient-to-br from-amber-50 via-yellow-50 to-orange-50 dark:from-amber-950 dark:via-yellow-950 dark:to-orange-950 rounded-lg border-2 border-amber-200 dark:border-amber-700 relative overflow-hidden">
+                    <div className="absolute top-0 right-0 w-8 h-8 bg-yellow-300/20 rounded-full"></div>
+                    <Fingerprint className="h-12 w-12 mx-auto mb-3 text-amber-600 dark:text-amber-400" />
+                    <h3 className="font-semibold text-amber-800 dark:text-amber-200 mb-2">
+                      🌾 Quick Farm Registration
+                    </h3>
+                    <p className="text-sm text-amber-700 dark:text-amber-300 mb-3">
+                      🚜 Secure agricultural access with biometric authentication
+                    </p>
+                    <Button
+                      type="button"
+                      onClick={() => {
+                        toast({
+                          title: "🌾 Farm Registration",
+                          description:
+                            "🔐 Touch your device's fingerprint sensor now",
+                        });
+                        // Register and redirect to login
+                        setTimeout(() => {
+                          setActiveTab("login");
+                          setAuthMode("passkey");
+                          toast({
+                            title: "🎉 Registration Complete!",
+                            description: "🚜 Now use fingerprint to access your farm portal",
+                          });
+                        }, 1500);
+                      }}
+                      className="w-full bg-gradient-to-r from-amber-600 via-yellow-600 to-orange-600 hover:from-amber-700 hover:via-yellow-700 hover:to-orange-700 text-white border-0"
+                    >
+                      <Fingerprint className="mr-2 h-4 w-4" />
+                      🌾 Register Farm with Biometrics
+                    </Button>
+                    <p className="text-xs text-amber-600 dark:text-amber-400 mt-2">
+                      🌱 Or complete the traditional farm registration below
+                    </p>
+                  </div>
+                  <FormField
+                    control={registerForm.control}
+                    name="username"
+                    render={({ field }) => (
+                      <FormItem>
+                        <FormLabel>{t.auth.usernameLabel}</FormLabel>
+                        <FormControl>
+                          <Input type="text" placeholder="John Doe" {...field} />
+                        </FormControl>
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
+                  <FormField
+                    control={registerForm.control}
+                    name="email"
+                    render={({ field }) => (
+                      <FormItem>
+                        <FormLabel>{t.auth.emailLabel}</FormLabel>
+                        <FormControl>
                           <Input
-                            type={showPassword ? "text" : "password"}
+                            type="email"
+                            placeholder="farmer@gmail.com"
                             {...field}
                           />
-                          <Button
-                            type="button"
-                            variant="ghost"
-                            size="icon"
-                            className="absolute right-1 top-1/2 -translate-y-1/2 h-7 w-7"
-                            onClick={() => setShowPassword(!showPassword)}
-                          >
-                            {showPassword ? (
-                              <EyeOff className="h-4 w-4" />
-                            ) : (
-                              <Eye className="h-4 w-4" />
-                            )}
-                          </Button>
-                        </div>
-                      </FormControl>
-                      <FormMessage />
-                    </FormItem>
-                  )}
-                />
-                <FormField
-                  control={registerForm.control}
-                  name="confirmPassword"
-                  render={({ field }) => (
-                    <FormItem>
-                      <FormLabel>{t.auth.confirmPasswordLabel}</FormLabel>
-                      <FormControl>
-                        <div className="relative">
+                        </FormControl>
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
+                  <FormField
+                    control={registerForm.control}
+                    name="phone"
+                    render={({ field }) => (
+                      <FormItem>
+                        <FormLabel>{t.auth.phoneLabel}</FormLabel>
+                        <FormControl>
                           <Input
-                            type={showConfirmPassword ? "text" : "password"}
+                            type="tel"
+                            placeholder="1234567890"
+                            maxLength={10}
                             {...field}
+                            onInput={(e) => {
+                              e.currentTarget.value =
+                                e.currentTarget.value.replace(/[^0-9]/g, "");
+                            }}
                           />
-                          <Button
-                            type="button"
-                            variant="ghost"
-                            size="icon"
-                            className="absolute right-1 top-1/2 -translate-y-1/2 h-7 w-7"
-                            onClick={() =>
-                              setShowConfirmPassword(!showConfirmPassword)
-                            }
-                          >
-                            {showConfirmPassword ? (
-                              <EyeOff className="h-4 w-4" />
-                            ) : (
-                              <Eye className="h-4 w-4" />
-                            )}
-                          </Button>
-                        </div>
-                      </FormControl>
-                      <FormMessage />
-                    </FormItem>
-                  )}
-                />
-                <Button type="submit" className="w-full" disabled={loading}>
-                  {loading && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
-                  {t.auth.createAccount}
-                </Button>
-              </form>
-            </Form>
-          </TabsContent>
-        </Tabs>
+                        </FormControl>
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
+                  <FormField
+                    control={registerForm.control}
+                    name="password"
+                    render={({ field }) => (
+                      <FormItem>
+                        <FormLabel>{t.auth.passwordLabel}</FormLabel>
+                        <FormControl>
+                          <div className="relative">
+                            <Input
+                              type={showPassword ? "text" : "password"}
+                              {...field}
+                            />
+                            <Button
+                              type="button"
+                              variant="ghost"
+                              size="icon"
+                              className="absolute right-1 top-1/2 -translate-y-1/2 h-7 w-7"
+                              onClick={() => setShowPassword(!showPassword)}
+                            >
+                              {showPassword ? (
+                                <EyeOff className="h-4 w-4" />
+                              ) : (
+                                <Eye className="h-4 w-4" />
+                              )}
+                            </Button>
+                          </div>
+                        </FormControl>
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
+                  <FormField
+                    control={registerForm.control}
+                    name="confirmPassword"
+                    render={({ field }) => (
+                      <FormItem>
+                        <FormLabel>{t.auth.confirmPasswordLabel}</FormLabel>
+                        <FormControl>
+                          <div className="relative">
+                            <Input
+                              type={showConfirmPassword ? "text" : "password"}
+                              {...field}
+                            />
+                            <Button
+                              type="button"
+                              variant="ghost"
+                              size="icon"
+                              className="absolute right-1 top-1/2 -translate-y-1/2 h-7 w-7"
+                              onClick={() =>
+                                setShowConfirmPassword(!showConfirmPassword)
+                              }
+                            >
+                              {showConfirmPassword ? (
+                                <EyeOff className="h-4 w-4" />
+                              ) : (
+                                <Eye className="h-4 w-4" />
+                              )}
+                            </Button>
+                          </div>
+                        </FormControl>
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
+                  <Button type="submit" className="w-full" disabled={loading}>
+                    {loading && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
+                    {t.auth.createAccount}
+                  </Button>
+                </form>
+              </Form>
+            </TabsContent>
+          </Tabs>
         </CardContent>
       </Card>
     </div>
