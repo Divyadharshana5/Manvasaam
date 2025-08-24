@@ -88,12 +88,12 @@ const sidebarItems = [
   },
 ];
 
-function Sidebar({ className }: { className?: string }) {
+function Sidebar({ className, onSignOut }: { className?: string; onSignOut: () => void }) {
   const pathname = usePathname();
 
   return (
-    <div className={cn("pb-12 bg-gradient-to-b from-rose-50/30 via-pink-50/30 to-red-50/30 dark:from-rose-950/30 dark:via-pink-950/30 dark:to-red-950/30", className)}>
-      <div className="space-y-4 py-4">
+    <div className={cn("pb-4 bg-gradient-to-b from-rose-50/30 via-pink-50/30 to-red-50/30 dark:from-rose-950/30 dark:via-pink-950/30 dark:to-red-950/30 flex flex-col h-full", className)}>
+      <div className="flex-1 space-y-4 py-4">
         <div className="px-3 py-2">
           <div className="flex items-center gap-2 mb-6 p-3 rounded-lg bg-gradient-to-r from-rose-100 to-pink-100 dark:from-rose-900 dark:to-pink-900 border border-rose-200 dark:border-rose-700">
             <ChefHat className="h-6 w-6 text-rose-600 dark:text-rose-400" />
@@ -121,6 +121,18 @@ function Sidebar({ className }: { className?: string }) {
             ))}
           </div>
         </div>
+      </div>
+      
+      {/* Signout Button at Bottom */}
+      <div className="px-3 py-2 border-t border-rose-200 dark:border-rose-700">
+        <Button
+          onClick={onSignOut}
+          variant="ghost"
+          className="w-full justify-start text-red-600 dark:text-red-400 hover:bg-red-50 dark:hover:bg-red-950 hover:text-red-700 dark:hover:text-red-300 transition-all duration-200"
+        >
+          <LogOut className="mr-2 h-4 w-4" />
+          🚪 Sign Out
+        </Button>
       </div>
     </div>
   );
@@ -175,8 +187,8 @@ export default function RestaurantLayout({
   return (
     <div className="grid min-h-screen w-full md:grid-cols-[220px_1fr] lg:grid-cols-[280px_1fr]">
       <div className="hidden border-r border-rose-200 dark:border-rose-700 bg-gradient-to-b from-rose-50/50 to-pink-50/50 dark:from-rose-950/50 dark:to-pink-950/50 md:block">
-        <div className="flex h-full max-h-screen flex-col gap-2">
-          <Sidebar />
+        <div className="flex h-full max-h-screen flex-col">
+          <Sidebar onSignOut={handleSignOut} />
         </div>
       </div>
       <div className="flex flex-col">
@@ -193,7 +205,7 @@ export default function RestaurantLayout({
               </Button>
             </SheetTrigger>
             <SheetContent side="left" className="flex flex-col">
-              <Sidebar />
+              <Sidebar onSignOut={handleSignOut} />
             </SheetContent>
           </Sheet>
           
