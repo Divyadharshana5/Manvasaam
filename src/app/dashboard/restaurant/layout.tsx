@@ -92,12 +92,14 @@ function Sidebar({ className }: { className?: string }) {
   const pathname = usePathname();
 
   return (
-    <div className={cn("pb-12", className)}>
+    <div className={cn("pb-12 bg-gradient-to-b from-rose-50/30 via-pink-50/30 to-red-50/30 dark:from-rose-950/30 dark:via-pink-950/30 dark:to-red-950/30", className)}>
       <div className="space-y-4 py-4">
         <div className="px-3 py-2">
-          <div className="flex items-center gap-2 mb-6">
-            <ChefHat className="h-6 w-6 text-green-600" />
-            <h2 className="text-lg font-semibold">Restaurant Portal</h2>
+          <div className="flex items-center gap-2 mb-6 p-3 rounded-lg bg-gradient-to-r from-rose-100 to-pink-100 dark:from-rose-900 dark:to-pink-900 border border-rose-200 dark:border-rose-700">
+            <ChefHat className="h-6 w-6 text-rose-600 dark:text-rose-400" />
+            <h2 className="text-lg font-semibold text-rose-800 dark:text-rose-200">
+              👨‍🍳 Restaurant Portal
+            </h2>
           </div>
           <div className="space-y-1">
             {sidebarItems.map((item) => (
@@ -105,11 +107,14 @@ function Sidebar({ className }: { className?: string }) {
                 <Button
                   variant={pathname === item.href ? "secondary" : "ghost"}
                   className={cn(
-                    "w-full justify-start",
-                    pathname === item.href && "bg-green-100 text-green-700"
+                    "w-full justify-start transition-all duration-200 hover:bg-rose-100 dark:hover:bg-rose-900",
+                    pathname === item.href && "bg-gradient-to-r from-rose-200 to-pink-200 dark:from-rose-800 dark:to-pink-800 text-rose-800 dark:text-rose-200 border border-rose-300 dark:border-rose-600"
                   )}
                 >
-                  <item.icon className="mr-2 h-4 w-4" />
+                  <item.icon className={cn(
+                    "mr-2 h-4 w-4",
+                    pathname === item.href ? "text-rose-700 dark:text-rose-300" : "text-rose-600 dark:text-rose-400"
+                  )} />
                   {item.title}
                 </Button>
               </Link>
@@ -169,7 +174,7 @@ export default function RestaurantLayout({
 
   return (
     <div className="grid min-h-screen w-full md:grid-cols-[220px_1fr] lg:grid-cols-[280px_1fr]">
-      <div className="hidden border-r bg-muted/40 md:block">
+      <div className="hidden border-r border-rose-200 dark:border-rose-700 bg-gradient-to-b from-rose-50/50 to-pink-50/50 dark:from-rose-950/50 dark:to-pink-950/50 md:block">
         <div className="flex h-full max-h-screen flex-col gap-2">
           <Sidebar />
         </div>
