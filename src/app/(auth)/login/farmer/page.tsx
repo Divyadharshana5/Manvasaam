@@ -203,7 +203,7 @@ export default function FarmerAuthPage() {
 
       toast({
         title: "Login successful",
-        description: "Welcome back to farmer...",
+        description: "Welcome back,farmer...",
         duration: 1000,
       });
       router.push("/dashboard/farmer");
