@@ -244,10 +244,14 @@ export default function CustomerAuthPage() {
           </CardDescription>
         </CardHeader>
       <CardContent>
-        <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full animate-in fade-in duration-500 delay-400">
-          <TabsList className="grid w-full grid-cols-2 bg-gradient-to-r from-blue-50 to-purple-50 dark:from-blue-950 dark:to-purple-950">
-            <TabsTrigger value="login" className="transition-all duration-300 hover:scale-105">{t.auth.login}</TabsTrigger>
-            <TabsTrigger value="register" className="transition-all duration-300 hover:scale-105">{t.auth.register}</TabsTrigger>
+        <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full animate-in fade-in duration-500 delay-400 relative z-10">
+          <TabsList className="grid w-full grid-cols-2 bg-gradient-to-r from-emerald-100 via-green-100 to-lime-100 dark:from-emerald-900 dark:via-green-900 dark:to-lime-900 border border-emerald-200 dark:border-emerald-700">
+            <TabsTrigger value="login" className="transition-all duration-300 hover:scale-105 hover:bg-emerald-200 dark:hover:bg-emerald-800 data-[state=active]:bg-emerald-300 dark:data-[state=active]:bg-emerald-700 data-[state=active]:text-emerald-900 dark:data-[state=active]:text-emerald-100">
+              🛒 {t.auth.login}
+            </TabsTrigger>
+            <TabsTrigger value="register" className="transition-all duration-300 hover:scale-105 hover:bg-lime-200 dark:hover:bg-lime-800 data-[state=active]:bg-lime-300 dark:data-[state=active]:bg-lime-700 data-[state=active]:text-lime-900 dark:data-[state=active]:text-lime-100">
+              🌱 {t.auth.register}
+            </TabsTrigger>
           </TabsList>
           <TabsContent value="login" className="pt-4 animate-in slide-in-from-right-4 duration-500">
             <Form {...loginForm}>
