@@ -265,21 +265,22 @@ export default function FarmerAuthPage() {
   }
 
   return (
-    <Card className="w-full max-w-md mx-4 sm:mx-auto bg-card/80 backdrop-blur-lg border-2 border-primary/20 shadow-lg">
-      <CardHeader className="text-center px-4 sm:px-6 py-4 sm:py-6">
-        <CardTitle className="flex items-center justify-center gap-2 text-lg sm:text-xl">
-          <Tractor className="h-4 w-4 sm:h-5 sm:w-5 text-primary" />
-          Farmer Portal
-        </CardTitle>
-        <CardDescription className="text-sm sm:text-base">
-          Enhanced security with passkey authentication
-        </CardDescription>
-      </CardHeader>
+    <div className="animate-in slide-in-from-top-4 duration-700">
+      <Card className="w-full max-w-md mx-4 sm:mx-auto bg-card/80 backdrop-blur-lg border-2 border-green-200/30 shadow-lg hover:shadow-2xl transition-all duration-500 hover:scale-[1.02] bg-gradient-to-br from-green-50/50 to-emerald-50/50 dark:from-green-950/50 dark:to-emerald-950/50">
+        <CardHeader className="text-center px-4 sm:px-6 py-4 sm:py-6">
+          <CardTitle className="flex items-center justify-center gap-2 text-lg sm:text-xl">
+            <Tractor className="h-4 w-4 sm:h-5 sm:w-5 text-green-600 animate-pulse" />
+            <span className="animate-in slide-in-from-right-2 duration-500 delay-200 bg-gradient-to-r from-green-700 to-emerald-600 bg-clip-text text-transparent">Farmer Portal</span>
+          </CardTitle>
+          <CardDescription className="text-sm sm:text-base animate-in fade-in duration-500 delay-300">
+            Enhanced security with passkey authentication
+          </CardDescription>
+        </CardHeader>
       <CardContent>
-        <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full">
-          <TabsList className="grid w-full grid-cols-2">
-            <TabsTrigger value="login">{t.auth.login}</TabsTrigger>
-            <TabsTrigger value="register">{t.auth.register}</TabsTrigger>
+        <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full animate-in fade-in duration-500 delay-400">
+          <TabsList className="grid w-full grid-cols-2 bg-gradient-to-r from-green-50 to-emerald-50 dark:from-green-950 dark:to-emerald-950">
+            <TabsTrigger value="login" className="transition-all duration-300 hover:scale-105 hover:bg-green-100 dark:hover:bg-green-900">{t.auth.login}</TabsTrigger>
+            <TabsTrigger value="register" className="transition-all duration-300 hover:scale-105 hover:bg-green-100 dark:hover:bg-green-900">{t.auth.register}</TabsTrigger>
           </TabsList>
           <TabsContent value="login">
             <Tabs

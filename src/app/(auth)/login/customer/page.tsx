@@ -221,23 +221,24 @@ export default function CustomerAuthPage() {
   }
 
   return (
-    <Card className="w-full max-w-md mx-4 sm:mx-auto bg-card/80 backdrop-blur-lg border-2 border-primary/20 shadow-lg">
-      <CardHeader className="text-center px-4 sm:px-6 py-4 sm:py-6">
-        <CardTitle className="flex items-center justify-center gap-2 text-lg sm:text-xl">
-          <ShoppingCart className="h-4 w-4 sm:h-5 sm:w-5 text-primary" />
-          Customer Portal
-        </CardTitle>
-        <CardDescription className="text-sm sm:text-base">
-          Access your customer account
-        </CardDescription>
-      </CardHeader>
+    <div className="animate-in slide-in-from-bottom-4 duration-700">
+      <Card className="w-full max-w-md mx-4 sm:mx-auto bg-card/80 backdrop-blur-lg border-2 border-primary/20 shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-[1.02]">
+        <CardHeader className="text-center px-4 sm:px-6 py-4 sm:py-6">
+          <CardTitle className="flex items-center justify-center gap-2 text-lg sm:text-xl">
+            <ShoppingCart className="h-4 w-4 sm:h-5 sm:w-5 text-primary animate-bounce" />
+            <span className="animate-in slide-in-from-left-2 duration-500 delay-200">Customer Portal</span>
+          </CardTitle>
+          <CardDescription className="text-sm sm:text-base animate-in fade-in duration-500 delay-300">
+            Access your customer account
+          </CardDescription>
+        </CardHeader>
       <CardContent>
-        <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full">
-          <TabsList className="grid w-full grid-cols-2">
-            <TabsTrigger value="login">{t.auth.login}</TabsTrigger>
-            <TabsTrigger value="register">{t.auth.register}</TabsTrigger>
+        <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full animate-in fade-in duration-500 delay-400">
+          <TabsList className="grid w-full grid-cols-2 bg-gradient-to-r from-blue-50 to-purple-50 dark:from-blue-950 dark:to-purple-950">
+            <TabsTrigger value="login" className="transition-all duration-300 hover:scale-105">{t.auth.login}</TabsTrigger>
+            <TabsTrigger value="register" className="transition-all duration-300 hover:scale-105">{t.auth.register}</TabsTrigger>
           </TabsList>
-          <TabsContent value="login" className="pt-4">
+          <TabsContent value="login" className="pt-4 animate-in slide-in-from-right-4 duration-500">
             <Form {...loginForm}>
               <form
                 onSubmit={loginForm.handleSubmit(onLogin)}
@@ -310,7 +311,7 @@ export default function CustomerAuthPage() {
               </form>
             </Form>
           </TabsContent>
-          <TabsContent value="register" className="pt-4">
+          <TabsContent value="register" className="pt-4 animate-in slide-in-from-left-4 duration-500">
             <Form {...registerForm}>
               <form
                 onSubmit={registerForm.handleSubmit(onRegister)}
@@ -440,7 +441,8 @@ export default function CustomerAuthPage() {
             </Form>
           </TabsContent>
         </Tabs>
-      </CardContent>
-    </Card>
+        </CardContent>
+      </Card>
+    </div>
   );
 }
