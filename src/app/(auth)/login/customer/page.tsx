@@ -393,29 +393,30 @@ export default function CustomerAuthPage() {
                     name="password"
                     render={({ field }) => (
                       <FormItem>
-                        <FormLabel>{t.auth.passwordLabel}</FormLabel>
+                        <FormLabel className="text-emerald-700 dark:text-emerald-300 font-medium">{t.auth.passwordLabel}</FormLabel>
                         <FormControl>
                           <div className="relative">
                             <Input
                               type={showPassword ? "text" : "password"}
+                              className="border-emerald-200 dark:border-emerald-700 focus:border-emerald-400 dark:focus:border-emerald-500 focus:ring-emerald-200 dark:focus:ring-emerald-800 bg-emerald-50/50 dark:bg-emerald-950/50"
                               {...field}
                             />
                             <Button
                               type="button"
                               variant="ghost"
                               size="icon"
-                              className="absolute right-1 top-1/2 -translate-y-1/2 h-7 w-7"
+                              className="absolute right-1 top-1/2 -translate-y-1/2 h-7 w-7 hover:bg-emerald-100 dark:hover:bg-emerald-900"
                               onClick={() => setShowPassword(!showPassword)}
                             >
                               {showPassword ? (
-                                <EyeOff className="h-4 w-4" />
+                                <EyeOff className="h-4 w-4 text-emerald-600 dark:text-emerald-400" />
                               ) : (
-                                <Eye className="h-4 w-4" />
+                                <Eye className="h-4 w-4 text-emerald-600 dark:text-emerald-400" />
                               )}
                             </Button>
                           </div>
                         </FormControl>
-                        <FormMessage />
+                        <FormMessage className="text-red-600 dark:text-red-400" />
                       </FormItem>
                     )}
                   />
@@ -424,31 +425,32 @@ export default function CustomerAuthPage() {
                     name="confirmPassword"
                     render={({ field }) => (
                       <FormItem>
-                        <FormLabel>{t.auth.confirmPasswordLabel}</FormLabel>
+                        <FormLabel className="text-emerald-700 dark:text-emerald-300 font-medium">{t.auth.confirmPasswordLabel}</FormLabel>
                         <FormControl>
                           <div className="relative">
                             <Input
                               type={showConfirmPassword ? "text" : "password"}
+                              className="border-emerald-200 dark:border-emerald-700 focus:border-emerald-400 dark:focus:border-emerald-500 focus:ring-emerald-200 dark:focus:ring-emerald-800 bg-emerald-50/50 dark:bg-emerald-950/50"
                               {...field}
                             />
                             <Button
                               type="button"
                               variant="ghost"
                               size="icon"
-                              className="absolute right-1 top-1/2 -translate-y-1/2 h-7 w-7"
+                              className="absolute right-1 top-1/2 -translate-y-1/2 h-7 w-7 hover:bg-emerald-100 dark:hover:bg-emerald-900"
                               onClick={() =>
                                 setShowConfirmPassword(!showConfirmPassword)
                               }
                             >
                               {showConfirmPassword ? (
-                                <EyeOff className="h-4 w-4" />
+                                <EyeOff className="h-4 w-4 text-emerald-600 dark:text-emerald-400" />
                               ) : (
-                                <Eye className="h-4 w-4" />
+                                <Eye className="h-4 w-4 text-emerald-600 dark:text-emerald-400" />
                               )}
                             </Button>
                           </div>
                         </FormControl>
-                        <FormMessage />
+                        <FormMessage className="text-red-600 dark:text-red-400" />
                       </FormItem>
                     )}
                   />
