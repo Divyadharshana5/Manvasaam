@@ -468,11 +468,11 @@ export default function FarmerAuthPage() {
                     name="username"
                     render={({ field }) => (
                       <FormItem>
-                        <FormLabel>{t.auth.usernameLabel}</FormLabel>
+                        <FormLabel className="text-amber-700 dark:text-amber-300 font-medium">{t.auth.usernameLabel}</FormLabel>
                         <FormControl>
-                          <Input type="text" placeholder="John Doe" {...field} />
+                          <Input type="text" placeholder="John Doe" className="border-amber-200 dark:border-amber-700 focus:border-amber-400 dark:focus:border-amber-500 focus:ring-amber-200 dark:focus:ring-amber-800 bg-amber-50/50 dark:bg-amber-950/50 placeholder:text-amber-500 dark:placeholder:text-amber-400" {...field} />
                         </FormControl>
-                        <FormMessage />
+                        <FormMessage className="text-red-600 dark:text-red-400" />
                       </FormItem>
                     )}
                   />
@@ -481,15 +481,16 @@ export default function FarmerAuthPage() {
                     name="email"
                     render={({ field }) => (
                       <FormItem>
-                        <FormLabel>{t.auth.emailLabel}</FormLabel>
+                        <FormLabel className="text-amber-700 dark:text-amber-300 font-medium">{t.auth.emailLabel}</FormLabel>
                         <FormControl>
                           <Input
                             type="email"
                             placeholder="farmer@gmail.com"
+                            className="border-amber-200 dark:border-amber-700 focus:border-amber-400 dark:focus:border-amber-500 focus:ring-amber-200 dark:focus:ring-amber-800 bg-amber-50/50 dark:bg-amber-950/50 placeholder:text-amber-500 dark:placeholder:text-amber-400"
                             {...field}
                           />
                         </FormControl>
-                        <FormMessage />
+                        <FormMessage className="text-red-600 dark:text-red-400" />
                       </FormItem>
                     )}
                   />
@@ -498,12 +499,13 @@ export default function FarmerAuthPage() {
                     name="phone"
                     render={({ field }) => (
                       <FormItem>
-                        <FormLabel>{t.auth.phoneLabel}</FormLabel>
+                        <FormLabel className="text-amber-700 dark:text-amber-300 font-medium">{t.auth.phoneLabel}</FormLabel>
                         <FormControl>
                           <Input
                             type="tel"
                             placeholder="1234567890"
                             maxLength={10}
+                            className="border-amber-200 dark:border-amber-700 focus:border-amber-400 dark:focus:border-amber-500 focus:ring-amber-200 dark:focus:ring-amber-800 bg-amber-50/50 dark:bg-amber-950/50 placeholder:text-amber-500 dark:placeholder:text-amber-400"
                             {...field}
                             onInput={(e) => {
                               e.currentTarget.value =
@@ -511,7 +513,7 @@ export default function FarmerAuthPage() {
                             }}
                           />
                         </FormControl>
-                        <FormMessage />
+                        <FormMessage className="text-red-600 dark:text-red-400" />
                       </FormItem>
                     )}
                   />
