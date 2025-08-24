@@ -424,11 +424,11 @@ function HubAuthComponent() {
                   name="branchName"
                   render={({ field }) => (
                     <FormItem>
-                      <FormLabel>{t.auth.branchNameLabel}</FormLabel>
+                      <FormLabel className="text-teal-700 dark:text-teal-300 font-medium">{t.auth.branchNameLabel}</FormLabel>
                       <FormControl>
-                        <Input placeholder="Central Hub" {...field} />
+                        <Input placeholder="Central Hub" className="border-teal-200 dark:border-teal-700 focus:border-teal-400 dark:focus:border-teal-500 focus:ring-teal-200 dark:focus:ring-teal-800 bg-teal-50/50 dark:bg-teal-950/50 placeholder:text-teal-500 dark:placeholder:text-teal-400" {...field} />
                       </FormControl>
-                      <FormMessage />
+                      <FormMessage className="text-red-600 dark:text-red-400" />
                     </FormItem>
                   )}
                 />
@@ -437,11 +437,11 @@ function HubAuthComponent() {
                   name="email"
                   render={({ field }) => (
                     <FormItem>
-                      <FormLabel>{t.auth.emailLabel}</FormLabel>
+                      <FormLabel className="text-teal-700 dark:text-teal-300 font-medium">{t.auth.emailLabel}</FormLabel>
                       <FormControl>
-                        <Input placeholder="hub-admin@example.com" {...field} />
+                        <Input placeholder="hub-admin@example.com" className="border-teal-200 dark:border-teal-700 focus:border-teal-400 dark:focus:border-teal-500 focus:ring-teal-200 dark:focus:ring-teal-800 bg-teal-50/50 dark:bg-teal-950/50 placeholder:text-teal-500 dark:placeholder:text-teal-400" {...field} />
                       </FormControl>
-                      <FormMessage />
+                      <FormMessage className="text-red-600 dark:text-red-400" />
                     </FormItem>
                   )}
                 />
