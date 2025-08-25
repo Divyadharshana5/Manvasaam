@@ -339,6 +339,8 @@ function HubAuthComponent() {
     setLoading(true);
     try {
       const email = loginForm.getValues("email");
+      const branchName = loginForm.getValues("branchName");
+      
       if (!email) {
         toast({
           variant: "destructive",
@@ -349,28 +351,22 @@ function HubAuthComponent() {
         return;
       }
 
-      const response = await fetch("/api/forgot-password", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ identifier: email, userType: "hub" }),
-      });
+      // Send password reset email using EmailJS
+      const result = await sendPasswordResetEmail(email, branchName || "Hub Admin", "hub");
 
-      const result = await response.json();
-
-      if (!response.ok) {
-        throw new Error(result.message || "Failed to send reset link.");
+      if (result.success) {
+        toast({
+          title: "Password Reset Email Sent",
+          description: "Please check your inbox for instructions to reset your password.",
+        });
+      } else {
+        throw new Error(result.message);
       }
-
-      toast({
-        title: "Password Reset Email Sent",
-        description:
-          "Please check your inbox for instructions to reset your password.",
-      });
     } catch (error: any) {
       toast({
         variant: "destructive",
         title: "Request Failed",
-        description: error.message,
+        description: error.message || "Failed to send password reset email.",
       });
     } finally {
       setLoading(false);

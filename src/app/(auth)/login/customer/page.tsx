@@ -28,6 +28,7 @@ import { signInWithEmailAndPassword } from "firebase/auth";
 import { useRouter } from "next/navigation";
 import { auth } from "@/lib/firebase";
 import { useLanguage } from "@/context/language-context";
+import { initEmailJS, sendPasswordResetEmail } from "@/lib/emailjs";
 
 const loginSchema = z.object({
   email: z.string().email({ message: "Invalid email address." }),
