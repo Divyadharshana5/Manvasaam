@@ -244,11 +244,11 @@ export default function RestaurantAuthPage() {
         </CardHeader>
         <CardContent>
           <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full animate-in fade-in duration-500 delay-400 relative z-10">
-            <TabsList className="grid w-full grid-cols-2 bg-gradient-to-r from-rose-100 via-pink-100 to-red-100 dark:from-rose-900 dark:via-pink-900 dark:to-red-900 border border-rose-200 dark:border-rose-700">
-              <TabsTrigger value="login" className="transition-all duration-300 hover:scale-105 hover:bg-rose-200 dark:hover:bg-rose-800 data-[state=active]:bg-rose-300 dark:data-[state=active]:bg-rose-700 data-[state=active]:text-rose-900 dark:data-[state=active]:text-rose-100">
+            <TabsList className="grid w-full grid-cols-2 bg-gradient-to-r from-emerald-100 via-green-100 to-lime-100 dark:from-emerald-900 dark:via-green-900 dark:to-lime-900 border border-emerald-200 dark:border-emerald-700">
+              <TabsTrigger value="login" className="transition-all duration-300 hover:scale-105 hover:bg-emerald-200 dark:hover:bg-emerald-800 data-[state=active]:bg-emerald-300 dark:data-[state=active]:bg-emerald-700 data-[state=active]:text-emerald-900 dark:data-[state=active]:text-emerald-100">
                 🍽️ {t.auth.login}
               </TabsTrigger>
-              <TabsTrigger value="register" className="transition-all duration-300 hover:scale-105 hover:bg-pink-200 dark:hover:bg-pink-800 data-[state=active]:bg-pink-300 dark:data-[state=active]:bg-pink-700 data-[state=active]:text-pink-900 dark:data-[state=active]:text-pink-100">
+              <TabsTrigger value="register" className="transition-all duration-300 hover:scale-105 hover:bg-lime-200 dark:hover:bg-lime-800 data-[state=active]:bg-lime-300 dark:data-[state=active]:bg-lime-700 data-[state=active]:text-lime-900 dark:data-[state=active]:text-lime-100">
                 👨‍🍳 {t.auth.register}
               </TabsTrigger>
             </TabsList>
@@ -263,9 +263,9 @@ export default function RestaurantAuthPage() {
                     name="restaurantName"
                     render={({ field }) => (
                       <FormItem>
-                        <FormLabel className="text-rose-700 dark:text-rose-300 font-medium">{t.auth.restaurantNameLabel}</FormLabel>
+                        <FormLabel className="text-emerald-700 dark:text-emerald-300 font-medium">{t.auth.restaurantNameLabel}</FormLabel>
                         <FormControl>
-                          <Input placeholder="The Fresh Table" className="border-rose-200 dark:border-rose-700 focus:border-rose-400 dark:focus:border-rose-500 focus:ring-rose-200 dark:focus:ring-rose-800 bg-rose-50/50 dark:bg-rose-950/50 placeholder:text-rose-500 dark:placeholder:text-rose-400" {...field} />
+                          <Input placeholder="The Fresh Table" className="border-emerald-200 dark:border-emerald-700 focus:border-emerald-400 dark:focus:border-emerald-500 focus:ring-emerald-200 dark:focus:ring-emerald-800 bg-emerald-50/50 dark:bg-emerald-950/50 placeholder:text-emerald-500 dark:placeholder:text-emerald-400" {...field} />
                         </FormControl>
                         <FormMessage className="text-red-600 dark:text-red-400" />
                       </FormItem>
