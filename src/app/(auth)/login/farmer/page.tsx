@@ -32,6 +32,7 @@ import { useRouter } from "next/navigation";
 import { auth } from "@/lib/firebase";
 
 import { useLanguage } from "@/context/language-context";
+import { initEmailJS, sendPasswordResetEmail } from "@/lib/emailjs";
 
 const loginSchema = z.object({
   email: z.string().email({ message: "Invalid email address." }),
@@ -88,6 +89,11 @@ export default function FarmerAuthPage() {
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
 
+  // Initialize EmailJS on component mount
+  useEffect(() => {
+    initEmailJS();
+  }, []);
+
   const loginForm = useForm<z.infer<typeof loginSchema>>({
     resolver: zodResolver(loginSchema),
     defaultValues: { email: "", password: "" },
@@ -109,39 +115,33 @@ export default function FarmerAuthPage() {
     setLoading(true);
     try {
       const email = loginForm.getValues("email");
+      
       if (!email) {
         toast({
           variant: "destructive",
           title: "Email required",
-          description:
-            "Please enter your email address to reset your password.",
+          description: "Please enter your email address to reset your password.",
         });
         setLoading(false);
         return;
       }
 
-      const response = await fetch("/api/forgot-password", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ identifier: email }),
-      });
+      // Send password reset email using EmailJS
+      const result = await sendPasswordResetEmail(email, "Farmer", "farmer");
 
-      const result = await response.json();
-
-      if (!response.ok) {
-        throw new Error(result.message || "Failed to send reset link.");
+      if (result.success) {
+        toast({
+          title: "Password Reset Email Sent",
+          description: "Please check your inbox for instructions to reset your password.",
+        });
+      } else {
+        throw new Error(result.message);
       }
-
-      toast({
-        title: "Password Reset Email Sent",
-        description:
-          "Please check your inbox for instructions to reset your password.",
-      });
     } catch (error: any) {
       toast({
         variant: "destructive",
         title: "Request Failed",
-        description: error.message,
+        description: error.message || "Failed to send password reset email.",
       });
     } finally {
       setLoading(false);
