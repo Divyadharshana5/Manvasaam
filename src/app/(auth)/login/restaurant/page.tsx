@@ -224,11 +224,11 @@ export default function RestaurantAuthPage() {
   }
 
   return (
-    <div className="animate-in fade-in duration-700 relative">
+    <div className="animate-in fade-in duration-700 relative min-h-screen flex items-center justify-center p-4">
       {/* Farm-to-table restaurant background */}
-      <div className="absolute inset-0 bg-gradient-to-br from-emerald-50 via-green-50 to-lime-50 dark:from-emerald-950 dark:via-green-950 dark:to-lime-950 opacity-30 rounded-lg"></div>
+      <div className="absolute inset-0 bg-gradient-to-br from-emerald-50 via-green-50 to-lime-50 dark:from-emerald-950 dark:via-green-950 dark:to-lime-950 opacity-30 rounded-lg -z-10"></div>
 
-      <Card className="w-full max-w-md mx-4 sm:mx-auto bg-white dark:bg-gray-900 border border-emerald-200 dark:border-emerald-700 animate-in slide-in-from-right-4 duration-500 delay-200">
+      <Card className="w-full max-w-md bg-white dark:bg-gray-900 border border-emerald-200 dark:border-emerald-700 animate-in slide-in-from-right-4 duration-500 delay-200 relative z-10">
 
 
         <CardHeader className="text-center px-4 sm:px-6 py-4 sm:py-6">
@@ -239,22 +239,7 @@ export default function RestaurantAuthPage() {
             Restaurant management access
           </CardDescription>
         </CardHeader>
-        <CardContent>
-          <div className="text-xs text-gray-500 mb-2">Current tab: {activeTab}</div>
-          <div className="flex gap-2 mb-4">
-            <button 
-              onClick={() => setActiveTab("login")} 
-              className={`px-3 py-1 text-sm rounded ${activeTab === "login" ? "bg-emerald-200 text-emerald-800" : "bg-gray-200 text-gray-600"}`}
-            >
-              Login
-            </button>
-            <button 
-              onClick={() => setActiveTab("register")} 
-              className={`px-3 py-1 text-sm rounded ${activeTab === "register" ? "bg-emerald-200 text-emerald-800" : "bg-gray-200 text-gray-600"}`}
-            >
-              Register
-            </button>
-          </div>
+        <CardContent className="relative z-20">
           <Tabs value={activeTab} onValueChange={(value) => {
             console.log("Tab changed to:", value);
             setActiveTab(value);

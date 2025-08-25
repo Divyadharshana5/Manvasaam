@@ -222,10 +222,10 @@ export default function CustomerAuthPage() {
   }
 
   return (
-    <div className="relative animate-in fade-in duration-700">
+    <div className="relative animate-in fade-in duration-700 min-h-screen flex items-center justify-center p-4">
       {/* Agricultural background pattern */}
-      <div className="absolute inset-0 bg-gradient-to-br from-emerald-50 via-green-50 to-lime-50 dark:from-emerald-950 dark:via-green-950 dark:to-lime-950 opacity-30 rounded-lg"></div>
-      <Card className="w-full max-w-md mx-4 sm:mx-auto bg-white dark:bg-gray-900 border border-emerald-200 dark:border-emerald-700 animate-in slide-in-from-bottom-4 duration-500 delay-200">
+      <div className="absolute inset-0 bg-gradient-to-br from-emerald-50 via-green-50 to-lime-50 dark:from-emerald-950 dark:via-green-950 dark:to-lime-950 opacity-30 rounded-lg -z-10"></div>
+      <Card className="w-full max-w-md bg-white dark:bg-gray-900 border border-emerald-200 dark:border-emerald-700 animate-in slide-in-from-bottom-4 duration-500 delay-200 relative z-10">
 
 
         <CardHeader className="text-center px-4 sm:px-6 py-4 sm:py-6">
@@ -236,11 +236,11 @@ export default function CustomerAuthPage() {
             Access your account
           </CardDescription>
         </CardHeader>
-        <CardContent>
+        <CardContent className="relative z-20">
           <Tabs value={activeTab} onValueChange={(value) => {
             console.log("Customer tab changed to:", value);
             setActiveTab(value);
-          }} className="w-full animate-in fade-in duration-500 delay-500">
+          }} className="w-full animate-in fade-in duration-500 delay-500 relative z-30">
             <TabsList className="grid w-full grid-cols-2 bg-emerald-100 dark:bg-emerald-900 p-1 rounded-md">
               <TabsTrigger 
                 value="login" 
