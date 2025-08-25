@@ -139,6 +139,7 @@ export default function RestaurantAuthPage() {
   }
 
   async function onRegister(values: z.infer<typeof registerSchema>) {
+    console.log("Register function called with values:", values);
     setLoading(true);
     try {
       const { confirmPassword, ...rest } = values;
@@ -146,6 +147,8 @@ export default function RestaurantAuthPage() {
         userType: "restaurant",
         ...rest,
       };
+
+      console.log("Sending registration data:", apiData);
 
       const response = await fetch("/api/register", {
         method: "POST",
@@ -155,6 +158,7 @@ export default function RestaurantAuthPage() {
 
       if (!response.ok) {
         const errorData = await response.json();
+        console.error("Registration failed:", errorData);
         throw new Error(errorData.message || "Failed to register restaurant.");
       }
 
@@ -166,6 +170,7 @@ export default function RestaurantAuthPage() {
       setActiveTab("login");
       loginForm.setValue("email", values.email);
     } catch (error: any) {
+      console.error("Registration error:", error);
       toast({
         variant: "destructive",
         title: "Registration Failed",
@@ -330,7 +335,9 @@ export default function RestaurantAuthPage() {
             <TabsContent value="register" className="animate-in slide-in-from-left-4 duration-300">
               <Form {...registerForm}>
                 <form
-                  onSubmit={registerForm.handleSubmit(onRegister)}
+                  onSubmit={registerForm.handleSubmit(onRegister, (errors) => {
+                    console.log("Form validation errors:", errors);
+                  })}
                   className="space-y-4 pt-4"
                 >
                   <FormField
@@ -470,7 +477,12 @@ export default function RestaurantAuthPage() {
                       </FormItem>
                     )}
                   />
-                  <Button type="submit" className="w-full bg-emerald-600 hover:bg-emerald-700 text-white transition-all duration-200 hover:scale-[1.02]" disabled={loading}>
+                  <Button 
+                    type="submit" 
+                    className="w-full bg-emerald-600 hover:bg-emerald-700 text-white transition-all duration-200 hover:scale-[1.02]" 
+                    disabled={loading}
+                    onClick={() => console.log("Register button clicked")}
+                  >
                     {loading && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
                     {t.auth.registerRestaurant}
                   </Button>

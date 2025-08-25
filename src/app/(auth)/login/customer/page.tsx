@@ -323,7 +323,9 @@ export default function CustomerAuthPage() {
             <TabsContent value="register" className="pt-4 animate-in slide-in-from-left-4 duration-300">
               <Form {...registerForm}>
                 <form
-                  onSubmit={registerForm.handleSubmit(onRegister)}
+                  onSubmit={registerForm.handleSubmit(onRegister, (errors) => {
+                    console.log("Customer form validation errors:", errors);
+                  })}
                   className="space-y-4"
                 >
                   <FormField
