@@ -371,9 +371,9 @@ export default function FarmerAuthPage() {
                                   onClick={() => setShowPassword(!showPassword)}
                                 >
                                   {showPassword ? (
-                                    <EyeOff className="h-4 w-4 text-amber-600 dark:text-amber-400" />
+                                    <EyeOff className="h-4 w-4 text-emerald-600 dark:text-emerald-400" />
                                   ) : (
-                                    <Eye className="h-4 w-4 text-amber-600 dark:text-amber-400" />
+                                    <Eye className="h-4 w-4 text-emerald-600 dark:text-emerald-400" />
                                   )}
                                 </Button>
                               </div>
@@ -382,7 +382,7 @@ export default function FarmerAuthPage() {
                           </FormItem>
                         )}
                       />
-                      <Button type="submit" className="w-full bg-gradient-to-r from-amber-600 via-yellow-600 to-orange-600 hover:from-amber-700 hover:via-yellow-700 hover:to-orange-700 text-white border-0 shadow-lg hover:shadow-xl transition-all duration-300" disabled={loading}>
+                      <Button type="submit" className="w-full bg-gradient-to-r from-emerald-600 via-green-600 to-lime-600 hover:from-emerald-700 hover:via-green-700 hover:to-lime-700 text-white border-0 shadow-lg hover:shadow-xl transition-all duration-300" disabled={loading}>
                         {loading && (
                           <Loader2 className="mr-2 h-4 w-4 animate-spin" />
                         )}
@@ -396,10 +396,10 @@ export default function FarmerAuthPage() {
                   className="pt-3 sm:pt-4 space-y-3 sm:space-y-4"
                 >
                   <div className="text-center space-y-4 animate-in zoom-in duration-500">
-                    <div className="flex items-center justify-center w-16 h-16 mx-auto bg-gradient-to-br from-amber-100 via-yellow-100 to-orange-100 dark:from-amber-900 dark:via-yellow-900 dark:to-orange-900 rounded-full animate-pulse border-2 border-amber-300 dark:border-amber-600">
-                      <Fingerprint className="h-8 w-8 text-amber-600 dark:text-amber-400 animate-bounce" />
+                    <div className="flex items-center justify-center w-16 h-16 mx-auto bg-gradient-to-br from-emerald-100 via-green-100 to-lime-100 dark:from-emerald-900 dark:via-green-900 dark:to-lime-900 rounded-full animate-pulse border-2 border-emerald-300 dark:border-emerald-600">
+                      <Fingerprint className="h-8 w-8 text-emerald-600 dark:text-emerald-400 animate-bounce" />
                     </div>
-                    <h3 className="font-semibold text-lg animate-in slide-in-from-bottom-2 duration-500 delay-200 text-amber-800 dark:text-amber-200">
+                    <h3 className="font-semibold text-lg animate-in slide-in-from-bottom-2 duration-500 delay-200 text-emerald-800 dark:text-emerald-200">
                       🔐 Secure Farm Access
                     </h3>
                   </div>
@@ -425,13 +425,13 @@ export default function FarmerAuthPage() {
                   onSubmit={registerForm.handleSubmit(onRegister)}
                   className="space-y-4"
                 >
-                  <div className="text-center p-4 bg-gradient-to-br from-amber-50 via-yellow-50 to-orange-50 dark:from-amber-950 dark:via-yellow-950 dark:to-orange-950 rounded-lg border-2 border-amber-200 dark:border-amber-700 relative overflow-hidden">
-                    <div className="absolute top-0 right-0 w-8 h-8 bg-yellow-300/20 rounded-full"></div>
-                    <Fingerprint className="h-12 w-12 mx-auto mb-3 text-amber-600 dark:text-amber-400" />
-                    <h3 className="font-semibold text-amber-800 dark:text-amber-200 mb-2">
+                  <div className="text-center p-4 bg-gradient-to-br from-emerald-50 via-green-50 to-lime-50 dark:from-emerald-950 dark:via-green-950 dark:to-lime-950 rounded-lg border-2 border-emerald-200 dark:border-emerald-700 relative overflow-hidden">
+                    <div className="absolute top-0 right-0 w-8 h-8 bg-lime-300/20 rounded-full"></div>
+                    <Fingerprint className="h-12 w-12 mx-auto mb-3 text-emerald-600 dark:text-emerald-400" />
+                    <h3 className="font-semibold text-emerald-800 dark:text-emerald-200 mb-2">
                       🌾 Quick Farm Registration
                     </h3>
-                    <p className="text-sm text-amber-700 dark:text-amber-300 mb-3">
+                    <p className="text-sm text-emerald-700 dark:text-emerald-300 mb-3">
                       🚜 Secure agricultural access with biometric authentication
                     </p>
                     <Button
@@ -452,12 +452,12 @@ export default function FarmerAuthPage() {
                           });
                         }, 1500);
                       }}
-                      className="w-full bg-gradient-to-r from-amber-600 via-yellow-600 to-orange-600 hover:from-amber-700 hover:via-yellow-700 hover:to-orange-700 text-white border-0"
+                      className="w-full bg-gradient-to-r from-emerald-600 via-green-600 to-lime-600 hover:from-emerald-700 hover:via-green-700 hover:to-lime-700 text-white border-0"
                     >
                       <Fingerprint className="mr-2 h-4 w-4" />
                       🌾 Register Farm with Biometrics
                     </Button>
-                    <p className="text-xs text-amber-600 dark:text-amber-400 mt-2">
+                    <p className="text-xs text-emerald-600 dark:text-emerald-400 mt-2">
                       🌱 Or complete the traditional farm registration below
                     </p>
                   </div>
@@ -466,9 +466,9 @@ export default function FarmerAuthPage() {
                     name="username"
                     render={({ field }) => (
                       <FormItem>
-                        <FormLabel className="text-amber-700 dark:text-amber-300 font-medium">{t.auth.usernameLabel}</FormLabel>
+                        <FormLabel className="text-emerald-700 dark:text-emerald-300 font-medium">{t.auth.usernameLabel}</FormLabel>
                         <FormControl>
-                          <Input type="text" placeholder="John Doe" className="border-amber-200 dark:border-amber-700 focus:border-amber-400 dark:focus:border-amber-500 focus:ring-amber-200 dark:focus:ring-amber-800 bg-amber-50/50 dark:bg-amber-950/50 placeholder:text-amber-500 dark:placeholder:text-amber-400" {...field} />
+                          <Input type="text" placeholder="John Doe" className="border-emerald-200 dark:border-emerald-700 focus:border-emerald-400 dark:focus:border-emerald-500 focus:ring-emerald-200 dark:focus:ring-emerald-800 bg-emerald-50/50 dark:bg-emerald-950/50 placeholder:text-emerald-500 dark:placeholder:text-emerald-400" {...field} />
                         </FormControl>
                         <FormMessage className="text-red-600 dark:text-red-400" />
                       </FormItem>
@@ -479,12 +479,12 @@ export default function FarmerAuthPage() {
                     name="email"
                     render={({ field }) => (
                       <FormItem>
-                        <FormLabel className="text-amber-700 dark:text-amber-300 font-medium">{t.auth.emailLabel}</FormLabel>
+                        <FormLabel className="text-emerald-700 dark:text-emerald-300 font-medium">{t.auth.emailLabel}</FormLabel>
                         <FormControl>
                           <Input
                             type="email"
                             placeholder="farmer@gmail.com"
-                            className="border-amber-200 dark:border-amber-700 focus:border-amber-400 dark:focus:border-amber-500 focus:ring-amber-200 dark:focus:ring-amber-800 bg-amber-50/50 dark:bg-amber-950/50 placeholder:text-amber-500 dark:placeholder:text-amber-400"
+                            className="border-emerald-200 dark:border-emerald-700 focus:border-emerald-400 dark:focus:border-emerald-500 focus:ring-emerald-200 dark:focus:ring-emerald-800 bg-emerald-50/50 dark:bg-emerald-950/50 placeholder:text-emerald-500 dark:placeholder:text-emerald-400"
                             {...field}
                           />
                         </FormControl>
@@ -497,13 +497,13 @@ export default function FarmerAuthPage() {
                     name="phone"
                     render={({ field }) => (
                       <FormItem>
-                        <FormLabel className="text-amber-700 dark:text-amber-300 font-medium">{t.auth.phoneLabel}</FormLabel>
+                        <FormLabel className="text-emerald-700 dark:text-emerald-300 font-medium">{t.auth.phoneLabel}</FormLabel>
                         <FormControl>
                           <Input
                             type="tel"
                             placeholder="1234567890"
                             maxLength={10}
-                            className="border-amber-200 dark:border-amber-700 focus:border-amber-400 dark:focus:border-amber-500 focus:ring-amber-200 dark:focus:ring-amber-800 bg-amber-50/50 dark:bg-amber-950/50 placeholder:text-amber-500 dark:placeholder:text-amber-400"
+                            className="border-emerald-200 dark:border-emerald-700 focus:border-emerald-400 dark:focus:border-emerald-500 focus:ring-emerald-200 dark:focus:ring-emerald-800 bg-emerald-50/50 dark:bg-emerald-950/50 placeholder:text-emerald-500 dark:placeholder:text-emerald-400"
                             {...field}
                             onInput={(e) => {
                               e.currentTarget.value =
