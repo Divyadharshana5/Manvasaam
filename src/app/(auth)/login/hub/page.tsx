@@ -447,9 +447,9 @@ function HubAuthComponent() {
                     control={loginForm.control}
                     name="password"
                     render={({ field }) => (
-                      <FormItem>
+                      <FormItem className="animate-in slide-in-from-left-2 duration-500 delay-400">
                         <div className="flex justify-between items-center">
-                          <FormLabel className="text-emerald-700 dark:text-emerald-300 font-medium">{t.auth.passwordLabel}</FormLabel>
+                          <FormLabel className="text-emerald-700 dark:text-emerald-300 font-medium transition-colors duration-200 hover:text-emerald-600 dark:hover:text-emerald-200">{t.auth.passwordLabel}</FormLabel>
                           <Button
                             variant="link"
                             size="sm"
@@ -465,14 +465,14 @@ function HubAuthComponent() {
                           <div className="relative">
                             <Input
                               type={showPassword ? "text" : "password"}
-                              className="border-emerald-200 dark:border-emerald-700 focus:border-emerald-400 dark:focus:border-emerald-500 focus:ring-emerald-200 dark:focus:ring-emerald-800 bg-emerald-50/50 dark:bg-emerald-950/50"
+                              className="border-emerald-200 dark:border-emerald-700 focus:border-emerald-400 dark:focus:border-emerald-500 focus:ring-emerald-200 dark:focus:ring-emerald-800 bg-emerald-50/50 dark:bg-emerald-950/50 transition-all duration-300 focus:scale-[1.02] hover:border-emerald-300 dark:hover:border-emerald-600 transform-gpu"
                               {...field}
                             />
                             <Button
                               type="button"
                               variant="ghost"
                               size="icon"
-                              className="absolute right-1 top-1/2 -translate-y-1/2 h-7 w-7 hover:bg-emerald-100 dark:hover:bg-emerald-900"
+                              className="absolute right-1 top-1/2 -translate-y-1/2 h-7 w-7 hover:bg-emerald-100 dark:hover:bg-emerald-900 transition-all duration-200 hover:scale-110 transform-gpu"
                               onClick={() => setShowPassword(!showPassword)}
                             >
                               {showPassword ? (
