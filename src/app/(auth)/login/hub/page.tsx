@@ -376,17 +376,17 @@ function HubAuthComponent() {
   }
 
   return (
-    <div className="animate-in slide-in-from-left-4 duration-700 relative">
+    <div className="animate-in fade-in duration-700 relative">
       {/* Agricultural distribution center background */}
       <div className="absolute inset-0 bg-gradient-to-br from-emerald-50 via-green-50 to-lime-50 dark:from-emerald-950 dark:via-green-950 dark:to-lime-950 opacity-30 rounded-lg"></div>
       
-      <Card className="w-full max-w-md mx-4 sm:mx-auto bg-gradient-to-br from-emerald-50/90 via-green-50/90 to-lime-50/90 dark:from-emerald-950/90 dark:via-green-950/90 dark:to-lime-950/90 backdrop-blur-lg border-2 border-emerald-200/50 dark:border-emerald-700/50 shadow-lg hover:shadow-2xl transition-all duration-300 hover:scale-[1.02] relative overflow-hidden">
+      <Card className="w-full max-w-md mx-4 sm:mx-auto bg-white dark:bg-gray-900 border border-emerald-200 dark:border-emerald-700 animate-in slide-in-from-left-4 duration-500 delay-200">
 
-        <CardHeader className="text-center px-4 sm:px-6 py-4 sm:py-6 relative z-10">
-          <CardTitle className="text-lg sm:text-xl font-bold text-emerald-700 dark:text-emerald-300">
+        <CardHeader className="text-center px-4 sm:px-6 py-4 sm:py-6">
+          <CardTitle className="text-lg sm:text-xl font-bold text-emerald-700 dark:text-emerald-300 animate-in slide-in-from-top-2 duration-500 delay-300">
             Hub Portal
           </CardTitle>
-          <CardDescription className="text-sm sm:text-base text-emerald-600 dark:text-emerald-400">
+          <CardDescription className="text-sm sm:text-base text-emerald-600 dark:text-emerald-400 animate-in fade-in duration-500 delay-400">
             Distribution center access
           </CardDescription>
         </CardHeader>
