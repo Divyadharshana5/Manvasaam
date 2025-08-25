@@ -388,24 +388,24 @@ function HubAuthComponent() {
         <CardHeader className="text-center px-4 sm:px-6 py-4 sm:py-6 relative z-10">
           <CardTitle className="flex items-center justify-center gap-2 text-lg sm:text-xl">
             <div className="relative">
-              <Building2 className="h-4 w-4 sm:h-5 sm:w-5 text-teal-600 dark:text-teal-400 animate-pulse" />
-              <div className="absolute -top-1 -right-1 w-2 h-2 bg-cyan-400 rounded-full animate-ping"></div>
+              <Building2 className="h-4 w-4 sm:h-5 sm:w-5 text-emerald-600 dark:text-emerald-400 animate-bounce" />
+              <div className="absolute -top-1 -right-1 w-2 h-2 bg-lime-400 rounded-full animate-ping"></div>
             </div>
-            <span className="animate-in slide-in-from-bottom-2 duration-500 delay-200 bg-gradient-to-r from-teal-700 via-cyan-600 to-blue-600 dark:from-teal-400 dark:via-cyan-400 dark:to-blue-400 bg-clip-text text-transparent font-bold">
+            <span className="animate-in slide-in-from-left-2 duration-500 delay-200 bg-gradient-to-r from-emerald-700 via-green-600 to-lime-600 dark:from-emerald-400 dark:via-green-400 dark:to-lime-400 bg-clip-text text-transparent font-bold">
               🏢 Agricultural Hub Center
             </span>
           </CardTitle>
-          <CardDescription className="text-sm sm:text-base animate-in fade-in duration-500 delay-300 text-teal-700 dark:text-teal-300">
+          <CardDescription className="text-sm sm:text-base animate-in fade-in duration-500 delay-300 text-emerald-700 dark:text-emerald-300">
             🚛 Central distribution & logistics management
           </CardDescription>
         </CardHeader>
       <CardContent>
         <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full animate-in fade-in duration-500 delay-400 relative z-10">
-          <TabsList className="grid w-full grid-cols-2 bg-gradient-to-r from-teal-100 via-cyan-100 to-blue-100 dark:from-teal-900 dark:via-cyan-900 dark:to-blue-900 border border-teal-200 dark:border-teal-700">
-            <TabsTrigger value="login" className="transition-all duration-300 hover:scale-105 hover:bg-teal-200 dark:hover:bg-teal-800 data-[state=active]:bg-teal-300 dark:data-[state=active]:bg-teal-700 data-[state=active]:text-teal-900 dark:data-[state=active]:text-teal-100">
+          <TabsList className="grid w-full grid-cols-2 bg-gradient-to-r from-emerald-100 via-green-100 to-lime-100 dark:from-emerald-900 dark:via-green-900 dark:to-lime-900 border border-emerald-200 dark:border-emerald-700">
+            <TabsTrigger value="login" className="transition-all duration-300 hover:scale-105 hover:bg-emerald-200 dark:hover:bg-emerald-800 data-[state=active]:bg-emerald-300 dark:data-[state=active]:bg-emerald-700 data-[state=active]:text-emerald-900 dark:data-[state=active]:text-emerald-100">
               🏢 {t.auth.login}
             </TabsTrigger>
-            <TabsTrigger value="register" className="transition-all duration-300 hover:scale-105 hover:bg-cyan-200 dark:hover:bg-cyan-800 data-[state=active]:bg-cyan-300 dark:data-[state=active]:bg-cyan-700 data-[state=active]:text-cyan-900 dark:data-[state=active]:text-cyan-100">
+            <TabsTrigger value="register" className="transition-all duration-300 hover:scale-105 hover:bg-lime-200 dark:hover:bg-lime-800 data-[state=active]:bg-lime-300 dark:data-[state=active]:bg-lime-700 data-[state=active]:text-lime-900 dark:data-[state=active]:text-lime-100">
               🚛 {t.auth.register}
             </TabsTrigger>
           </TabsList>
@@ -421,9 +421,9 @@ function HubAuthComponent() {
                   name="branchName"
                   render={({ field }) => (
                     <FormItem>
-                      <FormLabel className="text-teal-700 dark:text-teal-300 font-medium">{t.auth.branchNameLabel}</FormLabel>
+                      <FormLabel className="text-emerald-700 dark:text-emerald-300 font-medium">{t.auth.branchNameLabel}</FormLabel>
                       <FormControl>
-                        <Input placeholder="Central Hub" className="border-teal-200 dark:border-teal-700 focus:border-teal-400 dark:focus:border-teal-500 focus:ring-teal-200 dark:focus:ring-teal-800 bg-teal-50/50 dark:bg-teal-950/50 placeholder:text-teal-500 dark:placeholder:text-teal-400" {...field} />
+                        <Input placeholder="Central Hub" className="border-emerald-200 dark:border-emerald-700 focus:border-emerald-400 dark:focus:border-emerald-500 focus:ring-emerald-200 dark:focus:ring-emerald-800 bg-emerald-50/50 dark:bg-emerald-950/50 placeholder:text-emerald-500 dark:placeholder:text-emerald-400" {...field} />
                       </FormControl>
                       <FormMessage className="text-red-600 dark:text-red-400" />
                     </FormItem>
@@ -434,9 +434,9 @@ function HubAuthComponent() {
                   name="email"
                   render={({ field }) => (
                     <FormItem>
-                      <FormLabel className="text-teal-700 dark:text-teal-300 font-medium">{t.auth.emailLabel}</FormLabel>
+                      <FormLabel className="text-emerald-700 dark:text-emerald-300 font-medium">{t.auth.emailLabel}</FormLabel>
                       <FormControl>
-                        <Input placeholder="hub-admin@example.com" className="border-teal-200 dark:border-teal-700 focus:border-teal-400 dark:focus:border-teal-500 focus:ring-teal-200 dark:focus:ring-teal-800 bg-teal-50/50 dark:bg-teal-950/50 placeholder:text-teal-500 dark:placeholder:text-teal-400" {...field} />
+                        <Input placeholder="hub-admin@example.com" className="border-emerald-200 dark:border-emerald-700 focus:border-emerald-400 dark:focus:border-emerald-500 focus:ring-emerald-200 dark:focus:ring-emerald-800 bg-emerald-50/50 dark:bg-emerald-950/50 placeholder:text-emerald-500 dark:placeholder:text-emerald-400" {...field} />
                       </FormControl>
                       <FormMessage className="text-red-600 dark:text-red-400" />
                     </FormItem>
@@ -448,12 +448,12 @@ function HubAuthComponent() {
                   render={({ field }) => (
                     <FormItem>
                       <div className="flex justify-between items-center">
-                        <FormLabel className="text-teal-700 dark:text-teal-300 font-medium">{t.auth.passwordLabel}</FormLabel>
+                        <FormLabel className="text-emerald-700 dark:text-emerald-300 font-medium">{t.auth.passwordLabel}</FormLabel>
                         <Button
                           variant="link"
                           size="sm"
                           type="button"
-                          className="p-0 h-auto text-xs text-teal-600 dark:text-teal-400 hover:text-teal-800 dark:hover:text-teal-200"
+                          className="p-0 h-auto text-xs text-emerald-600 dark:text-emerald-400 hover:text-emerald-800 dark:hover:text-emerald-200"
                           onClick={onForgotPassword}
                           disabled={loading}
                         >
@@ -464,20 +464,20 @@ function HubAuthComponent() {
                         <div className="relative">
                           <Input
                             type={showPassword ? "text" : "password"}
-                            className="border-teal-200 dark:border-teal-700 focus:border-teal-400 dark:focus:border-teal-500 focus:ring-teal-200 dark:focus:ring-teal-800 bg-teal-50/50 dark:bg-teal-950/50"
+                            className="border-emerald-200 dark:border-emerald-700 focus:border-emerald-400 dark:focus:border-emerald-500 focus:ring-emerald-200 dark:focus:ring-emerald-800 bg-emerald-50/50 dark:bg-emerald-950/50"
                             {...field}
                           />
                           <Button
                             type="button"
                             variant="ghost"
                             size="icon"
-                            className="absolute right-1 top-1/2 -translate-y-1/2 h-7 w-7 hover:bg-teal-100 dark:hover:bg-teal-900"
+                            className="absolute right-1 top-1/2 -translate-y-1/2 h-7 w-7 hover:bg-emerald-100 dark:hover:bg-emerald-900"
                             onClick={() => setShowPassword(!showPassword)}
                           >
                             {showPassword ? (
-                              <EyeOff className="h-4 w-4 text-teal-600 dark:text-teal-400" />
+                              <EyeOff className="h-4 w-4 text-emerald-600 dark:text-emerald-400" />
                             ) : (
-                              <Eye className="h-4 w-4 text-teal-600 dark:text-teal-400" />
+                              <Eye className="h-4 w-4 text-emerald-600 dark:text-emerald-400" />
                             )}
                           </Button>
                         </div>
