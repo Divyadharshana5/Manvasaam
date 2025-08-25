@@ -275,27 +275,21 @@ export default function FarmerAuthPage() {
         <div className="absolute bottom-0 left-0 w-16 h-16 bg-gradient-to-tr from-emerald-200/20 to-transparent rounded-full"></div>
 
         <CardHeader className="text-center px-4 sm:px-6 py-4 sm:py-6 relative z-10">
-          <CardTitle className="flex items-center justify-center gap-2 text-lg sm:text-xl">
-            <div className="relative">
-              <Tractor className="h-4 w-4 sm:h-5 sm:w-5 text-emerald-600 dark:text-emerald-400 animate-bounce" />
-              <div className="absolute -top-1 -right-1 w-2 h-2 bg-lime-400 rounded-full animate-ping"></div>
-            </div>
-            <span className="animate-in slide-in-from-left-2 duration-500 delay-200 bg-gradient-to-r from-emerald-700 via-green-600 to-lime-600 dark:from-emerald-400 dark:via-green-400 dark:to-lime-400 bg-clip-text text-transparent font-bold">
-              🚜 Farm Producer Portal
-            </span>
+          <CardTitle className="text-lg sm:text-xl font-bold text-emerald-700 dark:text-emerald-300">
+            Farmer Portal
           </CardTitle>
-          <CardDescription className="text-sm sm:text-base animate-in fade-in duration-500 delay-300 text-emerald-700 dark:text-emerald-300">
-            🌾 Enhanced security for agricultural professionals
+          <CardDescription className="text-sm sm:text-base text-emerald-600 dark:text-emerald-400">
+            Farm management access
           </CardDescription>
         </CardHeader>
         <CardContent>
           <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full animate-in fade-in duration-500 delay-400 relative z-10">
             <TabsList className="grid w-full grid-cols-2 bg-gradient-to-r from-emerald-100 via-green-100 to-lime-100 dark:from-emerald-900 dark:via-green-900 dark:to-lime-900 border border-emerald-200 dark:border-emerald-700">
-              <TabsTrigger value="login" className="transition-all duration-300 hover:scale-105 hover:bg-emerald-200 dark:hover:bg-emerald-800 data-[state=active]:bg-emerald-300 dark:data-[state=active]:bg-emerald-700 data-[state=active]:text-emerald-900 dark:data-[state=active]:text-emerald-100">
-                🌾 {t.auth.login}
+              <TabsTrigger value="login" className="data-[state=active]:bg-emerald-200 dark:data-[state=active]:bg-emerald-700">
+                {t.auth.login}
               </TabsTrigger>
-              <TabsTrigger value="register" className="transition-all duration-300 hover:scale-105 hover:bg-lime-200 dark:hover:bg-lime-800 data-[state=active]:bg-lime-300 dark:data-[state=active]:bg-lime-700 data-[state=active]:text-lime-900 dark:data-[state=active]:text-lime-100">
-                🚜 {t.auth.register}
+              <TabsTrigger value="register" className="data-[state=active]:bg-emerald-200 dark:data-[state=active]:bg-emerald-700">
+                {t.auth.register}
               </TabsTrigger>
             </TabsList>
             <TabsContent value="login">
@@ -382,11 +376,11 @@ export default function FarmerAuthPage() {
                           </FormItem>
                         )}
                       />
-                      <Button type="submit" className="w-full bg-gradient-to-r from-emerald-600 via-green-600 to-lime-600 hover:from-emerald-700 hover:via-green-700 hover:to-lime-700 text-white border-0 shadow-lg hover:shadow-xl transition-all duration-300" disabled={loading}>
+                      <Button type="submit" className="w-full bg-emerald-600 hover:bg-emerald-700 text-white" disabled={loading}>
                         {loading && (
                           <Loader2 className="mr-2 h-4 w-4 animate-spin" />
                         )}
-                        🌾 {t.auth.login}
+                        {t.auth.login}
                       </Button>
                     </form>
                   </Form>
