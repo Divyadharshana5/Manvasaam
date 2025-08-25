@@ -284,7 +284,7 @@ export default function FarmerAuthPage() {
             console.log("Farmer tab changed to:", value);
             setActiveTab(value);
           }} className="w-full animate-in fade-in duration-500 delay-500 relative z-30">
-            <TabsList className="grid w-full grid-cols-2 bg-emerald-100 dark:bg-emerald-900 p-1 rounded-md">
+            <TabsList className="grid w-full grid-cols-2 bg-emerald-100 dark:bg-emerald-900 p-1 rounded-md relative z-40 pointer-events-auto">
               <TabsTrigger
                 value="login"
                 className="data-[state=active]:bg-emerald-200 dark:data-[state=active]:bg-emerald-700 transition-all duration-200 cursor-pointer"

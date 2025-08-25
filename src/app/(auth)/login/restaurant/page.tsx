@@ -243,24 +243,24 @@ export default function RestaurantAuthPage() {
           <Tabs value={activeTab} onValueChange={(value) => {
             console.log("Tab changed to:", value);
             setActiveTab(value);
-          }} className="w-full animate-in fade-in duration-500 delay-500">
-            <TabsList className="grid w-full grid-cols-2 bg-emerald-100 dark:bg-emerald-900 p-1 rounded-md">
+          }} className="w-full animate-in fade-in duration-500 delay-500 relative z-30">
+            <TabsList className="grid w-full grid-cols-2 bg-emerald-100 dark:bg-emerald-900 p-1 rounded-md relative z-40 pointer-events-auto">
               <TabsTrigger 
                 value="login" 
-                className="data-[state=active]:bg-emerald-200 dark:data-[state=active]:bg-emerald-700 transition-all duration-200 cursor-pointer"
+                className="data-[state=active]:bg-emerald-200 dark:data-[state=active]:bg-emerald-700 transition-all duration-200 cursor-pointer pointer-events-auto relative z-50"
                 onClick={() => console.log("Login tab clicked")}
               >
                 {t.auth.login}
               </TabsTrigger>
               <TabsTrigger 
                 value="register" 
-                className="data-[state=active]:bg-emerald-200 dark:data-[state=active]:bg-emerald-700 transition-all duration-200 cursor-pointer"
+                className="data-[state=active]:bg-emerald-200 dark:data-[state=active]:bg-emerald-700 transition-all duration-200 cursor-pointer pointer-events-auto relative z-50"
                 onClick={() => console.log("Register tab clicked")}
               >
                 {t.auth.register}
               </TabsTrigger>
             </TabsList>
-            <TabsContent value="login" className="animate-in slide-in-from-right-4 duration-300">
+            <TabsContent value="login" className="animate-in slide-in-from-right-4 duration-300 relative z-40 pointer-events-auto">
               <Form {...loginForm}>
                 <form
                   onSubmit={loginForm.handleSubmit(onLogin)}
@@ -343,7 +343,7 @@ export default function RestaurantAuthPage() {
                 </form>
               </Form>
             </TabsContent>
-            <TabsContent value="register" className="animate-in slide-in-from-left-4 duration-300">
+            <TabsContent value="register" className="animate-in slide-in-from-left-4 duration-300 relative z-40 pointer-events-auto">
               <Form {...registerForm}>
                 <form
                   onSubmit={registerForm.handleSubmit(onRegister, (errors) => {
