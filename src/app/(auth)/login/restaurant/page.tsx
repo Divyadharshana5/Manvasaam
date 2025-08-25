@@ -276,9 +276,9 @@ export default function RestaurantAuthPage() {
                     name="email"
                     render={({ field }) => (
                       <FormItem>
-                        <FormLabel className="text-rose-700 dark:text-rose-300 font-medium">{t.auth.emailLabel}</FormLabel>
+                        <FormLabel className="text-emerald-700 dark:text-emerald-300 font-medium">{t.auth.emailLabel}</FormLabel>
                         <FormControl>
-                          <Input placeholder="restaurant@gmail.com" className="border-rose-200 dark:border-rose-700 focus:border-rose-400 dark:focus:border-rose-500 focus:ring-rose-200 dark:focus:ring-rose-800 bg-rose-50/50 dark:bg-rose-950/50 placeholder:text-rose-500 dark:placeholder:text-rose-400" {...field} />
+                          <Input placeholder="restaurant@gmail.com" className="border-emerald-200 dark:border-emerald-700 focus:border-emerald-400 dark:focus:border-emerald-500 focus:ring-emerald-200 dark:focus:ring-emerald-800 bg-emerald-50/50 dark:bg-emerald-950/50 placeholder:text-emerald-500 dark:placeholder:text-emerald-400" {...field} />
                         </FormControl>
                         <FormMessage className="text-red-600 dark:text-red-400" />
                       </FormItem>
@@ -290,12 +290,12 @@ export default function RestaurantAuthPage() {
                     render={({ field }) => (
                       <FormItem>
                         <div className="flex justify-between items-center">
-                          <FormLabel className="text-rose-700 dark:text-rose-300 font-medium">{t.auth.passwordLabel}</FormLabel>
+                          <FormLabel className="text-emerald-700 dark:text-emerald-300 font-medium">{t.auth.passwordLabel}</FormLabel>
                           <Button
                             variant="link"
                             size="sm"
                             type="button"
-                            className="p-0 h-auto text-xs text-rose-600 dark:text-rose-400 hover:text-rose-800 dark:hover:text-rose-200"
+                            className="p-0 h-auto text-xs text-emerald-600 dark:text-emerald-400 hover:text-emerald-800 dark:hover:text-emerald-200"
                             onClick={onForgotPassword}
                             disabled={loading}
                           >
@@ -306,14 +306,14 @@ export default function RestaurantAuthPage() {
                           <div className="relative">
                             <Input
                               type={showPassword ? "text" : "password"}
-                              className="border-rose-200 dark:border-rose-700 focus:border-rose-400 dark:focus:border-rose-500 focus:ring-rose-200 dark:focus:ring-rose-800 bg-rose-50/50 dark:bg-rose-950/50"
+                              className="border-emerald-200 dark:border-emerald-700 focus:border-emerald-400 dark:focus:border-emerald-500 focus:ring-emerald-200 dark:focus:ring-emerald-800 bg-emerald-50/50 dark:bg-emerald-950/50"
                               {...field}
                             />
                             <Button
                               type="button"
                               variant="ghost"
                               size="icon"
-                              className="absolute right-1 top-1/2 -translate-y-1/2 h-7 w-7 hover:bg-rose-100 dark:hover:bg-rose-900"
+                              className="absolute right-1 top-1/2 -translate-y-1/2 h-7 w-7 hover:bg-emerald-100 dark:hover:bg-emerald-900"
                               onClick={() => setShowPassword(!showPassword)}
                             >
                               {showPassword ? (
