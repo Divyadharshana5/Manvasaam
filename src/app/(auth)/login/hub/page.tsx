@@ -224,6 +224,7 @@ function HubAuthComponent() {
   }
 
   async function onRegister(values: z.infer<typeof registerSchema>) {
+    console.log("Hub register function called with values:", values);
     setLoading(true);
     try {
       const { confirmPassword, ...rest } = values;
@@ -487,7 +488,9 @@ function HubAuthComponent() {
           <TabsContent value="register" className="pt-4 animate-in slide-in-from-left-4 duration-300">
             <Form {...registerForm}>
               <form
-                onSubmit={registerForm.handleSubmit(onRegister)}
+                onSubmit={registerForm.handleSubmit(onRegister, (errors) => {
+                  console.log("Hub form validation errors:", errors);
+                })}
                 className="space-y-4"
               >
                 <FormField

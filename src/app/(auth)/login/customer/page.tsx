@@ -176,6 +176,7 @@ export default function CustomerAuthPage() {
   }
 
   async function onRegister(values: z.infer<typeof registerSchema>) {
+    console.log("Customer register function called with values:", values);
     setLoading(true);
     try {
       const { confirmPassword, ...apiData } = values;
