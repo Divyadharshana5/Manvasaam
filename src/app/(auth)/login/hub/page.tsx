@@ -486,7 +486,7 @@ function HubAuthComponent() {
                     </FormItem>
                   )}
                 />
-                <Button type="submit" className="w-full bg-gradient-to-r from-teal-600 via-cyan-600 to-blue-600 hover:from-teal-700 hover:via-cyan-700 hover:to-blue-700 text-white border-0 shadow-lg hover:shadow-xl transition-all duration-300" disabled={loading}>
+                <Button type="submit" className="w-full bg-gradient-to-r from-emerald-600 via-green-600 to-lime-600 hover:from-emerald-700 hover:via-green-700 hover:to-lime-700 text-white border-0 shadow-lg hover:shadow-xl transition-all duration-300" disabled={loading}>
                   {loading && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
                   🏢 {t.auth.login}
                 </Button>
@@ -636,7 +636,7 @@ function HubAuthComponent() {
                     </FormItem>
                   )}
                 />
-                <Button type="submit" className="w-full bg-gradient-to-r from-blue-600 via-cyan-600 to-teal-600 hover:from-blue-700 hover:via-cyan-700 hover:to-teal-700 text-white border-0 shadow-lg hover:shadow-xl transition-all duration-300" disabled={loading}>
+                <Button type="submit" className="w-full bg-gradient-to-r from-lime-600 via-green-600 to-emerald-600 hover:from-lime-700 hover:via-green-700 hover:to-emerald-700 text-white border-0 shadow-lg hover:shadow-xl transition-all duration-300" disabled={loading}>
                   {loading && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
                   🚛 {t.auth.registerHub}
                 </Button>
