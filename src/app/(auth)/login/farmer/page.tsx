@@ -219,6 +219,7 @@ export default function FarmerAuthPage() {
   }
 
   async function onRegister(values: z.infer<typeof registerSchema>) {
+    console.log("Farmer register function called with values:", values);
     setLoading(true);
     try {
       const { confirmPassword, ...apiData } = values;
@@ -412,7 +413,9 @@ export default function FarmerAuthPage() {
             <TabsContent value="register" className="pt-4 animate-in slide-in-from-left-4 duration-300">
               <Form {...registerForm}>
                 <form
-                  onSubmit={registerForm.handleSubmit(onRegister)}
+                  onSubmit={registerForm.handleSubmit(onRegister, (errors) => {
+                    console.log("Farmer form validation errors:", errors);
+                  })}
                   className="space-y-4"
                 >
                   <div className="text-center p-4 bg-emerald-50 dark:bg-emerald-950 rounded-lg border-2 border-emerald-200 dark:border-emerald-700">

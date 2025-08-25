@@ -350,6 +350,7 @@ export default function RestaurantAuthPage() {
                           <Input
                             type="text"
                             placeholder="The Fresh Table"
+                            className="border-emerald-200 dark:border-emerald-700 focus:border-emerald-400 dark:focus:border-emerald-500 focus:ring-emerald-200 dark:focus:ring-emerald-800 bg-emerald-50/50 dark:bg-emerald-950/50 placeholder:text-emerald-500 dark:placeholder:text-emerald-400"
                             {...field}
                           />
                         </FormControl>
@@ -367,6 +368,7 @@ export default function RestaurantAuthPage() {
                           <Input
                             type="email"
                             placeholder="restaurant@gmail.com"
+                            className="border-emerald-200 dark:border-emerald-700 focus:border-emerald-400 dark:focus:border-emerald-500 focus:ring-emerald-200 dark:focus:ring-emerald-800 bg-emerald-50/50 dark:bg-emerald-950/50 placeholder:text-emerald-500 dark:placeholder:text-emerald-400"
                             {...field}
                           />
                         </FormControl>
@@ -385,6 +387,7 @@ export default function RestaurantAuthPage() {
                             type="tel"
                             placeholder="123-456-7890"
                             maxLength={10}
+                            className="border-emerald-200 dark:border-emerald-700 focus:border-emerald-400 dark:focus:border-emerald-500 focus:ring-emerald-200 dark:focus:ring-emerald-800 bg-emerald-50/50 dark:bg-emerald-950/50 placeholder:text-emerald-500 dark:placeholder:text-emerald-400"
                             {...field}
                             onInput={(e) => {
                               e.currentTarget.value =
@@ -406,6 +409,7 @@ export default function RestaurantAuthPage() {
                           <Input
                             type="text"
                             placeholder="City, State"
+                            className="border-emerald-200 dark:border-emerald-700 focus:border-emerald-400 dark:focus:border-emerald-500 focus:ring-emerald-200 dark:focus:ring-emerald-800 bg-emerald-50/50 dark:bg-emerald-950/50 placeholder:text-emerald-500 dark:placeholder:text-emerald-400"
                             {...field}
                           />
                         </FormControl>
@@ -423,6 +427,7 @@ export default function RestaurantAuthPage() {
                           <div className="relative">
                             <Input
                               type={showPassword ? "text" : "password"}
+                              className="border-emerald-200 dark:border-emerald-700 focus:border-emerald-400 dark:focus:border-emerald-500 focus:ring-emerald-200 dark:focus:ring-emerald-800 bg-emerald-50/50 dark:bg-emerald-950/50"
                               {...field}
                             />
                             <Button
@@ -454,6 +459,7 @@ export default function RestaurantAuthPage() {
                           <div className="relative">
                             <Input
                               type={showConfirmPassword ? "text" : "password"}
+                              className="border-emerald-200 dark:border-emerald-700 focus:border-emerald-400 dark:focus:border-emerald-500 focus:ring-emerald-200 dark:focus:ring-emerald-800 bg-emerald-50/50 dark:bg-emerald-950/50"
                               {...field}
                             />
                             <Button
@@ -477,9 +483,9 @@ export default function RestaurantAuthPage() {
                       </FormItem>
                     )}
                   />
-                  <Button 
-                    type="submit" 
-                    className="w-full bg-emerald-600 hover:bg-emerald-700 text-white transition-all duration-200 hover:scale-[1.02]" 
+                  <Button
+                    type="submit"
+                    className="w-full bg-emerald-600 hover:bg-emerald-700 text-white transition-all duration-200 hover:scale-[1.02]"
                     disabled={loading}
                     onClick={() => console.log("Register button clicked")}
                   >
