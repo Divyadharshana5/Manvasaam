@@ -235,16 +235,16 @@ export default function RestaurantAuthPage() {
           </CardDescription>
         </CardHeader>
         <CardContent>
-          <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full animate-in fade-in duration-500 delay-400 relative z-10">
-            <TabsList className="grid w-full grid-cols-2 bg-gradient-to-r from-emerald-100 via-green-100 to-lime-100 dark:from-emerald-900 dark:via-green-900 dark:to-lime-900 border border-emerald-200 dark:border-emerald-700">
-              <TabsTrigger value="login" className="data-[state=active]:bg-emerald-200 dark:data-[state=active]:bg-emerald-700">
+          <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full animate-in fade-in duration-500 delay-500">
+            <TabsList className="grid w-full grid-cols-2 bg-emerald-100 dark:bg-emerald-900">
+              <TabsTrigger value="login" className="data-[state=active]:bg-emerald-200 dark:data-[state=active]:bg-emerald-700 transition-all duration-200">
                 {t.auth.login}
               </TabsTrigger>
-              <TabsTrigger value="register" className="data-[state=active]:bg-emerald-200 dark:data-[state=active]:bg-emerald-700">
+              <TabsTrigger value="register" className="data-[state=active]:bg-emerald-200 dark:data-[state=active]:bg-emerald-700 transition-all duration-200">
                 {t.auth.register}
               </TabsTrigger>
             </TabsList>
-            <TabsContent value="login">
+            <TabsContent value="login" className="animate-in slide-in-from-right-4 duration-300">
               <Form {...loginForm}>
                 <form
                   onSubmit={loginForm.handleSubmit(onLogin)}
@@ -320,14 +320,14 @@ export default function RestaurantAuthPage() {
                       </FormItem>
                     )}
                   />
-                  <Button type="submit" className="w-full bg-emerald-600 hover:bg-emerald-700 text-white" disabled={loading}>
+                  <Button type="submit" className="w-full bg-emerald-600 hover:bg-emerald-700 text-white transition-all duration-200 hover:scale-[1.02]" disabled={loading}>
                     {loading && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
                     {t.auth.login}
                   </Button>
                 </form>
               </Form>
             </TabsContent>
-            <TabsContent value="register">
+            <TabsContent value="register" className="animate-in slide-in-from-left-4 duration-300">
               <Form {...registerForm}>
                 <form
                   onSubmit={registerForm.handleSubmit(onRegister)}
@@ -470,7 +470,7 @@ export default function RestaurantAuthPage() {
                       </FormItem>
                     )}
                   />
-                  <Button type="submit" className="w-full bg-emerald-600 hover:bg-emerald-700 text-white" disabled={loading}>
+                  <Button type="submit" className="w-full bg-emerald-600 hover:bg-emerald-700 text-white transition-all duration-200 hover:scale-[1.02]" disabled={loading}>
                     {loading && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
                     {t.auth.registerRestaurant}
                   </Button>
