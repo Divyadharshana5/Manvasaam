@@ -313,7 +313,7 @@ export default function CustomerAuthPage() {
                       </FormItem>
                     )}
                   />
-                  <Button type="submit" className="w-full bg-emerald-600 hover:bg-emerald-700 text-white" disabled={loading}>
+                  <Button type="submit" className="w-full bg-emerald-600 hover:bg-emerald-700 text-white transition-all duration-200 hover:scale-[1.02]" disabled={loading}>
                     {loading && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
                     {t.auth.login}
                   </Button>
@@ -446,7 +446,7 @@ export default function CustomerAuthPage() {
                       </FormItem>
                     )}
                   />
-                  <Button type="submit" className="w-full bg-emerald-600 hover:bg-emerald-700 text-white" disabled={loading}>
+                  <Button type="submit" className="w-full bg-emerald-600 hover:bg-emerald-700 text-white transition-all duration-200 hover:scale-[1.02]" disabled={loading}>
                     {loading && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
                     {t.auth.createAccount}
                   </Button>
