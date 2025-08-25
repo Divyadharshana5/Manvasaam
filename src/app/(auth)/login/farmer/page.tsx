@@ -579,7 +579,7 @@ export default function FarmerAuthPage() {
                       </FormItem>
                     )}
                   />
-                  <Button type="submit" className="w-full bg-gradient-to-r from-orange-600 via-yellow-600 to-amber-600 hover:from-orange-700 hover:via-yellow-700 hover:to-amber-700 text-white border-0 shadow-lg hover:shadow-xl transition-all duration-300" disabled={loading}>
+                  <Button type="submit" className="w-full bg-gradient-to-r from-lime-600 via-green-600 to-emerald-600 hover:from-lime-700 hover:via-green-700 hover:to-emerald-700 text-white border-0 shadow-lg hover:shadow-xl transition-all duration-300" disabled={loading}>
                     {loading && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
                     🚜 {t.auth.createAccount}
                   </Button>
