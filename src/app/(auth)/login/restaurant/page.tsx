@@ -228,14 +228,14 @@ export default function RestaurantAuthPage() {
       {/* Farm-to-table restaurant background */}
       <div className="absolute inset-0 bg-gradient-to-br from-emerald-50 via-green-50 to-lime-50 dark:from-emerald-950 dark:via-green-950 dark:to-lime-950 opacity-30 rounded-lg -z-10"></div>
 
-      <Card className="w-full max-w-md bg-white dark:bg-gray-900 border border-emerald-200 dark:border-emerald-700 animate-in slide-in-from-right-4 duration-500 delay-200 relative z-10">
+      <Card className="w-full max-w-md bg-white dark:bg-gray-900 border border-emerald-200 dark:border-emerald-700 animate-in slide-in-from-right-4 duration-700 delay-200 relative z-10 hover:shadow-xl hover:scale-[1.02] transition-all duration-300 hover:border-emerald-300 dark:hover:border-emerald-600">
 
 
         <CardHeader className="text-center px-4 sm:px-6 py-4 sm:py-6">
-          <CardTitle className="text-lg sm:text-xl font-bold text-emerald-700 dark:text-emerald-300 animate-in slide-in-from-top-2 duration-500 delay-300">
+          <CardTitle className="text-lg sm:text-xl font-bold text-emerald-700 dark:text-emerald-300 animate-in slide-in-from-top-2 duration-700 delay-400 hover:text-emerald-600 dark:hover:text-emerald-200 transition-colors duration-300">
             Restaurant Portal
           </CardTitle>
-          <CardDescription className="text-sm sm:text-base text-emerald-600 dark:text-emerald-400 animate-in fade-in duration-500 delay-400">
+          <CardDescription className="text-sm sm:text-base text-emerald-600 dark:text-emerald-400 animate-in fade-in duration-700 delay-600 hover:text-emerald-500 dark:hover:text-emerald-300 transition-colors duration-300">
             Restaurant management access
           </CardDescription>
         </CardHeader>
@@ -244,23 +244,23 @@ export default function RestaurantAuthPage() {
             console.log("Tab changed to:", value);
             setActiveTab(value);
           }} className="w-full animate-in fade-in duration-500 delay-500 relative z-30">
-            <TabsList className="grid w-full grid-cols-2 bg-emerald-100 dark:bg-emerald-900 p-1 rounded-md relative z-40 pointer-events-auto">
+            <TabsList className="grid w-full grid-cols-2 bg-emerald-100 dark:bg-emerald-900 p-1 rounded-md relative z-40 pointer-events-auto animate-in slide-in-from-bottom-2 duration-500 delay-1000">
               <TabsTrigger 
                 value="login" 
-                className="data-[state=active]:bg-emerald-200 dark:data-[state=active]:bg-emerald-700 transition-all duration-200 cursor-pointer pointer-events-auto relative z-50"
+                className="data-[state=active]:bg-emerald-200 dark:data-[state=active]:bg-emerald-700 transition-all duration-300 cursor-pointer pointer-events-auto relative z-50 hover:scale-105 hover:bg-emerald-150 dark:hover:bg-emerald-800 transform-gpu"
                 onClick={() => console.log("Login tab clicked")}
               >
                 {t.auth.login}
               </TabsTrigger>
               <TabsTrigger 
                 value="register" 
-                className="data-[state=active]:bg-emerald-200 dark:data-[state=active]:bg-emerald-700 transition-all duration-200 cursor-pointer pointer-events-auto relative z-50"
+                className="data-[state=active]:bg-emerald-200 dark:data-[state=active]:bg-emerald-700 transition-all duration-300 cursor-pointer pointer-events-auto relative z-50 hover:scale-105 hover:bg-emerald-150 dark:hover:bg-emerald-800 transform-gpu"
                 onClick={() => console.log("Register tab clicked")}
               >
                 {t.auth.register}
               </TabsTrigger>
             </TabsList>
-            <TabsContent value="login" className="animate-in slide-in-from-right-4 duration-300 relative z-40 pointer-events-auto">
+            <TabsContent value="login" className="animate-in slide-in-from-right-4 duration-500 delay-100 relative z-40 pointer-events-auto">
               <Form {...loginForm}>
                 <form
                   onSubmit={loginForm.handleSubmit(onLogin)}
@@ -336,14 +336,14 @@ export default function RestaurantAuthPage() {
                       </FormItem>
                     )}
                   />
-                  <Button type="submit" className="w-full bg-emerald-600 hover:bg-emerald-700 text-white transition-all duration-200 hover:scale-[1.02]" disabled={loading}>
+                  <Button type="submit" className="w-full bg-emerald-600 hover:bg-emerald-700 text-white transition-all duration-300 hover:scale-[1.05] hover:shadow-lg active:scale-[0.98] transform-gpu animate-in slide-in-from-bottom-2 duration-500 delay-500" disabled={loading}>
                     {loading && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
                     {t.auth.login}
                   </Button>
                 </form>
               </Form>
             </TabsContent>
-            <TabsContent value="register" className="animate-in slide-in-from-left-4 duration-300 relative z-40 pointer-events-auto">
+            <TabsContent value="register" className="animate-in slide-in-from-left-4 duration-500 delay-100 relative z-40 pointer-events-auto">
               <Form {...registerForm}>
                 <form
                   onSubmit={registerForm.handleSubmit(onRegister, (errors) => {
