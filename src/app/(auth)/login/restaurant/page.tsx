@@ -240,6 +240,7 @@ export default function RestaurantAuthPage() {
           </CardDescription>
         </CardHeader>
         <CardContent>
+          <div className="text-xs text-gray-500 mb-2">Current tab: {activeTab}</div>
           <Tabs value={activeTab} onValueChange={(value) => {
             console.log("Tab changed to:", value);
             setActiveTab(value);
