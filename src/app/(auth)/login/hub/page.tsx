@@ -392,12 +392,21 @@ function HubAuthComponent() {
           </CardDescription>
         </CardHeader>
       <CardContent>
-        <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full animate-in fade-in duration-500 delay-500">
-          <TabsList className="grid w-full grid-cols-2 bg-emerald-100 dark:bg-emerald-900">
-            <TabsTrigger value="login" className="data-[state=active]:bg-emerald-200 dark:data-[state=active]:bg-emerald-700 transition-all duration-200">
+        <Tabs value={activeTab} onValueChange={(value) => {
+          console.log("Hub tab changed to:", value);
+          setActiveTab(value);
+        }} className="w-full animate-in fade-in duration-500 delay-500">
+          <TabsList className="grid w-full grid-cols-2 bg-emerald-100 dark:bg-emerald-900 p-1 rounded-md">
+            <TabsTrigger 
+              value="login" 
+              className="data-[state=active]:bg-emerald-200 dark:data-[state=active]:bg-emerald-700 transition-all duration-200 cursor-pointer"
+            >
               {t.auth.login}
             </TabsTrigger>
-            <TabsTrigger value="register" className="data-[state=active]:bg-emerald-200 dark:data-[state=active]:bg-emerald-700 transition-all duration-200">
+            <TabsTrigger 
+              value="register" 
+              className="data-[state=active]:bg-emerald-200 dark:data-[state=active]:bg-emerald-700 transition-all duration-200 cursor-pointer"
+            >
               {t.auth.register}
             </TabsTrigger>
           </TabsList>

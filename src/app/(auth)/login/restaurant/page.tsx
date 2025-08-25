@@ -241,6 +241,20 @@ export default function RestaurantAuthPage() {
         </CardHeader>
         <CardContent>
           <div className="text-xs text-gray-500 mb-2">Current tab: {activeTab}</div>
+          <div className="flex gap-2 mb-4">
+            <button 
+              onClick={() => setActiveTab("login")} 
+              className={`px-3 py-1 text-sm rounded ${activeTab === "login" ? "bg-emerald-200 text-emerald-800" : "bg-gray-200 text-gray-600"}`}
+            >
+              Login
+            </button>
+            <button 
+              onClick={() => setActiveTab("register")} 
+              className={`px-3 py-1 text-sm rounded ${activeTab === "register" ? "bg-emerald-200 text-emerald-800" : "bg-gray-200 text-gray-600"}`}
+            >
+              Register
+            </button>
+          </div>
           <Tabs value={activeTab} onValueChange={(value) => {
             console.log("Tab changed to:", value);
             setActiveTab(value);
