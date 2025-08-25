@@ -231,14 +231,14 @@ export default function RestaurantAuthPage() {
         <CardHeader className="text-center px-4 sm:px-6 py-4 sm:py-6 relative z-10">
           <CardTitle className="flex items-center justify-center gap-2 text-lg sm:text-xl">
             <div className="relative">
-              <ChefHat className="h-4 w-4 sm:h-5 sm:w-5 text-rose-600 dark:text-rose-400 animate-bounce" />
-              <div className="absolute -top-1 -right-1 w-2 h-2 bg-pink-400 rounded-full animate-pulse"></div>
+              <ChefHat className="h-4 w-4 sm:h-5 sm:w-5 text-emerald-600 dark:text-emerald-400 animate-bounce" />
+              <div className="absolute -top-1 -right-1 w-2 h-2 bg-lime-400 rounded-full animate-ping"></div>
             </div>
-            <span className="animate-in slide-in-from-left-2 duration-500 delay-200 bg-gradient-to-r from-rose-700 via-pink-600 to-red-600 dark:from-rose-400 dark:via-pink-400 dark:to-red-400 bg-clip-text text-transparent font-bold">
+            <span className="animate-in slide-in-from-left-2 duration-500 delay-200 bg-gradient-to-r from-emerald-700 via-green-600 to-lime-600 dark:from-emerald-400 dark:via-green-400 dark:to-lime-400 bg-clip-text text-transparent font-bold">
               👨‍🍳 Farm-to-Table Restaurant
             </span>
           </CardTitle>
-          <CardDescription className="text-sm sm:text-base animate-in fade-in duration-500 delay-300 text-rose-700 dark:text-rose-300">
+          <CardDescription className="text-sm sm:text-base animate-in fade-in duration-500 delay-300 text-emerald-700 dark:text-emerald-300">
             🍽️ Fresh ingredients from local agricultural partners
           </CardDescription>
         </CardHeader>
