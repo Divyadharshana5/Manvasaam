@@ -265,26 +265,26 @@ export default function FarmerAuthPage() {
   }
 
   return (
-    <div className="animate-in slide-in-from-top-4 duration-700 relative">
+    <div className="animate-in fade-in duration-700 relative">
       {/* Farm field background pattern */}
       <div className="absolute inset-0 bg-gradient-to-br from-emerald-50 via-green-50 to-lime-50 dark:from-emerald-950 dark:via-green-950 dark:to-lime-950 opacity-30 rounded-lg"></div>
 
-      <Card className="w-full max-w-md mx-4 sm:mx-auto bg-gradient-to-br from-emerald-50/90 via-green-50/90 to-lime-50/90 dark:from-emerald-950/90 dark:via-green-950/90 dark:to-lime-950/90 backdrop-blur-lg border-2 border-emerald-200/50 dark:border-emerald-700/50 shadow-lg hover:shadow-2xl transition-all duration-300 hover:scale-[1.02] relative overflow-hidden">
+      <Card className="w-full max-w-md mx-4 sm:mx-auto bg-white dark:bg-gray-900 border border-emerald-200 dark:border-emerald-700 animate-in slide-in-from-top-4 duration-500 delay-200">
         <CardHeader className="text-center px-4 sm:px-6 py-4 sm:py-6">
-          <CardTitle className="text-lg sm:text-xl font-bold text-emerald-700 dark:text-emerald-300">
+          <CardTitle className="text-lg sm:text-xl font-bold text-emerald-700 dark:text-emerald-300 animate-in slide-in-from-top-2 duration-500 delay-300">
             Farmer Portal
           </CardTitle>
-          <CardDescription className="text-sm sm:text-base text-emerald-600 dark:text-emerald-400">
+          <CardDescription className="text-sm sm:text-base text-emerald-600 dark:text-emerald-400 animate-in fade-in duration-500 delay-400">
             Farm management access
           </CardDescription>
         </CardHeader>
         <CardContent>
-          <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full animate-in fade-in duration-500 delay-400 relative z-10">
-            <TabsList className="grid w-full grid-cols-2 bg-gradient-to-r from-emerald-100 via-green-100 to-lime-100 dark:from-emerald-900 dark:via-green-900 dark:to-lime-900 border border-emerald-200 dark:border-emerald-700">
-              <TabsTrigger value="login" className="data-[state=active]:bg-emerald-200 dark:data-[state=active]:bg-emerald-700">
+          <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full animate-in fade-in duration-500 delay-500">
+            <TabsList className="grid w-full grid-cols-2 bg-emerald-100 dark:bg-emerald-900">
+              <TabsTrigger value="login" className="data-[state=active]:bg-emerald-200 dark:data-[state=active]:bg-emerald-700 transition-all duration-200">
                 {t.auth.login}
               </TabsTrigger>
-              <TabsTrigger value="register" className="data-[state=active]:bg-emerald-200 dark:data-[state=active]:bg-emerald-700">
+              <TabsTrigger value="register" className="data-[state=active]:bg-emerald-200 dark:data-[state=active]:bg-emerald-700 transition-all duration-200">
                 {t.auth.register}
               </TabsTrigger>
             </TabsList>
@@ -304,7 +304,7 @@ export default function FarmerAuthPage() {
                     Passkey Login
                   </TabsTrigger>
                 </TabsList>
-                <TabsContent value="email" className="pt-4">
+                <TabsContent value="email" className="pt-4 animate-in slide-in-from-right-4 duration-300">
                   <Form {...loginForm}>
                     <form
                       onSubmit={loginForm.handleSubmit(onLogin)}
@@ -372,7 +372,7 @@ export default function FarmerAuthPage() {
                           </FormItem>
                         )}
                       />
-                      <Button type="submit" className="w-full bg-emerald-600 hover:bg-emerald-700 text-white" disabled={loading}>
+                      <Button type="submit" className="w-full bg-emerald-600 hover:bg-emerald-700 text-white transition-all duration-200 hover:scale-[1.02]" disabled={loading}>
                         {loading && (
                           <Loader2 className="mr-2 h-4 w-4 animate-spin" />
                         )}
@@ -383,7 +383,7 @@ export default function FarmerAuthPage() {
                 </TabsContent>
                 <TabsContent
                   value="passkey"
-                  className="pt-3 sm:pt-4 space-y-3 sm:space-y-4"
+                  className="pt-3 sm:pt-4 space-y-3 sm:space-y-4 animate-in slide-in-from-left-4 duration-300"
                 >
                   <div className="text-center space-y-4">
                     <div className="flex items-center justify-center w-16 h-16 mx-auto bg-emerald-100 dark:bg-emerald-900 rounded-full border-2 border-emerald-300 dark:border-emerald-600">
@@ -396,7 +396,7 @@ export default function FarmerAuthPage() {
 
                   <Button
                     onClick={handlePasskeyLogin}
-                    className="w-full py-3"
+                    className="w-full py-3 transition-all duration-200 hover:scale-[1.02]"
                     disabled={loading}
                   >
                     {loading ? (
@@ -409,7 +409,7 @@ export default function FarmerAuthPage() {
                 </TabsContent>
               </Tabs>
             </TabsContent>
-            <TabsContent value="register" className="pt-4">
+            <TabsContent value="register" className="pt-4 animate-in slide-in-from-left-4 duration-300">
               <Form {...registerForm}>
                 <form
                   onSubmit={registerForm.handleSubmit(onRegister)}
@@ -441,7 +441,7 @@ export default function FarmerAuthPage() {
                           });
                         }, 1500);
                       }}
-                      className="w-full bg-emerald-600 hover:bg-emerald-700 text-white"
+                      className="w-full bg-emerald-600 hover:bg-emerald-700 text-white transition-all duration-200 hover:scale-[1.02]"
                     >
                       <Fingerprint className="mr-2 h-4 w-4" />
                       Register with Biometrics
@@ -568,7 +568,7 @@ export default function FarmerAuthPage() {
                       </FormItem>
                     )}
                   />
-                  <Button type="submit" className="w-full bg-emerald-600 hover:bg-emerald-700 text-white" disabled={loading}>
+                  <Button type="submit" className="w-full bg-emerald-600 hover:bg-emerald-700 text-white transition-all duration-200 hover:scale-[1.02]" disabled={loading}>
                     {loading && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
                     {t.auth.createAccount}
                   </Button>
