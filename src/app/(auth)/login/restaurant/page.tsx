@@ -317,9 +317,9 @@ export default function RestaurantAuthPage() {
                               onClick={() => setShowPassword(!showPassword)}
                             >
                               {showPassword ? (
-                                <EyeOff className="h-4 w-4 text-rose-600 dark:text-rose-400" />
+                                <EyeOff className="h-4 w-4 text-emerald-600 dark:text-emerald-400" />
                               ) : (
-                                <Eye className="h-4 w-4 text-rose-600 dark:text-rose-400" />
+                                <Eye className="h-4 w-4 text-emerald-600 dark:text-emerald-400" />
                               )}
                             </Button>
                           </div>
@@ -328,7 +328,7 @@ export default function RestaurantAuthPage() {
                       </FormItem>
                     )}
                   />
-                  <Button type="submit" className="w-full bg-gradient-to-r from-rose-600 via-pink-600 to-red-600 hover:from-rose-700 hover:via-pink-700 hover:to-red-700 text-white border-0 shadow-lg hover:shadow-xl transition-all duration-300" disabled={loading}>
+                  <Button type="submit" className="w-full bg-gradient-to-r from-emerald-600 via-green-600 to-lime-600 hover:from-emerald-700 hover:via-green-700 hover:to-lime-700 text-white border-0 shadow-lg hover:shadow-xl transition-all duration-300" disabled={loading}>
                     {loading && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
                     🍽️ {t.auth.login}
                   </Button>
