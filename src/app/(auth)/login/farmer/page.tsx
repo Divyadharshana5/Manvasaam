@@ -389,12 +389,12 @@ export default function FarmerAuthPage() {
                   value="passkey"
                   className="pt-3 sm:pt-4 space-y-3 sm:space-y-4"
                 >
-                  <div className="text-center space-y-4 animate-in zoom-in duration-500">
-                    <div className="flex items-center justify-center w-16 h-16 mx-auto bg-gradient-to-br from-emerald-100 via-green-100 to-lime-100 dark:from-emerald-900 dark:via-green-900 dark:to-lime-900 rounded-full animate-pulse border-2 border-emerald-300 dark:border-emerald-600">
-                      <Fingerprint className="h-8 w-8 text-emerald-600 dark:text-emerald-400 animate-bounce" />
+                  <div className="text-center space-y-4">
+                    <div className="flex items-center justify-center w-16 h-16 mx-auto bg-emerald-100 dark:bg-emerald-900 rounded-full border-2 border-emerald-300 dark:border-emerald-600">
+                      <Fingerprint className="h-8 w-8 text-emerald-600 dark:text-emerald-400" />
                     </div>
-                    <h3 className="font-semibold text-lg animate-in slide-in-from-bottom-2 duration-500 delay-200 text-emerald-800 dark:text-emerald-200">
-                      🔐 Secure Farm Access
+                    <h3 className="font-semibold text-lg text-emerald-800 dark:text-emerald-200">
+                      Secure Access
                     </h3>
                   </div>
 
@@ -419,40 +419,39 @@ export default function FarmerAuthPage() {
                   onSubmit={registerForm.handleSubmit(onRegister)}
                   className="space-y-4"
                 >
-                  <div className="text-center p-4 bg-gradient-to-br from-emerald-50 via-green-50 to-lime-50 dark:from-emerald-950 dark:via-green-950 dark:to-lime-950 rounded-lg border-2 border-emerald-200 dark:border-emerald-700 relative overflow-hidden">
-                    <div className="absolute top-0 right-0 w-8 h-8 bg-lime-300/20 rounded-full"></div>
+                  <div className="text-center p-4 bg-emerald-50 dark:bg-emerald-950 rounded-lg border-2 border-emerald-200 dark:border-emerald-700">
                     <Fingerprint className="h-12 w-12 mx-auto mb-3 text-emerald-600 dark:text-emerald-400" />
                     <h3 className="font-semibold text-emerald-800 dark:text-emerald-200 mb-2">
-                      🌾 Quick Farm Registration
+                      Quick Registration
                     </h3>
                     <p className="text-sm text-emerald-700 dark:text-emerald-300 mb-3">
-                      🚜 Secure agricultural access with biometric authentication
+                      Secure access with biometric authentication
                     </p>
                     <Button
                       type="button"
                       onClick={() => {
                         toast({
-                          title: "🌾 Farm Registration",
+                          title: "Farm Registration",
                           description:
-                            "🔐 Touch your device's fingerprint sensor now",
+                            "Touch your device's fingerprint sensor now",
                         });
                         // Register and redirect to login
                         setTimeout(() => {
                           setActiveTab("login");
                           setAuthMode("passkey");
                           toast({
-                            title: "🎉 Registration Complete!",
-                            description: "🚜 Now use fingerprint to access your farm portal",
+                            title: "Registration Complete!",
+                            description: "Now use fingerprint to access your farm portal",
                           });
                         }, 1500);
                       }}
-                      className="w-full bg-gradient-to-r from-emerald-600 via-green-600 to-lime-600 hover:from-emerald-700 hover:via-green-700 hover:to-lime-700 text-white border-0"
+                      className="w-full bg-emerald-600 hover:bg-emerald-700 text-white"
                     >
                       <Fingerprint className="mr-2 h-4 w-4" />
-                      🌾 Register Farm with Biometrics
+                      Register with Biometrics
                     </Button>
                     <p className="text-xs text-emerald-600 dark:text-emerald-400 mt-2">
-                      🌱 Or complete the traditional farm registration below
+                      Or complete the traditional registration below
                     </p>
                   </div>
                   <FormField
@@ -573,9 +572,9 @@ export default function FarmerAuthPage() {
                       </FormItem>
                     )}
                   />
-                  <Button type="submit" className="w-full bg-gradient-to-r from-lime-600 via-green-600 to-emerald-600 hover:from-lime-700 hover:via-green-700 hover:to-emerald-700 text-white border-0 shadow-lg hover:shadow-xl transition-all duration-300" disabled={loading}>
+                  <Button type="submit" className="w-full bg-emerald-600 hover:bg-emerald-700 text-white" disabled={loading}>
                     {loading && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
-                    🚜 {t.auth.createAccount}
+                    {t.auth.createAccount}
                   </Button>
                 </form>
               </Form>
