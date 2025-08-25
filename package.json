@@ -13,6 +13,7 @@
     "optimize": "next build --experimental-build-mode=compile"
   },
   "dependencies": {
+    "@emailjs/browser": "^4.4.1",
     "@genkit-ai/firebase": "^1.16.1",
     "@genkit-ai/googleai": "^1.16.1",
     "@genkit-ai/next": "^1.16.1",
