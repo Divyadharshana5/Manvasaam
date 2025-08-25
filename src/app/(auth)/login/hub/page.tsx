@@ -378,15 +378,12 @@ function HubAuthComponent() {
   return (
     <div className="animate-in slide-in-from-left-4 duration-700 relative">
       {/* Agricultural distribution center background */}
-      <div className="absolute inset-0 bg-gradient-to-br from-teal-50 via-cyan-50 to-blue-50 dark:from-teal-950 dark:via-cyan-950 dark:to-blue-950 opacity-40 rounded-lg"></div>
-      <div className="absolute inset-0 bg-[radial-gradient(circle_at_30%_80%,rgba(6,182,212,0.1),rgba(255,255,255,0))]"></div>
+      <div className="absolute inset-0 bg-gradient-to-br from-emerald-50 via-green-50 to-lime-50 dark:from-emerald-950 dark:via-green-950 dark:to-lime-950 opacity-30 rounded-lg"></div>
       
-      <Card className="w-full max-w-md mx-4 sm:mx-auto bg-gradient-to-br from-teal-50/95 via-cyan-50/95 to-blue-50/95 dark:from-teal-950/95 dark:via-cyan-950/95 dark:to-blue-950/95 backdrop-blur-lg border-2 border-teal-200/60 dark:border-teal-700/60 shadow-lg hover:shadow-2xl transition-all duration-500 hover:scale-[1.02] relative overflow-hidden">
-        {/* Decorative distribution elements */}
-        <div className="absolute top-0 left-0 w-16 h-16 bg-gradient-to-br from-cyan-200/20 to-transparent rounded-full"></div>
-        <div className="absolute bottom-0 right-0 w-12 h-12 bg-gradient-to-tl from-teal-200/20 to-transparent rounded-full"></div>
-        <div className="absolute top-1/3 left-0 w-20 h-1 bg-gradient-to-r from-teal-300/30 to-transparent"></div>
-        <div className="absolute bottom-1/3 right-0 w-16 h-1 bg-gradient-to-l from-cyan-300/30 to-transparent"></div>
+      <Card className="w-full max-w-md mx-4 sm:mx-auto bg-gradient-to-br from-emerald-50/90 via-green-50/90 to-lime-50/90 dark:from-emerald-950/90 dark:via-green-950/90 dark:to-lime-950/90 backdrop-blur-lg border-2 border-emerald-200/50 dark:border-emerald-700/50 shadow-lg hover:shadow-2xl transition-all duration-300 hover:scale-[1.02] relative overflow-hidden">
+        {/* Decorative agricultural elements */}
+        <div className="absolute top-0 right-0 w-20 h-20 bg-gradient-to-bl from-lime-200/20 to-transparent rounded-full"></div>
+        <div className="absolute bottom-0 left-0 w-16 h-16 bg-gradient-to-tr from-emerald-200/20 to-transparent rounded-full"></div>
         
         <CardHeader className="text-center px-4 sm:px-6 py-4 sm:py-6 relative z-10">
           <CardTitle className="flex items-center justify-center gap-2 text-lg sm:text-xl">
