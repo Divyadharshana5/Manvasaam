@@ -221,31 +221,31 @@ export default function CustomerAuthPage() {
   }
 
   return (
-    <div className="relative">
+    <div className="relative animate-in fade-in duration-700">
       {/* Agricultural background pattern */}
       <div className="absolute inset-0 bg-gradient-to-br from-emerald-50 via-green-50 to-lime-50 dark:from-emerald-950 dark:via-green-950 dark:to-lime-950 opacity-30 rounded-lg"></div>
-      <Card className="w-full max-w-md mx-4 sm:mx-auto bg-white dark:bg-gray-900 border border-emerald-200 dark:border-emerald-700">
+      <Card className="w-full max-w-md mx-4 sm:mx-auto bg-white dark:bg-gray-900 border border-emerald-200 dark:border-emerald-700 animate-in slide-in-from-bottom-4 duration-500 delay-200">
 
 
         <CardHeader className="text-center px-4 sm:px-6 py-4 sm:py-6">
-          <CardTitle className="text-lg sm:text-xl font-bold text-emerald-700 dark:text-emerald-300">
+          <CardTitle className="text-lg sm:text-xl font-bold text-emerald-700 dark:text-emerald-300 animate-in slide-in-from-top-2 duration-500 delay-300">
             Customer Portal
           </CardTitle>
-          <CardDescription className="text-sm sm:text-base text-emerald-600 dark:text-emerald-400">
+          <CardDescription className="text-sm sm:text-base text-emerald-600 dark:text-emerald-400 animate-in fade-in duration-500 delay-400">
             Access your account
           </CardDescription>
         </CardHeader>
         <CardContent>
-          <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full">
+          <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full animate-in fade-in duration-500 delay-500">
             <TabsList className="grid w-full grid-cols-2 bg-emerald-100 dark:bg-emerald-900">
-              <TabsTrigger value="login" className="data-[state=active]:bg-emerald-200 dark:data-[state=active]:bg-emerald-700">
+              <TabsTrigger value="login" className="data-[state=active]:bg-emerald-200 dark:data-[state=active]:bg-emerald-700 transition-all duration-200">
                 {t.auth.login}
               </TabsTrigger>
-              <TabsTrigger value="register" className="data-[state=active]:bg-emerald-200 dark:data-[state=active]:bg-emerald-700">
+              <TabsTrigger value="register" className="data-[state=active]:bg-emerald-200 dark:data-[state=active]:bg-emerald-700 transition-all duration-200">
                 {t.auth.register}
               </TabsTrigger>
             </TabsList>
-            <TabsContent value="login" className="pt-4">
+            <TabsContent value="login" className="pt-4 animate-in slide-in-from-right-4 duration-300">
               <Form {...loginForm}>
                 <form
                   onSubmit={loginForm.handleSubmit(onLogin)}
@@ -320,7 +320,7 @@ export default function CustomerAuthPage() {
                 </form>
               </Form>
             </TabsContent>
-            <TabsContent value="register" className="pt-4">
+            <TabsContent value="register" className="pt-4 animate-in slide-in-from-left-4 duration-300">
               <Form {...registerForm}>
                 <form
                   onSubmit={registerForm.handleSubmit(onRegister)}
