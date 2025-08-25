@@ -221,13 +221,13 @@ export default function CustomerAuthPage() {
   }
 
   return (
-    <div className="animate-in slide-in-from-bottom-4 duration-700 relative">
+    <div className="relative">
       {/* Agricultural background pattern */}
       <div className="absolute inset-0 bg-gradient-to-br from-emerald-50 via-green-50 to-lime-50 dark:from-emerald-950 dark:via-green-950 dark:to-lime-950 opacity-30 rounded-lg"></div>
-      <Card className="w-full max-w-md mx-4 sm:mx-auto bg-gradient-to-br from-emerald-50/90 via-green-50/90 to-lime-50/90 dark:from-emerald-950/90 dark:via-green-950/90 dark:to-lime-950/90 backdrop-blur-lg border-2 border-emerald-200/50 dark:border-emerald-700/50 shadow-lg hover:shadow-2xl transition-all duration-300 hover:scale-[1.02] relative overflow-hidden">
+      <Card className="w-full max-w-md mx-4 sm:mx-auto bg-white dark:bg-gray-900 border border-emerald-200 dark:border-emerald-700">
 
 
-        <CardHeader className="text-center px-4 sm:px-6 py-4 sm:py-6 relative z-10">
+        <CardHeader className="text-center px-4 sm:px-6 py-4 sm:py-6">
           <CardTitle className="text-lg sm:text-xl font-bold text-emerald-700 dark:text-emerald-300">
             Customer Portal
           </CardTitle>
@@ -236,8 +236,8 @@ export default function CustomerAuthPage() {
           </CardDescription>
         </CardHeader>
         <CardContent>
-          <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full animate-in fade-in duration-500 delay-400 relative z-10">
-            <TabsList className="grid w-full grid-cols-2 bg-gradient-to-r from-emerald-100 via-green-100 to-lime-100 dark:from-emerald-900 dark:via-green-900 dark:to-lime-900 border border-emerald-200 dark:border-emerald-700">
+          <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full">
+            <TabsList className="grid w-full grid-cols-2 bg-emerald-100 dark:bg-emerald-900">
               <TabsTrigger value="login" className="data-[state=active]:bg-emerald-200 dark:data-[state=active]:bg-emerald-700">
                 {t.auth.login}
               </TabsTrigger>
