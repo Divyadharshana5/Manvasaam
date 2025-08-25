@@ -285,14 +285,14 @@ export default function FarmerAuthPage() {
             setActiveTab(value);
           }} className="w-full animate-in fade-in duration-500 delay-500">
             <TabsList className="grid w-full grid-cols-2 bg-emerald-100 dark:bg-emerald-900 p-1 rounded-md">
-              <TabsTrigger 
-                value="login" 
+              <TabsTrigger
+                value="login"
                 className="data-[state=active]:bg-emerald-200 dark:data-[state=active]:bg-emerald-700 transition-all duration-200 cursor-pointer"
               >
                 {t.auth.login}
               </TabsTrigger>
-              <TabsTrigger 
-                value="register" 
+              <TabsTrigger
+                value="register"
                 className="data-[state=active]:bg-emerald-200 dark:data-[state=active]:bg-emerald-700 transition-all duration-200 cursor-pointer"
               >
                 {t.auth.register}
