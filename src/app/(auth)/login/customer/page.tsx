@@ -75,6 +75,11 @@ export default function CustomerAuthPage() {
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
 
+  // Initialize EmailJS on component mount
+  useState(() => {
+    initEmailJS();
+  });
+
   const loginForm = useForm<z.infer<typeof loginSchema>>({
     resolver: zodResolver(loginSchema),
     defaultValues: { email: "", password: "" },
