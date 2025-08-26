@@ -5,8 +5,27 @@ import { motion } from "framer-motion";
 import { ArrowLeft, Shield, Lock, Users, Database, Mail } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Suspense } from "react";
 
-export default function PrivacyPage() {
+// Loading component for fast initial render
+function PageSkeleton() {
+  return (
+    <div className="min-h-screen bg-gradient-to-br from-green-50 via-blue-50 to-purple-50">
+      <div className="container mx-auto px-4 py-6 max-w-3xl">
+        <div className="animate-pulse space-y-6">
+          <div className="h-32 bg-gray-200 rounded-lg"></div>
+          <div className="h-48 bg-gray-200 rounded-lg"></div>
+          <div className="grid md:grid-cols-2 gap-4">
+            <div className="h-32 bg-gray-200 rounded-lg"></div>
+            <div className="h-32 bg-gray-200 rounded-lg"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+function PrivacyContent() {
   return (
     <div className="min-h-screen bg-gradient-to-br from-green-50 via-blue-50 to-purple-50">
       {/* Decorative Background Elements */}
@@ -217,8 +236,8 @@ export default function PrivacyPage() {
 
           {/* Return Button */}
           <div className="text-center pt-6">
-            <Link href="/">
-              <Button className="gap-3 px-6 py-3 bg-gradient-to-r from-green-500 to-blue-500 hover:from-green-600 hover:to-blue-600 text-white shadow-lg hover:shadow-xl transition-all duration-300 rounded-xl">
+            <Link href="/" prefetch={true}>
+              <Button className="gap-3 px-6 py-3 bg-gradient-to-r from-green-500 to-blue-500 hover:from-green-600 hover:to-blue-600 text-white shadow-lg hover:shadow-xl transition-all duration-200 rounded-xl transform-gpu hover:scale-105 active:scale-95">
                 <ArrowLeft className="h-4 w-4" />
                 Return to Manvaasam
               </Button>
@@ -227,5 +246,13 @@ export default function PrivacyPage() {
         </motion.div>
       </main>
     </div>
+  );
+}
+
+export default function PrivacyPage() {
+  return (
+    <Suspense fallback={<PageSkeleton />}>
+      <PrivacyContent />
+    </Suspense>
   );
 }
