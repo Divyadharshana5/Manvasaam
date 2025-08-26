@@ -14,6 +14,26 @@ import {
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Alert, AlertDescription } from "@/components/ui/alert";
+import { Suspense } from "react";
+
+// Loading component for fast initial render
+function PageSkeleton() {
+  return (
+    <div className="min-h-screen bg-gradient-to-br from-green-50 via-blue-50 to-purple-50">
+      <div className="container mx-auto px-4 py-6 max-w-3xl">
+        <div className="animate-pulse space-y-6">
+          <div className="h-32 bg-gray-200 rounded-lg"></div>
+          <div className="h-16 bg-gray-200 rounded-lg"></div>
+          <div className="h-48 bg-gray-200 rounded-lg"></div>
+          <div className="grid md:grid-cols-2 gap-4">
+            <div className="h-32 bg-gray-200 rounded-lg"></div>
+            <div className="h-32 bg-gray-200 rounded-lg"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+}
 
 export default function TermsPage() {
   return (
