@@ -48,6 +48,58 @@
     animation: loading-progress 2s ease-in-out infinite;
   }
   
+  /* Fast navigation styles */
+  .page-transitioning {
+    cursor: wait;
+  }
+  
+  .page-transitioning * {
+    pointer-events: none;
+  }
+  
+  /* Smooth page transitions */
+  .page-enter {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  
+  .page-enter-active {
+    opacity: 1;
+    transform: translateY(0);
+    transition: opacity 300ms ease-out, transform 300ms ease-out;
+  }
+  
+  .page-exit {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  
+  .page-exit-active {
+    opacity: 0;
+    transform: translateY(-20px);
+    transition: opacity 200ms ease-in, transform 200ms ease-in;
+  }
+  
+  /* Instant feedback for button clicks */
+  .btn-fast-click {
+    transition: all 0.1s ease-out;
+  }
+  
+  .btn-fast-click:active {
+    transform: scale(0.95);
+  }
+  
+  /* Optimize for mobile touch */
+  @media (hover: none) and (pointer: coarse) {
+    .hover\:scale-105:hover {
+      transform: none;
+    }
+    
+    .hover\:scale-105:active {
+      transform: scale(0.95);
+    }
+  }
+  
   /* Reduce motion for accessibility and performance */
   @media (prefers-reduced-motion: reduce) {
     *,
