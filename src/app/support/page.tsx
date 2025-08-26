@@ -278,8 +278,8 @@ function SupportContent() {
 
           {/* Return Button */}
           <div className="text-center pt-6">
-            <Link href="/">
-              <Button className="gap-3 px-6 py-3 bg-gradient-to-r from-green-500 to-blue-500 hover:from-green-600 hover:to-blue-600 text-white shadow-lg hover:shadow-xl transition-all duration-300 rounded-xl">
+            <Link href="/" prefetch={true}>
+              <Button className="gap-3 px-6 py-3 bg-gradient-to-r from-green-500 to-blue-500 hover:from-green-600 hover:to-blue-600 text-white shadow-lg hover:shadow-xl transition-all duration-200 rounded-xl transform-gpu hover:scale-105 active:scale-95">
                 <ArrowLeft className="h-4 w-4" />
                 Return to Manvaasam
               </Button>
@@ -288,5 +288,13 @@ function SupportContent() {
         </motion.div>
       </main>
     </div>
+  );
+}
+
+export default function SupportPage() {
+  return (
+    <Suspense fallback={<PageSkeleton />}>
+      <SupportContent />
+    </Suspense>
   );
 }
