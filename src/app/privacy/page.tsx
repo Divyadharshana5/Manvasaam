@@ -130,28 +130,96 @@ function PrivacyContent() {
           transition={{ duration: 0.3, ease: "easeOut" }}
           className="space-y-6"
         >
-          {/* Hero */}
-          <div className="relative text-center space-y-6 py-8">
-            <div className="relative inline-flex items-center justify-center w-20 h-20 bg-gradient-to-br from-green-100 to-blue-100 rounded-2xl shadow-lg">
-              <div className="absolute inset-0 bg-gradient-to-br from-green-500/20 to-blue-500/20 rounded-2xl blur-xl"></div>
-              <Shield className="relative h-10 w-10 text-green-600" />
-            </div>
+          {/* Enhanced Hero Section */}
+          <motion.div 
+            className="relative text-center space-y-6 py-8"
+            initial={{ opacity: 0, y: 50 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, delay: 0.2 }}
+          >
+            <motion.div 
+              className="relative inline-flex items-center justify-center w-20 h-20 bg-gradient-to-br from-green-100 to-blue-100 rounded-2xl shadow-lg"
+              initial={{ scale: 0, rotate: -180 }}
+              animate={{ scale: 1, rotate: 0 }}
+              transition={{ 
+                duration: 0.8, 
+                delay: 0.4,
+                type: "spring",
+                stiffness: 200,
+                damping: 15
+              }}
+              whileHover={{ 
+                scale: 1.1,
+                rotate: 5,
+                boxShadow: "0 20px 40px rgba(34, 197, 94, 0.2)"
+              }}
+            >
+              <motion.div 
+                className="absolute inset-0 bg-gradient-to-br from-green-500/20 to-blue-500/20 rounded-2xl blur-xl"
+                animate={{ 
+                  scale: [1, 1.2, 1],
+                  opacity: [0.2, 0.4, 0.2]
+                }}
+                transition={{ 
+                  duration: 3,
+                  repeat: Infinity,
+                  ease: "easeInOut"
+                }}
+              />
+              <motion.div
+                animate={{ rotate: [0, 360] }}
+                transition={{ 
+                  duration: 20,
+                  repeat: Infinity,
+                  ease: "linear"
+                }}
+              >
+                <Shield className="relative h-10 w-10 text-green-600" />
+              </motion.div>
+            </motion.div>
             <div className="space-y-3">
-              <h1 className="text-3xl md:text-4xl font-bold bg-gradient-to-r from-gray-900 to-gray-700 bg-clip-text text-transparent">
+              <motion.h1 
+                className="text-3xl md:text-4xl font-bold bg-gradient-to-r from-gray-900 to-gray-700 bg-clip-text text-transparent"
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.6, delay: 0.6 }}
+              >
                 Privacy Policy
-              </h1>
-              <p className="text-lg text-gray-600 max-w-2xl mx-auto leading-relaxed">
+              </motion.h1>
+              <motion.p 
+                className="text-lg text-gray-600 max-w-2xl mx-auto leading-relaxed"
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.6, delay: 0.8 }}
+              >
                 How we collect, use, and protect your information on Manvaasam
                 platform
-              </p>
-              <div className="inline-flex items-center gap-2 px-4 py-2 bg-green-50 border border-green-200 rounded-full">
-                <div className="w-2 h-2 bg-green-500 rounded-full animate-pulse"></div>
+              </motion.p>
+              <motion.div 
+                className="inline-flex items-center gap-2 px-4 py-2 bg-green-50 border border-green-200 rounded-full"
+                initial={{ opacity: 0, scale: 0.8 }}
+                animate={{ opacity: 1, scale: 1 }}
+                transition={{ duration: 0.5, delay: 1 }}
+                whileHover={{ scale: 1.05 }}
+              >
+                <motion.div 
+                  className="w-2 h-2 bg-green-500 rounded-full"
+                  animate={{ 
+                    scale: [1, 1.5, 1],
+                    opacity: [1, 0.5, 1]
+                  }}
+                  transition={{ 
+                    duration: 2,
+                    repeat: Infinity,
+                    ease: "easeInOut"
+                  }}
+                />
                 <p className="text-sm text-green-700 font-medium">
                   Updated: December 2024
                 </p>
-              </div>
+              </motion.div>
             </div>
-          </div>
+          </motion.div>
 
           {/* Key Points */}
           <Card className="relative border-0 bg-gradient-to-br from-white/80 to-green-50/80 backdrop-blur-sm shadow-xl">
@@ -203,87 +271,150 @@ function PrivacyContent() {
             </CardContent>
           </Card>
 
-          {/* Main Content */}
+          {/* Enhanced Main Content */}
           <div className="grid md:grid-cols-2 gap-4">
-            <Card>
-              <CardHeader className="pb-3">
-                <CardTitle className="text-base">What We Collect</CardTitle>
-              </CardHeader>
-              <CardContent className="space-y-3 text-sm">
-                <div>
-                  <h4 className="font-medium mb-1">Personal Info</h4>
-                  <p className="text-gray-600 text-xs">
-                    Name, email, phone, farm/business details
-                  </p>
-                </div>
-                <div>
-                  <h4 className="font-medium mb-1">Usage Data</h4>
-                  <p className="text-gray-600 text-xs">
-                    How you use our platform, device info
-                  </p>
-                </div>
-              </CardContent>
-            </Card>
+            <motion.div
+              initial={{ opacity: 0, x: -50 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{ duration: 0.6, delay: 1.2 }}
+              whileHover={{ y: -5 }}
+            >
+              <Card className="h-full hover:shadow-lg transition-all duration-300 border-green-200/50 hover:border-green-300">
+                <CardHeader className="pb-3">
+                  <CardTitle className="text-base flex items-center gap-2">
+                    <motion.div
+                      animate={{ rotate: [0, 10, -10, 0] }}
+                      transition={{ duration: 2, repeat: Infinity, delay: 2 }}
+                    >
+                      <Database className="h-4 w-4 text-green-600" />
+                    </motion.div>
+                    What We Collect
+                  </CardTitle>
+                </CardHeader>
+                <CardContent className="space-y-3 text-sm">
+                  <motion.div
+                    initial={{ opacity: 0, y: 10 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.4, delay: 1.4 }}
+                  >
+                    <h4 className="font-medium mb-1">Personal Info</h4>
+                    <p className="text-gray-600 text-xs">
+                      Name, email, phone, farm/business details
+                    </p>
+                  </motion.div>
+                  <motion.div
+                    initial={{ opacity: 0, y: 10 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.4, delay: 1.6 }}
+                  >
+                    <h4 className="font-medium mb-1">Usage Data</h4>
+                    <p className="text-gray-600 text-xs">
+                      How you use our platform, device info
+                    </p>
+                  </motion.div>
+                </CardContent>
+              </Card>
+            </motion.div>
 
-            <Card>
-              <CardHeader className="pb-3">
-                <CardTitle className="text-base">How We Use It</CardTitle>
-              </CardHeader>
-              <CardContent className="space-y-3 text-sm">
-                <div>
-                  <h4 className="font-medium mb-1">Platform Services</h4>
-                  <p className="text-gray-600 text-xs">
-                    Connect farmers, buyers, facilitate transactions
-                  </p>
-                </div>
-                <div>
-                  <h4 className="font-medium mb-1">Communication</h4>
-                  <p className="text-gray-600 text-xs">
-                    Updates, notifications, support
-                  </p>
-                </div>
-              </CardContent>
-            </Card>
+            <motion.div
+              initial={{ opacity: 0, x: 50 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{ duration: 0.6, delay: 1.4 }}
+              whileHover={{ y: -5 }}
+            >
+              <Card className="h-full hover:shadow-lg transition-all duration-300 border-blue-200/50 hover:border-blue-300">
+                <CardHeader className="pb-3">
+                  <CardTitle className="text-base flex items-center gap-2">
+                    <motion.div
+                      animate={{ scale: [1, 1.2, 1] }}
+                      transition={{ duration: 2, repeat: Infinity, delay: 3 }}
+                    >
+                      <Users className="h-4 w-4 text-blue-600" />
+                    </motion.div>
+                    How We Use It
+                  </CardTitle>
+                </CardHeader>
+                <CardContent className="space-y-3 text-sm">
+                  <motion.div
+                    initial={{ opacity: 0, y: 10 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.4, delay: 1.6 }}
+                  >
+                    <h4 className="font-medium mb-1">Platform Services</h4>
+                    <p className="text-gray-600 text-xs">
+                      Connect farmers, buyers, facilitate transactions
+                    </p>
+                  </motion.div>
+                  <motion.div
+                    initial={{ opacity: 0, y: 10 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.4, delay: 1.8 }}
+                  >
+                    <h4 className="font-medium mb-1">Communication</h4>
+                    <p className="text-gray-600 text-xs">
+                      Updates, notifications, support
+                    </p>
+                  </motion.div>
+                </CardContent>
+              </Card>
+            </motion.div>
           </div>
 
-          {/* Your Rights */}
-          <Card>
-            <CardHeader className="pb-3">
-              <CardTitle className="text-base">Your Rights</CardTitle>
-            </CardHeader>
-            <CardContent>
-              <div className="grid md:grid-cols-4 gap-3 text-center text-sm">
-                <div className="space-y-1">
-                  <div className="w-8 h-8 bg-primary/10 rounded-full flex items-center justify-center mx-auto">
-                    <Users className="h-4 w-4 text-primary" />
-                  </div>
-                  <h4 className="font-medium text-xs">Access</h4>
-                  <p className="text-xs text-gray-600">View your data</p>
-                </div>
-                <div className="space-y-1">
-                  <div className="w-8 h-8 bg-primary/10 rounded-full flex items-center justify-center mx-auto">
-                    <Lock className="h-4 w-4 text-primary" />
-                  </div>
-                  <h4 className="font-medium text-xs">Correct</h4>
-                  <p className="text-xs text-gray-600">Update info</p>
-                </div>
-                <div className="space-y-1">
-                  <div className="w-8 h-8 bg-primary/10 rounded-full flex items-center justify-center mx-auto">
-                    <Database className="h-4 w-4 text-primary" />
-                  </div>
-                  <h4 className="font-medium text-xs">Export</h4>
-                  <p className="text-xs text-gray-600">Download data</p>
-                </div>
-                <div className="space-y-1">
-                  <div className="w-8 h-8 bg-primary/10 rounded-full flex items-center justify-center mx-auto">
+          {/* Enhanced Your Rights */}
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, delay: 1.6 }}
+          >
+            <Card className="hover:shadow-lg transition-all duration-300">
+              <CardHeader className="pb-3">
+                <CardTitle className="text-base flex items-center gap-2">
+                  <motion.div
+                    animate={{ rotate: [0, 360] }}
+                    transition={{ duration: 8, repeat: Infinity, ease: "linear" }}
+                  >
                     <Shield className="h-4 w-4 text-primary" />
-                  </div>
-                  <h4 className="font-medium text-xs">Delete</h4>
-                  <p className="text-xs text-gray-600">Remove account</p>
+                  </motion.div>
+                  Your Rights
+                </CardTitle>
+              </CardHeader>
+              <CardContent>
+                <div className="grid md:grid-cols-4 gap-3 text-center text-sm">
+                  {[
+                    { icon: Users, title: "Access", desc: "View your data", delay: 1.8 },
+                    { icon: Lock, title: "Correct", desc: "Update info", delay: 2.0 },
+                    { icon: Database, title: "Export", desc: "Download data", delay: 2.2 },
+                    { icon: Shield, title: "Delete", desc: "Remove account", delay: 2.4 }
+                  ].map((item, index) => (
+                    <motion.div 
+                      key={index}
+                      className="space-y-1"
+                      initial={{ opacity: 0, y: 20 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      transition={{ duration: 0.4, delay: item.delay }}
+                      whileHover={{ 
+                        scale: 1.05,
+                        y: -5
+                      }}
+                    >
+                      <motion.div 
+                        className="w-8 h-8 bg-primary/10 rounded-full flex items-center justify-center mx-auto"
+                        whileHover={{ 
+                          backgroundColor: "rgba(34, 197, 94, 0.2)",
+                          scale: 1.1
+                        }}
+                        transition={{ duration: 0.2 }}
+                      >
+                        <item.icon className="h-4 w-4 text-primary" />
+                      </motion.div>
+                      <h4 className="font-medium text-xs">{item.title}</h4>
+                      <p className="text-xs text-gray-600">{item.desc}</p>
+                    </motion.div>
+                  ))}
                 </div>
-              </div>
-            </CardContent>
-          </Card>
+              </CardContent>
+            </Card>
+          </motion.div>
 
           {/* Contact */}
           <Card className="border-primary/20 bg-primary/5">
