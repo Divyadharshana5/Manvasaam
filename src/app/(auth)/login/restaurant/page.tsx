@@ -259,17 +259,17 @@ export default function RestaurantAuthPage() {
             console.log("Tab changed to:", value);
             setActiveTab(value);
           }} className="w-full animate-in fade-in duration-500 delay-500 relative z-30">
-            <TabsList className="grid w-full grid-cols-2 bg-emerald-100 dark:bg-emerald-900 p-1 rounded-md relative z-40 pointer-events-auto animate-in slide-in-from-bottom-2 duration-500 delay-1000">
+            <TabsList className="grid w-full grid-cols-2 bg-gradient-to-r from-orange-100 to-red-100 dark:from-orange-900 dark:to-red-900 p-1 rounded-lg relative z-40 pointer-events-auto animate-in slide-in-from-bottom-2 duration-600 delay-1000 shadow-inner">
               <TabsTrigger 
                 value="login" 
-                className="data-[state=active]:bg-emerald-200 dark:data-[state=active]:bg-emerald-700 transition-all duration-300 cursor-pointer pointer-events-auto relative z-50 hover:scale-105 hover:bg-emerald-150 dark:hover:bg-emerald-800 transform-gpu"
+                className="data-[state=active]:bg-gradient-to-r data-[state=active]:from-orange-200 data-[state=active]:to-red-200 dark:data-[state=active]:from-orange-700 dark:data-[state=active]:to-red-700 data-[state=active]:shadow-md transition-all duration-400 cursor-pointer pointer-events-auto relative z-50 hover:scale-105 hover:bg-orange-150 dark:hover:bg-orange-800 transform-gpu animate-in slide-in-from-left-2 duration-500 delay-1200"
                 onClick={() => console.log("Login tab clicked")}
               >
                 {t.auth.login}
               </TabsTrigger>
               <TabsTrigger 
                 value="register" 
-                className="data-[state=active]:bg-emerald-200 dark:data-[state=active]:bg-emerald-700 transition-all duration-300 cursor-pointer pointer-events-auto relative z-50 hover:scale-105 hover:bg-emerald-150 dark:hover:bg-emerald-800 transform-gpu"
+                className="data-[state=active]:bg-gradient-to-r data-[state=active]:from-orange-200 data-[state=active]:to-red-200 dark:data-[state=active]:from-orange-700 dark:data-[state=active]:to-red-700 data-[state=active]:shadow-md transition-all duration-400 cursor-pointer pointer-events-auto relative z-50 hover:scale-105 hover:bg-orange-150 dark:hover:bg-orange-800 transform-gpu animate-in slide-in-from-right-2 duration-500 delay-1200"
                 onClick={() => console.log("Register tab clicked")}
               >
                 {t.auth.register}
