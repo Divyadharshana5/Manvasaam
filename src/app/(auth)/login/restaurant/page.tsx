@@ -226,11 +226,19 @@ export default function RestaurantAuthPage() {
   }
 
   return (
-    <div className="animate-in fade-in duration-700 relative min-h-screen flex items-center justify-center p-4">
-      {/* Farm-to-table restaurant background */}
-      <div className="absolute inset-0 bg-gradient-to-br from-emerald-50 via-green-50 to-lime-50 dark:from-emerald-950 dark:via-green-950 dark:to-lime-950 opacity-30 rounded-lg -z-10"></div>
+    <div className="animate-in fade-in duration-1000 relative min-h-screen flex items-center justify-center p-4 overflow-hidden">
+      {/* Enhanced animated background */}
+      <div className="absolute inset-0 bg-gradient-to-br from-emerald-50 via-green-50 to-lime-50 dark:from-emerald-950 dark:via-green-950 dark:to-lime-950 opacity-40 -z-10"></div>
 
-      <Card className="w-full max-w-md bg-white dark:bg-gray-900 border border-emerald-200 dark:border-emerald-700 animate-in slide-in-from-right-4 duration-700 delay-200 relative z-10 hover:shadow-xl hover:scale-[1.02] transition-all duration-300 hover:border-emerald-300 dark:hover:border-emerald-600">
+      {/* Floating background elements with cooking theme */}
+      <div className="absolute inset-0 -z-5">
+        <div className="absolute top-24 left-20 w-30 h-30 bg-orange-200/20 dark:bg-orange-800/20 rounded-full blur-xl animate-pulse delay-500"></div>
+        <div className="absolute top-48 right-16 w-26 h-26 bg-yellow-200/25 dark:bg-yellow-800/25 rounded-full blur-xl animate-bounce delay-1200"></div>
+        <div className="absolute bottom-36 left-16 w-34 h-34 bg-red-200/20 dark:bg-red-800/20 rounded-full blur-xl animate-pulse delay-800"></div>
+        <div className="absolute bottom-20 right-20 w-28 h-28 bg-emerald-300/25 dark:bg-emerald-700/25 rounded-full blur-xl animate-bounce delay-200"></div>
+      </div>
+
+      <Card className="w-full max-w-md bg-white/95 dark:bg-gray-900/95 backdrop-blur-sm border border-emerald-200 dark:border-emerald-700 animate-in slide-in-from-right-4 duration-1000 delay-300 relative z-10 hover:shadow-2xl hover:scale-[1.03] transition-all duration-500 hover:border-emerald-300 dark:hover:border-emerald-600 hover:bg-white dark:hover:bg-gray-900 group">
 
 
         <CardHeader className="text-center px-4 sm:px-6 py-4 sm:py-6">
