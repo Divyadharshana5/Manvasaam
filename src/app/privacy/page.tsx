@@ -28,31 +28,99 @@ function PageSkeleton() {
 function PrivacyContent() {
   return (
     <div className="min-h-screen bg-gradient-to-br from-green-50 via-blue-50 to-purple-50">
-      {/* Decorative Background Elements */}
+      {/* Enhanced Animated Background Elements */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
-        <div className="absolute top-20 left-10 w-32 h-32 bg-green-200/30 rounded-full blur-3xl"></div>
-        <div className="absolute top-40 right-20 w-40 h-40 bg-blue-200/30 rounded-full blur-3xl"></div>
-        <div className="absolute bottom-20 left-1/3 w-36 h-36 bg-purple-200/30 rounded-full blur-3xl"></div>
+        <motion.div 
+          className="absolute top-20 left-10 w-32 h-32 bg-green-200/30 rounded-full blur-3xl"
+          animate={{ 
+            scale: [1, 1.2, 1],
+            opacity: [0.3, 0.5, 0.3],
+            x: [0, 20, 0],
+            y: [0, -10, 0]
+          }}
+          transition={{ 
+            duration: 8,
+            repeat: Infinity,
+            ease: "easeInOut"
+          }}
+        />
+        <motion.div 
+          className="absolute top-40 right-20 w-40 h-40 bg-blue-200/30 rounded-full blur-3xl"
+          animate={{ 
+            scale: [1, 0.8, 1],
+            opacity: [0.3, 0.6, 0.3],
+            x: [0, -15, 0],
+            y: [0, 15, 0]
+          }}
+          transition={{ 
+            duration: 10,
+            repeat: Infinity,
+            ease: "easeInOut",
+            delay: 2
+          }}
+        />
+        <motion.div 
+          className="absolute bottom-20 left-1/3 w-36 h-36 bg-purple-200/30 rounded-full blur-3xl"
+          animate={{ 
+            scale: [1, 1.1, 1],
+            opacity: [0.3, 0.4, 0.3],
+            rotate: [0, 180, 360]
+          }}
+          transition={{ 
+            duration: 12,
+            repeat: Infinity,
+            ease: "linear",
+            delay: 4
+          }}
+        />
       </div>
 
-      {/* Header */}
-      <header className="relative bg-white/95 backdrop-blur-md border-b border-primary/20 sticky top-0 z-50 shadow-sm">
+      {/* Enhanced Animated Header */}
+      <motion.header 
+        className="relative bg-white/95 backdrop-blur-md border-b border-primary/20 sticky top-0 z-50 shadow-sm"
+        initial={{ y: -100, opacity: 0 }}
+        animate={{ y: 0, opacity: 1 }}
+        transition={{ duration: 0.6, ease: "easeOut" }}
+      >
         <div className="container mx-auto px-4 py-4 flex items-center justify-center">
-          <div className="flex items-center gap-3">
-            <div className="p-2 bg-gradient-to-br from-green-500 to-blue-500 rounded-xl shadow-lg">
+          <motion.div 
+            className="flex items-center gap-3"
+            initial={{ scale: 0.8, opacity: 0 }}
+            animate={{ scale: 1, opacity: 1 }}
+            transition={{ duration: 0.5, delay: 0.3 }}
+          >
+            <motion.div 
+              className="p-2 bg-gradient-to-br from-green-500 to-blue-500 rounded-xl shadow-lg"
+              whileHover={{ 
+                scale: 1.1, 
+                rotate: 360,
+                boxShadow: "0 10px 25px rgba(34, 197, 94, 0.3)"
+              }}
+              transition={{ duration: 0.3 }}
+            >
               <Shield className="h-6 w-6 text-white" />
-            </div>
+            </motion.div>
             <div>
-              <h1 className="text-xl font-bold bg-gradient-to-r from-green-600 to-blue-600 bg-clip-text text-transparent">
+              <motion.h1 
+                className="text-xl font-bold bg-gradient-to-r from-green-600 to-blue-600 bg-clip-text text-transparent"
+                initial={{ x: -20, opacity: 0 }}
+                animate={{ x: 0, opacity: 1 }}
+                transition={{ duration: 0.5, delay: 0.4 }}
+              >
                 Privacy Policy
-              </h1>
-              <p className="text-xs text-muted-foreground">
+              </motion.h1>
+              <motion.p 
+                className="text-xs text-muted-foreground"
+                initial={{ x: -20, opacity: 0 }}
+                animate={{ x: 0, opacity: 1 }}
+                transition={{ duration: 0.5, delay: 0.5 }}
+              >
                 Your data protection matters
-              </p>
+              </motion.p>
             </div>
-          </div>
+          </motion.div>
         </div>
-      </header>
+      </motion.header>
 
       {/* Main Content */}
       <main className="container mx-auto px-4 py-6 max-w-3xl">
