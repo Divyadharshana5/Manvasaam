@@ -59,7 +59,7 @@ function SupportContent() {
     },
   ], []);
 
-  const filteredFAQs = useMemo(() => 
+  const filteredFAQs = useMemo(() =>
     faqItems.filter(
       (item) =>
         item.question.toLowerCase().includes(searchQuery.toLowerCase()) ||
@@ -213,8 +213,7 @@ function SupportContent() {
                   placeholder="Search FAQs..."
                   value={searchQuery}
                   onChange={(e) => setSearchQuery(e.target.value)}
-                  className="pl-9 text-sm"
-                  size="sm"
+                  className="pl-9 text-sm h-9"
                 />
               </div>
             </CardHeader>
