@@ -266,11 +266,19 @@ export default function FarmerAuthPage() {
   }
 
   return (
-    <div className="animate-in fade-in duration-700 relative min-h-screen flex items-center justify-center p-4">
-      {/* Farm field background pattern */}
-      <div className="absolute inset-0 bg-gradient-to-br from-emerald-50 via-green-50 to-lime-50 dark:from-emerald-950 dark:via-green-950 dark:to-lime-950 opacity-30 rounded-lg -z-10"></div>
+    <div className="animate-in fade-in duration-1000 relative min-h-screen flex items-center justify-center p-4 overflow-hidden">
+      {/* Enhanced animated background with farm theme */}
+      <div className="absolute inset-0 bg-gradient-to-br from-emerald-50 via-green-50 to-lime-50 dark:from-emerald-950 dark:via-green-950 dark:to-lime-950 opacity-40 -z-10"></div>
 
-      <Card className="w-full max-w-md bg-white dark:bg-gray-900 border border-emerald-200 dark:border-emerald-700 animate-in slide-in-from-top-4 duration-700 delay-200 relative z-10 hover:shadow-xl hover:scale-[1.02] transition-all duration-300 hover:border-emerald-300 dark:hover:border-emerald-600">
+      {/* Floating background elements with farm theme */}
+      <div className="absolute inset-0 -z-5">
+        <div className="absolute top-28 left-14 w-32 h-32 bg-yellow-200/25 dark:bg-yellow-800/25 rounded-full blur-xl animate-bounce delay-300"></div>
+        <div className="absolute top-20 right-18 w-28 h-28 bg-green-200/30 dark:bg-green-800/30 rounded-full blur-xl animate-pulse delay-900"></div>
+        <div className="absolute bottom-32 left-18 w-36 h-36 bg-lime-200/25 dark:bg-lime-800/25 rounded-full blur-xl animate-bounce delay-1500"></div>
+        <div className="absolute bottom-24 right-14 w-30 h-30 bg-emerald-300/30 dark:bg-emerald-700/30 rounded-full blur-xl animate-pulse delay-600"></div>
+      </div>
+
+      <Card className="w-full max-w-md bg-white/95 dark:bg-gray-900/95 backdrop-blur-sm border border-emerald-200 dark:border-emerald-700 animate-in slide-in-from-top-4 duration-1000 delay-300 relative z-10 hover:shadow-2xl hover:scale-[1.03] transition-all duration-500 hover:border-emerald-300 dark:hover:border-emerald-600 hover:bg-white dark:hover:bg-gray-900 group">
         <CardHeader className="text-center px-4 sm:px-6 py-4 sm:py-6">
           <CardTitle className="text-lg sm:text-xl font-bold text-emerald-700 dark:text-emerald-300 animate-in slide-in-from-top-2 duration-700 delay-400 hover:text-emerald-600 dark:hover:text-emerald-200 transition-colors duration-300">
             Farmer Portal
