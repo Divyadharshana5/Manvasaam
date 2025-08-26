@@ -255,16 +255,16 @@ export default function CustomerAuthPage() {
             console.log("Customer tab changed to:", value);
             setActiveTab(value);
           }} className="w-full animate-in fade-in duration-500 delay-500 relative z-30">
-            <TabsList className="grid w-full grid-cols-2 bg-emerald-100 dark:bg-emerald-900 p-1 rounded-md relative z-40 pointer-events-auto animate-in slide-in-from-bottom-2 duration-500 delay-1000">
+            <TabsList className="grid w-full grid-cols-2 bg-gradient-to-r from-emerald-100 to-green-100 dark:from-emerald-900 dark:to-green-900 p-1 rounded-lg relative z-40 pointer-events-auto animate-in slide-in-from-bottom-2 duration-600 delay-1000 shadow-inner">
               <TabsTrigger 
                 value="login" 
-                className="data-[state=active]:bg-emerald-200 dark:data-[state=active]:bg-emerald-700 transition-all duration-300 cursor-pointer hover:scale-105 hover:bg-emerald-150 dark:hover:bg-emerald-800 transform-gpu"
+                className="data-[state=active]:bg-gradient-to-r data-[state=active]:from-emerald-200 data-[state=active]:to-green-200 dark:data-[state=active]:from-emerald-700 dark:data-[state=active]:to-green-700 data-[state=active]:shadow-md transition-all duration-400 cursor-pointer hover:scale-105 hover:bg-emerald-150 dark:hover:bg-emerald-800 transform-gpu animate-in slide-in-from-left-2 duration-500 delay-1200"
               >
                 {t.auth.login}
               </TabsTrigger>
               <TabsTrigger 
                 value="register" 
-                className="data-[state=active]:bg-emerald-200 dark:data-[state=active]:bg-emerald-700 transition-all duration-300 cursor-pointer hover:scale-105 hover:bg-emerald-150 dark:hover:bg-emerald-800 transform-gpu"
+                className="data-[state=active]:bg-gradient-to-r data-[state=active]:from-emerald-200 data-[state=active]:to-green-200 dark:data-[state=active]:from-emerald-700 dark:data-[state=active]:to-green-700 data-[state=active]:shadow-md transition-all duration-400 cursor-pointer hover:scale-105 hover:bg-emerald-150 dark:hover:bg-emerald-800 transform-gpu animate-in slide-in-from-right-2 duration-500 delay-1200"
               >
                 {t.auth.register}
               </TabsTrigger>
