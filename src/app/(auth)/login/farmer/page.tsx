@@ -466,9 +466,9 @@ export default function FarmerAuthPage() {
                           });
                         }, 1500);
                       }}
-                      className="w-full bg-emerald-600 hover:bg-emerald-700 text-white transition-all duration-200 hover:scale-[1.02]"
+                      className="w-full bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white transition-all duration-400 hover:scale-[1.05] hover:shadow-xl active:scale-[0.98] transform-gpu animate-in zoom-in duration-500 delay-300 hover:-rotate-1"
                     >
-                      <Fingerprint className="mr-2 h-4 w-4" />
+                      <Fingerprint className="mr-2 h-4 w-4 animate-pulse" />
                       Register with Biometrics
                     </Button>
                     <p className="text-xs text-emerald-600 dark:text-emerald-400 mt-2">
