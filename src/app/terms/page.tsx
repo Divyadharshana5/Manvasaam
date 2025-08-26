@@ -35,7 +35,7 @@ function PageSkeleton() {
   );
 }
 
-export default function TermsPage() {
+function TermsContent() {
   return (
     <div className="min-h-screen bg-gradient-to-br from-green-50 via-blue-50 to-purple-50">
       {/* Decorative Background Elements */}
