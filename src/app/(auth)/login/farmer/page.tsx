@@ -272,7 +272,7 @@ export default function FarmerAuthPage() {
 
       {/* Floating background elements with farm theme */}
       <div className="absolute inset-0 -z-5">
-        <div className="absolute top-28 left-14 w-32 h-32 bg-yellow-200/25 dark:bg-yellow-800/25 rounded-full blur-xl animate-bounce delay-300"></div>
+        <div className="absolute top-28 left-14 w-32 h-32 bg-emerald-200/25 dark:bg-emerald-800/25 rounded-full blur-xl animate-bounce delay-300"></div>
         <div className="absolute top-20 right-18 w-28 h-28 bg-green-200/30 dark:bg-green-800/30 rounded-full blur-xl animate-pulse delay-900"></div>
         <div className="absolute bottom-32 left-18 w-36 h-36 bg-lime-200/25 dark:bg-lime-800/25 rounded-full blur-xl animate-bounce delay-1500"></div>
         <div className="absolute bottom-24 right-14 w-30 h-30 bg-emerald-300/30 dark:bg-emerald-700/30 rounded-full blur-xl animate-pulse delay-600"></div>
@@ -281,7 +281,7 @@ export default function FarmerAuthPage() {
       <Card className="w-full max-w-md bg-white/95 dark:bg-gray-900/95 backdrop-blur-sm border border-emerald-200 dark:border-emerald-700 animate-in slide-in-from-top-4 duration-1000 delay-300 relative z-10 hover:shadow-2xl hover:scale-[1.03] transition-all duration-500 hover:border-emerald-300 dark:hover:border-emerald-600 hover:bg-white dark:hover:bg-gray-900 group">
         <CardHeader className="text-center px-4 sm:px-6 py-4 sm:py-6 relative">
           {/* Animated icon */}
-          <div className="flex items-center justify-center w-16 h-16 mx-auto mb-4 bg-gradient-to-br from-yellow-100 to-green-100 dark:from-yellow-900 dark:to-green-900 rounded-full border-2 border-emerald-200 dark:border-emerald-700 animate-in zoom-in duration-800 delay-500 hover:scale-110 transition-all duration-300 group-hover:shadow-lg hover:rotate-6">
+          <div className="flex items-center justify-center w-16 h-16 mx-auto mb-4 bg-gradient-to-br from-emerald-100 to-green-100 dark:from-emerald-900 dark:to-green-900 rounded-full border-2 border-emerald-200 dark:border-emerald-700 animate-in zoom-in duration-800 delay-500 hover:scale-110 transition-all duration-300 group-hover:shadow-lg hover:rotate-6">
             <Tractor className="h-8 w-8 text-emerald-600 dark:text-emerald-400 animate-in slide-in-from-bottom-2 duration-600 delay-700" />
           </div>
           
@@ -297,16 +297,16 @@ export default function FarmerAuthPage() {
             console.log("Farmer tab changed to:", value);
             setActiveTab(value);
           }} className="w-full animate-in fade-in duration-500 delay-500 relative z-30">
-            <TabsList className="grid w-full grid-cols-2 bg-gradient-to-r from-yellow-100 to-green-100 dark:from-yellow-900 dark:to-green-900 p-1 rounded-lg relative z-40 pointer-events-auto animate-in slide-in-from-bottom-2 duration-600 delay-1000 shadow-inner">
+            <TabsList className="grid w-full grid-cols-2 bg-gradient-to-r from-emerald-100 to-green-100 dark:from-emerald-900 dark:to-green-900 p-1 rounded-lg relative z-40 pointer-events-auto animate-in slide-in-from-bottom-2 duration-600 delay-1000 shadow-inner">
               <TabsTrigger
                 value="login"
-                className="data-[state=active]:bg-gradient-to-r data-[state=active]:from-yellow-200 data-[state=active]:to-green-200 dark:data-[state=active]:from-yellow-700 dark:data-[state=active]:to-green-700 data-[state=active]:shadow-md transition-all duration-400 cursor-pointer hover:scale-105 hover:bg-yellow-150 dark:hover:bg-yellow-800 transform-gpu animate-in slide-in-from-left-2 duration-500 delay-1200"
+                className="data-[state=active]:bg-gradient-to-r data-[state=active]:from-emerald-200 data-[state=active]:to-green-200 dark:data-[state=active]:from-emerald-700 dark:data-[state=active]:to-green-700 data-[state=active]:shadow-md transition-all duration-400 cursor-pointer hover:scale-105 hover:bg-emerald-150 dark:hover:bg-emerald-800 transform-gpu animate-in slide-in-from-left-2 duration-500 delay-1200"
               >
                 {t.auth.login}
               </TabsTrigger>
               <TabsTrigger
                 value="register"
-                className="data-[state=active]:bg-gradient-to-r data-[state=active]:from-yellow-200 data-[state=active]:to-green-200 dark:data-[state=active]:from-yellow-700 dark:data-[state=active]:to-green-700 data-[state=active]:shadow-md transition-all duration-400 cursor-pointer hover:scale-105 hover:bg-yellow-150 dark:hover:bg-yellow-800 transform-gpu animate-in slide-in-from-right-2 duration-500 delay-1200"
+                className="data-[state=active]:bg-gradient-to-r data-[state=active]:from-emerald-200 data-[state=active]:to-green-200 dark:data-[state=active]:from-emerald-700 dark:data-[state=active]:to-green-700 data-[state=active]:shadow-md transition-all duration-400 cursor-pointer hover:scale-105 hover:bg-emerald-150 dark:hover:bg-emerald-800 transform-gpu animate-in slide-in-from-right-2 duration-500 delay-1200"
               >
                 {t.auth.register}
               </TabsTrigger>
@@ -395,7 +395,7 @@ export default function FarmerAuthPage() {
                           </FormItem>
                         )}
                       />
-                      <Button type="submit" className="w-full bg-gradient-to-r from-yellow-600 to-green-600 hover:from-yellow-700 hover:to-green-700 text-white transition-all duration-400 hover:scale-[1.05] hover:shadow-xl active:scale-[0.98] transform-gpu animate-in slide-in-from-bottom-2 duration-600 delay-600 hover:-rotate-1" disabled={loading}>
+                      <Button type="submit" className="w-full bg-gradient-to-r from-emerald-600 to-green-600 hover:from-emerald-700 hover:to-green-700 text-white transition-all duration-400 hover:scale-[1.05] hover:shadow-xl active:scale-[0.98] transform-gpu animate-in slide-in-from-bottom-2 duration-600 delay-600 hover:-rotate-1" disabled={loading}>
                         {loading && (
                           <Loader2 className="mr-2 h-4 w-4 animate-spin" />
                         )}
@@ -419,7 +419,7 @@ export default function FarmerAuthPage() {
 
                   <Button
                     onClick={handlePasskeyLogin}
-                    className="w-full py-3 bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 transition-all duration-400 hover:scale-[1.05] hover:shadow-xl active:scale-[0.98] transform-gpu animate-in zoom-in duration-500 delay-400 hover:rotate-1"
+                    className="w-full py-3 bg-gradient-to-r from-emerald-600 to-green-600 hover:from-emerald-700 hover:to-green-700 transition-all duration-400 hover:scale-[1.05] hover:shadow-xl active:scale-[0.98] transform-gpu animate-in zoom-in duration-500 delay-400 hover:rotate-1"
                     disabled={loading}
                   >
                     {loading ? (
