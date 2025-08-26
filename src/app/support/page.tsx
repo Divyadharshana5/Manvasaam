@@ -33,10 +33,10 @@ function PageSkeleton() {
   );
 }
 
-export default function SupportPage() {
+function SupportContent() {
   const [searchQuery, setSearchQuery] = useState("");
 
-  const faqItems = [
+  const faqItems = useMemo(() => [
     {
       question: "How do I create an account?",
       answer: "Click any role button on homepage and follow registration.",
@@ -57,12 +57,14 @@ export default function SupportPage() {
       question: "Any fees?",
       answer: "Free registration. Small commission on transactions.",
     },
-  ];
+  ], []);
 
-  const filteredFAQs = faqItems.filter(
-    (item) =>
-      item.question.toLowerCase().includes(searchQuery.toLowerCase()) ||
-      item.answer.toLowerCase().includes(searchQuery.toLowerCase())
+  const filteredFAQs = useMemo(() => 
+    faqItems.filter(
+      (item) =>
+        item.question.toLowerCase().includes(searchQuery.toLowerCase()) ||
+        item.answer.toLowerCase().includes(searchQuery.toLowerCase())
+    ), [faqItems, searchQuery]
   );
 
   return (
