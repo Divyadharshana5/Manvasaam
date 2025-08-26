@@ -511,7 +511,7 @@ export default function RestaurantAuthPage() {
                   />
                   <Button
                     type="submit"
-                    className="w-full bg-emerald-600 hover:bg-emerald-700 text-white transition-all duration-200 hover:scale-[1.02]"
+                    className="w-full bg-gradient-to-r from-orange-600 to-red-600 hover:from-orange-700 hover:to-red-700 text-white transition-all duration-400 hover:scale-[1.05] hover:shadow-xl active:scale-[0.98] transform-gpu animate-in slide-in-from-bottom-2 duration-600 delay-700 hover:-rotate-1"
                     disabled={loading}
                     onClick={() => console.log("Register button clicked")}
                   >
