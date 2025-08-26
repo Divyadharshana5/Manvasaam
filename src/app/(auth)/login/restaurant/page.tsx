@@ -232,9 +232,9 @@ export default function RestaurantAuthPage() {
 
       {/* Floating background elements with cooking theme */}
       <div className="absolute inset-0 -z-5">
-        <div className="absolute top-24 left-20 w-30 h-30 bg-orange-200/20 dark:bg-orange-800/20 rounded-full blur-xl animate-pulse delay-500"></div>
-        <div className="absolute top-48 right-16 w-26 h-26 bg-yellow-200/25 dark:bg-yellow-800/25 rounded-full blur-xl animate-bounce delay-1200"></div>
-        <div className="absolute bottom-36 left-16 w-34 h-34 bg-red-200/20 dark:bg-red-800/20 rounded-full blur-xl animate-pulse delay-800"></div>
+        <div className="absolute top-24 left-20 w-30 h-30 bg-emerald-200/20 dark:bg-emerald-800/20 rounded-full blur-xl animate-pulse delay-500"></div>
+        <div className="absolute top-48 right-16 w-26 h-26 bg-green-200/25 dark:bg-green-800/25 rounded-full blur-xl animate-bounce delay-1200"></div>
+        <div className="absolute bottom-36 left-16 w-34 h-34 bg-lime-200/20 dark:bg-lime-800/20 rounded-full blur-xl animate-pulse delay-800"></div>
         <div className="absolute bottom-20 right-20 w-28 h-28 bg-emerald-300/25 dark:bg-emerald-700/25 rounded-full blur-xl animate-bounce delay-200"></div>
       </div>
 
@@ -243,7 +243,7 @@ export default function RestaurantAuthPage() {
 
         <CardHeader className="text-center px-4 sm:px-6 py-4 sm:py-6 relative">
           {/* Animated icon */}
-          <div className="flex items-center justify-center w-16 h-16 mx-auto mb-4 bg-gradient-to-br from-orange-100 to-red-100 dark:from-orange-900 dark:to-red-900 rounded-full border-2 border-emerald-200 dark:border-emerald-700 animate-in zoom-in duration-800 delay-500 hover:scale-110 transition-all duration-300 group-hover:shadow-lg hover:-rotate-12">
+          <div className="flex items-center justify-center w-16 h-16 mx-auto mb-4 bg-gradient-to-br from-emerald-100 to-green-100 dark:from-emerald-900 dark:to-green-900 rounded-full border-2 border-emerald-200 dark:border-emerald-700 animate-in zoom-in duration-800 delay-500 hover:scale-110 transition-all duration-300 group-hover:shadow-lg hover:-rotate-12">
             <ChefHat className="h-8 w-8 text-emerald-600 dark:text-emerald-400 animate-in slide-in-from-bottom-2 duration-600 delay-700" />
           </div>
           
@@ -259,17 +259,17 @@ export default function RestaurantAuthPage() {
             console.log("Tab changed to:", value);
             setActiveTab(value);
           }} className="w-full animate-in fade-in duration-500 delay-500 relative z-30">
-            <TabsList className="grid w-full grid-cols-2 bg-gradient-to-r from-orange-100 to-red-100 dark:from-orange-900 dark:to-red-900 p-1 rounded-lg relative z-40 pointer-events-auto animate-in slide-in-from-bottom-2 duration-600 delay-1000 shadow-inner">
+            <TabsList className="grid w-full grid-cols-2 bg-gradient-to-r from-emerald-100 to-green-100 dark:from-emerald-900 dark:to-green-900 p-1 rounded-lg relative z-40 pointer-events-auto animate-in slide-in-from-bottom-2 duration-600 delay-1000 shadow-inner">
               <TabsTrigger 
                 value="login" 
-                className="data-[state=active]:bg-gradient-to-r data-[state=active]:from-orange-200 data-[state=active]:to-red-200 dark:data-[state=active]:from-orange-700 dark:data-[state=active]:to-red-700 data-[state=active]:shadow-md transition-all duration-400 cursor-pointer pointer-events-auto relative z-50 hover:scale-105 hover:bg-orange-150 dark:hover:bg-orange-800 transform-gpu animate-in slide-in-from-left-2 duration-500 delay-1200"
+                className="data-[state=active]:bg-gradient-to-r data-[state=active]:from-emerald-200 data-[state=active]:to-green-200 dark:data-[state=active]:from-emerald-700 dark:data-[state=active]:to-green-700 data-[state=active]:shadow-md transition-all duration-400 cursor-pointer pointer-events-auto relative z-50 hover:scale-105 hover:bg-emerald-150 dark:hover:bg-emerald-800 transform-gpu animate-in slide-in-from-left-2 duration-500 delay-1200"
                 onClick={() => console.log("Login tab clicked")}
               >
                 {t.auth.login}
               </TabsTrigger>
               <TabsTrigger 
                 value="register" 
-                className="data-[state=active]:bg-gradient-to-r data-[state=active]:from-orange-200 data-[state=active]:to-red-200 dark:data-[state=active]:from-orange-700 dark:data-[state=active]:to-red-700 data-[state=active]:shadow-md transition-all duration-400 cursor-pointer pointer-events-auto relative z-50 hover:scale-105 hover:bg-orange-150 dark:hover:bg-orange-800 transform-gpu animate-in slide-in-from-right-2 duration-500 delay-1200"
+                className="data-[state=active]:bg-gradient-to-r data-[state=active]:from-emerald-200 data-[state=active]:to-green-200 dark:data-[state=active]:from-emerald-700 dark:data-[state=active]:to-green-700 data-[state=active]:shadow-md transition-all duration-400 cursor-pointer pointer-events-auto relative z-50 hover:scale-105 hover:bg-emerald-150 dark:hover:bg-emerald-800 transform-gpu animate-in slide-in-from-right-2 duration-500 delay-1200"
                 onClick={() => console.log("Register tab clicked")}
               >
                 {t.auth.register}
@@ -351,7 +351,7 @@ export default function RestaurantAuthPage() {
                       </FormItem>
                     )}
                   />
-                  <Button type="submit" className="w-full bg-gradient-to-r from-orange-600 to-red-600 hover:from-orange-700 hover:to-red-700 text-white transition-all duration-400 hover:scale-[1.05] hover:shadow-xl active:scale-[0.98] transform-gpu animate-in slide-in-from-bottom-2 duration-600 delay-600 hover:rotate-1" disabled={loading}>
+                  <Button type="submit" className="w-full bg-gradient-to-r from-emerald-600 to-green-600 hover:from-emerald-700 hover:to-green-700 text-white transition-all duration-400 hover:scale-[1.05] hover:shadow-xl active:scale-[0.98] transform-gpu animate-in slide-in-from-bottom-2 duration-600 delay-600 hover:rotate-1" disabled={loading}>
                     {loading && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
                     {t.auth.login}
                   </Button>
