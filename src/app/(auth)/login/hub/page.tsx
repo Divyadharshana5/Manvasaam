@@ -374,17 +374,30 @@ function HubAuthComponent() {
   }
 
   return (
-    <div className="animate-in fade-in duration-700 relative min-h-screen flex items-center justify-center p-4">
-      {/* Agricultural distribution center background */}
-      <div className="absolute inset-0 bg-gradient-to-br from-emerald-50 via-green-50 to-lime-50 dark:from-emerald-950 dark:via-green-950 dark:to-lime-950 opacity-30 rounded-lg -z-10"></div>
+    <div className="animate-in fade-in duration-1000 relative min-h-screen flex items-center justify-center p-4 overflow-hidden">
+      {/* Enhanced animated background */}
+      <div className="absolute inset-0 bg-gradient-to-br from-emerald-50 via-green-50 to-lime-50 dark:from-emerald-950 dark:via-green-950 dark:to-lime-950 opacity-40 -z-10"></div>
+      
+      {/* Floating background elements */}
+      <div className="absolute inset-0 -z-5">
+        <div className="absolute top-20 left-10 w-32 h-32 bg-emerald-200/20 dark:bg-emerald-800/20 rounded-full blur-xl animate-pulse"></div>
+        <div className="absolute top-40 right-20 w-24 h-24 bg-green-200/20 dark:bg-green-800/20 rounded-full blur-xl animate-pulse delay-1000"></div>
+        <div className="absolute bottom-32 left-20 w-40 h-40 bg-lime-200/20 dark:bg-lime-800/20 rounded-full blur-xl animate-pulse delay-2000"></div>
+        <div className="absolute bottom-20 right-10 w-28 h-28 bg-emerald-300/20 dark:bg-emerald-700/20 rounded-full blur-xl animate-pulse delay-500"></div>
+      </div>
 
-      <Card className="w-full max-w-md bg-white dark:bg-gray-900 border border-emerald-200 dark:border-emerald-700 animate-in slide-in-from-left-4 duration-700 delay-200 relative z-10 hover:shadow-xl hover:scale-[1.02] transition-all duration-300 hover:border-emerald-300 dark:hover:border-emerald-600">
+      <Card className="w-full max-w-md bg-white/95 dark:bg-gray-900/95 backdrop-blur-sm border border-emerald-200 dark:border-emerald-700 animate-in slide-in-from-left-4 duration-1000 delay-300 relative z-10 hover:shadow-2xl hover:scale-[1.03] transition-all duration-500 hover:border-emerald-300 dark:hover:border-emerald-600 hover:bg-white dark:hover:bg-gray-900 group">
 
-        <CardHeader className="text-center px-4 sm:px-6 py-4 sm:py-6">
-          <CardTitle className="text-lg sm:text-xl font-bold text-emerald-700 dark:text-emerald-300 animate-in slide-in-from-top-2 duration-700 delay-400 hover:text-emerald-600 dark:hover:text-emerald-200 transition-colors duration-300">
+        <CardHeader className="text-center px-4 sm:px-6 py-4 sm:py-6 relative">
+          {/* Animated icon */}
+          <div className="flex items-center justify-center w-16 h-16 mx-auto mb-4 bg-gradient-to-br from-emerald-100 to-green-100 dark:from-emerald-900 dark:to-green-900 rounded-full border-2 border-emerald-200 dark:border-emerald-700 animate-in zoom-in duration-800 delay-500 hover:scale-110 transition-all duration-300 group-hover:shadow-lg">
+            <Building2 className="h-8 w-8 text-emerald-600 dark:text-emerald-400 animate-in slide-in-from-bottom-2 duration-600 delay-700" />
+          </div>
+          
+          <CardTitle className="text-lg sm:text-xl font-bold text-emerald-700 dark:text-emerald-300 animate-in slide-in-from-top-2 duration-800 delay-600 hover:text-emerald-600 dark:hover:text-emerald-200 transition-colors duration-300">
             Hub Portal
           </CardTitle>
-          <CardDescription className="text-sm sm:text-base text-emerald-600 dark:text-emerald-400 animate-in fade-in duration-700 delay-600 hover:text-emerald-500 dark:hover:text-emerald-300 transition-colors duration-300">
+          <CardDescription className="text-sm sm:text-base text-emerald-600 dark:text-emerald-400 animate-in fade-in duration-800 delay-800 hover:text-emerald-500 dark:hover:text-emerald-300 transition-colors duration-300">
             Distribution center access
           </CardDescription>
         </CardHeader>
@@ -393,16 +406,16 @@ function HubAuthComponent() {
             console.log("Hub tab changed to:", value);
             setActiveTab(value);
           }} className="w-full animate-in fade-in duration-700 delay-800 relative z-30">
-            <TabsList className="grid w-full grid-cols-2 bg-emerald-100 dark:bg-emerald-900 p-1 rounded-md relative z-40 pointer-events-auto animate-in slide-in-from-bottom-2 duration-500 delay-1000">
+            <TabsList className="grid w-full grid-cols-2 bg-gradient-to-r from-emerald-100 to-green-100 dark:from-emerald-900 dark:to-green-900 p-1 rounded-lg relative z-40 pointer-events-auto animate-in slide-in-from-bottom-2 duration-600 delay-1000 shadow-inner">
               <TabsTrigger
                 value="login"
-                className="data-[state=active]:bg-emerald-200 dark:data-[state=active]:bg-emerald-700 transition-all duration-300 cursor-pointer hover:scale-105 hover:bg-emerald-150 dark:hover:bg-emerald-800 transform-gpu"
+                className="data-[state=active]:bg-gradient-to-r data-[state=active]:from-emerald-200 data-[state=active]:to-green-200 dark:data-[state=active]:from-emerald-700 dark:data-[state=active]:to-green-700 data-[state=active]:shadow-md transition-all duration-400 cursor-pointer hover:scale-105 hover:bg-emerald-150 dark:hover:bg-emerald-800 transform-gpu animate-in slide-in-from-left-2 duration-500 delay-1200"
               >
                 {t.auth.login}
               </TabsTrigger>
               <TabsTrigger
                 value="register"
-                className="data-[state=active]:bg-emerald-200 dark:data-[state=active]:bg-emerald-700 transition-all duration-300 cursor-pointer hover:scale-105 hover:bg-emerald-150 dark:hover:bg-emerald-800 transform-gpu"
+                className="data-[state=active]:bg-gradient-to-r data-[state=active]:from-emerald-200 data-[state=active]:to-green-200 dark:data-[state=active]:from-emerald-700 dark:data-[state=active]:to-green-700 data-[state=active]:shadow-md transition-all duration-400 cursor-pointer hover:scale-105 hover:bg-emerald-150 dark:hover:bg-emerald-800 transform-gpu animate-in slide-in-from-right-2 duration-500 delay-1200"
               >
                 {t.auth.register}
               </TabsTrigger>
@@ -418,12 +431,12 @@ function HubAuthComponent() {
                     control={loginForm.control}
                     name="branchName"
                     render={({ field }) => (
-                      <FormItem className="animate-in slide-in-from-left-2 duration-500 delay-200">
-                        <FormLabel className="text-emerald-700 dark:text-emerald-300 font-medium transition-colors duration-200 hover:text-emerald-600 dark:hover:text-emerald-200">{t.auth.branchNameLabel}</FormLabel>
+                      <FormItem className="animate-in slide-in-from-left-2 duration-600 delay-300 group">
+                        <FormLabel className="text-emerald-700 dark:text-emerald-300 font-medium transition-colors duration-300 hover:text-emerald-600 dark:hover:text-emerald-200 group-hover:scale-105 transform-gpu origin-left">{t.auth.branchNameLabel}</FormLabel>
                         <FormControl>
-                          <Input placeholder="Central Hub" className="border-emerald-200 dark:border-emerald-700 focus:border-emerald-400 dark:focus:border-emerald-500 focus:ring-emerald-200 dark:focus:ring-emerald-800 bg-emerald-50/50 dark:bg-emerald-950/50 placeholder:text-emerald-500 dark:placeholder:text-emerald-400 transition-all duration-300 focus:scale-[1.02] hover:border-emerald-300 dark:hover:border-emerald-600 transform-gpu" {...field} />
+                          <Input placeholder="Central Hub" className="border-emerald-200 dark:border-emerald-700 focus:border-emerald-400 dark:focus:border-emerald-500 focus:ring-2 focus:ring-emerald-200 dark:focus:ring-emerald-800 bg-gradient-to-r from-emerald-50/50 to-green-50/50 dark:from-emerald-950/50 dark:to-green-950/50 placeholder:text-emerald-500 dark:placeholder:text-emerald-400 transition-all duration-400 focus:scale-[1.03] hover:border-emerald-300 dark:hover:border-emerald-600 transform-gpu hover:shadow-md focus:shadow-lg" {...field} />
                         </FormControl>
-                        <FormMessage className="text-red-600 dark:text-red-400" />
+                        <FormMessage className="text-red-600 dark:text-red-400 animate-in fade-in duration-300" />
                       </FormItem>
                     )}
                   />
@@ -431,12 +444,12 @@ function HubAuthComponent() {
                     control={loginForm.control}
                     name="email"
                     render={({ field }) => (
-                      <FormItem className="animate-in slide-in-from-left-2 duration-500 delay-300">
-                        <FormLabel className="text-emerald-700 dark:text-emerald-300 font-medium transition-colors duration-200 hover:text-emerald-600 dark:hover:text-emerald-200">{t.auth.emailLabel}</FormLabel>
+                      <FormItem className="animate-in slide-in-from-left-2 duration-600 delay-400 group">
+                        <FormLabel className="text-emerald-700 dark:text-emerald-300 font-medium transition-colors duration-300 hover:text-emerald-600 dark:hover:text-emerald-200 group-hover:scale-105 transform-gpu origin-left">{t.auth.emailLabel}</FormLabel>
                         <FormControl>
-                          <Input placeholder="hub-admin@example.com" className="border-emerald-200 dark:border-emerald-700 focus:border-emerald-400 dark:focus:border-emerald-500 focus:ring-emerald-200 dark:focus:ring-emerald-800 bg-emerald-50/50 dark:bg-emerald-950/50 placeholder:text-emerald-500 dark:placeholder:text-emerald-400 transition-all duration-300 focus:scale-[1.02] hover:border-emerald-300 dark:hover:border-emerald-600 transform-gpu" {...field} />
+                          <Input placeholder="hub-admin@example.com" className="border-emerald-200 dark:border-emerald-700 focus:border-emerald-400 dark:focus:border-emerald-500 focus:ring-2 focus:ring-emerald-200 dark:focus:ring-emerald-800 bg-gradient-to-r from-emerald-50/50 to-green-50/50 dark:from-emerald-950/50 dark:to-green-950/50 placeholder:text-emerald-500 dark:placeholder:text-emerald-400 transition-all duration-400 focus:scale-[1.03] hover:border-emerald-300 dark:hover:border-emerald-600 transform-gpu hover:shadow-md focus:shadow-lg" {...field} />
                         </FormControl>
-                        <FormMessage className="text-red-600 dark:text-red-400" />
+                        <FormMessage className="text-red-600 dark:text-red-400 animate-in fade-in duration-300" />
                       </FormItem>
                     )}
                   />
@@ -444,14 +457,14 @@ function HubAuthComponent() {
                     control={loginForm.control}
                     name="password"
                     render={({ field }) => (
-                      <FormItem className="animate-in slide-in-from-left-2 duration-500 delay-400">
+                      <FormItem className="animate-in slide-in-from-left-2 duration-600 delay-500 group">
                         <div className="flex justify-between items-center">
-                          <FormLabel className="text-emerald-700 dark:text-emerald-300 font-medium transition-colors duration-200 hover:text-emerald-600 dark:hover:text-emerald-200">{t.auth.passwordLabel}</FormLabel>
+                          <FormLabel className="text-emerald-700 dark:text-emerald-300 font-medium transition-colors duration-300 hover:text-emerald-600 dark:hover:text-emerald-200 group-hover:scale-105 transform-gpu origin-left">{t.auth.passwordLabel}</FormLabel>
                           <Button
                             variant="link"
                             size="sm"
                             type="button"
-                            className="p-0 h-auto text-xs text-emerald-600 dark:text-emerald-400 hover:text-emerald-800 dark:hover:text-emerald-200"
+                            className="p-0 h-auto text-xs text-emerald-600 dark:text-emerald-400 hover:text-emerald-800 dark:hover:text-emerald-200 transition-all duration-300 hover:scale-110 transform-gpu animate-in fade-in delay-600"
                             onClick={onForgotPassword}
                             disabled={loading}
                           >
@@ -462,25 +475,25 @@ function HubAuthComponent() {
                           <div className="relative">
                             <Input
                               type={showPassword ? "text" : "password"}
-                              className="border-emerald-200 dark:border-emerald-700 focus:border-emerald-400 dark:focus:border-emerald-500 focus:ring-emerald-200 dark:focus:ring-emerald-800 bg-emerald-50/50 dark:bg-emerald-950/50 transition-all duration-300 focus:scale-[1.02] hover:border-emerald-300 dark:hover:border-emerald-600 transform-gpu"
+                              className="border-emerald-200 dark:border-emerald-700 focus:border-emerald-400 dark:focus:border-emerald-500 focus:ring-2 focus:ring-emerald-200 dark:focus:ring-emerald-800 bg-gradient-to-r from-emerald-50/50 to-green-50/50 dark:from-emerald-950/50 dark:to-green-950/50 transition-all duration-400 focus:scale-[1.03] hover:border-emerald-300 dark:hover:border-emerald-600 transform-gpu hover:shadow-md focus:shadow-lg"
                               {...field}
                             />
                             <Button
                               type="button"
                               variant="ghost"
                               size="icon"
-                              className="absolute right-1 top-1/2 -translate-y-1/2 h-7 w-7 hover:bg-emerald-100 dark:hover:bg-emerald-900 transition-all duration-200 hover:scale-110 transform-gpu"
+                              className="absolute right-1 top-1/2 -translate-y-1/2 h-7 w-7 hover:bg-emerald-100 dark:hover:bg-emerald-900 transition-all duration-300 hover:scale-125 transform-gpu hover:rotate-12"
                               onClick={() => setShowPassword(!showPassword)}
                             >
                               {showPassword ? (
-                                <EyeOff className="h-4 w-4 text-emerald-600 dark:text-emerald-400" />
+                                <EyeOff className="h-4 w-4 text-emerald-600 dark:text-emerald-400 transition-all duration-200" />
                               ) : (
-                                <Eye className="h-4 w-4 text-emerald-600 dark:text-emerald-400" />
+                                <Eye className="h-4 w-4 text-emerald-600 dark:text-emerald-400 transition-all duration-200" />
                               )}
                             </Button>
                           </div>
                         </FormControl>
-                        <FormMessage className="text-red-600 dark:text-red-400" />
+                        <FormMessage className="text-red-600 dark:text-red-400 animate-in fade-in duration-300" />
                       </FormItem>
                     )}
                   />
