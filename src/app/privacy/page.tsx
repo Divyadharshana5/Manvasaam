@@ -445,7 +445,8 @@ function PrivacyContent() {
                       whileHover={{
                         x: [-1, 1, -1, 1, 0],
                         y: [-1, 1, -1, 1, 0],
-                        rotate: [-3, 3, -3, 3, 0]
+                        rotate: [-3, 3, -3, 3, 0],
+                        transition: { duration: 0.4, ease: "easeInOut" }
                       }}
                     >
                       <Users className="h-4 w-4 text-blue-600" />
