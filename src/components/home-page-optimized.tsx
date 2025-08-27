@@ -129,38 +129,39 @@ const RoleCard = ({ role, index, onContinueClick, loadingRoleHref, t }: RoleCard
       whileHover={{ y: -4 }}
       onMouseEnter={handleHover}
     >
-    <Card className="bg-card/80 backdrop-blur-xl border-2 border-primary/20 rounded-2xl shadow-lg hover:shadow-2xl hover:scale-105 transition-all duration-300 p-4 sm:p-6 flex flex-col h-full min-h-[280px] sm:min-h-[320px]">
-      <CardHeader className="items-center flex-shrink-0 pb-2 sm:pb-4">
-        <div className="group-hover:animate-shake text-4xl sm:text-5xl">
-          {role.icon}
-        </div>
-      </CardHeader>
-      <CardContent className="text-center flex-grow flex flex-col justify-between p-0">
-        <div>
-          <CardTitle className="mt-2 sm:mt-4 text-lg sm:text-xl lg:text-2xl transition-all duration-300 group-hover:text-primary group-hover:scale-105">
-            {role.name}
-          </CardTitle>
-          <p className="text-muted-foreground my-3 sm:my-4 text-sm sm:text-base leading-relaxed">
-            {role.description}
-          </p>
-        </div>
-        <Button
-          className="w-full mt-auto transition-all duration-200 hover:scale-105 active:scale-95"
-          onClick={() => onContinueClick(role.href)}
-          disabled={loadingRoleHref === role.href}
-        >
-          {loadingRoleHref === role.href ? (
-            <Loader2 className="mr-2 h-4 w-4 animate-spin" />
-          ) : (
-            <>
-              {t.continue} <ArrowRight className="ml-2 h-4 w-4 transition-transform group-hover:translate-x-1" />
-            </>
-          )}
-        </Button>
-      </CardContent>
-    </Card>
-  </motion.div>
-);
+      <Card className="bg-card/80 backdrop-blur-xl border-2 border-primary/20 rounded-2xl shadow-lg hover:shadow-2xl hover:scale-105 transition-all duration-300 p-4 sm:p-6 flex flex-col h-full min-h-[280px] sm:min-h-[320px]">
+        <CardHeader className="items-center flex-shrink-0 pb-2 sm:pb-4">
+          <div className="group-hover:animate-shake text-4xl sm:text-5xl">
+            {role.icon}
+          </div>
+        </CardHeader>
+        <CardContent className="text-center flex-grow flex flex-col justify-between p-0">
+          <div>
+            <CardTitle className="mt-2 sm:mt-4 text-lg sm:text-xl lg:text-2xl transition-all duration-300 group-hover:text-primary group-hover:scale-105">
+              {role.name}
+            </CardTitle>
+            <p className="text-muted-foreground my-3 sm:my-4 text-sm sm:text-base leading-relaxed">
+              {role.description}
+            </p>
+          </div>
+          <Button
+            className="w-full mt-auto transition-all duration-200 hover:scale-105 active:scale-95"
+            onClick={() => onContinueClick(role.href)}
+            disabled={loadingRoleHref === role.href}
+          >
+            {loadingRoleHref === role.href ? (
+              <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+            ) : (
+              <>
+                {t.continue} <ArrowRight className="ml-2 h-4 w-4 transition-transform group-hover:translate-x-1" />
+              </>
+            )}
+          </Button>
+        </CardContent>
+      </Card>
+    </motion.div>
+  );
+};
 
 export default function HomePage() {
   const { selectedLanguage, setSelectedLanguage, t } = useLanguage();
