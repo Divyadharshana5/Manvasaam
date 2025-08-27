@@ -115,7 +115,7 @@ export default function FarmerAuthPage() {
     setLoading(true);
     try {
       const email = loginForm.getValues("email");
-      
+
       if (!email) {
         toast({
           variant: "destructive",
@@ -284,7 +284,7 @@ export default function FarmerAuthPage() {
           <div className="flex items-center justify-center w-16 h-16 mx-auto mb-4 bg-gradient-to-br from-emerald-100 to-green-100 dark:from-emerald-900 dark:to-green-900 rounded-full border-2 border-emerald-200 dark:border-emerald-700 animate-in zoom-in duration-800 delay-500 hover:scale-110 transition-all duration-300 group-hover:shadow-lg hover:rotate-6">
             <Tractor className="h-8 w-8 text-emerald-600 dark:text-emerald-400 animate-in slide-in-from-bottom-2 duration-600 delay-700" />
           </div>
-          
+
           <CardTitle className="text-lg sm:text-xl font-bold text-emerald-700 dark:text-emerald-300 animate-in slide-in-from-top-2 duration-800 delay-600 hover:text-emerald-600 dark:hover:text-emerald-200 transition-colors duration-300">
             Farmer Portal
           </CardTitle>
