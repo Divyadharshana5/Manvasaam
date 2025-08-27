@@ -2,6 +2,9 @@
 @tailwind components;
 @tailwind utilities;
 
+/* Import custom toast animations */
+@import '../styles/toast-animations.css';
+
 /* Performance optimizations */
 @layer base {
   /* Critical rendering optimizations */
