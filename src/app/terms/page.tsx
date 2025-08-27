@@ -120,24 +120,66 @@ function TermsContent() {
         />
       </div>
 
-      {/* Header */}
-      <header className="relative bg-white/95 backdrop-blur-md border-b border-primary/20 sticky top-0 z-50 shadow-sm">
+      {/* Enhanced Animated Header */}
+      <motion.header 
+        className="relative bg-white/95 backdrop-blur-md border-b border-primary/20 sticky top-0 z-50 shadow-sm"
+        initial={{ y: -100, opacity: 0 }}
+        animate={{ y: 0, opacity: 1 }}
+        transition={{ duration: 0.6, ease: "easeOut" }}
+      >
         <div className="container mx-auto px-4 py-4 flex items-center justify-center">
-          <div className="flex items-center gap-3">
-            <div className="p-2 bg-gradient-to-br from-green-500 to-blue-500 rounded-xl shadow-lg">
-              <FileText className="h-6 w-6 text-white" />
-            </div>
+          <motion.div 
+            className="flex items-center gap-3"
+            initial={{ scale: 0.8, opacity: 0 }}
+            animate={{ scale: 1, opacity: 1 }}
+            transition={{ duration: 0.5, delay: 0.3 }}
+          >
+            <motion.div 
+              className="p-2 bg-gradient-to-br from-green-500 to-blue-500 rounded-xl shadow-lg"
+              whileHover={{ 
+                scale: 1.1, 
+                rotate: [0, -10, 10, 0],
+                boxShadow: "0 15px 30px rgba(34, 197, 94, 0.4)"
+              }}
+              whileTap={{ scale: 0.95 }}
+              transition={{ duration: 0.3 }}
+            >
+              <motion.div
+                animate={{ 
+                  rotate: [0, 5, -5, 0],
+                  scale: [1, 1.05, 1]
+                }}
+                transition={{ 
+                  duration: 3,
+                  repeat: Infinity,
+                  ease: "easeInOut"
+                }}
+              >
+                <FileText className="h-6 w-6 text-white" />
+              </motion.div>
+            </motion.div>
             <div>
-              <h1 className="text-xl font-bold bg-gradient-to-r from-green-600 to-blue-600 bg-clip-text text-transparent">
+              <motion.h1 
+                className="text-xl font-bold bg-gradient-to-r from-green-600 to-blue-600 bg-clip-text text-transparent"
+                initial={{ x: -20, opacity: 0 }}
+                animate={{ x: 0, opacity: 1 }}
+                transition={{ duration: 0.5, delay: 0.4 }}
+                whileHover={{ scale: 1.05 }}
+              >
                 Terms of Service
-              </h1>
-              <p className="text-xs text-muted-foreground">
-                Your data protection matters
-              </p>
+              </motion.h1>
+              <motion.p 
+                className="text-xs text-muted-foreground"
+                initial={{ x: -20, opacity: 0 }}
+                animate={{ x: 0, opacity: 1 }}
+                transition={{ duration: 0.5, delay: 0.5 }}
+              >
+                Legal guidelines and policies
+              </motion.p>
             </div>
-          </div>
+          </motion.div>
         </div>
-      </header>
+      </motion.header>
 
       {/* Main Content */}
       <main className="container mx-auto px-4 py-6 max-w-3xl">
