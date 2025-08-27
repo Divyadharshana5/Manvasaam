@@ -170,6 +170,7 @@ export default function RestaurantAuthPage() {
       }
 
       toast({
+        variant: "restaurant" as any,
         title: "Restaurant Registration Successful",
         description: "Your registration is complete. Please log in.",
       });
