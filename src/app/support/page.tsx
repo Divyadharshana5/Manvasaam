@@ -334,7 +334,7 @@ function SupportContent() {
                 </p>
               </div>
             </div>
-          </div>
+          </motion.div>
 
           {/* Key Points */}
           <Card className="relative border-0 bg-gradient-to-br from-white/80 to-green-50/80 backdrop-blur-sm shadow-xl">
