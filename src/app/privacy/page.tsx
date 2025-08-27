@@ -440,6 +440,11 @@ function PrivacyContent() {
                     <motion.div
                       animate={{ scale: [1, 1.2, 1] }}
                       transition={{ duration: 2, repeat: Infinity, delay: 3 }}
+                      whileHover={{
+                        x: [-1, 1, -1, 1, 0],
+                        y: [-1, 1, -1, 1, 0],
+                        rotate: [-3, 3, -3, 3, 0]
+                      }}
                     >
                       <Users className="h-4 w-4 text-blue-600" />
                     </motion.div>
