@@ -188,6 +188,11 @@ function SupportContent() {
                   repeat: Infinity,
                   ease: "easeInOut"
                 }}
+                whileHover={{
+                  x: [-2, 2, -2, 2, 0],
+                  y: [-1, 1, -1, 1, 0],
+                  rotate: [-8, 8, -8, 8, 0]
+                }}
               >
                 <HelpCircle className="h-6 w-6 text-white" />
               </motion.div>
@@ -277,6 +282,9 @@ function SupportContent() {
                 }}
                 whileHover={{
                   rotate: [0, -720],
+                  x: [-4, 4, -4, 4, 0],
+                  y: [-2, 2, -2, 2, 0],
+                  scale: [1, 1.2, 1],
                   transition: { duration: 1.5 }
                 }}
               >
