@@ -212,6 +212,25 @@ export default function HomePage() {
     return () => clearTimeout(timer);
   }, []);
 
+  // Prefetch all login pages for instant navigation
+  useEffect(() => {
+    const loginPages = [
+      "/login/farmer",
+      "/login/customer", 
+      "/login/hub",
+      "/login/restaurant"
+    ];
+    
+    // Prefetch after a short delay to not block initial render
+    const prefetchTimer = setTimeout(() => {
+      loginPages.forEach(page => {
+        router.prefetch(page);
+      });
+    }, 500);
+
+    return () => clearTimeout(prefetchTimer);
+  }, [router]);
+
   const handleContinueClick = useCallback((href: string) => {
     setLoadingRoleHref(href);
     
