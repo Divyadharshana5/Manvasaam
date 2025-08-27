@@ -205,8 +205,9 @@ export default function FarmerAuthPage() {
       localStorage.setItem('userType', 'farmer');
 
       toast({
+        variant: "farmer" as any,
         title: "Login successful",
-        description: "Welcome back,farmer...",
+        description: "Welcome back, farmer...",
         duration: 1000,
       });
       router.push("/dashboard/farmer");
