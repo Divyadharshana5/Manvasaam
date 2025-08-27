@@ -371,7 +371,19 @@ function SupportContent() {
                   whileHover={{ scale: 1.05, y: -5 }}
                 >
                   <div className="w-12 h-12 bg-gradient-to-br from-blue-500 to-blue-600 rounded-xl flex items-center justify-center mx-auto shadow-lg">
-                    <Phone className="h-6 w-6 text-white" />
+                    <motion.div
+                      whileHover={{
+                        x: [-2, 2, -2, 2, 0],
+                        y: [-1, 1, -1, 1, 0],
+                        rotate: [-3, 3, -3, 3, 0]
+                      }}
+                      transition={{ 
+                        duration: 0.4,
+                        ease: "easeInOut"
+                      }}
+                    >
+                      <Phone className="h-6 w-6 text-white" />
+                    </motion.div>
                   </div>
                   <h3 className="font-semibold text-base text-gray-800">
                     Phone Support
