@@ -161,6 +161,7 @@ export default function FarmerAuthPage() {
       // Fast fingerprint login
       setTimeout(() => {
         toast({
+          variant: "farmer" as any,
           title: "Login successful",
           description: "Welcome back to dashboard...",
           duration: 1000,
