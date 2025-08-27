@@ -136,7 +136,7 @@ const RoleCard = ({ role, index, onContinueClick, loadingRoleHref, t }: RoleCard
           </p>
         </div>
         <Button
-          className="w-full mt-auto"
+          className="w-full mt-auto transition-all duration-200 hover:scale-105 active:scale-95"
           onClick={() => onContinueClick(role.href)}
           disabled={loadingRoleHref === role.href}
         >
@@ -144,7 +144,7 @@ const RoleCard = ({ role, index, onContinueClick, loadingRoleHref, t }: RoleCard
             <Loader2 className="mr-2 h-4 w-4 animate-spin" />
           ) : (
             <>
-              {t.continue} <ArrowRight className="ml-2 h-4 w-4" />
+              {t.continue} <ArrowRight className="ml-2 h-4 w-4 transition-transform group-hover:translate-x-1" />
             </>
           )}
         </Button>
