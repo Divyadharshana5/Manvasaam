@@ -153,6 +153,7 @@ export default function FarmerAuthPage() {
     setLoading(true);
     try {
       toast({
+        variant: "info" as any,
         title: "Authenticating...",
         description: "Touch your fingerprint sensor",
       });
