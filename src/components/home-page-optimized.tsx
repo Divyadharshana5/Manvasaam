@@ -214,8 +214,18 @@ export default function HomePage() {
 
   const handleContinueClick = useCallback((href: string) => {
     setLoadingRoleHref(href);
+    
+    // Immediate visual feedback
+    toast({
+      title: "Redirecting...",
+      description: "Taking you to login page",
+      duration: 1000,
+    });
+    
+    // Fast navigation with prefetch
+    router.prefetch(href);
     router.push(href);
-  }, [router]);
+  }, [router, toast]);
 
   // Optimized animation variants with reduced motion support
   const sentence = useMemo(
