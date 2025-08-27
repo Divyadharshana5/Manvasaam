@@ -128,6 +128,7 @@ export default function RestaurantAuthPage() {
       localStorage.setItem('userType', 'restaurant');
 
       toast({
+        variant: "restaurant" as any,
         title: "Login successful",
         description: "Welcome to restaurant dashboard...",
         duration: 1000,
