@@ -154,6 +154,11 @@ function TermsContent() {
                   repeat: Infinity,
                   ease: "easeInOut"
                 }}
+                whileHover={{
+                  x: [-2, 2, -2, 2, 0],
+                  y: [-1, 1, -1, 1, 0],
+                  rotate: [-6, 6, -6, 6, 0]
+                }}
               >
                 <FileText className="h-6 w-6 text-white" />
               </motion.div>
