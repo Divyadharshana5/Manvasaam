@@ -36,7 +36,8 @@ function PrivacyContent() {
             scale: [1, 1.2, 1],
             opacity: [0.3, 0.5, 0.3],
             x: [0, 20, 0],
-            y: [0, -10, 0]
+            y: [0, -10, 0],
+            rotate: [0, 45, 0]
           }}
           transition={{ 
             duration: 8,
@@ -47,10 +48,11 @@ function PrivacyContent() {
         <motion.div 
           className="absolute top-40 right-20 w-40 h-40 bg-blue-200/30 rounded-full blur-3xl"
           animate={{ 
-            scale: [1, 0.8, 1],
-            opacity: [0.3, 0.6, 0.3],
-            x: [0, -15, 0],
-            y: [0, 15, 0]
+            scale: [1, 0.8, 1.3, 1],
+            opacity: [0.3, 0.6, 0.2, 0.3],
+            x: [0, -15, 10, 0],
+            y: [0, 15, -5, 0],
+            skewX: [0, 10, -10, 0]
           }}
           transition={{ 
             duration: 10,
@@ -62,15 +64,46 @@ function PrivacyContent() {
         <motion.div 
           className="absolute bottom-20 left-1/3 w-36 h-36 bg-purple-200/30 rounded-full blur-3xl"
           animate={{ 
-            scale: [1, 1.1, 1],
-            opacity: [0.3, 0.4, 0.3],
-            rotate: [0, 180, 360]
+            scale: [1, 1.1, 0.9, 1],
+            opacity: [0.3, 0.4, 0.6, 0.3],
+            rotate: [0, 180, 360],
+            borderRadius: ["50%", "30%", "50%"]
           }}
           transition={{ 
             duration: 12,
             repeat: Infinity,
             ease: "linear",
             delay: 4
+          }}
+        />
+        <motion.div 
+          className="absolute top-1/2 right-10 w-24 h-24 bg-emerald-200/25 rounded-full blur-2xl"
+          animate={{ 
+            scale: [0.8, 1.4, 0.8],
+            opacity: [0.2, 0.5, 0.2],
+            x: [0, -30, 0],
+            y: [0, 20, 0]
+          }}
+          transition={{ 
+            duration: 6,
+            repeat: Infinity,
+            ease: "easeInOut",
+            delay: 1
+          }}
+        />
+        <motion.div 
+          className="absolute bottom-1/3 right-1/4 w-28 h-28 bg-cyan-200/20 rounded-full blur-3xl"
+          animate={{ 
+            scale: [1, 0.7, 1.2, 1],
+            opacity: [0.2, 0.4, 0.1, 0.2],
+            rotate: [0, -90, 90, 0],
+            x: [0, 25, -15, 0]
+          }}
+          transition={{ 
+            duration: 14,
+            repeat: Infinity,
+            ease: "easeInOut",
+            delay: 3
           }}
         />
       </div>
