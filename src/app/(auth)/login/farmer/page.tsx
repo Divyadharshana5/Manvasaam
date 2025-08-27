@@ -118,7 +118,7 @@ export default function FarmerAuthPage() {
 
       if (!email) {
         toast({
-          variant: "destructive",
+          variant: "warning" as any,
           title: "Email required",
           description: "Please enter your email address to reset your password.",
         });
@@ -131,6 +131,7 @@ export default function FarmerAuthPage() {
 
       if (result.success) {
         toast({
+          variant: "success" as any,
           title: "Password Reset Email Sent",
           description: "Please check your inbox for instructions to reset your password.",
         });
