@@ -172,8 +172,8 @@ function PrivacyContent() {
           >
             <motion.div 
               className="relative inline-flex items-center justify-center w-20 h-20 bg-gradient-to-br from-green-100 to-blue-100 rounded-2xl shadow-lg"
-              initial={{ scale: 0, rotate: -180 }}
-              animate={{ scale: 1, rotate: 0 }}
+              initial={{ scale: 0, rotate: -180, opacity: 0 }}
+              animate={{ scale: 1, rotate: 0, opacity: 1 }}
               transition={{ 
                 duration: 0.8, 
                 delay: 0.4,
@@ -182,33 +182,56 @@ function PrivacyContent() {
                 damping: 15
               }}
               whileHover={{ 
-                scale: 1.1,
-                rotate: 5,
-                boxShadow: "0 20px 40px rgba(34, 197, 94, 0.2)"
+                scale: 1.15,
+                rotate: [0, -5, 5, 0],
+                boxShadow: "0 25px 50px rgba(34, 197, 94, 0.3)",
+                y: -5
               }}
+              whileTap={{ scale: 0.95 }}
             >
               <motion.div 
                 className="absolute inset-0 bg-gradient-to-br from-green-500/20 to-blue-500/20 rounded-2xl blur-xl"
                 animate={{ 
-                  scale: [1, 1.2, 1],
-                  opacity: [0.2, 0.4, 0.2]
+                  scale: [1, 1.3, 0.9, 1],
+                  opacity: [0.2, 0.5, 0.1, 0.2],
+                  rotate: [0, 180, 360]
                 }}
                 transition={{ 
-                  duration: 3,
+                  duration: 4,
                   repeat: Infinity,
                   ease: "easeInOut"
                 }}
               />
               <motion.div
-                animate={{ rotate: [0, 360] }}
+                animate={{ 
+                  rotate: [0, 360],
+                  scale: [1, 1.1, 1]
+                }}
                 transition={{ 
                   duration: 20,
                   repeat: Infinity,
                   ease: "linear"
                 }}
+                whileHover={{
+                  rotate: [0, 720],
+                  transition: { duration: 1 }
+                }}
               >
                 <Shield className="relative h-10 w-10 text-green-600" />
               </motion.div>
+              <motion.div
+                className="absolute inset-0 rounded-2xl border-2 border-green-300/30"
+                animate={{
+                  scale: [1, 1.1, 1],
+                  opacity: [0.3, 0.7, 0.3]
+                }}
+                transition={{
+                  duration: 2,
+                  repeat: Infinity,
+                  ease: "easeInOut",
+                  delay: 0.5
+                }}
+              />
             </motion.div>
             <div className="space-y-3">
               <motion.h1 
