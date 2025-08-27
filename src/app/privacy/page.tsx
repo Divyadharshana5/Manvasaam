@@ -226,7 +226,10 @@ function PrivacyContent() {
                 }}
                 whileHover={{
                   rotate: [0, 720],
-                  transition: { duration: 1 }
+                  x: [-3, 3, -3, 3, 0],
+                  y: [-2, 2, -2, 2, 0],
+                  scale: [1, 1.1, 1],
+                  transition: { duration: 0.6 }
                 }}
               >
                 <Shield className="relative h-10 w-10 text-green-600" />
