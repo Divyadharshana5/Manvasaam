@@ -392,6 +392,11 @@ function PrivacyContent() {
                     <motion.div
                       animate={{ rotate: [0, 10, -10, 0] }}
                       transition={{ duration: 2, repeat: Infinity, delay: 2 }}
+                      whileHover={{
+                        x: [-1, 1, -1, 1, 0],
+                        y: [-1, 1, -1, 1, 0],
+                        scale: [1, 1.1, 1]
+                      }}
                     >
                       <Database className="h-4 w-4 text-green-600" />
                     </motion.div>
