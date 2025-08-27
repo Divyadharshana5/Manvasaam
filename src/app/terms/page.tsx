@@ -38,11 +38,86 @@ function PageSkeleton() {
 function TermsContent() {
   return (
     <div className="min-h-screen bg-gradient-to-br from-green-50 via-blue-50 to-purple-50">
-      {/* Decorative Background Elements */}
+      {/* Enhanced Animated Background Elements */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
-        <div className="absolute top-20 left-10 w-32 h-32 bg-green-200/30 rounded-full blur-3xl"></div>
-        <div className="absolute top-40 right-20 w-40 h-40 bg-blue-200/30 rounded-full blur-3xl"></div>
-        <div className="absolute bottom-20 left-1/3 w-36 h-36 bg-purple-200/30 rounded-full blur-3xl"></div>
+        <motion.div 
+          className="absolute top-20 left-10 w-32 h-32 bg-green-200/30 rounded-full blur-3xl"
+          animate={{ 
+            scale: [1, 1.3, 0.8, 1],
+            opacity: [0.3, 0.6, 0.2, 0.3],
+            x: [0, 30, -10, 0],
+            y: [0, -20, 15, 0],
+            rotate: [0, 120, 240, 360]
+          }}
+          transition={{ 
+            duration: 15,
+            repeat: Infinity,
+            ease: "easeInOut"
+          }}
+        />
+        <motion.div 
+          className="absolute top-40 right-20 w-40 h-40 bg-blue-200/30 rounded-full blur-3xl"
+          animate={{ 
+            scale: [1, 0.7, 1.4, 1],
+            opacity: [0.3, 0.7, 0.1, 0.3],
+            x: [0, -25, 15, 0],
+            y: [0, 20, -10, 0],
+            skewY: [0, 15, -15, 0]
+          }}
+          transition={{ 
+            duration: 12,
+            repeat: Infinity,
+            ease: "easeInOut",
+            delay: 2
+          }}
+        />
+        <motion.div 
+          className="absolute bottom-20 left-1/3 w-36 h-36 bg-purple-200/30 rounded-full blur-3xl"
+          animate={{ 
+            scale: [1, 1.2, 0.9, 1.1, 1],
+            opacity: [0.3, 0.5, 0.4, 0.6, 0.3],
+            rotate: [0, -90, 180, -270, 360],
+            borderRadius: ["50%", "25%", "40%", "60%", "50%"]
+          }}
+          transition={{ 
+            duration: 18,
+            repeat: Infinity,
+            ease: "linear",
+            delay: 4
+          }}
+        />
+        <motion.div 
+          className="absolute top-1/3 left-1/4 w-28 h-28 bg-amber-200/25 rounded-full blur-2xl"
+          animate={{ 
+            scale: [0.9, 1.5, 0.6, 0.9],
+            opacity: [0.2, 0.5, 0.3, 0.2],
+            x: [0, 40, -20, 0],
+            y: [0, -15, 25, 0],
+            rotate: [0, 180, 360]
+          }}
+          transition={{ 
+            duration: 10,
+            repeat: Infinity,
+            ease: "easeInOut",
+            delay: 1.5
+          }}
+        />
+        <motion.div 
+          className="absolute bottom-1/4 right-1/3 w-24 h-24 bg-rose-200/20 rounded-full blur-3xl"
+          animate={{ 
+            scale: [1, 0.8, 1.3, 1],
+            opacity: [0.2, 0.4, 0.1, 0.2],
+            rotate: [0, -45, 45, 0],
+            x: [0, -35, 20, 0],
+            skewX: [0, 20, -20, 0]
+          }}
+          transition={{ 
+            duration: 16,
+            repeat: Infinity,
+            ease: "easeInOut",
+            delay: 3.5
+          }}
+        />
       </div>
 
       {/* Header */}
