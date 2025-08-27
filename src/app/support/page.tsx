@@ -154,24 +154,69 @@ function SupportContent() {
         />
       </div>
 
-      {/* Header */}
-      <header className="relative bg-white/95 backdrop-blur-md border-b border-primary/20 sticky top-0 z-50 shadow-sm">
+      {/* Enhanced Animated Header */}
+      <motion.header 
+        className="relative bg-white/95 backdrop-blur-md border-b border-primary/20 sticky top-0 z-50 shadow-sm"
+        initial={{ y: -100, opacity: 0 }}
+        animate={{ y: 0, opacity: 1 }}
+        transition={{ duration: 0.6, ease: "easeOut" }}
+      >
         <div className="container mx-auto px-4 py-4 flex items-center justify-center">
-          <div className="flex items-center gap-3">
-            <div className="p-2 bg-gradient-to-br from-green-500 to-blue-500 rounded-xl shadow-lg">
-              <HelpCircle className="h-6 w-6 text-white" />
-            </div>
+          <motion.div 
+            className="flex items-center gap-3"
+            initial={{ scale: 0.8, opacity: 0 }}
+            animate={{ scale: 1, opacity: 1 }}
+            transition={{ duration: 0.5, delay: 0.3 }}
+          >
+            <motion.div 
+              className="p-2 bg-gradient-to-br from-green-500 to-blue-500 rounded-xl shadow-lg"
+              whileHover={{ 
+                scale: 1.15, 
+                rotate: [0, -20, 20, 0],
+                boxShadow: "0 20px 40px rgba(34, 197, 94, 0.5)"
+              }}
+              whileTap={{ scale: 0.9 }}
+              transition={{ duration: 0.3 }}
+            >
+              <motion.div
+                animate={{ 
+                  rotate: [0, 10, -10, 0],
+                  scale: [1, 1.1, 0.9, 1]
+                }}
+                transition={{ 
+                  duration: 4,
+                  repeat: Infinity,
+                  ease: "easeInOut"
+                }}
+              >
+                <HelpCircle className="h-6 w-6 text-white" />
+              </motion.div>
+            </motion.div>
             <div>
-              <h1 className="text-xl font-bold bg-gradient-to-r from-green-600 to-blue-600 bg-clip-text text-transparent">
+              <motion.h1 
+                className="text-xl font-bold bg-gradient-to-r from-green-600 to-blue-600 bg-clip-text text-transparent"
+                initial={{ x: -20, opacity: 0 }}
+                animate={{ x: 0, opacity: 1 }}
+                transition={{ duration: 0.5, delay: 0.4 }}
+                whileHover={{ 
+                  scale: 1.05,
+                  textShadow: "0 0 8px rgba(34, 197, 94, 0.3)"
+                }}
+              >
                 Support Center
-              </h1>
-              <p className="text-xs text-muted-foreground">
-                Your data protection matters
-              </p>
+              </motion.h1>
+              <motion.p 
+                className="text-xs text-muted-foreground"
+                initial={{ x: -20, opacity: 0 }}
+                animate={{ x: 0, opacity: 1 }}
+                transition={{ duration: 0.5, delay: 0.5 }}
+              >
+                We're here to help you succeed
+              </motion.p>
             </div>
-          </div>
+          </motion.div>
         </div>
-      </header>
+      </motion.header>
 
       {/* Main Content */}
       <main className="container mx-auto px-4 py-6 max-w-4xl">
