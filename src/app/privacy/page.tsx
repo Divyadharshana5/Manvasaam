@@ -396,7 +396,8 @@ function PrivacyContent() {
                       whileHover={{
                         x: [-1, 1, -1, 1, 0],
                         y: [-1, 1, -1, 1, 0],
-                        scale: [1, 1.1, 1]
+                        scale: [1, 1.1, 1],
+                        transition: { duration: 0.4, ease: "easeInOut" }
                       }}
                     >
                       <Database className="h-4 w-4 text-green-600" />
