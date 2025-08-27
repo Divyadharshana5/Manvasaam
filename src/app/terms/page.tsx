@@ -283,7 +283,7 @@ function TermsContent() {
                 </p>
               </div>
             </div>
-          </div>
+          </motion.div>
 
           {/* Important Notice */}
           <Alert className="border-amber-200 bg-amber-50">
