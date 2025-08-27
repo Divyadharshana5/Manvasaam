@@ -422,22 +422,44 @@ function SupportContent() {
             <CardContent>
               <div className="space-y-3">
                 {filteredFAQs.map((faq, index) => (
-                  <div
+                  <motion.div
                     key={index}
                     className="border border-gray-200 rounded-lg p-3 hover:border-primary/30 transition-colors"
+                    initial={{ opacity: 0, x: -20 }}
+                    animate={{ opacity: 1, x: 0 }}
+                    transition={{ duration: 0.4, delay: index * 0.1 }}
+                    whileHover={{ 
+                      scale: 1.02,
+                      y: -2,
+                      boxShadow: "0 8px 25px rgba(0,0,0,0.1)",
+                      borderColor: "rgba(34, 197, 94, 0.5)"
+                    }}
+                    whileTap={{ scale: 0.98 }}
                   >
                     <div className="flex items-start gap-2">
-                      <ChevronRight className="h-3 w-3 text-primary mt-1 flex-shrink-0" />
+                      <motion.div
+                        whileHover={{ rotate: 90, scale: 1.2 }}
+                        transition={{ duration: 0.2 }}
+                      >
+                        <ChevronRight className="h-3 w-3 text-primary mt-1 flex-shrink-0" />
+                      </motion.div>
                       <div className="flex-1">
-                        <h4 className="font-medium text-sm text-gray-900 mb-1">
+                        <motion.h4 
+                          className="font-medium text-sm text-gray-900 mb-1"
+                          whileHover={{ color: "#059669" }}
+                        >
                           {faq.question}
-                        </h4>
-                        <p className="text-xs text-gray-600 leading-relaxed">
+                        </motion.h4>
+                        <motion.p 
+                          className="text-xs text-gray-600 leading-relaxed"
+                          initial={{ opacity: 0.7 }}
+                          whileHover={{ opacity: 1 }}
+                        >
                           {faq.answer}
-                        </p>
+                        </motion.p>
                       </div>
                     </div>
-                  </div>
+                  </motion.div>
                 ))}
                 {filteredFAQs.length === 0 && (
                   <div className="text-center py-6 text-gray-500 text-sm">
