@@ -226,12 +226,91 @@ function SupportContent() {
           transition={{ duration: 0.3, ease: "easeOut" }}
           className="space-y-6"
         >
-          {/* Hero */}
-          <div className="relative text-center space-y-6 py-8">
-            <div className="relative inline-flex items-center justify-center w-20 h-20 bg-gradient-to-br from-green-100 to-blue-100 rounded-2xl shadow-lg">
-              <div className="absolute inset-0 bg-gradient-to-br from-green-500/20 to-blue-500/20 rounded-2xl blur-xl"></div>
-              <HelpCircle className="relative h-10 w-10 text-green-600" />
-            </div>
+          {/* Enhanced Hero Section */}
+          <motion.div 
+            className="relative text-center space-y-6 py-8"
+            initial={{ opacity: 0, y: 50 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, delay: 0.2 }}
+          >
+            <motion.div 
+              className="relative inline-flex items-center justify-center w-20 h-20 bg-gradient-to-br from-green-100 to-blue-100 rounded-2xl shadow-lg"
+              initial={{ scale: 0, rotate: 360, opacity: 0 }}
+              animate={{ scale: 1, rotate: 0, opacity: 1 }}
+              transition={{ 
+                duration: 1.2, 
+                delay: 0.4,
+                type: "spring",
+                stiffness: 120,
+                damping: 10
+              }}
+              whileHover={{ 
+                scale: 1.25,
+                rotate: [0, -20, 20, 0],
+                boxShadow: "0 35px 70px rgba(34, 197, 94, 0.4)",
+                y: -10
+              }}
+              whileTap={{ scale: 0.85 }}
+            >
+              <motion.div 
+                className="absolute inset-0 bg-gradient-to-br from-green-500/20 to-blue-500/20 rounded-2xl blur-xl"
+                animate={{ 
+                  scale: [1, 1.5, 0.7, 1],
+                  opacity: [0.2, 0.7, 0.1, 0.2],
+                  rotate: [0, 270, 540, 720]
+                }}
+                transition={{ 
+                  duration: 6,
+                  repeat: Infinity,
+                  ease: "easeInOut"
+                }}
+              />
+              <motion.div
+                animate={{ 
+                  rotate: [0, 360],
+                  scale: [1, 1.2, 0.8, 1]
+                }}
+                transition={{ 
+                  duration: 30,
+                  repeat: Infinity,
+                  ease: "linear"
+                }}
+                whileHover={{
+                  rotate: [0, -720],
+                  transition: { duration: 1.5 }
+                }}
+              >
+                <HelpCircle className="relative h-10 w-10 text-green-600" />
+              </motion.div>
+              <motion.div
+                className="absolute inset-0 rounded-2xl border-2 border-purple-300/50"
+                animate={{
+                  scale: [1, 1.2, 1],
+                  opacity: [0.5, 0.9, 0.5],
+                  rotate: [0, -180, -360]
+                }}
+                transition={{
+                  duration: 4,
+                  repeat: Infinity,
+                  ease: "easeInOut",
+                  delay: 1
+                }}
+              />
+              <motion.div
+                className="absolute inset-0 rounded-2xl border border-cyan-300/30"
+                animate={{
+                  scale: [1, 0.8, 1.3, 1],
+                  opacity: [0.3, 0.6, 0.2, 0.3],
+                  rotate: [0, 120, 240, 360]
+                }}
+                transition={{
+                  duration: 5,
+                  repeat: Infinity,
+                  ease: "easeInOut",
+                  delay: 1.5
+                }}
+              />
+            </motion.div>
             <div className="space-y-3">
               <h1 className="text-3xl md:text-4xl font-bold bg-gradient-to-r from-gray-900 to-gray-700 bg-clip-text text-transparent">
                 Support Center
