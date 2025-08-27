@@ -107,19 +107,28 @@ interface RoleCardProps {
   t: any; // This comes from the language context
 }
 
-const RoleCard = ({ role, index, onContinueClick, loadingRoleHref, t }: RoleCardProps) => (
-  <motion.div
-    className="group"
-    initial={{ opacity: 0, y: 50 }}
-    whileInView={{ opacity: 1, y: 0 }}
-    viewport={{ once: true }}
-    transition={{
-      duration: 0.4,
-      delay: index * 0.1,
-      ease: "easeOut",
-    }}
-    whileHover={{ y: -4 }}
-  >
+const RoleCard = ({ role, index, onContinueClick, loadingRoleHref, t }: RoleCardProps) => {
+  const router = useRouter();
+  
+  const handleHover = useCallback(() => {
+    // Prefetch on hover for instant navigation
+    router.prefetch(role.href);
+  }, [router, role.href]);
+
+  return (
+    <motion.div
+      className="group"
+      initial={{ opacity: 0, y: 50 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true }}
+      transition={{
+        duration: 0.4,
+        delay: index * 0.1,
+        ease: "easeOut",
+      }}
+      whileHover={{ y: -4 }}
+      onMouseEnter={handleHover}
+    >
     <Card className="bg-card/80 backdrop-blur-xl border-2 border-primary/20 rounded-2xl shadow-lg hover:shadow-2xl hover:scale-105 transition-all duration-300 p-4 sm:p-6 flex flex-col h-full min-h-[280px] sm:min-h-[320px]">
       <CardHeader className="items-center flex-shrink-0 pb-2 sm:pb-4">
         <div className="group-hover:animate-shake text-4xl sm:text-5xl">
