@@ -71,9 +71,9 @@ function SupportContent() {
     <div className="min-h-screen bg-gradient-to-br from-green-50 via-blue-50 to-purple-50">
       {/* Enhanced Animated Background Elements */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
-        <motion.div 
+        <motion.div
           className="absolute top-20 left-10 w-32 h-32 bg-green-200/30 rounded-full blur-3xl"
-          animate={{ 
+          animate={{
             scale: [1, 1.4, 0.7, 1],
             opacity: [0.3, 0.7, 0.2, 0.3],
             x: [0, 35, -15, 0],
@@ -81,15 +81,15 @@ function SupportContent() {
             rotate: [0, 180, 360],
             borderRadius: ["50%", "30%", "70%", "50%"]
           }}
-          transition={{ 
+          transition={{
             duration: 20,
             repeat: Infinity,
             ease: "easeInOut"
           }}
         />
-        <motion.div 
+        <motion.div
           className="absolute top-40 right-20 w-40 h-40 bg-blue-200/30 rounded-full blur-3xl"
-          animate={{ 
+          animate={{
             scale: [1, 0.6, 1.5, 1],
             opacity: [0.3, 0.8, 0.1, 0.3],
             x: [0, -30, 20, 0],
@@ -97,55 +97,55 @@ function SupportContent() {
             skewX: [0, 20, -20, 0],
             skewY: [0, -10, 10, 0]
           }}
-          transition={{ 
+          transition={{
             duration: 14,
             repeat: Infinity,
             ease: "easeInOut",
             delay: 3
           }}
         />
-        <motion.div 
+        <motion.div
           className="absolute bottom-20 left-1/3 w-36 h-36 bg-purple-200/30 rounded-full blur-3xl"
-          animate={{ 
+          animate={{
             scale: [1, 1.3, 0.8, 1.1, 1],
             opacity: [0.3, 0.6, 0.4, 0.7, 0.3],
             rotate: [0, -120, 240, -360],
             x: [0, 20, -25, 10, 0],
             y: [0, -10, 15, -5, 0]
           }}
-          transition={{ 
+          transition={{
             duration: 22,
             repeat: Infinity,
             ease: "linear",
             delay: 6
           }}
         />
-        <motion.div 
+        <motion.div
           className="absolute top-1/2 left-1/5 w-28 h-28 bg-teal-200/25 rounded-full blur-2xl"
-          animate={{ 
+          animate={{
             scale: [0.8, 1.6, 0.5, 0.8],
             opacity: [0.2, 0.6, 0.3, 0.2],
             x: [0, 45, -30, 0],
             y: [0, -20, 30, 0],
             rotate: [0, 270, 540, 720]
           }}
-          transition={{ 
+          transition={{
             duration: 12,
             repeat: Infinity,
             ease: "easeInOut",
             delay: 2
           }}
         />
-        <motion.div 
+        <motion.div
           className="absolute bottom-1/3 right-1/5 w-30 h-30 bg-indigo-200/20 rounded-full blur-3xl"
-          animate={{ 
+          animate={{
             scale: [1, 0.9, 1.4, 1],
             opacity: [0.2, 0.5, 0.1, 0.2],
             rotate: [0, -60, 120, -180, 240, -300, 360],
             x: [0, -40, 25, 0],
             borderRadius: ["50%", "40%", "60%", "50%"]
           }}
-          transition={{ 
+          transition={{
             duration: 18,
             repeat: Infinity,
             ease: "easeInOut",
@@ -155,23 +155,23 @@ function SupportContent() {
       </div>
 
       {/* Enhanced Animated Header */}
-      <motion.header 
+      <motion.header
         className="relative bg-white/95 backdrop-blur-md border-b border-primary/20 sticky top-0 z-50 shadow-sm"
         initial={{ y: -100, opacity: 0 }}
         animate={{ y: 0, opacity: 1 }}
         transition={{ duration: 0.6, ease: "easeOut" }}
       >
         <div className="container mx-auto px-4 py-4 flex items-center justify-center">
-          <motion.div 
+          <motion.div
             className="flex items-center gap-3"
             initial={{ scale: 0.8, opacity: 0 }}
             animate={{ scale: 1, opacity: 1 }}
             transition={{ duration: 0.5, delay: 0.3 }}
           >
-            <motion.div 
+            <motion.div
               className="p-2 bg-gradient-to-br from-green-500 to-blue-500 rounded-xl shadow-lg"
-              whileHover={{ 
-                scale: 1.15, 
+              whileHover={{
+                scale: 1.15,
                 rotate: [0, -20, 20, 0],
                 boxShadow: "0 20px 40px rgba(34, 197, 94, 0.5)"
               }}
@@ -179,11 +179,11 @@ function SupportContent() {
               transition={{ duration: 0.3 }}
             >
               <motion.div
-                animate={{ 
+                animate={{
                   rotate: [0, 10, -10, 0],
                   scale: [1, 1.1, 0.9, 1]
                 }}
-                transition={{ 
+                transition={{
                   duration: 4,
                   repeat: Infinity,
                   ease: "easeInOut"
@@ -198,19 +198,19 @@ function SupportContent() {
               </motion.div>
             </motion.div>
             <div>
-              <motion.h1 
+              <motion.h1
                 className="text-xl font-bold bg-gradient-to-r from-green-600 to-blue-600 bg-clip-text text-transparent"
                 initial={{ x: -20, opacity: 0 }}
                 animate={{ x: 0, opacity: 1 }}
                 transition={{ duration: 0.5, delay: 0.4 }}
-                whileHover={{ 
+                whileHover={{
                   scale: 1.05,
                   textShadow: "0 0 8px rgba(34, 197, 94, 0.3)"
                 }}
               >
                 Support Center
               </motion.h1>
-              <motion.p 
+              <motion.p
                 className="text-xs text-muted-foreground"
                 initial={{ x: -20, opacity: 0 }}
                 animate={{ x: 0, opacity: 1 }}
@@ -232,24 +232,24 @@ function SupportContent() {
           className="space-y-6"
         >
           {/* Enhanced Hero Section */}
-          <motion.div 
+          <motion.div
             className="relative text-center space-y-6 py-8"
             initial={{ opacity: 0, y: 50 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.2 }}
           >
-            <motion.div 
+            <motion.div
               className="relative inline-flex items-center justify-center w-20 h-20 bg-gradient-to-br from-green-100 to-blue-100 rounded-2xl shadow-lg"
               initial={{ scale: 0, rotate: 360, opacity: 0 }}
               animate={{ scale: 1, rotate: 0, opacity: 1 }}
-              transition={{ 
-                duration: 1.2, 
+              transition={{
+                duration: 1.2,
                 delay: 0.4,
                 type: "spring",
                 stiffness: 120,
                 damping: 10
               }}
-              whileHover={{ 
+              whileHover={{
                 scale: 1.25,
                 rotate: [0, -20, 20, 0],
                 boxShadow: "0 35px 70px rgba(34, 197, 94, 0.4)",
@@ -257,25 +257,25 @@ function SupportContent() {
               }}
               whileTap={{ scale: 0.85 }}
             >
-              <motion.div 
+              <motion.div
                 className="absolute inset-0 bg-gradient-to-br from-green-500/20 to-blue-500/20 rounded-2xl blur-xl"
-                animate={{ 
+                animate={{
                   scale: [1, 1.5, 0.7, 1],
                   opacity: [0.2, 0.7, 0.1, 0.2],
                   rotate: [0, 270, 540, 720]
                 }}
-                transition={{ 
+                transition={{
                   duration: 6,
                   repeat: Infinity,
                   ease: "easeInOut"
                 }}
               />
               <motion.div
-                animate={{ 
+                animate={{
                   rotate: [0, 360],
                   scale: [1, 1.2, 0.8, 1]
                 }}
-                transition={{ 
+                transition={{
                   duration: 30,
                   repeat: Infinity,
                   ease: "linear"
@@ -351,7 +351,7 @@ function SupportContent() {
                         y: [-1, 1, -1, 1, 0],
                         rotate: [-4, 4, -4, 4, 0]
                       }}
-                      transition={{ 
+                      transition={{
                         duration: 0.4,
                         ease: "easeInOut"
                       }}
@@ -377,7 +377,7 @@ function SupportContent() {
                         y: [-1, 1, -1, 1, 0],
                         rotate: [-3, 3, -3, 3, 0]
                       }}
-                      transition={{ 
+                      transition={{
                         duration: 0.4,
                         ease: "easeInOut"
                       }}
@@ -403,7 +403,7 @@ function SupportContent() {
                         y: [-1, 1, -1, 1, 0],
                         rotate: [-5, 5, -5, 5, 0]
                       }}
-                      transition={{ 
+                      transition={{
                         duration: 0.4,
                         ease: "easeInOut"
                       }}
@@ -472,7 +472,7 @@ function SupportContent() {
                     initial={{ opacity: 0, x: -20 }}
                     animate={{ opacity: 1, x: 0 }}
                     transition={{ duration: 0.4, delay: index * 0.1 }}
-                    whileHover={{ 
+                    whileHover={{
                       scale: 1.02,
                       y: -2,
                       boxShadow: "0 8px 25px rgba(0,0,0,0.1)",
@@ -488,13 +488,13 @@ function SupportContent() {
                         <ChevronRight className="h-3 w-3 text-primary mt-1 flex-shrink-0" />
                       </motion.div>
                       <div className="flex-1">
-                        <motion.h4 
+                        <motion.h4
                           className="font-medium text-sm text-gray-900 mb-1"
                           whileHover={{ color: "#059669" }}
                         >
                           {faq.question}
                         </motion.h4>
-                        <motion.p 
+                        <motion.p
                           className="text-xs text-gray-600 leading-relaxed"
                           initial={{ opacity: 0.7 }}
                           whileHover={{ opacity: 1 }}
