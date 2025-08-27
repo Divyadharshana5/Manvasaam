@@ -245,6 +245,9 @@ function TermsContent() {
                 }}
                 whileHover={{
                   rotate: [0, 180, 360],
+                  x: [-3, 3, -3, 3, 0],
+                  y: [-2, 2, -2, 2, 0],
+                  scale: [1, 1.1, 1],
                   transition: { duration: 0.8 }
                 }}
               >
