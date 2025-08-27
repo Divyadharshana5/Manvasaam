@@ -250,6 +250,7 @@ export default function FarmerAuthPage() {
       }
 
       toast({
+        variant: "farmer" as any,
         title: "Registration Successful",
         description:
           "Your farmer account has been created with enhanced security features. Please log in.",
@@ -456,6 +457,7 @@ export default function FarmerAuthPage() {
                       type="button"
                       onClick={() => {
                         toast({
+                          variant: "info" as any,
                           title: "Farm Registration",
                           description:
                             "Touch your device's fingerprint sensor now",
@@ -465,6 +467,7 @@ export default function FarmerAuthPage() {
                           setActiveTab("login");
                           setAuthMode("passkey");
                           toast({
+                            variant: "farmer" as any,
                             title: "Registration Complete!",
                             description: "Now use fingerprint to access your farm portal",
                           });

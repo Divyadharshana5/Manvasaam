@@ -8,6 +8,9 @@ import type {
   ToastProps,
 } from "@/components/ui/toast"
 
+// Extended toast variants
+type ToastVariant = "default" | "destructive" | "success" | "warning" | "info" | "farmer" | "restaurant" | "customer" | "hub"
+
 const TOAST_LIMIT = 1
 const TOAST_REMOVE_DELAY = 1000000
 
