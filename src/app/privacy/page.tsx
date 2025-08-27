@@ -131,7 +131,19 @@ function PrivacyContent() {
               }}
               transition={{ duration: 0.3 }}
             >
-              <Shield className="h-6 w-6 text-white" />
+              <motion.div
+                whileHover={{
+                  x: [-2, 2, -2, 2, 0],
+                  y: [-1, 1, -1, 1, 0],
+                  rotate: [-5, 5, -5, 5, 0]
+                }}
+                transition={{ 
+                  duration: 0.5,
+                  ease: "easeInOut"
+                }}
+              >
+                <Shield className="h-6 w-6 text-white" />
+              </motion.div>
             </motion.div>
             <div>
               <motion.h1 
