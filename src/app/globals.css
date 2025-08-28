@@ -1,9 +1,9 @@
+/* Import navigation transitions */
+@import "../styles/navigation-transitions.css";
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
-
-/* Import navigation transitions */
-@import '../styles/navigation-transitions.css';
 
 /* Performance optimizations */
 @layer base {
@@ -11,7 +11,7 @@
   * {
     box-sizing: border-box;
   }
-  
+
   html {
     font-display: swap;
     scroll-behavior: smooth;
@@ -19,90 +19,96 @@
     -moz-osx-font-smoothing: grayscale;
     text-rendering: optimizeLegibility;
   }
-  
+
   body {
     margin: 0;
     padding: 0;
     overflow-x: hidden;
     -webkit-overflow-scrolling: touch;
   }
-  
+
   /* Optimize images for performance */
   img {
     max-width: 100%;
     height: auto;
     loading: lazy;
   }
-  
+
   /* GPU acceleration for animations */
   .gpu-accelerated {
     transform: translateZ(0);
     will-change: transform;
   }
-  
+
   /* Custom loading animation */
   @keyframes loading-progress {
-    0% { width: 0%; }
-    50% { width: 70%; }
-    100% { width: 100%; }
+    0% {
+      width: 0%;
+    }
+    50% {
+      width: 70%;
+    }
+    100% {
+      width: 100%;
+    }
   }
-  
+
   .animate-loading-progress {
     animation: loading-progress 2s ease-in-out infinite;
   }
-  
+
   /* Fast navigation styles */
   .page-transitioning {
     cursor: wait;
   }
-  
+
   .page-transitioning * {
     pointer-events: none;
   }
-  
+
   /* Smooth page transitions */
   .page-enter {
     opacity: 0;
     transform: translateY(20px);
   }
-  
+
   .page-enter-active {
     opacity: 1;
     transform: translateY(0);
     transition: opacity 300ms ease-out, transform 300ms ease-out;
   }
-  
+
   .page-exit {
     opacity: 1;
     transform: translateY(0);
   }
-  
+
   .page-exit-active {
     opacity: 0;
     transform: translateY(-20px);
     transition: opacity 200ms ease-in, transform 200ms ease-in;
   }
-  
+
   /* Instant feedback for button clicks */
   .btn-fast-click {
     transition: all 0.1s ease-out;
   }
-  
+
   .btn-fast-click:active {
     transform: scale(0.95);
   }
-  
+
   /* Optimize for mobile touch */
   @media (hover: none) and (pointer: coarse) {
     .hover\:scale-105:hover {
       transform: none;
     }
-    
+
     .hover\:scale-105:active {
       transform: scale(0.95);
     }
   }
-  
+
   /* Reduce motion for accessibility and performance */
   @media (prefers-reduced-motion: reduce) {
     *,
@@ -266,81 +272,112 @@
 @layer components {
   /* Toast Animation Keyframes */
   @keyframes pulse-subtle {
-    0%, 100% { 
+    0%,
+    100% {
       transform: scale(1);
       opacity: 1;
     }
-    50% { 
+    50% {
       transform: scale(1.02);
       opacity: 0.95;
     }
   }
 
   @keyframes shake-subtle {
-    0%, 100% { transform: translateX(0); }
-    10%, 30%, 50%, 70%, 90% { transform: translateX(-2px); }
-    20%, 40%, 60%, 80% { transform: translateX(2px); }
+    0%,
+    100% {
+      transform: translateX(0);
+    }
+    10%,
+    30%,
+    50%,
+    70%,
+    90% {
+      transform: translateX(-2px);
+    }
+    20%,
+    40%,
+    60%,
+    80% {
+      transform: translateX(2px);
+    }
   }
 
   @keyframes bounce-subtle {
-    0%, 100% { 
+    0%,
+    100% {
       transform: translateY(0);
       animation-timing-function: cubic-bezier(0.8, 0, 1, 1);
     }
-    50% { 
+    50% {
       transform: translateY(-8px);
       animation-timing-function: cubic-bezier(0, 0, 0.2, 1);
     }
   }
 
   @keyframes wiggle-subtle {
-    0%, 100% { transform: rotate(0deg); }
-    25% { transform: rotate(-2deg); }
-    75% { transform: rotate(2deg); }
+    0%,
+    100% {
+      transform: rotate(0deg);
+    }
+    25% {
+      transform: rotate(-2deg);
+    }
+    75% {
+      transform: rotate(2deg);
+    }
   }
 
   @keyframes float-subtle {
-    0%, 100% { 
+    0%,
+    100% {
       transform: translateY(0px);
     }
-    50% { 
+    50% {
       transform: translateY(-6px);
     }
   }
 
   @keyframes grow-subtle {
-    0%, 100% { 
+    0%,
+    100% {
       transform: scale(1);
     }
-    50% { 
+    50% {
       transform: scale(1.05);
     }
   }
 
   @keyframes sway-subtle {
-    0%, 100% { 
+    0%,
+    100% {
       transform: translateX(0px) rotate(0deg);
     }
-    33% { 
+    33% {
       transform: translateX(4px) rotate(1deg);
     }
-    66% { 
+    66% {
       transform: translateX(-4px) rotate(-1deg);
     }
   }
 
   @keyframes glow-subtle {
-    0%, 100% { 
+    0%,
+    100% {
       box-shadow: 0 0 5px rgba(147, 51, 234, 0.3);
     }
-    50% { 
+    50% {
       box-shadow: 0 0 20px rgba(147, 51, 234, 0.6);
     }
   }
 
   @keyframes spin-subtle {
-    0% { transform: rotate(0deg); }
-    100% { transform: rotate(360deg); }
+    0% {
+      transform: rotate(0deg);
+    }
+    100% {
+      transform: rotate(360deg);
+    }
   }
 
   /* Apply animations */
@@ -432,12 +469,13 @@
     .animate-glow-subtle {
       animation: glow-subtle-dark 2s ease-in-out infinite;
     }
-    
+
     @keyframes glow-subtle-dark {
-      0%, 100% { 
+      0%,
+      100% {
         box-shadow: 0 0 5px rgba(196, 181, 253, 0.3);
       }
-      50% { 
+      50% {
         box-shadow: 0 0 20px rgba(196, 181, 253, 0.6);
       }
     }
