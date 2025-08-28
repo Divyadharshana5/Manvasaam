@@ -139,7 +139,8 @@ function TermsContent() {
               whileHover={{ 
                 scale: 1.1, 
                 rotate: [0, -10, 10, 0],
-                boxShadow: "0 15px 30px rgba(34, 197, 94, 0.4)"
+                boxShadow: "0 15px 30px rgba(34, 197, 94, 0.4)",
+                transition: { type: "tween", duration: 0.3 }
               }}
               whileTap={{ scale: 0.95 }}
               transition={{ duration: 0.3 }}
@@ -157,7 +158,8 @@ function TermsContent() {
                 whileHover={{
                   x: [-2, 2, -2, 2, 0],
                   y: [-1, 1, -1, 1, 0],
-                  rotate: [-6, 6, -6, 6, 0]
+                  rotate: [-6, 6, -6, 6, 0],
+                  transition: { type: "tween", duration: 0.6, ease: "easeInOut" }
                 }}
               >
                 <FileText className="h-6 w-6 text-white" />
@@ -216,7 +218,8 @@ function TermsContent() {
                 scale: 1.2,
                 rotate: [0, 15, -15, 0],
                 boxShadow: "0 30px 60px rgba(34, 197, 94, 0.3)",
-                y: -8
+                y: -8,
+                transition: { type: "tween", duration: 0.3 }
               }}
               whileTap={{ scale: 0.9 }}
             >
@@ -248,7 +251,7 @@ function TermsContent() {
                   x: [-3, 3, -3, 3, 0],
                   y: [-2, 2, -2, 2, 0],
                   scale: [1, 1.1, 1],
-                  transition: { duration: 0.8 }
+                  transition: { type: "tween", duration: 0.8 }
                 }}
               >
                 <Scale className="relative h-10 w-10 text-green-600" />
@@ -307,7 +310,8 @@ function TermsContent() {
                       whileHover={{
                         x: [-2, 2, -2, 2, 0],
                         y: [-1, 1, -1, 1, 0],
-                        rotate: [-4, 4, -4, 4, 0]
+                        rotate: [-4, 4, -4, 4, 0],
+                        transition: { type: "tween", duration: 0.4, ease: "easeInOut" }
                       }}
                       transition={{ 
                         duration: 0.4,
@@ -333,7 +337,8 @@ function TermsContent() {
                       whileHover={{
                         x: [-2, 2, -2, 2, 0],
                         y: [-1, 1, -1, 1, 0],
-                        rotate: [-3, 3, -3, 3, 0]
+                        rotate: [-3, 3, -3, 3, 0],
+                        transition: { type: "tween", duration: 0.4, ease: "easeInOut" }
                       }}
                       transition={{ 
                         duration: 0.4,
@@ -359,7 +364,8 @@ function TermsContent() {
                       whileHover={{
                         x: [-2, 2, -2, 2, 0],
                         y: [-1, 1, -1, 1, 0],
-                        rotate: [-5, 5, -5, 5, 0]
+                        rotate: [-5, 5, -5, 5, 0],
+                        transition: { type: "tween", duration: 0.4, ease: "easeInOut" }
                       }}
                       transition={{ 
                         duration: 0.4,
