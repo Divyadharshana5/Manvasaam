@@ -317,9 +317,14 @@ We welcome contributions from the community! Please read our contributing guidel
 ## 📞 Support & Contact
 
 - **Email**: support@manvaasam.com
-- **Documentation**: [Link to detailed docs]
-- **Community**: [Link to community forum]
-- **Bug Reports**: [Link to issue tracker]
+- **Documentation**: 
+  - [Firebase Setup Guide](./FIREBASE_SETUP.md)
+  - [EmailJS Setup Guide](./EMAILJS_SETUP.md)
+  - [Hub System Demo](./HUB_SYSTEM_DEMO.md)
+  - [Performance Optimizations](./PERFORMANCE_OPTIMIZATIONS.md)
+  - [Project Blueprint](./docs/blueprint.md)
+- **Demo Mode**: Full functionality available without configuration
+- **Bug Reports**: Create issues in the project repository
 
 ## 📄 Legal
 
@@ -330,17 +335,20 @@ We welcome contributions from the community! Please read our contributing guidel
 ## 🎯 Roadmap
 
 ### **Upcoming Features**
-- [ ] Mobile app (React Native)
+- [ ] Production Firebase integration
+- [ ] Real-time notifications system
 - [ ] Advanced analytics dashboard
+- [ ] Mobile app (React Native)
+- [ ] Payment gateway integration
 - [ ] IoT integration for smart farming
-- [ ] Blockchain supply chain tracking
 - [ ] Machine learning price prediction
+- [ ] Blockchain supply chain tracking
 - [ ] Drone delivery integration
 - [ ] Carbon footprint tracking
 - [ ] Farmer education platform
 
-### **Current Version**: 1.0.0
-### **Last Updated**: December 2024
+### **Current Version**: 0.1.0
+### **Last Updated**: January 2025
 
 ---
 
