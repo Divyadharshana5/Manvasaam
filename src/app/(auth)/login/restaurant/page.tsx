@@ -137,7 +137,10 @@ export default function RestaurantAuthPage() {
         description: "Welcome to restaurant dashboard...",
         duration: 1000,
       });
-      router.push("/dashboard/restaurant");
+      navigateFast("/dashboard/restaurant", {
+        showLoadingState: true,
+        preloadNext: ["/dashboard/restaurant/orders", "/dashboard/restaurant/suppliers"]
+      });
     } catch (error: any) {
       toast({
         variant: "destructive",
