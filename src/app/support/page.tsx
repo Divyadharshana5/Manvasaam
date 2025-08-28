@@ -36,35 +36,40 @@ function PageSkeleton() {
 function SupportContent() {
   const [searchQuery, setSearchQuery] = useState("");
 
-  const faqItems = useMemo(() => [
-    {
-      question: "How do I create an account?",
-      answer: "Click any role button on homepage and follow registration.",
-    },
-    {
-      question: "How to list products?",
-      answer: "Login as farmer, go to dashboard, click 'Add Product'.",
-    },
-    {
-      question: "What payment methods?",
-      answer: "UPI, bank transfers, digital wallets, cash on delivery.",
-    },
-    {
-      question: "How to contact users?",
-      answer: "Use built-in messaging or voice assistant feature.",
-    },
-    {
-      question: "Any fees?",
-      answer: "Free registration. Small commission on transactions.",
-    },
-  ], []);
+  const faqItems = useMemo(
+    () => [
+      {
+        question: "How do I create an account?",
+        answer: "Click any role button on homepage and follow registration.",
+      },
+      {
+        question: "How to list products?",
+        answer: "Login as farmer, go to dashboard, click 'Add Product'.",
+      },
+      {
+        question: "What payment methods?",
+        answer: "UPI, bank transfers, digital wallets, cash on delivery.",
+      },
+      {
+        question: "How to contact users?",
+        answer: "Use built-in messaging or voice assistant feature.",
+      },
+      {
+        question: "Any fees?",
+        answer: "Free registration. Small commission on transactions.",
+      },
+    ],
+    []
+  );
 
-  const filteredFAQs = useMemo(() =>
-    faqItems.filter(
-      (item) =>
-        item.question.toLowerCase().includes(searchQuery.toLowerCase()) ||
-        item.answer.toLowerCase().includes(searchQuery.toLowerCase())
-    ), [faqItems, searchQuery]
+  const filteredFAQs = useMemo(
+    () =>
+      faqItems.filter(
+        (item) =>
+          item.question.toLowerCase().includes(searchQuery.toLowerCase()) ||
+          item.answer.toLowerCase().includes(searchQuery.toLowerCase())
+      ),
+    [faqItems, searchQuery]
   );
 
   return (
@@ -79,12 +84,12 @@ function SupportContent() {
             x: [0, 35, -15, 0],
             y: [0, -25, 20, 0],
             rotate: [0, 180, 360],
-            borderRadius: ["50%", "30%", "70%", "50%"]
+            borderRadius: ["50%", "30%", "70%", "50%"],
           }}
           transition={{
             duration: 20,
             repeat: Infinity,
-            ease: "easeInOut"
+            ease: "easeInOut",
           }}
         />
         <motion.div
@@ -95,13 +100,13 @@ function SupportContent() {
             x: [0, -30, 20, 0],
             y: [0, 25, -15, 0],
             skewX: [0, 20, -20, 0],
-            skewY: [0, -10, 10, 0]
+            skewY: [0, -10, 10, 0],
           }}
           transition={{
             duration: 14,
             repeat: Infinity,
             ease: "easeInOut",
-            delay: 3
+            delay: 3,
           }}
         />
         <motion.div
@@ -111,13 +116,13 @@ function SupportContent() {
             opacity: [0.3, 0.6, 0.4, 0.7, 0.3],
             rotate: [0, -120, 240, -360],
             x: [0, 20, -25, 10, 0],
-            y: [0, -10, 15, -5, 0]
+            y: [0, -10, 15, -5, 0],
           }}
           transition={{
             duration: 22,
             repeat: Infinity,
             ease: "linear",
-            delay: 6
+            delay: 6,
           }}
         />
         <motion.div
@@ -127,13 +132,13 @@ function SupportContent() {
             opacity: [0.2, 0.6, 0.3, 0.2],
             x: [0, 45, -30, 0],
             y: [0, -20, 30, 0],
-            rotate: [0, 270, 540, 720]
+            rotate: [0, 270, 540, 720],
           }}
           transition={{
             duration: 12,
             repeat: Infinity,
             ease: "easeInOut",
-            delay: 2
+            delay: 2,
           }}
         />
         <motion.div
@@ -143,13 +148,13 @@ function SupportContent() {
             opacity: [0.2, 0.5, 0.1, 0.2],
             rotate: [0, -60, 120, -180, 240, -300, 360],
             x: [0, -40, 25, 0],
-            borderRadius: ["50%", "40%", "60%", "50%"]
+            borderRadius: ["50%", "40%", "60%", "50%"],
           }}
           transition={{
             duration: 18,
             repeat: Infinity,
             ease: "easeInOut",
-            delay: 4
+            delay: 4,
           }}
         />
       </div>
@@ -174,7 +179,7 @@ function SupportContent() {
                 scale: 1.15,
                 rotate: [0, -20, 20, 0],
                 boxShadow: "0 20px 40px rgba(34, 197, 94, 0.5)",
-                transition: { type: "tween", duration: 0.3 }
+                transition: { type: "tween", duration: 0.3 },
               }}
               whileTap={{ scale: 0.9 }}
               transition={{ duration: 0.3 }}
@@ -182,17 +187,17 @@ function SupportContent() {
               <motion.div
                 animate={{
                   rotate: [0, 10, -10, 0],
-                  scale: [1, 1.1, 0.9, 1]
+                  scale: [1, 1.1, 0.9, 1],
                 }}
                 transition={{
                   duration: 4,
                   repeat: Infinity,
-                  ease: "easeInOut"
+                  ease: "easeInOut",
                 }}
                 whileHover={{
                   x: [-2, 2, -2, 2, 0],
                   y: [-1, 1, -1, 1, 0],
-                  rotate: [-8, 8, -8, 8, 0]
+                  rotate: [-8, 8, -8, 8, 0],
                 }}
               >
                 <HelpCircle className="h-6 w-6 text-white" />
@@ -206,7 +211,7 @@ function SupportContent() {
                 transition={{ duration: 0.5, delay: 0.4 }}
                 whileHover={{
                   scale: 1.05,
-                  textShadow: "0 0 8px rgba(34, 197, 94, 0.3)"
+                  textShadow: "0 0 8px rgba(34, 197, 94, 0.3)",
                 }}
               >
                 Support Center
@@ -248,14 +253,14 @@ function SupportContent() {
                 delay: 0.4,
                 type: "spring",
                 stiffness: 120,
-                damping: 10
+                damping: 10,
               }}
               whileHover={{
                 scale: 1.25,
                 rotate: [0, -20, 20, 0],
                 boxShadow: "0 35px 70px rgba(34, 197, 94, 0.4)",
                 y: -10,
-                transition: { type: "tween", duration: 0.3 }
+                transition: { type: "tween", duration: 0.3 },
               }}
               whileTap={{ scale: 0.85 }}
             >
@@ -264,30 +269,30 @@ function SupportContent() {
                 animate={{
                   scale: [1, 1.5, 0.7, 1],
                   opacity: [0.2, 0.7, 0.1, 0.2],
-                  rotate: [0, 270, 540, 720]
+                  rotate: [0, 270, 540, 720],
                 }}
                 transition={{
                   duration: 6,
                   repeat: Infinity,
-                  ease: "easeInOut"
+                  ease: "easeInOut",
                 }}
               />
               <motion.div
                 animate={{
                   rotate: [0, 360],
-                  scale: [1, 1.2, 0.8, 1]
+                  scale: [1, 1.2, 0.8, 1],
                 }}
                 transition={{
                   duration: 30,
                   repeat: Infinity,
-                  ease: "linear"
+                  ease: "linear",
                 }}
                 whileHover={{
                   rotate: [0, -720],
                   x: [-4, 4, -4, 4, 0],
                   y: [-2, 2, -2, 2, 0],
                   scale: [1, 1.2, 1],
-                  transition: { type: "tween", duration: 1.5 }
+                  transition: { type: "tween", duration: 1.5 },
                 }}
               >
                 <HelpCircle className="relative h-10 w-10 text-green-600" />
@@ -297,13 +302,13 @@ function SupportContent() {
                 animate={{
                   scale: [1, 1.2, 1],
                   opacity: [0.5, 0.9, 0.5],
-                  rotate: [0, -180, -360]
+                  rotate: [0, -180, -360],
                 }}
                 transition={{
                   duration: 4,
                   repeat: Infinity,
                   ease: "easeInOut",
-                  delay: 1
+                  delay: 1,
                 }}
               />
               <motion.div
@@ -311,13 +316,13 @@ function SupportContent() {
                 animate={{
                   scale: [1, 0.8, 1.3, 1],
                   opacity: [0.3, 0.6, 0.2, 0.3],
-                  rotate: [0, 120, 240, 360]
+                  rotate: [0, 120, 240, 360],
                 }}
                 transition={{
                   duration: 5,
                   repeat: Infinity,
                   ease: "easeInOut",
-                  delay: 1.5
+                  delay: 1.5,
                 }}
               />
             </motion.div>
@@ -351,11 +356,11 @@ function SupportContent() {
                       whileHover={{
                         x: [-2, 2, -2, 2, 0],
                         y: [-1, 1, -1, 1, 0],
-                        rotate: [-4, 4, -4, 4, 0]
+                        rotate: [-4, 4, -4, 4, 0],
                       }}
                       transition={{
                         duration: 0.4,
-                        ease: "easeInOut"
+                        ease: "easeInOut",
                       }}
                     >
                       <MessageCircle className="h-6 w-6 text-white" />
@@ -377,11 +382,11 @@ function SupportContent() {
                       whileHover={{
                         x: [-2, 2, -2, 2, 0],
                         y: [-1, 1, -1, 1, 0],
-                        rotate: [-3, 3, -3, 3, 0]
+                        rotate: [-3, 3, -3, 3, 0],
                       }}
                       transition={{
                         duration: 0.4,
-                        ease: "easeInOut"
+                        ease: "easeInOut",
                       }}
                     >
                       <Phone className="h-6 w-6 text-white" />
@@ -403,11 +408,11 @@ function SupportContent() {
                       whileHover={{
                         x: [-2, 2, -2, 2, 0],
                         y: [-1, 1, -1, 1, 0],
-                        rotate: [-5, 5, -5, 5, 0]
+                        rotate: [-5, 5, -5, 5, 0],
                       }}
                       transition={{
                         duration: 0.4,
-                        ease: "easeInOut"
+                        ease: "easeInOut",
                       }}
                     >
                       <Mail className="h-6 w-6 text-white" />
@@ -478,7 +483,7 @@ function SupportContent() {
                       scale: 1.02,
                       y: -2,
                       boxShadow: "0 8px 25px rgba(0,0,0,0.1)",
-                      borderColor: "rgba(34, 197, 94, 0.5)"
+                      borderColor: "rgba(34, 197, 94, 0.5)",
                     }}
                     whileTap={{ scale: 0.98 }}
                   >
