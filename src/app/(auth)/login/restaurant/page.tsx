@@ -31,6 +31,7 @@ import { useRouter } from "next/navigation";
 import { auth } from "@/lib/firebase";
 import { useLanguage } from "@/context/language-context";
 import { initEmailJS, sendPasswordResetEmail } from "@/lib/emailjs";
+import "@/styles/navigation-transitions.css";
 
 const loginSchema = z.object({
   restaurantName: z
