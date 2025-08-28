@@ -35,6 +35,7 @@ import { auth } from "@/lib/firebase";
 
 import { useLanguage } from "@/context/language-context";
 import { initEmailJS, sendPasswordResetEmail } from "@/lib/emailjs";
+import "@/styles/navigation-transitions.css";
 
 const loginSchema = z.object({
   email: z.string().email({ message: "Invalid email address." }),
