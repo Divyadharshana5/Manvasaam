@@ -173,7 +173,8 @@ function SupportContent() {
               whileHover={{
                 scale: 1.15,
                 rotate: [0, -20, 20, 0],
-                boxShadow: "0 20px 40px rgba(34, 197, 94, 0.5)"
+                boxShadow: "0 20px 40px rgba(34, 197, 94, 0.5)",
+                transition: { type: "tween", duration: 0.3 }
               }}
               whileTap={{ scale: 0.9 }}
               transition={{ duration: 0.3 }}
@@ -253,7 +254,8 @@ function SupportContent() {
                 scale: 1.25,
                 rotate: [0, -20, 20, 0],
                 boxShadow: "0 35px 70px rgba(34, 197, 94, 0.4)",
-                y: -10
+                y: -10,
+                transition: { type: "tween", duration: 0.3 }
               }}
               whileTap={{ scale: 0.85 }}
             >
@@ -285,7 +287,7 @@ function SupportContent() {
                   x: [-4, 4, -4, 4, 0],
                   y: [-2, 2, -2, 2, 0],
                   scale: [1, 1.2, 1],
-                  transition: { duration: 1.5 }
+                  transition: { type: "tween", duration: 1.5 }
                 }}
               >
                 <HelpCircle className="relative h-10 w-10 text-green-600" />
