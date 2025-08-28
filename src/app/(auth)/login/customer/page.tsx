@@ -167,7 +167,10 @@ export default function CustomerAuthPage() {
         description: "Welcome back to dashboard...",
         duration: 1000,
       });
-      router.push("/dashboard");
+      navigateFast("/dashboard", {
+        showLoadingState: true,
+        preloadNext: ["/dashboard/products", "/dashboard/orders"]
+      });
     } catch (error: any) {
       toast({
         variant: "destructive",
