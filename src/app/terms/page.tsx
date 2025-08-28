@@ -40,133 +40,137 @@ function TermsContent() {
     <div className="min-h-screen bg-gradient-to-br from-green-50 via-blue-50 to-purple-50">
       {/* Enhanced Animated Background Elements */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
-        <motion.div 
+        <motion.div
           className="absolute top-20 left-10 w-32 h-32 bg-green-200/30 rounded-full blur-3xl"
-          animate={{ 
+          animate={{
             scale: [1, 1.3, 0.8, 1],
             opacity: [0.3, 0.6, 0.2, 0.3],
             x: [0, 30, -10, 0],
             y: [0, -20, 15, 0],
-            rotate: [0, 120, 240, 360]
+            rotate: [0, 120, 240, 360],
           }}
-          transition={{ 
+          transition={{
             duration: 15,
             repeat: Infinity,
-            ease: "easeInOut"
+            ease: "easeInOut",
           }}
         />
-        <motion.div 
+        <motion.div
           className="absolute top-40 right-20 w-40 h-40 bg-blue-200/30 rounded-full blur-3xl"
-          animate={{ 
+          animate={{
             scale: [1, 0.7, 1.4, 1],
             opacity: [0.3, 0.7, 0.1, 0.3],
             x: [0, -25, 15, 0],
             y: [0, 20, -10, 0],
-            skewY: [0, 15, -15, 0]
+            skewY: [0, 15, -15, 0],
           }}
-          transition={{ 
+          transition={{
             duration: 12,
             repeat: Infinity,
             ease: "easeInOut",
-            delay: 2
+            delay: 2,
           }}
         />
-        <motion.div 
+        <motion.div
           className="absolute bottom-20 left-1/3 w-36 h-36 bg-purple-200/30 rounded-full blur-3xl"
-          animate={{ 
+          animate={{
             scale: [1, 1.2, 0.9, 1.1, 1],
             opacity: [0.3, 0.5, 0.4, 0.6, 0.3],
             rotate: [0, -90, 180, -270, 360],
-            borderRadius: ["50%", "25%", "40%", "60%", "50%"]
+            borderRadius: ["50%", "25%", "40%", "60%", "50%"],
           }}
-          transition={{ 
+          transition={{
             duration: 18,
             repeat: Infinity,
             ease: "linear",
-            delay: 4
+            delay: 4,
           }}
         />
-        <motion.div 
+        <motion.div
           className="absolute top-1/3 left-1/4 w-28 h-28 bg-amber-200/25 rounded-full blur-2xl"
-          animate={{ 
+          animate={{
             scale: [0.9, 1.5, 0.6, 0.9],
             opacity: [0.2, 0.5, 0.3, 0.2],
             x: [0, 40, -20, 0],
             y: [0, -15, 25, 0],
-            rotate: [0, 180, 360]
+            rotate: [0, 180, 360],
           }}
-          transition={{ 
+          transition={{
             duration: 10,
             repeat: Infinity,
             ease: "easeInOut",
-            delay: 1.5
+            delay: 1.5,
           }}
         />
-        <motion.div 
+        <motion.div
           className="absolute bottom-1/4 right-1/3 w-24 h-24 bg-rose-200/20 rounded-full blur-3xl"
-          animate={{ 
+          animate={{
             scale: [1, 0.8, 1.3, 1],
             opacity: [0.2, 0.4, 0.1, 0.2],
             rotate: [0, -45, 45, 0],
             x: [0, -35, 20, 0],
-            skewX: [0, 20, -20, 0]
+            skewX: [0, 20, -20, 0],
           }}
-          transition={{ 
+          transition={{
             duration: 16,
             repeat: Infinity,
             ease: "easeInOut",
-            delay: 3.5
+            delay: 3.5,
           }}
         />
       </div>
 
       {/* Enhanced Animated Header */}
-      <motion.header 
+      <motion.header
         className="relative bg-white/95 backdrop-blur-md border-b border-primary/20 sticky top-0 z-50 shadow-sm"
         initial={{ y: -100, opacity: 0 }}
         animate={{ y: 0, opacity: 1 }}
         transition={{ duration: 0.6, ease: "easeOut" }}
       >
         <div className="container mx-auto px-4 py-4 flex items-center justify-center">
-          <motion.div 
+          <motion.div
             className="flex items-center gap-3"
             initial={{ scale: 0.8, opacity: 0 }}
             animate={{ scale: 1, opacity: 1 }}
             transition={{ duration: 0.5, delay: 0.3 }}
           >
-            <motion.div 
+            <motion.div
               className="p-2 bg-gradient-to-br from-green-500 to-blue-500 rounded-xl shadow-lg"
-              whileHover={{ 
-                scale: 1.1, 
+              whileHover={{
+                scale: 1.1,
                 rotate: [0, -10, 10, 0],
                 boxShadow: "0 15px 30px rgba(34, 197, 94, 0.4)",
-                transition: { type: "tween", duration: 0.3 }
+                transition: { type: "tween", duration: 0.3 },
               }}
               whileTap={{ scale: 0.95 }}
               transition={{ duration: 0.3 }}
             >
               <motion.div
-                animate={{ 
+                animate={{
                   rotate: [0, 5, -5, 0],
-                  scale: [1, 1.05, 1]
+                  scale: [1, 1.05, 1],
                 }}
-                transition={{ 
+                transition={{
                   duration: 3,
                   repeat: Infinity,
-                  ease: "easeInOut"
+                  ease: "easeInOut",
                 }}
                 whileHover={{
                   x: [-2, 2, -2, 2, 0],
                   y: [-1, 1, -1, 1, 0],
                   rotate: [-6, 6, -6, 6, 0],
-                  transition: { type: "tween", duration: 0.6, ease: "easeInOut" }
+                  transition: {
+                    type: "tween",
+                    duration: 0.6,
+                    ease: "easeInOut",
+                  },
                 }}
               >
                 <FileText className="h-6 w-6 text-white" />
               </motion.div>
             </motion.div>
             <div>
-              <motion.h1 
+              <motion.h1
                 className="text-xl font-bold bg-gradient-to-r from-green-600 to-blue-600 bg-clip-text text-transparent"
                 initial={{ x: -20, opacity: 0 }}
                 animate={{ x: 0, opacity: 1 }}
@@ -175,7 +179,7 @@ function TermsContent() {
               >
                 Terms of Service
               </motion.h1>
-              <motion.p 
+              <motion.p
                 className="text-xs text-muted-foreground"
                 initial={{ x: -20, opacity: 0 }}
                 animate={{ x: 0, opacity: 1 }}
@@ -197,61 +201,61 @@ function TermsContent() {
           className="space-y-6"
         >
           {/* Enhanced Hero Section */}
-          <motion.div 
+          <motion.div
             className="relative text-center space-y-6 py-8"
             initial={{ opacity: 0, y: 50 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.2 }}
           >
-            <motion.div 
+            <motion.div
               className="relative inline-flex items-center justify-center w-20 h-20 bg-gradient-to-br from-green-100 to-blue-100 rounded-2xl shadow-lg"
               initial={{ scale: 0, rotate: -270, opacity: 0 }}
               animate={{ scale: 1, rotate: 0, opacity: 1 }}
-              transition={{ 
-                duration: 1, 
+              transition={{
+                duration: 1,
                 delay: 0.4,
                 type: "spring",
                 stiffness: 150,
-                damping: 12
+                damping: 12,
               }}
-              whileHover={{ 
+              whileHover={{
                 scale: 1.2,
                 rotate: [0, 15, -15, 0],
                 boxShadow: "0 30px 60px rgba(34, 197, 94, 0.3)",
                 y: -8,
-                transition: { type: "tween", duration: 0.3 }
+                transition: { type: "tween", duration: 0.3 },
               }}
               whileTap={{ scale: 0.9 }}
             >
-              <motion.div 
+              <motion.div
                 className="absolute inset-0 bg-gradient-to-br from-green-500/20 to-blue-500/20 rounded-2xl blur-xl"
-                animate={{ 
+                animate={{
                   scale: [1, 1.4, 0.8, 1],
                   opacity: [0.2, 0.6, 0.1, 0.2],
-                  rotate: [0, -180, 180, 0]
+                  rotate: [0, -180, 180, 0],
                 }}
-                transition={{ 
+                transition={{
                   duration: 5,
                   repeat: Infinity,
-                  ease: "easeInOut"
+                  ease: "easeInOut",
                 }}
               />
               <motion.div
-                animate={{ 
+                animate={{
                   rotate: [0, -360],
-                  scale: [1, 1.1, 0.9, 1]
+                  scale: [1, 1.1, 0.9, 1],
                 }}
-                transition={{ 
+                transition={{
                   duration: 25,
                   repeat: Infinity,
-                  ease: "linear"
+                  ease: "linear",
                 }}
                 whileHover={{
                   rotate: [0, 180, 360],
                   x: [-3, 3, -3, 3, 0],
                   y: [-2, 2, -2, 2, 0],
                   scale: [1, 1.1, 1],
-                  transition: { type: "tween", duration: 0.8 }
+                  transition: { type: "tween", duration: 0.8 },
                 }}
               >
                 <Scale className="relative h-10 w-10 text-green-600" />
@@ -261,13 +265,13 @@ function TermsContent() {
                 animate={{
                   scale: [1, 1.15, 1],
                   opacity: [0.4, 0.8, 0.4],
-                  rotate: [0, 90, 180, 270, 360]
+                  rotate: [0, 90, 180, 270, 360],
                 }}
                 transition={{
                   duration: 3,
                   repeat: Infinity,
                   ease: "easeInOut",
-                  delay: 0.7
+                  delay: 0.7,
                 }}
               />
             </motion.div>
@@ -311,11 +315,15 @@ function TermsContent() {
                         x: [-2, 2, -2, 2, 0],
                         y: [-1, 1, -1, 1, 0],
                         rotate: [-4, 4, -4, 4, 0],
-                        transition: { type: "tween", duration: 0.4, ease: "easeInOut" }
+                        transition: {
+                          type: "tween",
+                          duration: 0.4,
+                          ease: "easeInOut",
+                        },
                       }}
-                      transition={{ 
+                      transition={{
                         duration: 0.4,
-                        ease: "easeInOut"
+                        ease: "easeInOut",
                       }}
                     >
                       <Users className="h-6 w-6 text-white" />
@@ -338,11 +346,15 @@ function TermsContent() {
                         x: [-2, 2, -2, 2, 0],
                         y: [-1, 1, -1, 1, 0],
                         rotate: [-3, 3, -3, 3, 0],
-                        transition: { type: "tween", duration: 0.4, ease: "easeInOut" }
+                        transition: {
+                          type: "tween",
+                          duration: 0.4,
+                          ease: "easeInOut",
+                        },
                       }}
-                      transition={{ 
+                      transition={{
                         duration: 0.4,
-                        ease: "easeInOut"
+                        ease: "easeInOut",
                       }}
                     >
                       <Shield className="h-6 w-6 text-white" />
@@ -365,11 +377,15 @@ function TermsContent() {
                         x: [-2, 2, -2, 2, 0],
                         y: [-1, 1, -1, 1, 0],
                         rotate: [-5, 5, -5, 5, 0],
-                        transition: { type: "tween", duration: 0.4, ease: "easeInOut" }
+                        transition: {
+                          type: "tween",
+                          duration: 0.4,
+                          ease: "easeInOut",
+                        },
                       }}
-                      transition={{ 
+                      transition={{
                         duration: 0.4,
-                        ease: "easeInOut"
+                        ease: "easeInOut",
                       }}
                     >
                       <Scale className="h-6 w-6 text-white" />
