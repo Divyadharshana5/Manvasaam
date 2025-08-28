@@ -309,7 +309,10 @@ function HubAuthComponent() {
 
           // Redirect to dashboard
           setTimeout(() => {
-            router.push("/dashboard/hub");
+            navigateFast("/dashboard/hub", {
+              showLoadingState: true,
+              preloadNext: ["/dashboard/hub/inventory", "/dashboard/hub/farmers"]
+            });
           }, 1500);
           return;
         }
