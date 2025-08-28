@@ -224,23 +224,39 @@ Home Page → Role Selection → Login/Register → Dashboard
 
 ### **User Journeys**
 
+**Hub Registration & Management:**
+1. Navigate to `/login/hub`
+2. Complete hub registration with branch details
+3. Access hub dashboard with real-time metrics
+4. Manage inventory, farmers, and deliveries
+5. View analytics and performance data
+
 **Farmer Registration:**
 1. Select "Farmer" role
 2. Complete registration with passkey setup
-3. Access farmer dashboard
-4. Add crops and manage inventory
+3. Auto-assignment to nearest hub
+4. Access farmer dashboard
+5. Add crops and manage inventory
 
 **Customer Shopping:**
-1. Browse products by category
-2. Add items to cart
-3. Place order with delivery details
-4. Track order status
+1. Browse products by category and location
+2. Check availability at nearest hub
+3. Add items to cart with stock reservation
+4. Place order with delivery details
+5. Track order status in real-time
 
-**Hub Operations:**
-1. Manage farmer network
-2. Process incoming inventory
-3. Fulfill customer orders
-4. Coordinate deliveries
+**Restaurant Operations:**
+1. Register as restaurant user
+2. Access bulk ordering interface
+3. Manage supplier relationships
+4. Schedule regular deliveries
+5. Track commercial orders
+
+### **Demo Mode Features**
+- **Mock Authentication**: Test all user flows without Firebase
+- **Sample Data**: Pre-populated hubs, inventory, and user data
+- **Full Functionality**: All features work with simulated backend
+- **Clear Indicators**: Demo mode warnings throughout the interface
 
 ## 📱 Mobile Experience
 
@@ -252,12 +268,15 @@ Home Page → Role Selection → Login/Register → Dashboard
 
 ## 🔒 Security Features
 
-- **Firebase Authentication**: Industry-standard security
+- **Firebase Authentication**: Industry-standard security with mock mode fallback
 - **Passkey Support**: Biometric authentication for farmers
 - **HTTP-Only Cookies**: Secure session management
-- **Input Validation**: Comprehensive form validation
+- **Input Validation**: Comprehensive form validation with Zod schemas
 - **CSRF Protection**: Cross-site request forgery prevention
 - **Rate Limiting**: API abuse prevention
+- **Password Reset**: Secure email-based password reset via EmailJS
+- **Environment Variables**: Sensitive data protection
+- **Mock Mode Security**: Safe demo environment without real credentials
 
 ## 🌍 Internationalization
 
@@ -268,11 +287,21 @@ Home Page → Role Selection → Login/Register → Dashboard
 
 ## 📊 Performance Metrics
 
-- **First Contentful Paint**: < 1.5s
-- **Largest Contentful Paint**: < 2.5s
-- **First Input Delay**: < 100ms
-- **Cumulative Layout Shift**: < 0.1
-- **Time to Interactive**: < 3.5s
+### **Core Web Vitals Targets**
+- **First Contentful Paint (FCP)**: < 1.5s
+- **Largest Contentful Paint (LCP)**: < 2.5s
+- **First Input Delay (FID)**: < 100ms
+- **Cumulative Layout Shift (CLS)**: < 0.1
+- **Time to Interactive (TTI)**: < 3.5s
+
+### **Optimization Features**
+- **Bundle Splitting**: Vendor chunks and dynamic imports
+- **Lazy Loading**: Components load on demand
+- **Image Optimization**: WebP/AVIF with Next.js Image
+- **GPU Acceleration**: CSS transforms for smooth animations
+- **Reduced Motion**: Accessibility-compliant animations
+- **Progressive Loading**: Staged content delivery
+- **Caching Strategy**: 1-year static asset caching
 
 ## 🤝 Contributing
 
