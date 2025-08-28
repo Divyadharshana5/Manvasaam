@@ -4,6 +4,8 @@
 
 Manvaasam is a comprehensive digital platform that connects farmers, distribution hubs, customers, and restaurants in a seamless agricultural marketplace ecosystem. Our mission is to bridge the gap between farm and table while ensuring fair prices for farmers and fresh produce for consumers.
 
+> **Demo Mode Available**: The application runs in full demo mode with mock data when Firebase is not configured, allowing you to explore all features without setup.
+
 ## 🚀 What We Do
 
 ### **Core Mission**
@@ -28,17 +30,19 @@ Manvaasam is a comprehensive digital platform that connects farmers, distributio
 - **Framework**: Next.js 15.3.3 (React 18.3.1)
 - **Language**: TypeScript 5.9.2
 - **Styling**: Tailwind CSS 3.4.1
-- **UI Components**: Radix UI primitives
-- **Animations**: Framer Motion 12.23.12
+- **UI Components**: Radix UI primitives with shadcn/ui
+- **Animations**: Framer Motion 12.23.12 with LazyMotion
 - **Icons**: Lucide React 0.475.0
 - **Forms**: React Hook Form 7.54.2 with Zod validation
+- **Charts**: Recharts 2.15.1 for analytics dashboards
 
 ### **Backend & Database**
 - **Runtime**: Node.js with Next.js API routes
 - **Database**: MongoDB 6.8.0
-- **Authentication**: Firebase Auth with Admin SDK
+- **Authentication**: Firebase Auth with Admin SDK (with mock mode fallback)
 - **File Storage**: Firebase Storage
 - **Session Management**: HTTP-only cookies
+- **Email Service**: EmailJS 4.4.1 for password reset functionality
 
 ### **AI & Voice**
 - **AI Framework**: Google Genkit 1.16.1
@@ -46,20 +50,24 @@ Manvaasam is a comprehensive digital platform that connects farmers, distributio
 - **Text-to-Speech**: Custom TTS flows
 - **Natural Language**: Navigation understanding AI
 - **Voice Processing**: WAV audio processing
+- **Telemetry**: OpenTelemetry with Jaeger exporter
 
 ### **Development Tools**
 - **Package Manager**: npm
 - **Linting**: ESLint with Next.js config
 - **Type Checking**: TypeScript strict mode
 - **Build Tool**: Next.js with Turbo mode
-- **Email Service**: Nodemailer 6.9.14
+- **Bundle Analysis**: Built-in webpack bundle analyzer
+- **Patch Management**: patch-package for dependency fixes
 
 ### **Performance & Optimization**
-- **Bundle Splitting**: Webpack optimization
-- **Image Optimization**: Next.js Image with WebP/AVIF
-- **Lazy Loading**: Dynamic imports and Suspense
-- **Caching**: HTTP headers and service worker ready
-- **Compression**: Gzip enabled
+- **Bundle Splitting**: Optimized webpack configuration with vendor chunks
+- **Image Optimization**: Next.js Image with WebP/AVIF support
+- **Lazy Loading**: Dynamic imports and React Suspense
+- **Caching**: HTTP headers with 1-year static asset caching
+- **Compression**: Gzip compression enabled
+- **GPU Acceleration**: CSS transforms for smooth animations
+- **Progressive Loading**: Staged content loading for better UX
 
 ## 👥 User Roles & Features
 
@@ -72,12 +80,14 @@ Manvaasam is a comprehensive digital platform that connects farmers, distributio
 - **Voice Assistant**: Hands-free navigation and order updates
 
 ### 🏢 **Distribution Hubs**
-- **Branch Management**: Multi-location hub operations
-- **Inventory Control**: Track incoming and outgoing products
-- **Farmer Network**: Connect with local farmers
-- **Order Processing**: Bulk order management and distribution
-- **Quality Control**: Product inspection and grading
-- **Logistics Coordination**: Delivery scheduling and tracking
+- **Branch Management**: Multi-location hub operations with centralized control
+- **Inventory Management**: Real-time stock tracking with low-stock alerts
+- **Farmer Network**: Auto-assignment of farmers to nearest hubs
+- **Order Processing**: Bulk order management and distribution workflows
+- **Quality Control**: Product inspection and grading systems
+- **Logistics Coordination**: Delivery scheduling and real-time tracking
+- **Analytics Dashboard**: Performance metrics and revenue tracking
+- **Admin Portal**: Hub network management and capacity monitoring
 
 ### 🛒 **Customers**
 - **Product Discovery**: Browse fresh produce by category/location
