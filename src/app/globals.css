@@ -2,6 +2,9 @@
 @tailwind components;
 @tailwind utilities;
 
+/* Import navigation transitions */
+@import '../styles/navigation-transitions.css';
+
 /* Performance optimizations */
 @layer base {
   /* Critical rendering optimizations */
