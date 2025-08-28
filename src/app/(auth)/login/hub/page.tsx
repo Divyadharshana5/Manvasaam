@@ -32,6 +32,7 @@ import { auth } from "@/lib/firebase";
 import { useLanguage } from "@/context/language-context";
 import { initEmailJS, sendPasswordResetEmail } from "@/lib/emailjs";
 import "@/styles/navigation-transitions.css";
+import { motion } from "framer-motion";
 
 const loginSchema = z.object({
   branchName: z.string().min(1, { message: "Branch name is required." }),
@@ -115,8 +116,14 @@ function HubAuthComponent() {
         console.log("✅ Firebase authentication successful");
       } catch (firebaseError: any) {
         // If Firebase auth fails, try mock authentication
-        console.log("Firebase auth failed, using mock mode:", firebaseError.message);
-        idToken = `mock-token-${Date.now()}-${values.email.replace('@', '-at-')}`;
+        console.log(
+          "Firebase auth failed, using mock mode:",
+          firebaseError.message
+        );
+        idToken = `mock-token-${Date.now()}-${values.email.replace(
+          "@",
+          "-at-"
+        )}`;
         authMethod = "mock";
       }
 
@@ -129,14 +136,18 @@ function HubAuthComponent() {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
-            "Accept": "application/json",
+            Accept: "application/json",
           },
           body: JSON.stringify({ idToken }),
         });
-        console.log(`📡 Response received - Status: ${response.status}, OK: ${response.ok}`);
+        console.log(
+          `📡 Response received - Status: ${response.status}, OK: ${response.ok}`
+        );
       } catch (fetchError) {
         console.error("❌ Network error:", fetchError);
-        throw new Error("Network error: Unable to connect to server. Please check your connection.");
+        throw new Error(
+          "Network error: Unable to connect to server. Please check your connection."
+        );
       }
 
       let responseData;
@@ -144,7 +155,7 @@ function HubAuthComponent() {
         const responseText = await response.text();
         console.log("📝 Raw response text:", responseText);
 
-        if (!responseText || responseText.trim() === '') {
+        if (!responseText || responseText.trim() === "") {
           throw new Error("Server returned empty response");
         }
 
@@ -153,9 +164,10 @@ function HubAuthComponent() {
           console.log("📦 Parsed response:", responseData);
         } catch (jsonError) {
           console.error("❌ JSON parse error:", jsonError);
-          throw new Error(`Server returned invalid JSON: ${responseText.substring(0, 100)}...`);
+          throw new Error(
+            `Server returned invalid JSON: ${responseText.substring(0, 100)}...`
+          );
         }
-
       } catch (textError) {
         console.error("❌ Response text error:", textError);
         throw new Error("Failed to read server response");
@@ -163,13 +175,14 @@ function HubAuthComponent() {
 
       // Check if the response indicates success
       if (!response.ok) {
-        const errorMessage = responseData?.message || `Server error (${response.status})`;
+        const errorMessage =
+          responseData?.message || `Server error (${response.status})`;
         console.error("❌ Server error:", errorMessage);
         throw new Error(errorMessage);
       }
 
       // Validate response structure
-      if (!responseData || typeof responseData !== 'object') {
+      if (!responseData || typeof responseData !== "object") {
         console.error("❌ Invalid response structure:", responseData);
         throw new Error("Invalid response format from server");
       }
@@ -183,13 +196,15 @@ function HubAuthComponent() {
       console.log("✅ Login successful:", responseData);
 
       // Store user type and branch info for proper routing
-      localStorage.setItem('userType', 'hub');
-      localStorage.setItem('branchName', values.branchName);
-      localStorage.setItem('authMethod', authMethod);
+      localStorage.setItem("userType", "hub");
+      localStorage.setItem("branchName", values.branchName);
+      localStorage.setItem("authMethod", authMethod);
 
       toast({
         title: "Login successful",
-        description: `Welcome to ${values.branchName}! ${responseData.mockMode ? '(Mock Mode)' : ''} Redirecting to dashboard...`,
+        description: `Welcome to ${values.branchName}! ${
+          responseData.mockMode ? "(Mock Mode)" : ""
+        } Redirecting to dashboard...`,
         duration: 2000,
       });
 
@@ -197,10 +212,9 @@ function HubAuthComponent() {
       setTimeout(() => {
         navigateFast("/dashboard/hub", {
           showLoadingState: true,
-          preloadNext: ["/dashboard/hub/inventory", "/dashboard/hub/farmers"]
+          preloadNext: ["/dashboard/hub/inventory", "/dashboard/hub/farmers"],
         });
       }, 1000);
-
     } catch (error: any) {
       console.error("Login error:", error);
 
@@ -208,7 +222,8 @@ function HubAuthComponent() {
       let errorMessage = "Login failed. Please try again.";
 
       if (error.message.includes("auth/user-not-found")) {
-        errorMessage = "No account found with this email. Please register first.";
+        errorMessage =
+          "No account found with this email. Please register first.";
       } else if (error.message.includes("auth/wrong-password")) {
         errorMessage = "Incorrect password. Please try again.";
       } else if (error.message.includes("auth/invalid-email")) {
@@ -216,7 +231,8 @@ function HubAuthComponent() {
       } else if (error.message.includes("auth/too-many-requests")) {
         errorMessage = "Too many failed attempts. Please try again later.";
       } else if (error.message.includes("Failed to create session")) {
-        errorMessage = "Session creation failed. Please check your connection and try again.";
+        errorMessage =
+          "Session creation failed. Please check your connection and try again.";
       } else if (error.message) {
         errorMessage = error.message;
       }
@@ -262,7 +278,7 @@ function HubAuthComponent() {
 
       // Store the branch ID for future use
       if (result.branchId) {
-        localStorage.setItem('branchId', result.branchId);
+        localStorage.setItem("branchId", result.branchId);
       }
 
       // Auto-login after successful registration
@@ -298,8 +314,8 @@ function HubAuthComponent() {
 
         if (loginResponse.ok) {
           // Store user info
-          localStorage.setItem('userType', 'hub');
-          localStorage.setItem('branchName', values.branchName);
+          localStorage.setItem("userType", "hub");
+          localStorage.setItem("branchName", values.branchName);
 
           toast({
             title: "Auto-login Successful",
@@ -311,7 +327,10 @@ function HubAuthComponent() {
           setTimeout(() => {
             navigateFast("/dashboard/hub", {
               showLoadingState: true,
-              preloadNext: ["/dashboard/hub/inventory", "/dashboard/hub/farmers"]
+              preloadNext: [
+                "/dashboard/hub/inventory",
+                "/dashboard/hub/farmers",
+              ],
             });
           }, 1500);
           return;
@@ -332,13 +351,13 @@ function HubAuthComponent() {
       loginForm.setValue("email", values.email);
       loginForm.setValue("password", "");
       setActiveTab("login");
-
     } catch (error: any) {
       console.error("Registration error:", error);
       toast({
         variant: "destructive",
         title: "Registration Failed",
-        description: error.message || "Failed to register hub. Please try again.",
+        description:
+          error.message || "Failed to register hub. Please try again.",
       });
     } finally {
       setLoading(false);
@@ -350,7 +369,7 @@ function HubAuthComponent() {
     try {
       const email = loginForm.getValues("email");
       const branchName = loginForm.getValues("branchName");
-      
+
       if (!email) {
         toast({
           variant: "destructive",
@@ -362,12 +381,17 @@ function HubAuthComponent() {
       }
 
       // Send password reset email using EmailJS
-      const result = await sendPasswordResetEmail(email, branchName || "Hub Admin", "hub");
+      const result = await sendPasswordResetEmail(
+        email,
+        branchName || "Hub Admin",
+        "hub"
+      );
 
       if (result.success) {
         toast({
           title: "Password Reset Email Sent",
-          description: "Please check your inbox for instructions to reset your password.",
+          description:
+            "Please check your inbox for instructions to reset your password.",
         });
       } else {
         throw new Error(result.message);
@@ -387,7 +411,7 @@ function HubAuthComponent() {
     <div className="animate-in fade-in duration-1000 relative min-h-screen flex items-center justify-center p-4 overflow-hidden">
       {/* Enhanced animated background */}
       <div className="absolute inset-0 bg-gradient-to-br from-emerald-50 via-green-50 to-lime-50 dark:from-emerald-950 dark:via-green-950 dark:to-lime-950 opacity-40 -z-10"></div>
-      
+
       {/* Floating background elements */}
       <div className="absolute inset-0 -z-5">
         <div className="absolute top-20 left-10 w-32 h-32 bg-emerald-200/20 dark:bg-emerald-800/20 rounded-full blur-xl animate-pulse"></div>
@@ -397,13 +421,26 @@ function HubAuthComponent() {
       </div>
 
       <Card className="w-full max-w-md bg-white/95 dark:bg-gray-900/95 backdrop-blur-sm border border-emerald-200 dark:border-emerald-700 animate-in slide-in-from-left-4 duration-1000 delay-300 relative z-10 hover:shadow-2xl hover:scale-[1.03] transition-all duration-500 hover:border-emerald-300 dark:hover:border-emerald-600 hover:bg-white dark:hover:bg-gray-900 group">
-
         <CardHeader className="text-center px-4 sm:px-6 py-4 sm:py-6 relative">
           {/* Animated icon */}
           <div className="flex items-center justify-center w-16 h-16 mx-auto mb-4 bg-gradient-to-br from-emerald-100 to-green-100 dark:from-emerald-900 dark:to-green-900 rounded-full border-2 border-emerald-200 dark:border-emerald-700 animate-in zoom-in duration-800 delay-500 hover:scale-110 transition-all duration-300 group-hover:shadow-lg">
-            <Building2 className="h-8 w-8 text-emerald-600 dark:text-emerald-400 animate-in slide-in-from-bottom-2 duration-600 delay-700" />
+            <motion.div
+              animate={{ rotate: [0, 8, -8, 0], y: [0, -2, 2, 0] }}
+              transition={{
+                duration: 3,
+                repeat: Infinity,
+                ease: "easeInOut",
+                type: "tween",
+              }}
+              whileHover={{
+                scale: 1.1,
+                transition: { type: "tween", duration: 0.2 },
+              }}
+            >
+              <Building2 className="h-8 w-8 text-emerald-600 dark:text-emerald-400" />
+            </motion.div>
           </div>
-          
+
           <CardTitle className="text-lg sm:text-xl font-bold text-emerald-700 dark:text-emerald-300 animate-in slide-in-from-top-2 duration-800 delay-600 hover:text-emerald-600 dark:hover:text-emerald-200 transition-colors duration-300">
             Hub Portal
           </CardTitle>
@@ -412,10 +449,14 @@ function HubAuthComponent() {
           </CardDescription>
         </CardHeader>
         <CardContent className="relative z-20">
-          <Tabs value={activeTab} onValueChange={(value) => {
-            console.log("Hub tab changed to:", value);
-            setActiveTab(value);
-          }} className="w-full animate-in fade-in duration-700 delay-800 relative z-30">
+          <Tabs
+            value={activeTab}
+            onValueChange={(value) => {
+              console.log("Hub tab changed to:", value);
+              setActiveTab(value);
+            }}
+            className="w-full animate-in fade-in duration-700 delay-800 relative z-30"
+          >
             <TabsList className="grid w-full grid-cols-2 bg-gradient-to-r from-emerald-100 to-green-100 dark:from-emerald-900 dark:to-green-900 p-1 rounded-lg relative z-40 pointer-events-auto animate-in slide-in-from-bottom-2 duration-600 delay-1000 shadow-inner">
               <TabsTrigger
                 value="login"
@@ -430,7 +471,10 @@ function HubAuthComponent() {
                 {t.auth.register}
               </TabsTrigger>
             </TabsList>
-            <TabsContent value="login" className="pt-4 animate-in slide-in-from-right-4 duration-500 delay-100">
+            <TabsContent
+              value="login"
+              className="pt-4 animate-in slide-in-from-right-4 duration-500 delay-100"
+            >
               <Form {...loginForm}>
                 <form
                   onSubmit={loginForm.handleSubmit(onLogin)}
@@ -442,9 +486,15 @@ function HubAuthComponent() {
                     name="branchName"
                     render={({ field }) => (
                       <FormItem className="animate-in slide-in-from-left-2 duration-600 delay-300 group">
-                        <FormLabel className="text-emerald-700 dark:text-emerald-300 font-medium transition-colors duration-300 hover:text-emerald-600 dark:hover:text-emerald-200 group-hover:scale-105 transform-gpu origin-left">{t.auth.branchNameLabel}</FormLabel>
+                        <FormLabel className="text-emerald-700 dark:text-emerald-300 font-medium transition-colors duration-300 hover:text-emerald-600 dark:hover:text-emerald-200 group-hover:scale-105 transform-gpu origin-left">
+                          {t.auth.branchNameLabel}
+                        </FormLabel>
                         <FormControl>
-                          <Input placeholder="Central Hub" className="border-emerald-200 dark:border-emerald-700 focus:border-emerald-400 dark:focus:border-emerald-500 focus:ring-2 focus:ring-emerald-200 dark:focus:ring-emerald-800 bg-gradient-to-r from-emerald-50/50 to-green-50/50 dark:from-emerald-950/50 dark:to-green-950/50 placeholder:text-emerald-500 dark:placeholder:text-emerald-400 transition-all duration-400 focus:scale-[1.03] hover:border-emerald-300 dark:hover:border-emerald-600 transform-gpu hover:shadow-md focus:shadow-lg" {...field} />
+                          <Input
+                            placeholder="Central Hub"
+                            className="border-emerald-200 dark:border-emerald-700 focus:border-emerald-400 dark:focus:border-emerald-500 focus:ring-2 focus:ring-emerald-200 dark:focus:ring-emerald-800 bg-gradient-to-r from-emerald-50/50 to-green-50/50 dark:from-emerald-950/50 dark:to-green-950/50 placeholder:text-emerald-500 dark:placeholder:text-emerald-400 transition-all duration-400 focus:scale-[1.03] hover:border-emerald-300 dark:hover:border-emerald-600 transform-gpu hover:shadow-md focus:shadow-lg"
+                            {...field}
+                          />
                         </FormControl>
                         <FormMessage className="text-red-600 dark:text-red-400 animate-in fade-in duration-300" />
                       </FormItem>
@@ -455,9 +505,15 @@ function HubAuthComponent() {
                     name="email"
                     render={({ field }) => (
                       <FormItem className="animate-in slide-in-from-left-2 duration-600 delay-400 group">
-                        <FormLabel className="text-emerald-700 dark:text-emerald-300 font-medium transition-colors duration-300 hover:text-emerald-600 dark:hover:text-emerald-200 group-hover:scale-105 transform-gpu origin-left">{t.auth.emailLabel}</FormLabel>
+                        <FormLabel className="text-emerald-700 dark:text-emerald-300 font-medium transition-colors duration-300 hover:text-emerald-600 dark:hover:text-emerald-200 group-hover:scale-105 transform-gpu origin-left">
+                          {t.auth.emailLabel}
+                        </FormLabel>
                         <FormControl>
-                          <Input placeholder="hub-admin@example.com" className="border-emerald-200 dark:border-emerald-700 focus:border-emerald-400 dark:focus:border-emerald-500 focus:ring-2 focus:ring-emerald-200 dark:focus:ring-emerald-800 bg-gradient-to-r from-emerald-50/50 to-green-50/50 dark:from-emerald-950/50 dark:to-green-950/50 placeholder:text-emerald-500 dark:placeholder:text-emerald-400 transition-all duration-400 focus:scale-[1.03] hover:border-emerald-300 dark:hover:border-emerald-600 transform-gpu hover:shadow-md focus:shadow-lg" {...field} />
+                          <Input
+                            placeholder="hub-admin@example.com"
+                            className="border-emerald-200 dark:border-emerald-700 focus:border-emerald-400 dark:focus:border-emerald-500 focus:ring-2 focus:ring-emerald-200 dark:focus:ring-emerald-800 bg-gradient-to-r from-emerald-50/50 to-green-50/50 dark:from-emerald-950/50 dark:to-green-950/50 placeholder:text-emerald-500 dark:placeholder:text-emerald-400 transition-all duration-400 focus:scale-[1.03] hover:border-emerald-300 dark:hover:border-emerald-600 transform-gpu hover:shadow-md focus:shadow-lg"
+                            {...field}
+                          />
                         </FormControl>
                         <FormMessage className="text-red-600 dark:text-red-400 animate-in fade-in duration-300" />
                       </FormItem>
@@ -469,7 +525,9 @@ function HubAuthComponent() {
                     render={({ field }) => (
                       <FormItem className="animate-in slide-in-from-left-2 duration-600 delay-500 group">
                         <div className="flex justify-between items-center">
-                          <FormLabel className="text-emerald-700 dark:text-emerald-300 font-medium transition-colors duration-300 hover:text-emerald-600 dark:hover:text-emerald-200 group-hover:scale-105 transform-gpu origin-left">{t.auth.passwordLabel}</FormLabel>
+                          <FormLabel className="text-emerald-700 dark:text-emerald-300 font-medium transition-colors duration-300 hover:text-emerald-600 dark:hover:text-emerald-200 group-hover:scale-105 transform-gpu origin-left">
+                            {t.auth.passwordLabel}
+                          </FormLabel>
                           <Button
                             variant="link"
                             size="sm"
@@ -507,14 +565,23 @@ function HubAuthComponent() {
                       </FormItem>
                     )}
                   />
-                  <Button type="submit" className="w-full bg-gradient-to-r from-emerald-600 to-green-600 hover:from-emerald-700 hover:to-green-700 text-white transition-all duration-400 hover:scale-[1.05] hover:shadow-xl active:scale-[0.98] transform-gpu animate-in slide-in-from-bottom-2 duration-600 delay-600 hover:rotate-1" disabled={loading}>
-                    {loading && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
+                  <Button
+                    type="submit"
+                    className="w-full bg-gradient-to-r from-emerald-600 to-green-600 hover:from-emerald-700 hover:to-green-700 text-white transition-all duration-400 hover:scale-[1.05] hover:shadow-xl active:scale-[0.98] transform-gpu animate-in slide-in-from-bottom-2 duration-600 delay-600 hover:rotate-1"
+                    disabled={loading}
+                  >
+                    {loading && (
+                      <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                    )}
                     {t.auth.login}
                   </Button>
                 </form>
               </Form>
             </TabsContent>
-            <TabsContent value="register" className="pt-4 animate-in slide-in-from-left-4 duration-500 delay-100">
+            <TabsContent
+              value="register"
+              className="pt-4 animate-in slide-in-from-left-4 duration-500 delay-100"
+            >
               <Form {...registerForm}>
                 <form
                   onSubmit={registerForm.handleSubmit(onRegister, (errors) => {
@@ -659,8 +726,14 @@ function HubAuthComponent() {
                       </FormItem>
                     )}
                   />
-                  <Button type="submit" className="w-full bg-emerald-600 hover:bg-emerald-700 text-white transition-all duration-200 hover:scale-[1.02]" disabled={loading}>
-                    {loading && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
+                  <Button
+                    type="submit"
+                    className="w-full bg-emerald-600 hover:bg-emerald-700 text-white transition-all duration-200 hover:scale-[1.02]"
+                    disabled={loading}
+                  >
+                    {loading && (
+                      <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                    )}
                     {t.auth.registerHub}
                   </Button>
                 </form>

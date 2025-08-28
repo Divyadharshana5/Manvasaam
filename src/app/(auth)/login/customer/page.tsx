@@ -32,6 +32,7 @@ import { auth } from "@/lib/firebase";
 import { useLanguage } from "@/context/language-context";
 import { initEmailJS, sendPasswordResetEmail } from "@/lib/emailjs";
 import "@/styles/navigation-transitions.css";
+import { motion } from "framer-motion";
 
 const loginSchema = z.object({
   email: z.string().email({ message: "Invalid email address." }),
@@ -104,24 +105,30 @@ export default function CustomerAuthPage() {
     setLoading(true);
     try {
       const email = loginForm.getValues("email");
-      
+
       if (!email) {
         toast({
           variant: "destructive",
           title: "Email required",
-          description: "Please enter your email address to reset your password.",
+          description:
+            "Please enter your email address to reset your password.",
         });
         setLoading(false);
         return;
       }
 
       // Send password reset email using EmailJS
-      const result = await sendPasswordResetEmail(email, "Customer", "customer");
+      const result = await sendPasswordResetEmail(
+        email,
+        "Customer",
+        "customer"
+      );
 
       if (result.success) {
         toast({
           title: "Password Reset Email Sent",
-          description: "Please check your inbox for instructions to reset your password.",
+          description:
+            "Please check your inbox for instructions to reset your password.",
         });
       } else {
         throw new Error(result.message);
@@ -160,7 +167,7 @@ export default function CustomerAuthPage() {
       }
 
       // Store user type for proper routing
-      localStorage.setItem('userType', 'customer');
+      localStorage.setItem("userType", "customer");
 
       toast({
         title: "Login successful",
@@ -169,7 +176,7 @@ export default function CustomerAuthPage() {
       });
       navigateFast("/dashboard", {
         showLoadingState: true,
-        preloadNext: ["/dashboard/products", "/dashboard/orders"]
+        preloadNext: ["/dashboard/products", "/dashboard/orders"],
       });
     } catch (error: any) {
       toast({
@@ -232,7 +239,7 @@ export default function CustomerAuthPage() {
     <div className="relative animate-in fade-in duration-1000 min-h-screen flex items-center justify-center p-4 overflow-hidden">
       {/* Enhanced animated background */}
       <div className="absolute inset-0 bg-gradient-to-br from-emerald-50 via-green-50 to-lime-50 dark:from-emerald-950 dark:via-green-950 dark:to-lime-950 opacity-40 -z-10"></div>
-      
+
       {/* Floating background elements */}
       <div className="absolute inset-0 -z-5">
         <div className="absolute top-32 left-16 w-28 h-28 bg-emerald-200/30 dark:bg-emerald-800/30 rounded-full blur-xl animate-bounce"></div>
@@ -242,14 +249,26 @@ export default function CustomerAuthPage() {
       </div>
 
       <Card className="w-full max-w-md bg-white/95 dark:bg-gray-900/95 backdrop-blur-sm border border-emerald-200 dark:border-emerald-700 animate-in slide-in-from-bottom-4 duration-1000 delay-300 relative z-10 hover:shadow-2xl hover:scale-[1.03] transition-all duration-500 hover:border-emerald-300 dark:hover:border-emerald-600 hover:bg-white dark:hover:bg-gray-900 group">
-
-
         <CardHeader className="text-center px-4 sm:px-6 py-4 sm:py-6 relative">
           {/* Animated icon */}
           <div className="flex items-center justify-center w-16 h-16 mx-auto mb-4 bg-gradient-to-br from-emerald-100 to-green-100 dark:from-emerald-900 dark:to-green-900 rounded-full border-2 border-emerald-200 dark:border-emerald-700 animate-in zoom-in duration-800 delay-500 hover:scale-110 transition-all duration-300 group-hover:shadow-lg hover:rotate-12">
-            <ShoppingCart className="h-8 w-8 text-emerald-600 dark:text-emerald-400 animate-in slide-in-from-bottom-2 duration-600 delay-700" />
+            <motion.div
+              animate={{ rotate: [0, 8, -8, 0], y: [0, -2, 2, 0] }}
+              transition={{
+                duration: 3,
+                repeat: Infinity,
+                ease: "easeInOut",
+                type: "tween",
+              }}
+              whileHover={{
+                scale: 1.1,
+                transition: { type: "tween", duration: 0.2 },
+              }}
+            >
+              <ShoppingCart className="h-8 w-8 text-emerald-600 dark:text-emerald-400" />
+            </motion.div>
           </div>
-          
+
           <CardTitle className="text-lg sm:text-xl font-bold text-emerald-700 dark:text-emerald-300 animate-in slide-in-from-top-2 duration-800 delay-600 hover:text-emerald-600 dark:hover:text-emerald-200 transition-colors duration-300">
             Customer Portal
           </CardTitle>
@@ -258,25 +277,32 @@ export default function CustomerAuthPage() {
           </CardDescription>
         </CardHeader>
         <CardContent className="relative z-20">
-          <Tabs value={activeTab} onValueChange={(value) => {
-            console.log("Customer tab changed to:", value);
-            setActiveTab(value);
-          }} className="w-full animate-in fade-in duration-500 delay-500 relative z-30">
+          <Tabs
+            value={activeTab}
+            onValueChange={(value) => {
+              console.log("Customer tab changed to:", value);
+              setActiveTab(value);
+            }}
+            className="w-full animate-in fade-in duration-500 delay-500 relative z-30"
+          >
             <TabsList className="grid w-full grid-cols-2 bg-gradient-to-r from-emerald-100 to-green-100 dark:from-emerald-900 dark:to-green-900 p-1 rounded-lg relative z-40 pointer-events-auto animate-in slide-in-from-bottom-2 duration-600 delay-1000 shadow-inner">
-              <TabsTrigger 
-                value="login" 
+              <TabsTrigger
+                value="login"
                 className="data-[state=active]:bg-gradient-to-r data-[state=active]:from-emerald-200 data-[state=active]:to-green-200 dark:data-[state=active]:from-emerald-700 dark:data-[state=active]:to-green-700 data-[state=active]:shadow-md transition-all duration-400 cursor-pointer hover:scale-105 hover:bg-emerald-150 dark:hover:bg-emerald-800 transform-gpu animate-in slide-in-from-left-2 duration-500 delay-1200"
               >
                 {t.auth.login}
               </TabsTrigger>
-              <TabsTrigger 
-                value="register" 
+              <TabsTrigger
+                value="register"
                 className="data-[state=active]:bg-gradient-to-r data-[state=active]:from-emerald-200 data-[state=active]:to-green-200 dark:data-[state=active]:from-emerald-700 dark:data-[state=active]:to-green-700 data-[state=active]:shadow-md transition-all duration-400 cursor-pointer hover:scale-105 hover:bg-emerald-150 dark:hover:bg-emerald-800 transform-gpu animate-in slide-in-from-right-2 duration-500 delay-1200"
               >
                 {t.auth.register}
               </TabsTrigger>
             </TabsList>
-            <TabsContent value="login" className="pt-4 animate-in slide-in-from-right-4 duration-500 delay-100">
+            <TabsContent
+              value="login"
+              className="pt-4 animate-in slide-in-from-right-4 duration-500 delay-100"
+            >
               <Form {...loginForm}>
                 <form
                   onSubmit={loginForm.handleSubmit(onLogin)}
@@ -287,7 +313,9 @@ export default function CustomerAuthPage() {
                     name="email"
                     render={({ field }) => (
                       <FormItem>
-                        <FormLabel className="text-emerald-700 dark:text-emerald-300 font-medium">{t.auth.emailLabel}</FormLabel>
+                        <FormLabel className="text-emerald-700 dark:text-emerald-300 font-medium">
+                          {t.auth.emailLabel}
+                        </FormLabel>
                         <FormControl>
                           <Input
                             type="email"
@@ -306,7 +334,9 @@ export default function CustomerAuthPage() {
                     render={({ field }) => (
                       <FormItem>
                         <div className="flex justify-between items-center">
-                          <FormLabel className="text-emerald-700 dark:text-emerald-300 font-medium">{t.auth.passwordLabel}</FormLabel>
+                          <FormLabel className="text-emerald-700 dark:text-emerald-300 font-medium">
+                            {t.auth.passwordLabel}
+                          </FormLabel>
                           <Button
                             variant="link"
                             size="sm"
@@ -344,14 +374,23 @@ export default function CustomerAuthPage() {
                       </FormItem>
                     )}
                   />
-                  <Button type="submit" className="w-full bg-gradient-to-r from-emerald-600 to-green-600 hover:from-emerald-700 hover:to-green-700 text-white transition-all duration-400 hover:scale-[1.05] hover:shadow-xl active:scale-[0.98] transform-gpu animate-in slide-in-from-bottom-2 duration-600 delay-600 hover:-rotate-1" disabled={loading}>
-                    {loading && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
+                  <Button
+                    type="submit"
+                    className="w-full bg-gradient-to-r from-emerald-600 to-green-600 hover:from-emerald-700 hover:to-green-700 text-white transition-all duration-400 hover:scale-[1.05] hover:shadow-xl active:scale-[0.98] transform-gpu animate-in slide-in-from-bottom-2 duration-600 delay-600 hover:-rotate-1"
+                    disabled={loading}
+                  >
+                    {loading && (
+                      <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                    )}
                     {t.auth.login}
                   </Button>
                 </form>
               </Form>
             </TabsContent>
-            <TabsContent value="register" className="pt-4 animate-in slide-in-from-left-4 duration-500 delay-100">
+            <TabsContent
+              value="register"
+              className="pt-4 animate-in slide-in-from-left-4 duration-500 delay-100"
+            >
               <Form {...registerForm}>
                 <form
                   onSubmit={registerForm.handleSubmit(onRegister, (errors) => {
@@ -364,9 +403,16 @@ export default function CustomerAuthPage() {
                     name="username"
                     render={({ field }) => (
                       <FormItem>
-                        <FormLabel className="text-emerald-700 dark:text-emerald-300 font-medium">{t.auth.usernameLabel}</FormLabel>
+                        <FormLabel className="text-emerald-700 dark:text-emerald-300 font-medium">
+                          {t.auth.usernameLabel}
+                        </FormLabel>
                         <FormControl>
-                          <Input type="text" placeholder="John Doe" className="border-emerald-200 dark:border-emerald-700 focus:border-emerald-400 dark:focus:border-emerald-500 focus:ring-emerald-200 dark:focus:ring-emerald-800 bg-emerald-50/50 dark:bg-emerald-950/50 placeholder:text-emerald-500 dark:placeholder:text-emerald-400" {...field} />
+                          <Input
+                            type="text"
+                            placeholder="John Doe"
+                            className="border-emerald-200 dark:border-emerald-700 focus:border-emerald-400 dark:focus:border-emerald-500 focus:ring-emerald-200 dark:focus:ring-emerald-800 bg-emerald-50/50 dark:bg-emerald-950/50 placeholder:text-emerald-500 dark:placeholder:text-emerald-400"
+                            {...field}
+                          />
                         </FormControl>
                         <FormMessage className="text-red-600 dark:text-red-400" />
                       </FormItem>
@@ -377,7 +423,9 @@ export default function CustomerAuthPage() {
                     name="email"
                     render={({ field }) => (
                       <FormItem>
-                        <FormLabel className="text-emerald-700 dark:text-emerald-300 font-medium">{t.auth.emailLabel}</FormLabel>
+                        <FormLabel className="text-emerald-700 dark:text-emerald-300 font-medium">
+                          {t.auth.emailLabel}
+                        </FormLabel>
                         <FormControl>
                           <Input
                             type="email"
@@ -395,7 +443,9 @@ export default function CustomerAuthPage() {
                     name="phone"
                     render={({ field }) => (
                       <FormItem>
-                        <FormLabel className="text-emerald-700 dark:text-emerald-300 font-medium">{t.auth.phoneLabel}</FormLabel>
+                        <FormLabel className="text-emerald-700 dark:text-emerald-300 font-medium">
+                          {t.auth.phoneLabel}
+                        </FormLabel>
                         <FormControl>
                           <Input
                             type="tel"
@@ -418,7 +468,9 @@ export default function CustomerAuthPage() {
                     name="password"
                     render={({ field }) => (
                       <FormItem>
-                        <FormLabel className="text-emerald-700 dark:text-emerald-300 font-medium">{t.auth.passwordLabel}</FormLabel>
+                        <FormLabel className="text-emerald-700 dark:text-emerald-300 font-medium">
+                          {t.auth.passwordLabel}
+                        </FormLabel>
                         <FormControl>
                           <div className="relative">
                             <Input
@@ -450,7 +502,9 @@ export default function CustomerAuthPage() {
                     name="confirmPassword"
                     render={({ field }) => (
                       <FormItem>
-                        <FormLabel className="text-emerald-700 dark:text-emerald-300 font-medium">{t.auth.confirmPasswordLabel}</FormLabel>
+                        <FormLabel className="text-emerald-700 dark:text-emerald-300 font-medium">
+                          {t.auth.confirmPasswordLabel}
+                        </FormLabel>
                         <FormControl>
                           <div className="relative">
                             <Input
@@ -479,8 +533,14 @@ export default function CustomerAuthPage() {
                       </FormItem>
                     )}
                   />
-                  <Button type="submit" className="w-full bg-gradient-to-r from-emerald-600 to-green-600 hover:from-emerald-700 hover:to-green-700 text-white transition-all duration-400 hover:scale-[1.05] hover:shadow-xl active:scale-[0.98] transform-gpu animate-in slide-in-from-bottom-2 duration-600 delay-700 hover:rotate-1" disabled={loading}>
-                    {loading && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
+                  <Button
+                    type="submit"
+                    className="w-full bg-gradient-to-r from-emerald-600 to-green-600 hover:from-emerald-700 hover:to-green-700 text-white transition-all duration-400 hover:scale-[1.05] hover:shadow-xl active:scale-[0.98] transform-gpu animate-in slide-in-from-bottom-2 duration-600 delay-700 hover:rotate-1"
+                    disabled={loading}
+                  >
+                    {loading && (
+                      <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                    )}
                     {t.auth.createAccount}
                   </Button>
                 </form>

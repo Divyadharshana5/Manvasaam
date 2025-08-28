@@ -32,6 +32,7 @@ import { auth } from "@/lib/firebase";
 import { useLanguage } from "@/context/language-context";
 import { initEmailJS, sendPasswordResetEmail } from "@/lib/emailjs";
 import "@/styles/navigation-transitions.css";
+import { motion } from "framer-motion";
 
 const loginSchema = z.object({
   restaurantName: z
@@ -129,7 +130,7 @@ export default function RestaurantAuthPage() {
       }
 
       // Store user type for proper routing
-      localStorage.setItem('userType', 'restaurant');
+      localStorage.setItem("userType", "restaurant");
 
       toast({
         variant: "restaurant" as any,
@@ -139,7 +140,10 @@ export default function RestaurantAuthPage() {
       });
       navigateFast("/dashboard/restaurant", {
         showLoadingState: true,
-        preloadNext: ["/dashboard/restaurant/orders", "/dashboard/restaurant/suppliers"]
+        preloadNext: [
+          "/dashboard/restaurant/orders",
+          "/dashboard/restaurant/suppliers",
+        ],
       });
     } catch (error: any) {
       toast({
@@ -201,7 +205,7 @@ export default function RestaurantAuthPage() {
     try {
       const email = loginForm.getValues("email");
       const restaurantName = loginForm.getValues("restaurantName");
-      
+
       if (!email) {
         toast({
           variant: "warning" as any,
@@ -213,13 +217,18 @@ export default function RestaurantAuthPage() {
       }
 
       // Send password reset email using EmailJS
-      const result = await sendPasswordResetEmail(email, restaurantName || "Restaurant Owner", "restaurant");
+      const result = await sendPasswordResetEmail(
+        email,
+        restaurantName || "Restaurant Owner",
+        "restaurant"
+      );
 
       if (result.success) {
         toast({
           variant: "success" as any,
           title: "Password Reset Email Sent",
-          description: "Please check your inbox for instructions to reset your password.",
+          description:
+            "Please check your inbox for instructions to reset your password.",
         });
       } else {
         throw new Error(result.message);
@@ -249,14 +258,26 @@ export default function RestaurantAuthPage() {
       </div>
 
       <Card className="w-full max-w-md bg-white/95 dark:bg-gray-900/95 backdrop-blur-sm border border-emerald-200 dark:border-emerald-700 animate-in slide-in-from-right-4 duration-1000 delay-300 relative z-10 hover:shadow-2xl hover:scale-[1.03] transition-all duration-500 hover:border-emerald-300 dark:hover:border-emerald-600 hover:bg-white dark:hover:bg-gray-900 group">
-
-
         <CardHeader className="text-center px-4 sm:px-6 py-4 sm:py-6 relative">
           {/* Animated icon */}
           <div className="flex items-center justify-center w-16 h-16 mx-auto mb-4 bg-gradient-to-br from-emerald-100 to-green-100 dark:from-emerald-900 dark:to-green-900 rounded-full border-2 border-emerald-200 dark:border-emerald-700 animate-in zoom-in duration-800 delay-500 hover:scale-110 transition-all duration-300 group-hover:shadow-lg hover:-rotate-12">
-            <ChefHat className="h-8 w-8 text-emerald-600 dark:text-emerald-400 animate-in slide-in-from-bottom-2 duration-600 delay-700" />
+            <motion.div
+              animate={{ rotate: [0, 8, -8, 0], y: [0, -2, 2, 0] }}
+              transition={{
+                duration: 3,
+                repeat: Infinity,
+                ease: "easeInOut",
+                type: "tween",
+              }}
+              whileHover={{
+                scale: 1.1,
+                transition: { type: "tween", duration: 0.2 },
+              }}
+            >
+              <ChefHat className="h-8 w-8 text-emerald-600 dark:text-emerald-400" />
+            </motion.div>
           </div>
-          
+
           <CardTitle className="text-lg sm:text-xl font-bold text-emerald-700 dark:text-emerald-300 animate-in slide-in-from-top-2 duration-800 delay-600 hover:text-emerald-600 dark:hover:text-emerald-200 transition-colors duration-300">
             Restaurant Portal
           </CardTitle>
@@ -265,27 +286,34 @@ export default function RestaurantAuthPage() {
           </CardDescription>
         </CardHeader>
         <CardContent className="relative z-20">
-          <Tabs value={activeTab} onValueChange={(value) => {
-            console.log("Tab changed to:", value);
-            setActiveTab(value);
-          }} className="w-full animate-in fade-in duration-500 delay-500 relative z-30">
+          <Tabs
+            value={activeTab}
+            onValueChange={(value) => {
+              console.log("Tab changed to:", value);
+              setActiveTab(value);
+            }}
+            className="w-full animate-in fade-in duration-500 delay-500 relative z-30"
+          >
             <TabsList className="grid w-full grid-cols-2 bg-gradient-to-r from-emerald-100 to-green-100 dark:from-emerald-900 dark:to-green-900 p-1 rounded-lg relative z-40 pointer-events-auto animate-in slide-in-from-bottom-2 duration-600 delay-1000 shadow-inner">
-              <TabsTrigger 
-                value="login" 
+              <TabsTrigger
+                value="login"
                 className="data-[state=active]:bg-gradient-to-r data-[state=active]:from-emerald-200 data-[state=active]:to-green-200 dark:data-[state=active]:from-emerald-700 dark:data-[state=active]:to-green-700 data-[state=active]:shadow-md transition-all duration-400 cursor-pointer pointer-events-auto relative z-50 hover:scale-105 hover:bg-emerald-150 dark:hover:bg-emerald-800 transform-gpu animate-in slide-in-from-left-2 duration-500 delay-1200"
                 onClick={() => console.log("Login tab clicked")}
               >
                 {t.auth.login}
               </TabsTrigger>
-              <TabsTrigger 
-                value="register" 
+              <TabsTrigger
+                value="register"
                 className="data-[state=active]:bg-gradient-to-r data-[state=active]:from-emerald-200 data-[state=active]:to-green-200 dark:data-[state=active]:from-emerald-700 dark:data-[state=active]:to-green-700 data-[state=active]:shadow-md transition-all duration-400 cursor-pointer pointer-events-auto relative z-50 hover:scale-105 hover:bg-emerald-150 dark:hover:bg-emerald-800 transform-gpu animate-in slide-in-from-right-2 duration-500 delay-1200"
                 onClick={() => console.log("Register tab clicked")}
               >
                 {t.auth.register}
               </TabsTrigger>
             </TabsList>
-            <TabsContent value="login" className="animate-in slide-in-from-right-4 duration-500 delay-100 relative z-40 pointer-events-auto">
+            <TabsContent
+              value="login"
+              className="animate-in slide-in-from-right-4 duration-500 delay-100 relative z-40 pointer-events-auto"
+            >
               <Form {...loginForm}>
                 <form
                   onSubmit={loginForm.handleSubmit(onLogin)}
@@ -296,9 +324,15 @@ export default function RestaurantAuthPage() {
                     name="restaurantName"
                     render={({ field }) => (
                       <FormItem>
-                        <FormLabel className="text-emerald-700 dark:text-emerald-300 font-medium">{t.auth.restaurantNameLabel}</FormLabel>
+                        <FormLabel className="text-emerald-700 dark:text-emerald-300 font-medium">
+                          {t.auth.restaurantNameLabel}
+                        </FormLabel>
                         <FormControl>
-                          <Input placeholder="The Fresh Table" className="border-emerald-200 dark:border-emerald-700 focus:border-emerald-400 dark:focus:border-emerald-500 focus:ring-emerald-200 dark:focus:ring-emerald-800 bg-emerald-50/50 dark:bg-emerald-950/50 placeholder:text-emerald-500 dark:placeholder:text-emerald-400" {...field} />
+                          <Input
+                            placeholder="The Fresh Table"
+                            className="border-emerald-200 dark:border-emerald-700 focus:border-emerald-400 dark:focus:border-emerald-500 focus:ring-emerald-200 dark:focus:ring-emerald-800 bg-emerald-50/50 dark:bg-emerald-950/50 placeholder:text-emerald-500 dark:placeholder:text-emerald-400"
+                            {...field}
+                          />
                         </FormControl>
                         <FormMessage className="text-red-600 dark:text-red-400" />
                       </FormItem>
@@ -309,9 +343,15 @@ export default function RestaurantAuthPage() {
                     name="email"
                     render={({ field }) => (
                       <FormItem>
-                        <FormLabel className="text-emerald-700 dark:text-emerald-300 font-medium">{t.auth.emailLabel}</FormLabel>
+                        <FormLabel className="text-emerald-700 dark:text-emerald-300 font-medium">
+                          {t.auth.emailLabel}
+                        </FormLabel>
                         <FormControl>
-                          <Input placeholder="restaurant@gmail.com" className="border-emerald-200 dark:border-emerald-700 focus:border-emerald-400 dark:focus:border-emerald-500 focus:ring-emerald-200 dark:focus:ring-emerald-800 bg-emerald-50/50 dark:bg-emerald-950/50 placeholder:text-emerald-500 dark:placeholder:text-emerald-400" {...field} />
+                          <Input
+                            placeholder="restaurant@gmail.com"
+                            className="border-emerald-200 dark:border-emerald-700 focus:border-emerald-400 dark:focus:border-emerald-500 focus:ring-emerald-200 dark:focus:ring-emerald-800 bg-emerald-50/50 dark:bg-emerald-950/50 placeholder:text-emerald-500 dark:placeholder:text-emerald-400"
+                            {...field}
+                          />
                         </FormControl>
                         <FormMessage className="text-red-600 dark:text-red-400" />
                       </FormItem>
@@ -323,7 +363,9 @@ export default function RestaurantAuthPage() {
                     render={({ field }) => (
                       <FormItem>
                         <div className="flex justify-between items-center">
-                          <FormLabel className="text-emerald-700 dark:text-emerald-300 font-medium">{t.auth.passwordLabel}</FormLabel>
+                          <FormLabel className="text-emerald-700 dark:text-emerald-300 font-medium">
+                            {t.auth.passwordLabel}
+                          </FormLabel>
                           <Button
                             variant="link"
                             size="sm"
@@ -361,14 +403,23 @@ export default function RestaurantAuthPage() {
                       </FormItem>
                     )}
                   />
-                  <Button type="submit" className="w-full bg-gradient-to-r from-emerald-600 to-green-600 hover:from-emerald-700 hover:to-green-700 text-white transition-all duration-400 hover:scale-[1.05] hover:shadow-xl active:scale-[0.98] transform-gpu animate-in slide-in-from-bottom-2 duration-600 delay-600 hover:rotate-1" disabled={loading}>
-                    {loading && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
+                  <Button
+                    type="submit"
+                    className="w-full bg-gradient-to-r from-emerald-600 to-green-600 hover:from-emerald-700 hover:to-green-700 text-white transition-all duration-400 hover:scale-[1.05] hover:shadow-xl active:scale-[0.98] transform-gpu animate-in slide-in-from-bottom-2 duration-600 delay-600 hover:rotate-1"
+                    disabled={loading}
+                  >
+                    {loading && (
+                      <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                    )}
                     {t.auth.login}
                   </Button>
                 </form>
               </Form>
             </TabsContent>
-            <TabsContent value="register" className="animate-in slide-in-from-left-4 duration-500 delay-100 relative z-40 pointer-events-auto">
+            <TabsContent
+              value="register"
+              className="animate-in slide-in-from-left-4 duration-500 delay-100 relative z-40 pointer-events-auto"
+            >
               <Form {...registerForm}>
                 <form
                   onSubmit={registerForm.handleSubmit(onRegister, (errors) => {
@@ -525,7 +576,9 @@ export default function RestaurantAuthPage() {
                     disabled={loading}
                     onClick={() => console.log("Register button clicked")}
                   >
-                    {loading && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
+                    {loading && (
+                      <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                    )}
                     {t.auth.registerRestaurant}
                   </Button>
                 </form>

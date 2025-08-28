@@ -36,6 +36,7 @@ import { auth } from "@/lib/firebase";
 import { useLanguage } from "@/context/language-context";
 import { initEmailJS, sendPasswordResetEmail } from "@/lib/emailjs";
 import "@/styles/navigation-transitions.css";
+import { motion } from "framer-motion";
 
 const loginSchema = z.object({
   email: z.string().email({ message: "Invalid email address." }),
@@ -124,7 +125,8 @@ export default function FarmerAuthPage() {
         toast({
           variant: "warning" as any,
           title: "Email required",
-          description: "Please enter your email address to reset your password.",
+          description:
+            "Please enter your email address to reset your password.",
         });
         setLoading(false);
         return;
@@ -137,7 +139,8 @@ export default function FarmerAuthPage() {
         toast({
           variant: "success" as any,
           title: "Password Reset Email Sent",
-          description: "Please check your inbox for instructions to reset your password.",
+          description:
+            "Please check your inbox for instructions to reset your password.",
         });
       } else {
         throw new Error(result.message);
@@ -172,7 +175,7 @@ export default function FarmerAuthPage() {
         });
         navigateFast("/dashboard/farmer", {
           showLoadingState: true,
-          preloadNext: ["/dashboard/farmer/crops", "/dashboard/farmer/orders"]
+          preloadNext: ["/dashboard/farmer/crops", "/dashboard/farmer/orders"],
         });
       }, 1500);
     } catch (error: any) {
@@ -209,7 +212,7 @@ export default function FarmerAuthPage() {
       }
 
       // Store user type for proper routing
-      localStorage.setItem('userType', 'farmer');
+      localStorage.setItem("userType", "farmer");
 
       toast({
         variant: "farmer" as any,
@@ -219,7 +222,7 @@ export default function FarmerAuthPage() {
       });
       navigateFast("/dashboard/farmer", {
         showLoadingState: true,
-        preloadNext: ["/dashboard/farmer/crops", "/dashboard/farmer/orders"]
+        preloadNext: ["/dashboard/farmer/crops", "/dashboard/farmer/orders"],
       });
     } catch (error: any) {
       toast({
@@ -297,7 +300,21 @@ export default function FarmerAuthPage() {
         <CardHeader className="text-center px-4 sm:px-6 py-4 sm:py-6 relative">
           {/* Animated icon */}
           <div className="flex items-center justify-center w-16 h-16 mx-auto mb-4 bg-gradient-to-br from-emerald-100 to-green-100 dark:from-emerald-900 dark:to-green-900 rounded-full border-2 border-emerald-200 dark:border-emerald-700 animate-in zoom-in duration-800 delay-500 hover:scale-110 transition-all duration-300 group-hover:shadow-lg hover:rotate-6">
-            <Tractor className="h-8 w-8 text-emerald-600 dark:text-emerald-400 animate-in slide-in-from-bottom-2 duration-600 delay-700" />
+            <motion.div
+              animate={{ rotate: [0, 8, -8, 0], y: [0, -2, 2, 0] }}
+              transition={{
+                duration: 3,
+                repeat: Infinity,
+                ease: "easeInOut",
+                type: "tween",
+              }}
+              whileHover={{
+                scale: 1.1,
+                transition: { type: "tween", duration: 0.2 },
+              }}
+            >
+              <Tractor className="h-8 w-8 text-emerald-600 dark:text-emerald-400" />
+            </motion.div>
           </div>
 
           <CardTitle className="text-lg sm:text-xl font-bold text-emerald-700 dark:text-emerald-300 animate-in slide-in-from-top-2 duration-800 delay-600 hover:text-emerald-600 dark:hover:text-emerald-200 transition-colors duration-300">
@@ -308,10 +325,14 @@ export default function FarmerAuthPage() {
           </CardDescription>
         </CardHeader>
         <CardContent className="relative z-20">
-          <Tabs value={activeTab} onValueChange={(value) => {
-            console.log("Farmer tab changed to:", value);
-            setActiveTab(value);
-          }} className="w-full animate-in fade-in duration-500 delay-500 relative z-30">
+          <Tabs
+            value={activeTab}
+            onValueChange={(value) => {
+              console.log("Farmer tab changed to:", value);
+              setActiveTab(value);
+            }}
+            className="w-full animate-in fade-in duration-500 delay-500 relative z-30"
+          >
             <TabsList className="grid w-full grid-cols-2 bg-gradient-to-r from-emerald-100 to-green-100 dark:from-emerald-900 dark:to-green-900 p-1 rounded-lg relative z-40 pointer-events-auto animate-in slide-in-from-bottom-2 duration-600 delay-1000 shadow-inner">
               <TabsTrigger
                 value="login"
@@ -333,7 +354,9 @@ export default function FarmerAuthPage() {
                 className="w-full"
               >
                 <TabsList className="grid w-full grid-cols-2">
-                  <TabsTrigger value="email">{t.auth.emailPassword}</TabsTrigger>
+                  <TabsTrigger value="email">
+                    {t.auth.emailPassword}
+                  </TabsTrigger>
                   <TabsTrigger
                     value="passkey"
                     className="flex items-center gap-1"
@@ -342,7 +365,10 @@ export default function FarmerAuthPage() {
                     Passkey Login
                   </TabsTrigger>
                 </TabsList>
-                <TabsContent value="email" className="pt-4 animate-in slide-in-from-right-4 duration-300">
+                <TabsContent
+                  value="email"
+                  className="pt-4 animate-in slide-in-from-right-4 duration-300"
+                >
                   <Form {...loginForm}>
                     <form
                       onSubmit={loginForm.handleSubmit(onLogin)}
@@ -353,7 +379,9 @@ export default function FarmerAuthPage() {
                         name="email"
                         render={({ field }) => (
                           <FormItem>
-                            <FormLabel className="text-emerald-700 dark:text-emerald-300 font-medium">{t.auth.emailLabel}</FormLabel>
+                            <FormLabel className="text-emerald-700 dark:text-emerald-300 font-medium">
+                              {t.auth.emailLabel}
+                            </FormLabel>
                             <FormControl>
                               <Input
                                 type="email"
@@ -372,7 +400,9 @@ export default function FarmerAuthPage() {
                         render={({ field }) => (
                           <FormItem>
                             <div className="flex justify-between items-center">
-                              <FormLabel className="text-emerald-700 dark:text-emerald-300 font-medium">{t.auth.passwordLabel}</FormLabel>
+                              <FormLabel className="text-emerald-700 dark:text-emerald-300 font-medium">
+                                {t.auth.passwordLabel}
+                              </FormLabel>
                               <Button
                                 variant="link"
                                 size="sm"
@@ -410,12 +440,15 @@ export default function FarmerAuthPage() {
                           </FormItem>
                         )}
                       />
-                      <FastButton 
-                        type="submit" 
-                        className="w-full bg-gradient-to-r from-emerald-600 to-green-600 hover:from-emerald-700 hover:to-green-700 text-white instant-feedback fast-transition" 
+                      <FastButton
+                        type="submit"
+                        className="w-full bg-gradient-to-r from-emerald-600 to-green-600 hover:from-emerald-700 hover:to-green-700 text-white instant-feedback fast-transition"
                         disabled={loading}
                         showLoadingState={true}
-                        preloadNext={["/dashboard/farmer/crops", "/dashboard/farmer/orders"]}
+                        preloadNext={[
+                          "/dashboard/farmer/crops",
+                          "/dashboard/farmer/orders",
+                        ]}
                       >
                         {loading && (
                           <Loader2 className="mr-2 h-4 w-4 animate-spin" />
@@ -453,7 +486,10 @@ export default function FarmerAuthPage() {
                 </TabsContent>
               </Tabs>
             </TabsContent>
-            <TabsContent value="register" className="pt-4 animate-in slide-in-from-left-4 duration-500 delay-100">
+            <TabsContent
+              value="register"
+              className="pt-4 animate-in slide-in-from-left-4 duration-500 delay-100"
+            >
               <Form {...registerForm}>
                 <form
                   onSubmit={registerForm.handleSubmit(onRegister, (errors) => {
@@ -485,7 +521,8 @@ export default function FarmerAuthPage() {
                           toast({
                             variant: "farmer" as any,
                             title: "Registration Complete!",
-                            description: "Now use fingerprint to access your farm portal",
+                            description:
+                              "Now use fingerprint to access your farm portal",
                           });
                         }, 1500);
                       }}
@@ -503,9 +540,16 @@ export default function FarmerAuthPage() {
                     name="username"
                     render={({ field }) => (
                       <FormItem>
-                        <FormLabel className="text-emerald-700 dark:text-emerald-300 font-medium">{t.auth.usernameLabel}</FormLabel>
+                        <FormLabel className="text-emerald-700 dark:text-emerald-300 font-medium">
+                          {t.auth.usernameLabel}
+                        </FormLabel>
                         <FormControl>
-                          <Input type="text" placeholder="John Doe" className="border-emerald-200 dark:border-emerald-700 focus:border-emerald-400 dark:focus:border-emerald-500 focus:ring-emerald-200 dark:focus:ring-emerald-800 bg-emerald-50/50 dark:bg-emerald-950/50 placeholder:text-emerald-500 dark:placeholder:text-emerald-400" {...field} />
+                          <Input
+                            type="text"
+                            placeholder="John Doe"
+                            className="border-emerald-200 dark:border-emerald-700 focus:border-emerald-400 dark:focus:border-emerald-500 focus:ring-emerald-200 dark:focus:ring-emerald-800 bg-emerald-50/50 dark:bg-emerald-950/50 placeholder:text-emerald-500 dark:placeholder:text-emerald-400"
+                            {...field}
+                          />
                         </FormControl>
                         <FormMessage className="text-red-600 dark:text-red-400" />
                       </FormItem>
@@ -516,7 +560,9 @@ export default function FarmerAuthPage() {
                     name="email"
                     render={({ field }) => (
                       <FormItem>
-                        <FormLabel className="text-emerald-700 dark:text-emerald-300 font-medium">{t.auth.emailLabel}</FormLabel>
+                        <FormLabel className="text-emerald-700 dark:text-emerald-300 font-medium">
+                          {t.auth.emailLabel}
+                        </FormLabel>
                         <FormControl>
                           <Input
                             type="email"
@@ -534,7 +580,9 @@ export default function FarmerAuthPage() {
                     name="phone"
                     render={({ field }) => (
                       <FormItem>
-                        <FormLabel className="text-emerald-700 dark:text-emerald-300 font-medium">{t.auth.phoneLabel}</FormLabel>
+                        <FormLabel className="text-emerald-700 dark:text-emerald-300 font-medium">
+                          {t.auth.phoneLabel}
+                        </FormLabel>
                         <FormControl>
                           <Input
                             type="tel"
@@ -616,8 +664,14 @@ export default function FarmerAuthPage() {
                       </FormItem>
                     )}
                   />
-                  <Button type="submit" className="w-full bg-gradient-to-r from-emerald-600 to-green-600 hover:from-emerald-700 hover:to-green-700 text-white transition-all duration-400 hover:scale-[1.05] hover:shadow-xl active:scale-[0.98] transform-gpu animate-in slide-in-from-bottom-2 duration-600 delay-700 hover:rotate-1" disabled={loading}>
-                    {loading && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
+                  <Button
+                    type="submit"
+                    className="w-full bg-gradient-to-r from-emerald-600 to-green-600 hover:from-emerald-700 hover:to-green-700 text-white transition-all duration-400 hover:scale-[1.05] hover:shadow-xl active:scale-[0.98] transform-gpu animate-in slide-in-from-bottom-2 duration-600 delay-700 hover:rotate-1"
+                    disabled={loading}
+                  >
+                    {loading && (
+                      <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                    )}
                     {t.auth.createAccount}
                   </Button>
                 </form>
