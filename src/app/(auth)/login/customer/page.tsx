@@ -483,4 +483,8 @@ export default function CustomerAuthPage() {
               </Form>
             </TabsContent>
           </Tabs>
-        </Car
+        </CardContent>
+      </Card>
+    </div>
+  );
+}
