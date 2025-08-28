@@ -85,6 +85,7 @@ export default function FarmerAuthPage() {
   const [loading, setLoading] = useState(false);
   const { toast } = useToast();
   const router = useRouter();
+  const { navigateFast } = useOptimizedNavigation();
   const [activeTab, setActiveTab] = useState("login");
   const [authMode, setAuthMode] = useState("email");
   const { t } = useLanguage();
