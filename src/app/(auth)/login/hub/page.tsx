@@ -195,7 +195,10 @@ function HubAuthComponent() {
 
       // Small delay to show the success message
       setTimeout(() => {
-        router.push("/dashboard/hub");
+        navigateFast("/dashboard/hub", {
+          showLoadingState: true,
+          preloadNext: ["/dashboard/hub/inventory", "/dashboard/hub/farmers"]
+        });
       }, 1000);
 
     } catch (error: any) {
