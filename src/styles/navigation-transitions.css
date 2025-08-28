@@ -1,0 +1,141 @@
+/**
+ * Fast Navigation Transitions
+ */
+
+/* Global page transition states */
+.page-transitioning {
+  cursor: wait;
+}
+
+.page-transitioning * {
+  pointer-events: none;
+}
+
+/* Fast button animations */
+@keyframes shimmer {
+  0% {
+    transform: translateX(-100%);
+  }
+  100% {
+    transform: translateX(100%);
+  }
+}
+
+.animate-shimmer {
+  animation: shimmer 0.8s ease-in-out;
+}
+
+/* Optimized transitions for form elements */
+.fast-transition {
+  transition: all 0.15s cubic-bezier(0.4, 0, 0.2, 1);
+  will-change: transform, opacity;
+}
+
+.fast-transition:hover {
+  transform: translateY(-1px);
+}
+
+.fast-transition:active {
+  transform: translateY(0);
+  transition-duration: 0.05s;
+}
+
+/* Preload indicators */
+.preloading::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, rgba(34, 197, 94, 0.5), transparent);
+  animation: preload-indicator 1s ease-in-out infinite;
+}
+
+@keyframes preload-indicator {
+  0% {
+    transform: translateX(-100%);
+  }
+  100% {
+    transform: translateX(100%);
+  }
+}
+
+/* Instant feedback for clicks */
+.instant-feedback {
+  position: relative;
+  overflow: hidden;
+}
+
+.instant-feedback::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 0;
+  height: 0;
+  background: rgba(255, 255, 255, 0.3);
+  border-radius: 50%;
+  transform: translate(-50%, -50%);
+  transition: width 0.3s ease, height 0.3s ease;
+}
+
+.instant-feedback:active::before {
+  width: 300px;
+  height: 300px;
+}
+
+/* Optimized form transitions */
+.form-field-fast {
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.form-field-fast:focus-within {
+  transform: scale(1.01);
+  box-shadow: 0 4px 12px rgba(34, 197, 94, 0.15);
+}
+
+/* Tab switching optimization */
+.tab-content-fast {
+  transition: opacity 0.15s ease-out, transform 0.15s ease-out;
+}
+
+.tab-content-fast[data-state="inactive"] {
+  opacity: 0;
+  transform: translateX(-10px);
+}
+
+.tab-content-fast[data-state="active"] {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+/* Loading skeleton for instant feedback */
+.loading-skeleton {
+  background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
+  background-size: 200% 100%;
+  animation: loading-shimmer 1.5s infinite;
+}
+
+@keyframes loading-shimmer {
+  0% {
+    background-position: 200% 0;
+  }
+  100% {
+    background-position: -200% 0;
+  }
+}
+
+/* Reduce motion for accessibility */
+@media (prefers-reduced-motion: reduce) {
+  .fast-transition,
+  .tab-content-fast,
+  .form-field-fast {
+    transition: none;
+  }
+  
+  .animate-shimmer,
+  .loading-skeleton {
+    animation: none;
+  }
+}
