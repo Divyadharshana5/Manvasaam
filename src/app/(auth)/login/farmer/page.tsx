@@ -169,7 +169,10 @@ export default function FarmerAuthPage() {
           description: "Welcome back to dashboard...",
           duration: 1000,
         });
-        router.push("/dashboard/farmer");
+        navigateFast("/dashboard/farmer", {
+          showLoadingState: true,
+          preloadNext: ["/dashboard/farmer/crops", "/dashboard/farmer/orders"]
+        });
       }, 1500);
     } catch (error: any) {
       toast({
