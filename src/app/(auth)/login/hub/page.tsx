@@ -5,6 +5,8 @@ import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import * as z from "zod";
 import { Button } from "@/components/ui/button";
+import { FastButton } from "@/components/ui/fast-button";
+import { useOptimizedNavigation } from "@/lib/navigation-optimizer";
 import {
   Card,
   CardContent,
@@ -29,6 +31,7 @@ import { useRouter } from "next/navigation";
 import { auth } from "@/lib/firebase";
 import { useLanguage } from "@/context/language-context";
 import { initEmailJS, sendPasswordResetEmail } from "@/lib/emailjs";
+import "@/styles/navigation-transitions.css";
 
 const loginSchema = z.object({
   branchName: z.string().min(1, { message: "Branch name is required." }),
