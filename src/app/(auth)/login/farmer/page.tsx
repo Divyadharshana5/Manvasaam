@@ -5,6 +5,8 @@ import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import * as z from "zod";
 import { Button } from "@/components/ui/button";
+import { FastButton } from "@/components/ui/fast-button";
+import { useOptimizedNavigation } from "@/lib/navigation-optimizer";
 import {
   Card,
   CardContent,
