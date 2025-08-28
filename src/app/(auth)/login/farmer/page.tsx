@@ -216,7 +216,10 @@ export default function FarmerAuthPage() {
         description: "Welcome back, farmer...",
         duration: 1000,
       });
-      router.push("/dashboard/farmer");
+      navigateFast("/dashboard/farmer", {
+        showLoadingState: true,
+        preloadNext: ["/dashboard/farmer/crops", "/dashboard/farmer/orders"]
+      });
     } catch (error: any) {
       toast({
         variant: "destructive",
