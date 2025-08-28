@@ -77,6 +77,7 @@ export default function RestaurantAuthPage() {
   const [loading, setLoading] = useState(false);
   const { toast } = useToast();
   const router = useRouter();
+  const { navigateFast } = useOptimizedNavigation();
   const [activeTab, setActiveTab] = useState("login");
   const { t } = useLanguage();
   const [showPassword, setShowPassword] = useState(false);
