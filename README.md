@@ -140,11 +140,11 @@ Manvaasam is a comprehensive digital platform that connects farmers, distributio
 
 ### **Prerequisites**
 - Node.js 18+ 
-- npm or yarn
-- MongoDB instance
-- Firebase project (optional - runs in mock mode)
+- npm (included with Node.js)
+- MongoDB instance (optional - mock mode available)
+- Firebase project (optional - mock mode available)
 
-### **Installation**
+### **Quick Start (Demo Mode)**
 
 1. **Clone the repository**
 ```bash
@@ -157,20 +157,35 @@ cd manvaasam
 npm install
 ```
 
-3. **Environment Setup**
-```bash
-cp .env.example .env.local
-# Configure your environment variables
-```
-
-4. **Run development server**
+3. **Run development server**
 ```bash
 npm run dev
 ```
 
-5. **Open in browser**
+4. **Open in browser**
 ```
 http://localhost:3000
+```
+
+The application will run in demo mode with mock data, allowing you to explore all features without any configuration.
+
+### **Production Setup**
+
+For production deployment, configure these environment variables in `.env.local`:
+
+```env
+# Firebase Configuration (see FIREBASE_SETUP.md)
+FIREBASE_PROJECT_ID=your-project-id
+FIREBASE_PRIVATE_KEY="-----BEGIN PRIVATE KEY-----\n...\n-----END PRIVATE KEY-----\n"
+FIREBASE_CLIENT_EMAIL=firebase-adminsdk-xxxxx@your-project.iam.gserviceaccount.com
+
+# EmailJS Configuration (see EMAILJS_SETUP.md)
+NEXT_PUBLIC_EMAILJS_SERVICE_ID=your_service_id
+NEXT_PUBLIC_EMAILJS_TEMPLATE_ID=your_template_id
+NEXT_PUBLIC_EMAILJS_PUBLIC_KEY=your_public_key
+
+# MongoDB (optional)
+MONGODB_URI=mongodb://localhost:27017/manvaasam
 ```
 
 ### **Build Commands**
@@ -181,6 +196,9 @@ npm run dev
 # Production build
 npm run build
 
+# Production build with bundle analysis
+npm run build:analyze
+
 # Start production server
 npm start
 
@@ -190,8 +208,11 @@ npm run typecheck
 # Linting
 npm run lint
 
-# Performance analysis
-npm run build:analyze
+# Performance testing
+npm run perf
+
+# Optimized build (experimental)
+npm run optimize
 ```
 
 ## 🌐 Application Structure
