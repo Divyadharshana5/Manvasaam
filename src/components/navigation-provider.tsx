@@ -1,54 +1,158 @@
 /**
- * Navigation Provider - Initializes navigation optimization
+ * Enhanced Navigation Provider - Ultra-fast page transitions within 2 seconds
  */
 
 "use client";
 
-import { useEffect } from 'react';
-import { useOptimizedNavigation } from '@/lib/navigation-optimizer';
+import { useEffect, useCallback } from "react";
+import { useOptimizedNavigation } from "@/lib/navigation-optimizer";
+import { useRouter } from "next/navigation";
 
 interface NavigationProviderProps {
   children: React.ReactNode;
 }
 
 export function NavigationProvider({ children }: NavigationProviderProps) {
-  const { preloadRoute } = useOptimizedNavigation();
+  const { preloadRoute, navigateFast } = useOptimizedNavigation();
+  const router = useRouter();
 
+  // Instant preloading on mount
   useEffect(() => {
-    // Preload critical routes after initial load
-    const preloadTimer = setTimeout(() => {
-      // Preload login pages
-      preloadRoute('/login/farmer');
-      preloadRoute('/login/hub');
-      preloadRoute('/login/customer');
-      preloadRoute('/login/restaurant');
-      
-      // Preload dashboard pages based on user type
-      const userType = localStorage.getItem('userType');
-      if (userType) {
-        switch (userType) {
-          case 'farmer':
-            preloadRoute('/dashboard/farmer');
-            preloadRoute('/dashboard/farmer/crops');
-            break;
-          case 'hub':
-            preloadRoute('/dashboard/hub');
-            preloadRoute('/dashboard/hub/inventory');
-            break;
-          case 'customer':
-            preloadRoute('/dashboard');
-            preloadRoute('/dashboard/products');
-            break;
-          case 'restaurant':
-            preloadRoute('/dashboard/restaurant');
-            preloadRoute('/dashboard/restaurant/orders');
-            break;
+    // Preload critical routes immediately
+    const criticalRoutes = [
+      "/login/farmer",
+      "/login/hub",
+      "/login/customer",
+      "/login/restaurant",
+      "/dashboard/farmer",
+      "/dashboard/hub",
+      "/dashboard/customer",
+      "/dashboard/restaurant",
+      "/privacy",
+      "/terms",
+      "/support",
+      "/faq",
+    ];
+
+    // Preload all critical routes instantly
+    criticalRoutes.forEach((route) => {
+      preloadRoute(route);
+    });
+
+    // Preload based on user type if available
+    const userType = localStorage.getItem("userType");
+    if (userType) {
+      const userSpecificRoutes = {
+        farmer: ["/dashboard/farmer/products", "/dashboard/farmer/matchmaking"],
+        hub: ["/dashboard/hub/inventory", "/dashboard/hub/orders"],
+        customer: ["/dashboard/products", "/dashboard/orders"],
+        restaurant: [
+          "/dashboard/restaurant/orders",
+          "/dashboard/restaurant/products",
+        ],
+      };
+
+      const routes =
+        userSpecificRoutes[userType as keyof typeof userSpecificRoutes];
+      if (routes) {
+        routes.forEach((route) => preloadRoute(route));
+      }
+    }
+  }, [preloadRoute]);
+
+  // Global navigation optimization
+  useEffect(() => {
+    // Add global navigation event listeners
+    const handleLinkHover = (event: MouseEvent) => {
+      const target = event.target as HTMLElement;
+      const link = target.closest("a[href]") as HTMLAnchorElement;
+
+      if (link && link.href) {
+        const url = new URL(link.href);
+        const path = url.pathname;
+        if (path.startsWith("/")) {
+          preloadRoute(path);
         }
       }
-    }, 2000);
+    };
 
-    return () => clearTimeout(preloadTimer);
+    // Add hover preloading for all links
+    document.addEventListener("mouseover", handleLinkHover);
+
+    // Preload on focus for accessibility
+    const handleLinkFocus = (event: FocusEvent) => {
+      const target = event.target as HTMLElement;
+      const link = target.closest("a[href]") as HTMLAnchorElement;
+
+      if (link && link.href) {
+        const url = new URL(link.href);
+        const path = url.pathname;
+        if (path.startsWith("/")) {
+          preloadRoute(path);
+        }
+      }
+    };
+
+    document.addEventListener("focusin", handleLinkFocus);
+
+    return () => {
+      document.removeEventListener("mouseover", handleLinkHover);
+      document.removeEventListener("focusin", handleLinkFocus);
+    };
   }, [preloadRoute]);
+
+  // Fast navigation with instant feedback
+  const handleFastNavigation = useCallback(
+    (route: string) => {
+      // Show instant loading state
+      document.body.classList.add("page-transitioning");
+
+      // Navigate with optimization
+      navigateFast(route, {
+        showLoadingState: true,
+        preloadNext: getNextLikelyRoutes(route),
+      });
+
+      // Remove loading state after navigation completes
+      setTimeout(() => {
+        document.body.classList.remove("page-transitioning");
+      }, 100);
+    },
+    [navigateFast]
+  );
+
+  // Get next likely routes to preload
+  const getNextLikelyRoutes = (currentRoute: string): string[] => {
+    const routeMap: Record<string, string[]> = {
+      "/login/farmer": ["/dashboard/farmer", "/dashboard/farmer/products"],
+      "/login/hub": ["/dashboard/hub", "/dashboard/hub/inventory"],
+      "/login/customer": ["/dashboard", "/dashboard/products"],
+      "/login/restaurant": [
+        "/dashboard/restaurant",
+        "/dashboard/restaurant/orders",
+      ],
+      "/dashboard/farmer": [
+        "/dashboard/farmer/products",
+        "/dashboard/farmer/matchmaking",
+      ],
+      "/dashboard/hub": ["/dashboard/hub/inventory", "/dashboard/hub/orders"],
+      "/dashboard/customer": ["/dashboard/products", "/dashboard/orders"],
+      "/dashboard/restaurant": [
+        "/dashboard/restaurant/orders",
+        "/dashboard/restaurant/products",
+      ],
+    };
+
+    return routeMap[currentRoute] || [];
+  };
+
+  // Expose fast navigation globally for use in components
+  useEffect(() => {
+    (window as any).fastNavigate = handleFastNavigation;
+    return () => {
+      delete (window as any).fastNavigate;
+    };
+  }, [handleFastNavigation]);
 
   return <>{children}</>;
 }

@@ -1,17 +1,40 @@
 /**
- * Fast Navigation Transitions
+ * Ultra-Fast Navigation Transitions - Sub-2-second page transitions
  */
 
 /* Global page transition states */
 .page-transitioning {
   cursor: wait;
+  overflow: hidden;
 }
 
 .page-transitioning * {
   pointer-events: none;
+  user-select: none;
 }
 
-/* Fast button animations */
+/* Navigation progress bar */
+#nav-progress {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 3px;
+  background: linear-gradient(90deg, #22c55e, #3b82f6, #8b5cf6);
+  z-index: 9999;
+  animation: nav-progress 0.8s ease-out;
+}
+
+@keyframes nav-progress {
+  0% {
+    transform: translateX(-100%);
+  }
+  100% {
+    transform: translateX(0);
+  }
+}
+
+/* Ultra-fast button animations */
 @keyframes shimmer {
   0% {
     transform: translateX(-100%);
@@ -22,17 +45,47 @@
 }
 
 .animate-shimmer {
-  animation: shimmer 0.8s ease-in-out;
+  animation: shimmer 0.6s ease-in-out;
+}
+
+/* Instant feedback for clicks */
+.instant-feedback {
+  position: relative;
+  overflow: hidden;
+  transition: transform 0.1s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.instant-feedback:active {
+  transform: scale(0.98);
+}
+
+.instant-feedback::before {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 0;
+  height: 0;
+  background: rgba(255, 255, 255, 0.3);
+  border-radius: 50%;
+  transform: translate(-50%, -50%);
+  transition: width 0.2s ease, height 0.2s ease;
+}
+
+.instant-feedback:active::before {
+  width: 200px;
+  height: 200px;
 }
 
 /* Optimized transitions for form elements */
 .fast-transition {
-  transition: all 0.15s cubic-bezier(0.4, 0, 0.2, 1);
+  transition: all 0.12s cubic-bezier(0.4, 0, 0.2, 1);
   will-change: transform, opacity;
 }
 
 .fast-transition:hover {
-  transform: translateY(-1px);
+  transform: translateY(-2px);
+  transition-duration: 0.08s;
 }
 
 .fast-transition:active {
@@ -42,14 +95,19 @@
 
 /* Preload indicators */
 .preloading::after {
-  content: '';
+  content: "";
   position: absolute;
   top: 0;
   left: 0;
   right: 0;
   height: 2px;
-  background: linear-gradient(90deg, transparent, rgba(34, 197, 94, 0.5), transparent);
-  animation: preload-indicator 1s ease-in-out infinite;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(34, 197, 94, 0.8),
+    transparent
+  );
+  animation: preload-indicator 0.8s ease-in-out infinite;
 }
 
 @keyframes preload-indicator {
@@ -61,48 +119,14 @@
   }
 }
 
-/* Instant feedback for clicks */
-.instant-feedback {
-  position: relative;
-  overflow: hidden;
-}
-
-.instant-feedback::before {
-  content: '';
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  width: 0;
-  height: 0;
-  background: rgba(255, 255, 255, 0.3);
-  border-radius: 50%;
-  transform: translate(-50%, -50%);
-  transition: width 0.3s ease, height 0.3s ease;
-}
-
-.instant-feedback:active::before {
-  width: 300px;
-  height: 300px;
-}
-
-/* Optimized form transitions */
-.form-field-fast {
-  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
-}
-
-.form-field-fast:focus-within {
-  transform: scale(1.01);
-  box-shadow: 0 4px 12px rgba(34, 197, 94, 0.15);
-}
-
 /* Tab switching optimization */
 .tab-content-fast {
-  transition: opacity 0.15s ease-out, transform 0.15s ease-out;
+  transition: opacity 0.12s ease-out, transform 0.12s ease-out;
 }
 
 .tab-content-fast[data-state="inactive"] {
   opacity: 0;
-  transform: translateX(-10px);
+  transform: translateX(-8px);
 }
 
 .tab-content-fast[data-state="active"] {
@@ -114,7 +138,7 @@
 .loading-skeleton {
   background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
   background-size: 200% 100%;
-  animation: loading-shimmer 1.5s infinite;
+  animation: loading-shimmer 1.2s infinite;
 }
 
 @keyframes loading-shimmer {
@@ -126,16 +150,180 @@
   }
 }
 
+/* Fast navigation button states */
+.fast-nav-button {
+  position: relative;
+  overflow: hidden;
+  transition: all 0.15s cubic-bezier(0.4, 0, 0.2, 1);
+  will-change: transform, box-shadow;
+}
+
+.fast-nav-button:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 8px 25px rgba(34, 197, 94, 0.25);
+}
+
+.fast-nav-button:active {
+  transform: translateY(-1px);
+  transition-duration: 0.05s;
+}
+
+.fast-nav-button::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(255, 255, 255, 0.2),
+    transparent
+  );
+  transition: left 0.5s ease;
+}
+
+.fast-nav-button:hover::before {
+  left: 100%;
+}
+
+/* Page transition animations */
+.page-enter {
+  opacity: 0;
+  transform: translateY(20px);
+}
+
+.page-enter-active {
+  opacity: 1;
+  transform: translateY(0);
+  transition: opacity 0.2s ease-out, transform 0.2s ease-out;
+}
+
+.page-exit {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.page-exit-active {
+  opacity: 0;
+  transform: translateY(-20px);
+  transition: opacity 0.15s ease-in, transform 0.15s ease-in;
+}
+
+/* Fast card transitions */
+.fast-card {
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+  will-change: transform, box-shadow;
+}
+
+.fast-card:hover {
+  transform: translateY(-4px) scale(1.02);
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.15);
+}
+
+.fast-card:active {
+  transform: translateY(-2px) scale(1.01);
+  transition-duration: 0.1s;
+}
+
+/* Optimized form field transitions */
+.form-field-fast {
+  transition: all 0.15s cubic-bezier(0.4, 0, 0.2, 1);
+  will-change: transform, box-shadow;
+}
+
+.form-field-fast:focus-within {
+  transform: scale(1.01);
+  box-shadow: 0 4px 20px rgba(34, 197, 94, 0.2);
+}
+
+/* Fast image loading */
+.fast-image {
+  transition: opacity 0.2s ease-out;
+  will-change: opacity;
+}
+
+.fast-image.loading {
+  opacity: 0.6;
+}
+
+.fast-image.loaded {
+  opacity: 1;
+}
+
 /* Reduce motion for accessibility */
 @media (prefers-reduced-motion: reduce) {
   .fast-transition,
   .tab-content-fast,
-  .form-field-fast {
+  .form-field-fast,
+  .fast-nav-button,
+  .fast-card,
+  .fast-image {
     transition: none;
   }
-  
+
   .animate-shimmer,
-  .loading-skeleton {
+  .loading-skeleton,
+  .nav-progress,
+  .preload-indicator {
     animation: none;
+  }
+
+  .page-enter,
+  .page-enter-active,
+  .page-exit,
+  .page-exit-active {
+    transition: none;
+  }
+}
+
+/* Performance optimizations */
+* {
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+  -moz-backface-visibility: hidden;
+}
+
+/* Smooth scrolling for navigation */
+html {
+  scroll-behavior: smooth;
+}
+
+/* Optimize paint and layout */
+.fast-render {
+  will-change: transform, opacity;
+  transform: translateZ(0);
+  -webkit-transform: translateZ(0);
+}
+
+/* Fast loading states */
+.loading-fast {
+  position: relative;
+  overflow: hidden;
+}
+
+.loading-fast::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(255, 255, 255, 0.4),
+    transparent
+  );
+  animation: loading-sweep 0.8s ease-in-out infinite;
+}
+
+@keyframes loading-sweep {
+  0% {
+    transform: translateX(-100%);
+  }
+  100% {
+    transform: translateX(100%);
   }
 }

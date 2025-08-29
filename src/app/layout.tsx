@@ -1,9 +1,11 @@
 import type { Metadata } from "next";
 import "./globals.css";
 import "./background.css";
+import "./styles/navigation-transitions.css";
 import { AuthProvider } from "@/hooks/use-auth";
 import { Toaster } from "@/components/ui/toaster";
 import { LanguageProvider } from "@/context/language-context";
+import { NavigationProvider } from "@/components/navigation-provider";
 import { PT_Sans } from "next/font/google";
 
 const ptSans = PT_Sans({
@@ -17,10 +19,17 @@ const ptSans = PT_Sans({
 export const metadata: Metadata = {
   title: {
     default: "Manvaasam - Empowering Farmers, Delivering Freshness",
-    template: "%s | Manvaasam"
+    template: "%s | Manvaasam",
   },
-  description: "Empowering Farmers, Delivering Freshness. Connect farmers, hubs, customers, and restaurants in a seamless agricultural marketplace.",
-  keywords: ["agriculture", "farmers", "fresh produce", "marketplace", "farm to table"],
+  description:
+    "Empowering Farmers, Delivering Freshness. Connect farmers, hubs, customers, and restaurants in a seamless agricultural marketplace.",
+  keywords: [
+    "agriculture",
+    "farmers",
+    "fresh produce",
+    "marketplace",
+    "farm to table",
+  ],
   authors: [{ name: "Manvaasam Team" }],
   creator: "Manvaasam",
   publisher: "Manvaasam",
@@ -47,13 +56,15 @@ export const metadata: Metadata = {
     locale: "en_US",
     url: "https://manvaasam.com",
     title: "Manvaasam - Empowering Farmers, Delivering Freshness",
-    description: "Connect farmers, hubs, customers, and restaurants in a seamless agricultural marketplace.",
+    description:
+      "Connect farmers, hubs, customers, and restaurants in a seamless agricultural marketplace.",
     siteName: "Manvaasam",
   },
   twitter: {
     card: "summary_large_image",
     title: "Manvaasam - Empowering Farmers, Delivering Freshness",
-    description: "Connect farmers, hubs, customers, and restaurants in a seamless agricultural marketplace.",
+    description:
+      "Connect farmers, hubs, customers, and restaurants in a seamless agricultural marketplace.",
   },
   icons: {
     icon: [
@@ -101,15 +112,20 @@ export default function RootLayout({
         {/* Preload critical resources */}
         <link rel="preload" href="/bg-agri.png" as="image" />
         <link rel="dns-prefetch" href="//fonts.googleapis.com" />
-        <link rel="preconnect" href="//fonts.gstatic.com" crossOrigin="anonymous" />
-        
+        <link
+          rel="preconnect"
+          href="//fonts.gstatic.com"
+          crossOrigin="anonymous"
+        />
+
         {/* Performance hints */}
         <meta name="theme-color" content="#22c55e" />
         <meta name="color-scheme" content="light" />
-        
+
         {/* Critical CSS inlined for faster rendering */}
-        <style dangerouslySetInnerHTML={{
-          __html: `
+        <style
+          dangerouslySetInnerHTML={{
+            __html: `
             body { 
               font-family: ${ptSans.style.fontFamily}, system-ui, -apple-system, sans-serif;
               margin: 0;
@@ -121,12 +137,24 @@ export default function RootLayout({
               max-width: 100vw; 
               overflow-x: hidden; 
             }
-          `
-        }} />
+            /* Fast navigation optimizations */
+            .page-transitioning {
+              cursor: wait;
+              overflow: hidden;
+            }
+            .page-transitioning * {
+              pointer-events: none;
+              user-select: none;
+            }
+          `,
+          }}
+        />
       </head>
       <body className={`${ptSans.variable} font-sans antialiased`}>
         <LanguageProvider>
-          <AuthProvider>{children}</AuthProvider>
+          <NavigationProvider>
+            <AuthProvider>{children}</AuthProvider>
+          </NavigationProvider>
         </LanguageProvider>
         <Toaster />
       </body>

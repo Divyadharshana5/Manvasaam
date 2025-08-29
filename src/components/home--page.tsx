@@ -2,12 +2,7 @@
 
 import Link from "next/link";
 import { motion, useScroll, useTransform } from "framer-motion";
-import {
-  Card,
-  CardContent,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { ManvaasamLogo } from "@/components/icons";
 import {
@@ -29,7 +24,11 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import { useLanguage, translations, languages } from "@/context/language-context";
+import {
+  useLanguage,
+  translations,
+  languages,
+} from "@/context/language-context";
 import {
   Dialog,
   DialogContent,
@@ -44,6 +43,8 @@ import { useRouter } from "next/navigation";
 import { speechToText } from "@/ai/flows/stt-flow";
 import { textToSpeech } from "@/ai/flows/tts-flow";
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
+import { QuickAccessButton } from "@/components/ui/fast-nav";
+import { NavigationPerformanceMonitor } from "@/components/ui/navigation-performance";
 
 type AssistantState =
   | "idle"
@@ -80,7 +81,7 @@ const navTranslations: Record<string, Record<string, string>> = {
     English:
       "It sounds like you have a question. Would you like me to take you to the FAQ page?",
     Tamil:
-      "உங்களுக்கு ஒரு கேள்வி இருப்பது போல் தெரிகிறது. நான் మిమ్మల్ని తరచుగా అడిగే ప్రశ்னల பக்கம் கொண்டு செல்லலாமா?",
+      "உங்களுக்கு ஒரு கேள்வி இருப்பது போல் தெரிகிறது. நான் మిమ్మల్ని తరచుగా అడిగే ప్రశ్఩ల பக்கம் கொண்டு செல்லலாமா?",
     Malayalam:
       "നിങ്ങൾക്കൊരു ചോദ്യമുണ്ടെന്ന് തോന്നുന്നു. ഞാൻ നിങ്ങളെ പതിവുചോദ്യങ്ങൾ പേജിലേക്ക് കൊണ്ടുപോകണോ?",
     Telugu:
@@ -93,8 +94,7 @@ const navTranslations: Record<string, Record<string, string>> = {
       "মনে হচ্ছে আপনি রেস্টুরেন্ট রেজিস্ট্রেশন পৃষ্ঠাতে যেতে চান। আমি কি আপনাকে সেখানে নিয়ে যাব?",
     Arabic:
       "يبدو أنك تريد الذهاب إلى صفحة تسجيل المطعم. هل يجب أن آخذك إلى هناك؟",
-    Urdu:
-      "ایسا لگتا ہے کہ آپ کا کوئی سوال ہے۔ کیا آپ چاہتے ہیں کہ میں آپ کو عمومی سوالات کے صفحے پر لے جاؤں؟",
+    Urdu: "ایسا لگتا ہے کہ آپ کا کوئی سوال ہے۔ کیا آپ چاہتے ہیں کہ میں آپ کو عمومی سوالات کے صفحے پر لے جاؤں؟",
     Srilanka:
       "ඔබට ප්‍රශ්නයක් ඇති බව පෙනේ. මම ඔබව නිතර අසන පැන පිටුවට ගෙන යාමට කැමතිද?",
   },
@@ -230,7 +230,7 @@ export default function HomePage() {
           audioDataUri: base64Audio,
           language: selectedLanguage,
         });
-        const { transcript, intent, pageKey } = sttResult;
+        const { transcript } = sttResult;
         setTranscribedText(transcript);
 
         if (navigationConfirmation) {
@@ -248,11 +248,36 @@ export default function HomePage() {
           }
         }
 
+        // Simple keyword-based navigation for now
+        const transcriptLower = transcript.toLowerCase();
+        let pageKey = null;
+
         if (
-          (intent === "navigate" || intent === "faq") &&
-          pageKey &&
-          pageKey !== "none"
+          transcriptLower.includes("restaurant") ||
+          transcriptLower.includes("ரெஸ்டோரன்ட்")
         ) {
+          pageKey = "restaurantRegistration";
+        } else if (
+          transcriptLower.includes("farmer") ||
+          transcriptLower.includes("customer") ||
+          transcriptLower.includes("விவசாயி") ||
+          transcriptLower.includes("வாடிக்கையாளர்")
+        ) {
+          pageKey = "farmerCustomerLogin";
+        } else if (
+          transcriptLower.includes("hub") ||
+          transcriptLower.includes("ஹப்")
+        ) {
+          pageKey = "hubLogin";
+        } else if (
+          transcriptLower.includes("faq") ||
+          transcriptLower.includes("question") ||
+          transcriptLower.includes("கேள்வி")
+        ) {
+          pageKey = "faq";
+        }
+
+        if (pageKey && pageKey !== "none") {
           const pagePath = pagePaths[pageKey];
           const confirmationMessage =
             navTranslations[pageKey]?.[selectedLanguage] ||
@@ -374,7 +399,11 @@ export default function HomePage() {
   const buttonState = getButtonState();
 
   return (
-    <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 0.7 }}>
+    <motion.div
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      transition={{ duration: 0.7 }}
+    >
       <motion.header
         className="fixed top-0 left-0 right-0 z-50 flex items-center justify-between p-4 bg-background/50 backdrop-blur-sm"
         initial={{ opacity: 0, y: -50 }}
@@ -389,7 +418,10 @@ export default function HomePage() {
         <div className="flex items-center gap-4">
           <Dialog open={isAssistantOpen} onOpenChange={setIsAssistantOpen}>
             <DialogTrigger asChild>
-              <Button variant="ghost" className="hover:bg-primary/90 hover:text-primary-foreground">
+              <Button
+                variant="ghost"
+                className="hover:bg-primary/90 hover:text-primary-foreground"
+              >
                 <Mic className="mr-2 h-4 w-4" />
                 {t.sidebar.voiceAssistant}
               </Button>
@@ -453,7 +485,10 @@ export default function HomePage() {
 
           <DropdownMenu>
             <DropdownMenuTrigger asChild>
-              <Button variant="outline" className="hover:bg-primary/90 hover:text-primary-foreground hover:border-primary/90">
+              <Button
+                variant="outline"
+                className="hover:bg-primary/90 hover:text-primary-foreground hover:border-primary/90"
+              >
                 <Languages className="mr-2 h-4 w-4" />
                 {selectedLanguage}
               </Button>
@@ -474,7 +509,7 @@ export default function HomePage() {
         </div>
       </motion.header>
 
-  <main className="flex min-h-screen flex-col items-center justify-center pt-24 px-4 relative z-10">
+      <main className="flex min-h-screen flex-col items-center justify-center pt-24 px-4 relative z-10">
         {/* Glassmorphism background */}
         <div
           className="absolute inset-0 z-0 bg-cover bg-center bg-no-repeat bg-fixed"
@@ -504,7 +539,7 @@ export default function HomePage() {
             initial={{ opacity: 0, y: 40 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, amount: 0.7 }}
-            transition={{ duration: 0.7, ease: 'easeOut' }}
+            transition={{ duration: 0.7, ease: "easeOut" }}
           >
             {t.tagline}
           </motion.h1>
@@ -513,7 +548,7 @@ export default function HomePage() {
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, amount: 0.7 }}
-            transition={{ duration: 0.6, delay: 0.3, ease: 'easeOut' }}
+            transition={{ duration: 0.6, delay: 0.3, ease: "easeOut" }}
           >
             {t.joinCommunity}
           </motion.h2>
@@ -524,7 +559,11 @@ export default function HomePage() {
                 initial={{ opacity: 0, y: 40, scale: 0.95 }}
                 whileInView={{ opacity: 1, scale: 1, y: 0 }}
                 viewport={{ once: true, amount: 0.5 }}
-                transition={{ duration: 0.5, delay: 0.2 * index, ease: 'easeOut' }}
+                transition={{
+                  duration: 0.5,
+                  delay: 0.2 * index,
+                  ease: "easeOut",
+                }}
                 whileHover={{ scale: 1.07, y: -8 }}
               >
                 <Card className="bg-white/40 backdrop-blur-xl border border-green-200 rounded-2xl shadow-lg hover:shadow-2xl transition-all duration-300 p-6 flex flex-col h-full">
@@ -599,6 +638,11 @@ export default function HomePage() {
       <footer className="w-full p-4 text-center text-foreground/80 mt-12 [text-shadow:_0_1px_2px_rgb(0_0_0_/_20%)] relative z-10">
         © {new Date().getFullYear()} Manvaasam. {t.footer}
       </footer>
+      {/* Quick Access Button for Fast Navigation */}
+      <QuickAccessButton />
+
+      {/* Navigation Performance Monitor */}
+      <NavigationPerformanceMonitor />
     </motion.div>
   );
 }

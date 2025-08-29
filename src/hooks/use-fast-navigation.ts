@@ -1,99 +1,158 @@
-"use client";
+/**
+ * Fast Navigation Hook - Easy access to optimized navigation
+ */
 
-import { useRouter } from "next/navigation";
-import { useCallback, useEffect } from "react";
+import { useCallback } from "react";
+import { useFastNavigation } from "@/lib/navigation-optimizer";
 
-export function useFastNavigation() {
-  const router = useRouter();
+export function useFastNavigationHook() {
+  const { navigateWithPreload, preloadRoute } = useFastNavigation();
 
-  // Preload critical pages
-  useEffect(() => {
-    // Preload privacy, terms, and support pages
-    router.prefetch("/privacy");
-    router.prefetch("/terms");
-    router.prefetch("/support");
-    router.prefetch("/"); // Home page
-  }, [router]);
-
-  // Fast navigation function with loading state
-  const navigateFast = useCallback((href: string) => {
-    // Add loading class to body for instant feedback
-    document.body.classList.add("page-transitioning");
-    
-    // Use requestAnimationFrame for smooth transition
-    requestAnimationFrame(() => {
-      router.push(href);
-      
-      // Remove loading class after navigation
-      setTimeout(() => {
-        document.body.classList.remove("page-transitioning");
-      }, 100);
-    });
-  }, [router]);
-
-  // Keyboard shortcuts for quick navigation
-  useEffect(() => {
-    const handleKeyPress = (event: KeyboardEvent) => {
-      // Only trigger if Ctrl/Cmd + Shift is pressed
-      if ((event.ctrlKey || event.metaKey) && event.shiftKey) {
-        switch (event.key.toLowerCase()) {
-          case 'p':
-            event.preventDefault();
-            navigateFast("/privacy");
-            break;
-          case 't':
-            event.preventDefault();
-            navigateFast("/terms");
-            break;
-          case 's':
-            event.preventDefault();
-            navigateFast("/support");
-            break;
-          case 'h':
-            event.preventDefault();
-            navigateFast("/");
-            break;
-        }
+  // Navigate to a route with instant preloading
+  const navigate = useCallback(
+    (
+      route: string,
+      options?: {
+        preloadNext?: string[];
+        showLoading?: boolean;
       }
-    };
+    ) => {
+      const { preloadNext = [], showLoading = true } = options || {};
 
-    document.addEventListener("keydown", handleKeyPress);
-    return () => document.removeEventListener("keydown", handleKeyPress);
-  }, [navigateFast]);
+      navigateWithPreload(route, preloadNext);
+    },
+    [navigateWithPreload]
+  );
 
-  return { navigateFast };
+  // Preload a route for instant navigation later
+  const preload = useCallback(
+    (route: string, priority: "high" | "normal" = "normal") => {
+      preloadRoute(route, priority);
+    },
+    [preloadRoute]
+  );
+
+  // Preload multiple routes in batch
+  const batchPreload = useCallback(
+    (routes: string[], priority: "high" | "normal" = "normal") => {
+      routes.forEach((route, index) => {
+        setTimeout(() => preloadRoute(route, priority), index * 10);
+      });
+    },
+    [preloadRoute]
+  );
+
+  // Navigate with role-based preloading
+  const navigateWithRole = useCallback(
+    (route: string, userRole?: string) => {
+      const roleBasedRoutes: Record<string, string[]> = {
+        farmer: ["/dashboard/farmer", "/dashboard/farmer/products"],
+        hub: ["/dashboard/hub", "/dashboard/hub/inventory"],
+        customer: ["/dashboard", "/dashboard/products"],
+        restaurant: ["/dashboard/restaurant", "/dashboard/restaurant/orders"],
+      };
+
+      const preloadNext = userRole ? roleBasedRoutes[userRole] || [] : [];
+      navigateWithPreload(route, preloadNext);
+    },
+    [navigateWithPreload]
+  );
+
+  // Quick navigation to common pages
+  const quickNavigate = useCallback(
+    {
+      home: () => navigate("/"),
+      privacy: () => navigate("/privacy"),
+      terms: () => navigate("/terms"),
+      support: () => navigate("/support"),
+      faq: () => navigate("/dashboard/faq"),
+      login: (role: string) => navigate(`/login/${role}`),
+      dashboard: (role: string) => navigate(`/dashboard/${role}`),
+    },
+    [navigate]
+  );
+
+  return {
+    navigate,
+    preload,
+    batchPreload,
+    navigateWithRole,
+    quickNavigate,
+    // Utility functions
+    isPreloaded: (route: string) => {
+      // Check if route is in preloaded routes (this would need to be exposed from the optimizer)
+      return false; // Placeholder - would need to be implemented
+    },
+  };
 }
 
-// CSS for smooth transitions (to be added to globals.css)
-export const fastNavigationStyles = `
-  .page-transitioning {
-    cursor: wait;
-  }
-  
-  .page-transitioning * {
-    pointer-events: none;
-  }
-  
-  /* Smooth page transitions */
-  .page-enter {
-    opacity: 0;
-    transform: translateY(20px);
-  }
-  
-  .page-enter-active {
-    opacity: 1;
-    transform: translateY(0);
-    transition: opacity 300ms ease-out, transform 300ms ease-out;
-  }
-  
-  .page-exit {
-    opacity: 1;
-    transform: translateY(0);
-  }
-  
-  .page-exit-active {
-    opacity: 0;
-    transform: translateY(-20px);
-    transition: opacity 200ms ease-in, transform 200ms ease-in;
-  }
-`;
+// Specialized hooks for different user types
+export function useFarmerNavigation() {
+  const { navigate, preload } = useFastNavigationHook();
+
+  const navigateToFarmerPages = useCallback(
+    (page: string) => {
+      const route = `/dashboard/farmer${page ? `/${page}` : ""}`;
+      navigate(route, {
+        preloadNext: [
+          "/dashboard/farmer/products",
+          "/dashboard/farmer/matchmaking",
+        ],
+      });
+    },
+    [navigate]
+  );
+
+  return { navigateToFarmerPages, preload };
+}
+
+export function useHubNavigation() {
+  const { navigate, preload } = useFastNavigationHook();
+
+  const navigateToHubPages = useCallback(
+    (page: string) => {
+      const route = `/dashboard/hub${page ? `/${page}` : ""}`;
+      navigate(route, {
+        preloadNext: ["/dashboard/hub/inventory", "/dashboard/hub/orders"],
+      });
+    },
+    [navigate]
+  );
+
+  return { navigateToHubPages, preload };
+}
+
+export function useCustomerNavigation() {
+  const { navigate, preload } = useFastNavigationHook();
+
+  const navigateToCustomerPages = useCallback(
+    (page: string) => {
+      const route = `/dashboard${page ? `/${page}` : ""}`;
+      navigate(route, {
+        preloadNext: ["/dashboard/products", "/dashboard/orders"],
+      });
+    },
+    [navigate]
+  );
+
+  return { navigateToCustomerPages, preload };
+}
+
+export function useRestaurantNavigation() {
+  const { navigate, preload } = useFastNavigationHook();
+
+  const navigateToRestaurantPages = useCallback(
+    (page: string) => {
+      const route = `/dashboard/restaurant${page ? `/${page}` : ""}`;
+      navigate(route, {
+        preloadNext: [
+          "/dashboard/restaurant/orders",
+          "/dashboard/restaurant/products",
+        ],
+      });
+    },
+    [navigate]
+  );
+
+  return { navigateToRestaurantPages, preload };
+}
