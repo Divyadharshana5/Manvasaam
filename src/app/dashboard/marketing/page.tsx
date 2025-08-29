@@ -119,10 +119,10 @@ export default function MarketingPage() {
                   disabled={isLoading}
                 />
               </div>
-              {error && <Alert variant="destructive">
-                <AlertTitle>Error</AlertTitle>
-                <AlertDescription>{error}</AlertDescription>
-                </Alert>
+                          {error && <Alert variant="destructive" className="no-animation">
+              <AlertTitle>Error</AlertTitle>
+              <AlertDescription>{error}</AlertDescription>
+            </Alert>
               }
             </CardContent>
             <CardFooter>
