@@ -153,7 +153,7 @@ export default function VoiceAssistantPage() {
                     )}
                     
                     {transcribedText && !sttLoading && (
-                    <Alert className="mt-4">
+                    <Alert className="mt-4 no-animation">
                         <AlertTitle>Transcription Result</AlertTitle>
                         <AlertDescription className="pt-2">
                         <p className="text-base leading-relaxed">{transcribedText}</p>
