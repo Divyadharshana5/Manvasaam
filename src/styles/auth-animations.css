@@ -1,0 +1,435 @@
+/**
+ * Unique Animations for Login/Register Pages
+ */
+
+/* Farmer Page Animations */
+@keyframes farmer-tractor-bounce {
+  0%,
+  100% {
+    transform: translateY(0) rotate(0deg);
+  }
+  25% {
+    transform: translateY(-8px) rotate(2deg);
+  }
+  50% {
+    transform: translateY(-12px) rotate(0deg);
+  }
+  75% {
+    transform: translateY(-8px) rotate(-2deg);
+  }
+}
+
+@keyframes farmer-soil-ripple {
+  0% {
+    transform: scale(0);
+    opacity: 1;
+  }
+  100% {
+    transform: scale(4);
+    opacity: 0;
+  }
+}
+
+@keyframes farmer-growth {
+  0% {
+    transform: scale(0.8) translateY(20px);
+    opacity: 0;
+  }
+  100% {
+    transform: scale(1) translateY(0);
+    opacity: 1;
+  }
+}
+
+.farmer-tractor-animate {
+  animation: farmer-tractor-bounce 3s ease-in-out infinite;
+}
+
+.farmer-soil-ripple {
+  animation: farmer-soil-ripple 2s ease-out infinite;
+}
+
+.farmer-growth-animate {
+  animation: farmer-growth 0.8s ease-out forwards;
+}
+
+/* Restaurant Page Animations */
+@keyframes restaurant-chef-hat-float {
+  0%,
+  100% {
+    transform: translateY(0) rotate(0deg);
+  }
+  33% {
+    transform: translateY(-6px) rotate(3deg);
+  }
+  66% {
+    transform: translateY(-10px) rotate(-2deg);
+  }
+}
+
+@keyframes restaurant-flame-flicker {
+  0%,
+  100% {
+    transform: scale(1) rotate(0deg);
+    opacity: 1;
+  }
+  25% {
+    transform: scale(1.1) rotate(2deg);
+    opacity: 0.9;
+  }
+  50% {
+    transform: scale(0.95) rotate(-1deg);
+    opacity: 1;
+  }
+  75% {
+    transform: scale(1.05) rotate(1deg);
+    opacity: 0.95;
+  }
+}
+
+@keyframes restaurant-ingredient-drop {
+  0% {
+    transform: translateY(-20px) scale(0);
+    opacity: 0;
+  }
+  50% {
+    transform: translateY(0) scale(1.1);
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(0) scale(1);
+    opacity: 1;
+  }
+}
+
+.restaurant-chef-hat-float {
+  animation: restaurant-chef-hat-float 4s ease-in-out infinite;
+}
+
+.restaurant-flame-flicker {
+  animation: restaurant-flame-flicker 2.5s ease-in-out infinite;
+}
+
+.restaurant-ingredient-drop {
+  animation: restaurant-ingredient-drop 0.6s ease-out forwards;
+}
+
+/* Hub Page Animations */
+@keyframes hub-building-construct {
+  0% {
+    transform: scale(0.8) translateY(30px);
+    opacity: 0;
+  }
+  50% {
+    transform: scale(1.1) translateY(-5px);
+    opacity: 0.8;
+  }
+  100% {
+    transform: scale(1) translateY(0);
+    opacity: 1;
+  }
+}
+
+@keyframes hub-cog-rotate {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes hub-pulse-glow {
+  0%,
+  100% {
+    box-shadow: 0 0 20px rgba(59, 130, 246, 0.3);
+  }
+  50% {
+    box-shadow: 0 0 30px rgba(59, 130, 246, 0.6);
+  }
+}
+
+.hub-building-construct {
+  animation: hub-building-construct 1.2s ease-out forwards;
+}
+
+.hub-cog-rotate {
+  animation: hub-cog-rotate 8s linear infinite;
+}
+
+.hub-pulse-glow {
+  animation: hub-pulse-glow 3s ease-in-out infinite;
+}
+
+/* Customer Page Animations */
+@keyframes customer-shopping-bag-swing {
+  0%,
+  100% {
+    transform: rotate(-5deg);
+  }
+  50% {
+    transform: rotate(5deg);
+  }
+}
+
+@keyframes customer-star-twinkle {
+  0%,
+  100% {
+    transform: scale(1) rotate(0deg);
+    opacity: 1;
+  }
+  25% {
+    transform: scale(1.2) rotate(90deg);
+    opacity: 0.8;
+  }
+  50% {
+    transform: scale(0.8) rotate(180deg);
+    opacity: 1;
+  }
+  75% {
+    transform: scale(1.1) rotate(270deg);
+    opacity: 0.9;
+  }
+}
+
+@keyframes customer-heart-beat {
+  0%,
+  100% {
+    transform: scale(1);
+  }
+  25% {
+    transform: scale(1.1);
+  }
+  50% {
+    transform: scale(1.2);
+  }
+  75% {
+    transform: scale(1.1);
+  }
+}
+
+.customer-shopping-bag-swing {
+  animation: customer-shopping-bag-swing 3s ease-in-out infinite;
+}
+
+.customer-star-twinkle {
+  animation: customer-star-twinkle 4s ease-in-out infinite;
+}
+
+.customer-heart-beat {
+  animation: customer-heart-beat 2s ease-in-out infinite;
+}
+
+/* Form Field Animations */
+@keyframes form-field-focus {
+  0% {
+    transform: scale(1);
+    box-shadow: 0 0 0 rgba(34, 197, 94, 0);
+  }
+  100% {
+    transform: scale(1.02);
+    box-shadow: 0 0 20px rgba(34, 197, 94, 0.3);
+  }
+}
+
+@keyframes form-field-error {
+  0%,
+  100% {
+    transform: translateX(0);
+  }
+  25% {
+    transform: translateX(-5px);
+  }
+  75% {
+    transform: translateX(5px);
+  }
+}
+
+.form-field-focus-animate {
+  animation: form-field-focus 0.3s ease-out forwards;
+}
+
+.form-field-error-animate {
+  animation: form-field-error 0.5s ease-in-out;
+}
+
+/* Button Animations */
+@keyframes button-success-pulse {
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.05);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+@keyframes button-loading-spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+.button-success-pulse {
+  animation: button-success-pulse 0.6s ease-in-out;
+}
+
+.button-loading-spin {
+  animation: button-loading-spin 1s linear infinite;
+}
+
+/* Background Element Animations */
+@keyframes floating-bubble {
+  0%,
+  100% {
+    transform: translateY(0px) rotate(0deg);
+  }
+  33% {
+    transform: translateY(-20px) rotate(120deg);
+  }
+  66% {
+    transform: translateY(-10px) rotate(240deg);
+  }
+}
+
+@keyframes gradient-shift {
+  0%,
+  100% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+}
+
+.floating-bubble {
+  animation: floating-bubble 6s ease-in-out infinite;
+}
+
+.gradient-shift {
+  animation: gradient-shift 8s ease-in-out infinite;
+  background-size: 200% 200%;
+}
+
+/* Tab Switch Animations */
+@keyframes tab-slide-in {
+  0% {
+    transform: translateX(-20px);
+    opacity: 0;
+  }
+  100% {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+@keyframes tab-slide-out {
+  0% {
+    transform: translateX(0);
+    opacity: 1;
+  }
+  100% {
+    transform: translateX(20px);
+    opacity: 0;
+  }
+}
+
+.tab-slide-in {
+  animation: tab-slide-in 0.4s ease-out forwards;
+}
+
+.tab-slide-out {
+  animation: tab-slide-out 0.3s ease-in forwards;
+}
+
+/* Success/Error State Animations */
+@keyframes success-checkmark {
+  0% {
+    transform: scale(0) rotate(-45deg);
+  }
+  50% {
+    transform: scale(1.2) rotate(-45deg);
+  }
+  100% {
+    transform: scale(1) rotate(-45deg);
+  }
+}
+
+@keyframes error-shake {
+  0%,
+  100% {
+    transform: translateX(0);
+  }
+  25% {
+    transform: translateX(-8px);
+  }
+  75% {
+    transform: translateX(8px);
+  }
+}
+
+.success-checkmark {
+  animation: success-checkmark 0.6s ease-out forwards;
+}
+
+.error-shake {
+  animation: error-shake 0.5s ease-in-out;
+}
+
+/* Loading State Animations */
+@keyframes skeleton-loading {
+  0% {
+    background-position: -200px 0;
+  }
+  100% {
+    background-position: calc(200px + 100%) 0;
+  }
+}
+
+.skeleton-loading {
+  background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
+  background-size: 200px 100%;
+  animation: skeleton-loading 1.5s infinite;
+}
+
+/* Responsive Animations */
+@media (prefers-reduced-motion: reduce) {
+  .farmer-tractor-animate,
+  .restaurant-chef-hat-float,
+  .hub-cog-rotate,
+  .customer-shopping-bag-swing,
+  .customer-star-twinkle,
+  .customer-heart-beat,
+  .floating-bubble,
+  .gradient-shift {
+    animation: none;
+  }
+
+  .form-field-focus-animate,
+  .form-field-error-animate,
+  .button-success-pulse,
+  .button-loading-spin,
+  .tab-slide-in,
+  .tab-slide-out,
+  .success-checkmark,
+  .error-shake {
+    animation: none;
+  }
+}
+
+/* Performance Optimizations */
+.auth-animation-container {
+  will-change: transform, opacity;
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+}
+
+.auth-animation-element {
+  transform: translateZ(0);
+  -webkit-transform: translateZ(0);
+}
