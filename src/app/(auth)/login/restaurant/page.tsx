@@ -32,6 +32,7 @@ import { auth } from "@/lib/firebase";
 import { useLanguage } from "@/context/language-context";
 import { initEmailJS, sendPasswordResetEmail } from "@/lib/emailjs";
 import "@/styles/navigation-transitions.css";
+import "@/styles/auth-animations.css";
 import { motion } from "framer-motion";
 
 const loginSchema = z.object({
