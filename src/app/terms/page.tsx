@@ -293,7 +293,7 @@ function TermsContent() {
           </motion.div>
 
           {/* Important Notice */}
-          <Alert className="border-amber-200 bg-amber-50 no-animation">
+          <Alert variant="warning" className="no-animation">
             <AlertTriangle className="h-4 w-4 text-amber-600" />
             <AlertDescription className="text-amber-800 text-sm">
               <strong>Important:</strong> By using Manvaasam, you agree to these
