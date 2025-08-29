@@ -34,17 +34,17 @@ const toastVariants = cva(
         destructive:
           "border-red-300 bg-gradient-to-r from-red-50/95 to-pink-50/95 text-red-900 shadow-red-200/50",
         success:
-          "border-emerald-300 bg-gradient-to-r from-emerald-50/95 to-green-50/95 text-emerald-900 shadow-emerald-200/50 animate-bounce-subtle",
+          "border-emerald-400 bg-gradient-to-r from-emerald-100/95 to-green-100/95 text-emerald-900 shadow-emerald-200/60 animate-grow-subtle",
         warning:
           "border-amber-300 bg-gradient-to-r from-amber-50/95 to-yellow-50/95 text-amber-900 shadow-amber-200/50",
         info: "border-cyan-300 bg-gradient-to-r from-cyan-50/95 to-sky-50/95 text-cyan-900 shadow-cyan-200/50",
         farmer:
-          "border-emerald-300 bg-gradient-to-r from-emerald-50/95 to-green-50/95 text-emerald-900 shadow-emerald-200/50 animate-bounce-subtle",
+          "border-emerald-400 bg-gradient-to-r from-emerald-100/95 to-green-100/95 text-emerald-900 shadow-emerald-200/60 animate-grow-subtle",
         restaurant:
-          "border-orange-300 bg-gradient-to-r from-orange-50/95 to-red-50/95 text-orange-900 shadow-orange-200/50 animate-bounce-subtle",
+          "border-orange-400 bg-gradient-to-r from-orange-100/95 to-red-100/95 text-orange-900 shadow-orange-200/60 animate-grow-subtle",
         customer:
-          "border-purple-300 bg-gradient-to-r from-purple-50/95 to-violet-50/95 text-purple-900 shadow-purple-200/50 animate-bounce-subtle",
-        hub: "border-indigo-300 bg-gradient-to-r from-indigo-50/95 to-blue-50/95 text-indigo-900 shadow-indigo-200/50 animate-bounce-subtle",
+          "border-purple-400 bg-gradient-to-r from-purple-100/95 to-violet-100/95 text-purple-900 shadow-purple-200/60 animate-grow-subtle",
+        hub: "border-indigo-400 bg-gradient-to-r from-indigo-100/95 to-blue-100/95 text-indigo-900 shadow-indigo-200/60 animate-grow-subtle",
       },
     },
     defaultVariants: {
