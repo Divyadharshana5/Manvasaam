@@ -25,19 +25,19 @@ const ToastViewport = React.forwardRef<
 ToastViewport.displayName = ToastPrimitives.Viewport.displayName
 
 const toastVariants = cva(
-  "group pointer-events-auto relative flex w-full items-center justify-between space-x-4 overflow-hidden rounded-xl border-2 p-6 pr-8 shadow-2xl backdrop-blur-md transition-all duration-500 transform-gpu data-[swipe=cancel]:translate-x-0 data-[swipe=end]:translate-x-[var(--radix-toast-swipe-end-x)] data-[swipe=move]:translate-x-[var(--radix-toast-swipe-move-x)] data-[swipe=move]:transition-none data-[state=open]:animate-in data-[state=closed]:animate-out data-[swipe=end]:animate-out data-[state=closed]:fade-out-80 data-[state=closed]:slide-out-to-right-full data-[state=open]:slide-in-from-top-full data-[state=open]:sm:slide-in-from-bottom-full data-[state=open]:zoom-in-95 data-[state=closed]:zoom-out-95 hover:scale-105 hover:shadow-3xl",
+  "group pointer-events-auto relative flex w-full items-center justify-between space-x-4 overflow-hidden rounded-xl border-2 p-6 pr-8 shadow-2xl backdrop-blur-md transition-all duration-500 transform-gpu data-[swipe=cancel]:translate-x-0 data-[swipe=end]:translate-x-[var(--radix-toast-swipe-end-x)] data-[swipe=move]:translate-x-[var(--radix-toast-swipe-move-x)] data-[swipe=move]:transition-none data-[state=open]:animate-in data-[state=closed]:animate-out data-[swipe=end]:animate-out data-[state=closed]:fade-out-80 data-[state=closed]:slide-out-to-right-full data-[state=open]:slide-in-from-top-full data-[state=open]:sm:slide-in-from-bottom-full data-[state=open]:zoom-in-95 data-[state=closed]:zoom-out-95",
   {
     variants: {
       variant: {
-        default: "border-blue-200 bg-gradient-to-r from-blue-50/95 to-indigo-50/95 text-blue-900 shadow-blue-200/50 hover:shadow-blue-300/60 animate-pulse-subtle",
-        destructive: "border-red-300 bg-gradient-to-r from-red-50/95 to-pink-50/95 text-red-900 shadow-red-200/50 hover:shadow-red-300/60 animate-shake-subtle",
-        success: "border-emerald-300 bg-gradient-to-r from-emerald-50/95 to-green-50/95 text-emerald-900 shadow-emerald-200/50 hover:shadow-emerald-300/60 animate-bounce-subtle",
-        warning: "border-amber-300 bg-gradient-to-r from-amber-50/95 to-yellow-50/95 text-amber-900 shadow-amber-200/50 hover:shadow-amber-300/60 animate-wiggle-subtle",
-        info: "border-cyan-300 bg-gradient-to-r from-cyan-50/95 to-sky-50/95 text-cyan-900 shadow-cyan-200/50 hover:shadow-cyan-300/60 animate-float-subtle",
-        farmer: "border-emerald-300 bg-gradient-to-r from-emerald-50/95 to-green-50/95 text-emerald-900 shadow-emerald-200/50 hover:shadow-emerald-300/60 animate-grow-subtle",
-        restaurant: "border-orange-300 bg-gradient-to-r from-orange-50/95 to-red-50/95 text-orange-900 shadow-orange-200/50 hover:shadow-orange-300/60 animate-sway-subtle",
-        customer: "border-purple-300 bg-gradient-to-r from-purple-50/95 to-violet-50/95 text-purple-900 shadow-purple-200/50 hover:shadow-purple-300/60 animate-glow-subtle",
-        hub: "border-indigo-300 bg-gradient-to-r from-indigo-50/95 to-blue-50/95 text-indigo-900 shadow-indigo-200/50 hover:shadow-indigo-300/60 animate-spin-subtle",
+        default: "border-blue-200 bg-gradient-to-r from-blue-50/95 to-indigo-50/95 text-blue-900 shadow-blue-200/50",
+        destructive: "border-red-300 bg-gradient-to-r from-red-50/95 to-pink-50/95 text-red-900 shadow-red-200/50",
+        success: "border-emerald-300 bg-gradient-to-r from-emerald-50/95 to-green-50/95 text-emerald-900 shadow-emerald-200/50",
+        warning: "border-amber-300 bg-gradient-to-r from-amber-50/95 to-yellow-50/95 text-amber-900 shadow-amber-200/50",
+        info: "border-cyan-300 bg-gradient-to-r from-cyan-50/95 to-sky-50/95 text-cyan-900 shadow-cyan-200/50",
+        farmer: "border-emerald-300 bg-gradient-to-r from-emerald-50/95 to-green-50/95 text-emerald-900 shadow-emerald-200/50",
+        restaurant: "border-orange-300 bg-gradient-to-r from-orange-50/95 to-red-50/95 text-orange-900 shadow-orange-200/50",
+        customer: "border-purple-300 bg-gradient-to-r from-purple-50/95 to-violet-50/95 text-purple-900 shadow-purple-200/50",
+        hub: "border-indigo-300 bg-gradient-to-r from-indigo-50/95 to-blue-50/95 text-indigo-900 shadow-indigo-200/50",
       },
     },
     defaultVariants: {
