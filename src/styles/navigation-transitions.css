@@ -304,6 +304,14 @@
   transform: none !important;
 }
 
+/* Disable animations for elements with no-animation class */
+.no-animation,
+.no-animation * {
+  animation: none !important;
+  transition: none !important;
+  transform: none !important;
+}
+
 /* Smooth scrolling for navigation */
 html {
   scroll-behavior: smooth;
