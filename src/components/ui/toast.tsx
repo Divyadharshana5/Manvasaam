@@ -34,12 +34,12 @@ const toastVariants = cva(
         destructive:
           "border-red-300 bg-gradient-to-r from-red-50/95 to-pink-50/95 text-red-900 shadow-red-200/50",
         success:
-          "border-emerald-300 bg-gradient-to-r from-emerald-50/95 to-green-50/95 text-emerald-900 shadow-emerald-200/50",
+          "border-emerald-300 bg-gradient-to-r from-emerald-50/95 to-green-50/95 text-emerald-900 shadow-emerald-200/50 animate-bounce-subtle",
         warning:
           "border-amber-300 bg-gradient-to-r from-amber-50/95 to-yellow-50/95 text-amber-900 shadow-amber-200/50",
         info: "border-cyan-300 bg-gradient-to-r from-cyan-50/95 to-sky-50/95 text-cyan-900 shadow-cyan-200/50",
         farmer:
-          "border-emerald-300 bg-gradient-to-r from-emerald-50/95 to-green-50/95 text-emerald-900 shadow-emerald-200/50",
+          "border-emerald-300 bg-gradient-to-r from-emerald-50/95 to-green-50/95 text-emerald-900 shadow-emerald-200/50 animate-bounce-subtle",
         restaurant:
           "border-orange-300 bg-gradient-to-r from-orange-50/95 to-red-50/95 text-orange-900 shadow-orange-200/50",
         customer:
