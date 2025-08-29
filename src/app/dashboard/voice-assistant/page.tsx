@@ -212,7 +212,7 @@ export default function VoiceAssistantPage() {
               </Button>
 
               {audioUrl && !ttsLoading && (
-                <Alert className="mt-4">
+                <Alert className="mt-4 no-animation">
                   <AlertTitle>Generated Audio</AlertTitle>
                   <AlertDescription className="pt-2">
                     <audio
