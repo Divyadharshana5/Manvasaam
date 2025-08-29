@@ -411,28 +411,48 @@ function HubAuthComponent() {
   return (
     <div className="animate-in fade-in duration-1000 relative min-h-screen flex items-center justify-center p-4 overflow-hidden">
       {/* Enhanced animated background */}
-      <div className="absolute inset-0 bg-gradient-to-br from-emerald-50 via-green-50 to-lime-50 dark:from-emerald-950 dark:via-green-950 dark:to-lime-950 opacity-40 -z-10"></div>
+      <div className="absolute inset-0 bg-gradient-to-br from-emerald-50 via-green-50 to-lime-50 dark:from-emerald-950 dark:via-green-950 dark:to-lime-950 opacity-40 -z-10 gradient-shift"></div>
 
       {/* Floating background elements */}
       <div className="absolute inset-0 -z-5">
-        <div className="absolute top-20 left-10 w-32 h-32 bg-emerald-200/20 dark:bg-emerald-800/20 rounded-full blur-xl animate-pulse"></div>
-        <div className="absolute top-40 right-20 w-24 h-24 bg-green-200/20 dark:bg-green-800/20 rounded-full blur-xl animate-pulse delay-1000"></div>
-        <div className="absolute bottom-32 left-20 w-40 h-40 bg-lime-200/20 dark:bg-lime-800/20 rounded-full blur-xl animate-pulse delay-2000"></div>
-        <div className="absolute bottom-20 right-10 w-28 h-28 bg-emerald-300/20 dark:bg-emerald-700/20 rounded-full blur-xl animate-pulse delay-500"></div>
+        <div
+          className="absolute top-20 left-10 w-32 h-32 bg-emerald-200/20 dark:bg-emerald-800/20 rounded-full blur-xl floating-bubble"
+          style={{ animationDelay: "0s" }}
+        ></div>
+        <div
+          className="absolute top-40 right-20 w-24 h-24 bg-green-200/20 dark:bg-green-800/20 rounded-full blur-xl floating-bubble"
+          style={{ animationDelay: "1s" }}
+        ></div>
+        <div
+          className="absolute bottom-32 left-20 w-40 h-40 bg-lime-200/20 dark:bg-lime-800/20 rounded-full floating-bubble"
+          style={{ animationDelay: "2s" }}
+        ></div>
+        <div
+          className="absolute bottom-20 right-10 w-28 h-28 bg-emerald-300/20 dark:bg-emerald-700/20 rounded-full floating-bubble"
+          style={{ animationDelay: "0.5s" }}
+        ></div>
+
+        {/* Hub-specific animated elements */}
+        <div
+          className="absolute top-32 left-1/3 w-6 h-6 bg-blue-400/50 rounded-full hub-pulse-glow"
+          style={{ animationDelay: "0s" }}
+        ></div>
+        <div
+          className="absolute top-64 right-1/4 w-4 h-4 bg-indigo-500/40 rounded-full hub-pulse-glow"
+          style={{ animationDelay: "1.5s" }}
+        ></div>
+        <div
+          className="absolute bottom-48 left-1/4 w-5 h-5 bg-purple-500/30 rounded-full hub-pulse-glow"
+          style={{ animationDelay: "3s" }}
+        ></div>
       </div>
 
       <Card className="w-full max-w-md bg-white/95 dark:bg-gray-900/95 backdrop-blur-sm border border-emerald-200 dark:border-emerald-700 animate-in slide-in-from-left-4 duration-1000 delay-300 relative z-10 hover:shadow-2xl hover:scale-[1.03] transition-all duration-500 hover:border-emerald-300 dark:hover:border-emerald-600 hover:bg-white dark:hover:bg-gray-900 group">
         <CardHeader className="text-center px-4 sm:px-6 py-4 sm:py-6 relative">
           {/* Animated icon */}
-          <div className="flex items-center justify-center w-16 h-16 mx-auto mb-4 bg-gradient-to-br from-emerald-100 to-green-100 dark:from-emerald-900 dark:to-green-900 rounded-full border-2 border-emerald-200 dark:border-emerald-700 animate-in zoom-in duration-800 delay-500 hover:scale-110 transition-all duration-300 group-hover:shadow-lg">
+          <div className="flex items-center justify-center w-16 h-16 mx-auto mb-4 bg-gradient-to-br from-emerald-100 to-green-100 dark:from-emerald-900 dark:to-green-900 rounded-full border-2 border-emerald-200 dark:border-emerald-700 animate-in zoom-in duration-800 delay-500 hover:scale-110 transition-all duration-300 group-hover:shadow-lg auth-animation-container">
             <motion.div
-              animate={{ rotate: [0, 8, -8, 0], y: [0, -2, 2, 0] }}
-              transition={{
-                duration: 3,
-                repeat: Infinity,
-                ease: "easeInOut",
-                type: "tween",
-              }}
+              className="hub-building-construct"
               whileHover={{
                 scale: 1.1,
                 transition: { type: "tween", duration: 0.2 },

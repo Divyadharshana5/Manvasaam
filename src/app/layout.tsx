@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import "./globals.css";
 import "./background.css";
 import "../styles/navigation-transitions.css";
+import "../styles/auth-animations.css";
 import { AuthProvider } from "@/hooks/use-auth";
 import { Toaster } from "@/components/ui/toaster";
 import { LanguageProvider } from "@/context/language-context";
