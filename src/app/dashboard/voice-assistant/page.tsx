@@ -1,9 +1,14 @@
-
 "use client";
 
 import { useState, useRef } from "react";
 import { AppLayout } from "@/components/app-layout";
-import { Card, CardHeader, CardTitle, CardContent, CardDescription } from "@/components/ui/card";
+import {
+  Card,
+  CardHeader,
+  CardTitle,
+  CardContent,
+  CardDescription,
+} from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Loader2, Mic, Square, Volume2 } from "lucide-react";
 import { speechToText } from "@/ai/flows/stt-flow";
@@ -18,7 +23,8 @@ export default function VoiceAssistantPage() {
   // Speech-to-Text states
   const [transcribedText, setTranscribedText] = useState("");
   const [sttLoading, setSttLoading] = useState(false);
-  const [recordingStatus, setRecordingStatus] = useState<RecordingStatus>("idle");
+  const [recordingStatus, setRecordingStatus] =
+    useState<RecordingStatus>("idle");
   const mediaRecorderRef = useRef<MediaRecorder | null>(null);
   const audioChunksRef = useRef<Blob[]>([]);
 
@@ -34,7 +40,9 @@ export default function VoiceAssistantPage() {
     setTranscribedText("");
     try {
       const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
-      mediaRecorderRef.current = new MediaRecorder(stream, { mimeType: 'audio/webm' });
+      mediaRecorderRef.current = new MediaRecorder(stream, {
+        mimeType: "audio/webm",
+      });
       audioChunksRef.current = [];
 
       mediaRecorderRef.current.ondataavailable = (event) => {
@@ -43,7 +51,9 @@ export default function VoiceAssistantPage() {
 
       mediaRecorderRef.current.onstop = async () => {
         setSttLoading(true);
-        const audioBlob = new Blob(audioChunksRef.current, { type: "audio/webm" });
+        const audioBlob = new Blob(audioChunksRef.current, {
+          type: "audio/webm",
+        });
         const reader = new FileReader();
         reader.readAsDataURL(audioBlob);
         reader.onloadend = async () => {
@@ -72,7 +82,8 @@ export default function VoiceAssistantPage() {
       toast({
         variant: "destructive",
         title: "Microphone Access Denied",
-        description: "Please allow microphone access in your browser settings to use this feature.",
+        description:
+          "Please allow microphone access in your browser settings to use this feature.",
       });
     }
   };
@@ -81,42 +92,46 @@ export default function VoiceAssistantPage() {
     if (mediaRecorderRef.current && recordingStatus === "recording") {
       mediaRecorderRef.current.stop();
       setRecordingStatus("stopped");
-      mediaRecorderRef.current.stream.getTracks().forEach(track => track.stop());
+      mediaRecorderRef.current.stream
+        .getTracks()
+        .forEach((track) => track.stop());
     }
   };
 
   const handleTextToSpeech = async () => {
     if (!inputText.trim()) {
-        toast({
-            variant: "destructive",
-            title: "Input Required",
-            description: "Please enter some text to convert to speech.",
-        });
-        return;
+      toast({
+        variant: "destructive",
+        title: "Input Required",
+        description: "Please enter some text to convert to speech.",
+      });
+      return;
     }
     setTtsLoading(true);
     setAudioUrl("");
     try {
-        const result = await textToSpeech(inputText);
-        setAudioUrl(result.audioDataUri);
+      const result = await textToSpeech(inputText);
+      setAudioUrl(result.audioDataUri);
     } catch (error: any) {
-        console.error("Error converting text to speech:", error);
-        toast({
-            variant: "destructive",
-            title: "Conversion Failed",
-            description: error.message || "An unexpected error occurred.",
-        });
+      console.error("Error converting text to speech:", error);
+      toast({
+        variant: "destructive",
+        title: "Conversion Failed",
+        description: error.message || "An unexpected error occurred.",
+      });
     } finally {
-        setTtsLoading(false);
+      setTtsLoading(false);
     }
-  }
+  };
 
   return (
     <AppLayout>
       <div className="flex-1 space-y-4 p-4 md:p-8 pt-6">
         <div className="flex items-center justify-between space-y-2">
           <div>
-            <h2 className="text-3xl font-bold tracking-tight">Voice Assistant</h2>
+            <h2 className="text-3xl font-bold tracking-tight">
+              Voice Assistant
+            </h2>
             <p className="text-muted-foreground">
               Convert speech to text and text back to speech.
             </p>
@@ -124,79 +139,96 @@ export default function VoiceAssistantPage() {
         </div>
 
         <div className="grid gap-6 md:grid-cols-2">
-            <Card>
-                <CardHeader>
-                    <CardTitle>Speech-to-Text</CardTitle>
-                    <CardDescription>Record your voice and see the transcription below.</CardDescription>
-                </CardHeader>
-                <CardContent className="space-y-4">
-                    <div className="flex items-center gap-4">
-                        {recordingStatus !== "recording" ? (
-                            <Button onClick={handleStartRecording} disabled={sttLoading}>
-                            <Mic className="mr-2 h-4 w-4" />
-                            Start Recording
-                            </Button>
-                        ) : (
-                            <Button onClick={handleStopRecording} variant="destructive">
-                            <Square className="mr-2 h-4 w-4" />
-                            Stop Recording
-                            </Button>
-                        )}
-                        {recordingStatus === 'recording' && <div className="flex items-center gap-2 text-destructive"><div className="h-3 w-3 rounded-full bg-destructive animate-pulse"></div><span>Recording...</span></div>}
-                    </div>
+          <Card>
+            <CardHeader>
+              <CardTitle>Speech-to-Text</CardTitle>
+              <CardDescription>
+                Record your voice and see the transcription below.
+              </CardDescription>
+            </CardHeader>
+            <CardContent className="space-y-4">
+              <div className="flex items-center gap-4">
+                {recordingStatus !== "recording" ? (
+                  <Button onClick={handleStartRecording} disabled={sttLoading}>
+                    <Mic className="mr-2 h-4 w-4" />
+                    Start Recording
+                  </Button>
+                ) : (
+                  <Button onClick={handleStopRecording} variant="destructive">
+                    <Square className="mr-2 h-4 w-4" />
+                    Stop Recording
+                  </Button>
+                )}
+                {recordingStatus === "recording" && (
+                  <div className="flex items-center gap-2 text-destructive">
+                    <div className="h-3 w-3 rounded-full bg-destructive animate-pulse"></div>
+                    <span>Recording...</span>
+                  </div>
+                )}
+              </div>
 
-                    {sttLoading && (
-                    <div className="flex items-center gap-2 pt-4">
-                        <Loader2 className="h-5 w-5 animate-spin" />
-                        <span>Transcribing audio...</span>
-                    </div>
-                    )}
-                    
-                    {transcribedText && !sttLoading && (
-                    <Alert className="mt-4 no-animation">
-                        <AlertTitle>Transcription Result</AlertTitle>
-                        <AlertDescription className="pt-2">
-                        <p className="text-base leading-relaxed">{transcribedText}</p>
-                        </AlertDescription>
-                    </Alert>
-                    )}
-                </CardContent>
-            </Card>
+              {sttLoading && (
+                <div className="flex items-center gap-2 pt-4">
+                  <Loader2 className="h-5 w-5 animate-spin" />
+                  <span>Transcribing audio...</span>
+                </div>
+              )}
 
-            <Card>
-                <CardHeader>
-                    <CardTitle>Text-to-Speech</CardTitle>
-                    <CardDescription>Enter text to generate and play back audio.</CardDescription>
-                </CardHeader>
-                <CardContent className="space-y-4">
-                    <Textarea
-                        placeholder="Type your message here..."
-                        value={inputText}
-                        onChange={(e) => setInputText(e.target.value)}
-                        rows={5}
-                        disabled={ttsLoading}
-                    />
-                    <Button onClick={handleTextToSpeech} disabled={ttsLoading}>
-                        {ttsLoading ? (
-                            <Loader2 className="mr-2 h-4 w-4 animate-spin" />
-                        ) : (
-                            <Volume2 className="mr-2 h-4 w-4" />
-                        )}
-                        Generate Speech
-                    </Button>
-                    
-                    {audioUrl && !ttsLoading && (
-                         <Alert className="mt-4">
-                            <AlertTitle>Generated Audio</AlertTitle>
-                            <AlertDescription className="pt-2">
-                                <audio ref={audioRef} src={audioUrl} controls autoPlay className="w-full">
-                                    Your browser does not support the audio element.
-                                </audio>
-                            </AlertDescription>
-                        </Alert>
-                    )}
-                </CardContent>
-            </Card>
+              {transcribedText && !sttLoading && (
+                <Alert className="mt-4 no-animation">
+                  <AlertTitle>Transcription Result</AlertTitle>
+                  <AlertDescription className="pt-2">
+                    <p className="text-base leading-relaxed">
+                      {transcribedText}
+                    </p>
+                  </AlertDescription>
+                </Alert>
+              )}
+            </CardContent>
+          </Card>
+
+          <Card>
+            <CardHeader>
+              <CardTitle>Text-to-Speech</CardTitle>
+              <CardDescription>
+                Enter text to generate and play back audio.
+              </CardDescription>
+            </CardHeader>
+            <CardContent className="space-y-4">
+              <Textarea
+                placeholder="Type your message here..."
+                value={inputText}
+                onChange={(e) => setInputText(e.target.value)}
+                rows={5}
+                disabled={ttsLoading}
+              />
+              <Button onClick={handleTextToSpeech} disabled={ttsLoading}>
+                {ttsLoading ? (
+                  <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                ) : (
+                  <Volume2 className="mr-2 h-4 w-4" />
+                )}
+                Generate Speech
+              </Button>
+
+              {audioUrl && !ttsLoading && (
+                <Alert className="mt-4">
+                  <AlertTitle>Generated Audio</AlertTitle>
+                  <AlertDescription className="pt-2">
+                    <audio
+                      ref={audioRef}
+                      src={audioUrl}
+                      controls
+                      autoPlay
+                      className="w-full"
+                    >
+                      Your browser does not support the audio element.
+                    </audio>
+                  </AlertDescription>
+                </Alert>
+              )}
+            </CardContent>
+          </Card>
         </div>
       </div>
     </AppLayout>
