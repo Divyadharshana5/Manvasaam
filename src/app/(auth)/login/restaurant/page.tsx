@@ -248,14 +248,19 @@ export default function RestaurantAuthPage() {
   return (
     <div className="animate-in fade-in duration-1000 relative min-h-screen flex items-center justify-center p-4 overflow-hidden">
       {/* Enhanced animated background */}
-      <div className="absolute inset-0 bg-gradient-to-br from-emerald-50 via-green-50 to-lime-50 dark:from-emerald-950 dark:via-green-950 dark:to-lime-950 opacity-40 -z-10"></div>
+      <div className="absolute inset-0 bg-gradient-to-br from-emerald-50 via-green-50 to-lime-50 dark:from-emerald-950 dark:via-green-950 dark:to-lime-950 opacity-40 -z-10 gradient-shift"></div>
 
       {/* Floating background elements with cooking theme */}
       <div className="absolute inset-0 -z-5">
-        <div className="absolute top-24 left-20 w-30 h-30 bg-emerald-200/20 dark:bg-emerald-800/20 rounded-full blur-xl animate-pulse delay-500"></div>
-        <div className="absolute top-48 right-16 w-26 h-26 bg-green-200/25 dark:bg-green-800/25 rounded-full blur-xl animate-bounce delay-1200"></div>
-        <div className="absolute bottom-36 left-16 w-34 h-34 bg-lime-200/20 dark:bg-lime-800/20 rounded-full blur-xl animate-pulse delay-800"></div>
-        <div className="absolute bottom-20 right-20 w-28 h-28 bg-emerald-300/25 dark:bg-emerald-700/25 rounded-full blur-xl animate-bounce delay-200"></div>
+        <div className="absolute top-24 left-20 w-30 h-30 bg-emerald-200/20 dark:bg-emerald-800/20 rounded-full blur-xl floating-bubble" style={{ animationDelay: '0.5s' }}></div>
+        <div className="absolute top-48 right-16 w-26 h-26 bg-green-200/25 dark:bg-green-800/25 rounded-full floating-bubble" style={{ animationDelay: '1.2s' }}></div>
+        <div className="absolute bottom-36 left-16 w-34 h-34 bg-lime-200/20 dark:bg-lime-800/20 rounded-full floating-bubble" style={{ animationDelay: '0.8s' }}></div>
+        <div className="absolute bottom-20 right-20 w-28 h-28 bg-emerald-300/25 dark:bg-emerald-700/25 rounded-full floating-bubble" style={{ animationDelay: '0.2s' }}></div>
+        
+        {/* Restaurant-specific animated elements */}
+        <div className="absolute top-32 right-1/4 w-6 h-6 bg-orange-400/50 rounded-full restaurant-flame-flicker" style={{ animationDelay: '0s' }}></div>
+        <div className="absolute top-64 left-1/4 w-4 h-4 bg-red-500/40 rounded-full restaurant-flame-flicker" style={{ animationDelay: '1.5s' }}></div>
+        <div className="absolute bottom-48 right-1/3 w-5 h-5 bg-yellow-500/30 rounded-full restaurant-ingredient-drop" style={{ animationDelay: '0s' }}></div>
       </div>
 
       <Card className="w-full max-w-md bg-white/95 dark:bg-gray-900/95 backdrop-blur-sm border border-emerald-200 dark:border-emerald-700 animate-in slide-in-from-right-4 duration-1000 delay-300 relative z-10 hover:shadow-2xl hover:scale-[1.03] transition-all duration-500 hover:border-emerald-300 dark:hover:border-emerald-600 hover:bg-white dark:hover:bg-gray-900 group">
