@@ -285,6 +285,25 @@
   -moz-backface-visibility: hidden;
 }
 
+/* Disable animations for alert components */
+.alert,
+[role="alert"],
+.Alert,
+.AlertTitle,
+.AlertDescription {
+  animation: none !important;
+  transition: none !important;
+  transform: none !important;
+}
+
+/* Disable animations for alert containers */
+.alert-container,
+.alert-wrapper {
+  animation: none !important;
+  transition: none !important;
+  transform: none !important;
+}
+
 /* Smooth scrolling for navigation */
 html {
   scroll-behavior: smooth;
