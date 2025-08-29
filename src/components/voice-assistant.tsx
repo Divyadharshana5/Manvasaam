@@ -229,7 +229,7 @@ export default function VoiceAssistant() {
 
       <div className="min-h-[8rem] space-y-4 px-2">
         {transcribedText && (
-          <Alert>
+          <Alert className="no-animation">
             <Mic className="h-4 w-4" />
             <AlertTitle>You Said:</AlertTitle>
             <AlertDescription>{transcribedText}</AlertDescription>
@@ -237,7 +237,7 @@ export default function VoiceAssistant() {
         )}
 
         {lastResponse && (
-          <Alert>
+          <Alert className="no-animation">
             <Volume2 className="h-4 w-4" />
             <AlertTitle>Assistant Response:</AlertTitle>
             <AlertDescription>
