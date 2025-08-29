@@ -243,15 +243,36 @@ export default function CustomerAuthPage() {
 
       {/* Floating background elements */}
       <div className="absolute inset-0 -z-5">
-        <div className="absolute top-32 left-16 w-28 h-28 bg-emerald-200/30 dark:bg-emerald-800/30 rounded-full blur-xl floating-bubble" style={{ animationDelay: '0s' }}></div>
-        <div className="absolute top-16 right-24 w-36 h-36 bg-green-200/25 dark:bg-green-800/25 rounded-full blur-xl floating-bubble" style={{ animationDelay: '0.7s' }}></div>
-        <div className="absolute bottom-40 left-12 w-32 h-32 bg-lime-200/30 dark:bg-lime-800/30 rounded-full floating-bubble" style={{ animationDelay: '1s' }}></div>
-        <div className="absolute bottom-16 right-16 w-24 h-24 bg-emerald-300/25 dark:bg-emerald-700/25 rounded-full floating-bubble" style={{ animationDelay: '0.3s' }}></div>
-        
+        <div
+          className="absolute top-32 left-16 w-28 h-28 bg-emerald-200/30 dark:bg-emerald-800/30 rounded-full blur-xl floating-bubble"
+          style={{ animationDelay: "0s" }}
+        ></div>
+        <div
+          className="absolute top-16 right-24 w-36 h-36 bg-green-200/25 dark:bg-green-800/25 rounded-full blur-xl floating-bubble"
+          style={{ animationDelay: "0.7s" }}
+        ></div>
+        <div
+          className="absolute bottom-40 left-12 w-32 h-32 bg-lime-200/30 dark:bg-lime-800/30 rounded-full floating-bubble"
+          style={{ animationDelay: "1s" }}
+        ></div>
+        <div
+          className="absolute bottom-16 right-16 w-24 h-24 bg-emerald-300/25 dark:bg-emerald-700/25 rounded-full floating-bubble"
+          style={{ animationDelay: "0.3s" }}
+        ></div>
+
         {/* Customer-specific animated elements */}
-        <div className="absolute top-48 left-1/4 w-5 h-5 bg-pink-400/50 rounded-full customer-heart-beat" style={{ animationDelay: '0s' }}></div>
-        <div className="absolute top-72 right-1/3 w-4 h-4 bg-yellow-500/40 rounded-full customer-star-twinkle" style={{ animationDelay: '1s' }}></div>
-        <div className="absolute bottom-56 left-1/3 w-6 h-6 bg-red-400/30 rounded-full customer-heart-beat" style={{ animationDelay: '2s' }}></div>
+        <div
+          className="absolute top-48 left-1/4 w-5 h-5 bg-pink-400/50 rounded-full customer-heart-beat"
+          style={{ animationDelay: "0s" }}
+        ></div>
+        <div
+          className="absolute top-72 right-1/3 w-4 h-4 bg-yellow-500/40 rounded-full customer-star-twinkle"
+          style={{ animationDelay: "1s" }}
+        ></div>
+        <div
+          className="absolute bottom-56 left-1/3 w-6 h-6 bg-red-400/30 rounded-full customer-heart-beat"
+          style={{ animationDelay: "2s" }}
+        ></div>
       </div>
 
       <Card className="w-full max-w-md bg-white/95 dark:bg-gray-900/95 backdrop-blur-sm border border-emerald-200 dark:border-emerald-700 animate-in slide-in-from-bottom-4 duration-1000 delay-300 relative z-10 hover:shadow-2xl hover:scale-[1.03] transition-all duration-500 hover:border-emerald-300 dark:hover:border-emerald-600 hover:bg-white dark:hover:bg-gray-900 group">
