@@ -35,7 +35,9 @@ export default function VoiceAssistant() {
   const [lastResponse, setLastResponse] = useState("");
   const [transcribedText, setTranscribedText] = useState("");
   const [audioUrl, setAudioUrl] = useState("");
-  const [hasMicrophonePermission, setHasMicrophonePermission] = useState<boolean | null>(null);
+  const [hasMicrophonePermission, setHasMicrophonePermission] = useState<
+    boolean | null
+  >(null);
 
   const mediaRecorderRef = useRef<MediaRecorder | null>(null);
   const audioChunksRef = useRef<Blob[]>([]);
@@ -44,7 +46,9 @@ export default function VoiceAssistant() {
   useEffect(() => {
     const checkMicrophonePermission = async () => {
       try {
-        const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
+        const stream = await navigator.mediaDevices.getUserMedia({
+          audio: true,
+        });
         setHasMicrophonePermission(true);
         stream.getTracks().forEach((track) => track.stop());
       } catch {
@@ -63,7 +67,8 @@ export default function VoiceAssistant() {
       toast({
         variant: "destructive",
         title: "Microphone Access Denied",
-        description: "Please allow microphone access in your browser settings to use this feature.",
+        description:
+          "Please allow microphone access in your browser settings to use this feature.",
       });
       return;
     }
@@ -71,7 +76,9 @@ export default function VoiceAssistant() {
     try {
       const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
       setHasMicrophonePermission(true);
-      mediaRecorderRef.current = new MediaRecorder(stream, { mimeType: "audio/webm" });
+      mediaRecorderRef.current = new MediaRecorder(stream, {
+        mimeType: "audio/webm",
+      });
       audioChunksRef.current = [];
 
       mediaRecorderRef.current.ondataavailable = (event) => {
@@ -86,7 +93,8 @@ export default function VoiceAssistant() {
       toast({
         variant: "destructive",
         title: "Microphone Access Denied",
-        description: "Please allow microphone access in your browser settings to use this feature.",
+        description:
+          "Please allow microphone access in your browser settings to use this feature.",
       });
     }
   };
@@ -94,7 +102,9 @@ export default function VoiceAssistant() {
   const handleStopRecording = () => {
     if (mediaRecorderRef.current && assistantState === "listening") {
       mediaRecorderRef.current.stop();
-      mediaRecorderRef.current.stream.getTracks().forEach((track) => track.stop());
+      mediaRecorderRef.current.stream
+        .getTracks()
+        .forEach((track) => track.stop());
     }
   };
 
@@ -138,26 +148,29 @@ export default function VoiceAssistant() {
     };
   };
 
-  const speak = useCallback(async (text: string) => {
-    if (!text.trim()) {
-      setAssistantState("idle");
-      return;
-    }
-    setAssistantState("speaking");
-    setLastResponse(text);
-    setAudioUrl("");
-    try {
-      const result = await textToSpeech(text);
-      setAudioUrl(result.audioDataUri);
-    } catch {
-      toast({
-        variant: "destructive",
-        title: "Conversion Failed",
-        description: "An unexpected error occurred.",
-      });
-      setAssistantState("idle");
-    }
-  }, [selectedLanguage, toast]);
+  const speak = useCallback(
+    async (text: string) => {
+      if (!text.trim()) {
+        setAssistantState("idle");
+        return;
+      }
+      setAssistantState("speaking");
+      setLastResponse(text);
+      setAudioUrl("");
+      try {
+        const result = await textToSpeech(text);
+        setAudioUrl(result.audioDataUri);
+      } catch {
+        toast({
+          variant: "destructive",
+          title: "Conversion Failed",
+          description: "An unexpected error occurred.",
+        });
+        setAssistantState("idle");
+      }
+    },
+    [selectedLanguage, toast]
+  );
 
   useEffect(() => {
     if (audioUrl && audioRef.current) {
@@ -243,11 +256,7 @@ export default function VoiceAssistant() {
             <AlertDescription>
               {lastResponse}
               {audioUrl && (
-                <audio
-                  ref={audioRef}
-                  src={audioUrl}
-                  className="w-full mt-2"
-                />
+                <audio ref={audioRef} src={audioUrl} className="w-full mt-2" />
               )}
             </AlertDescription>
           </Alert>
