@@ -222,49 +222,49 @@ export default function RestaurantAuthPage() {
 
   return (
     <div className="animate-in fade-in duration-1000 relative min-h-screen flex items-center justify-center p-4 overflow-hidden">
-      {/* Enhanced animated background */}
+      {/* Enhanced animated background with farm theme */}
       <div className="absolute inset-0 bg-gradient-to-br from-emerald-50 via-green-50 to-lime-50 dark:from-emerald-950 dark:via-green-950 dark:to-lime-950 opacity-40 -z-10 gradient-shift"></div>
 
-      {/* Floating background elements with cooking theme */}
+      {/* Floating background elements with farm theme */}
       <div className="absolute inset-0 -z-5">
         <div
-          className="absolute top-24 left-20 w-30 h-30 bg-emerald-200/20 dark:bg-emerald-800/20 rounded-full blur-xl floating-bubble"
-          style={{ animationDelay: "0.5s" }}
+          className="absolute top-28 left-14 w-32 h-32 bg-emerald-200/25 dark:bg-emerald-800/25 rounded-full blur-xl floating-bubble"
+          style={{ animationDelay: "0.3s" }}
         ></div>
         <div
-          className="absolute top-48 right-16 w-26 h-26 bg-green-200/25 dark:bg-green-800/25 rounded-full floating-bubble"
-          style={{ animationDelay: "1.2s" }}
+          className="absolute top-20 right-18 w-28 h-28 bg-green-200/30 dark:bg-green-800/30 rounded-full blur-xl floating-bubble"
+          style={{ animationDelay: "0.9s" }}
         ></div>
         <div
-          className="absolute bottom-36 left-16 w-34 h-34 bg-lime-200/20 dark:bg-lime-800/20 rounded-full floating-bubble"
-          style={{ animationDelay: "0.8s" }}
-        ></div>
-        <div
-          className="absolute bottom-20 right-20 w-28 h-28 bg-emerald-300/25 dark:bg-emerald-700/25 rounded-full floating-bubble"
-          style={{ animationDelay: "0.2s" }}
-        ></div>
-
-        {/* Restaurant-specific animated elements */}
-        <div
-          className="absolute top-32 right-1/4 w-6 h-6 bg-orange-400/50 rounded-full restaurant-flame-flicker"
-          style={{ animationDelay: "0s" }}
-        ></div>
-        <div
-          className="absolute top-64 left-1/4 w-4 h-4 bg-red-500/40 rounded-full restaurant-flame-flicker"
+          className="absolute bottom-32 left-18 w-36 h-36 bg-lime-200/25 dark:bg-lime-800/25 rounded-full floating-bubble"
           style={{ animationDelay: "1.5s" }}
         ></div>
         <div
-          className="absolute bottom-48 right-1/3 w-5 h-5 bg-yellow-500/30 rounded-full restaurant-ingredient-drop"
+          className="absolute bottom-24 right-14 w-30 h-30 bg-emerald-300/30 dark:bg-emerald-700/30 rounded-full floating-bubble"
+          style={{ animationDelay: "0.6s" }}
+        ></div>
+
+        {/* Farm-specific animated elements */}
+        <div
+          className="absolute top-40 left-1/4 w-4 h-4 bg-yellow-400/60 rounded-full farmer-soil-ripple"
           style={{ animationDelay: "0s" }}
+        ></div>
+        <div
+          className="absolute top-60 right-1/3 w-3 h-3 bg-brown-600/50 rounded-full farmer-soil-ripple"
+          style={{ animationDelay: "1s" }}
+        ></div>
+        <div
+          className="absolute bottom-40 left-1/3 w-5 h-5 bg-green-500/40 rounded-full farmer-soil-ripple"
+          style={{ animationDelay: "2s" }}
         ></div>
       </div>
 
-      <Card className="w-full max-w-md bg-white/95 dark:bg-gray-900/95 backdrop-blur-sm border border-emerald-200 dark:border-emerald-700 animate-in slide-in-from-right-4 duration-1000 delay-300 relative z-10 hover:shadow-2xl hover:scale-[1.03] transition-all duration-500 hover:border-emerald-300 dark:hover:border-emerald-600 hover:bg-white dark:hover:bg-gray-900 group">
+      <Card className="w-full max-w-md bg-white/95 dark:bg-gray-900/95 backdrop-blur-sm border border-emerald-200 dark:border-emerald-700 animate-in slide-in-from-top-4 duration-1000 delay-300 relative z-10 hover:shadow-2xl hover:scale-[1.03] transition-all duration-500 hover:border-emerald-300 dark:hover:border-emerald-600 hover:bg-white dark:hover:bg-gray-900 group">
         <CardHeader className="text-center px-4 sm:px-6 py-4 sm:py-6 relative">
           {/* Animated icon */}
-          <div className="flex items-center justify-center w-16 h-16 mx-auto mb-4 bg-gradient-to-br from-emerald-100 to-green-100 dark:from-emerald-900 dark:to-green-900 rounded-full border-2 border-emerald-200 dark:border-emerald-700 animate-in zoom-in duration-800 delay-500 hover:scale-110 transition-all duration-300 group-hover:shadow-lg hover:-rotate-12 auth-animation-container">
+          <div className="flex items-center justify-center w-16 h-16 mx-auto mb-4 bg-gradient-to-br from-emerald-100 to-green-100 dark:from-emerald-900 dark:to-green-900 rounded-full border-2 border-emerald-200 dark:border-emerald-700 animate-in zoom-in duration-800 delay-500 hover:scale-110 transition-all duration-300 group-hover:shadow-lg hover:rotate-6 auth-animation-container">
             <motion.div
-              className="restaurant-chef-hat-float"
+              className="farmer-tractor-animate"
               whileHover={{
                 scale: 1.1,
                 transition: { type: "tween", duration: 0.2 },
@@ -399,16 +399,21 @@ export default function RestaurantAuthPage() {
                       </FormItem>
                     )}
                   />
-                  <Button
+                  <FastButton
                     type="submit"
-                    className="w-full bg-gradient-to-r from-emerald-600 to-green-600 hover:from-emerald-700 hover:to-green-700 text-white transition-all duration-400 hover:scale-[1.05] hover:shadow-xl active:scale-[0.98] transform-gpu animate-in slide-in-from-bottom-2 duration-600 delay-600 hover:rotate-1"
+                    className="w-full bg-gradient-to-r from-emerald-600 to-green-600 hover:from-emerald-700 hover:to-green-700 text-white instant-feedback fast-transition"
                     disabled={loading}
+                    showLoadingState={true}
+                    preloadNext={[
+                      "/dashboard/restaurant",
+                      "/dashboard/restaurant/orders",
+                    ]}
                   >
                     {loading && (
                       <Loader2 className="mr-2 h-4 w-4 animate-spin" />
                     )}
                     {t.auth.login}
-                  </Button>
+                  </FastButton>
                 </form>
               </Form>
             </TabsContent>
@@ -568,7 +573,7 @@ export default function RestaurantAuthPage() {
                   />
                   <Button
                     type="submit"
-                    className="w-full bg-gradient-to-r from-emerald-600 to-green-600 hover:from-emerald-700 hover:to-green-700 text-white transition-all duration-400 hover:scale-[1.05] hover:shadow-xl active:scale-[0.98] transform-gpu animate-in slide-in-from-bottom-2 duration-600 delay-700 hover:-rotate-1"
+                    className="w-full bg-gradient-to-r from-emerald-600 to-green-600 hover:from-emerald-700 hover:to-green-700 text-white transition-all duration-400 hover:scale-[1.05] hover:shadow-xl active:scale-[0.98] transform-gpu animate-in slide-in-from-bottom-2 duration-600 delay-700 hover:rotate-1"
                     disabled={loading}
                     onClick={() => console.log("Register button clicked")}
                   >
