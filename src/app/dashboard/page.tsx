@@ -78,6 +78,10 @@ const customerStats = {
 
 async function getUserProfile(uid: string): Promise<UserProfile | null> {
   try {
+    if (!adminDb) {
+      console.warn("Firebase Admin DB not initialized");
+      return null;
+    }
     const userDoc = await adminDb.collection("users").doc(uid).get();
     if (!userDoc.exists) {
       return null;
@@ -122,7 +126,7 @@ export default async function DashboardPage() {
     if (userProfile?.userType === "hub") {
       redirect("/dashboard/hub");
     }
-    
+
     // Redirect customer users to their specific dashboard
     if (userProfile?.userType === "customer") {
       redirect("/dashboard/customer");
