@@ -27,8 +27,36 @@ import { useToast } from "@/hooks/use-toast";
 
 export default function CustomerDashboard() {
   const router = useRouter();
+  const { toast } = useToast();
   const [userEmail, setUserEmail] = useState<string>("");
   const [loading, setLoading] = useState(true);
+
+  const handleLogout = async () => {
+    try {
+      await signOut(auth);
+      localStorage.removeItem("userType");
+      localStorage.removeItem("userEmail");
+      
+      // Clear session cookie
+      await fetch("/api/logout", {
+        method: "POST",
+      });
+      
+      toast({
+        title: "Logged out successfully",
+        description: "You have been logged out of your account.",
+      });
+      
+      router.push("/login/customer");
+    } catch (error) {
+      console.error("Logout error:", error);
+      toast({
+        variant: "destructive",
+        title: "Logout failed",
+        description: "There was an error logging out. Please try again.",
+      });
+    }
+  };
 
   useEffect(() => {
     // Check if user is logged in
