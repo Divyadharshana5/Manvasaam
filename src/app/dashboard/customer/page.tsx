@@ -127,13 +127,23 @@ export default function CustomerDashboard() {
     <div className="min-h-screen bg-gradient-to-br from-emerald-50 to-green-50 dark:from-emerald-950 dark:to-green-950">
       <div className="container mx-auto px-4 py-8">
         {/* Header */}
-        <div className="mb-8">
-          <h1 className="text-3xl font-bold text-emerald-800 dark:text-emerald-200 mb-2">
-            Welcome back, Customer!
-          </h1>
-          <p className="text-emerald-600 dark:text-emerald-400">
-            {userEmail ? `Logged in as: ${userEmail}` : "Customer Dashboard"}
-          </p>
+        <div className="mb-8 flex justify-between items-center">
+          <div>
+            <h1 className="text-3xl font-bold text-emerald-800 dark:text-emerald-200 mb-2">
+              Welcome back, Customer!
+            </h1>
+            <p className="text-emerald-600 dark:text-emerald-400">
+              {userEmail ? `Logged in as: ${userEmail}` : "Customer Dashboard"}
+            </p>
+          </div>
+          <Button
+            onClick={handleLogout}
+            variant="outline"
+            className="border-emerald-200 text-emerald-700 hover:bg-emerald-50 dark:border-emerald-700 dark:text-emerald-300 dark:hover:bg-emerald-900/50"
+          >
+            <LogOut className="mr-2 h-4 w-4" />
+            Logout
+          </Button>
         </div>
 
         {/* Stats Grid */}
