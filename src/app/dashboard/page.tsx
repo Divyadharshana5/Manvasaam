@@ -122,6 +122,11 @@ export default async function DashboardPage() {
     if (userProfile?.userType === "hub") {
       redirect("/dashboard/hub");
     }
+    
+    // Redirect customer users to their specific dashboard
+    if (userProfile?.userType === "customer") {
+      redirect("/dashboard/customer");
+    }
   }
 
   // Get translations with robust fallback
