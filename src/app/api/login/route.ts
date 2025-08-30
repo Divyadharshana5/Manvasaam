@@ -8,7 +8,7 @@ export async function GET() {
     message: "Login API is working",
     timestamp: new Date().toISOString(),
     mockMode: !isFirebaseInitialized || !adminAuth,
-    firebaseInitialized: isFirebaseInitialized
+    firebaseInitialized: isFirebaseInitialized,
   });
 }
 
@@ -18,8 +18,8 @@ export async function POST(request: Request) {
   try {
     // Always return a valid JSON response, even for errors
     const headers = {
-      'Content-Type': 'application/json',
-      'Cache-Control': 'no-cache, no-store, must-revalidate',
+      "Content-Type": "application/json",
+      "Cache-Control": "no-cache, no-store, must-revalidate",
     };
 
     // Parse request body with better error handling
@@ -40,7 +40,10 @@ export async function POST(request: Request) {
     } catch (parseError) {
       console.error("❌ Request parse error:", parseError);
       return new NextResponse(
-        JSON.stringify({ message: "Invalid JSON in request body", success: false }),
+        JSON.stringify({
+          message: "Invalid JSON in request body",
+          success: false,
+        }),
         { status: 400, headers }
       );
     }
@@ -73,10 +76,10 @@ export async function POST(request: Request) {
     }
 
     // Create session cookie
-    const sessionCookie = userInfo 
+    const sessionCookie = userInfo
       ? `session-${userInfo.uid}-${Date.now()}`
       : `mock-session-${Date.now()}`;
-    
+
     const expiresIn = 60 * 60 * 24 * 5; // 5 days in seconds
 
     try {
@@ -86,9 +89,9 @@ export async function POST(request: Request) {
         value: sessionCookie,
         maxAge: expiresIn,
         httpOnly: true,
-        secure: process.env.NODE_ENV === 'production', // Secure in production
-        sameSite: 'lax',
-        path: '/',
+        secure: process.env.NODE_ENV === "production", // Secure in production
+        sameSite: "lax",
+        path: "/",
       });
 
       console.log("✅ Session created:", sessionCookie);
@@ -98,33 +101,33 @@ export async function POST(request: Request) {
         status: "success",
         mockMode: !userInfo,
         message: "Login successful",
-        user: userInfo ? {
-          uid: userInfo.uid,
-          email: userInfo.email,
-          emailVerified: userInfo.emailVerified,
-        } : null,
-        timestamp: new Date().toISOString()
+        user: userInfo
+          ? {
+              uid: userInfo.uid,
+              email: userInfo.email,
+              emailVerified: userInfo.emailVerified,
+            }
+          : null,
+        timestamp: new Date().toISOString(),
       };
 
       console.log("📤 Sending success response:", successResponse);
 
-      return new NextResponse(
-        JSON.stringify(successResponse),
-        { status: 200, headers }
-      );
-
+      return new NextResponse(JSON.stringify(successResponse), {
+        status: 200,
+        headers,
+      });
     } catch (cookieError) {
       console.error("❌ Cookie error:", cookieError);
       return new NextResponse(
         JSON.stringify({
           message: "Failed to create session",
           success: false,
-          error: String(cookieError)
+          error: String(cookieError),
         }),
         { status: 500, headers }
       );
     }
-
   } catch (error: any) {
     console.error("❌ Login API error:", error);
 
@@ -133,18 +136,15 @@ export async function POST(request: Request) {
       message: "Internal server error",
       success: false,
       error: error.message || String(error),
-      timestamp: new Date().toISOString()
+      timestamp: new Date().toISOString(),
     };
 
-    return new NextResponse(
-      JSON.stringify(errorResponse),
-      {
-        status: 500,
-        headers: {
-          'Content-Type': 'application/json',
-          'Cache-Control': 'no-cache, no-store, must-revalidate',
-        }
-      }
-    );
+    return new NextResponse(JSON.stringify(errorResponse), {
+      status: 500,
+      headers: {
+        "Content-Type": "application/json",
+        "Cache-Control": "no-cache, no-store, must-revalidate",
+      },
+    });
   }
 }
