@@ -103,7 +103,13 @@ export default async function DashboardPage() {
 
   let decodedToken;
   try {
-    decodedToken = await adminAuth.verifySessionCookie(sessionCookie, true);
+    if (!adminAuth) {
+      console.warn("Firebase Admin Auth not initialized");
+      // In mock mode, continue without token verification
+      decodedToken = { uid: "mock-user" };
+    } else {
+      decodedToken = await adminAuth.verifySessionCookie(sessionCookie, true);
+    }
   } catch (error) {
     redirect("/");
   }
