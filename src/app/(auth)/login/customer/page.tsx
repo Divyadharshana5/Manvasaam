@@ -199,7 +199,7 @@ export default function CustomerAuthPage() {
 
       // Use regular navigation instead of fast navigation to avoid issues
       setTimeout(() => {
-        router.push("/dashboard");
+        router.push("/dashboard/customer");
       }, 1000);
     } catch (error: any) {
       console.error("❌ Customer login error:", error);
