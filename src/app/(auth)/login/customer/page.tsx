@@ -149,7 +149,7 @@ export default function CustomerAuthPage() {
     setLoading(true);
     try {
       console.log("🔐 Attempting customer login with email:", values.email);
-      
+
       // First, try Firebase authentication
       const userCredential = await signInWithEmailAndPassword(
         auth,
@@ -157,7 +157,10 @@ export default function CustomerAuthPage() {
         values.password
       );
 
-      console.log("✅ Firebase auth successful for user:", userCredential.user.email);
+      console.log(
+        "✅ Firebase auth successful for user:",
+        userCredential.user.email
+      );
 
       // Get the ID token
       const idToken = await userCredential.user.getIdToken();
@@ -198,12 +201,11 @@ export default function CustomerAuthPage() {
       setTimeout(() => {
         router.push("/dashboard");
       }, 1000);
-
     } catch (error: any) {
       console.error("❌ Customer login error:", error);
-      
+
       let errorMessage = "Login failed. Please try again.";
-      
+
       // Handle specific Firebase auth errors
       if (error.code) {
         switch (error.code) {

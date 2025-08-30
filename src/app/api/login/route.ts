@@ -55,32 +55,54 @@ export async function POST(request: Request) {
       );
     }
 
-    // Always use mock mode for now to ensure it works
-    console.log("⚠️ Using mock mode for reliable testing");
+    // Try to verify the token with Firebase Admin if available
+    let userInfo = null;
+    if (isFirebaseInitialized && adminAuth) {
+      try {
+        const decodedToken = await adminAuth.verifyIdToken(idToken);
+        userInfo = {
+          uid: decodedToken.uid,
+          email: decodedToken.email,
+          emailVerified: decodedToken.email_verified,
+        };
+        console.log("✅ Firebase token verified for user:", userInfo.email);
+      } catch (firebaseError) {
+        console.error("❌ Firebase token verification failed:", firebaseError);
+        // Continue with mock mode if Firebase fails
+      }
+    }
 
-    // Create a simple mock session
-    const mockSessionCookie = `mock-session-${Date.now()}`;
+    // Create session cookie
+    const sessionCookie = userInfo 
+      ? `session-${userInfo.uid}-${Date.now()}`
+      : `mock-session-${Date.now()}`;
+    
     const expiresIn = 60 * 60 * 24 * 5; // 5 days in seconds
 
     try {
       const cookieStore = await cookies();
       cookieStore.set({
         name: "session",
-        value: mockSessionCookie,
+        value: sessionCookie,
         maxAge: expiresIn,
         httpOnly: true,
-        secure: false, // Allow for localhost
+        secure: process.env.NODE_ENV === 'production', // Secure in production
         sameSite: 'lax',
         path: '/',
       });
 
-      console.log("✅ Mock session created:", mockSessionCookie);
+      console.log("✅ Session created:", sessionCookie);
 
       const successResponse = {
         success: true,
         status: "success",
-        mockMode: true,
+        mockMode: !userInfo,
         message: "Login successful",
+        user: userInfo ? {
+          uid: userInfo.uid,
+          email: userInfo.email,
+          emailVerified: userInfo.emailVerified,
+        } : null,
         timestamp: new Date().toISOString()
       };
 
