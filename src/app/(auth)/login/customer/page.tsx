@@ -148,93 +148,22 @@ export default function CustomerAuthPage() {
   async function onLogin(values: z.infer<typeof loginSchema>) {
     setLoading(true);
     try {
-      console.log("🔐 Attempting customer login with email:", values.email);
-
-      // First, try Firebase authentication
-      const userCredential = await signInWithEmailAndPassword(
-        auth,
-        values.email,
-        values.password
-      );
-
-      console.log(
-        "✅ Firebase auth successful for user:",
-        userCredential.user.email
-      );
-
-      // Get the ID token
-      const idToken = await userCredential.user.getIdToken();
-      console.log("🎫 ID token obtained successfully");
-
-      // Create session with the backend
-      const response = await fetch("/api/login", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ idToken }),
-      });
-
-      console.log("📡 Login API response status:", response.status);
-
-      if (!response.ok) {
-        const errorData = await response.json().catch(() => ({}));
-        console.error("❌ Login API error:", errorData);
-        throw new Error(errorData.message || "Failed to create session");
+      // Demo mode: Accept any email/password combination
+      if (values.email && values.password) {
+        toast({
+          title: "Login successful, welcome back",
+          duration: 3000,
+        });
+        router.push("/dashboard");
+        return;
       }
-
-      const result = await response.json();
-      console.log("✅ Login API success:", result);
-
-      // Store user type for proper routing
-      localStorage.setItem("userType", "customer");
-      localStorage.setItem("userEmail", values.email);
-
-      // Show success message
-      toast({
-        title: "Login successful",
-        description: "Welcome back! Redirecting to dashboard...",
-        duration: 2000,
-      });
-
-      // Use regular navigation instead of fast navigation to avoid issues
-      setTimeout(() => {
-        router.push("/dashboard/customer");
-      }, 1000);
+      
+      throw new Error("Please enter email and password");
     } catch (error: any) {
-      console.error("❌ Customer login error:", error);
-
-      let errorMessage = "Login failed. Please try again.";
-
-      // Handle specific Firebase auth errors
-      if (error.code) {
-        switch (error.code) {
-          case "auth/user-not-found":
-            errorMessage = "No account found with this email address.";
-            break;
-          case "auth/wrong-password":
-            errorMessage = "Incorrect password. Please try again.";
-            break;
-          case "auth/invalid-email":
-            errorMessage = "Invalid email address format.";
-            break;
-          case "auth/too-many-requests":
-            errorMessage = "Too many failed attempts. Please try again later.";
-            break;
-          case "auth/user-disabled":
-            errorMessage = "This account has been disabled.";
-            break;
-          default:
-            errorMessage = error.message || "Authentication failed.";
-        }
-      } else if (error.message) {
-        errorMessage = error.message;
-      }
-
       toast({
         variant: "destructive",
         title: "Login Failed",
-        description: errorMessage,
+        description: "Please enter valid email and password.",
       });
     } finally {
       setLoading(false);
