@@ -18,8 +18,12 @@ import {
   CheckCircle,
   DollarSign,
   Users,
+  LogOut,
 } from "lucide-react";
 import Link from "next/link";
+import { auth } from "@/lib/firebase";
+import { signOut } from "firebase/auth";
+import { useToast } from "@/hooks/use-toast";
 
 export default function CustomerDashboard() {
   const router = useRouter();
