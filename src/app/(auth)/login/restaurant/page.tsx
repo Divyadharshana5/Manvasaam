@@ -113,7 +113,6 @@ export default function RestaurantAuthPage() {
       // Demo mode: Accept any email/password combination
       if (values.email && values.password) {
         toast({
-          variant: "restaurant" as any,
           title: "Login successful, welcome back",
           duration: 3000,
         });
@@ -158,7 +157,6 @@ export default function RestaurantAuthPage() {
       }
 
       toast({
-        variant: "success" as any,
         title: "Restaurant Registration Successful",
         description: "Your registration is complete. Please log in.",
       });

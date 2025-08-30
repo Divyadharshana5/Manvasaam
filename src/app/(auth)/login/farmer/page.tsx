@@ -169,7 +169,6 @@ export default function FarmerAuthPage() {
       // Fast fingerprint login
       setTimeout(() => {
         toast({
-          variant: "farmer" as any,
           title: "Login successful",
           description: "Welcome back to dashboard...",
           duration: 1000,
@@ -216,7 +215,6 @@ export default function FarmerAuthPage() {
       localStorage.setItem("userType", "farmer");
 
       toast({
-        variant: "farmer" as any,
         title: "Login successful",
         description: "Welcome back, farmer...",
         duration: 1000,
@@ -264,7 +262,6 @@ export default function FarmerAuthPage() {
       }
 
       toast({
-        variant: "success" as any,
         title: "Registration Successful",
         description:
           "Your farmer account has been created with enhanced security features. Please log in.",
@@ -540,7 +537,6 @@ export default function FarmerAuthPage() {
                           setActiveTab("login");
                           setAuthMode("passkey");
                           toast({
-                            variant: "farmer" as any,
                             title: "Registration Complete!",
                             description:
                               "Now use fingerprint to access your farm portal",

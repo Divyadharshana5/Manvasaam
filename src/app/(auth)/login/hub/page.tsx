@@ -202,7 +202,6 @@ function HubAuthComponent() {
       localStorage.setItem("authMethod", authMethod);
 
       toast({
-        variant: "hub" as any,
         title: "Login successful",
         description: `Welcome to ${values.branchName}! ${
           responseData.mockMode ? "(Mock Mode)" : ""
@@ -273,7 +272,6 @@ function HubAuthComponent() {
 
       // Show success message with branch ID
       toast({
-        variant: "success" as any,
         title: "Hub Registration Successful!",
         description: `Your branch ID is ${result.branchId}. Please save this ID for future reference.`,
         duration: 4000,
@@ -321,7 +319,6 @@ function HubAuthComponent() {
           localStorage.setItem("branchName", values.branchName);
 
           toast({
-            variant: "hub" as any,
             title: "Auto-login Successful",
             description: "Welcome to your Hub Dashboard!",
             duration: 2000,
@@ -345,7 +342,6 @@ function HubAuthComponent() {
 
       // If auto-login fails, switch to login tab with pre-filled data
       toast({
-        variant: "info" as any,
         title: "Registration Complete",
         description: "Please log in with your new credentials.",
         duration: 3000,

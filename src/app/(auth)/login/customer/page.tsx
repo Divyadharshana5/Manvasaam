@@ -151,7 +151,6 @@ export default function CustomerAuthPage() {
       // Demo mode: Accept any email/password combination
       if (values.email && values.password) {
         toast({
-          variant: "customer" as any,
           title: "Login successful, welcome back",
           duration: 3000,
         });
@@ -199,7 +198,6 @@ export default function CustomerAuthPage() {
       }
 
       toast({
-        variant: "success" as any,
         title: "Registration Successful",
         description: "Your customer account has been created. Please log in.",
       });
