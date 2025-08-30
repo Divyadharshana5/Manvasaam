@@ -110,47 +110,22 @@ export default function RestaurantAuthPage() {
   async function onLogin(values: z.infer<typeof loginSchema>) {
     setLoading(true);
     try {
-      const userCredential = await signInWithEmailAndPassword(
-        auth,
-        values.email,
-        values.password
-      );
-
-      // Get ID token and create session cookie
-      const idToken = await userCredential.user.getIdToken();
-      const response = await fetch("/api/login", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ idToken }),
-      });
-
-      if (!response.ok) {
-        throw new Error("Failed to create session");
+      // Demo mode: Accept any email/password combination
+      if (values.email && values.password) {
+        toast({
+          title: "Login successful, welcome back",
+          duration: 3000,
+        });
+        router.push("/dashboard");
+        return;
       }
-
-      // Store user type for proper routing
-      localStorage.setItem("userType", "restaurant");
-
-      toast({
-        variant: "restaurant" as any,
-        title: "Login successful",
-        description: "Welcome to restaurant dashboard...",
-        duration: 1000,
-      });
-      navigateFast("/dashboard/restaurant", {
-        showLoadingState: true,
-        preloadNext: [
-          "/dashboard/restaurant/orders",
-          "/dashboard/restaurant/suppliers",
-        ],
-      });
+      
+      throw new Error("Please enter email and password");
     } catch (error: any) {
       toast({
         variant: "destructive",
         title: "Login Failed",
-        description: "Invalid email or password.",
+        description: "Please enter valid email and password.",
       });
     } finally {
       setLoading(false);
