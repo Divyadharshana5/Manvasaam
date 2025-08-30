@@ -36,17 +36,17 @@ export default function CustomerDashboard() {
       await signOut(auth);
       localStorage.removeItem("userType");
       localStorage.removeItem("userEmail");
-      
+
       // Clear session cookie
       await fetch("/api/logout", {
         method: "POST",
       });
-      
+
       toast({
         title: "Logged out successfully",
         description: "You have been logged out of your account.",
       });
-      
+
       router.push("/login/customer");
     } catch (error) {
       console.error("Logout error:", error);
