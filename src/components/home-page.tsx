@@ -305,7 +305,11 @@ export default function HomePage() {
 
   const handleContinueClick = (href: string) => {
     setLoadingRoleHref(href);
-    router.push(href);
+    setTimeout(() => {
+      setTimeout(() => {
+      router.push(href);
+    }, 2000);
+    }, 2000);
   };
 
   const buttonState = getButtonState();
