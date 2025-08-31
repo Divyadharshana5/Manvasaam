@@ -117,9 +117,7 @@ export default function RestaurantAuthPage() {
           title: "Login successful, welcome back",
           duration: 1000,
         });
-        setTimeout(() => {
-          router.push("/dashboard/restaurant");
-        }, 500);
+        router.push("/dashboard/restaurant");
         return;
       }
       

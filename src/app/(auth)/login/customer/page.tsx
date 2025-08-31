@@ -155,9 +155,7 @@ export default function CustomerAuthPage() {
           title: "Login successful, welcome back",
           duration: 1000,
         });
-        setTimeout(() => {
-          router.push("/dashboard/customer");
-        }, 500);
+        router.push("/dashboard/customer");
         return;
       }
       
