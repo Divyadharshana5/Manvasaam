@@ -244,22 +244,28 @@ export default function RestaurantAuthPage() {
           style={{ animationDelay: "0.6s" }}
         ></div>
 
-        {/* Farm-specific animated elements */}
+        {/* Enhanced restaurant-specific animated elements */}
         <div
-          className="absolute top-40 left-1/4 w-4 h-4 bg-yellow-400/60 rounded-full farmer-soil-ripple"
-          style={{ animationDelay: "0s" }}
+          className="absolute top-40 left-1/4 w-6 h-6 bg-orange-400/60 rounded-full restaurant-flame-flicker stagger-1"
         ></div>
         <div
-          className="absolute top-60 right-1/3 w-3 h-3 bg-brown-600/50 rounded-full farmer-soil-ripple"
-          style={{ animationDelay: "1s" }}
+          className="absolute top-60 right-1/3 w-4 h-4 bg-red-500/50 rounded-full restaurant-ingredient-drop stagger-3"
         ></div>
         <div
-          className="absolute bottom-40 left-1/3 w-5 h-5 bg-green-500/40 rounded-full farmer-soil-ripple"
-          style={{ animationDelay: "2s" }}
+          className="absolute bottom-40 left-1/3 w-5 h-5 bg-yellow-500/40 rounded-full restaurant-steam-rise stagger-5"
+        ></div>
+        <div
+          className="absolute top-1/2 left-8 w-3 h-3 bg-amber-400/70 rounded-full particle-drift stagger-2"
+        ></div>
+        <div
+          className="absolute top-1/4 right-16 w-7 h-7 bg-orange-400/60 rounded-full restaurant-chef-hat-float stagger-4"
+        ></div>
+        <div
+          className="absolute bottom-1/4 right-8 w-4 h-4 bg-red-400/80 rounded-full aurora-wave stagger-6"
         ></div>
       </div>
 
-      <Card className="w-full max-w-md bg-white/95 dark:bg-gray-900/95 backdrop-blur-sm border border-emerald-200 dark:border-emerald-700 animate-in slide-in-from-top-4 duration-1000 delay-300 relative z-10 hover:shadow-2xl hover:scale-[1.03] transition-all duration-500 hover:border-emerald-300 dark:hover:border-emerald-600 hover:bg-white dark:hover:bg-gray-900 group">
+      <Card className="w-full max-w-md bg-white/95 dark:bg-gray-900/95 backdrop-blur-sm border border-emerald-200 dark:border-emerald-700 card-entrance relative z-10 hover:shadow-2xl hover:scale-[1.03] transition-all duration-500 hover:border-emerald-300 dark:hover:border-emerald-600 hover:bg-white dark:hover:bg-gray-900 group enhanced-hover smooth-transition gpu-accelerated">
         <CardHeader className="text-center px-4 sm:px-6 py-4 sm:py-6 relative">
           {/* Animated icon */}
           <div className="flex items-center justify-center w-16 h-16 mx-auto mb-4 bg-gradient-to-br from-emerald-100 to-green-100 dark:from-emerald-900 dark:to-green-900 rounded-full border-2 border-emerald-200 dark:border-emerald-700 animate-in zoom-in duration-800 delay-500 hover:scale-110 transition-all duration-300 group-hover:shadow-lg hover:rotate-6 auth-animation-container">
