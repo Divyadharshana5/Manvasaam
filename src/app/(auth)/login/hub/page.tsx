@@ -432,18 +432,24 @@ function HubAuthComponent() {
           style={{ animationDelay: "0.6s" }}
         ></div>
 
-        {/* Farm-specific animated elements */}
+        {/* Enhanced hub-specific animated elements */}
         <div
-          className="absolute top-40 left-1/4 w-4 h-4 bg-yellow-400/60 rounded-full farmer-soil-ripple"
-          style={{ animationDelay: "0s" }}
+          className="absolute top-40 left-1/4 w-6 h-6 bg-blue-400/60 rounded-full hub-network-pulse stagger-1"
         ></div>
         <div
-          className="absolute top-60 right-1/3 w-3 h-3 bg-brown-600/50 rounded-full farmer-soil-ripple"
-          style={{ animationDelay: "1s" }}
+          className="absolute top-60 right-1/3 w-4 h-4 bg-indigo-500/50 rounded-full hub-pulse-glow stagger-3"
         ></div>
         <div
-          className="absolute bottom-40 left-1/3 w-5 h-5 bg-green-500/40 rounded-full farmer-soil-ripple"
-          style={{ animationDelay: "2s" }}
+          className="absolute bottom-40 left-1/3 w-5 h-5 bg-cyan-500/40 rounded-full hub-cog-rotate stagger-5"
+        ></div>
+        <div
+          className="absolute top-1/2 left-8 w-3 h-3 bg-teal-400/70 rounded-full particle-drift stagger-2"
+        ></div>
+        <div
+          className="absolute top-1/4 right-16 w-7 h-7 bg-sky-400/60 rounded-full hub-building-construct stagger-4"
+        ></div>
+        <div
+          className="absolute bottom-1/4 right-8 w-4 h-4 bg-blue-400/80 rounded-full aurora-wave stagger-6"
         ></div>
       </div>
 
