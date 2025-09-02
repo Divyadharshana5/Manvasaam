@@ -1,4 +1,5 @@
 import { Loader2 } from "lucide-react";
+import "@/styles/loading-animations.css";
 
 export default function Loading() {
   return (
