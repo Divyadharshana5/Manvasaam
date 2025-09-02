@@ -275,7 +275,7 @@ export default function CustomerAuthPage() {
                 transition: { type: "spring", stiffness: 400, damping: 15 },
               }}
             >
-              <ShoppingCart className="h-8 w-8 text-emerald-600 dark:text-emerald-400" />
+              <ShoppingCart className="h-10 w-10 text-emerald-600 dark:text-emerald-400" />
             </motion.div>
           </div>
 
