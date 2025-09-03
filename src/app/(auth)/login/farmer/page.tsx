@@ -292,8 +292,14 @@ export default function FarmerAuthPage() {
       toast({
         title: "Fingerprint Set Up",
         description: "You can now use fingerprint authentication for secure login.",
-        duration: 3000,
+        duration: 2000,
       });
+      
+      // Auto switch to login tab after fingerprint setup
+      setTimeout(() => {
+        setActiveTab("login");
+        loginForm.setValue("email", registerForm.getValues("email"));
+      }, 2000);
     } else {
       setPasskeyStatus({
         supported: true,
