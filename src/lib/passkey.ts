@@ -21,6 +21,7 @@ export interface PasskeyStatus {
 
 // Check if WebAuthn is supported
 export function isPasskeySupported(): boolean {
+  if (typeof window === 'undefined') return false;
   return !!(
     window.PublicKeyCredential &&
     navigator.credentials &&
