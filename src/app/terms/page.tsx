@@ -51,9 +51,12 @@ function TermsContent() {
           <DialogTrigger asChild>
             <Button
               size="lg"
-              className="rounded-full w-14 h-14 bg-primary hover:bg-primary/90 shadow-lg hover:shadow-xl transition-all duration-200"
+              className="rounded-full w-14 h-14 bg-gradient-to-br from-blue-500 to-purple-500 hover:from-blue-600 hover:to-purple-600 shadow-lg hover:shadow-xl transition-all duration-200"
             >
-              <Mic className="h-6 w-6" />
+              <div className="flex flex-col items-center">
+                <Scale className="h-4 w-4" />
+                <Mic className="h-3 w-3" />
+              </div>
             </Button>
           </DialogTrigger>
           <DialogContent className="sm:max-w-md">
