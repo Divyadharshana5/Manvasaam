@@ -290,7 +290,6 @@ export default function FarmerAuthPage() {
       registerForm.setValue("passkeyCredentialId", result.credentialId);
       setUsePasskey(true);
       toast({
-        variant: "success" as any,
         title: "Fingerprint Set Up",
         description: "You can now use fingerprint authentication for secure login.",
         duration: 3000,
