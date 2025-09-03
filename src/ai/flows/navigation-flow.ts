@@ -7,7 +7,7 @@
  * - NavigationOutputSchema - The output schema for the understandNavigation function.
  */
 
-import {ai} from '@/ai/genkit';
+import {ai, hasGeminiKey} from '@/ai/genkit';
 import {z} from 'genkit';
 
 // Define translations for confirmation messages.
@@ -74,7 +74,7 @@ const NavigationOutputSchema = z.object({
 type NavigationInput = z.infer<typeof NavigationInputSchema>;
 type NavigationOutput = z.infer<typeof NavigationOutputSchema>;
 
-const navigationPrompt = ai.definePrompt(
+const navigationPrompt = hasGeminiKey ? ai.definePrompt(
   {
     name: 'navigationPrompt',
     inputSchema: NavigationInputSchema,
@@ -105,16 +105,16 @@ Respond in ${language}. If the user wants to navigate, set intent to 'navigate',
       ],
     };
   }
-);
+) : null;
 
-const understandNavigationFlow = ai.defineFlow(
+const understandNavigationFlow = hasGeminiKey ? ai.defineFlow(
   {
     name: 'understandNavigationFlow',
     inputSchema: NavigationInputSchema,
     outputSchema: NavigationOutputSchema,
   },
   async (input) => {
-    const { output } = await navigationPrompt(input);
+    const { output } = await navigationPrompt!(input);
 
     if (!output || output.intent === 'none' || !output.pageKey || output.pageKey === 'none') {
         return { intent: 'none', message: 'How can I help you navigate?', shouldNavigate: false };
@@ -145,8 +145,15 @@ const understandNavigationFlow = ai.defineFlow(
         shouldNavigate: output.intent === 'navigate',
     };
   }
-);
+) : null;
 
 export async function understandNavigation(input: NavigationInput): Promise<NavigationOutput> {
+  if (!hasGeminiKey || !understandNavigationFlow) {
+    return {
+      intent: 'information',
+      message: 'Demo mode: AI navigation not available. Please configure GEMINI_API_KEY to use this feature.',
+      shouldNavigate: false
+    };
+  }
   return understandNavigationFlow(input);
 }
