@@ -150,11 +150,7 @@ export default function CustomerAuthPage() {
     try {
       // Demo mode: Accept any email/password combination
       if (values.email && values.password) {
-        toast({
-          variant: "customer" as any,
-          title: "Login successful, welcome back",
-          duration: 1000,
-        });
+        // Direct navigation without alert animations
         router.push("/dashboard/customer");
         return;
       }
