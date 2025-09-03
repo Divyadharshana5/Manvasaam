@@ -5,10 +5,12 @@
  * - textToSpeech - A function that converts text to speech.
  */
 
-import {ai, hasGeminiKey} from '@/ai/genkit';
+import {ai} from '@/ai/genkit';
 import {googleAI} from '@genkit-ai/googleai';
 import {z} from 'genkit';
 import wav from 'wav';
+
+const hasGeminiKey = !!(process.env.GEMINI_API_KEY || process.env.GOOGLE_API_KEY);
 
 const TextToSpeechInputSchema = z.string();
 type TextToSpeechInput = z.infer<typeof TextToSpeechInputSchema>;

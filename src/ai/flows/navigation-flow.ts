@@ -7,8 +7,10 @@
  * - NavigationOutputSchema - The output schema for the understandNavigation function.
  */
 
-import {ai, hasGeminiKey} from '@/ai/genkit';
+import {ai} from '@/ai/genkit';
 import {z} from 'genkit';
+
+const hasGeminiKey = !!(process.env.GEMINI_API_KEY || process.env.GOOGLE_API_KEY);
 
 // Define translations for confirmation messages.
 const translations: Record<string, Record<string, string>> = {

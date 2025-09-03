@@ -10,5 +10,3 @@ export const ai = genkit({
     googleAI(), // ✅ model plugin
   ] : [],
 });
-
-export { hasGeminiKey };

@@ -6,8 +6,10 @@
  * - speechToText - A function that transcribes audio to text.
  */
 
-import {ai, hasGeminiKey} from '@/ai/genkit';
+import {ai} from '@/ai/genkit';
 import {z} from 'genkit';
+
+const hasGeminiKey = !!(process.env.GEMINI_API_KEY || process.env.GOOGLE_API_KEY);
 
 const SpeechToTextInputSchema = z.object({
   audioDataUri: z
