@@ -2,10 +2,13 @@
 
 import Link from "next/link";
 import { motion } from "framer-motion";
-import { ArrowLeft, Shield, Lock, Users, Database, Mail } from "lucide-react";
+import { ArrowLeft, Shield, Lock, Users, Database, Mail, Mic } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Suspense } from "react";
+import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription, DialogTrigger } from "@/components/ui/dialog";
+import { Suspense, useState } from "react";
+import VoiceAssistant from "@/components/voice-assistant";
+import { useLanguage } from "@/context/language-context";
 
 // Loading component for fast initial render
 function PageSkeleton() {
@@ -26,8 +29,34 @@ function PageSkeleton() {
 }
 
 function PrivacyContent() {
+  const [isAssistantOpen, setIsAssistantOpen] = useState(false);
+  const { t } = useLanguage();
+
   return (
     <div className="min-h-screen bg-gradient-to-br from-green-50 via-blue-50 to-purple-50">
+      {/* Voice Assistant - Fixed Position */}
+      <div className="fixed bottom-6 right-6 z-50">
+        <Dialog open={isAssistantOpen} onOpenChange={setIsAssistantOpen}>
+          <DialogTrigger asChild>
+            <Button
+              size="lg"
+              className="rounded-full w-14 h-14 bg-primary hover:bg-primary/90 shadow-lg hover:shadow-xl transition-all duration-200"
+            >
+              <Mic className="h-6 w-6" />
+            </Button>
+          </DialogTrigger>
+          <DialogContent className="sm:max-w-md">
+            <DialogHeader>
+              <DialogTitle>{t.sidebar.voiceAssistant}</DialogTitle>
+              <DialogDescription>
+                Ask me anything about Manvaasam or get help navigating!
+              </DialogDescription>
+            </DialogHeader>
+            <VoiceAssistant />
+          </DialogContent>
+        </Dialog>
+      </div>
+
       {/* Enhanced Animated Background Elements */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
         <motion.div 
