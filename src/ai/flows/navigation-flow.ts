@@ -78,20 +78,20 @@ const NavigationOutputSchema = z.object({
 type NavigationInput = z.infer<typeof NavigationInputSchema>;
 type NavigationOutput = z.infer<typeof NavigationOutputSchema>;
 
-const navigationPrompt = hasGeminiKey ? ai.definePrompt(
+const understandNavigationFlow = hasGeminiKey ? ai.defineFlow(
   {
-    name: 'navigationPrompt',
+    name: 'understandNavigationFlow',
     inputSchema: NavigationInputSchema,
     outputSchema: NavigationOutputSchema,
   },
   async (input) => {
     const { text, language } = input;
     
-    return {
-      messages: [
+    const { output } = await ai.generate({
+      model: 'googleai/gemini-1.5-flash',
+      prompt: [
         {
-          role: 'system' as const,
-          content: `You are a navigation assistant for Manvaasam, an agricultural platform. Analyze user input to determine if they want to navigate to a specific page.
+          text: `You are a navigation assistant for Manvaasam, an agricultural platform. Analyze user input to determine if they want to navigate to a specific page.
 
 Available pages and their keys:
 - restaurantRegistration: Restaurant registration/login page
@@ -100,25 +100,15 @@ Available pages and their keys:
 - home: Home page
 - dashboard: Dashboard page
 
-Respond in ${language}. If the user wants to navigate, set intent to 'navigate', provide the pageKey, and ask for confirmation. If unclear, ask for clarification with intent 'information'. If they need help, use intent 'help'. If no navigation intent, use 'none'.`,
-        },
-        {
-          role: 'user' as const,
-          content: text,
-        },
-      ],
-    };
-  }
-) : null;
+Respond in ${language}. If the user wants to navigate, set intent to 'navigate', provide the pageKey, and ask for confirmation. If unclear, ask for clarification with intent 'information'. If they need help, use intent 'help'. If no navigation intent, use 'none'.
 
-const understandNavigationFlow = hasGeminiKey ? ai.defineFlow(
-  {
-    name: 'understandNavigationFlow',
-    inputSchema: NavigationInputSchema,
-    outputSchema: NavigationOutputSchema,
-  },
-  async (input) => {
-    const { output } = await navigationPrompt!(input);
+User input: ${text}`
+        }
+      ],
+      output: {
+        schema: NavigationOutputSchema
+      }
+    });
 
     if (!output || output.intent === 'none' || !output.pageKey || output.pageKey === 'none') {
         return { intent: 'none', message: 'How can I help you navigate?', shouldNavigate: false };
