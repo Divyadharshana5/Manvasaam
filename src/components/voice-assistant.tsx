@@ -19,9 +19,9 @@ const understandNavigation = async (params: any) => {
   return understandNavigation(params);
 };
 
-const textToSpeech = async (text: string) => {
+const textToSpeech = async (text: string, language?: string) => {
   const { textToSpeech } = await import("@/ai/flows/tts-flow");
-  return textToSpeech(text);
+  return textToSpeech({ text, language });
 };
 
 type AssistantState = "idle" | "listening" | "thinking" | "speaking";
@@ -158,7 +158,7 @@ export default function VoiceAssistant() {
       setLastResponse(text);
       setAudioUrl("");
       try {
-        const result = await textToSpeech(text);
+        const result = await textToSpeech(text, selectedLanguage);
         setAudioUrl(result.audioDataUri);
       } catch {
         toast({
