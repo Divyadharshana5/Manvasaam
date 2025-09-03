@@ -113,6 +113,7 @@ export default function CustomerAuthPage() {
           title: "Email required",
           description:
             "Please enter your email address to reset your password.",
+          duration: 5000,
         });
         setLoading(false);
         return;
@@ -130,6 +131,7 @@ export default function CustomerAuthPage() {
           title: "Password Reset Email Sent",
           description:
             "Please check your inbox for instructions to reset your password.",
+          duration: 5000,
         });
       } else {
         throw new Error(result.message);
@@ -139,6 +141,7 @@ export default function CustomerAuthPage() {
         variant: "destructive",
         title: "Request Failed",
         description: error.message || "Failed to send password reset email.",
+        duration: 5000,
       });
     } finally {
       setLoading(false);
@@ -159,7 +162,7 @@ export default function CustomerAuthPage() {
         // Automatic redirection after toast
         setTimeout(() => {
           router.push("/dashboard/customer");
-        }, 1000);
+        }, 3000);
         return;
       }
       
@@ -169,6 +172,7 @@ export default function CustomerAuthPage() {
         variant: "destructive",
         title: "Login Failed",
         description: "Please enter valid email and password.",
+        duration: 5000,
       });
     } finally {
       setLoading(false);
@@ -205,6 +209,7 @@ export default function CustomerAuthPage() {
       toast({
         title: "Registration Successful",
         description: "Your customer account has been created. Please log in.",
+        duration: 5000,
       });
       setActiveTab("login");
       loginForm.setValue("email", values.email);
@@ -215,6 +220,7 @@ export default function CustomerAuthPage() {
         variant: "destructive",
         title: "Registration Failed",
         description: error.message || "Unknown error",
+        duration: 5000,
       });
     } finally {
       setLoading(false);
