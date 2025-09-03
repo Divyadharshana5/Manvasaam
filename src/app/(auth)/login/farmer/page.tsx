@@ -258,6 +258,17 @@ export default function FarmerAuthPage() {
       }
 
       if (!response.ok) {
+        // Handle specific error cases
+        if (result.message && result.message.includes("already in use")) {
+          toast({
+            variant: "destructive",
+            title: "Email Already Registered",
+            description: "This email is already registered. Please try logging in instead.",
+          });
+          setActiveTab("login");
+          loginForm.setValue("email", values.email);
+          return;
+        }
         throw new Error(result.message || "Failed to register.");
       }
 
@@ -271,11 +282,22 @@ export default function FarmerAuthPage() {
       loginForm.setValue("password", "");
       registerForm.reset();
     } catch (error: any) {
-      toast({
-        variant: "destructive",
-        title: "Registration Failed",
-        description: error.message || "Unknown error",
-      });
+      // Handle other registration errors
+      if (error.message && error.message.includes("already in use")) {
+        toast({
+          variant: "destructive",
+          title: "Email Already Registered",
+          description: "This email is already registered. Please try logging in instead.",
+        });
+        setActiveTab("login");
+        loginForm.setValue("email", values.email);
+      } else {
+        toast({
+          variant: "destructive",
+          title: "Registration Failed",
+          description: error.message || "Unknown error",
+        });
+      }
     } finally {
       setLoading(false);
     }
@@ -378,6 +400,15 @@ export default function FarmerAuthPage() {
               </TabsTrigger>
             </TabsList>
             <TabsContent value="login">
+              {/* Clear notice for all users */}
+              <div className="mb-4 p-3 bg-blue-50 dark:bg-blue-950 border border-blue-200 dark:border-blue-700 rounded-lg">
+                <p className="text-sm text-blue-800 dark:text-blue-200 text-center font-medium">
+                  📧 Recommended: Use Email & Password (Simple & Works for Everyone)
+                </p>
+                <p className="text-xs text-blue-600 dark:text-blue-300 text-center mt-1">
+                  Fingerprint is optional - only use if you're comfortable with technology
+                </p>
+              </div>
               <Tabs
                 value={authMode}
                 onValueChange={setAuthMode}
@@ -392,7 +423,7 @@ export default function FarmerAuthPage() {
                     className="flex items-center gap-1"
                   >
                     <Fingerprint className="h-3 w-3" />
-                    Quick Login (Optional)
+                    Fingerprint (Optional)
                   </TabsTrigger>
                 </TabsList>
                 <TabsContent
@@ -497,10 +528,10 @@ export default function FarmerAuthPage() {
                       <Fingerprint className="h-8 w-8 text-emerald-600 dark:text-emerald-400" />
                     </div>
                     <h3 className="font-semibold text-lg text-emerald-800 dark:text-emerald-200">
-                      Quick Access (Optional)
+                      Fingerprint Login (Optional)
                     </h3>
                     <p className="text-sm text-emerald-600 dark:text-emerald-400">
-                      Use fingerprint for faster login, or switch to email/password anytime
+                      This is optional. Use regular email/password if you prefer simple login.
                     </p>
                   </div>
 
@@ -514,7 +545,7 @@ export default function FarmerAuthPage() {
                     ) : (
                       <Fingerprint className="mr-2 h-4 w-4 animate-pulse" />
                     )}
-                    {loading ? "Authenticating..." : "Quick Fingerprint Login"}
+                    {loading ? "Authenticating..." : "Try Fingerprint (Optional)"}
                   </Button>
                 </TabsContent>
               </Tabs>
@@ -533,10 +564,10 @@ export default function FarmerAuthPage() {
                   <div className="text-center p-4 bg-emerald-50 dark:bg-emerald-950 rounded-lg border-2 border-emerald-200 dark:border-emerald-700">
                     <Fingerprint className="h-12 w-12 mx-auto mb-3 text-emerald-600 dark:text-emerald-400" />
                     <h3 className="font-semibold text-emerald-800 dark:text-emerald-200 mb-2">
-                      Optional Quick Registration
+                      Fingerprint Setup (Optional)
                     </h3>
                     <p className="text-sm text-emerald-700 dark:text-emerald-300 mb-3">
-                      Fast access with fingerprint (Optional - for convenience only)
+                      You can skip this. Regular email/password works perfectly fine.
                     </p>
                     <Button
                       type="button"
@@ -561,10 +592,10 @@ export default function FarmerAuthPage() {
                       className="w-full bg-gradient-to-r from-emerald-600 to-green-600 hover:from-emerald-700 hover:to-green-700 text-white transition-all duration-400 hover:scale-[1.05] hover:shadow-xl active:scale-[0.98] transform-gpu animate-in zoom-in duration-500 delay-300 hover:-rotate-1"
                     >
                       <Fingerprint className="mr-2 h-4 w-4 animate-pulse" />
-                      Optional Fingerprint Setup
+                      Skip - Use Email/Password Instead
                     </Button>
                     <p className="text-xs text-emerald-600 dark:text-emerald-400 mt-2">
-                      Skip this and use traditional email/password registration below
+                      Most farmers prefer simple email/password registration below
                     </p>
                   </div>
                   <FormField
