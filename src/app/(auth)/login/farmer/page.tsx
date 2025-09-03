@@ -392,7 +392,7 @@ export default function FarmerAuthPage() {
                     className="flex items-center gap-1"
                   >
                     <Fingerprint className="h-3 w-3" />
-                    Passkey Login
+                    Quick Login (Optional)
                   </TabsTrigger>
                 </TabsList>
                 <TabsContent
@@ -497,8 +497,11 @@ export default function FarmerAuthPage() {
                       <Fingerprint className="h-8 w-8 text-emerald-600 dark:text-emerald-400" />
                     </div>
                     <h3 className="font-semibold text-lg text-emerald-800 dark:text-emerald-200">
-                      Secure Access
+                      Quick Access (Optional)
                     </h3>
+                    <p className="text-sm text-emerald-600 dark:text-emerald-400">
+                      Use fingerprint for faster login, or switch to email/password anytime
+                    </p>
                   </div>
 
                   <Button
@@ -511,7 +514,7 @@ export default function FarmerAuthPage() {
                     ) : (
                       <Fingerprint className="mr-2 h-4 w-4 animate-pulse" />
                     )}
-                    {loading ? "Authenticating..." : "Use Fingerprint"}
+                    {loading ? "Authenticating..." : "Quick Fingerprint Login"}
                   </Button>
                 </TabsContent>
               </Tabs>
@@ -530,19 +533,19 @@ export default function FarmerAuthPage() {
                   <div className="text-center p-4 bg-emerald-50 dark:bg-emerald-950 rounded-lg border-2 border-emerald-200 dark:border-emerald-700">
                     <Fingerprint className="h-12 w-12 mx-auto mb-3 text-emerald-600 dark:text-emerald-400" />
                     <h3 className="font-semibold text-emerald-800 dark:text-emerald-200 mb-2">
-                      Quick Registration
+                      Optional Quick Registration
                     </h3>
                     <p className="text-sm text-emerald-700 dark:text-emerald-300 mb-3">
-                      Secure access with biometric authentication
+                      Fast access with fingerprint (Optional - for convenience only)
                     </p>
                     <Button
                       type="button"
                       onClick={() => {
                         toast({
                           variant: "info" as any,
-                          title: "Farm Registration",
+                          title: "Optional Feature",
                           description:
-                            "Touch your device's fingerprint sensor now",
+                            "Fingerprint login is optional. You can always use email/password",
                         });
                         // Register and redirect to login
                         setTimeout(() => {
@@ -551,17 +554,17 @@ export default function FarmerAuthPage() {
                           toast({
                             title: "Registration Complete!",
                             description:
-                              "Now use fingerprint to access your farm portal",
+                              "You can now use fingerprint OR email/password to login",
                           });
                         }, 1500);
                       }}
                       className="w-full bg-gradient-to-r from-emerald-600 to-green-600 hover:from-emerald-700 hover:to-green-700 text-white transition-all duration-400 hover:scale-[1.05] hover:shadow-xl active:scale-[0.98] transform-gpu animate-in zoom-in duration-500 delay-300 hover:-rotate-1"
                     >
                       <Fingerprint className="mr-2 h-4 w-4 animate-pulse" />
-                      Register with Biometrics
+                      Optional Fingerprint Setup
                     </Button>
                     <p className="text-xs text-emerald-600 dark:text-emerald-400 mt-2">
-                      Or complete the traditional registration below
+                      Skip this and use traditional email/password registration below
                     </p>
                   </div>
                   <FormField
