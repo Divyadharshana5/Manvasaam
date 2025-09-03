@@ -219,10 +219,14 @@ export default function FarmerAuthPage() {
         description: "Welcome back, farmer...",
         duration: 1000,
       });
-      navigateFast("/dashboard/farmer", {
-        showLoadingState: true,
-        preloadNext: ["/dashboard/farmer/crops", "/dashboard/farmer/orders"],
-      });
+      
+      // Automatic redirection after toast
+      setTimeout(() => {
+        navigateFast("/dashboard/farmer", {
+          showLoadingState: true,
+          preloadNext: ["/dashboard/farmer/crops", "/dashboard/farmer/orders"],
+        });
+      }, 1000);
     } catch (error: any) {
       toast({
         variant: "destructive",

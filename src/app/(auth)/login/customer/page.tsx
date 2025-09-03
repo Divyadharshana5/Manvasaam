@@ -155,7 +155,11 @@ export default function CustomerAuthPage() {
           description: "Welcome back, customer...",
           duration: 1000,
         });
-        router.push("/dashboard/customer");
+        
+        // Automatic redirection after toast
+        setTimeout(() => {
+          router.push("/dashboard/customer");
+        }, 1000);
         return;
       }
       
