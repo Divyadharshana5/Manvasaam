@@ -5,7 +5,7 @@
  * - textToSpeech - A function that converts text to speech.
  */
 
-import {ai} from '@/ai/genkit';
+import {ai, hasGeminiKey} from '@/ai/genkit';
 import {googleAI} from '@genkit-ai/googleai';
 import {z} from 'genkit';
 import wav from 'wav';
@@ -17,7 +17,6 @@ const TextToSpeechOutputSchema = z.object({
   audioDataUri: z.string().describe("The base64 encoded WAV audio data URI."),
 });
 type TextToSpeechOutput = z.infer<typeof TextToSpeechOutputSchema>;
-
 
 async function toWav(
   pcmData: Buffer,
@@ -46,8 +45,7 @@ async function toWav(
   });
 }
 
-
-const textToSpeechFlow = ai.defineFlow(
+const textToSpeechFlow = hasGeminiKey ? ai.defineFlow(
   {
     name: 'textToSpeechFlow',
     inputSchema: TextToSpeechInputSchema,
@@ -79,8 +77,14 @@ const textToSpeechFlow = ai.defineFlow(
       audioDataUri: 'data:audio/wav;base64,' + wavBase64,
     };
   }
-);
+) : null;
 
 export async function textToSpeech(input: TextToSpeechInput): Promise<TextToSpeechOutput> {
+  if (!hasGeminiKey || !textToSpeechFlow) {
+    // Return empty audio data URI for demo mode
+    return {
+      audioDataUri: ""
+    };
+  }
   return textToSpeechFlow(input);
 }
