@@ -14,7 +14,10 @@ import wav from 'wav';
 const apiKey = process.env.GEMINI_API_KEY;
 const hasGeminiKey = !!apiKey;
 
-const TextToSpeechInputSchema = z.string();
+const TextToSpeechInputSchema = z.object({
+  text: z.string().describe("The text to convert to speech"),
+  language: z.string().optional().describe("The language for speech synthesis")
+});
 type TextToSpeechInput = z.infer<typeof TextToSpeechInputSchema>;
 
 const TextToSpeechOutputSchema = z.object({
@@ -55,14 +58,30 @@ const textToSpeechFlow = hasGeminiKey ? ai.defineFlow(
     inputSchema: TextToSpeechInputSchema,
     outputSchema: TextToSpeechOutputSchema,
   },
-  async (text) => {
+  async ({ text, language }) => {
+    // Map languages to appropriate voice names
+    const voiceMap: Record<string, string> = {
+      'English': 'Algenib',
+      'Tamil': 'Algenib',
+      'Malayalam': 'Algenib', 
+      'Telugu': 'Algenib',
+      'Hindi': 'Algenib',
+      'Kannada': 'Algenib',
+      'Bengali': 'Algenib',
+      'Arabic': 'Algenib',
+      'Urdu': 'Algenib',
+      'Srilanka': 'Algenib'
+    };
+    
+    const voiceName = voiceMap[language || 'English'] || 'Algenib';
+    
     const { media } = await ai.generate({
       model: googleAI.model('gemini-2.5-flash-preview-tts'),
       config: {
         responseModalities: ['AUDIO'],
         speechConfig: {
           voiceConfig: {
-            prebuiltVoiceConfig: { voiceName: 'Algenib' },
+            prebuiltVoiceConfig: { voiceName },
           },
         },
       },
