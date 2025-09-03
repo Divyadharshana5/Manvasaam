@@ -162,7 +162,7 @@ export default function CustomerAuthPage() {
         // Automatic redirection after toast
         setTimeout(() => {
           router.push("/dashboard/customer");
-        }, 3000);
+        }, 1000);
         return;
       }
       

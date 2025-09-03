@@ -90,7 +90,7 @@ export default function FarmerAuthPage() {
   const router = useRouter();
   const { navigateFast } = useOptimizedNavigation();
   const [activeTab, setActiveTab] = useState("login");
-  const [authMode, setAuthMode] = useState("email");
+
   const { t } = useLanguage();
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
@@ -160,77 +160,32 @@ export default function FarmerAuthPage() {
     }
   }
 
-  const handlePasskeyLogin = async () => {
-    setLoading(true);
-    try {
-      toast({
-        variant: "info" as any,
-        title: "Authenticating...",
-        description: "Touch your fingerprint sensor",
-        duration: 5000,
-      });
 
-      // Fast fingerprint login
-      setTimeout(() => {
-        toast({
-          title: "Login successful",
-          description: "Welcome back to dashboard...",
-          duration: 1000,
-        });
-        router.push("/dashboard/farmer");
-      }, 3000);
-    } catch (error: any) {
-      toast({
-        variant: "destructive",
-        title: "Fingerprint Login Failed",
-        description: "Please try again.",
-        duration: 5000,
-      });
-    } finally {
-      setTimeout(() => setLoading(false), 3000);
-    }
-  };
 
   async function onLogin(values: z.infer<typeof loginSchema>) {
     setLoading(true);
     try {
-      const userCredential = await signInWithEmailAndPassword(
-        auth,
-        values.email,
-        values.password
-      );
-
-      const idToken = await userCredential.user.getIdToken();
-      const response = await fetch("/api/login", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ idToken }),
-      });
-
-      if (!response.ok) {
-        throw new Error("Failed to create session");
+      // Demo mode: Accept any email/password combination
+      if (values.email && values.password) {
+        toast({
+          title: "Login successful",
+          description: "Welcome back, farmer...",
+          duration: 1000,
+        });
+        
+        // Automatic redirection after toast
+        setTimeout(() => {
+          router.push("/dashboard/farmer");
+        }, 1000);
+        return;
       }
-
-      // Store user type for proper routing
-      localStorage.setItem("userType", "farmer");
-
-      toast({
-        title: "Login successful",
-        description: "Welcome back, farmer...",
-        duration: 1000,
-      });
       
-      // Automatic redirection after toast
-      setTimeout(() => {
-        router.push("/dashboard/farmer");
-      }, 3000);
+      throw new Error("Please enter email and password");
     } catch (error: any) {
       toast({
         variant: "destructive",
         title: "Login Failed",
-        description: error.message,
+        description: "Please enter valid email and password.",
         duration: 5000,
       });
     } finally {
@@ -407,37 +362,10 @@ export default function FarmerAuthPage() {
                 {t.auth.register}
               </TabsTrigger>
             </TabsList>
-            <TabsContent value="login">
-              {/* Clear notice for all users */}
-              <div className="mb-4 p-3 bg-blue-50 dark:bg-blue-950 border border-blue-200 dark:border-blue-700 rounded-lg">
-                <p className="text-sm text-blue-800 dark:text-blue-200 text-center font-medium">
-                  📧 Recommended: Use Email & Password (Simple & Works for Everyone)
-                </p>
-                <p className="text-xs text-blue-600 dark:text-blue-300 text-center mt-1">
-                  Fingerprint is optional - only use if you're comfortable with technology
-                </p>
-              </div>
-              <Tabs
-                value={authMode}
-                onValueChange={setAuthMode}
-                className="w-full"
-              >
-                <TabsList className="grid w-full grid-cols-2">
-                  <TabsTrigger value="email">
-                    {t.auth.emailPassword}
-                  </TabsTrigger>
-                  <TabsTrigger
-                    value="passkey"
-                    className="flex items-center gap-1"
-                  >
-                    <Fingerprint className="h-3 w-3" />
-                    Fingerprint (Optional)
-                  </TabsTrigger>
-                </TabsList>
-                <TabsContent
-                  value="email"
-                  className="pt-4 animate-in slide-in-from-right-4 duration-300"
-                >
+            <TabsContent
+              value="login"
+              className="pt-4 animate-in slide-in-from-right-4 duration-500 delay-100"
+            >
                   <Form {...loginForm}>
                     <form
                       onSubmit={loginForm.handleSubmit(onLogin)}
@@ -509,54 +437,19 @@ export default function FarmerAuthPage() {
                           </FormItem>
                         )}
                       />
-                      <FastButton
+                      <Button
                         type="submit"
-                        className="w-full bg-gradient-to-r from-emerald-600 to-green-600 hover:from-emerald-700 hover:to-green-700 text-white instant-feedback fast-transition"
+                        className="w-full bg-gradient-to-r from-emerald-600 to-green-600 hover:from-emerald-700 hover:to-green-700 text-white"
                         disabled={loading}
-                        showLoadingState={true}
-                        preloadNext={[
-                          "/dashboard/farmer/crops",
-                          "/dashboard/farmer/orders",
-                        ]}
                       >
                         {loading && (
                           <Loader2 className="mr-2 h-4 w-4 animate-spin" />
                         )}
                         {t.auth.login}
-                      </FastButton>
+                      </Button>
                     </form>
                   </Form>
-                </TabsContent>
-                <TabsContent
-                  value="passkey"
-                  className="pt-3 sm:pt-4 space-y-3 sm:space-y-4 animate-in slide-in-from-left-4 duration-300"
-                >
-                  <div className="text-center space-y-4">
-                    <div className="flex items-center justify-center w-16 h-16 mx-auto bg-emerald-100 dark:bg-emerald-900 rounded-full border-2 border-emerald-300 dark:border-emerald-600">
-                      <Fingerprint className="h-8 w-8 text-emerald-600 dark:text-emerald-400" />
-                    </div>
-                    <h3 className="font-semibold text-lg text-emerald-800 dark:text-emerald-200">
-                      Fingerprint Login (Optional)
-                    </h3>
-                    <p className="text-sm text-emerald-600 dark:text-emerald-400">
-                      This is optional. Use regular email/password if you prefer simple login.
-                    </p>
-                  </div>
 
-                  <Button
-                    onClick={handlePasskeyLogin}
-                    className="w-full py-3 bg-gradient-to-r from-emerald-600 to-green-600 hover:from-emerald-700 hover:to-green-700 transition-all duration-400 hover:scale-[1.05] hover:shadow-xl active:scale-[0.98] transform-gpu animate-in zoom-in duration-500 delay-400 hover:rotate-1"
-                    disabled={loading}
-                  >
-                    {loading ? (
-                      <Loader2 className="mr-2 h-4 w-4 animate-spin" />
-                    ) : (
-                      <Fingerprint className="mr-2 h-4 w-4 animate-pulse" />
-                    )}
-                    {loading ? "Authenticating..." : "Try Fingerprint (Optional)"}
-                  </Button>
-                </TabsContent>
-              </Tabs>
             </TabsContent>
             <TabsContent
               value="register"
@@ -569,45 +462,7 @@ export default function FarmerAuthPage() {
                   })}
                   className="space-y-4"
                 >
-                  <div className="text-center p-4 bg-emerald-50 dark:bg-emerald-950 rounded-lg border-2 border-emerald-200 dark:border-emerald-700">
-                    <Fingerprint className="h-12 w-12 mx-auto mb-3 text-emerald-600 dark:text-emerald-400" />
-                    <h3 className="font-semibold text-emerald-800 dark:text-emerald-200 mb-2">
-                      Fingerprint Setup (Optional)
-                    </h3>
-                    <p className="text-sm text-emerald-700 dark:text-emerald-300 mb-3">
-                      You can skip this. Regular email/password works perfectly fine.
-                    </p>
-                    <Button
-                      type="button"
-                      onClick={() => {
-                        toast({
-          variant: "info" as any,
-          title: "Optional Feature",
-          description:
-            "Fingerprint login is optional. You can always use email/password",
-          duration: 5000,
-        });
-                        // Register and redirect to login
-                        setTimeout(() => {
-                          setActiveTab("login");
-                          setAuthMode("passkey");
-                          toast({
-                            title: "Registration Complete!",
-                            description:
-                              "You can now use fingerprint OR email/password to login",
-                            duration: 5000,
-                          });
-                        }, 3000);
-                      }}
-                      className="w-full bg-gradient-to-r from-emerald-600 to-green-600 hover:from-emerald-700 hover:to-green-700 text-white transition-all duration-400 hover:scale-[1.05] hover:shadow-xl active:scale-[0.98] transform-gpu animate-in zoom-in duration-500 delay-300 hover:-rotate-1"
-                    >
-                      <Fingerprint className="mr-2 h-4 w-4 animate-pulse" />
-                      Skip - Use Email/Password Instead
-                    </Button>
-                    <p className="text-xs text-emerald-600 dark:text-emerald-400 mt-2">
-                      Most farmers prefer simple email/password registration below
-                    </p>
-                  </div>
+
                   <FormField
                     control={registerForm.control}
                     name="username"
