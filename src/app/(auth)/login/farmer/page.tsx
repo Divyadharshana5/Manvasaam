@@ -128,6 +128,7 @@ export default function FarmerAuthPage() {
           title: "Email required",
           description:
             "Please enter your email address to reset your password.",
+          duration: 5000,
         });
         setLoading(false);
         return;
@@ -142,6 +143,7 @@ export default function FarmerAuthPage() {
           title: "Password Reset Email Sent",
           description:
             "Please check your inbox for instructions to reset your password.",
+          duration: 5000,
         });
       } else {
         throw new Error(result.message);
@@ -151,6 +153,7 @@ export default function FarmerAuthPage() {
         variant: "destructive",
         title: "Request Failed",
         description: error.message || "Failed to send password reset email.",
+        duration: 5000,
       });
     } finally {
       setLoading(false);
@@ -164,6 +167,7 @@ export default function FarmerAuthPage() {
         variant: "info" as any,
         title: "Authenticating...",
         description: "Touch your fingerprint sensor",
+        duration: 5000,
       });
 
       // Fast fingerprint login
@@ -183,6 +187,7 @@ export default function FarmerAuthPage() {
         variant: "destructive",
         title: "Fingerprint Login Failed",
         description: "Please try again.",
+        duration: 5000,
       });
     } finally {
       setTimeout(() => setLoading(false), 1500);
@@ -232,6 +237,7 @@ export default function FarmerAuthPage() {
         variant: "destructive",
         title: "Login Failed",
         description: error.message,
+        duration: 5000,
       });
     } finally {
       setLoading(false);
@@ -268,6 +274,7 @@ export default function FarmerAuthPage() {
             variant: "destructive",
             title: "Email Already Registered",
             description: "This email is already registered. Please try logging in instead.",
+            duration: 5000,
           });
           setActiveTab("login");
           loginForm.setValue("email", values.email);
@@ -280,6 +287,7 @@ export default function FarmerAuthPage() {
         title: "Registration Successful",
         description:
           "Your farmer account has been created with enhanced security features. Please log in.",
+        duration: 5000,
       });
       setActiveTab("login");
       loginForm.setValue("email", values.email);
@@ -292,6 +300,7 @@ export default function FarmerAuthPage() {
           variant: "destructive",
           title: "Email Already Registered",
           description: "This email is already registered. Please try logging in instead.",
+          duration: 5000,
         });
         setActiveTab("login");
         loginForm.setValue("email", values.email);
@@ -300,6 +309,7 @@ export default function FarmerAuthPage() {
           variant: "destructive",
           title: "Registration Failed",
           description: error.message || "Unknown error",
+          duration: 5000,
         });
       }
     } finally {
@@ -577,11 +587,12 @@ export default function FarmerAuthPage() {
                       type="button"
                       onClick={() => {
                         toast({
-                          variant: "info" as any,
-                          title: "Optional Feature",
-                          description:
-                            "Fingerprint login is optional. You can always use email/password",
-                        });
+          variant: "info" as any,
+          title: "Optional Feature",
+          description:
+            "Fingerprint login is optional. You can always use email/password",
+          duration: 5000,
+        });
                         // Register and redirect to login
                         setTimeout(() => {
                           setActiveTab("login");
@@ -590,6 +601,7 @@ export default function FarmerAuthPage() {
                             title: "Registration Complete!",
                             description:
                               "You can now use fingerprint OR email/password to login",
+                            duration: 5000,
                           });
                         }, 1500);
                       }}
