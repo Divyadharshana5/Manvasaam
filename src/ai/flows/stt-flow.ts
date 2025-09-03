@@ -37,7 +37,7 @@ const speechToTextFlow = hasGeminiKey ? ai.defineFlow(
     const languageInstruction = language ? `The user is speaking in ${language}. Transcribe it accurately.` : 'Transcribe the following audio accurately.';
 
     const { output } = await ai.generate({
-      model: 'gemini-1.5-flash-latest',
+      model: 'googleai/gemini-1.5-flash',
       prompt: [
         { media: { url: audioDataUri } },
         { text: languageInstruction },
