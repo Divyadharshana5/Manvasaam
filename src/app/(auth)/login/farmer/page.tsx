@@ -757,7 +757,7 @@ export default function FarmerAuthPage() {
                       {passkeyStatus.registered ? (
                         <CheckCircle className="h-5 w-5 text-green-600 dark:text-green-400" />
                       ) : passkeyStatus.supported ? (
-                        <div className="w-2 h-2 bg-emerald-400 rounded-full animate-pulse" />
+                        <div className="w-2 h-2 bg-emerald-400 rounded-full" />
                       ) : null}
                     </div>
                     
