@@ -113,8 +113,8 @@ export default function RestaurantAuthPage() {
       // Demo mode: Accept any email/password combination
       if (values.email && values.password) {
         toast({
-          variant: "restaurant" as any,
-          title: "Login successful, welcome back",
+          title: "Login successful",
+          description: "Welcome back, restaurant...",
           duration: 1000,
         });
         router.push("/dashboard/restaurant");
