@@ -39,6 +39,7 @@ import "@/styles/navigation-transitions.css";
 import "@/styles/auth-animations.css";
 import { motion } from "framer-motion";
 import { registerPasskey, authenticatePasskey, getInitialPasskeyStatus, type PasskeyStatus } from "@/lib/passkey";
+import { FingerprintStatus } from "@/components/ui/fingerprint-status";
 
 const loginSchema = z.object({
   email: z.string().email({ message: "Invalid email address." }),
@@ -572,6 +573,11 @@ export default function FarmerAuthPage() {
                               Or use fingerprint authentication
                             </span>
                           </div>
+                          <div className="bg-emerald-50 dark:bg-emerald-950 p-2 rounded mb-3">
+                            <p className="text-xs text-emerald-700 dark:text-emerald-300 text-center">
+                              👆 Touch your fingerprint sensor for quick & secure login
+                            </p>
+                          </div>
                           <Button
                             type="button"
                             variant="outline"
@@ -748,14 +754,27 @@ export default function FarmerAuthPage() {
                           Fingerprint Authentication (Optional)
                         </span>
                       </div>
-                      {passkeyStatus.registered && (
+                      {passkeyStatus.registered ? (
                         <CheckCircle className="h-5 w-5 text-green-600 dark:text-green-400" />
-                      )}
+                      ) : passkeyStatus.supported ? (
+                        <div className="w-2 h-2 bg-emerald-400 rounded-full animate-pulse" />
+                      ) : null}
                     </div>
                     
-                    <p className="text-xs text-emerald-600 dark:text-emerald-400 mb-3">
-                      {passkeyStatus.feedback}
-                    </p>
+                    <FingerprintStatus
+                      status={passkeyStatus.status}
+                      supported={passkeyStatus.supported}
+                      registered={passkeyStatus.registered}
+                      feedback={passkeyStatus.feedback}
+                      className="mb-2"
+                    />
+                    
+                    <div className="bg-emerald-50 dark:bg-emerald-950 p-3 rounded-lg mb-3">
+                      <p className="text-xs text-emerald-700 dark:text-emerald-300 leading-relaxed">
+                        👆 <strong>Easy & Secure:</strong> Use your fingerprint to login quickly without remembering passwords. 
+                        This is completely optional - you can still use your password anytime.
+                      </p>
+                    </div>
                     
                     {passkeyStatus.supported && !passkeyStatus.registered && (
                       <Button
