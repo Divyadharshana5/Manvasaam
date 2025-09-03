@@ -181,7 +181,7 @@ export default function FarmerAuthPage() {
           showLoadingState: true,
           preloadNext: ["/dashboard/farmer/crops", "/dashboard/farmer/orders"],
         });
-      }, 1500);
+      }, 3000);
     } catch (error: any) {
       toast({
         variant: "destructive",
@@ -190,7 +190,7 @@ export default function FarmerAuthPage() {
         duration: 5000,
       });
     } finally {
-      setTimeout(() => setLoading(false), 1500);
+      setTimeout(() => setLoading(false), 3000);
     }
   };
 
@@ -231,7 +231,7 @@ export default function FarmerAuthPage() {
           showLoadingState: true,
           preloadNext: ["/dashboard/farmer/crops", "/dashboard/farmer/orders"],
         });
-      }, 1000);
+      }, 3000);
     } catch (error: any) {
       toast({
         variant: "destructive",
@@ -603,7 +603,7 @@ export default function FarmerAuthPage() {
                               "You can now use fingerprint OR email/password to login",
                             duration: 5000,
                           });
-                        }, 1500);
+                        }, 3000);
                       }}
                       className="w-full bg-gradient-to-r from-emerald-600 to-green-600 hover:from-emerald-700 hover:to-green-700 text-white transition-all duration-400 hover:scale-[1.05] hover:shadow-xl active:scale-[0.98] transform-gpu animate-in zoom-in duration-500 delay-300 hover:-rotate-1"
                     >
