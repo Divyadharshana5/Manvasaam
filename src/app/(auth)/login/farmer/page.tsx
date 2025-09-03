@@ -177,10 +177,7 @@ export default function FarmerAuthPage() {
           description: "Welcome back to dashboard...",
           duration: 1000,
         });
-        navigateFast("/dashboard/farmer", {
-          showLoadingState: true,
-          preloadNext: ["/dashboard/farmer/crops", "/dashboard/farmer/orders"],
-        });
+        router.push("/dashboard/farmer");
       }, 3000);
     } catch (error: any) {
       toast({
@@ -227,10 +224,7 @@ export default function FarmerAuthPage() {
       
       // Automatic redirection after toast
       setTimeout(() => {
-        navigateFast("/dashboard/farmer", {
-          showLoadingState: true,
-          preloadNext: ["/dashboard/farmer/crops", "/dashboard/farmer/orders"],
-        });
+        router.push("/dashboard/farmer");
       }, 3000);
     } catch (error: any) {
       toast({
