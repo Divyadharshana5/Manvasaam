@@ -212,7 +212,7 @@ function HubAuthComponent() {
       // Small delay to show the success message
       setTimeout(() => {
         router.push("/dashboard/hub");
-      }, 3000);
+      }, 1000);
     } catch (error: any) {
       console.error("Login error:", error);
 
@@ -325,7 +325,7 @@ function HubAuthComponent() {
           // Redirect to dashboard
           setTimeout(() => {
             router.push("/dashboard/hub");
-          }, 3000);
+          }, 1000);
           return;
         }
       } catch (loginError) {
