@@ -117,7 +117,11 @@ export default function RestaurantAuthPage() {
           description: "Welcome back, restaurant...",
           duration: 1000,
         });
-        router.push("/dashboard/restaurant");
+        
+        // Automatic redirection after toast
+        setTimeout(() => {
+          router.push("/dashboard/restaurant");
+        }, 1000);
         return;
       }
       
