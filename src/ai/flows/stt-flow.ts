@@ -6,7 +6,7 @@
  * - speechToText - A function that transcribes audio to text.
  */
 
-import {ai} from '@/ai/genkit';
+import {ai, hasGeminiKey} from '@/ai/genkit';
 import {z} from 'genkit';
 
 const SpeechToTextInputSchema = z.object({
@@ -25,15 +25,13 @@ const SttOutputSchema = z.object({
 
 type SpeechToTextOutput = z.infer<typeof SttOutputSchema>;
 
-
-const speechToTextFlow = ai.defineFlow(
+const speechToTextFlow = hasGeminiKey ? ai.defineFlow(
   {
     name: 'speechToTextFlow',
     inputSchema: SpeechToTextInputSchema,
     outputSchema: SttOutputSchema,
   },
   async ({ audioDataUri, language }) => {
-
     const languageInstruction = language ? `The user is speaking in ${language}. Transcribe it accurately.` : 'Transcribe the following audio accurately.';
 
     const { output } = await ai.generate({
@@ -43,7 +41,7 @@ const speechToTextFlow = ai.defineFlow(
         { text: languageInstruction },
       ],
       config: {
-        temperature: 0.1, // Lower temperature for more deterministic transcription
+        temperature: 0.1,
       },
       output: {
         schema: SttOutputSchema
@@ -56,8 +54,13 @@ const speechToTextFlow = ai.defineFlow(
 
     return output;
   }
-);
+) : null;
 
 export async function speechToText(input: SpeechToTextInput): Promise<SpeechToTextOutput> {
+  if (!hasGeminiKey || !speechToTextFlow) {
+    return {
+      transcript: "Demo mode: Voice recognition not available. Please configure GEMINI_API_KEY to use this feature."
+    };
+  }
   return speechToTextFlow(input);
 }
