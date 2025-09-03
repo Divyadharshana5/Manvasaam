@@ -1,4 +1,3 @@
-
 "use client";
 
 import * as React from "react";
@@ -44,6 +43,7 @@ import VoiceAssistant from "@/components/voice-assistant";
 
 interface UserProfile {
   userType?: string;
+  username?: string;
 }
 
 const authPages = [
@@ -61,19 +61,21 @@ export function AppLayout({ children }: { children: React.ReactNode }) {
   const { toast } = useToast();
   const { t } = useLanguage();
   const isAuthPage = authPages.includes(pathname);
-  const [userProfile, setUserProfile] = React.useState<UserProfile | null>(null);
+  const [userProfile, setUserProfile] = React.useState<UserProfile | null>(
+    null
+  );
 
-   React.useEffect(() => {
+  React.useEffect(() => {
     async function fetchUserProfile() {
       if (user) {
         try {
           const response = await fetch(`/api/users/${user.uid}`);
           if (!response.ok) {
             // In mock mode, create a mock user profile
-            if (pathname.includes('/hub')) {
-              setUserProfile({ userType: 'hub', username: 'Hub Manager' });
+            if (pathname.includes("/hub")) {
+              setUserProfile({ userType: "hub", username: "Hub Manager" });
             } else {
-              setUserProfile({ userType: 'customer', username: 'Customer' });
+              setUserProfile({ userType: "customer", username: "Customer" });
             }
             return;
           }
@@ -82,43 +84,121 @@ export function AppLayout({ children }: { children: React.ReactNode }) {
         } catch (error) {
           console.error(error);
           // Fallback to mock profile
-          if (pathname.includes('/hub')) {
-            setUserProfile({ userType: 'hub', username: 'Hub Manager' });
+          if (pathname.includes("/hub")) {
+            setUserProfile({ userType: "hub", username: "Hub Manager" });
           } else {
-            setUserProfile({ userType: 'customer', username: 'Customer' });
+            setUserProfile({ userType: "customer", username: "Customer" });
           }
         }
       }
     }
     fetchUserProfile();
   }, [user, pathname]);
-  
+
   const allMenuItems = [
-    { href: "/dashboard", label: t.sidebar.dashboard, icon: LayoutDashboard, section: "Customer" },
-    { href: "/dashboard/profile", label: t.sidebar.profile, icon: UserIcon, section: "Customer" },
-    { href: "/dashboard/orders", label: t.sidebar.orders, icon: ShoppingCart, section: "Customer" },
-    { href: "/dashboard/products", label: t.sidebar.products, icon: Package, section: "Customer" },
-    { href: "/dashboard/track", label: t.sidebar.track, icon: Map, section: "Customer" },
-    { href: "/dashboard/matchmaking", label: t.sidebar.matchmaking, icon: HeartHandshake, section: "Customer" },
-    { href: "/dashboard/marketing", label: t.sidebar.marketing, icon: Megaphone, section: "Customer" },
-    { href: "/dashboard/faq", label: t.sidebar.faq, icon: HelpCircle, section: "Customer" },
+    {
+      href: "/dashboard",
+      label: t.sidebar.dashboard,
+      icon: LayoutDashboard,
+      section: "Customer",
+    },
+    {
+      href: "/dashboard/profile",
+      label: t.sidebar.profile,
+      icon: UserIcon,
+      section: "Customer",
+    },
+    {
+      href: "/dashboard/orders",
+      label: t.sidebar.orders,
+      icon: ShoppingCart,
+      section: "Customer",
+    },
+    {
+      href: "/dashboard/products",
+      label: t.sidebar.products,
+      icon: Package,
+      section: "Customer",
+    },
+    {
+      href: "/dashboard/track",
+      label: t.sidebar.track,
+      icon: Map,
+      section: "Customer",
+    },
+    {
+      href: "/dashboard/matchmaking",
+      label: t.sidebar.matchmaking,
+      icon: HeartHandshake,
+      section: "Customer",
+    },
+    {
+      href: "/dashboard/marketing",
+      label: t.sidebar.marketing,
+      icon: Megaphone,
+      section: "Customer",
+    },
+    {
+      href: "/dashboard/faq",
+      label: t.sidebar.faq,
+      icon: HelpCircle,
+      section: "Customer",
+    },
   ];
 
   const hubMenuItems = [
-    { href: "/dashboard/hub", label: "Hub Dashboard", icon: LayoutDashboard, section: "Hub Operations" },
-    { href: "/dashboard/hub/inventory", label: "Inventory", icon: Package, section: "Hub Operations" },
-    { href: "/dashboard/hub/farmers", label: "Farmers", icon: UserIcon, section: "Hub Operations" },
-    { href: "/dashboard/hub/deliveries", label: "Deliveries", icon: Map, section: "Hub Operations" },
-    { href: "/dashboard/hub/orders", label: "Orders", icon: ShoppingCart, section: "Hub Operations" },
-    { href: "/dashboard/hub/analytics", label: "Analytics", icon: Megaphone, section: "Hub Operations" },
-    { href: "/dashboard/profile", label: t.sidebar.profile, icon: UserIcon, section: "Account" },
-    { href: "/dashboard/faq", label: t.sidebar.faq, icon: HelpCircle, section: "Support" },
+    {
+      href: "/dashboard/hub",
+      label: "Hub Dashboard",
+      icon: LayoutDashboard,
+      section: "Hub Operations",
+    },
+    {
+      href: "/dashboard/hub/inventory",
+      label: "Inventory",
+      icon: Package,
+      section: "Hub Operations",
+    },
+    {
+      href: "/dashboard/hub/farmers",
+      label: "Farmers",
+      icon: UserIcon,
+      section: "Hub Operations",
+    },
+    {
+      href: "/dashboard/hub/deliveries",
+      label: "Deliveries",
+      icon: Map,
+      section: "Hub Operations",
+    },
+    {
+      href: "/dashboard/hub/orders",
+      label: "Orders",
+      icon: ShoppingCart,
+      section: "Hub Operations",
+    },
+    {
+      href: "/dashboard/hub/analytics",
+      label: "Analytics",
+      icon: Megaphone,
+      section: "Hub Operations",
+    },
+    {
+      href: "/dashboard/profile",
+      label: t.sidebar.profile,
+      icon: UserIcon,
+      section: "Account",
+    },
+    {
+      href: "/dashboard/faq",
+      label: t.sidebar.faq,
+      icon: HelpCircle,
+      section: "Support",
+    },
   ];
 
-  const menuItems = userProfile?.userType === 'hub'
-    ? hubMenuItems
-    : allMenuItems;
-
+  const menuItems =
+    userProfile?.userType === "hub" ? hubMenuItems : allMenuItems;
 
   const handleSignOut = async () => {
     try {
@@ -126,33 +206,37 @@ export function AppLayout({ children }: { children: React.ReactNode }) {
       toast({ title: t.signOut.title, description: t.signOut.description });
       router.push("/");
     } catch (error: any) {
-      toast({ variant: "destructive", title: t.signOut.errorTitle, description: error.message });
+      toast({
+        variant: "destructive",
+        title: t.signOut.errorTitle,
+        description: error.message,
+      });
     }
   };
-
 
   if (isAuthPage) {
     return <>{children}</>;
   }
-  
+
   const getPageTitle = () => {
-    const currentItem = menuItems.find((item) => pathname.startsWith(item.href));
+    const currentItem = menuItems.find((item) =>
+      pathname.startsWith(item.href)
+    );
     return currentItem ? currentItem.label : t.sidebar.dashboard;
-  }
+  };
 
   const getSidebarHeading = () => {
     switch (userProfile?.userType) {
-      case 'farmer':
-        return 'Farmer';
-      case 'hub':
-        return 'Hub';
-      case 'restaurant':
-        return 'Restaurant';
+      case "farmer":
+        return "Farmer";
+      case "hub":
+        return "Hub";
+      case "restaurant":
+        return "Restaurant";
       default:
-        return 'Customer';
+        return "Customer";
     }
   };
-
 
   return (
     <SidebarProvider>
@@ -164,7 +248,11 @@ export function AppLayout({ children }: { children: React.ReactNode }) {
               "group-data-[collapsible=icon]:justify-center group-data-[collapsible=icon]:p-2"
             )}
           >
-            <ManvaasamLogo width={28} height={28} className="shrink-0 text-primary" />
+            <ManvaasamLogo
+              width={28}
+              height={28}
+              className="shrink-0 text-primary"
+            />
             <span
               className={cn(
                 "text-lg font-bold text-primary",
@@ -176,44 +264,42 @@ export function AppLayout({ children }: { children: React.ReactNode }) {
           </div>
         </SidebarHeader>
         <SidebarContent>
-            <SidebarGroup>
-              <SidebarGroupLabel>{getSidebarHeading()}</SidebarGroupLabel>
-              <SidebarMenu>
-                {menuItems.map((item) => (
-                  <SidebarMenuItem key={item.href}>
-                    <SidebarMenuButton
-                      asChild
-                      isActive={pathname.startsWith(item.href)}
-                      tooltip={{ children: item.label }}
-                    >
-                      <Link href={item.href}>
-                        <item.icon />
-                        <span>{item.label}</span>
-                      </Link>
-                    </SidebarMenuButton>
-                  </SidebarMenuItem>
-                ))}
-              </SidebarMenu>
-            </SidebarGroup>
+          <SidebarGroup>
+            <SidebarGroupLabel>{getSidebarHeading()}</SidebarGroupLabel>
+            <SidebarMenu>
+              {menuItems.map((item) => (
+                <SidebarMenuItem key={item.href}>
+                  <SidebarMenuButton
+                    asChild
+                    isActive={pathname.startsWith(item.href)}
+                    tooltip={{ children: item.label }}
+                  >
+                    <Link href={item.href}>
+                      <item.icon />
+                      <span>{item.label}</span>
+                    </Link>
+                  </SidebarMenuButton>
+                </SidebarMenuItem>
+              ))}
+            </SidebarMenu>
+          </SidebarGroup>
         </SidebarContent>
         <SidebarFooter>
-            <div className="p-2">
-              <Button className="w-full" onClick={handleSignOut}>
-                <LogOut />
-                <span className="group-data-[collapsible=icon]:hidden">
-                  {t.signOut.button}
-                </span>
-              </Button>
-            </div>
+          <div className="p-2">
+            <Button className="w-full" onClick={handleSignOut}>
+              <LogOut />
+              <span className="group-data-[collapsible=icon]:hidden">
+                {t.signOut.button}
+              </span>
+            </Button>
+          </div>
         </SidebarFooter>
       </Sidebar>
       <SidebarInset>
         <header className="flex h-14 items-center gap-4 border-b bg-background/30 backdrop-blur-sm px-6 sticky top-0 z-40">
           <SidebarTrigger />
           <div className="flex-1">
-            <h1 className="text-xl font-semibold">
-              {getPageTitle()}
-            </h1>
+            <h1 className="text-xl font-semibold">{getPageTitle()}</h1>
           </div>
           <div className="flex items-center gap-4">
             <VoiceAssistant />
