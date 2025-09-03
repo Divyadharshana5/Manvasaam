@@ -211,11 +211,8 @@ function HubAuthComponent() {
 
       // Small delay to show the success message
       setTimeout(() => {
-        navigateFast("/dashboard/hub", {
-          showLoadingState: true,
-          preloadNext: ["/dashboard/hub/inventory", "/dashboard/hub/farmers"],
-        });
-      }, 1000);
+        router.push("/dashboard/hub");
+      }, 3000);
     } catch (error: any) {
       console.error("Login error:", error);
 
@@ -242,6 +239,7 @@ function HubAuthComponent() {
         variant: "destructive",
         title: "Login Failed",
         description: errorMessage,
+        duration: 5000,
       });
     } finally {
       setLoading(false);
@@ -326,14 +324,8 @@ function HubAuthComponent() {
 
           // Redirect to dashboard
           setTimeout(() => {
-            navigateFast("/dashboard/hub", {
-              showLoadingState: true,
-              preloadNext: [
-                "/dashboard/hub/inventory",
-                "/dashboard/hub/farmers",
-              ],
-            });
-          }, 1500);
+            router.push("/dashboard/hub");
+          }, 3000);
           return;
         }
       } catch (loginError) {
@@ -359,6 +351,7 @@ function HubAuthComponent() {
         title: "Registration Failed",
         description:
           error.message || "Failed to register hub. Please try again.",
+        duration: 5000,
       });
     } finally {
       setLoading(false);
@@ -376,6 +369,7 @@ function HubAuthComponent() {
           variant: "destructive",
           title: "Email required",
           description: "Please enter your email to reset your password.",
+          duration: 5000,
         });
         setLoading(false);
         return;
@@ -393,6 +387,7 @@ function HubAuthComponent() {
           title: "Password Reset Email Sent",
           description:
             "Please check your inbox for instructions to reset your password.",
+          duration: 5000,
         });
       } else {
         throw new Error(result.message);
@@ -402,6 +397,7 @@ function HubAuthComponent() {
         variant: "destructive",
         title: "Request Failed",
         description: error.message || "Failed to send password reset email.",
+        duration: 5000,
       });
     } finally {
       setLoading(false);
