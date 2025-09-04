@@ -45,6 +45,11 @@ export const sendPasswordResetEmail = async (
   userType?: string
 ): Promise<{ success: boolean; message: string }> => {
   try {
+    // Validate email first
+    if (!userEmail || !userEmail.includes("@")) {
+      throw new Error("Invalid email address");
+    }
+
     // Check if EmailJS is properly configured
     if (
       EMAILJS_SERVICE_ID === "NEXT_PUBLIC_EMAILJS_SERVICE_ID" ||
@@ -57,6 +62,18 @@ export const sendPasswordResetEmail = async (
         message:
           "Password reset request received. Please check your email for instructions. (Demo Mode)",
       };
+    }
+
+    // Check if we're in browser environment
+    if (typeof window === "undefined") {
+      throw new Error("EmailJS can only be used in browser environment");
+    }
+
+    // Initialize EmailJS if not already done
+    try {
+      emailjs.init(EMAILJS_PUBLIC_KEY);
+    } catch (initError) {
+      console.warn("EmailJS already initialized or initialization failed:", initError);
     }
 
     // Generate a simple reset token (in production, this should be more secure)
@@ -82,14 +99,9 @@ export const sendPasswordResetEmail = async (
       } account.\n\nClick the link below to reset your password:\n${resetLink}\n\nIf you didn't request this, please ignore this email.\n\nBest regards,\nManvasaam Support Team`,
     };
 
-    // Validate required parameters
-    if (!userEmail || !userEmail.includes("@")) {
-      throw new Error("Invalid email address");
-    }
-
     console.log("Sending email with EmailJS...", {
-      serviceId: EMAILJS_SERVICE_ID,
-      templateId: EMAILJS_TEMPLATE_ID,
+      serviceId: EMAILJS_SERVICE_ID.substring(0, 10) + "...",
+      templateId: EMAILJS_TEMPLATE_ID.substring(0, 10) + "...",
       to: userEmail,
     });
 
@@ -111,8 +123,20 @@ export const sendPasswordResetEmail = async (
     }
   } catch (error: any) {
     console.error("EmailJS Error:", error);
-    const errorMessage =
-      error?.text || error?.message || "Unknown error occurred";
+    
+    // Return demo mode response for any EmailJS errors when not configured
+    if (
+      EMAILJS_SERVICE_ID === "NEXT_PUBLIC_EMAILJS_SERVICE_ID" ||
+      EMAILJS_TEMPLATE_ID === "NEXT_PUBLIC_EMAILJS_TEMPLATE_ID" ||
+      EMAILJS_PUBLIC_KEY === "NEXT_PUBLIC_EMAILJS_PUBLIC_KEY"
+    ) {
+      return {
+        success: true,
+        message: "Password reset request received. Please check your email for instructions. (Demo Mode)",
+      };
+    }
+    
+    const errorMessage = error?.text || error?.message || "Unknown error occurred";
     return {
       success: false,
       message: `Email service error: ${errorMessage}`,
