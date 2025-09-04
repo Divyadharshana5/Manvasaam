@@ -29,6 +29,7 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { signInWithEmailAndPassword } from "firebase/auth";
 import { useRouter } from "next/navigation";
 import { auth } from "@/lib/firebase";
+import { redirectToDashboard } from "@/lib/auth-redirect";
 import { useLanguage } from "@/context/language-context";
 import { initEmailJS, sendPasswordResetEmail } from "@/lib/emailjs";
 import "@/styles/navigation-transitions.css";
@@ -120,7 +121,7 @@ export default function RestaurantAuthPage() {
         
         // Automatic redirection after toast
         setTimeout(() => {
-          router.push("/dashboard/restaurant");
+          redirectToDashboard('restaurant', router);
         }, 1000);
         return;
       }
