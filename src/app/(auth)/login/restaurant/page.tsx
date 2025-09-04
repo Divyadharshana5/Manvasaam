@@ -113,6 +113,11 @@ export default function RestaurantAuthPage() {
     try {
       // Demo mode: Accept any email/password combination
       if (values.email && values.password) {
+        // Store user type for persistence
+        localStorage.setItem('userType', 'restaurant');
+        localStorage.setItem('userEmail', values.email);
+        localStorage.setItem('restaurantName', values.restaurantName);
+        
         toast({
           title: "Login successful",
           description: "Welcome back, restaurant...",

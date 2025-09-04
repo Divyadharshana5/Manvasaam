@@ -199,6 +199,7 @@ function HubAuthComponent() {
 
       // Store user type and branch info for proper routing
       localStorage.setItem("userType", "hub");
+      localStorage.setItem("userEmail", values.email);
       localStorage.setItem("branchName", values.branchName);
       localStorage.setItem("authMethod", authMethod);
 
