@@ -2,16 +2,39 @@ import { NextResponse } from "next/server";
 import { cookies } from "next/headers";
 
 export async function POST() {
-  try {
-    // Clear the session cookie
-    const cookieStore = await cookies();
-    cookieStore.delete("session");
+  console.log("🔓 Logout API called at", new Date().toISOString());
 
-    return NextResponse.json({ status: "success" }, { status: 200 });
+  try {
+    const cookieStore = await cookies();
+    
+    // Clear the session cookie
+    cookieStore.set({
+      name: "session",
+      value: "",
+      maxAge: 0,
+      httpOnly: true,
+      secure: process.env.NODE_ENV === "production",
+      sameSite: "lax",
+      path: "/",
+    });
+
+    console.log("✅ Session cleared successfully");
+
+    return NextResponse.json({
+      success: true,
+      message: "Logged out successfully",
+      timestamp: new Date().toISOString(),
+    });
   } catch (error: any) {
-    console.error("API Logout Error:", error);
+    console.error("❌ Logout API error:", error);
+
     return NextResponse.json(
-      { message: "Failed to logout.", error: error.message },
+      {
+        success: false,
+        message: "Failed to logout",
+        error: error.message || String(error),
+        timestamp: new Date().toISOString(),
+      },
       { status: 500 }
     );
   }
