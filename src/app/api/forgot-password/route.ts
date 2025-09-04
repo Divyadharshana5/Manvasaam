@@ -4,10 +4,19 @@ import { adminAuth, adminDb } from "@/lib/firebase-admin";
 import { sendPasswordResetEmail } from "@/lib/email";
 
 export async function POST(request: Request) {
-  // Check if email service is configured
-  if (!process.env.EMAIL_SERVER_USER || !process.env.EMAIL_SERVER_PASSWORD) {
-    console.error("Email service not configured. Please set EMAIL_SERVER_USER and EMAIL_SERVER_PASSWORD in your .env file.");
-    return NextResponse.json({ message: "The email service is not configured on the server. Please contact support." }, { status: 500 });
+  // Check if email service is configured (EmailJS or SMTP)
+  const hasEmailJS = process.env.NEXT_PUBLIC_EMAILJS_SERVICE_ID && 
+                     process.env.NEXT_PUBLIC_EMAILJS_TEMPLATE_ID && 
+                     process.env.NEXT_PUBLIC_EMAILJS_PUBLIC_KEY;
+  
+  const hasSMTP = process.env.EMAIL_SERVER_USER && process.env.EMAIL_SERVER_PASSWORD;
+  
+  if (!hasEmailJS && !hasSMTP) {
+    console.error("No email service configured. Please set EmailJS or SMTP credentials in your .env file.");
+    return NextResponse.json({ 
+      message: "Email service is not available. Please contact support for password reset.",
+      error: "NO_EMAIL_SERVICE_CONFIGURED"
+    }, { status: 500 });
   }
 
   try {
@@ -53,10 +62,18 @@ export async function POST(request: Request) {
     }
 
     // Generate password reset link and send email
-    const link = await adminAuth.generatePasswordResetLink(email);
-    await sendPasswordResetEmail({ email, link });
-
-    return NextResponse.json({ message: "Password reset email sent successfully." }, { status: 200 });
+    if (hasSMTP) {
+      const link = await adminAuth.generatePasswordResetLink(email);
+      await sendPasswordResetEmail({ email, link });
+      return NextResponse.json({ message: "Password reset email sent successfully." }, { status: 200 });
+    } else {
+      // For EmailJS, return success but let frontend handle the actual sending
+      return NextResponse.json({ 
+        message: "Password reset request processed. Email will be sent via client.",
+        useClientEmail: true,
+        email: email
+      }, { status: 200 });
+    }
 
   } catch (error: any) {
     console.error("API Forgot Password Error:", error);

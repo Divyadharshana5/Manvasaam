@@ -7,8 +7,16 @@ const EMAILJS_PUBLIC_KEY = process.env.NEXT_PUBLIC_EMAILJS_PUBLIC_KEY || 'your_p
 
 // Initialize EmailJS
 export const initEmailJS = () => {
-  if (EMAILJS_PUBLIC_KEY !== 'your_public_key') {
-    emailjs.init(EMAILJS_PUBLIC_KEY);
+  try {
+    if (EMAILJS_PUBLIC_KEY !== 'your_public_key') {
+      console.log('Initializing EmailJS with public key:', EMAILJS_PUBLIC_KEY.substring(0, 10) + '...');
+      emailjs.init(EMAILJS_PUBLIC_KEY);
+      console.log('EmailJS initialized successfully');
+    } else {
+      console.log('EmailJS not configured - using demo mode');
+    }
+  } catch (error) {
+    console.error('Failed to initialize EmailJS:', error);
   }
 };
 
@@ -23,10 +31,16 @@ export const sendPasswordResetEmail = async (
     if (EMAILJS_SERVICE_ID === 'your_service_id' || 
         EMAILJS_TEMPLATE_ID === 'your_template_id' || 
         EMAILJS_PUBLIC_KEY === 'your_public_key') {
+      console.log('EmailJS not configured, returning demo mode response');
       return {
         success: true,
-        message: 'Password reset request received. Please check your email for instructions.'
+        message: 'Password reset request received. Please check your email for instructions. (Demo Mode)'
       };
+    }
+
+    // Initialize EmailJS if not already done
+    if (EMAILJS_PUBLIC_KEY !== 'your_public_key') {
+      emailjs.init(EMAILJS_PUBLIC_KEY);
     }
 
     // Generate a simple reset token (in production, this should be more secure)
@@ -42,11 +56,19 @@ export const sendPasswordResetEmail = async (
       message: `Hello ${userName || 'User'},\n\nWe received a request to reset your password for your ${userType || 'user'} account.\n\nClick the link below to reset your password:\n${resetLink}\n\nIf you didn't request this, please ignore this email.\n\nBest regards,\nManvasaam Support Team`
     };
 
+    console.log('Sending email with EmailJS...', {
+      serviceId: EMAILJS_SERVICE_ID,
+      templateId: EMAILJS_TEMPLATE_ID,
+      to: userEmail
+    });
+
     const response = await emailjs.send(
       EMAILJS_SERVICE_ID,
       EMAILJS_TEMPLATE_ID,
       templateParams
     );
+
+    console.log('EmailJS response:', response);
 
     if (response.status === 200) {
       return {
@@ -54,12 +76,13 @@ export const sendPasswordResetEmail = async (
         message: 'Password reset email sent successfully!'
       };
     } else {
-      throw new Error('Failed to send email');
+      throw new Error(`EmailJS returned status: ${response.status}`);
     }
-  } catch (error) {
+  } catch (error: any) {
+    console.error('EmailJS Error:', error);
     return {
       success: false,
-      message: 'Email service is not available. Please contact support for password reset.'
+      message: `Email service error: ${error.message || 'Please contact support for password reset.'}`
     };
   }
 };
