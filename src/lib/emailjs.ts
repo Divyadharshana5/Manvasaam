@@ -56,6 +56,11 @@ export const sendPasswordResetEmail = async (
       message: `Hello ${userName || 'User'},\n\nWe received a request to reset your password for your ${userType || 'user'} account.\n\nClick the link below to reset your password:\n${resetLink}\n\nIf you didn't request this, please ignore this email.\n\nBest regards,\nManvasaam Support Team`
     };
 
+    // Validate required parameters
+    if (!userEmail || !userEmail.includes('@')) {
+      throw new Error('Invalid email address');
+    }
+
     console.log('Sending email with EmailJS...', {
       serviceId: EMAILJS_SERVICE_ID,
       templateId: EMAILJS_TEMPLATE_ID,
@@ -80,9 +85,10 @@ export const sendPasswordResetEmail = async (
     }
   } catch (error: any) {
     console.error('EmailJS Error:', error);
+    const errorMessage = error?.text || error?.message || 'Unknown error occurred';
     return {
       success: false,
-      message: `Email service error: ${error.message || 'Please contact support for password reset.'}`
+      message: `Email service error: ${errorMessage}`
     };
   }
 };
