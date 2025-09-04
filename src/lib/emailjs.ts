@@ -6,7 +6,8 @@ const EMAILJS_SERVICE_ID =
   process.env.NEXT_PUBLIC_EMAILJS_SERVICE_ID ||
   "NEXT_PUBLIC_EMAILJS_SERVICE_ID";
 const EMAILJS_TEMPLATE_ID =
-  process.env.NEXT_PUBLIC_EMAILJS_TEMPLATE_ID || "your_template_id";
+  process.env.NEXT_PUBLIC_EMAILJS_TEMPLATE_ID ||
+  "NEXT_PUBLIC_EMAILJS_TEMPLATE_ID";
 const EMAILJS_PUBLIC_KEY =
   process.env.NEXT_PUBLIC_EMAILJS_PUBLIC_KEY || "your_public_key";
 
@@ -43,7 +44,7 @@ export const sendPasswordResetEmail = async (
     // Check if EmailJS is properly configured
     if (
       EMAILJS_SERVICE_ID === "NEXT_PUBLIC_EMAILJS_SERVICE_ID" ||
-      EMAILJS_TEMPLATE_ID === "your_template_id" ||
+      EMAILJS_TEMPLATE_ID === "NEXT_PUBLIC_EMAILJS_TEMPLATE_ID" ||
       EMAILJS_PUBLIC_KEY === "your_public_key"
     ) {
       console.log("EmailJS not configured, returning demo mode response");
