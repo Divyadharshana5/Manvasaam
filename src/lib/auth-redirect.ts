@@ -31,7 +31,11 @@ export function redirectToDashboard(userType: UserType, router: any) {
   }
   
   // Redirect to the appropriate dashboard
-  router.push(route);
+  if (router) {
+    router.push(route);
+  } else if (typeof window !== 'undefined') {
+    window.location.href = route;
+  }
 }
 
 /**
@@ -63,4 +67,24 @@ export function clearUserType() {
   if (typeof window !== 'undefined') {
     localStorage.removeItem('userType');
   }
+}
+
+/**
+ * Check if user is authenticated based on stored data
+ */
+export function isAuthenticated(): boolean {
+  if (typeof window === 'undefined') return false;
+  
+  const userType = localStorage.getItem('userType');
+  const userEmail = localStorage.getItem('userEmail');
+  
+  return !!(userType && userEmail);
+}
+
+/**
+ * Get stored user email
+ */
+export function getUserEmail(): string | null {
+  if (typeof window === 'undefined') return null;
+  return localStorage.getItem('userEmail');
 }
