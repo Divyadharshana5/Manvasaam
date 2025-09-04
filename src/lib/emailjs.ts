@@ -23,7 +23,7 @@ if (
 // Initialize EmailJS
 export const initEmailJS = () => {
   try {
-    if (EMAILJS_PUBLIC_KEY !== "your_public_key") {
+    if (EMAILJS_PUBLIC_KEY !== "NEXT_PUBLIC_EMAILJS_PUBLIC_KEY") {
       console.log(
         "Initializing EmailJS with public key:",
         EMAILJS_PUBLIC_KEY.substring(0, 10) + "..."
