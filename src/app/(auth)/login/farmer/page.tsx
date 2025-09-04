@@ -227,6 +227,10 @@ export default function FarmerAuthPage() {
     try {
       // Demo mode: Accept any email/password combination
       if (values.email && values.password) {
+        // Store user type for persistence
+        localStorage.setItem('userType', 'farmer');
+        localStorage.setItem('userEmail', values.email);
+        
         toast({
           title: "Login successful",
           description: "Welcome back, farmer...",
