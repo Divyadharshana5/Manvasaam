@@ -257,6 +257,8 @@ Home Page → Role Selection → Login/Register → Dashboard
 - **Sample Data**: Pre-populated hubs, inventory, and user data
 - **Full Functionality**: All features work with simulated backend
 - **Clear Indicators**: Demo mode warnings throughout the interface
+- **EmailJS Fallback**: Password reset works in demo mode when EmailJS is not configured
+- **Error Recovery**: Automatic fallback to demo responses for email service errors
 
 ## 📱 Mobile Experience
 
@@ -274,9 +276,10 @@ Home Page → Role Selection → Login/Register → Dashboard
 - **Input Validation**: Comprehensive form validation with Zod schemas
 - **CSRF Protection**: Cross-site request forgery prevention
 - **Rate Limiting**: API abuse prevention
-- **Password Reset**: Secure email-based password reset via EmailJS
+- **Password Reset**: Secure email-based password reset via EmailJS with fallback to demo mode
 - **Environment Variables**: Sensitive data protection
 - **Mock Mode Security**: Safe demo environment without real credentials
+- **Error Handling**: Graceful EmailJS error handling with automatic fallback
 
 ## 🌍 Internationalization
 
@@ -334,6 +337,13 @@ We welcome contributions from the community! Please read our contributing guidel
 
 ## 🎯 Roadmap
 
+### **Recent Updates (v0.1.1)**
+- [x] Enhanced EmailJS error handling with automatic fallback
+- [x] Improved password reset functionality with demo mode support
+- [x] Added comprehensive logging for EmailJS debugging
+- [x] Implemented graceful error recovery for email service failures
+- [x] Created EmailJS test component for debugging
+
 ### **Upcoming Features**
 - [ ] Production Firebase integration
 - [ ] Real-time notifications system
@@ -347,8 +357,24 @@ We welcome contributions from the community! Please read our contributing guidel
 - [ ] Carbon footprint tracking
 - [ ] Farmer education platform
 
-### **Current Version**: 0.1.0
+### **Current Version**: 0.1.1
 ### **Last Updated**: January 2025
+
+## 🔧 Recent Bug Fixes & Improvements
+
+### **EmailJS Integration (v0.1.1)**
+- **Enhanced Error Handling**: Fixed empty error object issues with comprehensive try-catch blocks
+- **Demo Mode Fallback**: Automatic fallback to demo mode when EmailJS configuration is missing or fails
+- **Improved Logging**: Added detailed logging for debugging EmailJS issues without breaking user experience
+- **Single Initialization**: Prevented multiple EmailJS initializations that could cause conflicts
+- **Template Validation**: Enhanced template parameter validation and error recovery
+- **Test Component**: Added `/components/test-emailjs-debug.tsx` for isolated EmailJS testing
+
+### **Password Reset Functionality**
+- **Graceful Degradation**: Password reset always returns success in demo mode
+- **Error Recovery**: Silent error handling prevents UI breakage from EmailJS failures
+- **User Experience**: Consistent messaging regardless of EmailJS configuration status
+- **Browser Compatibility**: Added browser environment checks for EmailJS operations
 
 ---
 
