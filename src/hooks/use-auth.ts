@@ -5,13 +5,15 @@ import React, {useEffect, useState, createContext, useContext, ReactNode} from '
 import { auth } from '@/lib/firebase';
 import type {User} from 'firebase/auth';
 import { onIdTokenChanged } from 'firebase/auth';
+import { getUserType, type UserType } from '@/lib/auth-redirect';
 
 interface AuthContextType {
   user: User | null;
   loading: boolean;
+  userType: UserType | null;
 }
 
-const AuthContext = createContext<AuthContextType>({ user: null, loading: true });
+const AuthContext = createContext<AuthContextType>({ user: null, loading: true, userType: null });
 
 async function setSessionCookie(idToken: string) {
     await fetch('/api/login', {
@@ -26,6 +28,7 @@ async function setSessionCookie(idToken: string) {
 export function AuthProvider({ children }: { children: ReactNode }) {
   const [user, setUser] = useState<User | null>(null);
   const [loading, setLoading] = useState(true);
+  const [userType, setUserType] = useState<UserType | null>(null);
 
   useEffect(() => {
     const unsubscribe = onIdTokenChanged(auth, async (user) => {
@@ -33,8 +36,13 @@ export function AuthProvider({ children }: { children: ReactNode }) {
         setUser(user);
         const idToken = await user.getIdToken();
         await setSessionCookie(idToken);
+        
+        // Get user type from localStorage or other sources
+        const detectedUserType = getUserType();
+        setUserType(detectedUserType);
       } else {
         setUser(null);
+        setUserType(null);
         // You might want to have a way to clear the session cookie on the server
       }
       setLoading(false);
@@ -43,7 +51,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     return () => unsubscribe();
   }, []);
 
-  const value = { user, loading };
+  const value = { user, loading, userType };
 
   return React.createElement(AuthContext.Provider, { value: value }, children);
 }
