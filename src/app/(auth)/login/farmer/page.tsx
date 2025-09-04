@@ -32,6 +32,7 @@ import {
 } from "firebase/auth";
 import { useRouter } from "next/navigation";
 import { auth } from "@/lib/firebase";
+import { redirectToDashboard } from "@/lib/auth-redirect";
 
 import { useLanguage } from "@/context/language-context";
 import { initEmailJS, sendPasswordResetEmail } from "@/lib/emailjs";
@@ -206,7 +207,7 @@ export default function FarmerAuthPage() {
       });
       
       setTimeout(() => {
-        router.push("/dashboard/farmer");
+        redirectToDashboard('farmer', router);
       }, 1000);
     } catch (error: any) {
       setPasskeyStatus(prev => ({ ...prev, status: "error", feedback: "Fingerprint authentication failed" }));
@@ -234,7 +235,7 @@ export default function FarmerAuthPage() {
         
         // Automatic redirection after toast
         setTimeout(() => {
-          router.push("/dashboard/farmer");
+          redirectToDashboard('farmer', router);
         }, 1000);
         return;
       }
