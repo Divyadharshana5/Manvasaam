@@ -9,10 +9,14 @@ const EMAILJS_TEMPLATE_ID =
   process.env.NEXT_PUBLIC_EMAILJS_TEMPLATE_ID ||
   "NEXT_PUBLIC_EMAILJS_TEMPLATE_ID";
 const EMAILJS_PUBLIC_KEY =
-  process.env.NEXT_PUBLIC_EMAILJS_PUBLIC_KEY || "your_public_key";
+  process.env.NEXT_PUBLIC_EMAILJS_PUBLIC_KEY ||
+  "NEXT_PUBLIC_EMAILJS_PUBLIC_KEY";
 
 // Auto-initialize EmailJS
-if (typeof window !== "undefined" && EMAILJS_PUBLIC_KEY !== "your_public_key") {
+if (
+  typeof window !== "undefined" &&
+  EMAILJS_PUBLIC_KEY !== "NEXT_PUBLIC_EMAILJS_PUBLIC_KEY"
+) {
   emailjs.init(EMAILJS_PUBLIC_KEY);
 }
 
