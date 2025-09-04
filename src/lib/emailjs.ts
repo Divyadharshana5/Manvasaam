@@ -1,9 +1,15 @@
 import emailjs from '@emailjs/browser';
+import { useEffect } from 'react';
 
 // EmailJS configuration
 const EMAILJS_SERVICE_ID = process.env.NEXT_PUBLIC_EMAILJS_SERVICE_ID || 'your_service_id';
 const EMAILJS_TEMPLATE_ID = process.env.NEXT_PUBLIC_EMAILJS_TEMPLATE_ID || 'your_template_id';
 const EMAILJS_PUBLIC_KEY = process.env.NEXT_PUBLIC_EMAILJS_PUBLIC_KEY || 'your_public_key';
+
+// Auto-initialize EmailJS
+if (typeof window !== 'undefined' && EMAILJS_PUBLIC_KEY !== 'your_public_key') {
+  emailjs.init(EMAILJS_PUBLIC_KEY);
+}
 
 // Initialize EmailJS
 export const initEmailJS = () => {
@@ -36,11 +42,6 @@ export const sendPasswordResetEmail = async (
         success: true,
         message: 'Password reset request received. Please check your email for instructions. (Demo Mode)'
       };
-    }
-
-    // Initialize EmailJS if not already done
-    if (EMAILJS_PUBLIC_KEY !== 'your_public_key') {
-      emailjs.init(EMAILJS_PUBLIC_KEY);
     }
 
     // Generate a simple reset token (in production, this should be more secure)
