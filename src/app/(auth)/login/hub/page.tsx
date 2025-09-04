@@ -29,6 +29,7 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { signInWithEmailAndPassword } from "firebase/auth";
 import { useRouter } from "next/navigation";
 import { auth } from "@/lib/firebase";
+import { redirectToDashboard } from "@/lib/auth-redirect";
 import { useLanguage } from "@/context/language-context";
 import { initEmailJS, sendPasswordResetEmail } from "@/lib/emailjs";
 import "@/styles/navigation-transitions.css";
@@ -211,7 +212,7 @@ function HubAuthComponent() {
 
       // Small delay to show the success message
       setTimeout(() => {
-        router.push("/dashboard/hub");
+        redirectToDashboard('hub', router);
       }, 1000);
     } catch (error: any) {
       console.error("Login error:", error);
@@ -324,7 +325,7 @@ function HubAuthComponent() {
 
           // Redirect to dashboard
           setTimeout(() => {
-            router.push("/dashboard/hub");
+            redirectToDashboard('hub', router);
           }, 1000);
           return;
         }
