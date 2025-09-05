@@ -25,7 +25,7 @@ const ToastViewport = React.forwardRef<
 ToastViewport.displayName = ToastPrimitives.Viewport.displayName;
 
 const toastVariants = cva(
-  "group pointer-events-auto relative flex w-full items-center justify-between space-x-4 overflow-hidden rounded-xl border-2 p-6 pr-8 shadow-2xl backdrop-blur-md transition-all duration-500 transform-gpu data-[swipe=cancel]:translate-x-0 data-[swipe=end]:translate-x-[var(--radix-toast-swipe-end-x)] data-[swipe=move]:translate-x-[var(--radix-toast-swipe-move-x)] data-[swipe=move]:transition-none data-[state=open]:animate-in data-[state=closed]:animate-out data-[swipe=end]:animate-out data-[state=closed]:fade-out-80 data-[state=closed]:slide-out-to-right-full data-[state=open]:slide-in-from-top-full data-[state=open]:sm:slide-in-from-bottom-full data-[state=open]:zoom-in-95 data-[state=closed]:zoom-out-95",
+  "group pointer-events-auto relative flex w-full items-center justify-between space-x-4 overflow-hidden rounded-xl border-2 p-6 pr-8 shadow-2xl backdrop-blur-md",
   {
     variants: {
       variant: {
@@ -34,17 +34,17 @@ const toastVariants = cva(
         destructive:
           "border-red-300 bg-gradient-to-r from-red-50/95 to-pink-50/95 text-red-900 shadow-red-200/50",
         success:
-          "border-emerald-400 bg-gradient-to-r from-emerald-100/95 to-green-100/95 text-emerald-900 shadow-emerald-200/60 animate-grow-subtle",
+          "border-emerald-400 bg-gradient-to-r from-emerald-100/95 to-green-100/95 text-emerald-900 shadow-emerald-200/60",
         warning:
           "border-amber-300 bg-gradient-to-r from-amber-50/95 to-yellow-50/95 text-amber-900 shadow-amber-200/50",
         info: "border-cyan-300 bg-gradient-to-r from-cyan-50/95 to-sky-50/95 text-cyan-900 shadow-cyan-200/50",
         farmer:
-          "border-emerald-400 bg-gradient-to-r from-emerald-100/95 to-green-100/95 text-emerald-900 shadow-emerald-200/60 animate-grow-subtle",
+          "border-emerald-400 bg-gradient-to-r from-emerald-100/95 to-green-100/95 text-emerald-900 shadow-emerald-200/60",
         restaurant:
-          "border-orange-400 bg-gradient-to-r from-orange-100/95 to-red-100/95 text-orange-900 shadow-orange-200/60 animate-grow-subtle",
+          "border-orange-400 bg-gradient-to-r from-orange-100/95 to-red-100/95 text-orange-900 shadow-orange-200/60",
         customer:
-          "border-purple-400 bg-gradient-to-r from-purple-100/95 to-violet-100/95 text-purple-900 shadow-purple-200/60 animate-grow-subtle",
-        hub: "border-indigo-400 bg-gradient-to-r from-indigo-100/95 to-blue-100/95 text-indigo-900 shadow-indigo-200/60 animate-grow-subtle",
+          "border-purple-400 bg-gradient-to-r from-purple-100/95 to-violet-100/95 text-purple-900 shadow-purple-200/60",
+        hub: "border-indigo-400 bg-gradient-to-r from-indigo-100/95 to-blue-100/95 text-indigo-900 shadow-indigo-200/60",
       },
     },
     defaultVariants: {
