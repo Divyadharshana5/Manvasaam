@@ -377,13 +377,25 @@ function HubAuthComponent() {
         return;
       }
 
-      // Mock password reset for demo
-      toast({
-        title: "Password Reset Email Sent",
-        description:
-          "Please check your inbox for instructions to reset your password.",
-        duration: 5000,
+      // Send password reset email using API
+      const response = await fetch('/api/send-reset-email', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ email, userType: 'hub' })
       });
+      
+      const result = await response.json();
+      
+      if (result.success) {
+        toast({
+          title: "Password Reset Email Sent",
+          description:
+            "Please check your inbox for instructions to reset your password.",
+          duration: 5000,
+        });
+      } else {
+        throw new Error(result.message);
+      }
     } catch (error: any) {
       toast({
         variant: "destructive",
