@@ -9,14 +9,8 @@ export type UserType = 'farmer' | 'customer' | 'hub' | 'restaurant';
  * Get the dashboard route for a specific user type
  */
 export function getDashboardRoute(userType: UserType): string {
-  const routes: Record<UserType, string> = {
-    farmer: '/dashboard/farmer',
-    customer: '/dashboard/restaurant',
-    hub: '/dashboard/hub',
-    restaurant: '/dashboard/restaurant'
-  };
-  
-  return routes[userType] || '/dashboard';
+  // All user types redirect to restaurant dashboard
+  return '/dashboard/restaurant';
 }
 
 /**
