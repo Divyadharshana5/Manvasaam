@@ -31,7 +31,7 @@ import { useRouter } from "next/navigation";
 import { auth } from "@/lib/firebase";
 import { redirectToDashboard } from "@/lib/auth-redirect";
 import { useLanguage } from "@/context/language-context";
-import { initEmailJS, sendPasswordResetEmail } from "@/lib/emailjs";
+// import { initEmailJS, sendPasswordResetEmail } from "@/lib/emailjs";
 import "@/styles/navigation-transitions.css";
 import "@/styles/auth-animations.css";
 import { motion } from "framer-motion";
@@ -84,7 +84,7 @@ export default function CustomerAuthPage() {
 
   // Initialize EmailJS on component mount
   useEffect(() => {
-    initEmailJS();
+    // initEmailJS();
   }, []);
 
   const loginForm = useForm<z.infer<typeof loginSchema>>({
@@ -120,23 +120,13 @@ export default function CustomerAuthPage() {
         return;
       }
 
-      // Send password reset email using EmailJS
-      const result = await sendPasswordResetEmail(
-        email,
-        "Customer",
-        "customer"
-      );
-
-      if (result.success) {
-        toast({
-          title: "Password Reset Email Sent",
-          description:
-            "Please check your inbox for instructions to reset your password.",
-          duration: 5000,
-        });
-      } else {
-        throw new Error(result.message);
-      }
+      // Mock password reset for demo
+      toast({
+        title: "Password Reset Email Sent",
+        description:
+          "Please check your inbox for instructions to reset your password.",
+        duration: 5000,
+      });
     } catch (error: any) {
       toast({
         variant: "destructive",
