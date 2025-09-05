@@ -202,13 +202,25 @@ export default function RestaurantAuthPage() {
         return;
       }
 
-      // Mock password reset for demo
-      toast({
-        variant: "success" as any,
-        title: "Password Reset Email Sent",
-        description:
-          "Please check your inbox for instructions to reset your password.",
+      // Send password reset email using API
+      const response = await fetch('/api/send-reset-email', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ email, userType: 'restaurant' })
       });
+      
+      const result = await response.json();
+      
+      if (result.success) {
+        toast({
+          variant: "success" as any,
+          title: "Password Reset Email Sent",
+          description:
+            "Please check your inbox for instructions to reset your password.",
+        });
+      } else {
+        throw new Error(result.message);
+      }
     } catch (error: any) {
       toast({
         variant: "destructive",
