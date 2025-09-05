@@ -11,7 +11,7 @@ export type UserType = 'farmer' | 'customer' | 'hub' | 'restaurant';
 export function getDashboardRoute(userType: UserType): string {
   const routes: Record<UserType, string> = {
     farmer: '/dashboard/farmer',
-    customer: '/dashboard/customer',
+    customer: '/dashboard/restaurant',
     hub: '/dashboard/hub',
     restaurant: '/dashboard/restaurant'
   };

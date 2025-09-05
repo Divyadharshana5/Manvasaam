@@ -11,7 +11,6 @@ export function middleware(request: NextRequest) {
   // Define protected routes that require authentication
   const protectedRoutes = [
     '/dashboard/farmer',
-    '/dashboard/customer', 
     '/dashboard/hub',
     '/dashboard/restaurant'
   ];
@@ -38,14 +37,14 @@ export function middleware(request: NextRequest) {
   // If accessing auth route while authenticated, redirect to appropriate dashboard
   if (isAuthRoute && isAuthenticated) {
     // Extract user type from the auth route path
-    let userType = '';
-    if (pathname.includes('/farmer')) userType = 'farmer';
-    else if (pathname.includes('/customer')) userType = 'customer';
-    else if (pathname.includes('/hub')) userType = 'hub';
-    else if (pathname.includes('/restaurant')) userType = 'restaurant';
+    let redirectPath = '';
+    if (pathname.includes('/farmer')) redirectPath = '/dashboard/farmer';
+    else if (pathname.includes('/customer')) redirectPath = '/dashboard/restaurant';
+    else if (pathname.includes('/hub')) redirectPath = '/dashboard/hub';
+    else if (pathname.includes('/restaurant')) redirectPath = '/dashboard/restaurant';
     
-    if (userType) {
-      return NextResponse.redirect(new URL(`/dashboard/${userType}`, request.url));
+    if (redirectPath) {
+      return NextResponse.redirect(new URL(redirectPath, request.url));
     }
   }
   
