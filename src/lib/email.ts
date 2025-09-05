@@ -3,8 +3,8 @@ const nodemailer = require("nodemailer");
 const transporter = nodemailer.createTransport({
   service: "gmail",
   auth: {
-    user: "Manvaasam",
-    pass: "THE-GENERATED-APP-PASSWORD",
+    user: process.env.EMAIL_USER,
+    pass: process.env.EMAIL_PASS,
   },
 });
 
@@ -12,7 +12,7 @@ send();
 
 async function send() {
   const result = await transporter.sendMail({
-    from: "YOUR-USERNAME",
+    from: process.env.EMAIL_USER,
     to: "RECEIVERS",
     subject: "Hello World",
     text: "Hello World",
