@@ -1,4 +1,4 @@
-'use server';
+"use server";
 /**
  * @fileOverview An AI flow to understand user navigation intents from text.
  *
@@ -7,9 +7,9 @@
  * - NavigationOutputSchema - The output schema for the understandNavigation function.
  */
 
-require('dotenv').config();
-import {ai} from '@/ai/genkit';
-import {z} from 'genkit';
+require("dotenv").config();
+import { ai } from "@/ai/genkit";
+import { z } from "genkit";
 
 const apiKey = process.env.GEMINI_API_KEY;
 const hasGeminiKey = !!apiKey;
@@ -117,13 +117,13 @@ const translations: Record<string, Record<string, string>> = {
 const pagePaths: Record<string, string> = {
   home: "/",
   dashboard: "/dashboard",
-  
+
   // Authentication pages
   restaurantLogin: "/login/restaurant",
   farmerLogin: "/login/farmer",
   customerLogin: "/login/customer",
   hubLogin: "/login/hub",
-  
+
   // Dashboard sections
   products: "/dashboard/products",
   orders: "/dashboard/orders",
@@ -131,7 +131,7 @@ const pagePaths: Record<string, string> = {
   inventory: "/dashboard/hub/inventory",
   matchmaking: "/dashboard/matchmaking",
   track: "/dashboard/track",
-  
+
   // Restaurant dashboard
   restaurantDashboard: "/dashboard/restaurant",
   restaurantOrders: "/dashboard/restaurant/orders",
@@ -140,22 +140,22 @@ const pagePaths: Record<string, string> = {
   restaurantFarmers: "/dashboard/restaurant/farmers",
   restaurantReports: "/dashboard/restaurant/reports",
   restaurantSettings: "/dashboard/restaurant/settings",
-  
+
   // Farmer dashboard
   farmerDashboard: "/dashboard/farmer",
   farmerProducts: "/dashboard/farmer/products",
   farmerMatchmaking: "/dashboard/farmer/matchmaking",
-  
+
   // Hub dashboard
   hubDashboard: "/dashboard/hub",
   hubInventory: "/dashboard/hub/inventory",
   hubOrders: "/dashboard/hub/orders",
   hubAttendance: "/dashboard/hub/attendance",
   hubMatchmaking: "/dashboard/hub/matchmaking",
-  
+
   // Customer dashboard
   customerDashboard: "/dashboard/customer",
-  
+
   // Other pages
   voiceAssistant: "/dashboard/voice-assistant",
   voiceAssistantHelp: "/voice-assistant-help",
@@ -168,34 +168,42 @@ const pagePaths: Record<string, string> = {
 };
 
 const NavigationInputSchema = z.object({
-  text: z.string().describe('The user input text to analyze for navigation intent'),
-  language: z.string().describe('The language for the response'),
+  text: z
+    .string()
+    .describe("The user input text to analyze for navigation intent"),
+  language: z.string().describe("The language for the response"),
 });
 
 const NavigationOutputSchema = z.object({
-  intent: z.enum(['navigate', 'information', 'help', 'none']).describe('The type of user intent'),
-  pageKey: z.string().optional().describe('The page key to navigate to if intent is navigate'),
-  message: z.string().describe('Response message to the user'),
-  shouldNavigate: z.boolean().describe('Whether navigation should occur'),
+  intent: z
+    .enum(["navigate", "information", "help", "none"])
+    .describe("The type of user intent"),
+  pageKey: z
+    .string()
+    .optional()
+    .describe("The page key to navigate to if intent is navigate"),
+  message: z.string().describe("Response message to the user"),
+  shouldNavigate: z.boolean().describe("Whether navigation should occur"),
 });
 
 type NavigationInput = z.infer<typeof NavigationInputSchema>;
 type NavigationOutput = z.infer<typeof NavigationOutputSchema>;
 
-const understandNavigationFlow = hasGeminiKey ? ai.defineFlow(
-  {
-    name: 'understandNavigationFlow',
-    inputSchema: NavigationInputSchema,
-    outputSchema: NavigationOutputSchema,
-  },
-  async (input) => {
-    const { text, language } = input;
-    
-    const { output } = await ai.generate({
-      model: 'googleai/gemini-1.5-flash',
-      prompt: [
-        {
-          text: `You are a navigation assistant for Manvaasam, an agricultural marketplace platform. Analyze user input to determine if they want to navigate to a specific page.
+const understandNavigationFlow = hasGeminiKey
+  ? ai.defineFlow(
+      {
+        name: "understandNavigationFlow",
+        inputSchema: NavigationInputSchema,
+        outputSchema: NavigationOutputSchema,
+      },
+      async (input) => {
+        const { text, language } = input;
+
+        const { output } = await ai.generate({
+          model: "googleai/gemini-1.5-flash",
+          prompt: [
+            {
+              text: `You are a navigation assistant for Manvaasam, an agricultural marketplace platform. Analyze user input to determine if they want to navigate to a specific page.
 
 Available pages and their keys:
 
@@ -264,51 +272,74 @@ Analyze the user's intent and match it to the most appropriate page. Common phra
 
 Respond in ${language}. If the user wants to navigate, set intent to 'navigate' and provide the exact pageKey. If unclear, ask for clarification with intent 'information'. If they need help, use intent 'help'. If no navigation intent, use 'none'.
 
-User input: ${text}`
+User input: ${text}`,
+            },
+          ],
+          output: {
+            schema: NavigationOutputSchema,
+          },
+        });
+
+        if (
+          !output ||
+          output.intent === "none" ||
+          !output.pageKey ||
+          output.pageKey === "none"
+        ) {
+          return {
+            intent: "none",
+            message: "How can I help you navigate?",
+            shouldNavigate: false,
+          };
         }
-      ],
-      output: {
-        schema: NavigationOutputSchema
+
+        // Determine the page path and key, whether the AI returned a key or a full path
+        let pageKey = output.pageKey;
+        let pagePath = pagePaths[pageKey];
+
+        if (pageKey.startsWith("/")) {
+          pagePath = pageKey;
+          // Find the key corresponding to the path to look up translations
+          pageKey =
+            Object.keys(pagePaths).find((key) => pagePaths[key] === pageKey) ||
+            pageKey;
+        }
+
+        if (!pagePath) {
+          return {
+            intent: "information",
+            message:
+              "I'm not sure which page you want to visit. Could you be more specific?",
+            shouldNavigate: false,
+          };
+        }
+
+        // Get the appropriate translation
+        const translationKey = pageKey as keyof typeof translations;
+        const translation =
+          translations[translationKey]?.[input.language] ||
+          translations[translationKey]?.["English"] ||
+          output.message;
+
+        return {
+          intent: output.intent,
+          pageKey: pagePath,
+          message: translation,
+          shouldNavigate: output.intent === "navigate",
+        };
       }
-    });
+    )
+  : null;
 
-    if (!output || output.intent === 'none' || !output.pageKey || output.pageKey === 'none') {
-        return { intent: 'none', message: 'How can I help you navigate?', shouldNavigate: false };
-    }
-    
-    // Determine the page path and key, whether the AI returned a key or a full path
-    let pageKey = output.pageKey;
-    let pagePath = pagePaths[pageKey];
-
-    if (pageKey.startsWith('/')) {
-        pagePath = pageKey;
-        // Find the key corresponding to the path to look up translations
-        pageKey = Object.keys(pagePaths).find(key => pagePaths[key] === pageKey) || pageKey;
-    }
-
-    if (!pagePath) {
-        return { intent: 'information', message: 'I\'m not sure which page you want to visit. Could you be more specific?', shouldNavigate: false };
-    }
-
-    // Get the appropriate translation
-    const translationKey = pageKey as keyof typeof translations;
-    const translation = translations[translationKey]?.[input.language] || translations[translationKey]?.['English'] || output.message;
-
-    return {
-        intent: output.intent,
-        pageKey: pagePath,
-        message: translation,
-        shouldNavigate: output.intent === 'navigate',
-    };
-  }
-) : null;
-
-export async function understandNavigation(input: NavigationInput): Promise<NavigationOutput> {
+export async function understandNavigation(
+  input: NavigationInput
+): Promise<NavigationOutput> {
   if (!hasGeminiKey || !understandNavigationFlow) {
     return {
-      intent: 'information',
-      message: 'Demo mode: AI navigation not available. Please configure GEMINI_API_KEY to use this feature.',
-      shouldNavigate: false
+      intent: "information",
+      message:
+        "Demo mode: AI navigation not available. Please configure GEMINI_API_KEY to use this feature.",
+      shouldNavigate: false,
     };
   }
   return understandNavigationFlow(input);
