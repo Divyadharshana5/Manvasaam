@@ -1,0 +1,55 @@
+/* Fast page transitions */
+.page-transition {
+  transition: opacity 0.1s ease-in-out;
+}
+
+.page-entering {
+  opacity: 0;
+}
+
+.page-entered {
+  opacity: 1;
+}
+
+/* Instant button feedback */
+.fast-button {
+  transition: all 0.05s ease;
+  transform: translateZ(0);
+  will-change: transform;
+}
+
+.fast-button:hover {
+  transform: scale(1.02) translateZ(0);
+}
+
+.fast-button:active {
+  transform: scale(0.98) translateZ(0);
+}
+
+/* Preload indicators */
+.preloading {
+  position: relative;
+}
+
+.preloading::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, #22c55e, transparent);
+  animation: preload-sweep 0.5s ease-in-out;
+}
+
+@keyframes preload-sweep {
+  0% { transform: translateX(-100%); }
+  100% { transform: translateX(100%); }
+}
+
+/* GPU acceleration */
+* {
+  transform: translateZ(0);
+  backface-visibility: hidden;
+  perspective: 1000px;
+}
