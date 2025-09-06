@@ -116,22 +116,23 @@ function Sidebar({ className, onSignOut }: { className?: string; onSignOut: () =
           </div>
           <div className="space-y-1">
             {sidebarItems.map((item) => (
-              <Link key={item.href} href={item.href}>
-                <Button
-                  variant={pathname === item.href ? "secondary" : "ghost"}
-                  className={cn(
-                    "w-full justify-start transition-all duration-200 hover:bg-emerald-100 dark:hover:bg-emerald-900",
-                    pathname === item.href && "bg-gradient-to-r from-emerald-200 to-green-200 dark:from-emerald-800 dark:to-green-800 text-emerald-800 dark:text-emerald-200 border border-emerald-300 dark:border-emerald-600"
-                  )}
-                >
-                  <item.icon className={cn(
-                    "mr-2 h-4 w-4",
-                    pathname === item.href ? "text-emerald-700 dark:text-emerald-300" : "text-emerald-600 dark:text-emerald-400"
-                  )} />
-                  {item.title}
-                </Button>
-              </Link>
-            ))}
+              <Button
+                key={item.href}
+                variant={pathname === item.href ? "secondary" : "ghost"}
+                className={cn(
+                  "w-full justify-start fast-button hover:bg-emerald-100 dark:hover:bg-emerald-900",
+                  pathname === item.href && "bg-gradient-to-r from-emerald-200 to-green-200 dark:from-emerald-800 dark:to-green-800 text-emerald-800 dark:text-emerald-200 border border-emerald-300 dark:border-emerald-600"
+                )}
+                onMouseEnter={() => preload(item.href)}
+                onClick={() => navigate(item.href)}
+              >
+                <item.icon className={cn(
+                  "mr-2 h-4 w-4",
+                  pathname === item.href ? "text-emerald-700 dark:text-emerald-300" : "text-emerald-600 dark:text-emerald-400"
+                )} />
+                {item.title}
+              </Button>
+            ))
           </div>
         </div>
       </div>
