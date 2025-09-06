@@ -2,6 +2,8 @@
 
 import { useState, useEffect } from "react";
 import Link from "next/link";
+import { useFastNavigation } from "@/lib/fast-navigation";
+import "@/styles/fast-transitions.css";
 import { usePathname, useRouter } from "next/navigation";
 import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
@@ -191,6 +193,7 @@ export default function RestaurantLayout({
   const [mounted, setMounted] = useState(false);
   const router = useRouter();
   const { toast } = useToast();
+  const { navigate, preload } = useFastNavigation();
 
   useEffect(() => {
     setMounted(true);
