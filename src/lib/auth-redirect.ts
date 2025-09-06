@@ -9,8 +9,18 @@ export type UserType = 'farmer' | 'customer' | 'hub' | 'restaurant';
  * Get the dashboard route for a specific user type
  */
 export function getDashboardRoute(userType: UserType): string {
-  // All user types redirect to restaurant dashboard
-  return '/dashboard/restaurant';
+  switch (userType) {
+    case 'farmer':
+      return '/dashboard/farmer';
+    case 'customer':
+      return '/dashboard/customer';
+    case 'hub':
+      return '/dashboard/hub';
+    case 'restaurant':
+      return '/dashboard/restaurant';
+    default:
+      return '/dashboard';
+  }
 }
 
 /**
