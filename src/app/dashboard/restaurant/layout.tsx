@@ -149,7 +149,7 @@ function Sidebar({ className, onSignOut }: { className?: string; onSignOut: () =
                 )} />
                 {item.title}
               </Button>
-            ))
+            ))}
           </div>
         </div>
       </div>
