@@ -25,7 +25,6 @@ export function useFastNavigation() {
   }, [router]);
 
   const navigate = useCallback((path: string) => {
-    // Instant navigation
     router.push(path);
   }, [router]);
 
@@ -34,30 +33,4 @@ export function useFastNavigation() {
   }, [router]);
 
   return { navigate, preload };
-}
-
-// Fast Link component with instant preloading
-export function FastLink({ 
-  href, 
-  children, 
-  className = "",
-  ...props 
-}: {
-  href: string;
-  children: React.ReactNode;
-  className?: string;
-  [key: string]: any;
-}) {
-  const { navigate, preload } = useFastNavigation();
-
-  return (
-    <button
-      className={`cursor-pointer ${className}`}
-      onMouseEnter={() => preload(href)}
-      onClick={() => navigate(href)}
-      {...props}
-    >
-      {children}
-    </button>
-  );
 }
