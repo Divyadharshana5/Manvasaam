@@ -158,6 +158,7 @@ export default function CustomerLayout({
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const router = useRouter();
   const { toast } = useToast();
+  const { navigate, preload } = useFastNavigation();
 
   const handleSignOut = async () => {
     try {
