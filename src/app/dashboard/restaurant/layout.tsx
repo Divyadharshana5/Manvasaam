@@ -133,22 +133,23 @@ function Sidebar({ className, onSignOut }: { className?: string; onSignOut: () =
           </div>
           <div className="space-y-1">
             {sidebarItems.map((item) => (
-              <Link key={item.href} href={item.href}>
-                <Button
-                  variant={pathname === item.href ? "secondary" : "ghost"}
-                  className={cn(
-                    "w-full justify-start transition-all duration-200 hover:bg-rose-100 dark:hover:bg-rose-900",
-                    pathname === item.href && "bg-gradient-to-r from-rose-200 to-pink-200 dark:from-rose-800 dark:to-pink-800 text-rose-800 dark:text-rose-200 border border-rose-300 dark:border-rose-600"
-                  )}
-                >
-                  <item.icon className={cn(
-                    "mr-2 h-4 w-4",
-                    pathname === item.href ? "text-rose-700 dark:text-rose-300" : "text-rose-600 dark:text-rose-400"
-                  )} />
-                  {item.title}
-                </Button>
-              </Link>
-            ))}
+              <Button
+                key={item.href}
+                variant={pathname === item.href ? "secondary" : "ghost"}
+                className={cn(
+                  "w-full justify-start fast-button hover:bg-rose-100 dark:hover:bg-rose-900",
+                  pathname === item.href && "bg-gradient-to-r from-rose-200 to-pink-200 dark:from-rose-800 dark:to-pink-800 text-rose-800 dark:text-rose-200 border border-rose-300 dark:border-rose-600"
+                )}
+                onMouseEnter={() => preload(item.href)}
+                onClick={() => navigate(item.href)}
+              >
+                <item.icon className={cn(
+                  "mr-2 h-4 w-4",
+                  pathname === item.href ? "text-rose-700 dark:text-rose-300" : "text-rose-600 dark:text-rose-400"
+                )} />
+                {item.title}
+              </Button>
+            ))
           </div>
         </div>
       </div>
