@@ -290,9 +290,11 @@ export default function HubDashboard() {
             <div className="border rounded-lg p-3">
               <h4 className="font-medium mb-2">Live Tracking</h4>
               <p className="text-sm text-muted-foreground mb-2">Track deliveries from farmers to hub</p>
-              <Button size="sm" variant="outline" className="w-full">
-                <MapPin className="h-4 w-4 mr-2" />
-                View Live Tracking
+              <Button size="sm" variant="outline" className="w-full" asChild>
+                <Link href="/dashboard/hub/live-tracking">
+                  <MapPin className="h-4 w-4 mr-2" />
+                  View Live Tracking
+                </Link>
               </Button>
             </div>
           </CardContent>
