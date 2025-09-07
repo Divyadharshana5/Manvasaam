@@ -2,7 +2,7 @@
 
 import { useState } from 'react'
 import { Button } from '@/components/ui/button'
-import { Mic, MicOff, Volume2 } from 'lucide-react'
+import { Mic, MicOff, Volume2, Bot } from 'lucide-react'
 import { Card } from '@/components/ui/card'
 
 export function VoiceAssistantWidget() {
@@ -28,24 +28,30 @@ export function VoiceAssistantWidget() {
         <Button
           onClick={toggleListening}
           size="lg"
-          className={`rounded-full w-14 h-14 shadow-lg transition-all duration-300 ${
+          className={`rounded-full w-14 h-14 shadow-lg transition-all duration-300 relative ${
             isListening 
               ? 'bg-red-500 hover:bg-red-600 animate-pulse' 
-              : 'bg-gradient-to-r from-green-500 to-lime-500 hover:from-green-600 hover:to-lime-600'
+              : 'bg-gradient-to-r from-green-500 via-lime-500 to-yellow-500 hover:from-green-600 hover:via-lime-600 hover:to-yellow-600'
           }`}
         >
-          {isListening ? <MicOff className="h-6 w-6" /> : <Mic className="h-6 w-6" />}
+          <div className="relative">
+            {isListening ? <MicOff className="h-6 w-6" /> : <Mic className="h-6 w-6" />}
+            <Bot className="h-3 w-3 absolute -bottom-1 -right-1 bg-white rounded-full p-0.5 text-green-600" />
+          </div>
         </Button>
       </div>
 
       {/* Voice Assistant Widget */}
       {isVisible && (
         <div className="fixed bottom-24 right-6 z-50 w-80">
-          <Card className="p-4 shadow-xl border-2 border-green-200">
+          <Card className="p-4 shadow-xl border-2 border-green-200 bg-gradient-to-br from-green-50 via-lime-50 to-yellow-50">
             <div className="flex items-center justify-between mb-3">
               <div className="flex items-center gap-2">
-                <Volume2 className="h-5 w-5 text-green-600" />
-                <span className="font-semibold text-green-800">Voice Assistant</span>
+                <div className="flex items-center gap-1">
+                  <Bot className="h-5 w-5 text-green-600" />
+                  <Volume2 className="h-4 w-4 text-green-600" />
+                </div>
+                <span className="font-semibold text-green-800">🤖 Voice Assistant</span>
               </div>
               <Button
                 variant="ghost"
