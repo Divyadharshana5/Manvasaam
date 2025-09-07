@@ -67,21 +67,28 @@ export default function HubDashboard() {
       {/* Welcome Header */}
       <div className="flex items-center justify-between">
         <div>
-          <h1 className="text-4xl font-bold tracking-tight">Welcome, {hubManagerName}! 🏢</h1>
+          <h1 className="text-4xl font-bold tracking-tight">Welcome, {hubManagerName}!</h1>
           <p className="text-muted-foreground">
             Manage distribution operations and logistics
           </p>
         </div>
         <div className="flex gap-2">
-          <Button variant="outline" size="icon" asChild>
-            <Link href="/dashboard/voice-assistant">
-              <Mic className="h-4 w-4" />
+          <Button variant="outline" asChild>
+            <Link href="/dashboard/hub/attendance">
+              <UserCheck className="mr-2 h-4 w-4" />
+              Attendance
+            </Link>
+          </Button>
+          <Button variant="outline" asChild>
+            <Link href="/dashboard/hub/inventory">
+              <Package className="mr-2 h-4 w-4" />
+              Inventory
             </Link>
           </Button>
           <Button asChild>
-            <Link href="/dashboard/hub/inventory">
-              <Plus className="mr-2 h-4 w-4" />
-              Add Inventory
+            <Link href="/dashboard/voice-assistant">
+              <Mic className="mr-2 h-4 w-4" />
+              Voice Assistant
             </Link>
           </Button>
         </div>
