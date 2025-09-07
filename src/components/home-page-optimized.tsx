@@ -44,6 +44,7 @@ import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 
 // Lazy load AI components for better initial load performance
 const VoiceAssistant = lazy(() => import("@/components/voice-assistant"));
+const ProductShowcase = lazy(() => import("@/components/product-showcase"));
 
 type AssistantState = "idle" | "listening" | "thinking" | "speaking";
 
@@ -445,6 +446,18 @@ export default function HomePage() {
                 </div>
               </CardContent>
             </Card>
+          </section>
+
+          {/* Product Showcase Section */}
+          <section className="w-full max-w-7xl mx-auto mt-16 sm:mt-20 md:mt-24 z-10 px-4 sm:px-6">
+            <Suspense fallback={
+              <div className="flex justify-center py-8">
+                <Loader2 className="h-8 w-8 animate-spin" />
+                <span className="ml-2">Loading products...</span>
+              </div>
+            }>
+              <ProductShowcase maxItemsPerCategory={2} />
+            </Suspense>
           </section>
         </main>
 

@@ -141,6 +141,11 @@ export default function FarmerProductsPage() {
       });
       setShowAddForm(false);
       fetchProducts();
+      
+      // Refresh the parent dashboard if we're in an iframe or similar context
+      if (window.parent && window.parent !== window) {
+        window.parent.postMessage({ type: 'PRODUCT_ADDED', product: formData }, '*');
+      }
     } catch (error: any) {
       toast({
         title: "Error",
@@ -248,7 +253,13 @@ export default function FarmerProductsPage() {
 
                   <div className="space-y-2">
                     <Label htmlFor="category">Category</Label>
-                    <Select value={formData.category} onValueChange={(value) => handleInputChange("category", value)}>
+                    <Select value={formData.category} onValueChange={(value) => {
+                      handleInputChange("category", value);
+                      setTimeout(() => {
+                        const element = document.activeElement as HTMLElement;
+                        if (element) element.blur();
+                      }, 0);
+                    }}>
                       <SelectTrigger>
                         <SelectValue placeholder="Select category" />
                       </SelectTrigger>
@@ -278,7 +289,13 @@ export default function FarmerProductsPage() {
 
                   <div className="space-y-2">
                     <Label htmlFor="unit">Unit</Label>
-                    <Select value={formData.unit} onValueChange={(value) => handleInputChange("unit", value)}>
+                    <Select value={formData.unit} onValueChange={(value) => {
+                      handleInputChange("unit", value);
+                      setTimeout(() => {
+                        const element = document.activeElement as HTMLElement;
+                        if (element) element.blur();
+                      }, 0);
+                    }}>
                       <SelectTrigger>
                         <SelectValue />
                       </SelectTrigger>
@@ -327,7 +344,13 @@ export default function FarmerProductsPage() {
 
                   <div className="space-y-2">
                     <Label htmlFor="quality">Quality</Label>
-                    <Select value={formData.quality} onValueChange={(value) => handleInputChange("quality", value)}>
+                    <Select value={formData.quality} onValueChange={(value) => {
+                      handleInputChange("quality", value);
+                      setTimeout(() => {
+                        const element = document.activeElement as HTMLElement;
+                        if (element) element.blur();
+                      }, 0);
+                    }}>
                       <SelectTrigger>
                         <SelectValue />
                       </SelectTrigger>

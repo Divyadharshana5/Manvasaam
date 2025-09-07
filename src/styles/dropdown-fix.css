@@ -1,0 +1,8 @@
+/* Fix dropdown scroll to top issue */
+[data-radix-select-content] {
+  scroll-behavior: auto !important;
+}
+
+[data-radix-select-item] {
+  scroll-behavior: auto !important;
+}

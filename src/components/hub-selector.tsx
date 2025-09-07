@@ -48,10 +48,16 @@ export default function HubSelector({
       const response = await fetch(`/api/farmers/assign-hub?farmerId=${farmerId}`);
       if (response.ok) {
         const data = await response.json();
+        console.log('Farmer hub assignment:', data);
         setAssignedHub(data.hub);
         if (onHubSelected) {
           onHubSelected(data.hub);
         }
+      } else if (response.status === 404) {
+        console.log('No hub assigned to farmer yet');
+        setAssignedHub(null);
+      } else {
+        console.error('Error response:', response.status, response.statusText);
       }
     } catch (error) {
       console.error("Error fetching farmer hub:", error);
@@ -65,10 +71,19 @@ export default function HubSelector({
       const response = await fetch("/api/hubs");
       if (response.ok) {
         const data = await response.json();
-        setAllHubs(data.hubs.filter((hub: Hub) => hub.status === "active"));
+        const activeHubs = (data.hubs || []).filter((hub: Hub) => hub.status === "active");
+        setAllHubs(activeHubs);
+        console.log('Fetched active hubs:', activeHubs.map(h => ({ id: h.id, name: h.branchName, location: h.location })));
+      } else {
+        console.error('Failed to fetch hubs:', response.status, response.statusText);
       }
     } catch (error) {
       console.error("Error fetching hubs:", error);
+      toast({
+        title: "Error",
+        description: "Failed to load available hubs",
+        variant: "destructive",
+      });
     }
   };
 
@@ -268,7 +283,10 @@ export default function HubSelector({
                       .filter(hub => hub.id !== assignedHub.id)
                       .map((hub) => (
                         <SelectItem key={hub.id} value={hub.id}>
-                          {hub.branchName} - {hub.location}
+                          <div className="flex flex-col">
+                            <span className="font-medium">{hub.branchName}</span>
+                            <span className="text-xs text-gray-500">{hub.location}</span>
+                          </div>
                         </SelectItem>
                       ))}
                   </SelectContent>
@@ -336,7 +354,7 @@ export default function HubSelector({
                   {allHubs.map((hub) => (
                     <SelectItem key={hub.id} value={hub.id}>
                       <div className="flex flex-col">
-                        <span>{hub.branchName}</span>
+                        <span className="font-medium">{hub.branchName}</span>
                         <span className="text-xs text-gray-500">{hub.location}</span>
                       </div>
                     </SelectItem>

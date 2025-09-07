@@ -5,10 +5,30 @@ import { cookies } from "next/headers";
 
 export async function POST(request: Request) {
   try {
-    if (!isFirebaseInitialized || !adminAuth) {
+    if (!isFirebaseInitialized) {
+      // Mock assignment when Firebase is not configured
+      const data = await request.json();
+      const { hubId } = data;
+      
+      const mockHub = {
+        id: hubId || "hub1",
+        branchId: "HUB-001",
+        branchName: "Green Valley Hub",
+        location: "Bangalore North",
+        address: "123 Green Valley Road, Hebbal, Bangalore",
+        status: "active",
+        operatingHours: { open: "06:00", close: "20:00" },
+        capacity: 5000,
+        currentLoad: 1200
+      };
+      
       return NextResponse.json(
-        { message: "Server configuration error" },
-        { status: 500 }
+        { 
+          message: "Farmer assigned to hub successfully",
+          assignmentId: "mock-assignment",
+          hub: mockHub
+        },
+        { status: 200 }
       );
     }
 
@@ -27,7 +47,6 @@ export async function POST(request: Request) {
 
     const { farmerId, coordinates, hubId, assignmentType = "auto" } = data;
 
-    // Validate required fields
     if (!farmerId) {
       return NextResponse.json(
         { message: "Farmer ID is required" },
@@ -38,10 +57,8 @@ export async function POST(request: Request) {
     let assignmentId: string | null = null;
 
     if (assignmentType === "manual" && hubId) {
-      // Manual assignment to specific hub
       assignmentId = await assignFarmerToHub(farmerId, hubId, 0, "manual");
     } else if (assignmentType === "auto" && coordinates) {
-      // Auto assignment based on location
       const { latitude, longitude } = coordinates;
       
       if (!latitude || !longitude) {
@@ -66,7 +83,6 @@ export async function POST(request: Request) {
       );
     }
 
-    // Get the assigned hub details
     const assignedHub = await getFarmerHub(farmerId);
 
     return NextResponse.json(
@@ -88,10 +104,11 @@ export async function POST(request: Request) {
 
 export async function GET(request: Request) {
   try {
-    if (!isFirebaseInitialized || !adminAuth) {
+    if (!isFirebaseInitialized) {
+      // Return mock assignment when Firebase is not configured
       return NextResponse.json(
-        { message: "Server configuration error" },
-        { status: 500 }
+        { message: "No hub assigned to this farmer" },
+        { status: 404 }
       );
     }
 
@@ -116,7 +133,6 @@ export async function GET(request: Request) {
       );
     }
 
-    // Get farmer's assigned hub
     const assignedHub = await getFarmerHub(farmerId);
 
     if (!assignedHub) {

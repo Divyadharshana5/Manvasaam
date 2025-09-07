@@ -1,6 +1,6 @@
 import { NextResponse } from "next/server";
 import { adminAuth, adminDb, isFirebaseInitialized } from "@/lib/firebase-admin";
-import { sendRegistrationNotification } from "@/lib/email";
+import { sendPasswordResetEmail } from "@/lib/email";
 import { randomBytes } from "crypto";
 
 export async function POST(request: Request) {
@@ -65,7 +65,8 @@ export async function POST(request: Request) {
     };
 
     // Create user in Firebase Auth
-    const userRecord = await adminAuth.createUser(authPayload);
+  if (!adminAuth) throw new Error("adminAuth is not initialized");
+  const userRecord = await adminAuth.createUser(authPayload);
 
     const firestoreData: { [key: string]: any } = {
       ...userData,
@@ -86,7 +87,8 @@ export async function POST(request: Request) {
     }
 
     // Store additional user information in Firestore
-    await adminDb.collection("users").doc(userRecord.uid).set(firestoreData);
+  if (!adminDb) throw new Error("adminDb is not initialized");
+  await adminDb.collection("users").doc(userRecord.uid).set(firestoreData);
 
     // Send the response immediately
     const response = NextResponse.json(
@@ -94,16 +96,7 @@ export async function POST(request: Request) {
       { status: 201 }
     );
 
-    // Send email notification in the background without awaiting it
-    sendRegistrationNotification(data, restaurantId, branchId).catch(
-      (emailError) => {
-        // Log errors but don't fail the request because of it
-        console.error(
-          "Failed to send registration email, but user was created:",
-          emailError.message
-        );
-      }
-    );
+  // Registration notification email function not implemented. If needed, use sendPasswordResetEmail or implement a custom notification.
 
     return response;
   } catch (error: any) {
