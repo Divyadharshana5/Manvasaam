@@ -70,7 +70,7 @@ export default function FarmerDashboard() {
       {/* Welcome Header */}
       <div className="flex items-center justify-between">
         <div>
-          <h1 className="text-3xl font-bold tracking-tight text-emerald-800">Welcome, {farmerName}!</h1>
+          <h1 className="text-4xl font-bold tracking-tight">Welcome, {farmerName}! 🌾</h1>
           <p className="text-muted-foreground mt-1">
             Manage your farm operations and connect with buyers
           </p>

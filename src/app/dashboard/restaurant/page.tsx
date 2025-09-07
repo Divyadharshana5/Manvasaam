@@ -71,7 +71,7 @@ export default function RestaurantDashboard() {
       {/* Welcome Header */}
       <div className="flex items-center justify-between">
         <div>
-          <h1 className="text-3xl font-bold tracking-tight">Welcome, {restaurantName}! 🍽️</h1>
+          <h1 className="text-4xl font-bold tracking-tight">Welcome, {restaurantName}! 🍽️</h1>
           <p className="text-muted-foreground">
             Manage your organic farm-to-table sourcing operations
           </p>
