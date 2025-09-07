@@ -87,7 +87,7 @@ export default function HubDashboard() {
               Inventory
             </Link>
           </Button>
-          <Button disabled className="opacity-50">
+          <Button>
             <Volume2 className="mr-2 h-4 w-4" />
             Voice Assistant
           </Button>
@@ -267,7 +267,7 @@ export default function HubDashboard() {
               <h4 className="font-medium mb-2">Voice Assistant</h4>
               <p className="text-sm text-muted-foreground mb-2">Check attendance, stock, and sales via voice</p>
               <Button size="sm" className="w-full">
-                <Mic className="h-4 w-4 mr-2" />
+                <Volume2 className="h-4 w-4 mr-2" />
                 Activate Voice Commands
               </Button>
             </div>
