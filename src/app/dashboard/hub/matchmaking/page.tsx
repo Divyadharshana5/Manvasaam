@@ -128,7 +128,7 @@ export default function HubMatchmakingPage() {
       {/* Header */}
       <div className="flex items-center justify-between">
         <div>
-          <h1 className="text-3xl font-bold tracking-tight">Network Partners</h1>
+          <h1 className="text-4xl font-bold tracking-tight">Matchmaking</h1>
           <p className="text-muted-foreground">
             Connect farmers with restaurants and customers through your hub
           </p>

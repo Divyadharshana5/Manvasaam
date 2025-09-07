@@ -56,11 +56,10 @@ export default function FarmerDashboard() {
     }
   }, [user]);
 
-  // Listen for product updates from child components
   useEffect(() => {
     const handleMessage = (event: MessageEvent) => {
       if (event.data.type === 'PRODUCT_ADDED') {
-        fetchFarmerProducts(); // Refresh products when a new one is added
+        fetchFarmerProducts();
       }
     };
 
@@ -75,7 +74,6 @@ export default function FarmerDashboard() {
         const data = await response.json();
         setProducts(data.products || []);
         
-        // Calculate category counts
         const categoryCounts = data.products?.reduce((acc: any, product: Product) => {
           const category = product.category.toLowerCase();
           acc[category] = (acc[category] || 0) + 1;
@@ -103,9 +101,9 @@ export default function FarmerDashboard() {
       product.category.toLowerCase() === category.toLowerCase()
     );
   };
+
   return (
     <div className="flex flex-1 flex-col gap-4 p-4 md:gap-8 md:p-8">
-      {/* Header */}
       <div className="flex items-center justify-between">
         <div>
           <h1 className="text-3xl font-bold tracking-tight">Farmer Dashboard</h1>
@@ -127,7 +125,6 @@ export default function FarmerDashboard() {
         </div>
       </div>
 
-      {/* Stats Cards */}
       <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
         <Card>
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
@@ -181,7 +178,6 @@ export default function FarmerDashboard() {
         </Card>
       </div>
 
-      {/* Product Categories */}
       <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
         <Card className="border-green-200">
           <CardHeader className="pb-3">
@@ -309,7 +305,6 @@ export default function FarmerDashboard() {
         </Card>
       </div>
 
-      {/* Recent Orders & Quick Actions */}
       <div className="grid gap-4 md:grid-cols-2">
         <Card>
           <CardHeader>
