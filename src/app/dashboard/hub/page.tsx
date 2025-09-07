@@ -29,6 +29,7 @@ import {
   Calendar,
   Eye,
   Edit,
+  Volume2,
 } from "lucide-react";
 import Link from "next/link";
 import { useState } from "react";
