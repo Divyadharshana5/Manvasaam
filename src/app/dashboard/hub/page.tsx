@@ -4,6 +4,7 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
+import { LiveTracking } from "@/components/live-tracking";
 import {
   Package,
   Truck,
@@ -297,6 +298,9 @@ export default function HubDashboard() {
           </CardContent>
         </Card>
       </div>
+
+      {/* Live Tracking Section */}
+      <LiveTracking />
 
       {/* FAQ & Profile Settings */}
       <div className="grid gap-6 lg:grid-cols-2">
