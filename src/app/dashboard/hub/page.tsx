@@ -73,8 +73,10 @@ export default function HubDashboard() {
           </p>
         </div>
         <div className="flex gap-2">
-          <Button variant="outline" size="icon">
-            <Mic className="h-4 w-4" />
+          <Button variant="outline" size="icon" asChild>
+            <Link href="/dashboard/voice-assistant">
+              <Mic className="h-4 w-4" />
+            </Link>
           </Button>
           <Button asChild>
             <Link href="/dashboard/hub/inventory">
