@@ -9,6 +9,7 @@ import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
 import { useToast } from "@/hooks/use-toast";
+import { VoiceAssistantWidget } from "@/components/voice-assistant-widget";
 import {
   LayoutDashboard,
   ShoppingCart,
@@ -225,6 +226,7 @@ export default function CustomerLayout({
           {children}
         </main>
       </div>
+      <VoiceAssistantWidget />
     </div>
   );
 }
