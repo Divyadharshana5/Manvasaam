@@ -22,6 +22,7 @@ import {
   Power,
   DoorOpen,
   Clock,
+  Mic,
 } from "lucide-react";
 
 const sidebarItems = [
@@ -64,6 +65,11 @@ const sidebarItems = [
     title: "Analytics",
     href: "/dashboard/hub/analytics",
     icon: BarChart3,
+  },
+  {
+    title: "Voice Assistant",
+    href: "/dashboard/voice-assistant",
+    icon: Mic,
   },
   {
     title: "FAQ",
@@ -122,22 +128,22 @@ function Sidebar({ className, onSignOut }: { className?: string; onSignOut: () =
           </div>
           <div className="space-y-1">
             {sidebarItems.map((item) => (
-              <Button
-                key={item.href}
-                variant={pathname === item.href ? "secondary" : "ghost"}
-                className={cn(
-                  "w-full justify-start fast-button hover:bg-green-100 dark:hover:bg-green-900",
-                  pathname === item.href && "bg-gradient-to-r from-green-200 to-lime-200 dark:from-green-800 dark:to-lime-800 text-green-800 dark:text-green-200 border border-green-300 dark:border-green-600"
-                )}
-                onMouseEnter={() => preload(item.href)}
-                onClick={() => navigate(item.href)}
-              >
-                <item.icon className={cn(
-                  "mr-2 h-4 w-4",
-                  pathname === item.href ? "text-green-700 dark:text-green-300" : "text-green-600 dark:text-green-400"
-                )} />
-                {item.title}
-              </Button>
+              <Link key={item.href} href={item.href}>
+                <Button
+                  variant={pathname === item.href ? "secondary" : "ghost"}
+                  className={cn(
+                    "w-full justify-start fast-button hover:bg-green-100 dark:hover:bg-green-900",
+                    pathname === item.href && "bg-gradient-to-r from-green-200 to-lime-200 dark:from-green-800 dark:to-lime-800 text-green-800 dark:text-green-200 border border-green-300 dark:border-green-600"
+                  )}
+                  onMouseEnter={() => preload(item.href)}
+                >
+                  <item.icon className={cn(
+                    "mr-2 h-4 w-4",
+                    pathname === item.href ? "text-green-700 dark:text-green-300" : "text-green-600 dark:text-green-400"
+                  )} />
+                  {item.title}
+                </Button>
+              </Link>
             ))}
           </div>
         </div>
