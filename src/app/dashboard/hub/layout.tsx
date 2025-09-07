@@ -17,12 +17,14 @@ import {
   BarChart3,
   Settings,
   Menu,
-  Building2,
+
   HelpCircle,
   Power,
   DoorOpen,
   Clock,
   Mic,
+  ShoppingCart,
+  UserCheck,
 } from "lucide-react";
 
 const sidebarItems = [
@@ -32,14 +34,9 @@ const sidebarItems = [
     icon: LayoutDashboard,
   },
   {
-    title: "Inventory",
-    href: "/dashboard/hub/inventory",
-    icon: Package,
-  },
-  {
     title: "Orders",
     href: "/dashboard/hub/orders",
-    icon: Clock,
+    icon: ShoppingCart,
   },
   {
     title: "Deliveries",
@@ -47,24 +44,19 @@ const sidebarItems = [
     icon: Truck,
   },
   {
+    title: "Inventory",
+    href: "/dashboard/hub/inventory",
+    icon: Package,
+  },
+  {
     title: "Farmers",
     href: "/dashboard/hub/farmers",
     icon: Users,
   },
   {
-    title: "Matchmaking",
-    href: "/dashboard/hub/matchmaking",
-    icon: Users,
-  },
-  {
     title: "Attendance",
     href: "/dashboard/hub/attendance",
-    icon: Clock,
-  },
-  {
-    title: "Analytics",
-    href: "/dashboard/hub/analytics",
-    icon: BarChart3,
+    icon: UserCheck,
   },
   {
     title: "Voice Assistant",
@@ -72,9 +64,9 @@ const sidebarItems = [
     icon: Mic,
   },
   {
-    title: "FAQ",
-    href: "/dashboard/faq",
-    icon: HelpCircle,
+    title: "Analytics",
+    href: "/dashboard/hub/analytics",
+    icon: BarChart3,
   },
   {
     title: "Settings",
@@ -97,7 +89,6 @@ function Sidebar({ className, onSignOut }: { className?: string; onSignOut: () =
         <div className="flex-1 space-y-4 py-4">
           <div className="px-3 py-2">
             <div className="flex items-center gap-2 mb-6 p-3 rounded-lg border">
-              <Building2 className="h-6 w-6" />
               <h2 className="text-lg font-semibold">Hub Portal</h2>
             </div>
             <div className="space-y-1">
@@ -121,7 +112,6 @@ function Sidebar({ className, onSignOut }: { className?: string; onSignOut: () =
       <div className="flex-1 space-y-4 py-4">
         <div className="px-3 py-2">
           <div className="flex items-center gap-2 mb-6 p-3 rounded-lg bg-gradient-to-r from-green-100 to-lime-100 dark:from-green-900 dark:to-lime-900 border border-green-200 dark:border-green-700">
-            <Building2 className="h-6 w-6 text-green-600 dark:text-green-400" />
             <h2 className="text-xl font-bold text-green-800 dark:text-green-200">
               Hub Portal
             </h2>
