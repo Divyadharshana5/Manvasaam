@@ -86,11 +86,9 @@ export default function HubDashboard() {
               Inventory
             </Link>
           </Button>
-          <Button asChild>
-            <Link href="/dashboard/voice-assistant">
-              <Mic className="mr-2 h-4 w-4" />
-              Voice Assistant
-            </Link>
+          <Button disabled className="opacity-50">
+            <Volume2 className="mr-2 h-4 w-4" />
+            Voice Assistant
           </Button>
         </div>
       </div>
@@ -358,11 +356,9 @@ export default function HubDashboard() {
                 <Settings className="mr-2 h-4 w-4" />
                 Language & Voice
               </Button>
-              <Button variant="outline" className="justify-start" asChild>
-                <Link href="/dashboard/voice-assistant">
-                  <Mic className="mr-2 h-4 w-4" />
-                  Voice Assistant
-                </Link>
+              <Button variant="outline" className="justify-start" disabled>
+                <Volume2 className="mr-2 h-4 w-4" />
+                Voice Assistant
               </Button>
             </div>
           </CardContent>

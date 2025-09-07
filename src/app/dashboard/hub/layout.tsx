@@ -58,11 +58,7 @@ const sidebarItems = [
     href: "/dashboard/hub/attendance",
     icon: UserCheck,
   },
-  {
-    title: "Voice Assistant",
-    href: "/dashboard/voice-assistant",
-    icon: Mic,
-  },
+
   {
     title: "Analytics",
     href: "/dashboard/hub/analytics",

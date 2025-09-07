@@ -44,11 +44,8 @@ export function VoiceAssistantWidget() {
           <Card className="p-4 shadow-xl border-2 border-green-200">
             <div className="flex items-center justify-between mb-3">
               <div className="flex items-center gap-2">
-                <div className="flex items-center gap-1">
-                  <Mic className="h-4 w-4 text-green-600" />
-                  <Volume2 className="h-5 w-5 text-green-600" />
-                </div>
-                <span className="font-semibold text-green-800">🎤 Voice Assistant</span>
+                <Volume2 className="h-5 w-5 text-green-600" />
+                <span className="font-semibold text-green-800">Voice Assistant</span>
               </div>
               <Button
                 variant="ghost"
