@@ -10,6 +10,7 @@ import { Button } from "@/components/ui/button";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
 
 import { useToast } from "@/hooks/use-toast";
+import { VoiceAssistantWidget } from "@/components/voice-assistant-widget";
 import {
   LayoutDashboard,
   ShoppingCart,
@@ -268,6 +269,7 @@ export default function RestaurantLayout({
           {children}
         </main>
       </div>
+      <VoiceAssistantWidget />
     </div>
   );
 }
