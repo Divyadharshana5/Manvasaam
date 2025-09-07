@@ -10,6 +10,7 @@ import { Button } from "@/components/ui/button";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
 
 import { useToast } from "@/hooks/use-toast";
+import { VoiceAssistantWidget } from "@/components/voice-assistant-widget";
 import {
   LayoutDashboard,
   Package,
@@ -237,6 +238,7 @@ export default function FarmerLayout({
           {children}
         </main>
       </div>
+      <VoiceAssistantWidget />
     </div>
   );
 }
