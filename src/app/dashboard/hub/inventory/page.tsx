@@ -63,14 +63,14 @@ export default async function HubInventoryPage() {
         {/* Header */}
         <div className="flex items-center justify-between space-y-2">
           <div>
-            <h2 className="text-3xl font-bold tracking-tight">Inventory Management</h2>
+            <h1 className="text-4xl font-bold tracking-tight">Inventory Management</h1>
             <p className="text-muted-foreground">
               Manage stock for {hub.branchName}
             </p>
           </div>
           <div className="flex gap-2">
             <Button variant="outline">
-              <Filter className="mr-2 h-4 w-4" />
+              <Package className="mr-2 h-4 w-4" />
               Filter
             </Button>
             <Button asChild>
