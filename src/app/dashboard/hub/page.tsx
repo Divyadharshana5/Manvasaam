@@ -357,7 +357,7 @@ export default function HubDashboard() {
                 <Settings className="mr-2 h-4 w-4" />
                 Language & Voice
               </Button>
-              <Button variant="outline" className="justify-start" disabled>
+              <Button variant="outline" className="justify-start">
                 <Volume2 className="mr-2 h-4 w-4" />
                 Voice Assistant
               </Button>
