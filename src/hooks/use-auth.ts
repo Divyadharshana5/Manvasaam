@@ -3,12 +3,13 @@
 
 import React, {useEffect, useState, createContext, useContext, ReactNode} from 'react';
 import { auth, isFirebaseAvailable } from '@/lib/firebase';
+import { demoAuth, type DemoUser } from '@/lib/demo-auth';
 import type {User} from 'firebase/auth';
 import { onIdTokenChanged } from 'firebase/auth';
 import { getUserType, type UserType } from '@/lib/auth-redirect';
 
 interface AuthContextType {
-  user: User | null;
+  user: User | DemoUser | null;
   loading: boolean;
   userType: UserType | null;
   isDemoMode: boolean;
