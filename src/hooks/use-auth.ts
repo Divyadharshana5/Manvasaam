@@ -37,7 +37,7 @@ async function setSessionCookie(idToken: string) {
 }
 
 export function AuthProvider({ children }: { children: ReactNode }) {
-  const [user, setUser] = useState<User | null>(null);
+  const [user, setUser] = useState<User | DemoUser | null>(null);
   const [loading, setLoading] = useState(true);
   const [userType, setUserType] = useState<UserType | null>(null);
   const isDemoMode = !isFirebaseAvailable;
@@ -45,8 +45,22 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   useEffect(() => {
     if (!isFirebaseAvailable || !auth) {
       console.log('🔄 Running in demo mode - Firebase not available');
-      setLoading(false);
-      return;
+      
+      // Use demo auth service
+      const unsubscribe = demoAuth.onAuthStateChanged((demoUser) => {
+        setUser(demoUser);
+        if (demoUser) {
+          setUserType(demoUser.userType as UserType);
+          // Store user type for getUserType function
+          localStorage.setItem('userType', demoUser.userType);
+        } else {
+          setUserType(null);
+          localStorage.removeItem('userType');
+        }
+        setLoading(false);
+      });
+      
+      return unsubscribe;
     }
 
     let unsubscribe: (() => void) | undefined;
@@ -100,3 +114,6 @@ export function useAuth() {
   }
   return context;
 }
+
+// Export demo auth for use in components
+export { demoAuth };
