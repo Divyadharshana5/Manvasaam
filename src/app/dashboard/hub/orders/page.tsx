@@ -7,48 +7,28 @@ import { Input } from "@/components/ui/input";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { ShoppingCart, Clock, CheckCircle, Package, Search, Filter, Eye, Phone, X } from "lucide-react";
 import { useState } from "react";
-import { useToast } from "@/hooks/use-toast";
+import { useRouter } from "next/navigation";
 import Link from "next/link";
 
 export default function OrdersPage() {
   const [searchTerm, setSearchTerm] = useState("");
   const [filterOpen, setFilterOpen] = useState(false);
-  const { toast } = useToast();
+  const router = useRouter();
 
   const handleNewOrder = () => {
-    toast({
-      title: "New Order",
-      description: "Opening new order form...",
-    });
+    router.push('/dashboard/hub/orders/new');
   };
 
   const handleFilter = () => {
     setFilterOpen(!filterOpen);
-    toast({
-      title: "Filter",
-      description: "Filter options opened",
-    });
   };
 
   const handleViewOrder = (orderId: string) => {
-    toast({
-      title: "View Order",
-      description: `Opening order ${orderId} details...`,
-    });
+    router.push(`/dashboard/hub/orders/${orderId}`);
   };
 
   const handleCallCustomer = (customer: string) => {
-    toast({
-      title: "Call Customer",
-      description: `Calling ${customer}...`,
-    });
-  };
-
-  const handleProcessOrder = (orderId: string) => {
-    toast({
-      title: "Process Order",
-      description: `Processing order ${orderId}...`,
-    });
+    window.open(`tel:+91-9876543210`, '_self');
   };
 
   const orders = {
@@ -141,7 +121,7 @@ export default function OrdersPage() {
                         <Phone className="h-4 w-4" />
                       </Button>
                       {status === 'pending' && (
-                        <Button size="sm" variant="outline" onClick={() => handleProcessOrder(order.id)}>
+                        <Button size="sm" variant="outline" onClick={() => handleViewOrder(order.id)}>
                           <CheckCircle className="h-4 w-4" />
                         </Button>
                       )}
