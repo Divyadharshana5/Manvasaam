@@ -7,6 +7,7 @@ import { AuthProvider } from "@/hooks/use-auth";
 import { Toaster } from "@/components/ui/toaster";
 import { LanguageProvider } from "@/context/language-context";
 import { NavigationProvider } from "@/components/navigation-provider";
+import { FirebaseErrorBoundary } from "@/components/firebase-error-boundary";
 import { PT_Sans } from "next/font/google";
 
 const ptSans = PT_Sans({
@@ -152,11 +153,13 @@ export default function RootLayout({
         />
       </head>
       <body className={`${ptSans.variable} font-sans antialiased`}>
-        <LanguageProvider>
-          <NavigationProvider>
-            <AuthProvider>{children}</AuthProvider>
-          </NavigationProvider>
-        </LanguageProvider>
+        <FirebaseErrorBoundary>
+          <LanguageProvider>
+            <NavigationProvider>
+              <AuthProvider>{children}</AuthProvider>
+            </NavigationProvider>
+          </LanguageProvider>
+        </FirebaseErrorBoundary>
         <Toaster />
       </body>
     </html>
