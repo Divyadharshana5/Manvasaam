@@ -5,7 +5,7 @@ import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { ShoppingCart, Clock, CheckCircle, Package, Search, Filter, Eye, Phone } from "lucide-react";
+import { ShoppingCart, Clock, CheckCircle, Package, Search, Filter, Eye, Phone, X } from "lucide-react";
 import { useState } from "react";
 import { useToast } from "@/hooks/use-toast";
 import Link from "next/link";
@@ -90,10 +90,18 @@ export default function OrdersPage() {
           <Search className="absolute left-3 top-3 h-4 w-4 text-muted-foreground" />
           <Input 
             placeholder="Search orders..." 
-            className="pl-10" 
+            className="pl-10 pr-10" 
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}
           />
+          {searchTerm && (
+            <button
+              onClick={() => setSearchTerm("")}
+              className="absolute right-3 top-3 h-4 w-4 text-muted-foreground hover:text-foreground"
+            >
+              <X className="h-4 w-4" />
+            </button>
+          )}
         </div>
       </div>
 
