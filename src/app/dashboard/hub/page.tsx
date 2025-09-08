@@ -33,9 +33,39 @@ import {
 } from "lucide-react";
 import Link from "next/link";
 import { useState } from "react";
+import { useToast } from "@/hooks/use-toast";
 
 export default function HubDashboard() {
   const [hubManagerName] = useState("Rajesh Kumar");
+  const { toast } = useToast();
+
+  const handleVoiceAssistant = () => {
+    toast({
+      title: "Voice Assistant",
+      description: "Voice assistant activated. Say your command...",
+    });
+  };
+
+  const handleMarkAttendance = () => {
+    toast({
+      title: "Mark Attendance",
+      description: "Opening attendance marking interface...",
+    });
+  };
+
+  const handleUpdateStock = (product: string) => {
+    toast({
+      title: "Update Stock",
+      description: `Updating stock for ${product}...`,
+    });
+  };
+
+  const handleViewDetails = (customer: string) => {
+    toast({
+      title: "View Details",
+      description: `Opening details for ${customer}...`,
+    });
+  };
   
   // Mock data
   const stats = {
@@ -87,7 +117,7 @@ export default function HubDashboard() {
               Inventory
             </Link>
           </Button>
-          <Button>
+          <Button onClick={handleVoiceAssistant}>
             <Volume2 className="mr-2 h-4 w-4" />
             Voice Assistant
           </Button>
@@ -173,7 +203,7 @@ export default function HubDashboard() {
               ))}
             </div>
             <div className="flex gap-2 mt-4">
-              <Button size="sm" className="flex-1">
+              <Button size="sm" className="flex-1" onClick={handleMarkAttendance}>
                 <UserCheck className="h-4 w-4 mr-2" />
                 Mark Attendance
               </Button>
@@ -205,7 +235,7 @@ export default function HubDashboard() {
                   </div>
                   <div className="flex justify-between items-center">
                     <span className="text-sm font-bold text-green-600">{receipt.quantity}</span>
-                    <Button size="sm" variant="outline">
+                    <Button size="sm" variant="outline" onClick={() => handleUpdateStock(receipt.product)}>
                       <Package className="h-3 w-3 mr-1" />
                       Update Stock
                     </Button>
@@ -242,7 +272,7 @@ export default function HubDashboard() {
                   </div>
                   <div className="flex justify-between items-center">
                     <span className="font-bold text-green-600">₹{sale.amount}</span>
-                    <Button size="sm" variant="outline">
+                    <Button size="sm" variant="outline" onClick={() => handleViewDetails(sale.customer)}>
                       <Eye className="h-3 w-3 mr-1" />
                       View Details
                     </Button>

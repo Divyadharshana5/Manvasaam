@@ -6,8 +6,51 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { ShoppingCart, Clock, CheckCircle, Package, Search, Filter, Eye, Phone } from "lucide-react";
+import { useState } from "react";
+import { useToast } from "@/hooks/use-toast";
+import Link from "next/link";
 
 export default function OrdersPage() {
+  const [searchTerm, setSearchTerm] = useState("");
+  const [filterOpen, setFilterOpen] = useState(false);
+  const { toast } = useToast();
+
+  const handleNewOrder = () => {
+    toast({
+      title: "New Order",
+      description: "Opening new order form...",
+    });
+  };
+
+  const handleFilter = () => {
+    setFilterOpen(!filterOpen);
+    toast({
+      title: "Filter",
+      description: "Filter options opened",
+    });
+  };
+
+  const handleViewOrder = (orderId: string) => {
+    toast({
+      title: "View Order",
+      description: `Opening order ${orderId} details...`,
+    });
+  };
+
+  const handleCallCustomer = (customer: string) => {
+    toast({
+      title: "Call Customer",
+      description: `Calling ${customer}...`,
+    });
+  };
+
+  const handleProcessOrder = (orderId: string) => {
+    toast({
+      title: "Process Order",
+      description: `Processing order ${orderId}...`,
+    });
+  };
+
   const orders = {
     pending: [
       { id: "ORD001", customer: "Priya Sharma", items: "Organic Tomatoes - 5kg", amount: 400, time: "10:30 AM" },
@@ -31,11 +74,11 @@ export default function OrdersPage() {
           <p className="text-muted-foreground">Manage and process all hub orders</p>
         </div>
         <div className="flex gap-2">
-          <Button variant="outline">
+          <Button variant="outline" onClick={handleFilter}>
             <Filter className="mr-2 h-4 w-4" />
             Filter
           </Button>
-          <Button>
+          <Button onClick={handleNewOrder}>
             <ShoppingCart className="mr-2 h-4 w-4" />
             New Order
           </Button>
@@ -45,7 +88,12 @@ export default function OrdersPage() {
       <div className="flex gap-2">
         <div className="relative flex-1 max-w-md">
           <Search className="absolute left-3 top-3 h-4 w-4 text-muted-foreground" />
-          <Input placeholder="Search orders..." className="pl-10" />
+          <Input 
+            placeholder="Search orders..." 
+            className="pl-10" 
+            value={searchTerm}
+            onChange={(e) => setSearchTerm(e.target.value)}
+          />
         </div>
       </div>
 
@@ -77,15 +125,15 @@ export default function OrdersPage() {
                       <span className="text-sm text-muted-foreground">{order.time}</span>
                     </div>
                     <div className="flex gap-2">
-                      <Button size="sm" className="flex-1">
+                      <Button size="sm" className="flex-1" onClick={() => handleViewOrder(order.id)}>
                         <Eye className="h-4 w-4 mr-2" />
                         View
                       </Button>
-                      <Button size="sm" variant="outline">
+                      <Button size="sm" variant="outline" onClick={() => handleCallCustomer(order.customer)}>
                         <Phone className="h-4 w-4" />
                       </Button>
                       {status === 'pending' && (
-                        <Button size="sm" variant="outline">
+                        <Button size="sm" variant="outline" onClick={() => handleProcessOrder(order.id)}>
                           <CheckCircle className="h-4 w-4" />
                         </Button>
                       )}
