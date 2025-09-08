@@ -28,7 +28,8 @@ import { Loader2, Eye, EyeOff, Building2 } from "lucide-react";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { signInWithEmailAndPassword } from "firebase/auth";
 import { useRouter } from "next/navigation";
-import { auth } from "@/lib/firebase";
+import { auth, isFirebaseAvailable } from "@/lib/firebase";
+import { demoAuth } from "@/lib/demo-auth";
 import { redirectToDashboard } from "@/lib/auth-redirect";
 import { useLanguage } from "@/context/language-context";
 // import { initEmailJS, sendPasswordResetEmail } from "@/lib/emailjs";
@@ -104,29 +105,30 @@ function HubAuthComponent() {
   async function onLogin(values: z.infer<typeof loginSchema>) {
     setLoading(true);
     try {
-      // First, try to authenticate with Firebase
       let idToken: string;
       let authMethod = "firebase";
 
-      try {
-        const userCredential = await signInWithEmailAndPassword(
-          auth,
-          values.email,
-          values.password
-        );
-        idToken = await userCredential.user.getIdToken();
-        console.log("✅ Firebase authentication successful");
-      } catch (firebaseError: any) {
-        // If Firebase auth fails, try mock authentication
-        console.log(
-          "Firebase auth failed, using mock mode:",
-          firebaseError.message
-        );
-        idToken = `mock-token-${Date.now()}-${values.email.replace(
-          "@",
-          "-at-"
-        )}`;
-        authMethod = "mock";
+      if (!isFirebaseAvailable || !auth) {
+        // Use demo auth service
+        console.log("🔄 Using demo authentication");
+        await demoAuth.signInWithEmailAndPassword(values.email, values.password);
+        idToken = `demo-token-${Date.now()}-${values.email.replace("@", "-at-")}`;
+        authMethod = "demo";
+      } else {
+        try {
+          const userCredential = await signInWithEmailAndPassword(
+            auth,
+            values.email,
+            values.password
+          );
+          idToken = await userCredential.user.getIdToken();
+          console.log("✅ Firebase authentication successful");
+        } catch (firebaseError: any) {
+          console.log("Firebase auth failed, using demo mode:", firebaseError.message);
+          await demoAuth.signInWithEmailAndPassword(values.email, values.password);
+          idToken = `demo-token-${Date.now()}-${values.email.replace("@", "-at-")}`;
+          authMethod = "demo";
+        }
       }
 
       console.log(`🔐 Attempting login with ${authMethod} method...`);

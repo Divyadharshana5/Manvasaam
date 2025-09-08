@@ -93,22 +93,11 @@ export default function ProductShowcase({
   const categories = ['vegetables', 'fruits', 'grains', 'herbs'];
 
   if (isLoading) {
-    return (
-      <div className="flex items-center justify-center py-8">
-        <Loader2 className="h-8 w-8 animate-spin" />
-        <span className="ml-2">Loading fresh products...</span>
-      </div>
-    );
+    return null;
   }
 
   if (products.length === 0) {
-    return (
-      <div className="text-center py-8">
-        <Package className="mx-auto h-12 w-12 text-gray-400 mb-4" />
-        <h3 className="text-lg font-medium text-gray-900 mb-2">No products available</h3>
-        <p className="text-gray-500">Check back soon for fresh products from our farmers!</p>
-      </div>
-    );
+    return null;
   }
 
   return (
