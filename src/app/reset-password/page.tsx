@@ -64,7 +64,7 @@ export default function ResetPasswordPage() {
   });
 
   useEffect(() => {
-    if (!token || !email) {
+    if (!token) {
       toast({
         variant: "destructive",
         title: "Invalid Reset Link",
@@ -72,7 +72,7 @@ export default function ResetPasswordPage() {
       });
       router.push("/");
     }
-  }, [token, email, router, toast]);
+  }, [token, router, toast]);
 
   async function onSubmit(values: z.infer<typeof resetPasswordSchema>) {
     setLoading(true);
@@ -101,7 +101,7 @@ export default function ResetPasswordPage() {
     }
   }
 
-  if (!token || !email) {
+  if (!token) {
     return null;
   }
 
@@ -122,9 +122,11 @@ export default function ResetPasswordPage() {
         <CardContent>
           <Form {...form}>
             <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
-              <div className="text-sm text-emerald-600 dark:text-emerald-400 mb-4">
-                Resetting password for: <strong>{email}</strong>
-              </div>
+              {email && (
+                <div className="text-sm text-emerald-600 dark:text-emerald-400 mb-4">
+                  Resetting password for: <strong>{email}</strong>
+                </div>
+              )}
               
               <FormField
                 control={form.control}
