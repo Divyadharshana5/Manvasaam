@@ -2,10 +2,9 @@
 
 import { useState, useRef, useCallback } from "react";
 import { Button } from "@/components/ui/button";
-import { Card, CardContent } from "@/components/ui/card";
 import { useToast } from "@/hooks/use-toast";
 import { useRouter } from "next/navigation";
-import { Mic, MicOff, Bot, X, Volume2, Headphones } from "lucide-react";
+import { Mic, MicOff } from "lucide-react";
 
 interface VoiceCommand {
   keywords: string[];
@@ -21,15 +20,12 @@ const hubCommands: VoiceCommand[] = [
   { keywords: ["analytics", "reports", "stats", "data", "charts"], route: "/dashboard/hub/analytics", description: "Analytics" },
   { keywords: ["inventory", "stock", "products", "items"], route: "/dashboard/hub/inventory", description: "Inventory" },
   { keywords: ["attendance", "workers", "staff", "employees"], route: "/dashboard/hub/attendance", description: "Attendance" },
-  { keywords: ["voice help", "help", "commands", "guide"], route: "/dashboard/hub/voice-help", description: "Voice Help" },
   { keywords: ["settings", "preferences", "config", "configuration"], route: "/dashboard/hub/settings", description: "Settings" },
 ];
 
 export function HubFloatingVoice() {
   const [isListening, setIsListening] = useState(false);
-  const [isVisible, setIsVisible] = useState(false);
   const [transcript, setTranscript] = useState("");
-  const [response, setResponse] = useState("");
   
   const recognitionRef = useRef<SpeechRecognition | null>(null);
   const { toast } = useToast();
@@ -40,22 +36,11 @@ export function HubFloatingVoice() {
     
     if (!lowerText) return;
     
-    // Handle stop command
-    if (lowerText.includes('stop') || lowerText.includes('cancel')) {
-      setResponse("⏹️ Stopped listening.");
-      setIsListening(false);
-      if (recognitionRef.current) {
-        recognitionRef.current.stop();
-      }
-      return;
-    }
-    
     const cleanText = lowerText
       .replace(/^(go to|navigate to|open|show|take me to|visit|check|view|see)\s+/i, "")
       .replace(/\s+(page|section|area)$/i, "")
       .trim();
 
-    // Find exact matches first, then partial matches
     let command = hubCommands.find(cmd => 
       cmd.keywords.some(keyword => keyword === cleanText)
     );
@@ -69,21 +54,21 @@ export function HubFloatingVoice() {
     }
 
     if (command) {
-      setResponse(`🎯 Navigating to ${command.description}...`);
       toast({
-        title: "🎤 Voice Navigation",
+        title: "🎯 Voice Navigation",
         description: `Going to ${command.description}`,
         duration: 2000,
       });
       setTimeout(() => {
         router.push(command.route);
-        setIsVisible(false);
-        setIsListening(false);
-        setTranscript("");
-        setResponse("");
-      }, 1500);
+      }, 1000);
     } else {
-      setResponse(`❌ "${cleanText}" not recognized. Try: orders, deliveries, farmers, analytics, inventory, attendance, or help.`);
+      toast({
+        variant: "destructive",
+        title: "❌ Command Not Found",
+        description: `"${cleanText}" not recognized. Try: orders, deliveries, farmers, analytics.`,
+        duration: 4000,
+      });
     }
   }, [router, toast]);
 
@@ -106,9 +91,7 @@ export function HubFloatingVoice() {
 
     recognitionRef.current.onstart = () => {
       setIsListening(true);
-      setIsVisible(true);
       setTranscript("");
-      setResponse("");
     };
 
     recognitionRef.current.onresult = (event) => {
@@ -119,14 +102,15 @@ export function HubFloatingVoice() {
 
     recognitionRef.current.onerror = () => {
       setIsListening(false);
-      setResponse("❌ Couldn't hear clearly. Try again.");
+      toast({
+        variant: "destructive",
+        title: "❌ Voice Error",
+        description: "Could not recognize speech. Try again.",
+      });
     };
 
     recognitionRef.current.onend = () => {
       setIsListening(false);
-      if (!transcript) {
-        setResponse("❌ No speech detected. Click mic and speak clearly.");
-      }
     };
 
     recognitionRef.current.start();
@@ -139,113 +123,25 @@ export function HubFloatingVoice() {
     setIsListening(false);
   }, []);
 
-  const toggleWidget = () => {
-    setTranscript("");
-    setResponse("");
-    setIsVisible(!isVisible);
-  };
-
-  const closeWidget = () => {
-    setIsVisible(false);
-    setIsListening(false);
-    setTranscript("");
-    setResponse("");
-    if (recognitionRef.current) {
-      recognitionRef.current.stop();
-    }
-  };
-
   return (
-    <>
-      {/* Floating Voice Button */}
-      <div className="fixed top-20 left-4 z-10">
-        <Button
-          onClick={isListening ? stopListening : startListening}
-          size="sm"
-          className={`rounded-full w-10 h-10 shadow-md ${
-            isListening 
-              ? 'bg-red-500 hover:bg-red-600 animate-pulse' 
-              : 'bg-green-500 hover:bg-green-600'
-          } text-white`}
-        >
-          {isListening ? <MicOff className="h-4 w-4" /> : <Mic className="h-4 w-4" />}
-        </Button>
-      </div>
-
-      {/* Voice Assistant Widget */}
-      {isVisible && (
-        <div className="fixed top-32 left-4 z-10 w-64">
-          <Card className="shadow-2xl border-2 border-green-200 bg-gradient-to-br from-green-50 via-lime-50 to-yellow-50 animate-in slide-in-from-bottom-4 duration-300">
-            <CardContent className="p-4">
-              <div className="flex items-center justify-between mb-3">
-                <div className="flex items-center gap-2">
-                  <div className="flex items-center gap-1">
-                    <Bot className="h-5 w-5 text-green-600" />
-                    <Headphones className="h-4 w-4 text-green-600" />
-                  </div>
-                  <span className="font-bold text-green-800">🎤 Hub Voice</span>
-                </div>
-                <Button
-                  variant="ghost"
-                  size="sm"
-                  onClick={closeWidget}
-                  className="h-6 w-6 p-0 hover:bg-red-100"
-                >
-                  <X className="h-4 w-4" />
-                </Button>
-              </div>
-              
-              <div className="space-y-3">
-                {isListening ? (
-                  <div className="text-center py-3">
-                    <div className="animate-pulse text-red-600 mb-2 flex items-center justify-center gap-2">
-                      <Mic className="h-5 w-5" />
-                      <span className="font-semibold">🎤 Listening...</span>
-                    </div>
-                    <p className="text-sm text-gray-600">Speak your command or click Stop</p>
-                    <div className="mt-2 text-xs text-gray-500">
-                      {transcript && <span className="text-blue-600">Hearing: "{transcript}"</span>}
-                    </div>
-                  </div>
-                ) : (
-                  <div className="text-center py-2">
-                    <p className="text-sm text-gray-600 mb-2">Click mic to start voice navigation</p>
-                    <div className="grid grid-cols-2 gap-1 text-xs">
-                      <div className="bg-green-100 rounded px-2 py-1 text-green-700">"Orders"</div>
-                      <div className="bg-blue-100 rounded px-2 py-1 text-blue-700">"Deliveries"</div>
-                      <div className="bg-orange-100 rounded px-2 py-1 text-orange-700">"Farmers"</div>
-                      <div className="bg-purple-100 rounded px-2 py-1 text-purple-700">"Analytics"</div>
-                      <div className="bg-yellow-100 rounded px-2 py-1 text-yellow-700">"Inventory"</div>
-                      <div className="bg-pink-100 rounded px-2 py-1 text-pink-700">"Help"</div>
-
-                    </div>
-                  </div>
-                )}
-
-                {transcript && (
-                  <div className="bg-blue-50 border border-blue-200 rounded-lg p-2">
-                    <div className="flex items-center gap-1 mb-1">
-                      <Volume2 className="h-3 w-3 text-blue-600" />
-                      <span className="text-xs font-semibold text-blue-800">You said:</span>
-                    </div>
-                    <p className="text-sm text-blue-700">"{transcript}"</p>
-                  </div>
-                )}
-
-                {response && (
-                  <div className="bg-green-50 border border-green-200 rounded-lg p-2">
-                    <div className="flex items-center gap-1 mb-1">
-                      <Bot className="h-3 w-3 text-green-600" />
-                      <span className="text-xs font-semibold text-green-800">Response:</span>
-                    </div>
-                    <p className="text-sm text-green-700">{response}</p>
-                  </div>
-                )}
-              </div>
-            </CardContent>
-          </Card>
+    <div className="fixed top-4 right-4 z-50">
+      <Button
+        onClick={isListening ? stopListening : startListening}
+        size="sm"
+        variant={isListening ? "destructive" : "default"}
+        className="h-8 px-3 text-xs"
+      >
+        {isListening ? (
+          <><MicOff className="h-3 w-3 mr-1" />Stop</>
+        ) : (
+          <><Mic className="h-3 w-3 mr-1" />Voice</>
+        )}
+      </Button>
+      {transcript && (
+        <div className="mt-2 p-2 bg-white border rounded shadow-sm text-xs max-w-48">
+          "{transcript}"
         </div>
       )}
-    </>
+    </div>
   );
 }
