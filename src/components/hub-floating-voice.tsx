@@ -38,6 +38,8 @@ export function HubFloatingVoice() {
   const processCommand = useCallback((text: string) => {
     const lowerText = text.toLowerCase().trim();
     
+    if (!lowerText) return;
+    
     // Handle stop command
     if (lowerText.includes('stop') || lowerText.includes('cancel')) {
       setResponse("⏹️ Stopped listening.");
@@ -150,11 +152,15 @@ export function HubFloatingVoice() {
       recognitionRef.current.stop();
     }
     setIsListening(false);
-  }, []);
+    
+    if (transcript.trim()) {
+      processCommand(transcript);
+    }
+  }, [transcript, processCommand]);
 
   const toggleWidget = () => {
     if (isListening) {
-      stopListening();
+      return; // Don't toggle when listening, use stop button instead
     } else {
       setTranscript("");
       setResponse("");
