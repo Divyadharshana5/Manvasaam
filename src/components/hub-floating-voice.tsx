@@ -98,10 +98,9 @@ export function HubFloatingVoice() {
     const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
     recognitionRef.current = new SpeechRecognition();
     
-    recognitionRef.current.continuous = true;
-    recognitionRef.current.interimResults = true;
+    recognitionRef.current.continuous = false;
+    recognitionRef.current.interimResults = false;
     recognitionRef.current.lang = 'en-US';
-    recognitionRef.current.maxAlternatives = 1;
 
     recognitionRef.current.onstart = () => {
       setIsListening(true);
@@ -111,14 +110,9 @@ export function HubFloatingVoice() {
     };
 
     recognitionRef.current.onresult = (event) => {
-      const results = event.results;
-      let interimTranscript = '';
-      
-      for (let i = 0; i < results.length; i++) {
-        interimTranscript += results[i][0].transcript;
-      }
-      
-      setTranscript(interimTranscript);
+      const transcript = event.results[0][0].transcript;
+      setTranscript(transcript);
+      processCommand(transcript);
     };
 
     recognitionRef.current.onerror = () => {
@@ -141,11 +135,7 @@ export function HubFloatingVoice() {
       recognitionRef.current.stop();
     }
     setIsListening(false);
-    
-    if (transcript.trim()) {
-      processCommand(transcript);
-    }
-  }, [transcript, processCommand]);
+  }, []);
 
   const toggleWidget = () => {
     if (isListening) {
@@ -225,9 +215,9 @@ export function HubFloatingVoice() {
                       <Mic className="h-5 w-5" />
                       <span className="font-semibold">🎤 Listening...</span>
                     </div>
-                    <p className="text-sm text-gray-600">Speak your command, then click mic again to process</p>
+                    <p className="text-sm text-gray-600">Speak your command clearly</p>
                     <div className="mt-2 text-xs text-gray-500">
-                      {transcript && <span className="text-blue-600">Hearing: "{transcript}"</span>}
+                      Voice will auto-process when you finish speaking
                     </div>
                   </div>
                 ) : (
