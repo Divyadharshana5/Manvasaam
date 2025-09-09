@@ -38,6 +38,30 @@ export function useVoiceAssistant(): VoiceAssistantHook {
       };
     }
     
+    if (currentPath.includes('/customer')) {
+      return {
+        'overview': '/dashboard/customer',
+        'dashboard': '/dashboard/customer',
+        'home': '/dashboard/customer',
+        'products': '/dashboard/products',
+        'product': '/dashboard/products',
+        'browse': '/dashboard/products',
+        'browse products': '/dashboard/products',
+        'orders': '/dashboard/orders',
+        'order': '/dashboard/orders',
+        'my orders': '/dashboard/orders',
+        'track': '/dashboard/track',
+        'tracking': '/dashboard/track',
+        'track orders': '/dashboard/track',
+        'cart': '/dashboard/customer/cart',
+        'shopping cart': '/dashboard/customer/cart',
+        'profile': '/dashboard/profile',
+        'faq': '/dashboard/faq',
+        'help': '/dashboard/faq',
+        'settings': '/dashboard/customer/settings',
+      };
+    }
+    
     // Hub routes
     return {
       'overview': '/dashboard/hub',
