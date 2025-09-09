@@ -14,14 +14,15 @@ interface VoiceCommand {
 }
 
 const hubCommands: VoiceCommand[] = [
-  { keywords: ["overview", "dashboard", "home"], route: "/dashboard/hub", description: "Overview" },
-  { keywords: ["orders", "order"], route: "/dashboard/hub/orders", description: "Orders" },
-  { keywords: ["deliveries", "delivery"], route: "/dashboard/hub/deliveries", description: "Deliveries" },
-  { keywords: ["farmers", "farmer"], route: "/dashboard/hub/farmers", description: "Farmers" },
-  { keywords: ["analytics", "reports", "stats"], route: "/dashboard/hub/analytics", description: "Analytics" },
-  { keywords: ["inventory", "stock"], route: "/dashboard/hub/inventory", description: "Inventory" },
-  { keywords: ["attendance", "workers"], route: "/dashboard/hub/attendance", description: "Attendance" },
-  { keywords: ["settings", "preferences"], route: "/dashboard/hub/settings", description: "Settings" },
+  { keywords: ["overview", "dashboard", "home", "main"], route: "/dashboard/hub", description: "Overview" },
+  { keywords: ["orders", "order", "purchase", "sales"], route: "/dashboard/hub/orders", description: "Orders" },
+  { keywords: ["deliveries", "delivery", "shipping", "transport"], route: "/dashboard/hub/deliveries", description: "Deliveries" },
+  { keywords: ["farmers", "farmer", "suppliers", "growers"], route: "/dashboard/hub/farmers", description: "Farmers" },
+  { keywords: ["analytics", "reports", "stats", "data", "charts"], route: "/dashboard/hub/analytics", description: "Analytics" },
+  { keywords: ["inventory", "stock", "products", "items"], route: "/dashboard/hub/inventory", description: "Inventory" },
+  { keywords: ["attendance", "workers", "staff", "employees"], route: "/dashboard/hub/attendance", description: "Attendance" },
+  { keywords: ["voice help", "help", "commands", "guide"], route: "/dashboard/hub/voice-help", description: "Voice Help" },
+  { keywords: ["settings", "preferences", "config", "configuration"], route: "/dashboard/hub/settings", description: "Settings" },
 ];
 
 export function HubFloatingVoice() {
@@ -35,14 +36,31 @@ export function HubFloatingVoice() {
   const router = useRouter();
 
   const processCommand = useCallback((text: string) => {
-    const lowerText = text.toLowerCase().replace(/^(go to|navigate to|open|show|take me to|visit)\s+/i, "").trim();
+    const lowerText = text.toLowerCase()
+      .replace(/^(go to|navigate to|open|show|take me to|visit|check|view|see)\s+/i, "")
+      .replace(/\s+(page|section|area)$/i, "")
+      .trim();
 
-    const command = hubCommands.find(cmd => 
-      cmd.keywords.some(keyword => lowerText.includes(keyword) || keyword.includes(lowerText))
+    // Find exact matches first, then partial matches
+    let command = hubCommands.find(cmd => 
+      cmd.keywords.some(keyword => keyword === lowerText)
     );
+    
+    if (!command) {
+      command = hubCommands.find(cmd => 
+        cmd.keywords.some(keyword => 
+          lowerText.includes(keyword) || keyword.includes(lowerText)
+        )
+      );
+    }
 
     if (command) {
-      setResponse(`✅ Going to ${command.description}...`);
+      setResponse(`🎯 Navigating to ${command.description}...`);
+      toast({
+        title: "🎤 Voice Navigation",
+        description: `Going to ${command.description}`,
+        duration: 2000,
+      });
       setTimeout(() => {
         router.push(command.route);
         setIsVisible(false);
@@ -51,9 +69,9 @@ export function HubFloatingVoice() {
         setResponse("");
       }, 1500);
     } else {
-      setResponse(`❌ "${lowerText}" not found. Try: orders, deliveries, farmers, analytics, inventory, attendance.`);
+      setResponse(`❌ "${lowerText}" not recognized. Try: orders, deliveries, farmers, analytics, inventory, attendance, or help.`);
     }
-  }, [router]);
+  }, [router, toast]);
 
   const startListening = useCallback(() => {
     if (!('webkitSpeechRecognition' in window) && !('SpeechRecognition' in window)) {
@@ -182,6 +200,8 @@ export function HubFloatingVoice() {
                       <div className="bg-blue-100 rounded px-2 py-1 text-blue-700">"Deliveries"</div>
                       <div className="bg-orange-100 rounded px-2 py-1 text-orange-700">"Farmers"</div>
                       <div className="bg-purple-100 rounded px-2 py-1 text-purple-700">"Analytics"</div>
+                      <div className="bg-yellow-100 rounded px-2 py-1 text-yellow-700">"Inventory"</div>
+                      <div className="bg-pink-100 rounded px-2 py-1 text-pink-700">"Help"</div>
                     </div>
                   </div>
                 )}
