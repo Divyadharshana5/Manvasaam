@@ -1,0 +1,215 @@
+"use client";
+
+import { useState, useRef, useCallback } from "react";
+import { Button } from "@/components/ui/button";
+import { Card, CardContent } from "@/components/ui/card";
+import { useToast } from "@/hooks/use-toast";
+import { useRouter } from "next/navigation";
+import { Mic, MicOff, Bot, X, Volume2, Headphones } from "lucide-react";
+
+interface VoiceCommand {
+  keywords: string[];
+  route: string;
+  description: string;
+}
+
+const hubCommands: VoiceCommand[] = [
+  { keywords: ["overview", "dashboard", "home"], route: "/dashboard/hub", description: "Overview" },
+  { keywords: ["orders", "order"], route: "/dashboard/hub/orders", description: "Orders" },
+  { keywords: ["deliveries", "delivery"], route: "/dashboard/hub/deliveries", description: "Deliveries" },
+  { keywords: ["farmers", "farmer"], route: "/dashboard/hub/farmers", description: "Farmers" },
+  { keywords: ["analytics", "reports", "stats"], route: "/dashboard/hub/analytics", description: "Analytics" },
+  { keywords: ["inventory", "stock"], route: "/dashboard/hub/inventory", description: "Inventory" },
+  { keywords: ["attendance", "workers"], route: "/dashboard/hub/attendance", description: "Attendance" },
+  { keywords: ["settings", "preferences"], route: "/dashboard/hub/settings", description: "Settings" },
+];
+
+export function HubFloatingVoice() {
+  const [isListening, setIsListening] = useState(false);
+  const [isVisible, setIsVisible] = useState(false);
+  const [transcript, setTranscript] = useState("");
+  const [response, setResponse] = useState("");
+  
+  const recognitionRef = useRef<SpeechRecognition | null>(null);
+  const { toast } = useToast();
+  const router = useRouter();
+
+  const processCommand = useCallback((text: string) => {
+    const lowerText = text.toLowerCase().replace(/^(go to|navigate to|open|show|take me to|visit)\s+/i, "").trim();
+
+    const command = hubCommands.find(cmd => 
+      cmd.keywords.some(keyword => lowerText.includes(keyword) || keyword.includes(lowerText))
+    );
+
+    if (command) {
+      setResponse(`✅ Going to ${command.description}...`);
+      setTimeout(() => {
+        router.push(command.route);
+        setIsVisible(false);
+        setIsListening(false);
+        setTranscript("");
+        setResponse("");
+      }, 1500);
+    } else {
+      setResponse(`❌ "${lowerText}" not found. Try: orders, deliveries, farmers, analytics, inventory, attendance.`);
+    }
+  }, [router]);
+
+  const startListening = useCallback(() => {
+    if (!('webkitSpeechRecognition' in window) && !('SpeechRecognition' in window)) {
+      toast({
+        variant: "destructive",
+        title: "❌ Not Supported",
+        description: "Speech recognition not available in this browser.",
+      });
+      return;
+    }
+
+    const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+    recognitionRef.current = new SpeechRecognition();
+    
+    recognitionRef.current.continuous = false;
+    recognitionRef.current.interimResults = false;
+    recognitionRef.current.lang = 'en-US';
+
+    recognitionRef.current.onstart = () => {
+      setIsListening(true);
+      setIsVisible(true);
+      setTranscript("");
+      setResponse("");
+    };
+
+    recognitionRef.current.onresult = (event) => {
+      const result = event.results[0][0].transcript;
+      setTranscript(result);
+      setTimeout(() => processCommand(result), 500);
+    };
+
+    recognitionRef.current.onerror = () => {
+      setIsListening(false);
+      setResponse("❌ Couldn't hear clearly. Try again.");
+    };
+
+    recognitionRef.current.onend = () => {
+      setIsListening(false);
+    };
+
+    recognitionRef.current.start();
+  }, [processCommand, toast]);
+
+  const stopListening = useCallback(() => {
+    if (recognitionRef.current) {
+      recognitionRef.current.stop();
+    }
+    setIsListening(false);
+  }, []);
+
+  const toggleWidget = () => {
+    if (isListening) {
+      stopListening();
+    } else {
+      startListening();
+    }
+  };
+
+  const closeWidget = () => {
+    setIsVisible(false);
+    setIsListening(false);
+    setTranscript("");
+    setResponse("");
+    if (recognitionRef.current) {
+      recognitionRef.current.stop();
+    }
+  };
+
+  return (
+    <>
+      {/* Floating Voice Button */}
+      <div className="fixed bottom-6 right-6 z-50">
+        <Button
+          onClick={toggleWidget}
+          size="lg"
+          className={`rounded-full w-16 h-16 shadow-2xl transition-all duration-300 hover:scale-110 ${
+            isListening 
+              ? 'bg-red-500 hover:bg-red-600 animate-pulse' 
+              : 'bg-gradient-to-r from-green-500 via-lime-500 to-yellow-500 hover:from-green-600 hover:via-lime-600 hover:to-yellow-600'
+          } text-white border-4 border-white`}
+        >
+          <div className="relative">
+            {isListening ? <MicOff className="h-7 w-7" /> : <Mic className="h-7 w-7" />}
+            <Bot className="h-4 w-4 absolute -bottom-1 -right-1 bg-white rounded-full p-0.5 text-green-600" />
+          </div>
+        </Button>
+      </div>
+
+      {/* Voice Assistant Widget */}
+      {isVisible && (
+        <div className="fixed bottom-24 right-6 z-50 w-80">
+          <Card className="shadow-2xl border-2 border-green-200 bg-gradient-to-br from-green-50 via-lime-50 to-yellow-50 animate-in slide-in-from-bottom-4 duration-300">
+            <CardContent className="p-4">
+              <div className="flex items-center justify-between mb-3">
+                <div className="flex items-center gap-2">
+                  <div className="flex items-center gap-1">
+                    <Bot className="h-5 w-5 text-green-600" />
+                    <Headphones className="h-4 w-4 text-green-600" />
+                  </div>
+                  <span className="font-bold text-green-800">🎤 Hub Voice</span>
+                </div>
+                <Button
+                  variant="ghost"
+                  size="sm"
+                  onClick={closeWidget}
+                  className="h-6 w-6 p-0 hover:bg-red-100"
+                >
+                  <X className="h-4 w-4" />
+                </Button>
+              </div>
+              
+              <div className="space-y-3">
+                {isListening ? (
+                  <div className="text-center py-3">
+                    <div className="animate-pulse text-red-600 mb-2 flex items-center justify-center gap-2">
+                      <Mic className="h-5 w-5" />
+                      <span className="font-semibold">🎤 Listening...</span>
+                    </div>
+                    <p className="text-sm text-gray-600">Speak your navigation command</p>
+                  </div>
+                ) : (
+                  <div className="text-center py-2">
+                    <p className="text-sm text-gray-600 mb-2">Click mic to start voice navigation</p>
+                    <div className="grid grid-cols-2 gap-1 text-xs">
+                      <div className="bg-green-100 rounded px-2 py-1 text-green-700">"Orders"</div>
+                      <div className="bg-blue-100 rounded px-2 py-1 text-blue-700">"Deliveries"</div>
+                      <div className="bg-orange-100 rounded px-2 py-1 text-orange-700">"Farmers"</div>
+                      <div className="bg-purple-100 rounded px-2 py-1 text-purple-700">"Analytics"</div>
+                    </div>
+                  </div>
+                )}
+
+                {transcript && (
+                  <div className="bg-blue-50 border border-blue-200 rounded-lg p-2">
+                    <div className="flex items-center gap-1 mb-1">
+                      <Volume2 className="h-3 w-3 text-blue-600" />
+                      <span className="text-xs font-semibold text-blue-800">You said:</span>
+                    </div>
+                    <p className="text-sm text-blue-700">"{transcript}"</p>
+                  </div>
+                )}
+
+                {response && (
+                  <div className="bg-green-50 border border-green-200 rounded-lg p-2">
+                    <div className="flex items-center gap-1 mb-1">
+                      <Bot className="h-3 w-3 text-green-600" />
+                      <span className="text-xs font-semibold text-green-800">Response:</span>
+                    </div>
+                    <p className="text-sm text-green-700">{response}</p>
+                  </div>
+                )}
+              </div>
+            </CardContent>
+          </Card>
+        </div>
+      )}
+    </>
+  );
+}
