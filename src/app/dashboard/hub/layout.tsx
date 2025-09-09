@@ -55,6 +55,11 @@ const sidebarItems = [
     icon: BarChart3,
   },
   {
+    title: "Voice Help",
+    href: "/dashboard/hub/voice-help",
+    icon: Mic,
+  },
+  {
     title: "Settings",
     href: "/dashboard/hub/settings",
     icon: Settings,
