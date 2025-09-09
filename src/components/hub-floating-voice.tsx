@@ -36,20 +36,32 @@ export function HubFloatingVoice() {
   const router = useRouter();
 
   const processCommand = useCallback((text: string) => {
-    const lowerText = text.toLowerCase()
+    const lowerText = text.toLowerCase().trim();
+    
+    // Handle stop command
+    if (lowerText.includes('stop') || lowerText.includes('cancel')) {
+      setResponse("⏹️ Stopped listening.");
+      setIsListening(false);
+      if (recognitionRef.current) {
+        recognitionRef.current.stop();
+      }
+      return;
+    }
+    
+    const cleanText = lowerText
       .replace(/^(go to|navigate to|open|show|take me to|visit|check|view|see)\s+/i, "")
       .replace(/\s+(page|section|area)$/i, "")
       .trim();
 
     // Find exact matches first, then partial matches
     let command = hubCommands.find(cmd => 
-      cmd.keywords.some(keyword => keyword === lowerText)
+      cmd.keywords.some(keyword => keyword === cleanText)
     );
     
     if (!command) {
       command = hubCommands.find(cmd => 
         cmd.keywords.some(keyword => 
-          lowerText.includes(keyword) || keyword.includes(lowerText)
+          cleanText.includes(keyword) || keyword.includes(cleanText)
         )
       );
     }
@@ -69,7 +81,7 @@ export function HubFloatingVoice() {
         setResponse("");
       }, 1500);
     } else {
-      setResponse(`❌ "${lowerText}" not recognized. Try: orders, deliveries, farmers, analytics, inventory, attendance, or help.`);
+      setResponse(`❌ "${cleanText}" not recognized. Try: orders, deliveries, farmers, analytics, inventory, attendance, or help.`);
     }
   }, [router, toast]);
 
@@ -86,9 +98,10 @@ export function HubFloatingVoice() {
     const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
     recognitionRef.current = new SpeechRecognition();
     
-    recognitionRef.current.continuous = false;
-    recognitionRef.current.interimResults = false;
+    recognitionRef.current.continuous = true;
+    recognitionRef.current.interimResults = true;
     recognitionRef.current.lang = 'en-US';
+    recognitionRef.current.maxAlternatives = 1;
 
     recognitionRef.current.onstart = () => {
       setIsListening(true);
@@ -98,9 +111,26 @@ export function HubFloatingVoice() {
     };
 
     recognitionRef.current.onresult = (event) => {
-      const result = event.results[0][0].transcript;
-      setTranscript(result);
-      setTimeout(() => processCommand(result), 500);
+      const results = event.results;
+      let finalTranscript = '';
+      let interimTranscript = '';
+      
+      for (let i = 0; i < results.length; i++) {
+        if (results[i].isFinal) {
+          finalTranscript += results[i][0].transcript;
+        } else {
+          interimTranscript += results[i][0].transcript;
+        }
+      }
+      
+      setTranscript(finalTranscript || interimTranscript);
+      
+      if (finalTranscript) {
+        setTimeout(() => {
+          processCommand(finalTranscript);
+          recognitionRef.current?.stop();
+        }, 1000);
+      }
     };
 
     recognitionRef.current.onerror = () => {
@@ -110,6 +140,9 @@ export function HubFloatingVoice() {
 
     recognitionRef.current.onend = () => {
       setIsListening(false);
+      if (!transcript) {
+        setResponse("❌ No speech detected. Click mic and speak clearly.");
+      }
     };
 
     recognitionRef.current.start();
@@ -190,7 +223,10 @@ export function HubFloatingVoice() {
                       <Mic className="h-5 w-5" />
                       <span className="font-semibold">🎤 Listening...</span>
                     </div>
-                    <p className="text-sm text-gray-600">Speak your navigation command</p>
+                    <p className="text-sm text-gray-600">Speak your command now (say "stop" to end)</p>
+                    <div className="mt-2 text-xs text-gray-500">
+                      {transcript && <span className="text-blue-600">Hearing: "{transcript}"</span>}
+                    </div>
                   </div>
                 ) : (
                   <div className="text-center py-2">
@@ -202,6 +238,8 @@ export function HubFloatingVoice() {
                       <div className="bg-purple-100 rounded px-2 py-1 text-purple-700">"Analytics"</div>
                       <div className="bg-yellow-100 rounded px-2 py-1 text-yellow-700">"Inventory"</div>
                       <div className="bg-pink-100 rounded px-2 py-1 text-pink-700">"Help"</div>
+                      <div className="bg-red-100 rounded px-2 py-1 text-red-700">"Stop"</div>
+                      <div className="bg-gray-100 rounded px-2 py-1 text-gray-700">"Cancel"</div>
                     </div>
                   </div>
                 )}

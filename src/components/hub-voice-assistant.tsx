@@ -76,9 +76,10 @@ export function HubVoiceAssistant() {
     const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
     recognitionRef.current = new SpeechRecognition();
     
-    recognitionRef.current.continuous = false;
-    recognitionRef.current.interimResults = false;
+    recognitionRef.current.continuous = true;
+    recognitionRef.current.interimResults = true;
     recognitionRef.current.lang = 'en-US';
+    recognitionRef.current.maxAlternatives = 1;
 
     recognitionRef.current.onstart = () => {
       setIsListening(true);
@@ -88,14 +89,25 @@ export function HubVoiceAssistant() {
     };
 
     recognitionRef.current.onresult = (event) => {
-      const result = event.results[0][0].transcript;
-      setTranscript(result);
-      setIsProcessing(true);
+      const results = event.results;
+      let finalTranscript = '';
       
-      setTimeout(() => {
-        processCommand(result);
-        setIsProcessing(false);
-      }, 500);
+      for (let i = 0; i < results.length; i++) {
+        if (results[i].isFinal) {
+          finalTranscript += results[i][0].transcript;
+        } else {
+          setTranscript(results[i][0].transcript);
+        }
+      }
+      
+      if (finalTranscript) {
+        setTranscript(finalTranscript);
+        setIsProcessing(true);
+        setTimeout(() => {
+          processCommand(finalTranscript);
+          setIsProcessing(false);
+        }, 500);
+      }
     };
 
     recognitionRef.current.onerror = () => {
@@ -105,6 +117,9 @@ export function HubVoiceAssistant() {
 
     recognitionRef.current.onend = () => {
       setIsListening(false);
+      if (!transcript) {
+        setResponse("No speech detected. Please try again.");
+      }
     };
 
     recognitionRef.current.start();
