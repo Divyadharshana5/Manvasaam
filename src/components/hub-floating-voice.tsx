@@ -98,8 +98,8 @@ export function HubFloatingVoice() {
     const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
     recognitionRef.current = new SpeechRecognition();
     
-    recognitionRef.current.continuous = false;
-    recognitionRef.current.interimResults = false;
+    recognitionRef.current.continuous = true;
+    recognitionRef.current.interimResults = true;
     recognitionRef.current.lang = 'en-US';
 
     recognitionRef.current.onstart = () => {
@@ -110,9 +110,24 @@ export function HubFloatingVoice() {
     };
 
     recognitionRef.current.onresult = (event) => {
-      const transcript = event.results[0][0].transcript;
-      setTranscript(transcript);
-      processCommand(transcript);
+      let finalTranscript = '';
+      let interimTranscript = '';
+      
+      for (let i = 0; i < event.results.length; i++) {
+        if (event.results[i].isFinal) {
+          finalTranscript += event.results[i][0].transcript;
+        } else {
+          interimTranscript += event.results[i][0].transcript;
+        }
+      }
+      
+      setTranscript(finalTranscript || interimTranscript);
+      
+      if (finalTranscript.trim()) {
+        setTimeout(() => {
+          processCommand(finalTranscript);
+        }, 500);
+      }
     };
 
     recognitionRef.current.onerror = () => {
@@ -160,27 +175,35 @@ export function HubFloatingVoice() {
   return (
     <>
       {/* Floating Voice Button */}
-      <div className="fixed bottom-6 right-6 z-50">
-        <Button
-          onClick={toggleWidget}
-          size="lg"
-          className={`rounded-full w-16 h-16 shadow-2xl transition-all duration-300 hover:scale-110 ${
-            isListening 
-              ? 'bg-red-500 hover:bg-red-600 animate-pulse border-red-300' 
-              : 'bg-gradient-to-r from-green-500 via-lime-500 to-yellow-500 hover:from-green-600 hover:via-lime-600 hover:to-yellow-600'
-          } text-white border-4 border-white`}
-          title={isListening ? 'Listening for voice command...' : 'Click to start voice command'}
-        >
-          <div className="relative">
-            {isListening ? <MicOff className="h-7 w-7" /> : <Mic className="h-7 w-7" />}
-            <Bot className="h-4 w-4 absolute -bottom-1 -right-1 bg-white rounded-full p-0.5 text-green-600" />
-          </div>
-        </Button>
+      <div className="fixed bottom-20 right-6 z-40">
+        <div className="flex flex-col items-center gap-2">
+          <Button
+            onClick={toggleWidget}
+            size="lg"
+            className={`rounded-full w-14 h-14 shadow-lg transition-all duration-300 ${
+              isListening 
+                ? 'bg-red-500 hover:bg-red-600 animate-pulse' 
+                : 'bg-gradient-to-r from-green-500 via-lime-500 to-yellow-500 hover:from-green-600 hover:via-lime-600 hover:to-yellow-600'
+            } text-white`}
+          >
+            {isListening ? <MicOff className="h-6 w-6" /> : <Mic className="h-6 w-6" />}
+          </Button>
+          {isListening && (
+            <Button
+              onClick={stopListening}
+              size="sm"
+              variant="destructive"
+              className="text-xs px-3 py-1 h-7"
+            >
+              Stop
+            </Button>
+          )}
+        </div>
       </div>
 
       {/* Voice Assistant Widget */}
       {isVisible && (
-        <div className="fixed bottom-24 right-6 z-50 w-80">
+        <div className="fixed bottom-32 right-6 z-40 w-80">
           <Card className="shadow-2xl border-2 border-green-200 bg-gradient-to-br from-green-50 via-lime-50 to-yellow-50 animate-in slide-in-from-bottom-4 duration-300">
             <CardContent className="p-4">
               <div className="flex items-center justify-between mb-3">
@@ -208,9 +231,9 @@ export function HubFloatingVoice() {
                       <Mic className="h-5 w-5" />
                       <span className="font-semibold">🎤 Listening...</span>
                     </div>
-                    <p className="text-sm text-gray-600">Speak your command clearly</p>
+                    <p className="text-sm text-gray-600">Speak your command or click Stop</p>
                     <div className="mt-2 text-xs text-gray-500">
-                      Voice will auto-process when you finish speaking
+                      {transcript && <span className="text-blue-600">Hearing: "{transcript}"</span>}
                     </div>
                   </div>
                 ) : (
