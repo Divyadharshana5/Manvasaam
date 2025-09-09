@@ -44,21 +44,10 @@ const sidebarItems = [
     icon: Truck,
   },
   {
-    title: "Inventory",
-    href: "/dashboard/hub/inventory",
-    icon: Package,
-  },
-  {
     title: "Farmers",
     href: "/dashboard/hub/farmers",
     icon: Users,
   },
-  {
-    title: "Attendance",
-    href: "/dashboard/hub/attendance",
-    icon: UserCheck,
-  },
-
   {
     title: "Analytics",
     href: "/dashboard/hub/analytics",
