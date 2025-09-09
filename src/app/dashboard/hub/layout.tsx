@@ -10,7 +10,6 @@ import { Button } from "@/components/ui/button";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
 import { useToast } from "@/hooks/use-toast";
 import { HubVoiceAssistant } from "@/components/hub-voice-assistant";
-import { HubFloatingVoice } from "@/components/hub-floating-voice";
 import {
   LayoutDashboard,
   Package,
@@ -229,9 +228,6 @@ export default function HubLayout({
         <main className="flex flex-1 flex-col gap-4 p-4 lg:gap-6 lg:p-6">
           {children}
         </main>
-        
-        {/* Floating Voice Assistant */}
-        <HubFloatingVoice />
       </div>
     </div>
   );
