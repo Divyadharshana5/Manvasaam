@@ -158,23 +158,23 @@ export function HubFloatingVoice() {
   return (
     <>
       {/* Floating Voice Button */}
-      <div className="fixed bottom-4 right-4 z-30">
+      <div className="fixed top-20 left-4 z-10">
         <Button
           onClick={isListening ? stopListening : startListening}
-          size="lg"
-          className={`rounded-full w-12 h-12 shadow-lg ${
+          size="sm"
+          className={`rounded-full w-10 h-10 shadow-md ${
             isListening 
               ? 'bg-red-500 hover:bg-red-600 animate-pulse' 
               : 'bg-green-500 hover:bg-green-600'
           } text-white`}
         >
-          {isListening ? <MicOff className="h-5 w-5" /> : <Mic className="h-5 w-5" />}
+          {isListening ? <MicOff className="h-4 w-4" /> : <Mic className="h-4 w-4" />}
         </Button>
       </div>
 
       {/* Voice Assistant Widget */}
       {isVisible && (
-        <div className="fixed bottom-20 right-4 z-30 w-72">
+        <div className="fixed top-32 left-4 z-10 w-64">
           <Card className="shadow-2xl border-2 border-green-200 bg-gradient-to-br from-green-50 via-lime-50 to-yellow-50 animate-in slide-in-from-bottom-4 duration-300">
             <CardContent className="p-4">
               <div className="flex items-center justify-between mb-3">
