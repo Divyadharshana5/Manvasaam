@@ -15,24 +15,49 @@ export function useVoiceAssistant(): VoiceAssistantHook {
   const router = useRouter();
   const { toast } = useToast();
 
-  const pageRoutes: Record<string, string> = {
-    'overview': '/dashboard/hub',
-    'dashboard': '/dashboard/hub',
-    'home': '/dashboard/hub',
-    'orders': '/dashboard/hub/orders',
-    'order': '/dashboard/hub/orders',
-    'deliveries': '/dashboard/hub/deliveries',
-    'delivery': '/dashboard/hub/deliveries',
-    'farmers': '/dashboard/hub/farmers',
-    'farmer': '/dashboard/hub/farmers',
-    'analytics': '/dashboard/hub/analytics',
-    'reports': '/dashboard/hub/analytics',
-    'settings': '/dashboard/hub/settings',
-    'setting': '/dashboard/hub/settings',
-    'profile': '/dashboard/profile',
-    'inventory': '/dashboard/hub/inventory',
-    'stock': '/dashboard/hub/inventory',
-    'attendance': '/dashboard/hub/attendance',
+  const getPageRoutes = () => {
+    const currentPath = window.location.pathname;
+    
+    if (currentPath.includes('/farmer')) {
+      return {
+        'overview': '/dashboard/farmer',
+        'dashboard': '/dashboard/farmer',
+        'home': '/dashboard/farmer',
+        'products': '/dashboard/farmer/products',
+        'product': '/dashboard/farmer/products',
+        'my products': '/dashboard/farmer/products',
+        'orders': '/dashboard/orders',
+        'order': '/dashboard/orders',
+        'matchmaking': '/dashboard/farmer/matchmaking',
+        'match': '/dashboard/farmer/matchmaking',
+        'analytics': '/dashboard/farmer/analytics',
+        'reports': '/dashboard/farmer/analytics',
+        'profile': '/dashboard/profile',
+        'faq': '/dashboard/faq',
+        'help': '/dashboard/faq',
+      };
+    }
+    
+    // Hub routes
+    return {
+      'overview': '/dashboard/hub',
+      'dashboard': '/dashboard/hub',
+      'home': '/dashboard/hub',
+      'orders': '/dashboard/hub/orders',
+      'order': '/dashboard/hub/orders',
+      'deliveries': '/dashboard/hub/deliveries',
+      'delivery': '/dashboard/hub/deliveries',
+      'farmers': '/dashboard/hub/farmers',
+      'farmer': '/dashboard/hub/farmers',
+      'analytics': '/dashboard/hub/analytics',
+      'reports': '/dashboard/hub/analytics',
+      'settings': '/dashboard/hub/settings',
+      'setting': '/dashboard/hub/settings',
+      'profile': '/dashboard/profile',
+      'inventory': '/dashboard/hub/inventory',
+      'stock': '/dashboard/hub/inventory',
+      'attendance': '/dashboard/hub/attendance',
+    };
   };
 
   const processVoiceCommand = useCallback((transcript: string) => {
@@ -50,6 +75,7 @@ export function useVoiceAssistant(): VoiceAssistantHook {
     });
 
     // Find matching route
+    const pageRoutes = getPageRoutes();
     const route = pageRoutes[targetPage];
     
     if (route) {
