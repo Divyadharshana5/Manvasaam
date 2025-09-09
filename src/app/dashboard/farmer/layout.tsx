@@ -11,7 +11,7 @@ import { Button } from "@/components/ui/button";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
 
 import { useToast } from "@/hooks/use-toast";
-import { VoiceAssistantWidget } from "@/components/voice-assistant-widget";
+import { useVoiceAssistant } from "@/hooks/use-voice-assistant";
 import {
   LayoutDashboard,
   Package,
@@ -25,6 +25,7 @@ import {
   DoorOpen,
   Sprout,
   ShoppingCart,
+  Mic,
 } from "lucide-react";
 
 // Sidebar component copied from hub/layout.tsx
@@ -153,6 +154,7 @@ export default function FarmerLayout({ children }: { children: React.ReactNode }
   const { toast } = useToast();
   const router = useRouter();
   const [sidebarOpen, setSidebarOpen] = useState(false);
+  const { isListening, startListening } = useVoiceAssistant();
 
   const handleSignOut = async () => {
     try {
@@ -215,11 +217,29 @@ export default function FarmerLayout({ children }: { children: React.ReactNode }
             <h1 className="text-lg font-semibold md:text-2xl">Farmer Dashboard</h1>
           </div>
         </div>
+        
+        <div className="border-b border-emerald-200 dark:border-emerald-700 bg-gradient-to-r from-emerald-50 to-green-50 dark:from-emerald-950 dark:to-green-950 p-4">
+          <div className="flex items-center justify-between">
+            <h2 className="text-lg font-semibold text-emerald-800 dark:text-emerald-200">Farmer Management Portal</h2>
+            <Button 
+              className={`font-semibold px-6 py-2 rounded-full shadow-lg transition-all duration-300 hover:scale-105 ${
+                isListening 
+                  ? 'bg-red-500 hover:bg-red-600 animate-pulse' 
+                  : 'bg-gradient-to-r from-emerald-500 via-green-500 to-lime-500 hover:from-emerald-600 hover:via-green-600 hover:to-lime-600'
+              } text-white`}
+              onClick={startListening}
+              disabled={isListening}
+            >
+              <Mic className="mr-2 h-5 w-5" />
+              {isListening ? 'Listening...' : 'Voice Assistant'}
+            </Button>
+          </div>
+        </div>
+        
         <main className="flex flex-1 flex-col gap-4 p-4 lg:gap-6 lg:p-6">
           {children}
         </main>
       </div>
-      <VoiceAssistantWidget />
     </div>
   );
 }
