@@ -9,7 +9,7 @@ import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
 import { useToast } from "@/hooks/use-toast";
-import { VoiceAssistantWidget } from "@/components/voice-assistant-widget";
+import { useVoiceAssistant } from "@/hooks/use-voice-assistant";
 import {
   LayoutDashboard,
   ShoppingCart,
@@ -22,6 +22,7 @@ import {
   HelpCircle,
   Power,
   DoorOpen,
+  Mic,
 } from "lucide-react";
 
 const sidebarItems = [
@@ -161,6 +162,7 @@ export default function CustomerLayout({
   const router = useRouter();
   const { toast } = useToast();
   const { navigate, preload } = useFastNavigation();
+  const { isListening, startListening } = useVoiceAssistant();
 
   const handleSignOut = async () => {
     try {
@@ -222,11 +224,28 @@ export default function CustomerLayout({
           </Sheet>
         </div>
         
+        <div className="border-b border-green-200 dark:border-green-700 bg-gradient-to-r from-green-50 to-lime-50 dark:from-green-950 dark:to-lime-950 p-4">
+          <div className="flex items-center justify-between">
+            <h2 className="text-lg font-semibold text-green-800 dark:text-green-200">Customer Portal</h2>
+            <Button 
+              className={`font-semibold px-6 py-2 rounded-full shadow-lg transition-all duration-300 hover:scale-105 ${
+                isListening 
+                  ? 'bg-red-500 hover:bg-red-600 animate-pulse' 
+                  : 'bg-gradient-to-r from-green-500 via-lime-500 to-yellow-500 hover:from-green-600 hover:via-lime-600 hover:to-yellow-600'
+              } text-white`}
+              onClick={startListening}
+              disabled={isListening}
+            >
+              <Mic className="mr-2 h-5 w-5" />
+              {isListening ? 'Listening...' : 'Voice Assistant'}
+            </Button>
+          </div>
+        </div>
+        
         <main className="flex flex-1 flex-col gap-4 p-4 lg:gap-6 lg:p-6">
           {children}
         </main>
       </div>
-      <VoiceAssistantWidget />
     </div>
   );
 }
