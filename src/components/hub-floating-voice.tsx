@@ -112,25 +112,13 @@ export function HubFloatingVoice() {
 
     recognitionRef.current.onresult = (event) => {
       const results = event.results;
-      let finalTranscript = '';
       let interimTranscript = '';
       
       for (let i = 0; i < results.length; i++) {
-        if (results[i].isFinal) {
-          finalTranscript += results[i][0].transcript;
-        } else {
-          interimTranscript += results[i][0].transcript;
-        }
+        interimTranscript += results[i][0].transcript;
       }
       
-      setTranscript(finalTranscript || interimTranscript);
-      
-      if (finalTranscript) {
-        setTimeout(() => {
-          processCommand(finalTranscript);
-          recognitionRef.current?.stop();
-        }, 1000);
-      }
+      setTranscript(interimTranscript);
     };
 
     recognitionRef.current.onerror = () => {
@@ -153,12 +141,18 @@ export function HubFloatingVoice() {
       recognitionRef.current.stop();
     }
     setIsListening(false);
-  }, []);
+    
+    if (transcript.trim()) {
+      processCommand(transcript);
+    }
+  }, [transcript, processCommand]);
 
   const toggleWidget = () => {
     if (isListening) {
       stopListening();
     } else {
+      setTranscript("");
+      setResponse("");
       startListening();
     }
   };
@@ -223,7 +217,7 @@ export function HubFloatingVoice() {
                       <Mic className="h-5 w-5" />
                       <span className="font-semibold">🎤 Listening...</span>
                     </div>
-                    <p className="text-sm text-gray-600">Speak your command now (say "stop" to end)</p>
+                    <p className="text-sm text-gray-600">Speak your command, then click mic again to process</p>
                     <div className="mt-2 text-xs text-gray-500">
                       {transcript && <span className="text-blue-600">Hearing: "{transcript}"</span>}
                     </div>
@@ -238,8 +232,7 @@ export function HubFloatingVoice() {
                       <div className="bg-purple-100 rounded px-2 py-1 text-purple-700">"Analytics"</div>
                       <div className="bg-yellow-100 rounded px-2 py-1 text-yellow-700">"Inventory"</div>
                       <div className="bg-pink-100 rounded px-2 py-1 text-pink-700">"Help"</div>
-                      <div className="bg-red-100 rounded px-2 py-1 text-red-700">"Stop"</div>
-                      <div className="bg-gray-100 rounded px-2 py-1 text-gray-700">"Cancel"</div>
+
                     </div>
                   </div>
                 )}
