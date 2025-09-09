@@ -27,7 +27,7 @@ const hubCommands: VoiceCommand[] = [
 
 export function HubVoiceAssistant() {
   const [isListening, setIsListening] = useState(false);
-  const [isVisible, setIsVisible] = useState(false);
+
   const [transcript, setTranscript] = useState("");
   const [response, setResponse] = useState("");
   const [isProcessing, setIsProcessing] = useState(false);
@@ -55,7 +55,6 @@ export function HubVoiceAssistant() {
       setResponse(`Navigating to ${command.description.toLowerCase()}...`);
       setTimeout(() => {
         router.push(command.route);
-        setIsVisible(false);
         setIsListening(false);
       }, 1500);
     } else {
@@ -83,7 +82,6 @@ export function HubVoiceAssistant() {
 
     recognitionRef.current.onstart = () => {
       setIsListening(true);
-      setIsVisible(true);
       setTranscript("");
       setResponse("");
     };
@@ -132,15 +130,7 @@ export function HubVoiceAssistant() {
     setIsListening(false);
   }, []);
 
-  const closeWidget = () => {
-    setIsVisible(false);
-    setIsListening(false);
-    setTranscript("");
-    setResponse("");
-    if (recognitionRef.current) {
-      recognitionRef.current.stop();
-    }
-  };
+
 
   return (
     <>
@@ -157,82 +147,7 @@ export function HubVoiceAssistant() {
         {isListening ? 'Listening...' : 'Voice Assistant'}
       </Button>
 
-      {/* Voice Assistant Widget */}
-      {isVisible && (
-        <div className="fixed top-20 right-6 z-50 w-96">
-          <Card className="shadow-2xl border-2 border-green-200 bg-gradient-to-br from-green-50 via-lime-50 to-yellow-50">
-            <CardContent className="p-4">
-              <div className="flex items-center justify-between mb-4">
-                <div className="flex items-center gap-2">
-                  <Bot className="h-6 w-6 text-green-600" />
-                  <span className="font-bold text-green-800">Hub Voice Assistant</span>
-                </div>
-                <Button
-                  variant="ghost"
-                  size="sm"
-                  onClick={closeWidget}
-                  className="h-8 w-8 p-0 hover:bg-red-100"
-                >
-                  <X className="h-4 w-4" />
-                </Button>
-              </div>
-              
-              <div className="space-y-3">
-                {isListening && (
-                  <div className="text-center py-3">
-                    <div className="flex items-center justify-center gap-2 text-red-600 mb-2">
-                      <Mic className="h-5 w-5 animate-pulse" />
-                      <span className="font-semibold">Listening...</span>
-                    </div>
-                    <p className="text-sm text-gray-600">Speak your command now</p>
-                  </div>
-                )}
 
-                {transcript && (
-                  <div className="bg-blue-50 border border-blue-200 rounded-lg p-3">
-                    <div className="flex items-center gap-2 mb-1">
-                      <Volume2 className="h-4 w-4 text-blue-600" />
-                      <span className="text-sm font-semibold text-blue-800">You said:</span>
-                    </div>
-                    <p className="text-sm text-blue-700">"{transcript}"</p>
-                  </div>
-                )}
-
-                {isProcessing && (
-                  <div className="flex items-center justify-center gap-2 py-2">
-                    <Loader2 className="h-4 w-4 animate-spin text-green-600" />
-                    <span className="text-sm text-green-600">Processing...</span>
-                  </div>
-                )}
-
-                {response && !isProcessing && (
-                  <div className="bg-green-50 border border-green-200 rounded-lg p-3">
-                    <div className="flex items-center gap-2 mb-1">
-                      <Bot className="h-4 w-4 text-green-600" />
-                      <span className="text-sm font-semibold text-green-800">Assistant:</span>
-                    </div>
-                    <p className="text-sm text-green-700">{response}</p>
-                  </div>
-                )}
-
-                {!isListening && !transcript && (
-                  <div className="text-center py-2">
-                    <p className="text-sm text-gray-600 mb-3">Try these commands:</p>
-                    <div className="grid grid-cols-2 gap-2 text-xs">
-                      <div className="bg-gray-50 rounded px-2 py-1">"Show orders"</div>
-                      <div className="bg-gray-50 rounded px-2 py-1">"Check deliveries"</div>
-                      <div className="bg-gray-50 rounded px-2 py-1">"View farmers"</div>
-                      <div className="bg-gray-50 rounded px-2 py-1">"Open analytics"</div>
-                      <div className="bg-gray-50 rounded px-2 py-1">"Check inventory"</div>
-                      <div className="bg-gray-50 rounded px-2 py-1">"Mark attendance"</div>
-                    </div>
-                  </div>
-                )}
-              </div>
-            </CardContent>
-          </Card>
-        </div>
-      )}
     </>
   );
 }
