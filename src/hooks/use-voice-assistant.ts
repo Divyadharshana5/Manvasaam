@@ -62,6 +62,32 @@ export function useVoiceAssistant(): VoiceAssistantHook {
       };
     }
     
+    if (currentPath.includes('/restaurant')) {
+      return {
+        'overview': '/dashboard/restaurant',
+        'dashboard': '/dashboard/restaurant',
+        'home': '/dashboard/restaurant',
+        'orders': '/dashboard/restaurant/orders',
+        'order': '/dashboard/restaurant/orders',
+        'products': '/dashboard/restaurant/products',
+        'product': '/dashboard/restaurant/products',
+        'farmers': '/dashboard/restaurant/farmers',
+        'farmer': '/dashboard/restaurant/farmers',
+        'matchmaking': '/dashboard/restaurant/matchmaking',
+        'match': '/dashboard/restaurant/matchmaking',
+        'payments': '/dashboard/restaurant/payments',
+        'payment': '/dashboard/restaurant/payments',
+        'inventory': '/dashboard/restaurant/inventory',
+        'stock': '/dashboard/restaurant/inventory',
+        'reports': '/dashboard/restaurant/reports',
+        'report': '/dashboard/restaurant/reports',
+        'analytics': '/dashboard/restaurant/reports',
+        'faq': '/dashboard/restaurant/faq',
+        'help': '/dashboard/restaurant/faq',
+        'settings': '/dashboard/restaurant/settings',
+      };
+    }
+    
     // Hub routes
     return {
       'overview': '/dashboard/hub',
