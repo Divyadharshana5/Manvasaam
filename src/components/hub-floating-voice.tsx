@@ -100,8 +100,8 @@ export function HubFloatingVoice() {
     const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
     recognitionRef.current = new SpeechRecognition();
     
-    recognitionRef.current.continuous = true;
-    recognitionRef.current.interimResults = true;
+    recognitionRef.current.continuous = false;
+    recognitionRef.current.interimResults = false;
     recognitionRef.current.lang = 'en-US';
 
     recognitionRef.current.onstart = () => {
@@ -112,24 +112,9 @@ export function HubFloatingVoice() {
     };
 
     recognitionRef.current.onresult = (event) => {
-      let finalTranscript = '';
-      let interimTranscript = '';
-      
-      for (let i = 0; i < event.results.length; i++) {
-        if (event.results[i].isFinal) {
-          finalTranscript += event.results[i][0].transcript;
-        } else {
-          interimTranscript += event.results[i][0].transcript;
-        }
-      }
-      
-      setTranscript(finalTranscript || interimTranscript);
-      
-      if (finalTranscript.trim()) {
-        setTimeout(() => {
-          processCommand(finalTranscript);
-        }, 500);
-      }
+      const transcript = event.results[0][0].transcript;
+      setTranscript(transcript);
+      processCommand(transcript);
     };
 
     recognitionRef.current.onerror = () => {
@@ -152,11 +137,7 @@ export function HubFloatingVoice() {
       recognitionRef.current.stop();
     }
     setIsListening(false);
-    
-    if (transcript.trim()) {
-      processCommand(transcript);
-    }
-  }, [transcript, processCommand]);
+  }, []);
 
   const toggleWidget = () => {
     if (isListening) {
@@ -181,30 +162,18 @@ export function HubFloatingVoice() {
   return (
     <>
       {/* Floating Voice Button */}
-      <div className="fixed bottom-20 right-6 z-40">
-        <div className="flex flex-col items-center gap-2">
-          <Button
-            onClick={toggleWidget}
-            size="lg"
-            className={`rounded-full w-14 h-14 shadow-lg transition-all duration-300 ${
-              isListening 
-                ? 'bg-red-500 hover:bg-red-600 animate-pulse' 
-                : 'bg-gradient-to-r from-green-500 via-lime-500 to-yellow-500 hover:from-green-600 hover:via-lime-600 hover:to-yellow-600'
-            } text-white`}
-          >
-            {isListening ? <MicOff className="h-6 w-6" /> : <Mic className="h-6 w-6" />}
-          </Button>
-          {isListening && (
-            <Button
-              onClick={stopListening}
-              size="sm"
-              variant="destructive"
-              className="text-xs px-3 py-1 h-7"
-            >
-              Stop
-            </Button>
-          )}
-        </div>
+      <div className="fixed bottom-4 right-4 z-30">
+        <Button
+          onClick={isListening ? stopListening : startListening}
+          size="lg"
+          className={`rounded-full w-12 h-12 shadow-lg ${
+            isListening 
+              ? 'bg-red-500 hover:bg-red-600 animate-pulse' 
+              : 'bg-green-500 hover:bg-green-600'
+          } text-white`}
+        >
+          {isListening ? <MicOff className="h-5 w-5" /> : <Mic className="h-5 w-5" />}
+        </Button>
       </div>
 
       {/* Voice Assistant Widget */}
