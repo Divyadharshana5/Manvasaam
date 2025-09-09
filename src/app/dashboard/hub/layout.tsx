@@ -213,10 +213,21 @@ export default function HubLayout({
           </Sheet>
         </div>
         
-        <div className="border-b border-green-200 dark:border-green-700 bg-gradient-to-r from-green-50 to-lime-50 dark:from-green-950 dark:to-lime-950 p-3">
+        <div className="border-b border-green-200 dark:border-green-700 bg-gradient-to-r from-green-50 to-lime-50 dark:from-green-950 dark:to-lime-950 p-4">
           <div className="flex items-center justify-between">
             <h2 className="text-lg font-semibold text-green-800 dark:text-green-200">Hub Management Portal</h2>
-            <VoiceAssistantWidget />
+            <Button 
+              className="bg-gradient-to-r from-green-500 via-lime-500 to-yellow-500 hover:from-green-600 hover:via-lime-600 hover:to-yellow-600 text-white font-semibold px-6 py-2 rounded-full shadow-lg transition-all duration-300 hover:scale-105"
+              onClick={() => {
+                toast({
+                  title: "🎤 Voice Assistant",
+                  description: "Voice assistant activated. Say your command...",
+                });
+              }}
+            >
+              <Mic className="mr-2 h-5 w-5" />
+              Voice Assistant
+            </Button>
           </div>
         </div>
         
