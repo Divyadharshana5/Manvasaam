@@ -96,6 +96,10 @@ export default function HubDashboard() {
         <div>
           <h1 className="text-4xl font-bold tracking-tight">{hubManagerName}</h1>
           <p className="text-sm text-muted-foreground">Hub Manager</p>
+          <div className="flex items-center gap-2 mt-2">
+            <Mic className="h-4 w-4 text-green-600" />
+            <p className="text-xs text-green-600">Try voice commands: "Show orders", "Check deliveries", "View farmers"</p>
+          </div>
         </div>
         <div className="flex gap-2">
           <Button variant="outline" size="sm" asChild>
@@ -256,6 +260,13 @@ export default function HubDashboard() {
                 Live Tracking
               </Link>
             </Button>
+            <div className="bg-green-50 border border-green-200 rounded-lg p-2 mt-2">
+              <div className="flex items-center gap-2 mb-1">
+                <Volume2 className="h-3 w-3 text-green-600" />
+                <span className="text-xs font-semibold text-green-800">Voice Navigation</span>
+              </div>
+              <p className="text-xs text-green-700">Use the floating mic button for hands-free navigation!</p>
+            </div>
           </CardContent>
         </Card>
       </div>
