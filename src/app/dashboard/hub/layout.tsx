@@ -213,11 +213,17 @@ export default function HubLayout({
           </Sheet>
         </div>
         
+        <div className="border-b border-green-200 dark:border-green-700 bg-gradient-to-r from-green-50 to-lime-50 dark:from-green-950 dark:to-lime-950 p-3">
+          <div className="flex items-center justify-between">
+            <h2 className="text-lg font-semibold text-green-800 dark:text-green-200">Hub Management Portal</h2>
+            <VoiceAssistantWidget />
+          </div>
+        </div>
+        
         <main className="flex flex-1 flex-col gap-4 p-4 lg:gap-6 lg:p-6">
           {children}
         </main>
       </div>
-      <VoiceAssistantWidget />
     </div>
   );
 }
