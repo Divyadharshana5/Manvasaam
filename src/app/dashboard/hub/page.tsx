@@ -96,10 +96,7 @@ export default function HubDashboard() {
         <div>
           <h1 className="text-4xl font-bold tracking-tight">{hubManagerName}</h1>
           <p className="text-sm text-muted-foreground">Hub Manager</p>
-          <div className="flex items-center gap-2 mt-2">
-            <Mic className="h-4 w-4 text-green-600" />
-            <p className="text-xs text-green-600">Try voice commands: "Show orders", "Check deliveries", "View farmers"</p>
-          </div>
+
         </div>
         <div className="flex gap-2">
           <Button variant="outline" size="sm" asChild>
