@@ -39,12 +39,7 @@ export default function HubDashboard() {
   const [hubManagerName] = useState("Rajesh Kumar");
   const { toast } = useToast();
 
-  const handleVoiceAssistant = () => {
-    toast({
-      title: "Voice Assistant",
-      description: "Voice assistant activated. Say your command...",
-    });
-  };
+
 
   const handleMarkAttendance = () => {
     toast({
@@ -114,10 +109,6 @@ export default function HubDashboard() {
               <Package className="mr-1 h-3 w-3" />
               Inventory
             </Link>
-          </Button>
-          <Button size="sm" onClick={handleVoiceAssistant}>
-            <Volume2 className="mr-1 h-3 w-3" />
-            Voice
           </Button>
         </div>
       </div>
@@ -249,10 +240,6 @@ export default function HubDashboard() {
             <CardTitle className="text-base">Quick Actions</CardTitle>
           </CardHeader>
           <CardContent className="space-y-2">
-            <Button size="sm" className="w-full justify-start">
-              <Volume2 className="h-3 w-3 mr-2" />
-              Voice Assistant
-            </Button>
             <div className="flex gap-2">
               <Button size="sm" variant="outline" className="flex-1">
                 <MessageCircle className="h-3 w-3 mr-1" />
