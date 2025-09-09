@@ -140,13 +140,9 @@ export function HubFloatingVoice() {
   }, []);
 
   const toggleWidget = () => {
-    if (isListening) {
-      return; // Don't toggle when listening, use stop button instead
-    } else {
-      setTranscript("");
-      setResponse("");
-      startListening();
-    }
+    setTranscript("");
+    setResponse("");
+    setIsVisible(!isVisible);
   };
 
   const closeWidget = () => {
@@ -178,7 +174,7 @@ export function HubFloatingVoice() {
 
       {/* Voice Assistant Widget */}
       {isVisible && (
-        <div className="fixed bottom-32 right-6 z-40 w-80">
+        <div className="fixed bottom-20 right-4 z-30 w-72">
           <Card className="shadow-2xl border-2 border-green-200 bg-gradient-to-br from-green-50 via-lime-50 to-yellow-50 animate-in slide-in-from-bottom-4 duration-300">
             <CardContent className="p-4">
               <div className="flex items-center justify-between mb-3">
