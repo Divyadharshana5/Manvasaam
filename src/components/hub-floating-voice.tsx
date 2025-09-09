@@ -169,18 +169,11 @@ export function HubFloatingVoice() {
               ? 'bg-red-500 hover:bg-red-600 animate-pulse border-red-300' 
               : 'bg-gradient-to-r from-green-500 via-lime-500 to-yellow-500 hover:from-green-600 hover:via-lime-600 hover:to-yellow-600'
           } text-white border-4 border-white`}
-          title={isListening ? 'Click to stop and process command' : 'Click to start voice command'}
+          title={isListening ? 'Listening for voice command...' : 'Click to start voice command'}
         >
           <div className="relative">
-            {isListening ? (
-              <div className="flex flex-col items-center">
-                <MicOff className="h-6 w-6" />
-                <span className="text-xs mt-1">STOP</span>
-              </div>
-            ) : (
-              <Mic className="h-7 w-7" />
-            )}
-            {!isListening && <Bot className="h-4 w-4 absolute -bottom-1 -right-1 bg-white rounded-full p-0.5 text-green-600" />}
+            {isListening ? <MicOff className="h-7 w-7" /> : <Mic className="h-7 w-7" />}
+            <Bot className="h-4 w-4 absolute -bottom-1 -right-1 bg-white rounded-full p-0.5 text-green-600" />
           </div>
         </Button>
       </div>
