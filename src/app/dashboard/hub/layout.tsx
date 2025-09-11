@@ -9,7 +9,6 @@ import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
 import { useToast } from "@/hooks/use-toast";
-import { HubVoiceAssistant } from "@/components/hub-voice-assistant";
 import { HubVoiceWidget } from "@/components/hub-voice-widget";
 import {
   LayoutDashboard,
@@ -226,7 +225,7 @@ export default function HubLayout({
               <div className="hidden sm:block text-xs text-green-600 dark:text-green-400">
                 🎤 Voice Navigation Available
               </div>
-              <HubVoiceWidget variant="compact" showHelp={true} />
+              <HubVoiceWidget variant="compact" showHelp={true} className="relative" />
             </div>
           </div>
         </div>
