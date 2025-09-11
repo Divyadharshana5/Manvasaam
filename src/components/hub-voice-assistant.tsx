@@ -53,10 +53,8 @@ export function HubVoiceAssistant() {
 
     if (command) {
       setResponse(`Navigating to ${command.description.toLowerCase()}...`);
-      setTimeout(() => {
-        router.push(command.route);
-        setIsListening(false);
-      }, 1500);
+      router.push(command.route);
+      setIsListening(false);
     } else {
       setResponse(`Sorry, I couldn't find "${cleanText}". Try: orders, deliveries, farmers, analytics, inventory, or attendance.`);
     }
@@ -101,10 +99,8 @@ export function HubVoiceAssistant() {
       if (finalTranscript) {
         setTranscript(finalTranscript);
         setIsProcessing(true);
-        setTimeout(() => {
-          processCommand(finalTranscript);
-          setIsProcessing(false);
-        }, 500);
+        processCommand(finalTranscript);
+        setIsProcessing(false);
       }
     };
 
