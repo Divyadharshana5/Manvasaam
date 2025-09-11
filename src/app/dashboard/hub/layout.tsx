@@ -225,7 +225,7 @@ export default function HubLayout({
               <div className="hidden sm:block text-xs text-green-600 dark:text-green-400">
                 🎤 Voice Navigation Available
               </div>
-              <HubVoiceWidget variant="compact" showHelp={true} className="relative" />
+              <SimpleVoiceNav />
             </div>
           </div>
         </div>
