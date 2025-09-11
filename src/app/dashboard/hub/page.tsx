@@ -34,6 +34,7 @@ import {
 import Link from "next/link";
 import { useState } from "react";
 import { useToast } from "@/hooks/use-toast";
+import { SimpleVoiceNav } from "@/components/simple-voice-nav";
 
 export default function HubDashboard() {
   const [hubManagerName] = useState("Rajesh Kumar");
@@ -272,10 +273,7 @@ export default function HubDashboard() {
         <CardContent>
           <div className="flex items-center justify-between">
             <p className="text-sm text-green-700">Use voice commands to navigate quickly</p>
-            <Button size="sm" className="bg-green-600 hover:bg-green-700">
-              <Mic className="h-3 w-3 mr-1" />
-              Try Voice
-            </Button>
+            <SimpleVoiceNav />
           </div>
           <div className="mt-2 text-xs text-green-600">
             Say: "Go to orders", "Show inventory", "Check deliveries"
