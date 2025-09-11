@@ -9,7 +9,7 @@ import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
 import { useToast } from "@/hooks/use-toast";
-import { HubVoiceWidget } from "@/components/hub-voice-widget";
+import { SimpleVoiceNav } from "@/components/simple-voice-nav";
 import {
   LayoutDashboard,
   Package,
@@ -234,8 +234,7 @@ export default function HubLayout({
           {children}
         </main>
         
-        {/* Floating Voice Assistant */}
-        <HubVoiceWidget variant="floating" />
+
       </div>
     </div>
   );
