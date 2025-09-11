@@ -221,7 +221,12 @@ export default function HubLayout({
         <div className="border-b border-green-200 dark:border-green-700 bg-gradient-to-r from-green-50 to-lime-50 dark:from-green-950 dark:to-lime-950 p-4">
           <div className="flex items-center justify-between">
             <h2 className="text-lg font-semibold text-green-800 dark:text-green-200">Hub Management Portal</h2>
-            <HubVoiceAssistant />
+            <div className="flex items-center gap-3">
+              <div className="hidden sm:block text-xs text-green-600 dark:text-green-400">
+                🎤 Voice Navigation Available
+              </div>
+              <HubVoiceAssistant />
+            </div>
           </div>
         </div>
         
