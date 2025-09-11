@@ -100,6 +100,7 @@ export default function HubDashboard() {
 
         </div>
         <div className="flex gap-2">
+          <SimpleVoiceNav />
           <Button variant="outline" size="sm" asChild>
             <Link href="/dashboard/hub/attendance">
               <UserCheck className="mr-1 h-3 w-3" />
