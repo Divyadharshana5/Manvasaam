@@ -16,6 +16,10 @@ export default function DeliveriesPage() {
     setSearchValue("");
   };
   
+  const handlePackageClick = (deliveryId: string) => {
+    alert(`Package details for ${deliveryId}`);
+  };
+  
   const deliveries = [
     { id: "DEL001", orderId: "ORD002", customer: "Priya Sharma", items: "Organic Tomatoes - 5kg", status: "In Transit", eta: "2:30 PM", distance: "5 km" },
     { id: "DEL002", orderId: "ORD003", customer: "Amit Singh", items: "Fresh Spinach - 2kg", status: "Delivered", eta: "Completed", distance: "3 km" },
@@ -129,15 +133,15 @@ export default function DeliveriesPage() {
                   <span>{delivery.distance} away</span>
                 </div>
               </div>
-              <div className="flex gap-2 mt-4">
-                <Button size="sm" className="flex-1" asChild>
+              <div className="flex justify-between items-center mt-4">
+                <Button size="sm" variant="outline" onClick={() => handlePackageClick(delivery.id)}>
+                  <Package className="h-4 w-4" />
+                </Button>
+                <Button size="sm" asChild>
                   <Link href={`/dashboard/track?orderId=${delivery.orderId}`}>
                     <MapPin className="h-4 w-4 mr-2" />
                     Track
                   </Link>
-                </Button>
-                <Button size="sm" variant="outline">
-                  <Package className="h-4 w-4" />
                 </Button>
               </div>
             </CardContent>
