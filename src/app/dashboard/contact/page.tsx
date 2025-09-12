@@ -9,7 +9,7 @@ import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Badge } from "@/components/ui/badge";
 import { Separator } from "@/components/ui/separator";
-import { MessageCircle, Phone, Video, ArrowLeft, Send } from "lucide-react";
+import { MessageCircle, Phone, Video, ArrowLeft, Send, X } from "lucide-react";
 
 function ContactPageInner() {
   const params = useSearchParams();
@@ -64,19 +64,31 @@ function ContactPageInner() {
         <CardContent className="space-y-4">
           {mode === "chat" && (
             <div className="space-y-3">
-              <div className="h-72 border rounded-lg p-3 bg-muted/20 overflow-auto">
+              <div className="h-72 md:h-[28rem] border rounded-lg p-3 bg-muted/20 overflow-auto">
                 <div className="text-sm text-muted-foreground text-center mt-24">
                   Chat messages will appear here
                 </div>
               </div>
               <div className="flex gap-2">
-                <Input
-                  placeholder={`Message ${name}...`}
-                  value={message}
-                  onChange={(e) => setMessage(e.target.value)}
-                  className="flex-1"
-                />
-                <Button disabled={!message.trim()}>
+                <div className="relative flex-1">
+                  <Input
+                    placeholder={`Message ${name}...`}
+                    value={message}
+                    onChange={(e) => setMessage(e.target.value)}
+                    className="pr-9"
+                  />
+                  {message && (
+                    <button
+                      type="button"
+                      aria-label="Clear message"
+                      onClick={() => setMessage("")}
+                      className="absolute right-2 top-1/2 -translate-y-1/2 text-muted-foreground hover:text-foreground"
+                    >
+                      <X className="h-4 w-4" />
+                    </button>
+                  )}
+                </div>
+                <Button className="flex-shrink-0" disabled={!message.trim()}>
                   <Send className="mr-2 h-4 w-4" />
                   Send
                 </Button>
