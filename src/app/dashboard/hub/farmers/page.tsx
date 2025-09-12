@@ -98,7 +98,7 @@ export default function FarmersPage() {
                     </Link>
                   </Button>
                   <Button size="sm" variant="outline" className="w-full" asChild aria-label={`View packages from ${farmer.name}`}>
-                    <Link href={`/dashboard/hub/matchmaking?with=${encodeURIComponent(farmer.name)}&context=packages`}>
+                    <Link href={`/dashboard/hub/farmers/packages?with=${encodeURIComponent(farmer.name)}`}>
                       <Package className="h-4 w-4 mr-2" />
                       Packages
                     </Link>
