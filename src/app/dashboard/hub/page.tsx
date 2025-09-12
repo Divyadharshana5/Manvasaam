@@ -244,13 +244,17 @@ export default function HubDashboard() {
           </CardHeader>
           <CardContent className="space-y-2">
             <div className="flex gap-2">
-              <Button size="sm" variant="outline" className="flex-1">
-                <MessageCircle className="h-3 w-3 mr-1" />
-                Chat
+              <Button size="sm" variant="outline" className="flex-1" asChild>
+                <Link href={{ pathname: "/dashboard/contact", query: { mode: "chat" } }}>
+                  <MessageCircle className="h-3 w-3 mr-1" />
+                  Chat
+                </Link>
               </Button>
-              <Button size="sm" variant="outline" className="flex-1">
-                <Phone className="h-3 w-3 mr-1" />
-                Call
+              <Button size="sm" variant="outline" className="flex-1" asChild>
+                <Link href={{ pathname: "/dashboard/contact", query: { mode: "call" } }}>
+                  <Phone className="h-3 w-3 mr-1" />
+                  Call
+                </Link>
               </Button>
             </div>
             <Button size="sm" variant="outline" className="w-full justify-start" asChild>
