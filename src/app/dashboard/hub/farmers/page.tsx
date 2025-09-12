@@ -14,6 +14,18 @@ export default function FarmersPage() {
     setSearchValue("");
   };
   
+  const handleChat = (farmerName: string) => {
+    alert(`Opening chat with ${farmerName}`);
+  };
+  
+  const handleCall = (farmerName: string, phone: string) => {
+    alert(`Calling ${farmerName} at ${phone}`);
+  };
+  
+  const handlePackage = (farmerName: string) => {
+    alert(`View packages from ${farmerName}`);
+  };
+  
   const farmers = [
     { id: 1, name: "Rajesh Kumar", location: "Pune, Maharashtra", products: "Vegetables, Fruits", status: "Active", phone: "+91 98765 43210", deliveries: 45 },
     { id: 2, name: "Sunita Devi", location: "Nashik, Maharashtra", products: "Organic Vegetables", status: "Active", phone: "+91 87654 32109", deliveries: 32 },
@@ -81,14 +93,14 @@ export default function FarmersPage() {
                   <p className="text-sm text-muted-foreground">{farmer.deliveries} completed</p>
                 </div>
                 <div className="flex gap-2">
-                  <Button size="sm" className="flex-1">
+                  <Button size="sm" className="flex-1" onClick={() => handleChat(farmer.name)}>
                     <MessageCircle className="h-4 w-4 mr-2" />
                     Chat
                   </Button>
-                  <Button size="sm" variant="outline">
+                  <Button size="sm" variant="outline" onClick={() => handleCall(farmer.name, farmer.phone)}>
                     <Phone className="h-4 w-4" />
                   </Button>
-                  <Button size="sm" variant="outline">
+                  <Button size="sm" variant="outline" onClick={() => handlePackage(farmer.name)}>
                     <Package className="h-4 w-4" />
                   </Button>
                 </div>
