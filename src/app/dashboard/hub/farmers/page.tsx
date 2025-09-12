@@ -84,20 +84,20 @@ export default function FarmersPage() {
                   <p className="text-sm font-medium">Total Deliveries</p>
                   <p className="text-sm text-muted-foreground">{farmer.deliveries} completed</p>
                 </div>
-                <div className="flex gap-2">
-                  <Button size="sm" className="flex-1" asChild>
+                <div className="grid grid-cols-1 sm:grid-cols-3 gap-2">
+                  <Button size="sm" className="w-full" asChild aria-label={`Chat with ${farmer.name}`}>
                     <Link href={`/dashboard/contact?mode=chat&with=${encodeURIComponent(farmer.name)}&phone=${encodeURIComponent(farmer.phone)}`}>
                       <MessageCircle className="h-4 w-4 mr-2" />
                       Chat
                     </Link>
                   </Button>
-                  <Button size="sm" variant="outline" asChild>
+                  <Button size="sm" variant="outline" className="w-full" asChild aria-label={`Call ${farmer.name}`}>
                     <Link href={`/dashboard/contact?mode=call&with=${encodeURIComponent(farmer.name)}&phone=${encodeURIComponent(farmer.phone)}`}>
                       <Phone className="h-4 w-4 mr-2" />
                       Call
                     </Link>
                   </Button>
-                  <Button size="sm" variant="outline" asChild>
+                  <Button size="sm" variant="outline" className="w-full" asChild aria-label={`View packages from ${farmer.name}`}>
                     <Link href={`/dashboard/hub/matchmaking?with=${encodeURIComponent(farmer.name)}&context=packages`}>
                       <Package className="h-4 w-4 mr-2" />
                       Packages
