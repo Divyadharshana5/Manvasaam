@@ -213,13 +213,17 @@ export default function RestaurantDashboard() {
                   <div className="flex justify-between items-center">
                     <span className="font-bold">₹{order.amount.toLocaleString()}</span>
                     <div className="flex gap-2">
-                      <Button size="sm" variant="outline">
-                        <Eye className="h-3 w-3 mr-1" />
-                        Track
+                      <Button size="sm" variant="outline" asChild>
+                        <Link href={{ pathname: "/dashboard/track", query: { orderId: order.id } }}>
+                          <Eye className="h-3 w-3 mr-1" />
+                          Track
+                        </Link>
                       </Button>
-                      <Button size="sm" variant="outline">
-                        <MessageCircle className="h-3 w-3 mr-1" />
-                        Chat
+                      <Button size="sm" variant="outline" asChild>
+                        <Link href={{ pathname: "/dashboard/contact", query: { mode: "chat", with: order.farmer } }}>
+                          <MessageCircle className="h-3 w-3 mr-1" />
+                          Chat
+                        </Link>
                       </Button>
                     </div>
                   </div>
@@ -256,13 +260,17 @@ export default function RestaurantDashboard() {
             <div className="border rounded-lg p-3">
               <h4 className="font-medium mb-2">Communication Tools</h4>
               <div className="flex gap-2 mb-2">
-                <Button size="sm" variant="outline" className="flex-1">
-                  <MessageCircle className="h-4 w-4 mr-2" />
-                  Chat
+                <Button size="sm" variant="outline" className="flex-1" asChild>
+                  <Link href={{ pathname: "/dashboard/contact", query: { mode: "chat" } }}>
+                    <MessageCircle className="h-4 w-4 mr-2" />
+                    Chat
+                  </Link>
                 </Button>
-                <Button size="sm" variant="outline" className="flex-1">
-                  <Phone className="h-4 w-4 mr-2" />
-                  Call
+                <Button size="sm" variant="outline" className="flex-1" asChild>
+                  <Link href={{ pathname: "/dashboard/contact", query: { mode: "call" } }}>
+                    <Phone className="h-4 w-4 mr-2" />
+                    Call
+                  </Link>
                 </Button>
               </div>
               <Button size="sm" className="w-full">
@@ -274,9 +282,11 @@ export default function RestaurantDashboard() {
             <div className="border rounded-lg p-3">
               <h4 className="font-medium mb-2">Live Tracking</h4>
               <p className="text-sm text-muted-foreground mb-2">Real-time order tracking</p>
-              <Button size="sm" variant="outline" className="w-full">
-                <MapPin className="h-4 w-4 mr-2" />
-                Track Deliveries
+              <Button size="sm" variant="outline" className="w-full" asChild>
+                <Link href="/dashboard/track">
+                  <MapPin className="h-4 w-4 mr-2" />
+                  Track Deliveries
+                </Link>
               </Button>
             </div>
           </CardContent>

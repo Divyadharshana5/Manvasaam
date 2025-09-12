@@ -195,13 +195,17 @@ export default function CustomerDashboard() {
                   <div className="flex justify-between items-center">
                     <span className="font-bold">₹{order.amount}</span>
                     <div className="flex gap-2">
-                      <Button size="sm" variant="outline">
-                        <Eye className="h-3 w-3 mr-1" />
-                        Track
+                      <Button size="sm" variant="outline" asChild>
+                        <Link href={{ pathname: "/dashboard/track", query: { orderId: order.id } }}>
+                          <Eye className="h-3 w-3 mr-1" />
+                          Track
+                        </Link>
                       </Button>
-                      <Button size="sm" variant="outline">
-                        <Phone className="h-3 w-3 mr-1" />
-                        Call
+                      <Button size="sm" variant="outline" asChild>
+                        <Link href={{ pathname: "/dashboard/contact", query: { mode: "call", with: order.farmer } }}>
+                          <Phone className="h-3 w-3 mr-1" />
+                          Call
+                        </Link>
                       </Button>
                     </div>
                   </div>
@@ -237,13 +241,17 @@ export default function CustomerDashboard() {
             <div className="border rounded-lg p-3">
               <h4 className="font-medium mb-2">Communication</h4>
               <div className="flex gap-2">
-                <Button size="sm" variant="outline" className="flex-1">
-                  <MessageCircle className="h-4 w-4 mr-2" />
-                  Chat
+                <Button size="sm" variant="outline" className="flex-1" asChild>
+                  <Link href={{ pathname: "/dashboard/contact", query: { mode: "chat" } }}>
+                    <MessageCircle className="h-4 w-4 mr-2" />
+                    Chat
+                  </Link>
                 </Button>
-                <Button size="sm" variant="outline" className="flex-1">
-                  <Phone className="h-4 w-4 mr-2" />
-                  Call
+                <Button size="sm" variant="outline" className="flex-1" asChild>
+                  <Link href={{ pathname: "/dashboard/contact", query: { mode: "call" } }}>
+                    <Phone className="h-4 w-4 mr-2" />
+                    Call
+                  </Link>
                 </Button>
               </div>
             </div>
@@ -278,9 +286,11 @@ export default function CustomerDashboard() {
                   <MapPin className="h-4 w-4 text-blue-500" />
                   <span>5 km away • Estimated arrival: 2:30 PM</span>
                 </div>
-                <Button size="sm" className="w-full mt-2">
-                  <MapPin className="h-4 w-4 mr-2" />
-                  View on Map
+                <Button size="sm" className="w-full mt-2" asChild>
+                  <Link href={{ pathname: "/dashboard/track", query: { orderId: "ORD002" } }}>
+                    <MapPin className="h-4 w-4 mr-2" />
+                    View on Map
+                  </Link>
                 </Button>
               </div>
               
