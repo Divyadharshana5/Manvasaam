@@ -3,9 +3,8 @@
 
 import { Suspense, use } from 'react';
 import { useSearchParams } from 'next/navigation';
-import { AppLayout } from "@/components/app-layout";
 import { Card, CardHeader, CardTitle, CardContent, CardDescription, CardFooter } from "@/components/ui/card";
-import { Truck, XCircle } from "lucide-react";
+import { Truck, XCircle, ArrowLeft } from "lucide-react";
 import { useEffect, useState } from "react";
 import { Progress } from "@/components/ui/progress";
 import { Button } from '@/components/ui/button';
@@ -28,6 +27,7 @@ import { Textarea } from '@/components/ui/textarea';
 import { useToast } from '@/hooks/use-toast';
 import { Loader2 } from 'lucide-react';
 import { useRouter } from 'next/navigation';
+import Link from 'next/link';
 
 
 const mockTrackingData = {
@@ -154,16 +154,20 @@ function LiveTrackingPage() {
     };
 
     return (
-        <AppLayout>
-            <div className="flex-1 space-y-4 p-4 md:p-8 pt-6">
-                 <div className="flex items-center justify-between space-y-2">
-                    <div>
-                        <h2 className="text-3xl font-bold tracking-tight">Live Order Tracking</h2>
-                        <p className="text-muted-foreground">
-                            Watching order {orderId} in real-time.
-                        </p>
-                    </div>
+        <div className="flex flex-1 flex-col gap-6 p-4 md:p-6">
+            <div className="flex items-center gap-4">
+                <Button variant="outline" size="icon" asChild>
+                    <Link href="/dashboard/hub/deliveries">
+                        <ArrowLeft className="h-4 w-4" />
+                    </Link>
+                </Button>
+                <div>
+                    <h2 className="text-3xl font-bold tracking-tight">Live Order Tracking</h2>
+                    <p className="text-muted-foreground">
+                        Watching order {orderId} in real-time.
+                    </p>
                 </div>
+            </div>
 
                 <Card>
                     <CardHeader>
@@ -280,8 +284,7 @@ function LiveTrackingPage() {
                     </CardFooter>
                 </Card>
 
-            </div>
-        </AppLayout>
+        </div>
     );
 }
 
