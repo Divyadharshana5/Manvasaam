@@ -92,10 +92,10 @@ export default function FarmersPage() {
                     </Link>
                   </Button>
                   <Button size="sm" variant="outline" className="w-full" asChild aria-label={`Call ${farmer.name}`}>
-                    <Link href={`/dashboard/contact?mode=call&with=${encodeURIComponent(farmer.name)}&phone=${encodeURIComponent(farmer.phone)}`}>
+                    <a href={`tel:${farmer.phone.replace(/\s+/g, '')}`}>
                       <Phone className="h-4 w-4 mr-2" />
                       Call
-                    </Link>
+                    </a>
                   </Button>
                   <Button size="sm" variant="outline" className="w-full" asChild aria-label={`View packages from ${farmer.name}`}>
                     <Link href={`/dashboard/hub/farmers/packages?with=${encodeURIComponent(farmer.name)}`}>
