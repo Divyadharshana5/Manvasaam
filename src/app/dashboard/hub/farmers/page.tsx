@@ -6,6 +6,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Users, Phone, MessageCircle, MapPin, Package, Search, Plus, X } from "lucide-react";
 import { useState } from "react";
+import Link from "next/link";
 
 export default function FarmersPage() {
   const [searchValue, setSearchValue] = useState("");
@@ -14,18 +15,9 @@ export default function FarmersPage() {
     setSearchValue("");
   };
   
-  const handleChat = (farmerName: string) => {
-    alert(`Opening chat with ${farmerName}`);
-  };
-  
-  const handleCall = (farmerName: string, phone: string) => {
-    alert(`Calling ${farmerName} at ${phone}`);
-  };
-  
-  const handlePackage = (farmerName: string) => {
-    alert(`View packages from ${farmerName}`);
-  };
-  
+    
+    
+    
   const farmers = [
     { id: 1, name: "Rajesh Kumar", location: "Pune, Maharashtra", products: "Vegetables, Fruits", status: "Active", phone: "+91 98765 43210", deliveries: 45 },
     { id: 2, name: "Sunita Devi", location: "Nashik, Maharashtra", products: "Organic Vegetables", status: "Active", phone: "+91 87654 32109", deliveries: 32 },
@@ -93,15 +85,21 @@ export default function FarmersPage() {
                   <p className="text-sm text-muted-foreground">{farmer.deliveries} completed</p>
                 </div>
                 <div className="flex gap-2">
-                  <Button size="sm" className="flex-1" onClick={() => handleChat(farmer.name)}>
-                    <MessageCircle className="h-4 w-4 mr-2" />
-                    Chat
+                  <Button size="sm" className="flex-1" asChild>
+                    <Link href={{ pathname: "/dashboard/contact", query: { mode: "chat", with: farmer.name, phone: farmer.phone } }}>
+                      <MessageCircle className="h-4 w-4 mr-2" />
+                      Chat
+                    </Link>
                   </Button>
-                  <Button size="sm" variant="outline" onClick={() => handleCall(farmer.name, farmer.phone)}>
-                    <Phone className="h-4 w-4" />
+                  <Button size="sm" variant="outline" asChild>
+                    <Link href={{ pathname: "/dashboard/contact", query: { mode: "call", with: farmer.name, phone: farmer.phone } }}>
+                      <Phone className="h-4 w-4" />
+                    </Link>
                   </Button>
-                  <Button size="sm" variant="outline" onClick={() => handlePackage(farmer.name)}>
-                    <Package className="h-4 w-4" />
+                  <Button size="sm" variant="outline" asChild>
+                    <Link href={{ pathname: "/dashboard/hub/matchmaking", query: { with: farmer.name, context: "packages" } }}>
+                      <Package className="h-4 w-4" />
+                    </Link>
                   </Button>
                 </div>
               </div>
