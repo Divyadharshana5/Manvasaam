@@ -5,12 +5,16 @@ import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Truck, MapPin, Clock, CheckCircle, Package, Search, Filter } from "lucide-react";
+import Link from "next/link";
+import { useState } from "react";
 
 export default function DeliveriesPage() {
+  const [showFilter, setShowFilter] = useState(false);
+  
   const deliveries = [
-    { id: "DEL001", customer: "Priya Sharma", items: "Organic Tomatoes - 5kg", status: "In Transit", eta: "2:30 PM", distance: "5 km" },
-    { id: "DEL002", customer: "Amit Singh", items: "Fresh Spinach - 2kg", status: "Delivered", eta: "Completed", distance: "3 km" },
-    { id: "DEL003", customer: "Green Valley Restaurant", items: "Mixed Vegetables - 25kg", status: "Pending", eta: "4:00 PM", distance: "8 km" }
+    { id: "DEL001", orderId: "ORD002", customer: "Priya Sharma", items: "Organic Tomatoes - 5kg", status: "In Transit", eta: "2:30 PM", distance: "5 km" },
+    { id: "DEL002", orderId: "ORD003", customer: "Amit Singh", items: "Fresh Spinach - 2kg", status: "Delivered", eta: "Completed", distance: "3 km" },
+    { id: "DEL003", orderId: "ORD005", customer: "Green Valley Restaurant", items: "Mixed Vegetables - 25kg", status: "Pending", eta: "4:00 PM", distance: "8 km" }
   ];
 
   return (
@@ -21,13 +25,15 @@ export default function DeliveriesPage() {
           <p className="text-muted-foreground">Track and manage all delivery operations</p>
         </div>
         <div className="flex gap-2">
-          <Button variant="outline">
+          <Button variant="outline" onClick={() => setShowFilter(!showFilter)}>
             <Filter className="mr-2 h-4 w-4" />
             Filter
           </Button>
-          <Button>
-            <Truck className="mr-2 h-4 w-4" />
-            New Delivery
+          <Button asChild>
+            <Link href="/dashboard/hub/orders/new">
+              <Truck className="mr-2 h-4 w-4" />
+              New Delivery
+            </Link>
           </Button>
         </div>
       </div>
@@ -38,6 +44,48 @@ export default function DeliveriesPage() {
           <Input placeholder="Search deliveries..." className="pl-10" />
         </div>
       </div>
+
+      {showFilter && (
+        <Card>
+          <CardHeader>
+            <CardTitle>Filter Deliveries</CardTitle>
+          </CardHeader>
+          <CardContent>
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+              <div>
+                <label className="text-sm font-medium">Status</label>
+                <select className="w-full mt-1 p-2 border rounded-md">
+                  <option value="">All Status</option>
+                  <option value="pending">Pending</option>
+                  <option value="in-transit">In Transit</option>
+                  <option value="delivered">Delivered</option>
+                </select>
+              </div>
+              <div>
+                <label className="text-sm font-medium">Distance</label>
+                <select className="w-full mt-1 p-2 border rounded-md">
+                  <option value="">All Distances</option>
+                  <option value="0-5">0-5 km</option>
+                  <option value="5-10">5-10 km</option>
+                  <option value="10+">10+ km</option>
+                </select>
+              </div>
+              <div>
+                <label className="text-sm font-medium">Customer Type</label>
+                <select className="w-full mt-1 p-2 border rounded-md">
+                  <option value="">All Customers</option>
+                  <option value="individual">Individual</option>
+                  <option value="restaurant">Restaurant</option>
+                </select>
+              </div>
+            </div>
+            <div className="flex gap-2 mt-4">
+              <Button size="sm">Apply Filters</Button>
+              <Button size="sm" variant="outline" onClick={() => setShowFilter(false)}>Close</Button>
+            </div>
+          </CardContent>
+        </Card>
+      )}
 
       <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
         {deliveries.map((delivery) => (
@@ -64,9 +112,11 @@ export default function DeliveriesPage() {
                 </div>
               </div>
               <div className="flex gap-2 mt-4">
-                <Button size="sm" className="flex-1">
-                  <MapPin className="h-4 w-4 mr-2" />
-                  Track
+                <Button size="sm" className="flex-1" asChild>
+                  <Link href={`/dashboard/track?orderId=${delivery.orderId}`}>
+                    <MapPin className="h-4 w-4 mr-2" />
+                    Track
+                  </Link>
                 </Button>
                 <Button size="sm" variant="outline">
                   <Package className="h-4 w-4" />
