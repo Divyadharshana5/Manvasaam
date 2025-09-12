@@ -29,15 +29,15 @@ function ContactPageInner() {
   }, [mode, name]);
 
   return (
-    <div className="flex flex-1 flex-col gap-6 p-4 md:p-6">
-      <div className="flex items-center gap-3">
+    <div className="mx-auto w-full max-w-screen-sm flex flex-1 flex-col gap-4 p-3 md:p-4">
+      <div className="flex items-center gap-2">
         <Button asChild variant="outline" size="icon">
           <Link href="/dashboard">
             <ArrowLeft className="h-4 w-4" />
           </Link>
         </Button>
         <div>
-          <h1 className="text-2xl md:text-3xl font-bold tracking-tight">{title}</h1>
+          <h1 className="text-xl md:text-2xl font-semibold tracking-tight">{title}</h1>
           {context && (
             <p className="text-xs md:text-sm text-muted-foreground">Context: {context}</p>
           )}
@@ -46,8 +46,8 @@ function ContactPageInner() {
 
       {/* Action summary */}
       <Card>
-        <CardHeader>
-          <CardTitle className="flex items-center gap-2">
+        <CardHeader className="space-y-1 pb-3">
+          <CardTitle className="flex items-center gap-2 text-base">
             {mode === "chat" && <MessageCircle className="h-5 w-5" />}
             {mode === "call" && <Phone className="h-5 w-5" />}
             {mode === "video" && <Video className="h-5 w-5" />}
@@ -61,12 +61,12 @@ function ContactPageInner() {
               : "Initiate a video call. Integrate your preferred SDK (e.g., WebRTC, Twilio)."}
           </CardDescription>
         </CardHeader>
-        <CardContent className="space-y-4">
+        <CardContent className="space-y-3 pt-0">
           {mode === "chat" && (
-            <div className="space-y-3">
-              <div className="h-72 md:h-[28rem] border rounded-lg p-3 bg-muted/20 overflow-auto">
-                <div className="text-sm text-muted-foreground text-center mt-24">
-                  Chat messages will appear here
+            <div className="space-y-2">
+              <div className="h-64 md:h-80 border rounded-lg p-3 bg-muted/20 overflow-auto">
+                <div className="h-full flex items-center justify-center">
+                  <p className="text-sm text-muted-foreground text-center">Chat messages will appear here</p>
                 </div>
               </div>
               <div className="flex gap-2">
@@ -75,7 +75,7 @@ function ContactPageInner() {
                     placeholder={`Message ${name}...`}
                     value={message}
                     onChange={(e) => setMessage(e.target.value)}
-                    className="pr-9"
+                    className="pr-9 h-10 text-sm"
                   />
                   {message && (
                     <button
@@ -88,7 +88,7 @@ function ContactPageInner() {
                     </button>
                   )}
                 </div>
-                <Button className="flex-shrink-0" disabled={!message.trim()}>
+                <Button size="sm" className="flex-shrink-0" disabled={!message.trim()}>
                   <Send className="mr-2 h-4 w-4" />
                   Send
                 </Button>
@@ -97,7 +97,7 @@ function ContactPageInner() {
           )}
 
           {mode !== "chat" && (
-            <div className="space-y-4">
+            <div className="space-y-3">
               <div className="grid gap-2 text-sm">
                 <div className="flex items-center gap-2">
                   <Badge variant="secondary">Contact</Badge>
@@ -112,7 +112,7 @@ function ContactPageInner() {
               </div>
               <Separator />
               {mode === "call" && (
-                <Button asChild className="w-full">
+                <Button asChild size="sm" className="w-full">
                   <a href={phone ? `tel:${phone.replace(/\s+/g, "")}` : "tel:"}>
                     <Phone className="mr-2 h-4 w-4" /> Start Call
                   </a>
@@ -120,7 +120,7 @@ function ContactPageInner() {
               )}
               {mode === "video" && (
                 <div className="space-y-2">
-                  <Button className="w-full" variant="default">
+                  <Button className="w-full" size="sm" variant="default">
                     <Video className="mr-2 h-4 w-4" /> Start Video Call
                   </Button>
                   <p className="text-xs text-muted-foreground">
