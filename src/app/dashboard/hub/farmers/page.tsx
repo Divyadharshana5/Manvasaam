@@ -93,12 +93,14 @@ export default function FarmersPage() {
                   </Button>
                   <Button size="sm" variant="outline" asChild>
                     <Link href={`/dashboard/contact?mode=call&with=${encodeURIComponent(farmer.name)}&phone=${encodeURIComponent(farmer.phone)}`}>
-                      <Phone className="h-4 w-4" />
+                      <Phone className="h-4 w-4 mr-2" />
+                      Call
                     </Link>
                   </Button>
                   <Button size="sm" variant="outline" asChild>
                     <Link href={`/dashboard/hub/matchmaking?with=${encodeURIComponent(farmer.name)}&context=packages`}>
-                      <Package className="h-4 w-4" />
+                      <Package className="h-4 w-4 mr-2" />
+                      Packages
                     </Link>
                   </Button>
                 </div>
