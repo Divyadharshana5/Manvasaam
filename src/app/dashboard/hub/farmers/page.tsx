@@ -4,9 +4,16 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { Users, Phone, MessageCircle, MapPin, Package, Search, Plus } from "lucide-react";
+import { Users, Phone, MessageCircle, MapPin, Package, Search, Plus, X } from "lucide-react";
+import { useState } from "react";
 
 export default function FarmersPage() {
+  const [searchValue, setSearchValue] = useState("");
+  
+  const clearSearch = () => {
+    setSearchValue("");
+  };
+  
   const farmers = [
     { id: 1, name: "Rajesh Kumar", location: "Pune, Maharashtra", products: "Vegetables, Fruits", status: "Active", phone: "+91 98765 43210", deliveries: 45 },
     { id: 2, name: "Sunita Devi", location: "Nashik, Maharashtra", products: "Organic Vegetables", status: "Active", phone: "+91 87654 32109", deliveries: 32 },
@@ -29,7 +36,20 @@ export default function FarmersPage() {
       <div className="flex gap-2">
         <div className="relative flex-1 max-w-md">
           <Search className="absolute left-3 top-3 h-4 w-4 text-muted-foreground" />
-          <Input placeholder="Search farmers..." className="pl-10" />
+          <Input 
+            placeholder="Search farmers..." 
+            className="pl-10 pr-10" 
+            value={searchValue}
+            onChange={(e) => setSearchValue(e.target.value)}
+          />
+          {searchValue && (
+            <button 
+              onClick={clearSearch}
+              className="absolute right-3 top-3 h-4 w-4 text-muted-foreground hover:text-foreground"
+            >
+              <X className="h-4 w-4" />
+            </button>
+          )}
         </div>
       </div>
 

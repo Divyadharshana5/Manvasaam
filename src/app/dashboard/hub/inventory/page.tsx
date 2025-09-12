@@ -12,11 +12,19 @@ import {
   Search,
   Plus,
   Edit,
-  Trash2
+  Trash2,
+  X
 } from "lucide-react";
 import Link from "next/link";
+import { useState } from "react";
 
 export default function HubInventoryPage() {
+  const [searchValue, setSearchValue] = useState("");
+  
+  const clearSearch = () => {
+    setSearchValue("");
+  };
+  
   // Mock data for demo
   const inventory = [
     { id: 1, name: "Organic Tomatoes", quantity: 150, unit: "kg", pricePerUnit: 80, category: "Vegetables", expiryDate: "2024-01-20" },
@@ -123,7 +131,20 @@ export default function HubInventoryPage() {
 
       <div className="relative flex-1 max-w-md">
         <Search className="absolute left-3 top-3 h-4 w-4 text-muted-foreground" />
-        <Input placeholder="Search inventory..." className="pl-10" />
+        <Input 
+          placeholder="Search inventory..." 
+          className="pl-10 pr-10" 
+          value={searchValue}
+          onChange={(e) => setSearchValue(e.target.value)}
+        />
+        {searchValue && (
+          <button 
+            onClick={clearSearch}
+            className="absolute right-3 top-3 h-4 w-4 text-muted-foreground hover:text-foreground"
+          >
+            <X className="h-4 w-4" />
+          </button>
+        )}
       </div>
 
       <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">

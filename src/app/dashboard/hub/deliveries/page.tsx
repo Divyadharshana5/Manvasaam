@@ -4,12 +4,17 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { Truck, MapPin, Clock, CheckCircle, Package, Search, Filter } from "lucide-react";
+import { Truck, MapPin, Clock, CheckCircle, Package, Search, Filter, X } from "lucide-react";
 import Link from "next/link";
 import { useState } from "react";
 
 export default function DeliveriesPage() {
   const [showFilter, setShowFilter] = useState(false);
+  const [searchValue, setSearchValue] = useState("");
+  
+  const clearSearch = () => {
+    setSearchValue("");
+  };
   
   const deliveries = [
     { id: "DEL001", orderId: "ORD002", customer: "Priya Sharma", items: "Organic Tomatoes - 5kg", status: "In Transit", eta: "2:30 PM", distance: "5 km" },
@@ -41,7 +46,20 @@ export default function DeliveriesPage() {
       <div className="flex gap-2">
         <div className="relative flex-1 max-w-md">
           <Search className="absolute left-3 top-3 h-4 w-4 text-muted-foreground" />
-          <Input placeholder="Search deliveries..." className="pl-10" />
+          <Input 
+            placeholder="Search deliveries..." 
+            className="pl-10 pr-10" 
+            value={searchValue}
+            onChange={(e) => setSearchValue(e.target.value)}
+          />
+          {searchValue && (
+            <button 
+              onClick={clearSearch}
+              className="absolute right-3 top-3 h-4 w-4 text-muted-foreground hover:text-foreground"
+            >
+              <X className="h-4 w-4" />
+            </button>
+          )}
         </div>
       </div>
 
