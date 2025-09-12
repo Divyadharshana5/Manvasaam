@@ -86,18 +86,18 @@ export default function FarmersPage() {
                 </div>
                 <div className="flex gap-2">
                   <Button size="sm" className="flex-1" asChild>
-                    <Link href={{ pathname: "/dashboard/contact", query: { mode: "chat", with: farmer.name, phone: farmer.phone } }}>
+                    <Link href={`/dashboard/contact?mode=chat&with=${encodeURIComponent(farmer.name)}&phone=${encodeURIComponent(farmer.phone)}`}>
                       <MessageCircle className="h-4 w-4 mr-2" />
                       Chat
                     </Link>
                   </Button>
                   <Button size="sm" variant="outline" asChild>
-                    <Link href={{ pathname: "/dashboard/contact", query: { mode: "call", with: farmer.name, phone: farmer.phone } }}>
+                    <Link href={`/dashboard/contact?mode=call&with=${encodeURIComponent(farmer.name)}&phone=${encodeURIComponent(farmer.phone)}`}>
                       <Phone className="h-4 w-4" />
                     </Link>
                   </Button>
                   <Button size="sm" variant="outline" asChild>
-                    <Link href={{ pathname: "/dashboard/hub/matchmaking", query: { with: farmer.name, context: "packages" } }}>
+                    <Link href={`/dashboard/hub/matchmaking?with=${encodeURIComponent(farmer.name)}&context=packages`}>
                       <Package className="h-4 w-4" />
                     </Link>
                   </Button>
