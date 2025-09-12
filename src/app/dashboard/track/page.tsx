@@ -57,6 +57,16 @@ const mockTrackingData = {
             { name: "Destination Hub", position: { top: '20%', left: '15%' } },
         ],
         eta: "1 hour 20 minutes",
+    },
+    // Default tracking data for new orders
+    "default": {
+        path: [
+            { name: "Order Confirmed", position: { top: '70%', left: '20%' } },
+            { name: "Preparing for Dispatch", position: { top: '50%', left: '40%' } },
+            { name: "In Transit", position: { top: '30%', left: '60%' } },
+            { name: "Out for Delivery", position: { top: '20%', left: '80%' } },
+        ],
+        eta: "30 minutes",
     }
 };
 
@@ -84,7 +94,7 @@ function LiveTrackingPage() {
     const [currentStep, setCurrentStep] = useState(0);
     const [isCancelling, setIsCancelling] = useState(false);
     
-    const trackingInfo = mockTrackingData[orderId as keyof typeof mockTrackingData] || mockTrackingData["ORD002"];
+    const trackingInfo = mockTrackingData[orderId as keyof typeof mockTrackingData] || mockTrackingData["default"];
     const totalSteps = trackingInfo.path.length - 1;
 
     const form = useForm<z.infer<typeof cancellationSchema>>({
