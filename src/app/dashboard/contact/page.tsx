@@ -101,7 +101,7 @@ function ContactPageInner() {
               <Separator />
               {mode === "call" && (
                 <Button asChild className="w-full">
-                  <a href={phone ? `tel:${phone}` : "tel:"}>
+                  <a href={phone ? `tel:${phone.replace(/\s+/g, "")}` : "tel:"}>
                     <Phone className="mr-2 h-4 w-4" /> Start Call
                   </a>
                 </Button>
