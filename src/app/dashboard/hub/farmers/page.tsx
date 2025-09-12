@@ -6,7 +6,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Users, Phone, MessageCircle, MapPin, Package, Search, Plus, X } from "lucide-react";
 import { useState } from "react";
-import { useRouter } from "next/navigation";
+import Link from "next/link";
 
 export default function FarmersPage() {
   const [searchValue, setSearchValue] = useState("");
@@ -14,8 +14,7 @@ export default function FarmersPage() {
   const clearSearch = () => {
     setSearchValue("");
   };
-  const router = useRouter();
-  
+    
     
     
     
@@ -86,40 +85,23 @@ export default function FarmersPage() {
                   <p className="text-sm text-muted-foreground">{farmer.deliveries} completed</p>
                 </div>
                 <div className="grid grid-cols-1 sm:grid-cols-3 gap-2">
-                  <Button
-                    size="sm"
-                    className="w-full"
-                    aria-label={`Chat with ${farmer.name}`}
-                    onClick={() =>
-                      router.push(`/dashboard/contact?mode=chat&with=${encodeURIComponent(farmer.name)}&phone=${encodeURIComponent(farmer.phone)}`)
-                    }
-                  >
-                    <MessageCircle className="h-4 w-4 mr-2" />
-                    Chat
+                  <Button size="sm" className="w-full" asChild aria-label={`Chat with ${farmer.name}`}>
+                    <Link href={`/dashboard/contact?mode=chat&with=${encodeURIComponent(farmer.name)}`}>
+                      <MessageCircle className="h-4 w-4 mr-2" />
+                      Chat
+                    </Link>
                   </Button>
-                  <Button
-                    size="sm"
-                    variant="outline"
-                    className="w-full"
-                    aria-label={`Call ${farmer.name}`}
-                    onClick={() =>
-                      router.push(`/dashboard/contact?mode=call&with=${encodeURIComponent(farmer.name)}&phone=${encodeURIComponent(farmer.phone)}`)
-                    }
-                  >
-                    <Phone className="h-4 w-4 mr-2" />
-                    Call
+                  <Button size="sm" variant="outline" className="w-full" asChild aria-label={`Call ${farmer.name}`}>
+                    <Link href={`/dashboard/contact?mode=call&with=${encodeURIComponent(farmer.name)}&phone=${encodeURIComponent(farmer.phone)}`}>
+                      <Phone className="h-4 w-4 mr-2" />
+                      Call
+                    </Link>
                   </Button>
-                  <Button
-                    size="sm"
-                    variant="outline"
-                    className="w-full"
-                    aria-label={`View packages from ${farmer.name}`}
-                    onClick={() =>
-                      router.push(`/dashboard/hub/farmers/packages?with=${encodeURIComponent(farmer.name)}`)
-                    }
-                  >
-                    <Package className="h-4 w-4 mr-2" />
-                    Packages
+                  <Button size="sm" variant="outline" className="w-full" asChild aria-label={`View packages from ${farmer.name}`}>
+                    <Link href={`/dashboard/hub/farmers/packages?with=${encodeURIComponent(farmer.name)}`}>
+                      <Package className="h-4 w-4 mr-2" />
+                      Packages
+                    </Link>
                   </Button>
                 </div>
               </div>
