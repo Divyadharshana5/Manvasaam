@@ -40,7 +40,7 @@ import {
 import Link from "next/link";
 import { useState } from "react";
 import { useToast } from "@/hooks/use-toast";
-import { SimpleVoiceNav } from "@/components/simple-voice-nav";
+// import { SimpleVoiceNav } from "@/components/simple-voice-nav";
 
 export default function HubDashboard() {
   const [hubManagerName] = useState("Rajesh Kumar");
@@ -376,7 +376,7 @@ export default function HubDashboard() {
             <p className="text-sm text-green-700">
               Use voice commands to navigate quickly
             </p>
-            <SimpleVoiceNav />
+            {/* VoiceAssistantGlobal is now used globally, so SimpleVoiceNav removed */}
           </div>
           <div className="mt-2 text-xs text-green-600">
             Say: "Go to orders", "Show inventory", "Check deliveries"
