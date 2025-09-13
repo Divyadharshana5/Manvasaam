@@ -369,7 +369,6 @@ export default function HubDashboard() {
         <CardHeader className="pb-3">
           <CardTitle className="text-base flex items-center gap-2">
             <Volume2 className="h-4 w-4 text-green-600" />
-            Voice Navigation
           </CardTitle>
         </CardHeader>
         <CardContent>
