@@ -1,3 +1,4 @@
+import { VoiceAssistantSidebarButton } from "@/components/VoiceAssistantSidebarButton";
 "use client";
 
 import { useState, useEffect } from "react";
