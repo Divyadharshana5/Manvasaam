@@ -163,7 +163,8 @@ export default function RootLayout({
         {/* Global Voice Assistant Widget - always available */}
         <div style={{ position: "fixed", bottom: 24, right: 24, zIndex: 9999 }}>
           {/* You can style this for accessibility and visibility */}
-          {typeof window !== "undefined" && require("@/components/voice-assistant-widget").VoiceAssistantWidget()}
+          {typeof window !== "undefined" &&
+            require("@/components/voice-assistant-widget").VoiceAssistantWidget()}
         </div>
         <Toaster />
       </body>
