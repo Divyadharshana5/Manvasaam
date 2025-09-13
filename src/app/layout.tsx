@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { VoiceAssistantGlobal } from "@/components/VoiceAssistantGlobal";
 import "./globals.css";
 import "./background.css";
 import "../styles/navigation-transitions.css";
@@ -160,12 +161,8 @@ export default function RootLayout({
             </NavigationProvider>
           </LanguageProvider>
         </FirebaseErrorBoundary>
-        {/* Global Voice Assistant Widget - always available */}
-        <div style={{ position: "fixed", bottom: 24, right: 24, zIndex: 9999 }}>
-          {/* You can style this for accessibility and visibility */}
-          {typeof window !== "undefined" &&
-            require("@/components/voice-assistant-widget").VoiceAssistantWidget()}
-        </div>
+        {/* Floating Voice Assistant Button & Dialog - Home Page Style */}
+        <VoiceAssistantGlobal />
         <Toaster />
       </body>
     </html>
