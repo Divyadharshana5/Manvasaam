@@ -126,10 +126,9 @@ function Sidebar({
                   variant={pathname === item.href ? "secondary" : "ghost"}
                   className={cn(
                     "w-full justify-start fast-button hover:bg-green-100 dark:hover:bg-green-900",
-                    pathname === item.href &&
-                  onMouseEnter={() => preload?.(item.href)}
+                    pathname === item.href && "bg-green-100 dark:bg-green-900"
                   )}
-                  onMouseEnter={() => preload(item.href)}
+                  onMouseEnter={() => preload?.(item.href)}
                 >
                   <item.icon
                     className={cn(
