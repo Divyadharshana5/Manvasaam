@@ -65,7 +65,13 @@ const sidebarItems = [
   },
 ];
 
-function Sidebar({ className, onSignOut }: { className?: string; onSignOut: () => void }) {
+function Sidebar({
+  className,
+  onSignOut,
+}: {
+  className?: string;
+  onSignOut: () => void;
+}) {
   const pathname = usePathname();
   const [mounted, setMounted] = useState(false);
 
@@ -98,7 +104,12 @@ function Sidebar({ className, onSignOut }: { className?: string; onSignOut: () =
   }
 
   return (
-    <div className={cn("pb-4 bg-gradient-to-b from-green-50/30 via-lime-50/30 to-yellow-50/30 dark:from-green-950/30 dark:via-lime-950/30 dark:to-yellow-950/30 flex flex-col h-full", className)}>
+    <div
+      className={cn(
+        "pb-4 bg-gradient-to-b from-green-50/30 via-lime-50/30 to-yellow-50/30 dark:from-green-950/30 dark:via-lime-950/30 dark:to-yellow-950/30 flex flex-col h-full",
+        className
+      )}
+    >
       <div className="flex-1 space-y-4 py-4">
         <div className="px-3 py-2">
           <div className="flex items-center gap-2 mb-6 p-3 rounded-lg bg-gradient-to-r from-green-100 to-lime-100 dark:from-green-900 dark:to-lime-900 border border-green-200 dark:border-green-700">
@@ -113,14 +124,19 @@ function Sidebar({ className, onSignOut }: { className?: string; onSignOut: () =
                   variant={pathname === item.href ? "secondary" : "ghost"}
                   className={cn(
                     "w-full justify-start fast-button hover:bg-green-100 dark:hover:bg-green-900",
-                    pathname === item.href && "bg-gradient-to-r from-green-200 to-lime-200 dark:from-green-800 dark:to-lime-800 text-green-800 dark:text-green-200 border border-green-300 dark:border-green-600"
+                    pathname === item.href &&
+                      "bg-gradient-to-r from-green-200 to-lime-200 dark:from-green-800 dark:to-lime-800 text-green-800 dark:text-green-200 border border-green-300 dark:border-green-600"
                   )}
                   onMouseEnter={() => preload(item.href)}
                 >
-                  <item.icon className={cn(
-                    "mr-2 h-4 w-4",
-                    pathname === item.href ? "text-green-700 dark:text-green-300" : "text-green-600 dark:text-green-400"
-                  )} />
+                  <item.icon
+                    className={cn(
+                      "mr-2 h-4 w-4",
+                      pathname === item.href
+                        ? "text-green-700 dark:text-green-300"
+                        : "text-green-600 dark:text-green-400"
+                    )}
+                  />
                   {item.title}
                 </Button>
               </Link>
@@ -128,7 +144,7 @@ function Sidebar({ className, onSignOut }: { className?: string; onSignOut: () =
           </div>
         </div>
       </div>
-      
+
       <div className="px-3 py-3 border-t-2 border-gradient-to-r from-green-200 via-lime-200 to-yellow-200 dark:from-green-700 dark:via-lime-700 dark:to-yellow-700 bg-gradient-to-r from-green-50/50 via-lime-50/50 to-yellow-50/50 dark:from-green-950/50 dark:via-lime-950/50 dark:to-yellow-950/50">
         <Button
           onClick={onSignOut}
@@ -148,11 +164,7 @@ function Sidebar({ className, onSignOut }: { className?: string; onSignOut: () =
   );
 }
 
-export default function HubLayout({
-  children,
-}: {
-  children: React.ReactNode;
-}) {
+export default function HubLayout({ children }: { children: React.ReactNode }) {
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const router = useRouter();
   const { toast } = useToast();
@@ -170,7 +182,7 @@ export default function HubLayout({
       if (response.ok) {
         localStorage.removeItem("userType");
         localStorage.removeItem("userEmail");
-        
+
         toast({
           title: "🏢 Signed Out Successfully",
           description: "🚚 Thank you for using Hub Management Portal",
@@ -217,22 +229,22 @@ export default function HubLayout({
             </SheetContent>
           </Sheet>
         </div>
-        
+
         <div className="border-b border-green-200 dark:border-green-700 bg-gradient-to-r from-green-50 to-lime-50 dark:from-green-950 dark:to-lime-950 p-4">
           <div className="flex items-center justify-between">
-            <h2 className="text-lg font-semibold text-green-800 dark:text-green-200">Hub Management Portal</h2>
+            <h2 className="text-lg font-semibold text-green-800 dark:text-green-200">
+              Hub Management Portal
+            </h2>
             <div className="flex items-center gap-3">
               {/* Voice Navigation text removed as requested */}
               <SimpleVoiceNav />
             </div>
           </div>
         </div>
-        
+
         <main className="flex flex-1 flex-col gap-4 p-4 lg:gap-6 lg:p-6">
           {children}
         </main>
-        
-
       </div>
     </div>
   );
