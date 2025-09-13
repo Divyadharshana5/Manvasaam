@@ -207,13 +207,15 @@ export default function HubLayout({ children }: { children: React.ReactNode }) {
   };
 
   return (
-        <div className="flex h-full max-h-screen flex-col">
-          <Sidebar onSignOut={handleSignOut} preload={preload} />
-        </div>
-          <Sidebar onSignOut={handleSignOut} />
-        </div>
+    <div className="flex h-full max-h-screen">
+      {/* Desktop sidebar */}
+      <div className="hidden md:flex md:w-72 lg:w-80">
+        <Sidebar onSignOut={handleSignOut} preload={preload} />
       </div>
-      <div className="flex flex-col">
+
+      {/* Main column */}
+      <div className="flex flex-1 flex-col">
+        {/* Mobile sheet trigger */}
         <div className="md:hidden p-4">
           <Sheet open={sidebarOpen} onOpenChange={setSidebarOpen}>
             <SheetTrigger asChild>
@@ -224,10 +226,11 @@ export default function HubLayout({ children }: { children: React.ReactNode }) {
               >
                 <Menu className="h-5 w-5" />
                 <span className="sr-only">Toggle navigation menu</span>
+              </Button>
+            </SheetTrigger>
+
             <SheetContent side="left" className="flex flex-col">
               <Sidebar onSignOut={handleSignOut} preload={preload} />
-            </SheetContent>
-              <Sidebar onSignOut={handleSignOut} />
             </SheetContent>
           </Sheet>
         </div>
