@@ -111,22 +111,37 @@ function HubAuthComponent() {
       if (!isFirebaseAvailable || !auth) {
         // Use demo auth service
         console.log("🔄 Using demo authentication");
-        await demoAuth.signInWithEmailAndPassword(values.email, values.password);
-        idToken = `demo-token-${Date.now()}-${values.email.replace("@", "-at-")}`;
+        await demoAuth.signInWithEmailAndPassword(
+          values.email,
+          values.password
+        );
+        idToken = `demo-token-${Date.now()}-${values.email.replace(
+          "@",
+          "-at-"
+        )}`;
         authMethod = "demo";
       } else {
         try {
           const userCredential = await signInWithEmailAndPassword(
-            auth,
+            auth!,
             values.email,
             values.password
           );
           idToken = await userCredential.user.getIdToken();
           console.log("✅ Firebase authentication successful");
         } catch (firebaseError: any) {
-          console.log("Firebase auth failed, using demo mode:", firebaseError.message);
-          await demoAuth.signInWithEmailAndPassword(values.email, values.password);
-          idToken = `demo-token-${Date.now()}-${values.email.replace("@", "-at-")}`;
+          console.log(
+            "Firebase auth failed, using demo mode:",
+            firebaseError.message
+          );
+          await demoAuth.signInWithEmailAndPassword(
+            values.email,
+            values.password
+          );
+          idToken = `demo-token-${Date.now()}-${values.email.replace(
+            "@",
+            "-at-"
+          )}`;
           authMethod = "demo";
         }
       }
@@ -215,7 +230,7 @@ function HubAuthComponent() {
 
       // Small delay to show the success message
       setTimeout(() => {
-        redirectToDashboard('hub', router);
+        redirectToDashboard("hub", router);
       }, 1000);
     } catch (error: any) {
       console.error("Login error:", error);
@@ -295,7 +310,7 @@ function HubAuthComponent() {
           // Try to authenticate with Firebase using the registered credentials
           try {
             const userCredential = await signInWithEmailAndPassword(
-              auth,
+              auth!,
               values.email,
               values.password
             );
@@ -328,7 +343,7 @@ function HubAuthComponent() {
 
           // Redirect to dashboard
           setTimeout(() => {
-            redirectToDashboard('hub', router);
+            redirectToDashboard("hub", router);
           }, 1000);
           return;
         }
@@ -380,14 +395,14 @@ function HubAuthComponent() {
       }
 
       // Send password reset email using API
-      const response = await fetch('/api/send-reset-email', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ email, userType: 'hub' })
+      const response = await fetch("/api/send-reset-email", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ email, userType: "hub" }),
       });
-      
+
       const result = await response.json();
-      
+
       if (result.success) {
         toast({
           title: "Password Reset Email Sent",
@@ -435,24 +450,12 @@ function HubAuthComponent() {
         ></div>
 
         {/* Enhanced hub-specific animated elements */}
-        <div
-          className="absolute top-40 left-1/4 w-6 h-6 bg-blue-400/60 rounded-full hub-network-pulse stagger-1"
-        ></div>
-        <div
-          className="absolute top-60 right-1/3 w-4 h-4 bg-indigo-500/50 rounded-full hub-pulse-glow stagger-3"
-        ></div>
-        <div
-          className="absolute bottom-40 left-1/3 w-5 h-5 bg-cyan-500/40 rounded-full hub-cog-rotate stagger-5"
-        ></div>
-        <div
-          className="absolute top-1/2 left-8 w-3 h-3 bg-teal-400/70 rounded-full particle-drift stagger-2"
-        ></div>
-        <div
-          className="absolute top-1/4 right-16 w-7 h-7 bg-sky-400/60 rounded-full hub-building-construct stagger-4"
-        ></div>
-        <div
-          className="absolute bottom-1/4 right-8 w-4 h-4 bg-blue-400/80 rounded-full aurora-wave stagger-6"
-        ></div>
+        <div className="absolute top-40 left-1/4 w-6 h-6 bg-blue-400/60 rounded-full hub-network-pulse stagger-1"></div>
+        <div className="absolute top-60 right-1/3 w-4 h-4 bg-indigo-500/50 rounded-full hub-pulse-glow stagger-3"></div>
+        <div className="absolute bottom-40 left-1/3 w-5 h-5 bg-cyan-500/40 rounded-full hub-cog-rotate stagger-5"></div>
+        <div className="absolute top-1/2 left-8 w-3 h-3 bg-teal-400/70 rounded-full particle-drift stagger-2"></div>
+        <div className="absolute top-1/4 right-16 w-7 h-7 bg-sky-400/60 rounded-full hub-building-construct stagger-4"></div>
+        <div className="absolute bottom-1/4 right-8 w-4 h-4 bg-blue-400/80 rounded-full aurora-wave stagger-6"></div>
       </div>
 
       <Card className="w-full max-w-md bg-white/95 dark:bg-gray-900/95 backdrop-blur-sm border border-emerald-200 dark:border-emerald-700 card-entrance relative z-10 hover:shadow-2xl hover:scale-[1.03] transition-all duration-500 hover:border-emerald-300 dark:hover:border-emerald-600 hover:bg-white dark:hover:bg-gray-900 group enhanced-hover smooth-transition gpu-accelerated">
