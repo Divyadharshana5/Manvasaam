@@ -68,9 +68,11 @@ const sidebarItems = [
 function Sidebar({
   className,
   onSignOut,
+  preload,
 }: {
   className?: string;
   onSignOut: () => void;
+  preload?: (href: string) => void;
 }) {
   const pathname = usePathname();
   const [mounted, setMounted] = useState(false);
@@ -125,7 +127,7 @@ function Sidebar({
                   className={cn(
                     "w-full justify-start fast-button hover:bg-green-100 dark:hover:bg-green-900",
                     pathname === item.href &&
-                      "bg-gradient-to-r from-green-200 to-lime-200 dark:from-green-800 dark:to-lime-800 text-green-800 dark:text-green-200 border border-green-300 dark:border-green-600"
+                  onMouseEnter={() => preload?.(item.href)}
                   )}
                   onMouseEnter={() => preload(item.href)}
                 >
@@ -205,9 +207,9 @@ export default function HubLayout({ children }: { children: React.ReactNode }) {
   };
 
   return (
-    <div className="grid min-h-screen w-full md:grid-cols-[220px_1fr] lg:grid-cols-[280px_1fr]">
-      <div className="hidden border-r border-green-200 dark:border-green-700 bg-gradient-to-b from-green-50/50 to-lime-50/50 dark:from-green-950/50 dark:to-lime-950/50 md:block">
         <div className="flex h-full max-h-screen flex-col">
+          <Sidebar onSignOut={handleSignOut} preload={preload} />
+        </div>
           <Sidebar onSignOut={handleSignOut} />
         </div>
       </div>
@@ -222,9 +224,9 @@ export default function HubLayout({ children }: { children: React.ReactNode }) {
               >
                 <Menu className="h-5 w-5" />
                 <span className="sr-only">Toggle navigation menu</span>
-              </Button>
-            </SheetTrigger>
             <SheetContent side="left" className="flex flex-col">
+              <Sidebar onSignOut={handleSignOut} preload={preload} />
+            </SheetContent>
               <Sidebar onSignOut={handleSignOut} />
             </SheetContent>
           </Sheet>
