@@ -20,7 +20,7 @@ export function VoiceAssistantGlobal() {
       <Dialog open={isOpen} onOpenChange={setIsOpen}>
         <DialogTrigger asChild>
           <Button
-            variant="gradient"
+            variant="default"
             size="lg"
             className="rounded-full w-16 h-16 shadow-lg flex items-center justify-center bg-gradient-to-r from-green-500 via-lime-500 to-yellow-500 hover:from-green-600 hover:via-lime-600 hover:to-yellow-600"
             aria-label="Open Voice Assistant"
@@ -32,10 +32,17 @@ export function VoiceAssistantGlobal() {
           <DialogHeader className="text-center pt-4">
             <DialogTitle>Enhanced Voice Assistant</DialogTitle>
             <DialogDescription>
-              Ask me anything! I can help you navigate, answer questions about Manvaasam, or provide information about our platform.
+              Ask me anything! I can help you navigate, answer questions about
+              Manvaasam, or provide information about our platform.
             </DialogDescription>
           </DialogHeader>
-          <Suspense fallback={<div className="flex justify-center p-8"><Loader2 className="h-8 w-8 animate-spin" /></div>}>
+          <Suspense
+            fallback={
+              <div className="flex justify-center p-8">
+                <Loader2 className="h-8 w-8 animate-spin" />
+              </div>
+            }
+          >
             <VoiceAssistant />
           </Suspense>
         </DialogContent>
