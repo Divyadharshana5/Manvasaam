@@ -1,6 +1,12 @@
 "use client";
 
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -40,8 +46,6 @@ export default function HubDashboard() {
   const [hubManagerName] = useState("Rajesh Kumar");
   const { toast } = useToast();
 
-
-
   const handleMarkAttendance = () => {
     toast({
       title: "Mark Attendance",
@@ -62,32 +66,92 @@ export default function HubDashboard() {
       description: `Opening details for ${customer}...`,
     });
   };
-  
+
   // Mock data
   const stats = {
     totalFarmers: 12,
     activeDeliveries: 8,
     workersPresent: 15,
-    dailySales: 25000
+    dailySales: 25000,
   };
 
   const workers = [
-    { id: 1, name: "Amit Singh", status: "Present", checkIn: "09:00 AM", checkOut: "-" },
-    { id: 2, name: "Priya Sharma", status: "Present", checkIn: "08:45 AM", checkOut: "-" },
-    { id: 3, name: "Ravi Kumar", status: "Absent", checkIn: "-", checkOut: "-" },
-    { id: 4, name: "Sunita Devi", status: "Present", checkIn: "09:15 AM", checkOut: "-" }
+    {
+      id: 1,
+      name: "Amit Singh",
+      status: "Present",
+      checkIn: "09:00 AM",
+      checkOut: "-",
+    },
+    {
+      id: 2,
+      name: "Priya Sharma",
+      status: "Present",
+      checkIn: "08:45 AM",
+      checkOut: "-",
+    },
+    {
+      id: 3,
+      name: "Ravi Kumar",
+      status: "Absent",
+      checkIn: "-",
+      checkOut: "-",
+    },
+    {
+      id: 4,
+      name: "Sunita Devi",
+      status: "Present",
+      checkIn: "09:15 AM",
+      checkOut: "-",
+    },
   ];
 
   const productReceipts = [
-    { id: 1, product: "Organic Tomatoes", quantity: "50 kg", farmer: "Green Valley Farm", time: "10:30 AM" },
-    { id: 2, product: "Fresh Spinach", quantity: "25 bunches", farmer: "Sunrise Organics", time: "11:15 AM" },
-    { id: 3, product: "Carrots", quantity: "30 kg", farmer: "Happy Farm", time: "12:00 PM" }
+    {
+      id: 1,
+      product: "Organic Tomatoes",
+      quantity: "50 kg",
+      farmer: "Green Valley Farm",
+      time: "10:30 AM",
+    },
+    {
+      id: 2,
+      product: "Fresh Spinach",
+      quantity: "25 bunches",
+      farmer: "Sunrise Organics",
+      time: "11:15 AM",
+    },
+    {
+      id: 3,
+      product: "Carrots",
+      quantity: "30 kg",
+      farmer: "Happy Farm",
+      time: "12:00 PM",
+    },
   ];
 
   const offlineSales = [
-    { id: 1, customer: "Walk-in Customer", items: "Tomatoes, Onions", amount: 250, time: "02:30 PM" },
-    { id: 2, customer: "Local Vendor", items: "Mixed Vegetables", amount: 800, time: "01:45 PM" },
-    { id: 3, customer: "Restaurant Order", items: "Bulk Potatoes", amount: 1200, time: "11:30 AM" }
+    {
+      id: 1,
+      customer: "Walk-in Customer",
+      items: "Tomatoes, Onions",
+      amount: 250,
+      time: "02:30 PM",
+    },
+    {
+      id: 2,
+      customer: "Local Vendor",
+      items: "Mixed Vegetables",
+      amount: 800,
+      time: "01:45 PM",
+    },
+    {
+      id: 3,
+      customer: "Restaurant Order",
+      items: "Bulk Potatoes",
+      amount: 1200,
+      time: "11:30 AM",
+    },
   ];
 
   return (
@@ -95,9 +159,10 @@ export default function HubDashboard() {
       {/* Welcome Header */}
       <div className="flex items-center justify-between">
         <div>
-          <h1 className="text-4xl font-bold tracking-tight">{hubManagerName}</h1>
+          <h1 className="text-4xl font-bold tracking-tight">
+            {hubManagerName}
+          </h1>
           <p className="text-sm text-muted-foreground">Hub Manager</p>
-
         </div>
         <div className="flex gap-2">
           <Button variant="outline" size="sm" asChild>
@@ -148,7 +213,9 @@ export default function HubDashboard() {
           <div className="flex items-center justify-between">
             <div>
               <p className="text-xs text-muted-foreground">Sales</p>
-              <p className="text-lg font-bold">₹{stats.dailySales.toLocaleString()}</p>
+              <p className="text-lg font-bold">
+                ₹{stats.dailySales.toLocaleString()}
+              </p>
             </div>
             <DollarSign className="h-4 w-4 text-purple-500" />
           </div>
@@ -164,21 +231,33 @@ export default function HubDashboard() {
           <CardContent>
             <div className="space-y-2">
               {workers.slice(0, 3).map((worker) => (
-                <div key={worker.id} className="flex items-center justify-between p-2 border rounded">
+                <div
+                  key={worker.id}
+                  className="flex items-center justify-between p-2 border rounded"
+                >
                   <div className="flex items-center gap-2">
-                    <UserCheck className={`h-3 w-3 ${worker.status === 'Present' ? 'text-green-500' : 'text-red-500'}`} />
+                    <UserCheck
+                      className={`h-3 w-3 ${
+                        worker.status === "Present"
+                          ? "text-green-500"
+                          : "text-red-500"
+                      }`}
+                    />
                     <span className="text-sm">{worker.name}</span>
                   </div>
-                  <Badge variant={worker.status === 'Present' ? 'default' : 'destructive'} className="text-xs">
+                  <Badge
+                    variant={
+                      worker.status === "Present" ? "default" : "destructive"
+                    }
+                    className="text-xs"
+                  >
                     {worker.status}
                   </Badge>
                 </div>
               ))}
             </div>
             <Button size="sm" className="w-full mt-3" asChild>
-              <Link href="/dashboard/hub/attendance">
-                View All
-              </Link>
+              <Link href="/dashboard/hub/attendance">View All</Link>
             </Button>
           </CardContent>
         </Card>
@@ -194,7 +273,9 @@ export default function HubDashboard() {
                   <div className="flex justify-between items-center">
                     <div>
                       <p className="text-sm font-medium">{receipt.product}</p>
-                      <p className="text-xs text-muted-foreground">{receipt.quantity}</p>
+                      <p className="text-xs text-muted-foreground">
+                        {receipt.quantity}
+                      </p>
                     </div>
                     <span className="text-xs">{receipt.time}</span>
                   </div>
@@ -202,9 +283,7 @@ export default function HubDashboard() {
               ))}
             </div>
             <Button size="sm" variant="outline" className="w-full mt-3" asChild>
-              <Link href="/dashboard/hub/inventory">
-                Manage Inventory
-              </Link>
+              <Link href="/dashboard/hub/inventory">Manage Inventory</Link>
             </Button>
           </CardContent>
         </Card>
@@ -223,9 +302,13 @@ export default function HubDashboard() {
                   <div className="flex justify-between items-center">
                     <div>
                       <p className="text-sm font-medium">{sale.customer}</p>
-                      <p className="text-xs text-muted-foreground">{sale.items}</p>
+                      <p className="text-xs text-muted-foreground">
+                        {sale.items}
+                      </p>
                     </div>
-                    <span className="text-sm font-bold text-green-600">₹{sale.amount}</span>
+                    <span className="text-sm font-bold text-green-600">
+                      ₹{sale.amount}
+                    </span>
                   </div>
                 </div>
               ))}
@@ -244,19 +327,34 @@ export default function HubDashboard() {
           <CardContent className="space-y-2">
             <div className="flex gap-2">
               <Button size="sm" variant="outline" className="flex-1" asChild>
-                <Link href={{ pathname: "/dashboard/contact", query: { mode: "chat" } }}>
+                <Link
+                  href={{
+                    pathname: "/dashboard/contact",
+                    query: { mode: "chat" },
+                  }}
+                >
                   <MessageCircle className="h-3 w-3 mr-1" />
                   Chat
                 </Link>
               </Button>
               <Button size="sm" variant="outline" className="flex-1" asChild>
-                <Link href={{ pathname: "/dashboard/contact", query: { mode: "call" } }}>
+                <Link
+                  href={{
+                    pathname: "/dashboard/contact",
+                    query: { mode: "call" },
+                  }}
+                >
                   <Phone className="h-3 w-3 mr-1" />
                   Call
                 </Link>
               </Button>
             </div>
-            <Button size="sm" variant="outline" className="w-full justify-start" asChild>
+            <Button
+              size="sm"
+              variant="outline"
+              className="w-full justify-start"
+              asChild
+            >
               <Link href="/dashboard/hub/live-tracking">
                 <MapPin className="h-3 w-3 mr-2" />
                 Live Tracking
@@ -276,7 +374,9 @@ export default function HubDashboard() {
         </CardHeader>
         <CardContent>
           <div className="flex items-center justify-between">
-            <p className="text-sm text-green-700">Use voice commands to navigate quickly</p>
+            <p className="text-sm text-green-700">
+              Use voice commands to navigate quickly
+            </p>
             <SimpleVoiceNav />
           </div>
           <div className="mt-2 text-xs text-green-600">
@@ -300,7 +400,9 @@ export default function HubDashboard() {
                 <p className="text-sm font-medium">Hours: 8 AM - 6 PM</p>
               </div>
               <div className="border rounded p-2">
-                <p className="text-sm font-medium">Process: Receive → Sort → Dispatch</p>
+                <p className="text-sm font-medium">
+                  Process: Receive → Sort → Dispatch
+                </p>
               </div>
               <div className="border rounded p-2">
                 <p className="text-sm font-medium">Settlement: Daily at 5 PM</p>
@@ -321,19 +423,33 @@ export default function HubDashboard() {
           </CardHeader>
           <CardContent>
             <div className="space-y-2">
-              <Button variant="outline" size="sm" className="w-full justify-start" asChild>
+              <Button
+                variant="outline"
+                size="sm"
+                className="w-full justify-start"
+                asChild
+              >
                 <Link href="/dashboard/profile">
                   <Building2 className="mr-2 h-3 w-3" />
                   Hub Profile
                 </Link>
               </Button>
-              <Button variant="outline" size="sm" className="w-full justify-start" asChild>
+              <Button
+                variant="outline"
+                size="sm"
+                className="w-full justify-start"
+                asChild
+              >
                 <Link href="/dashboard/hub/attendance">
                   <Users className="mr-2 h-3 w-3" />
                   Manage Workers
                 </Link>
               </Button>
-              <Button variant="outline" size="sm" className="w-full justify-start">
+              <Button
+                variant="outline"
+                size="sm"
+                className="w-full justify-start"
+              >
                 <Settings className="mr-2 h-3 w-3" />
                 Preferences
               </Button>
