@@ -222,9 +222,7 @@ export default function HubLayout({
           <div className="flex items-center justify-between">
             <h2 className="text-lg font-semibold text-green-800 dark:text-green-200">Hub Management Portal</h2>
             <div className="flex items-center gap-3">
-              <div className="hidden sm:block text-xs text-green-600 dark:text-green-400">
-                🎤 Voice Navigation Available
-              </div>
+              {/* Voice Navigation text removed as requested */}
               <SimpleVoiceNav />
             </div>
           </div>
