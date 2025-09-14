@@ -717,15 +717,28 @@ const SidebarMenuSubItem = React.forwardRef<
 >(({ ...props }, ref) => <li ref={ref} {...props} />)
 SidebarMenuSubItem.displayName = "SidebarMenuSubItem"
 
+
+import { useFastNavigation } from "@/hooks/use-fast-navigation";
+
 const SidebarMenuSubButton = React.forwardRef<
   HTMLAnchorElement,
   React.ComponentProps<"a"> & {
-    asChild?: boolean
-    size?: "sm" | "md"
-    isActive?: boolean
+    asChild?: boolean;
+    size?: "sm" | "md";
+    isActive?: boolean;
   }
->(({ asChild = false, size = "md", isActive, className, ...props }, ref) => {
-  const Comp = asChild ? Slot : "a"
+>(({ asChild = false, size = "md", isActive, className, href, onClick, ...props }, ref) => {
+  const Comp = asChild ? Slot : "a";
+  const { navigate } = useFastNavigation();
+
+  const handleClick = (event: React.MouseEvent<HTMLAnchorElement>) => {
+    if (onClick) onClick(event);
+    // Use fast navigation for internal links only
+    if (href && typeof href === "string" && href.startsWith("/")) {
+      event.preventDefault();
+      navigate(href);
+    }
+  };
 
   return (
     <Comp
@@ -741,11 +754,13 @@ const SidebarMenuSubButton = React.forwardRef<
         "group-data-[collapsible=icon]:hidden",
         className
       )}
+      href={href}
+      onClick={handleClick}
       {...props}
     />
-  )
-})
-SidebarMenuSubButton.displayName = "SidebarMenuSubButton"
+  );
+});
+SidebarMenuSubButton.displayName = "SidebarMenuSubButton";
 
 export {
   Sidebar,
