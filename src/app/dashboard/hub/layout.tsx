@@ -1,7 +1,7 @@
 "use client";
 
 // Speaker Icon Circle Component
-import { useCallback, useState } from "react";
+import { useCallback, useState, useEffect } from "react";
 import { VoiceAssistantGlobal } from "@/components/VoiceAssistantGlobal";
 
 function SpeakerCircle() {
@@ -44,7 +44,6 @@ function SpeakerCircle() {
   );
 }
 
-import { useState, useEffect } from "react";
 import Link from "next/link";
 import { useFastNavigation } from "@/lib/fast-navigation";
 import "@/styles/fast-transitions.css";
