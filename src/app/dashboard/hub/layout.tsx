@@ -1,4 +1,3 @@
-
 "use client";
 
 // Speaker Icon Circle Component
