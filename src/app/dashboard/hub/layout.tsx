@@ -19,11 +19,15 @@ function SpeakerCircle() {
       }}
       className="speaker-circle"
     >
-      <Mic size={32} color="#fff" style={{ filter: "drop-shadow(0 2px 6px #22c55e)" }} />
+      <Mic
+        size={32}
+        color="#fff"
+        style={{ filter: "drop-shadow(0 2px 6px #22c55e)" }}
+      />
     </div>
   );
 }
-"use client";
+("use client");
 
 import { useState, useEffect } from "react";
 import Link from "next/link";
