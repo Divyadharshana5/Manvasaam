@@ -280,7 +280,9 @@ export default function HubLayout({ children }: { children: React.ReactNode }) {
             <SheetContent side="left" className="flex flex-col relative">
               <Sidebar onSignOut={handleSignOut} preload={preload} />
               {/* Move SpeakerCircle to left bottom for mobile */}
-              <div style={{ position: "absolute", left: "2rem", bottom: "2rem" }}>
+              <div
+                style={{ position: "absolute", left: "2rem", bottom: "2rem" }}
+              >
                 <SpeakerCircle />
               </div>
             </SheetContent>
@@ -302,3 +304,7 @@ export default function HubLayout({ children }: { children: React.ReactNode }) {
         <main className="flex flex-1 flex-col gap-4 p-4 lg:gap-6 lg:p-6">
           {children}
         </main>
+      </div>
+    </div>
+  );
+}
