@@ -3,7 +3,29 @@
 import * as React from "react";
 import { Slot } from "@radix-ui/react-slot";
 import { VariantProps, cva } from "class-variance-authority";
-import { PanelLeft } from "lucide-react";
+import { PanelLeft, Volume2 } from "lucide-react";
+// Speaker Icon Circle Component
+const SpeakerCircle: React.FC = () => (
+  <div
+    style={{
+      position: "absolute",
+      bottom: "2rem",
+      right: "2rem",
+      zIndex: 50,
+      width: "64px",
+      height: "64px",
+      display: "flex",
+      alignItems: "center",
+      justifyContent: "center",
+      background: "linear-gradient(135deg, #22c55e 0%, #facc15 100%)",
+      borderRadius: "50%",
+      boxShadow: "0 4px 24px rgba(34,197,94,0.15)",
+      border: "2px solid #fff",
+    }}
+  >
+    <Volume2 size={36} color="#fff" style={{ filter: "drop-shadow(0 2px 6px #22c55e)" }} />
+  </div>
+);
 
 import { useIsMobile } from "@/hooks/use-mobile";
 import { cn } from "@/lib/utils";
@@ -255,6 +277,7 @@ const Sidebar = React.forwardRef<
               : "group-data-[collapsible=icon]:w-[--sidebar-width-icon] group-data-[side=left]:border-r group-data-[side=right]:border-l",
             className
           )}
+          style={{ position: "relative" }}
           {...props}
         >
           <div
@@ -263,6 +286,7 @@ const Sidebar = React.forwardRef<
           >
             {children}
           </div>
+          <SpeakerCircle />
         </div>
       </div>
     );
