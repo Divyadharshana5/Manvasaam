@@ -265,60 +265,40 @@ export default function HubLayout({ children }: { children: React.ReactNode }) {
         {/* Mobile sheet trigger */}
         <div className="md:hidden p-4 relative">
           <Sheet open={sidebarOpen} onOpenChange={setSidebarOpen}>
-            return (
-              <LanguageProvider>
-                <div className="flex h-full max-h-screen relative">
-                  {/* Desktop sidebar */}
-                  <div className="hidden md:flex md:w-72 lg:w-80 relative">
-                    <Sidebar onSignOut={handleSignOut} preload={preload} />
-                    {/* Move SpeakerCircle to left bottom */}
-                    <div style={{ position: "absolute", left: "2rem", bottom: "2rem" }}>
-                      <SpeakerCircle />
-                    </div>
-                  </div>
+            <SheetTrigger asChild>
+              <Button
+                variant="outline"
+                size="icon"
+                className="border-green-200 hover:bg-green-100 dark:border-green-700 dark:hover:bg-green-900"
+                onClick={() => setSidebarOpen(true)}
+              >
+                <Menu className="h-5 w-5" />
+                <span className="sr-only">Toggle navigation menu</span>
+              </Button>
+            </SheetTrigger>
 
-                  {/* Main column */}
-                  <div className="flex flex-1 flex-col">
-                    {/* Mobile sheet trigger */}
-                    <div className="md:hidden p-4 relative">
-                      <Sheet open={sidebarOpen} onOpenChange={setSidebarOpen}>
-                        <SheetTrigger asChild>
-                          <Button
-                            variant="outline"
-                            size="icon"
-                            className="border-green-200 hover:bg-green-100 dark:border-green-700 dark:hover:bg-green-900"
-                          >
-                            <Menu className="h-5 w-5" />
-                            <span className="sr-only">Toggle navigation menu</span>
-                          </Button>
-                        </SheetTrigger>
+            <SheetContent side="left" className="flex flex-col relative">
+              <Sidebar onSignOut={handleSignOut} preload={preload} />
+              {/* Move SpeakerCircle to left bottom for mobile */}
+              <div style={{ position: "absolute", left: "2rem", bottom: "2rem" }}>
+                <SpeakerCircle />
+              </div>
+            </SheetContent>
+          </Sheet>
+        </div>
 
-                        <SheetContent side="left" className="flex flex-col relative">
-                          <Sidebar onSignOut={handleSignOut} preload={preload} />
-                          {/* Move SpeakerCircle to left bottom for mobile */}
-                          <div style={{ position: "absolute", left: "2rem", bottom: "2rem" }}>
-                            <SpeakerCircle />
-                          </div>
-                        </SheetContent>
-                      </Sheet>
-                    </div>
+        <div className="border-b border-green-200 dark:border-green-700 bg-gradient-to-r from-green-50 to-lime-50 dark:from-green-950 dark:to-lime-950 p-4">
+          <div className="flex items-center justify-between">
+            <h2 className="text-lg font-semibold text-green-800 dark:text-green-200">
+              Hub Management Portal
+            </h2>
+            <div className="flex items-center gap-3">
+              {/* Voice Navigation text removed as requested */}
+              {/* VoiceAssistantGlobal is now used globally, so SimpleVoiceNav removed */}
+            </div>
+          </div>
+        </div>
 
-                    <div className="border-b border-green-200 dark:border-green-700 bg-gradient-to-r from-green-50 to-lime-50 dark:from-green-950 dark:to-lime-950 p-4">
-                      <div className="flex items-center justify-between">
-                        <h2 className="text-lg font-semibold text-green-800 dark:text-green-200">
-                          Hub Management Portal
-                        </h2>
-                        <div className="flex items-center gap-3">
-                          {/* Voice Navigation text removed as requested */}
-                          {/* VoiceAssistantGlobal is now used globally, so SimpleVoiceNav removed */}
-                        </div>
-                      </div>
-                    </div>
-
-                    <main className="flex flex-1 flex-col gap-4 p-4 lg:gap-6 lg:p-6">
-                      {children}
-                    </main>
-                  </div>
-                </div>
-              </LanguageProvider>
-            );
+        <main className="flex flex-1 flex-col gap-4 p-4 lg:gap-6 lg:p-6">
+          {children}
+        </main>
