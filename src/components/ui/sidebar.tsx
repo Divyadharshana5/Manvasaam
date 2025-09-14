@@ -23,7 +23,11 @@ const SpeakerCircle: React.FC = () => (
       border: "2px solid #fff",
     }}
   >
-    <Volume2 size={36} color="#fff" style={{ filter: "drop-shadow(0 2px 6px #22c55e)" }} />
+    <Volume2
+      size={36}
+      color="#fff"
+      style={{ filter: "drop-shadow(0 2px 6px #22c55e)" }}
+    />
   </div>
 );
 
