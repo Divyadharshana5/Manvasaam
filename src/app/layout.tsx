@@ -159,9 +159,9 @@ export default function RootLayout({
             <NavigationProvider>
               <AuthProvider>{children}</AuthProvider>
             </NavigationProvider>
-            {/* Floating Voice Assistant Button & Dialog - Home Page Style */}
-            <VoiceAssistantGlobal />
           </LanguageProvider>
+          {/* Voice Assistant always at right bottom, accessible on all pages */}
+          <VoiceAssistantGlobal />
         </FirebaseErrorBoundary>
         <Toaster />
       </body>

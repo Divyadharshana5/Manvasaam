@@ -25,7 +25,21 @@ export function VoiceAssistantGlobal() {
             className="rounded-full w-16 h-16 shadow-lg flex items-center justify-center bg-gradient-to-r from-green-500 via-lime-500 to-yellow-500 hover:from-green-600 hover:via-lime-600 hover:to-yellow-600"
             aria-label="Open Voice Assistant"
           >
-            <Mic className="h-7 w-7" />
+            {/* Speaker icon for voice assistant */}
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              className="h-7 w-7"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+              strokeWidth={2}
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                d="M11 5v14a1 1 0 001.707.707l5.586-5.586A2 2 0 0020 13V11a2 2 0 00-.707-1.414l-5.586-5.586A1 1 0 0011 5z"
+              />
+            </svg>
           </Button>
         </DialogTrigger>
         <DialogContent className="sm:max-w-md w-[90vw] rounded-lg">
