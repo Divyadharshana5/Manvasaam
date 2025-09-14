@@ -1,3 +1,6 @@
+
+"use client";
+
 // Speaker Icon Circle Component
 import { useCallback } from "react";
 
