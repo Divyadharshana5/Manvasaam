@@ -1,3 +1,28 @@
+// Speaker Icon Circle Component
+function SpeakerCircle() {
+  return (
+    <div
+      style={{
+        position: "absolute",
+        bottom: "2rem",
+        right: "2rem",
+        zIndex: 50,
+        width: "56px",
+        height: "56px",
+        display: "flex",
+        alignItems: "center",
+        justifyContent: "center",
+        background: "linear-gradient(135deg, #22c55e 0%, #facc15 100%)",
+        borderRadius: "50%",
+        boxShadow: "0 4px 24px rgba(34,197,94,0.15)",
+        border: "2px solid #fff",
+      }}
+      className="speaker-circle"
+    >
+      <Mic size={32} color="#fff" style={{ filter: "drop-shadow(0 2px 6px #22c55e)" }} />
+    </div>
+  );
+}
 "use client";
 
 import { useState, useEffect } from "react";
@@ -206,16 +231,17 @@ export default function HubLayout({ children }: { children: React.ReactNode }) {
   };
 
   return (
-    <div className="flex h-full max-h-screen">
+    <div className="flex h-full max-h-screen relative">
       {/* Desktop sidebar */}
-      <div className="hidden md:flex md:w-72 lg:w-80">
+      <div className="hidden md:flex md:w-72 lg:w-80 relative">
         <Sidebar onSignOut={handleSignOut} preload={preload} />
+        <SpeakerCircle />
       </div>
 
       {/* Main column */}
       <div className="flex flex-1 flex-col">
         {/* Mobile sheet trigger */}
-        <div className="md:hidden p-4">
+        <div className="md:hidden p-4 relative">
           <Sheet open={sidebarOpen} onOpenChange={setSidebarOpen}>
             <SheetTrigger asChild>
               <Button
@@ -228,8 +254,9 @@ export default function HubLayout({ children }: { children: React.ReactNode }) {
               </Button>
             </SheetTrigger>
 
-            <SheetContent side="left" className="flex flex-col">
+            <SheetContent side="left" className="flex flex-col relative">
               <Sidebar onSignOut={handleSignOut} preload={preload} />
+              <SpeakerCircle />
             </SheetContent>
           </Sheet>
         </div>
