@@ -1,5 +1,19 @@
 // Speaker Icon Circle Component
+import { useCallback } from "react";
+
 function SpeakerCircle() {
+  // Add a click handler for the speaker icon
+  const handleClick = useCallback(() => {
+    try {
+      // TODO: Trigger voice assistant logic here (replace with your actual function)
+      window.dispatchEvent(new CustomEvent("voice-assistant-activate"));
+    } catch (err) {
+      // Prevent client-side error from crashing the app
+      // Optionally log error or show toast
+      // console.error("Voice assistant activation error", err);
+    }
+  }, []);
+
   return (
     <div
       style={{
@@ -16,8 +30,14 @@ function SpeakerCircle() {
         borderRadius: "50%",
         boxShadow: "0 4px 24px rgba(34,197,94,0.15)",
         border: "2px solid #fff",
+        cursor: "pointer",
       }}
       className="speaker-circle"
+      onClick={handleClick}
+      title="Activate Voice Assistant"
+      role="button"
+      tabIndex={0}
+      aria-label="Activate Voice Assistant"
     >
       <Mic
         size={32}
