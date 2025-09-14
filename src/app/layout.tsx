@@ -159,10 +159,10 @@ export default function RootLayout({
             <NavigationProvider>
               <AuthProvider>{children}</AuthProvider>
             </NavigationProvider>
+            {/* Floating Voice Assistant Button & Dialog - Home Page Style */}
+            <VoiceAssistantGlobal />
           </LanguageProvider>
         </FirebaseErrorBoundary>
-        {/* Floating Voice Assistant Button & Dialog - Home Page Style */}
-        <VoiceAssistantGlobal />
         <Toaster />
       </body>
     </html>
