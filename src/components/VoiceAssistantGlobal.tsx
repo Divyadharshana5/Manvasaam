@@ -25,7 +25,9 @@ export function VoiceAssistantGlobal() {
   
   // Position in top-right for hub portal pages, bottom-right for others
   const isHubPortal = pathname?.startsWith("/dashboard/hub");
-  const positionClass = isHubPortal ? "fixed top-6 right-6 z-[9999]" : "fixed bottom-6 right-6 z-[9999]";
+  const positionClass = isHubPortal ? "fixed top-4 right-4 z-[9999]" : "fixed bottom-6 right-6 z-[9999]";
+  const buttonSize = isHubPortal ? "w-10 h-10" : "w-16 h-16";
+  const iconSize = isHubPortal ? "h-4 w-4" : "h-7 w-7";
   
   return (
     <div className={positionClass}>
@@ -33,11 +35,11 @@ export function VoiceAssistantGlobal() {
         <DialogTrigger asChild>
           <Button
             variant="default"
-            size="lg"
-            className="rounded-full w-16 h-16 shadow-lg flex items-center justify-center bg-gradient-to-r from-green-500 via-lime-500 to-yellow-500 hover:from-green-600 hover:via-lime-600 hover:to-yellow-600"
+            size={isHubPortal ? "sm" : "lg"}
+            className={`rounded-full ${buttonSize} shadow-lg flex items-center justify-center bg-gradient-to-r from-green-500 via-lime-500 to-yellow-500 hover:from-green-600 hover:via-lime-600 hover:to-yellow-600 transition-all duration-200`}
             aria-label="Open Voice Assistant"
           >
-            <Volume2 className="h-7 w-7" />
+            <Volume2 className={iconSize} />
           </Button>
         </DialogTrigger>
         <DialogContent className="sm:max-w-md w-[90vw] rounded-lg">
