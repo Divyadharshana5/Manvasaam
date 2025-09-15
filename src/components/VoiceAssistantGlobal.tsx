@@ -50,15 +50,17 @@ export function VoiceAssistantGlobal() {
               Manvaasam, or provide information about our platform.
             </DialogDescription>
           </DialogHeader>
-          <Suspense
-            fallback={
-              <div className="flex justify-center p-8">
-                <Loader2 className="h-8 w-8 animate-spin" />
-              </div>
-            }
-          >
-            <VoiceAssistant />
-          </Suspense>
+          {isOpen && (
+            <Suspense
+              fallback={
+                <div className="flex justify-center p-8">
+                  <Loader2 className="h-8 w-8 animate-spin" />
+                </div>
+              }
+            >
+              <VoiceAssistant />
+            </Suspense>
+          )}
         </DialogContent>
       </Dialog>
     </div>
