@@ -1,5 +1,5 @@
 "use client";
-import { useState, Suspense, lazy } from "react";
+import { useState } from "react";
 import { usePathname } from "next/navigation";
 import { Button } from "@/components/ui/button";
 import { Volume2 } from "lucide-react";
@@ -11,7 +11,7 @@ import {
   DialogDescription,
   DialogTrigger,
 } from "@/components/ui/dialog";
-import { Loader2 } from "lucide-react";
+
 
 
 export function VoiceAssistantGlobal() {
