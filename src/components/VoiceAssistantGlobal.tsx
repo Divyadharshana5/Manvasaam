@@ -1,7 +1,7 @@
 "use client";
 import { useState, Suspense, lazy } from "react";
 import { usePathname } from "next/navigation";
-import { FastNavButton } from "@/components/ui/fast-nav-button";
+import { Button } from "@/components/ui/button";
 import { Volume2 } from "lucide-react";
 import {
   Dialog,
@@ -33,16 +33,14 @@ export function VoiceAssistantGlobal() {
     <div className={positionClass}>
       <Dialog open={isOpen} onOpenChange={setIsOpen}>
         <DialogTrigger asChild>
-          <FastNavButton
-            href="#"
+          <Button
             variant="default"
             size={isHubPortal ? "sm" : "lg"}
-            className={`rounded-full ${buttonSize} shadow-lg flex items-center justify-center bg-gradient-to-r from-green-500 via-lime-500 to-yellow-500 hover:from-green-600 hover:via-lime-600 hover:to-yellow-600`}
+            className={`rounded-full ${buttonSize} shadow-lg flex items-center justify-center bg-gradient-to-r from-green-500 via-lime-500 to-yellow-500 hover:from-green-600 hover:via-lime-600 hover:to-yellow-600 transition-all duration-200`}
             aria-label="Open Voice Assistant"
-            onClick={(e) => { e.preventDefault(); setIsOpen(true); }}
           >
             <Volume2 className={iconSize} />
-          </FastNavButton>
+          </Button>
         </DialogTrigger>
         <DialogContent className="sm:max-w-md w-[90vw] rounded-lg">
           <DialogHeader className="text-center pt-4">
