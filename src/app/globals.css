@@ -1,5 +1,6 @@
 /* Import navigation transitions */
 @import "../styles/navigation-transitions.css";
+@import "../styles/fast-transitions.css";
 
 @tailwind base;
 @tailwind components;
