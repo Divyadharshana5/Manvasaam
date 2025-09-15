@@ -1,5 +1,6 @@
 "use client";
 import { useState, Suspense, lazy } from "react";
+import { usePathname } from "next/navigation";
 import { Button } from "@/components/ui/button";
 import { Volume2 } from "lucide-react";
 import {
@@ -15,6 +16,13 @@ const VoiceAssistant = lazy(() => import("@/components/voice-assistant"));
 
 export function VoiceAssistantGlobal() {
   const [isOpen, setIsOpen] = useState(false);
+  const pathname = usePathname();
+  
+  // Hide voice assistant on hub login page
+  if (pathname === "/login/hub") {
+    return null;
+  }
+  
   return (
     <div className="fixed bottom-6 right-6 z-[9999]">
       <Dialog open={isOpen} onOpenChange={setIsOpen}>
