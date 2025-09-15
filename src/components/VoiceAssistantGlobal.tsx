@@ -18,8 +18,8 @@ export function VoiceAssistantGlobal() {
   const [isOpen, setIsOpen] = useState(false);
   const pathname = usePathname();
   
-  // Hide voice assistant on all login/register pages and hub portal
-  if (pathname?.startsWith("/login") || pathname?.includes("register") || pathname?.startsWith("/dashboard/hub")) {
+  // Hide voice assistant on all login/register pages
+  if (pathname?.startsWith("/login") || pathname?.includes("register")) {
     return null;
   }
   
