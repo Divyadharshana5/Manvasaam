@@ -18,7 +18,7 @@ export function VoiceAssistantGlobal() {
   const [isOpen, setIsOpen] = useState(false);
   const pathname = usePathname();
   
-  // Hide voice assistant on all login/register pages
+  // Hide voice assistant only on login/register pages
   if (pathname?.startsWith("/login") || pathname?.includes("register")) {
     return null;
   }
