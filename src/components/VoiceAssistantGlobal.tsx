@@ -1,7 +1,7 @@
 "use client";
 import { useState, Suspense, lazy } from "react";
 import { usePathname } from "next/navigation";
-import { Button } from "@/components/ui/button";
+import { FastNavButton } from "@/components/ui/fast-nav-button";
 import { Volume2 } from "lucide-react";
 import {
   Dialog,
