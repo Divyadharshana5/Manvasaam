@@ -18,13 +18,13 @@ export function VoiceAssistantGlobal() {
   const [isOpen, setIsOpen] = useState(false);
   const pathname = usePathname();
   
-  // Hide voice assistant on all login/register pages and hub portal
-  if (pathname?.startsWith("/login") || pathname?.includes("register") || pathname?.startsWith("/dashboard/hub")) {
+  // Hide voice assistant on all login/register pages
+  if (pathname?.startsWith("/login") || pathname?.includes("register")) {
     return null;
   }
   
-  // Position for non-hub pages
-  const isHubPortal = false;
+  // Position in top-right for hub portal pages, bottom-right for others
+  const isHubPortal = pathname?.startsWith("/dashboard/hub");
   const positionClass = isHubPortal ? "fixed top-4 right-4 z-[9999]" : "fixed bottom-6 right-6 z-[9999]";
   const buttonSize = isHubPortal ? "w-10 h-10" : "w-16 h-16";
   const iconSize = isHubPortal ? "h-4 w-4" : "h-7 w-7";
