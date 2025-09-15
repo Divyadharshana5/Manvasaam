@@ -23,8 +23,12 @@ export function VoiceAssistantGlobal() {
     return null;
   }
   
+  // Position in top-right for hub portal pages, bottom-right for others
+  const isHubPortal = pathname?.startsWith("/dashboard/hub");
+  const positionClass = isHubPortal ? "fixed top-6 right-6 z-[9999]" : "fixed bottom-6 right-6 z-[9999]";
+  
   return (
-    <div className="fixed bottom-6 right-6 z-[9999]">
+    <div className={positionClass}>
       <Dialog open={isOpen} onOpenChange={setIsOpen}>
         <DialogTrigger asChild>
           <Button
