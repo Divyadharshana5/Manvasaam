@@ -12,7 +12,7 @@ import {
   DialogTrigger,
 } from "@/components/ui/dialog";
 import { Loader2 } from "lucide-react";
-const VoiceAssistant = lazy(() => import("@/components/voice-assistant"));
+
 
 export function VoiceAssistantGlobal() {
   const [isOpen, setIsOpen] = useState(false);
