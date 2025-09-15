@@ -50,17 +50,21 @@ export function VoiceAssistantGlobal() {
               Manvaasam, or provide information about our platform.
             </DialogDescription>
           </DialogHeader>
-          {isOpen && (
-            <Suspense
-              fallback={
-                <div className="flex justify-center p-8">
-                  <Loader2 className="h-8 w-8 animate-spin" />
-                </div>
-              }
-            >
-              <VoiceAssistant />
-            </Suspense>
-          )}
+          <div className="flex justify-center p-8">
+            <div className="text-center space-y-4">
+              <Volume2 className="h-12 w-12 mx-auto text-green-500" />
+              <p className="text-sm text-muted-foreground">
+                Voice Assistant is available for navigation and support.
+              </p>
+              <Button 
+                onClick={() => setIsOpen(false)}
+                variant="outline"
+                className="w-full"
+              >
+                Close
+              </Button>
+            </div>
+          </div>
         </DialogContent>
       </Dialog>
     </div>
