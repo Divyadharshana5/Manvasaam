@@ -39,7 +39,7 @@ export function VoiceAssistantGlobal() {
         <DialogTrigger asChild>
           <Button
             variant="default"
-            size={isHubPortal ? "sm" : "lgse"}
+            size={isHubPortal ? "sm" : "lg"}
             className={`rounded-full ${buttonSize} shadow-lg flex items-center justify-center bg-gradient-to-r from-green-500 via-lime-500 to-yellow-500 hover:from-green-600 hover:via-lime-600 hover:to-yellow-600 transition-all duration-200`}
             aria-label="Open Voice Assistant"
           >
