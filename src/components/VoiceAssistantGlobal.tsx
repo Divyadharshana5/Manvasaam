@@ -46,7 +46,7 @@ export function VoiceAssistantGlobal() {
             <Volume2 className={iconSize} />
           </Button>
         </DialogTrigger>
-          <DialogContent>
+        <DialogContent>
           <DialogHeader className="w-full text-center pt-6 pb-2">
             <DialogTitle className="text-2xl font-bold text-green-700 dark:text-green-200">
               Voice Assistant
