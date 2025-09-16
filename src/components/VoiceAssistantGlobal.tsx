@@ -46,8 +46,8 @@ export function VoiceAssistantGlobal() {
             <Volume2 className={iconSize} />
           </Button>
         </DialogTrigger>
-        <DialogContent>
-          <DialogHeader className="w-full text-center pt-6 pb-2">
+        <DialogContent className="fixed left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 max-w-lg w-full rounded-2xl border-0 shadow-2xl bg-white/95 dark:bg-neutral-900/95 flex flex-col items-center justify-center p-0 z-[10000]">
+          <DialogHeader className="w-full text-center pt-4 pb-2">
             <DialogTitle className="text-2xl font-bold text-green-700 dark:text-green-200">
               Voice Assistant
             </DialogTitle>
@@ -57,8 +57,7 @@ export function VoiceAssistantGlobal() {
           </DialogHeader>
           <div className="w-full flex flex-col items-center px-6 pb-6">
             <p className="text-muted-foreground text-center">
-              Voice assistant functionality will be available in the next
-              update.
+              Voice assistant functionality will be available in the next update.
             </p>
           </div>
         </DialogContent>
