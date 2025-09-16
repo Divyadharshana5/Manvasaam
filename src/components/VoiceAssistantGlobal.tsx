@@ -282,7 +282,9 @@ export function VoiceAssistantGlobal() {
         </DialogTrigger>
         <DialogContent className="fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-[400px] max-w-[90vw] max-h-[600px] bg-white rounded-lg shadow-xl border p-6">
           <DialogHeader className="text-center mb-4">
-            <DialogTitle className="text-xl font-semibold text-gray-800">🎤 Voice Assistant</DialogTitle>
+            <DialogTitle className="text-xl font-semibold text-gray-800">
+              🎤 Voice Assistant
+            </DialogTitle>
             <DialogDescription className="text-gray-600 mt-2">
               Speak to navigate and get help with Manvaasam
             </DialogDescription>
@@ -314,7 +316,9 @@ export function VoiceAssistantGlobal() {
                     <Mic className="h-4 w-4" />
                     You Said:
                   </div>
-                  <p className="text-gray-700 mt-1 text-sm">{transcribedText}</p>
+                  <p className="text-gray-700 mt-1 text-sm">
+                    {transcribedText}
+                  </p>
                 </div>
               )}
 
@@ -326,27 +330,13 @@ export function VoiceAssistantGlobal() {
                   </div>
                   <p className="text-gray-700 mt-1 text-sm">{lastResponse}</p>
                   {audioUrl && (
-                    <audio ref={audioRef} src={audioUrl} className="w-full mt-2" />
+                    <audio
+                      ref={audioRef}
+                      src={audioUrl}
+                      className="w-full mt-2"
+                    />
                   )}
                 </div>
-              )}
-            </div>
-          </div>
-        </DialogContent>
-      </Dialog>
-    </div>
-  );
-}on>
-                    {lastResponse}
-                    {audioUrl && (
-                      <audio
-                        ref={audioRef}
-                        src={audioUrl}
-                        className="w-full mt-2"
-                      />
-                    )}
-                  </AlertDescription>
-                </Alert>
               )}
             </div>
           </div>
