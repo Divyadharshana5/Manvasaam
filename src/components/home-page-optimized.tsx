@@ -489,7 +489,7 @@ export default function HomePage() {
 
         {/* Optimized Footer */}
         <motion.footer
-          className="relative w-full bg-gradient-to-r from-primary/10 via-white/95 to-primary/10 backdrop-blur-md border-t-2 border-primary/30 shadow-lg mt-12 sm:mt-16 z-10"
+          className="relative w-full bg-white/30 bg-gradient-to-r from-white/30 via-white/60 to-white/30 backdrop-blur-xl border-t border-white/40 shadow-2xl mt-12 sm:mt-16 z-30 ring-1 ring-white/40"
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
