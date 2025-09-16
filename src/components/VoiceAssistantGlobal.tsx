@@ -175,9 +175,10 @@ export function VoiceAssistantGlobal() {
           "pageKey" in navResult &&
           navResult.pageKey
         ) {
+          const pageKey = navResult.pageKey!;
           await speak(navResult.message);
           setTimeout(() => {
-            router.push(navResult.pageKey);
+            router.push(pageKey);
           }, 2500);
         } else {
           await speak(navResult.message);
