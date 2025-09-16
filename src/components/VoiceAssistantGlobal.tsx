@@ -15,20 +15,32 @@ import {
   DialogTrigger,
 } from "@/components/ui/dialog";
 
-// Dynamic imports for AI flows to reduce initial bundle size
+// Safe fallback functions to prevent errors
 const speechToText = async (params: any) => {
-  const { speechToText } = await import("@/ai/flows/stt-flow");
-  return speechToText(params);
+  try {
+    const { speechToText } = await import("@/ai/flows/stt-flow");
+    return speechToText(params);
+  } catch {
+    return { transcript: "Voice recognition unavailable" };
+  }
 };
 
 const understandNavigation = async (params: any) => {
-  const { understandNavigation } = await import("@/ai/flows/navigation-flow");
-  return understandNavigation(params);
+  try {
+    const { understandNavigation } = await import("@/ai/flows/navigation-flow");
+    return understandNavigation(params);
+  } catch {
+    return { shouldNavigate: false, message: "Navigation assistance unavailable" };
+  }
 };
 
 const textToSpeech = async (text: string, language?: string) => {
-  const { textToSpeech } = await import("@/ai/flows/tts-flow");
-  return textToSpeech({ text, language });
+  try {
+    const { textToSpeech } = await import("@/ai/flows/tts-flow");
+    return textToSpeech({ text, language });
+  } catch {
+    return { audioDataUri: "" };
+  }
 };
 
 type AssistantState = "idle" | "listening" | "thinking" | "speaking";
@@ -52,8 +64,8 @@ export function VoiceAssistantGlobal() {
   const audioChunksRef = useRef<Blob[]>([]);
   const audioRef = useRef<HTMLAudioElement | null>(null);
 
-  // Hide voice assistant only on login/register pages
-  if (pathname?.startsWith("/login") || pathname?.includes("register")) {
+  // Hide voice assistant on login/register pages and homepage
+  if (pathname?.startsWith("/login") || pathname?.includes("register") || pathname === "/") {
     return null;
   }
 
