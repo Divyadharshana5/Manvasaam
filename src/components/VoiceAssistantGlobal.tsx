@@ -57,7 +57,8 @@ export function VoiceAssistantGlobal() {
           </DialogHeader>
           <div className="w-full flex flex-col items-center px-6 pb-6">
             <p className="text-muted-foreground text-center">
-              Voice assistant functionality will be available in the next update.
+              Voice assistant functionality will be available in the next
+              update.
             </p>
           </div>
         </DialogContent>
