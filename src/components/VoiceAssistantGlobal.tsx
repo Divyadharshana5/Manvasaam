@@ -307,20 +307,36 @@ export function VoiceAssistantGlobal() {
               </div>
             )}
 
-            <div className="min-h-[8rem] space-y-4 px-2">
+            <div className="min-h-[6rem] space-y-3">
               {transcribedText && (
-                <Alert variant="info" className="no-animation">
-                  <Mic className="h-4 w-4" />
-                  <AlertTitle>You Said:</AlertTitle>
-                  <AlertDescription>{transcribedText}</AlertDescription>
-                </Alert>
+                <div className="bg-blue-50 border border-blue-200 rounded-lg p-3">
+                  <div className="flex items-center gap-2 text-blue-700 font-medium text-sm">
+                    <Mic className="h-4 w-4" />
+                    You Said:
+                  </div>
+                  <p className="text-gray-700 mt-1 text-sm">{transcribedText}</p>
+                </div>
               )}
 
               {lastResponse && (
-                <Alert variant="info" className="no-animation">
-                  <Volume2 className="h-4 w-4" />
-                  <AlertTitle>Assistant Response:</AlertTitle>
-                  <AlertDescription>
+                <div className="bg-green-50 border border-green-200 rounded-lg p-3">
+                  <div className="flex items-center gap-2 text-green-700 font-medium text-sm">
+                    <Volume2 className="h-4 w-4" />
+                    Assistant:
+                  </div>
+                  <p className="text-gray-700 mt-1 text-sm">{lastResponse}</p>
+                  {audioUrl && (
+                    <audio ref={audioRef} src={audioUrl} className="w-full mt-2" />
+                  )}
+                </div>
+              )}
+            </div>
+          </div>
+        </DialogContent>
+      </Dialog>
+    </div>
+  );
+}on>
                     {lastResponse}
                     {audioUrl && (
                       <audio
