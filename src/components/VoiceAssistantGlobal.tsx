@@ -4,7 +4,7 @@ import { usePathname, useRouter } from "next/navigation";
 import { Button } from "@/components/ui/button";
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 import { useToast } from "@/hooks/use-toast";
-import { useLanguage } from "@/context/language-context";
+
 import { Mic, Volume2, Square, Loader2, MicOff } from "lucide-react";
 import {
   Dialog,
@@ -38,7 +38,7 @@ export function VoiceAssistantGlobal() {
   const pathname = usePathname();
   const router = useRouter();
   const { toast } = useToast();
-  const { selectedLanguage } = useLanguage();
+  const selectedLanguage = "English"; // Default language
 
   const [assistantState, setAssistantState] = useState<AssistantState>("idle");
   const [lastResponse, setLastResponse] = useState("");
