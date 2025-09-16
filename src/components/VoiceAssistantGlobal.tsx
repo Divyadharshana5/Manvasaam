@@ -267,7 +267,7 @@ export function VoiceAssistantGlobal() {
             <Volume2 className={iconSize} />
           </Button>
         </DialogTrigger>
-        <DialogContent className="sm:max-w-md w-[90vw] rounded-lg">
+        <DialogContent className="sm:max-w-md w-[90vw] max-h-[80vh] overflow-y-auto">
           <DialogHeader className="text-center pt-4">
             <DialogTitle>Manvaasam Voice Assistant</DialogTitle>
             <DialogDescription>
