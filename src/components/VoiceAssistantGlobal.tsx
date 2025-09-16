@@ -38,6 +38,9 @@ export function VoiceAssistantGlobal() {
   const buttonSizeClass = isHubPortal ? "w-10 h-10" : "w-16 h-16";
   const iconSize = isHubPortal ? "h-4 w-4" : "h-7 w-7";
 
+  return (
+    <div className={positionClass}>
+      <Dialog open={isOpen} onOpenChange={setIsOpen}>
         <DialogTrigger asChild>
           <Button
             variant="default"
@@ -48,9 +51,7 @@ export function VoiceAssistantGlobal() {
             <Volume2 className={iconSize} />
           </Button>
         </DialogTrigger>
-            <Volume2 className={iconSize} />
-          </Button>
-        </DialogTrigger>
+
         <DialogContent className="max-w-lg w-full max-h-[92vh] sm:max-h-[96vh] overflow-y-auto rounded-2xl border-0 shadow-2xl bg-white/95 dark:bg-neutral-900/95">
           <DialogHeader>
             <DialogTitle>Voice Assistant</DialogTitle>
