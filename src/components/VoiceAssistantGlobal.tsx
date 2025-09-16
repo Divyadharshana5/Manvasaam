@@ -281,20 +281,20 @@ export function VoiceAssistantGlobal() {
           </Button>
         </DialogTrigger>
         <DialogContent className="fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-[400px] max-w-[90vw] max-h-[600px] bg-white rounded-lg shadow-xl border p-6">
-          <DialogHeader className="text-left">
-            <DialogTitle>Voice Assistant</DialogTitle>
-            <DialogDescription>
-              Navigate and get help with Manvaasam platform.
+          <DialogHeader className="text-center mb-4">
+            <DialogTitle className="text-xl font-semibold text-gray-800">🎤 Voice Assistant</DialogTitle>
+            <DialogDescription className="text-gray-600 mt-2">
+              Speak to navigate and get help with Manvaasam
             </DialogDescription>
           </DialogHeader>
 
-          <div className="space-y-6 py-4">
+          <div className="space-y-4">
             <div className="flex justify-center">
               <Button
                 onClick={buttonState.onClick}
                 disabled={buttonState.disabled}
                 variant={(buttonState.variant as any) || "default"}
-                className="w-48 h-16 text-lg"
+                className="w-40 h-12 text-base font-medium rounded-full shadow-md hover:shadow-lg transition-all"
               >
                 {buttonState.icon}
                 {buttonState.text}
