@@ -44,27 +44,33 @@ export function VoiceAssistantGlobal() {
   const [lastResponse, setLastResponse] = useState("");
   const [transcribedText, setTranscribedText] = useState("");
   const [audioUrl, setAudioUrl] = useState("");
-  const [hasMicrophonePermission, setHasMicrophonePermission] = useState<boolean | null>(null);
+  const [hasMicrophonePermission, setHasMicrophonePermission] = useState<
+    boolean | null
+  >(null);
 
   const mediaRecorderRef = useRef<MediaRecorder | null>(null);
   const audioChunksRef = useRef<Blob[]>([]);
   const audioRef = useRef<HTMLAudioElement | null>(null);
-  
+
   // Hide voice assistant only on login/register pages
   if (pathname?.startsWith("/login") || pathname?.includes("register")) {
     return null;
   }
-  
+
   // Position in top-right for hub portal pages, bottom-right for others
   const isHubPortal = pathname?.startsWith("/dashboard/hub");
-  const positionClass = isHubPortal ? "fixed top-4 right-4 z-[9999]" : "fixed bottom-6 right-6 z-[9999]";
+  const positionClass = isHubPortal
+    ? "fixed top-4 right-4 z-[9999]"
+    : "fixed bottom-6 right-6 z-[9999]";
   const buttonSize = isHubPortal ? "w-10 h-10" : "w-16 h-16";
   const iconSize = isHubPortal ? "h-4 w-4" : "h-7 w-7";
 
   useEffect(() => {
     const checkMicrophonePermission = async () => {
       try {
-        const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
+        const stream = await navigator.mediaDevices.getUserMedia({
+          audio: true,
+        });
         setHasMicrophonePermission(true);
         stream.getTracks().forEach((track) => track.stop());
       } catch {
@@ -83,7 +89,8 @@ export function VoiceAssistantGlobal() {
       toast({
         variant: "destructive",
         title: "Microphone Access Denied",
-        description: "Please allow microphone access in your browser settings to use this feature.",
+        description:
+          "Please allow microphone access in your browser settings to use this feature.",
       });
       return;
     }
@@ -91,7 +98,9 @@ export function VoiceAssistantGlobal() {
     try {
       const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
       setHasMicrophonePermission(true);
-      mediaRecorderRef.current = new MediaRecorder(stream, { mimeType: "audio/webm" });
+      mediaRecorderRef.current = new MediaRecorder(stream, {
+        mimeType: "audio/webm",
+      });
       audioChunksRef.current = [];
 
       mediaRecorderRef.current.ondataavailable = (event) => {
@@ -106,7 +115,8 @@ export function VoiceAssistantGlobal() {
       toast({
         variant: "destructive",
         title: "Microphone Access Denied",
-        description: "Please allow microphone access in your browser settings to use this feature.",
+        description:
+          "Please allow microphone access in your browser settings to use this feature.",
       });
     }
   };
@@ -114,7 +124,9 @@ export function VoiceAssistantGlobal() {
   const handleStopRecording = () => {
     if (mediaRecorderRef.current && assistantState === "listening") {
       mediaRecorderRef.current.stop();
-      mediaRecorderRef.current.stream.getTracks().forEach((track) => track.stop());
+      mediaRecorderRef.current.stream
+        .getTracks()
+        .forEach((track) => track.stop());
     }
   };
 
@@ -229,7 +241,7 @@ export function VoiceAssistantGlobal() {
   };
 
   const buttonState = getButtonState();
-  
+
   return (
     <div className={positionClass}>
       <Dialog open={isOpen} onOpenChange={setIsOpen}>
@@ -247,10 +259,11 @@ export function VoiceAssistantGlobal() {
           <DialogHeader className="text-center pt-4">
             <DialogTitle>Manvaasam Voice Assistant</DialogTitle>
             <DialogDescription>
-              Ask me anything! I can help you navigate, answer questions about Manvaasam, or provide information about our platform.
+              Ask me anything! I can help you navigate, answer questions about
+              Manvaasam, or provide information about our platform.
             </DialogDescription>
           </DialogHeader>
-          
+
           <div className="space-y-6 py-4">
             <div className="flex justify-center">
               <Button
@@ -286,7 +299,11 @@ export function VoiceAssistantGlobal() {
                   <AlertDescription>
                     {lastResponse}
                     {audioUrl && (
-                      <audio ref={audioRef} src={audioUrl} className="w-full mt-2" />
+                      <audio
+                        ref={audioRef}
+                        src={audioUrl}
+                        className="w-full mt-2"
+                      />
                     )}
                   </AlertDescription>
                 </Alert>
