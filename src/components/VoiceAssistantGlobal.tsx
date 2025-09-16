@@ -17,13 +17,19 @@ export function VoiceAssistantGlobal() {
   const pathname = usePathname();
 
   // Hide voice assistant on login/register pages and homepage
-  if (pathname?.startsWith("/login") || pathname?.includes("register") || pathname === "/") {
+  if (
+    pathname?.startsWith("/login") ||
+    pathname?.includes("register") ||
+    pathname === "/"
+  ) {
     return null;
   }
 
   // Position in top-right for hub portal pages, bottom-right for others
   const isHubPortal = pathname?.startsWith("/dashboard/hub");
-  const positionClass = isHubPortal ? "fixed top-4 right-4 z-[9999]" : "fixed bottom-6 right-6 z-[9999]";
+  const positionClass = isHubPortal
+    ? "fixed top-4 right-4 z-[9999]"
+    : "fixed bottom-6 right-6 z-[9999]";
   const buttonSize = isHubPortal ? "w-10 h-10" : "w-16 h-16";
   const iconSize = isHubPortal ? "h-4 w-4" : "h-7 w-7";
 
@@ -40,15 +46,20 @@ export function VoiceAssistantGlobal() {
             <Volume2 className={iconSize} />
           </Button>
         </DialogTrigger>
-        <DialogContent>
-          <DialogHeader>
-            <DialogTitle>Voice Assistant</DialogTitle>
-            <DialogDescription>
+        <DialogContent className="max-w-lg w-full rounded-2xl border-0 shadow-2xl bg-white/95 dark:bg-neutral-900/95 flex flex-col items-center justify-center p-0">
+          <DialogHeader className="w-full text-center pt-6 pb-2">
+            <DialogTitle className="text-2xl font-bold text-green-700 dark:text-green-200">
+              Voice Assistant
+            </DialogTitle>
+            <DialogDescription className="text-base text-gray-600 dark:text-gray-300">
               Voice navigation feature coming soon!
             </DialogDescription>
           </DialogHeader>
-          <div className="p-4 text-center">
-            <p className="text-muted-foreground">Voice assistant functionality will be available in the next update.</p>
+          <div className="w-full flex flex-col items-center px-6 pb-6">
+            <p className="text-muted-foreground text-center">
+              Voice assistant functionality will be available in the next
+              update.
+            </p>
           </div>
         </DialogContent>
       </Dialog>
