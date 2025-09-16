@@ -268,11 +268,10 @@ export function VoiceAssistantGlobal() {
           </Button>
         </DialogTrigger>
         <DialogContent className="sm:max-w-md w-[90vw] max-h-[80vh] overflow-y-auto">
-          <DialogHeader className="text-center pt-4">
-            <DialogTitle>Manvaasam Voice Assistant</DialogTitle>
+          <DialogHeader className="text-left">
+            <DialogTitle>Voice Assistant</DialogTitle>
             <DialogDescription>
-              Ask me anything! I can help you navigate, answer questions about
-              Manvaasam, or provide information about our platform.
+              Navigate and get help with Manvaasam platform.
             </DialogDescription>
           </DialogHeader>
 
