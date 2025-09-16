@@ -47,20 +47,7 @@ export function VoiceAssistantGlobal() {
           </Button>
         </DialogTrigger>
         <DialogContent className="max-w-lg w-full max-h-[92vh] sm:max-h-[96vh] overflow-y-auto rounded-2xl border-0 shadow-2xl bg-white/95 dark:bg-neutral-900/95">
-          <DialogHeader className="w-full text-center pt-2 pb-1">
-            <DialogTitle className="text-2xl font-bold text-green-700 dark:text-green-200">
-              Voice Assistant
-            </DialogTitle>
-            <DialogDescription className="text-base text-gray-600 dark:text-gray-300">
-              Voice navigation feature coming soon!
-            </DialogDescription>
-          </DialogHeader>
-          <div className="w-full flex flex-col items-center px-2 pb-2">
-            <p className="text-muted-foreground text-center">
-              Voice assistant functionality will be available in the next
-              update.
-            </p>
-          </div>
+          {/* ... */}
         </DialogContent>
       </Dialog>
     </div>
