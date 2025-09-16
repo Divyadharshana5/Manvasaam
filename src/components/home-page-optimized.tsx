@@ -313,7 +313,7 @@ export default function HomePage() {
                   </Button>
                 </m.div>
               </DialogTrigger>
-              <DialogContent className="sm:max-w-md w-[90vw] rounded-lg">
+              <DialogContent className="max-w-lg w-full max-h-[90vh] overflow-y-auto rounded-2xl border-0 shadow-2xl bg-white/95 dark:bg-neutral-900/95 py-6 px-4 flex flex-col items-center justify-center">
                 <DialogHeader className="text-center pt-4">
                   <DialogTitle>Enhanced Voice Assistant</DialogTitle>
                   <DialogDescription>
