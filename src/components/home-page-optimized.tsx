@@ -37,7 +37,15 @@ import {
   DialogDescription,
   DialogTrigger,
 } from "@/components/ui/dialog";
-import { useState, useRef, useEffect, useMemo, useCallback, lazy, Suspense } from "react";
+import {
+  useState,
+  useRef,
+  useEffect,
+  useMemo,
+  useCallback,
+  lazy,
+  Suspense,
+} from "react";
 import { useToast } from "@/hooks/use-toast";
 import { useRouter } from "next/navigation";
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
@@ -108,9 +116,15 @@ interface RoleCardProps {
   t: any; // This comes from the language context
 }
 
-const RoleCard = ({ role, index, onContinueClick, loadingRoleHref, t }: RoleCardProps) => {
+const RoleCard = ({
+  role,
+  index,
+  onContinueClick,
+  loadingRoleHref,
+  t,
+}: RoleCardProps) => {
   const router = useRouter();
-  
+
   const handleHover = useCallback(() => {
     // Prefetch on hover for instant navigation
     router.prefetch(role.href);
@@ -154,7 +168,8 @@ const RoleCard = ({ role, index, onContinueClick, loadingRoleHref, t }: RoleCard
               <Loader2 className="mr-2 h-4 w-4 animate-spin" />
             ) : (
               <>
-                {t.continue} <ArrowRight className="ml-2 h-4 w-4 transition-transform group-hover:translate-x-1" />
+                {t.continue}{" "}
+                <ArrowRight className="ml-2 h-4 w-4 transition-transform group-hover:translate-x-1" />
               </>
             )}
           </Button>
@@ -227,14 +242,14 @@ export default function HomePage() {
   useEffect(() => {
     const loginPages = [
       "/login/farmer",
-      "/login/customer", 
+      "/login/customer",
       "/login/hub",
-      "/login/restaurant"
+      "/login/restaurant",
     ];
-    
+
     // Prefetch after a short delay to not block initial render
     const prefetchTimer = setTimeout(() => {
-      loginPages.forEach(page => {
+      loginPages.forEach((page) => {
         router.prefetch(page);
       });
     }, 500);
@@ -242,13 +257,16 @@ export default function HomePage() {
     return () => clearTimeout(prefetchTimer);
   }, [router]);
 
-  const handleContinueClick = useCallback((href: string) => {
-    setLoadingRoleHref(href);
-    
-    // Fast navigation with prefetch
-    router.prefetch(href);
-    router.push(href);
-  }, [router]);
+  const handleContinueClick = useCallback(
+    (href: string) => {
+      setLoadingRoleHref(href);
+
+      // Fast navigation with prefetch
+      router.prefetch(href);
+      router.push(href);
+    },
+    [router]
+  );
 
   // Optimized animation variants with reduced motion support
   const sentence = useMemo(
@@ -321,7 +339,13 @@ export default function HomePage() {
                     about Manvaasam, or provide information about our platform.
                   </DialogDescription>
                 </DialogHeader>
-                <Suspense fallback={<div className="flex justify-center p-8"><Loader2 className="h-8 w-8 animate-spin" /></div>}>
+                <Suspense
+                  fallback={
+                    <div className="flex justify-center p-8">
+                      <Loader2 className="h-8 w-8 animate-spin" />
+                    </div>
+                  }
+                >
                   <VoiceAssistant />
                 </Suspense>
               </DialogContent>
@@ -360,7 +384,7 @@ export default function HomePage() {
             className="absolute inset-0 z-0 bg-cover bg-center bg-no-repeat bg-fixed bg-ken-burns"
             style={{
               backgroundImage: "url('/bg-agri.png')",
-              willChange: 'transform'
+              willChange: "transform",
             }}
           ></div>
           <div className="absolute inset-0 bg-background/30 z-0"></div>
@@ -450,12 +474,14 @@ export default function HomePage() {
 
           {/* Product Showcase Section */}
           <section className="w-full max-w-7xl mx-auto mt-16 sm:mt-20 md:mt-24 z-10 px-4 sm:px-6">
-            <Suspense fallback={
-              <div className="flex justify-center py-8">
-                <Loader2 className="h-8 w-8 animate-spin" />
-                <span className="ml-2">Loading products...</span>
-              </div>
-            }>
+            <Suspense
+              fallback={
+                <div className="flex justify-center py-8">
+                  <Loader2 className="h-8 w-8 animate-spin" />
+                  <span className="ml-2">Loading products...</span>
+                </div>
+              }
+            >
               <ProductShowcase maxItemsPerCategory={2} />
             </Suspense>
           </section>
@@ -539,7 +565,10 @@ export default function HomePage() {
 
               {/* Legal and Support Links */}
               <div className="flex items-center gap-4 text-xs">
-                <motion.div whileHover={{ scale: 1.05 }} transition={{ duration: 0.2 }}>
+                <motion.div
+                  whileHover={{ scale: 1.05 }}
+                  transition={{ duration: 0.2 }}
+                >
                   <Link
                     href="/privacy"
                     className="text-muted-foreground hover:text-primary transition-colors duration-200 hover:underline"
@@ -548,7 +577,10 @@ export default function HomePage() {
                   </Link>
                 </motion.div>
                 <span className="text-muted-foreground">•</span>
-                <motion.div whileHover={{ scale: 1.05 }} transition={{ duration: 0.2 }}>
+                <motion.div
+                  whileHover={{ scale: 1.05 }}
+                  transition={{ duration: 0.2 }}
+                >
                   <Link
                     href="/terms"
                     className="text-muted-foreground hover:text-primary transition-colors duration-200 hover:underline"
@@ -557,7 +589,10 @@ export default function HomePage() {
                   </Link>
                 </motion.div>
                 <span className="text-muted-foreground">•</span>
-                <motion.div whileHover={{ scale: 1.05 }} transition={{ duration: 0.2 }}>
+                <motion.div
+                  whileHover={{ scale: 1.05 }}
+                  transition={{ duration: 0.2 }}
+                >
                   <Link
                     href="/support"
                     className="text-muted-foreground hover:text-primary transition-colors duration-200 hover:underline"
