@@ -281,11 +281,9 @@ export function VoiceAssistantGlobal() {
           </Button>
         </DialogTrigger>
         <DialogContent className="sm:max-w-md">
-          <DialogHeader className="text-center mb-4">
-            <DialogTitle className="text-xl font-semibold text-gray-800">
-              🎤 Voice Assistant
-            </DialogTitle>
-            <DialogDescription className="text-gray-600 mt-2">
+          <DialogHeader>
+            <DialogTitle>Voice Assistant</DialogTitle>
+            <DialogDescription>
               Speak to navigate and get help with Manvaasam
             </DialogDescription>
           </DialogHeader>
