@@ -30,7 +30,10 @@ const understandNavigation = async (params: any) => {
     const { understandNavigation } = await import("@/ai/flows/navigation-flow");
     return understandNavigation(params);
   } catch {
-    return { shouldNavigate: false, message: "Navigation assistance unavailable" };
+    return {
+      shouldNavigate: false,
+      message: "Navigation assistance unavailable",
+    };
   }
 };
 
@@ -65,7 +68,11 @@ export function VoiceAssistantGlobal() {
   const audioRef = useRef<HTMLAudioElement | null>(null);
 
   // Hide voice assistant on login/register pages and homepage
-  if (pathname?.startsWith("/login") || pathname?.includes("register") || pathname === "/") {
+  if (
+    pathname?.startsWith("/login") ||
+    pathname?.includes("register") ||
+    pathname === "/"
+  ) {
     return null;
   }
 
@@ -162,10 +169,15 @@ export function VoiceAssistantGlobal() {
           language: selectedLanguage,
         });
 
-        if (navResult.shouldNavigate && navResult.pageKey) {
+        // Narrow the union type before accessing pageKey
+        if (
+          navResult.shouldNavigate &&
+          "pageKey" in navResult &&
+          navResult.pageKey
+        ) {
           await speak(navResult.message);
           setTimeout(() => {
-            router.push(navResult.pageKey!);
+            router.push(navResult.pageKey);
           }, 2500);
         } else {
           await speak(navResult.message);
