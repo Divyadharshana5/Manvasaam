@@ -1,5 +1,5 @@
 "use client";
-import { useState, useRef } from "react";
+import { useState, useRef, MutableRefObject } from "react";
 import { usePathname, useRouter } from "next/navigation";
 import { Button } from "@/components/ui/button";
 import { Volume2 } from "lucide-react";
@@ -11,7 +11,6 @@ import {
   DialogDescription,
   DialogTrigger,
 } from "@/components/ui/dialog";
-
 
 // List of known routes for navigation (add more as needed)
 const KNOWN_ROUTES = [
@@ -41,36 +40,36 @@ const KNOWN_ROUTES = [
 ];
 
 const ROUTE_ALIASES = {
-  "dashboard": "/dashboard",
-  "farmer": "/dashboard/farmer",
-  "customer": "/dashboard/customer",
-  "hub": "/dashboard/hub",
-  "restaurant": "/dashboard/restaurant",
-  "orders": "/dashboard/orders",
-  "products": "/dashboard/products",
-  "faq": "/dashboard/faq",
-  "marketing": "/dashboard/marketing",
-  "matchmaking": "/dashboard/matchmaking",
+  dashboard: "/dashboard",
+  farmer: "/dashboard/farmer",
+  customer: "/dashboard/customer",
+  hub: "/dashboard/hub",
+  restaurant: "/dashboard/restaurant",
+  orders: "/dashboard/orders",
+  products: "/dashboard/products",
+  faq: "/dashboard/faq",
+  marketing: "/dashboard/marketing",
+  matchmaking: "/dashboard/matchmaking",
   "voice assistant": "/dashboard/voice-assistant",
-  "track": "/dashboard/track",
-  "profile": "/dashboard/profile",
-  "contact": "/dashboard/contact",
-  "inventory": "/dashboard/hub/inventory",
-  "attendance": "/dashboard/hub/attendance",
-  "privacy": "/privacy",
-  "terms": "/terms",
-  "support": "/support",
+  track: "/dashboard/track",
+  profile: "/dashboard/profile",
+  contact: "/dashboard/contact",
+  inventory: "/dashboard/hub/inventory",
+  attendance: "/dashboard/hub/attendance",
+  privacy: "/privacy",
+  terms: "/terms",
+  support: "/support",
   "test dropdown": "/test-dropdown",
   "test hub": "/test-hub",
   "test email": "/test-email",
-  "help": "/voice-assistant-help",
+  help: "/voice-assistant-help",
 };
 
 export function VoiceAssistantGlobal() {
   const [isOpen, setIsOpen] = useState(false);
   const pathname = usePathname();
   const router = useRouter();
-  const recognitionRef = useRef(null);
+  const recognitionRef: MutableRefObject<any> = useRef(null);
 
   // Hide voice assistant on login/register pages and homepage
   if (
@@ -80,7 +79,6 @@ export function VoiceAssistantGlobal() {
   ) {
     return null;
   }
-
 
   // Position in top-right for hub portal pages, bottom-right for others
   const isHubPortal = pathname?.startsWith("/dashboard/hub");
@@ -92,7 +90,7 @@ export function VoiceAssistantGlobal() {
   const iconSize = isHubPortal ? "h-4 w-4" : "h-7 w-7";
 
   // --- Voice Assistant Logic ---
-  function speak(text) {
+  function speak(text: string) {
     if (typeof window !== "undefined" && window.speechSynthesis) {
       const utter = new window.SpeechSynthesisUtterance(text);
       utter.lang = "en-IN";
@@ -106,7 +104,7 @@ export function VoiceAssistantGlobal() {
     }
   }
 
-  function findRouteFromSpeech(speech) {
+  function findRouteFromSpeech(speech: string) {
     if (!speech) return null;
     const lower = speech.toLowerCase();
     // Try direct match
@@ -124,7 +122,8 @@ export function VoiceAssistantGlobal() {
 
   function listenForPageCommand() {
     if (typeof window === "undefined") return;
-    const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+    const SpeechRecognition =
+      window.SpeechRecognition || window.webkitSpeechRecognition;
     if (!SpeechRecognition) {
       speak("Sorry, your browser does not support voice recognition.");
       return;
@@ -138,7 +137,9 @@ export function VoiceAssistantGlobal() {
       const transcript = event.results[0][0].transcript;
       const route = findRouteFromSpeech(transcript);
       if (route) {
-        speak("Navigating to " + route.replace("/dashboard/", "").replace("/", " "));
+        speak(
+          "Navigating to " + route.replace("/dashboard/", "").replace("/", " ")
+        );
         setTimeout(() => {
           router.push(route);
         }, 1200);
@@ -182,8 +183,11 @@ export function VoiceAssistantGlobal() {
           <DialogHeader>
             <DialogTitle>Voice Assistant</DialogTitle>
             <DialogDescription>
-              <span className="font-semibold">Speak the page name you want to visit.</span>
-              <br />For example: "Go to orders", "Open products", "Show hub", "Help"
+              <span className="font-semibold">
+                Speak the page name you want to visit.
+              </span>
+              <br />
+              For example: "Go to orders", "Open products", "Show hub", "Help"
             </DialogDescription>
           </DialogHeader>
           <div className="p-6">
