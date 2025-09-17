@@ -186,6 +186,8 @@ export function VoiceAssistantGlobal() {
             left: "50%",
             top: "50%",
             transform: "translate(-50%,-50%)",
+            zIndex: 2147483647,
+            pointerEvents: "auto",
           }}
         >
           <DialogHeader>
