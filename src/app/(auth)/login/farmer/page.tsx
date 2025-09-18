@@ -411,6 +411,53 @@ export default function FarmerAuthPage() {
     }
   }
 
+  function handleVoiceCommand(command: string) {
+    const lowerCommand = command.toLowerCase();
+    
+    if (lowerCommand.includes("what is manvaasam")) {
+      toast({
+        title: "About Manvaasam",
+        description: "Manvaasam is a platform empowering farmers and delivering freshness through direct farm-to-table connections.",
+        duration: 5000,
+      });
+    } else if (lowerCommand.includes("take me to") && lowerCommand.includes("dashboard")) {
+      setShowVoiceAssistant(false);
+      toast({
+        title: "Navigating to Dashboard",
+        description: "Please complete login first to access your farmer dashboard.",
+        duration: 3000,
+      });
+    } else if (lowerCommand.includes("login") || lowerCommand.includes("sign in")) {
+      setShowVoiceAssistant(false);
+      setActiveTab("login");
+      toast({
+        title: "Switched to Login",
+        description: "Please enter your credentials to sign in.",
+        duration: 2000,
+      });
+    } else if (lowerCommand.includes("register") || lowerCommand.includes("sign up")) {
+      setShowVoiceAssistant(false);
+      setActiveTab("register");
+      toast({
+        title: "Switched to Register",
+        description: "Please fill out the form to create your farmer account.",
+        duration: 2000,
+      });
+    } else if (lowerCommand.includes("help")) {
+      toast({
+        title: "Voice Commands Available",
+        description: "Try: 'What is Manvaasam?', 'Take me to dashboard', 'Login', 'Register', or 'Help'",
+        duration: 5000,
+      });
+    } else {
+      toast({
+        title: "Command Received",
+        description: `You said: "${command}". Try asking about Manvaasam or navigation commands.`,
+        duration: 3000,
+      });
+    }
+  }
+
   return (
     <div className="animate-in fade-in duration-1000 relative min-h-screen flex items-center justify-center p-4 overflow-hidden">
       {/* Enhanced animated background with farm theme */}
