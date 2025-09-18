@@ -53,6 +53,7 @@ import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 // Lazy load AI components for better initial load performance
 const VoiceAssistant = lazy(() => import("@/components/voice-assistant"));
 const ProductShowcase = lazy(() => import("@/components/product-showcase"));
+import { VoiceAssistantModal } from "@/components/ui/voice-assistant-modal";
 
 type AssistantState = "idle" | "listening" | "thinking" | "speaking";
 
@@ -315,41 +316,20 @@ export default function HomePage() {
             </Link>
           </m.div>
           <div className="flex items-center gap-2 sm:gap-4">
-            <Dialog open={isAssistantOpen} onOpenChange={setIsAssistantOpen}>
-              <DialogTrigger asChild>
-                <m.div whileHover={{ scale: 1.1 }}>
-                  <Button
-                    variant="ghost"
-                    size="sm"
-                    className="hover:bg-primary/90 hover:text-primary-foreground text-xs sm:text-sm px-2 sm:px-4"
-                  >
-                    <Mic className="mr-1 sm:mr-2 h-3 w-3 sm:h-4 sm:w-4" />
-                    <span className="hidden sm:inline">
-                      {t.sidebar.voiceAssistant}
-                    </span>
-                    <span className="sm:hidden">Voice</span>
-                  </Button>
-                </m.div>
-              </DialogTrigger>
-              <DialogContent className="max-w-lg w-full max-h-[90vh] overflow-y-auto rounded-2xl border-0 shadow-2xl bg-white/95 dark:bg-neutral-900/95 py-6 px-4 flex flex-col items-center justify-center">
-                <DialogHeader className="text-center pt-4">
-                  <DialogTitle>Enhanced Voice Assistant</DialogTitle>
-                  <DialogDescription>
-                    Ask me anything! I can help you navigate, answer questions
-                    about Manvaasam, or provide information about our platform.
-                  </DialogDescription>
-                </DialogHeader>
-                <Suspense
-                  fallback={
-                    <div className="flex justify-center p-8">
-                      <Loader2 className="h-8 w-8 animate-spin" />
-                    </div>
-                  }
-                >
-                  <VoiceAssistant />
-                </Suspense>
-              </DialogContent>
-            </Dialog>
+            <m.div whileHover={{ scale: 1.1 }}>
+              <Button
+                variant="ghost"
+                size="sm"
+                onClick={() => setIsAssistantOpen(true)}
+                className="hover:bg-primary/90 hover:text-primary-foreground text-xs sm:text-sm px-2 sm:px-4"
+              >
+                <Mic className="mr-1 sm:mr-2 h-3 w-3 sm:h-4 sm:w-4" />
+                <span className="hidden sm:inline">
+                  {t.sidebar.voiceAssistant}
+                </span>
+                <span className="sm:hidden">Voice</span>
+              </Button>
+            </m.div>
 
             <DropdownMenu>
               <DropdownMenuTrigger asChild>
