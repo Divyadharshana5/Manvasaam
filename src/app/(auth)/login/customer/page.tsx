@@ -82,6 +82,7 @@ export default function CustomerAuthPage() {
   const { t } = useLanguage();
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
+  const [showVoiceAssistant, setShowVoiceAssistant] = useState(false);
 
   // Initialize EmailJS on component mount
   useEffect(() => {
