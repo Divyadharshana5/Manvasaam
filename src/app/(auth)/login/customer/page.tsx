@@ -268,6 +268,12 @@ export default function CustomerAuthPage() {
         description: `You said: "${command}". Try asking about Manvaasam or navigation commands.`,
         duration: 3000,
       });
+    } else {
+      toast({
+        title: "Voice Command Received",
+        description: `You said: "${command}". Try saying 'Login', 'Register', or 'Help'.`,
+        duration: 3000,
+      });
     }
   }
 
