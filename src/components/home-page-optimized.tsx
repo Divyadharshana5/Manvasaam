@@ -269,6 +269,31 @@ export default function HomePage() {
     [router]
   );
 
+  const handleVoiceCommand = useCallback((command: string) => {
+    const lowerCommand = command.toLowerCase();
+    
+    // Enhanced voice commands for homepage navigation
+    if (lowerCommand.includes("किसान") || lowerCommand.includes("farmer")) {
+      setIsAssistantOpen(false);
+      router.push("/login/farmer");
+    } else if (lowerCommand.includes("ग्राहक") || lowerCommand.includes("customer")) {
+      setIsAssistantOpen(false);
+      router.push("/login/customer");
+    } else if (lowerCommand.includes("रेस्टोरेंट") || lowerCommand.includes("restaurant")) {
+      setIsAssistantOpen(false);
+      router.push("/login/restaurant");
+    } else if (lowerCommand.includes("हब") || lowerCommand.includes("hub")) {
+      setIsAssistantOpen(false);
+      router.push("/login/hub");
+    } else if (lowerCommand.includes("मदद") || lowerCommand.includes("help")) {
+      toast({
+        title: "Voice Commands Available",
+        description: "Say: 'I am farmer', 'I am customer', 'I am restaurant', or 'I am hub'",
+        duration: 4000,
+      });
+    }
+  }, [router, toast]);
+
   // Optimized animation variants with reduced motion support
   const sentence = useMemo(
     () => ({
