@@ -238,41 +238,29 @@ export default function CustomerAuthPage() {
 
   function handleVoiceCommand(command: string) {
     const lowerCommand = command.toLowerCase();
-
-    if (lowerCommand.includes("what is manvaasam")) {
-      toast({
-        title: "About Manvaasam",
-        description: "Manvaasam is a platform empowering farmers and delivering freshness through direct farm-to-table connections.",
-        duration: 5000,
-      });
-    } else if (lowerCommand.includes("take me to") && lowerCommand.includes("dashboard")) {
-      setShowVoiceAssistant(false);
-      toast({
-        title: "Navigating to Dashboard",
-        description: "Please complete login first to access your customer dashboard.",
-        duration: 3000,
-      });
-    } else if (lowerCommand.includes("login") || lowerCommand.includes("sign in")) {
+    
+    // Enhanced voice commands for better user experience
+    if (lowerCommand.includes("login") || lowerCommand.includes("sign in") || lowerCommand.includes("लॉगिन")) {
       setShowVoiceAssistant(false);
       setActiveTab("login");
       toast({
-        title: "Switched to Login",
-        description: "Please enter your credentials to sign in.",
+        title: "Login Tab Selected",
+        description: "Please enter your credentials to sign in as a customer.",
         duration: 2000,
       });
-    } else if (lowerCommand.includes("register") || lowerCommand.includes("sign up")) {
+    } else if (lowerCommand.includes("register") || lowerCommand.includes("sign up") || lowerCommand.includes("रजिस्टर")) {
       setShowVoiceAssistant(false);
       setActiveTab("register");
       toast({
-        title: "Switched to Register",
+        title: "Register Tab Selected", 
         description: "Please fill out the form to create your customer account.",
         duration: 2000,
       });
-    } else if (lowerCommand.includes("help")) {
+    } else if (lowerCommand.includes("help") || lowerCommand.includes("मदद")) {
       toast({
-        title: "Voice Commands Available",
-        description: "Try: 'What is Manvaasam?', 'Take me to dashboard', 'Login', 'Register', or 'Help'",
-        duration: 5000,
+        title: "Customer Portal Help",
+        description: "You can say 'Login' to sign in or 'Register' to create a new account.",
+        duration: 4000,
       });
     } else {
       toast({
