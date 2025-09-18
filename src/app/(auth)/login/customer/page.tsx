@@ -284,9 +284,47 @@ export default function CustomerAuthPage() {
   }
 
   return (
-    <div className="animate-in fade-in duration-1000 relative min-h-screen flex items-center justify-center p-4 overflow-hidden">
-      {/* Enhanced animated background with farm theme */}
-      <div className="absolute inset-0 bg-gradient-to-br from-emerald-50 via-green-50 to-lime-50 dark:from-emerald-950 dark:via-green-950 dark:to-lime-950 opacity-40 -z-10 gradient-shift"></div>
+    <div className="animate-in fade-in duration-1000 relative min-h-screen flex flex-col overflow-hidden">
+      {/* Top Navigation Bar */}
+      <div className="absolute top-0 left-0 right-0 z-20 p-4">
+        <div className="flex items-center justify-between">
+          {/* Logo and Title */}
+          <div className="flex items-center gap-3">
+            <div className="w-10 h-10 bg-gradient-to-br from-emerald-100 to-green-100 dark:from-emerald-900 dark:to-green-900 rounded-full border-2 border-emerald-200 dark:border-emerald-700 flex items-center justify-center">
+              <ShoppingCart className="h-5 w-5 text-emerald-600 dark:text-emerald-400" />
+            </div>
+            <h1 className="text-xl font-bold text-emerald-700 dark:text-emerald-300">
+              Manvaasam
+            </h1>
+          </div>
+
+          {/* Voice and Language Controls */}
+          <div className="flex items-center gap-3">
+            <Button
+              variant="ghost"
+              size="sm"
+              onClick={() => setShowVoiceAssistant(true)}
+              className="flex items-center gap-2 text-emerald-600 dark:text-emerald-400 hover:text-emerald-700 dark:hover:text-emerald-300 hover:bg-emerald-50 dark:hover:bg-emerald-900"
+            >
+              <Mic className="h-4 w-4" />
+              <span className="hidden sm:inline">Voice</span>
+            </Button>
+            <Button
+              variant="ghost"
+              size="sm"
+              className="flex items-center gap-2 text-emerald-600 dark:text-emerald-400 hover:text-emerald-700 dark:hover:text-emerald-300 hover:bg-emerald-50 dark:hover:bg-emerald-900"
+            >
+              <span className="text-sm">🌐</span>
+              <span className="hidden sm:inline">English</span>
+            </Button>
+          </div>
+        </div>
+      </div>
+
+      {/* Main Content Area */}
+      <div className="flex-1 flex items-center justify-center p-4 pt-20">
+        {/* Enhanced animated background with farm theme */}
+        <div className="absolute inset-0 bg-gradient-to-br from-emerald-50 via-green-50 to-lime-50 dark:from-emerald-950 dark:via-green-950 dark:to-lime-950 opacity-40 -z-10 gradient-shift"></div>
 
       {/* Enhanced floating background elements */}
       <div className="absolute inset-0 -z-5">
