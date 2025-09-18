@@ -25,7 +25,7 @@ import {
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { useToast } from "@/hooks/use-toast";
-import { Loader2, Eye, EyeOff, Tractor, Fingerprint, CheckCircle, AlertCircle } from "lucide-react";
+import { Loader2, Eye, EyeOff, Tractor, Fingerprint, CheckCircle, AlertCircle, Mic } from "lucide-react";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import {
   signInWithEmailAndPassword,
