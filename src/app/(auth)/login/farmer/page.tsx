@@ -99,6 +99,7 @@ export default function FarmerAuthPage() {
     status: "ready"
   });
   const [usePasskey, setUsePasskey] = useState(false);
+  const [showVoiceAssistant, setShowVoiceAssistant] = useState(false);
 
   // Initialize passkey status on client side only
   useEffect(() => {
