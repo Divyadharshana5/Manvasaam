@@ -316,19 +316,7 @@ export default function CustomerAuthPage() {
 
 
 
-        {/* Hero Section */}
-        <div className="absolute inset-0 flex items-center justify-center -z-5">
-          <div className="text-center max-w-2xl mx-auto px-4">
-            <motion.h2
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.3, duration: 0.8 }}
-              className="text-4xl md:text-6xl font-bold text-emerald-700 dark:text-emerald-300 mb-4"
-            >
-              Empowering Farmers, Delivering Freshness
-            </motion.h2>
-          </div>
-        </div>
+
 
         <Card className="w-full max-w-md bg-white/95 dark:bg-gray-900/95 backdrop-blur-sm border border-emerald-200 dark:border-emerald-700 card-entrance relative z-10 hover:shadow-2xl hover:scale-[1.03] transition-all duration-500 hover:border-emerald-300 dark:hover:border-emerald-600 hover:bg-white dark:hover:bg-gray-900 group enhanced-hover smooth-transition gpu-accelerated">
           <CardHeader className="text-center px-4 sm:px-6 py-4 sm:py-6 relative">
