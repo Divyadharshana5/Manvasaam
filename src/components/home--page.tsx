@@ -434,7 +434,16 @@ export default function HomePage() {
                 {t.sidebar.voiceAssistant}
               </Button>
             </DialogTrigger>
-            <DialogContent className="sm:max-w-md w-[90vw] max-h-[80vh] overflow-y-auto">
+            <DialogContent 
+              className="sm:max-w-md w-[90vw] max-h-[80vh] overflow-y-auto"
+              style={{
+                position: "fixed",
+                left: "50%",
+                top: "50%",
+                transform: "translate(-50%, -50%)",
+                zIndex: 2147483647,
+              }}
+            >
               <DialogHeader className="text-center pt-4">
                 <DialogTitle>Voice Assistant</DialogTitle>
                 <DialogDescription>
