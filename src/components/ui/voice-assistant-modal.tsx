@@ -28,49 +28,27 @@ export function VoiceAssistantModal({
   const { toast } = useToast();
   const synthRef = useRef<SpeechSynthesis | null>(null);
 
-  // Common voice commands for uneducated users
+  // Simple voice commands
   const voiceCommands = [
     { 
-      hindi: "मैं किसान हूं", 
-      english: "I am farmer", 
+      keywords: ["farmer", "किसान"], 
       action: () => router.push("/login/farmer"),
-      response: "किसान पोर्टल पर जा रहे हैं / Going to farmer portal"
+      response: "Going to farmer portal"
     },
     { 
-      hindi: "मैं ग्राहक हूं", 
-      english: "I am customer", 
+      keywords: ["customer", "ग्राहक"], 
       action: () => router.push("/login/customer"),
-      response: "ग्राहक पोर्टल पर जा रहे हैं / Going to customer portal"
+      response: "Going to customer portal"
     },
     { 
-      hindi: "मैं रेस्टोरेंट हूं", 
-      english: "I am restaurant", 
+      keywords: ["restaurant", "रेस्टोरेंट"], 
       action: () => router.push("/login/restaurant"),
-      response: "रेस्टोरेंट पोर्टल पर जा रहे हैं / Going to restaurant portal"
+      response: "Going to restaurant portal"
     },
     { 
-      hindi: "मैं हब हूं", 
-      english: "I am hub", 
+      keywords: ["hub", "हब"], 
       action: () => router.push("/login/hub"),
-      response: "हब पोर्टल पर जा रहे हैं / Going to hub portal"
-    },
-    { 
-      hindi: "सब्जी खरीदना है", 
-      english: "buy vegetables", 
-      action: () => router.push("/login/customer"),
-      response: "सब्जी खरीदने के लिए ग्राहक पोर्टल पर जा रहे हैं / Going to customer portal to buy vegetables"
-    },
-    { 
-      hindi: "सब्जी बेचना है", 
-      english: "sell vegetables", 
-      action: () => router.push("/login/farmer"),
-      response: "सब्जी बेचने के लिए किसान पोर्टल पर जा रहे हैं / Going to farmer portal to sell vegetables"
-    },
-    { 
-      hindi: "मदद चाहिए", 
-      english: "help", 
-      action: () => setShowHelp(true),
-      response: "मदद दिखा रहे हैं / Showing help"
+      response: "Going to hub portal"
     }
   ];
 
