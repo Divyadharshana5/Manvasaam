@@ -320,7 +320,7 @@ export default function HomePage() {
     setLastResponse(text);
     setAudioUrl("");
     try {
-      const result = await textToSpeech(text);
+      const result = await textToSpeech({ text, language: selectedLanguage });
       setAudioUrl(result.audioDataUri);
     } catch {
       toast({
