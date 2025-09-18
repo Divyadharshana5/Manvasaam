@@ -950,6 +950,16 @@ export default function FarmerAuthPage() {
           </Tabs>
         </CardContent>
       </Card>
+      
+      {/* Voice Assistant Modal */}
+      <VoiceAssistantModal
+        isOpen={showVoiceAssistant}
+        onClose={() => setShowVoiceAssistant(false)}
+        title="Enhanced Voice Assistant"
+        description="Ask me anything! I can help you navigate, answer questions about Manvaasam, or provide information about our platform. Try saying 'What is Manvaasam?' or 'Take me to the dashboard'."
+        onVoiceCommand={handleVoiceCommand}
+      />
+      </div>
     </div>
   );
 }
