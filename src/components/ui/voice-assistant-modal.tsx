@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useEffect, useRef } from "react";
-import { X, Mic, Volume2, MicOff, HelpCircle } from "lucide-react";
+import { X, Mic } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { useToast } from "@/hooks/use-toast";
 
@@ -16,15 +16,14 @@ interface VoiceAssistantModalProps {
 export function VoiceAssistantModal({
   isOpen,
   onClose,
-  title = "Voice Helper - आवाज़ सहायक",
-  description = "बोलकर बताएं कि आप क्या करना चाहते हैं। मैं आपकी मदद करूंगा। / Tell me what you want to do by speaking. I will help you.",
+  title = "Enhanced Voice Assistant",
+  description = "Ask me anything! I can help you navigate, answer questions about Manvaasam, or provide information about our platform. Try saying \"What is Manvaasam?\" or \"Take me to the dashboard\".",
   onVoiceCommand
 }: VoiceAssistantModalProps) {
   const [isListening, setIsListening] = useState(false);
   const [recognition, setRecognition] = useState<SpeechRecognition | null>(null);
   const [transcript, setTranscript] = useState("");
   const [response, setResponse] = useState("");
-  const [showHelp, setShowHelp] = useState(false);
   const router = useRouter();
   const { toast } = useToast();
   const synthRef = useRef<SpeechSynthesis | null>(null);
