@@ -238,7 +238,7 @@ export default function CustomerAuthPage() {
 
   function handleVoiceCommand(command: string) {
     const lowerCommand = command.toLowerCase();
-    
+
     // Enhanced voice commands for better user experience
     if (lowerCommand.includes("login") || lowerCommand.includes("sign in") || lowerCommand.includes("लॉगिन")) {
       setShowVoiceAssistant(false);
@@ -252,7 +252,7 @@ export default function CustomerAuthPage() {
       setShowVoiceAssistant(false);
       setActiveTab("register");
       toast({
-        title: "Register Tab Selected", 
+        title: "Register Tab Selected",
         description: "Please fill out the form to create your customer account.",
         duration: 2000,
       });
