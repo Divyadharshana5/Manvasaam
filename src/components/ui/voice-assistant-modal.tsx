@@ -1,7 +1,6 @@
 "use client";
 
 import { useState, useEffect } from "react";
-
 import { X, Mic } from "lucide-react";
 
 interface VoiceAssistantModalProps {
@@ -64,46 +63,55 @@ export function VoiceAssistantModal({
   if (!isOpen) return null;
 
   return (
-    <>
+    <div className="fixed inset-0 z-[9999] flex items-center justify-center">
       {/* Backdrop */}
       <div 
-        className="fixed inset-0 bg-black/50 z-50"
+        className="absolute inset-0 bg-black/50 backdrop-blur-sm"
         onClick={onClose}
       />
       
       {/* Modal */}
-      <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
-        <div className="bg-white rounded-2xl shadow-2xl w-full max-w-sm mx-4 relative">
-          {/* Close button */}
+      <div className="relative bg-white rounded-2xl shadow-2xl w-full max-w-sm mx-4 p-8">
+        {/* Close button */}
+        <button
+          onClick={onClose}
+          className="absolute top-4 right-4 text-gray-400 hover:text-gray-600 transition-colors z-10"
+        >
+          <X className="h-5 w-5" />
+        </button>
+
+        {/* Content */}
+        <div className="text-center pt-4">
+          <h2 className="text-xl font-semibold text-gray-900 mb-6">
+            {title}
+          </h2>
+          
+          <p className="text-gray-600 text-sm leading-relaxed mb-8">
+            {description}
+          </p>
+
+          {/* Ask Button - Made more prominent */}
           <button
-            onClick={onClose}
-            className="absolute top-4 right-4 text-gray-400 hover:text-gray-600 transition-colors"
+            onClick={handleAskClick}
+            disabled={isListening}
+            className="w-full bg-green-600 hover:bg-green-700 disabled:bg-green-400 text-white font-semibold py-4 px-6 rounded-xl transition-all duration-200 flex items-center justify-center gap-3 shadow-lg hover:shadow-xl transform hover:scale-105 active:scale-95"
+            style={{ minHeight: '56px' }}
           >
-            <X className="h-5 w-5" />
+            <Mic className="h-5 w-5 flex-shrink-0" />
+            <span className="text-lg">
+              {isListening ? "Listening..." : "Ask"}
+            </span>
           </button>
 
-          {/* Content */}
-          <div className="px-8 py-12 text-center">
-            <h2 className="text-xl font-semibold text-gray-900 mb-6">
-              {title}
-            </h2>
-            
-            <p className="text-gray-600 text-sm leading-relaxed mb-8 px-2">
-              {description}
-            </p>
-
-            {/* Ask Button */}
-            <button
-              onClick={handleAskClick}
-              disabled={isListening}
-              className="w-full bg-green-600 hover:bg-green-700 disabled:bg-green-400 text-white font-medium py-4 px-6 rounded-xl transition-colors duration-200 flex items-center justify-center gap-3"
-            >
-              <Mic className="h-5 w-5" />
-              {isListening ? "Listening..." : "Ask"}
-            </button>
-          </div>
+          {/* Debug info */}
+          {process.env.NODE_ENV === 'development' && (
+            <div className="mt-4 text-xs text-gray-400">
+              Modal is open: {isOpen ? 'Yes' : 'No'} | 
+              Listening: {isListening ? 'Yes' : 'No'}
+            </div>
+          )}
         </div>
       </div>
-    </>
+    </div>
   );
 }
