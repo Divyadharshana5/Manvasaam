@@ -53,7 +53,6 @@ import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 // Lazy load AI components for better initial load performance
 const VoiceAssistant = lazy(() => import("@/components/voice-assistant"));
 const ProductShowcase = lazy(() => import("@/components/product-showcase"));
-import { VoiceAssistantModal } from "@/components/ui/voice-assistant-modal";
 
 type AssistantState = "idle" | "listening" | "thinking" | "speaking";
 

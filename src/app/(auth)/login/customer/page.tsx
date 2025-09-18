@@ -264,6 +264,12 @@ export default function CustomerAuthPage() {
       });
     } else {
       toast({
+        title: "Command Received",
+        description: `You said: "${command}". Try asking about Manvaasam or navigation commands.`,
+        duration: 3000,
+      });
+    } else {
+      toast({
         title: "Voice Command Received",
         description: `You said: "${command}". Try saying 'Login', 'Register', or 'Help'.`,
         duration: 3000,
@@ -670,8 +676,8 @@ export default function CustomerAuthPage() {
         <VoiceAssistantModal
           isOpen={showVoiceAssistant}
           onClose={() => setShowVoiceAssistant(false)}
-          title="Voice Helper - आवाज़ सहायक"
-          description="बोलकर बताएं कि आप क्या करना चाहते हैं। मैं आपकी मदद करूंगा। / Tell me what you want to do by speaking. I will help you."
+          title="Enhanced Voice Assistant"
+          description="Ask me anything! I can help you navigate, answer questions about Manvaasam, or provide information about our platform. Try saying 'What is Manvaasam?' or 'Take me to the dashboard'."
           onVoiceCommand={handleVoiceCommand}
         />
       </div>
