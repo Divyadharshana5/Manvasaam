@@ -53,49 +53,35 @@ export function VoiceAssistantModal({
   ];
 
   useEffect(() => {
-    if (typeof window !== "undefined") {
-      synthRef.current = window.speechSynthesis;
-      
-      if ("webkitSpeechRecognition" in window) {
-        const speechRecognition = new (window as any).webkitSpeechRecognition();
-        speechRecognition.continuous = false;
-        speechRecognition.interimResults = true;
-        speechRecognition.lang = "hi-IN"; // Hindi first, then English
+    if (typeof window !== "undefined" && "webkitSpeechRecognition" in window) {
+      const speechRecognition = new (window as any).webkitSpeechRecognition();
+      speechRecognition.continuous = false;
+      speechRecognition.interimResults = true;
+      speechRecognition.lang = "en-US";
 
-        speechRecognition.onresult = (event: any) => {
-          let interimTranscript = "";
-          let finalTranscript = "";
-          
-          for (let i = event.resultIndex; i < event.results.length; i++) {
-            const transcript = event.results[i][0].transcript;
-            if (event.results[i].isFinal) {
-              finalTranscript += transcript;
-            } else {
-              interimTranscript += transcript;
-            }
+      speechRecognition.onresult = (event: any) => {
+        let finalTranscript = "";
+        for (let i = event.resultIndex; i < event.results.length; i++) {
+          if (event.results[i].isFinal) {
+            finalTranscript += event.results[i][0].transcript;
           }
-          
-          setTranscript(finalTranscript || interimTranscript);
-          
-          if (finalTranscript) {
-            processVoiceCommand(finalTranscript);
-          }
-        };
+        }
+        
+        if (finalTranscript) {
+          setTranscript(finalTranscript);
+          processVoiceCommand(finalTranscript);
+        }
+      };
 
-        speechRecognition.onerror = (event: any) => {
-          console.error("Speech recognition error:", event.error);
-          setIsListening(false);
-          if (event.error === 'no-speech') {
-            speak("कुछ नहीं सुनाई दिया। फिर से कोशिश करें। / Nothing heard. Please try again.");
-          }
-        };
+      speechRecognition.onerror = () => {
+        setIsListening(false);
+      };
 
-        speechRecognition.onend = () => {
-          setIsListening(false);
-        };
+      speechRecognition.onend = () => {
+        setIsListening(false);
+      };
 
-        setRecognition(speechRecognition);
-      }
+      setRecognition(speechRecognition);
     }
   }, []);
 
