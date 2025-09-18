@@ -2,8 +2,7 @@
 
 import { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
-import { X, Mic, MicOff } from "lucide-react";
-import { motion, AnimatePresence } from "framer-motion";
+import { X, Mic } from "lucide-react";
 
 interface VoiceAssistantModalProps {
   isOpen: boolean;
@@ -22,7 +21,6 @@ export function VoiceAssistantModal({
 }: VoiceAssistantModalProps) {
   const [isListening, setIsListening] = useState(false);
   const [recognition, setRecognition] = useState<SpeechRecognition | null>(null);
-  const [transcript, setTranscript] = useState("");
 
   useEffect(() => {
     if (typeof window !== "undefined" && "webkitSpeechRecognition" in window) {
@@ -39,13 +37,12 @@ export function VoiceAssistantModal({
           }
         }
         if (finalTranscript) {
-          setTranscript(finalTranscript);
           onVoiceCommand?.(finalTranscript);
+          onClose();
         }
       };
 
-      speechRecognition.onerror = (event: any) => {
-        console.error("Speech recognition error:", event.error);
+      speechRecognition.onerror = () => {
         setIsListening(false);
       };
 
@@ -55,141 +52,58 @@ export function VoiceAssistantModal({
 
       setRecognition(speechRecognition);
     }
-  }, [onVoiceCommand]);
+  }, [onVoiceCommand, onClose]);
 
-  const startListening = () => {
-    if (recognition) {
+  const handleAskClick = () => {
+    if (recognition && !isListening) {
       setIsListening(true);
-      setTranscript("");
       recognition.start();
     }
   };
 
-  const stopListening = () => {
-    if (recognition) {
-      recognition.stop();
-      setIsListening(false);
-    }
-  };
-
-  const handleAskClick = () => {
-    if (isListening) {
-      stopListening();
-    } else {
-      startListening();
-    }
-  };
+  if (!isOpen) return null;
 
   return (
-    <AnimatePresence>
-      {isOpen && (
-        <>
-          {/* Backdrop */}
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            className="fixed inset-0 bg-black/50 backdrop-blur-sm z-50"
+    <>
+      {/* Backdrop */}
+      <div 
+        className="fixed inset-0 bg-black/50 z-50"
+        onClick={onClose}
+      />
+      
+      {/* Modal */}
+      <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
+        <div className="bg-white rounded-2xl shadow-2xl w-full max-w-sm mx-4 relative">
+          {/* Close button */}
+          <button
             onClick={onClose}
-          />
-          
-          {/* Modal */}
-          <motion.div
-            initial={{ opacity: 0, scale: 0.9, y: 20 }}
-            animate={{ opacity: 1, scale: 1, y: 0 }}
-            exit={{ opacity: 0, scale: 0.9, y: 20 }}
-            transition={{ type: "spring", duration: 0.5 }}
-            className="fixed inset-0 z-50 flex items-center justify-center p-4"
+            className="absolute top-4 right-4 text-gray-400 hover:text-gray-600 transition-colors"
           >
-            <div className="bg-white dark:bg-gray-900 rounded-2xl shadow-2xl max-w-md w-full mx-4 relative">
-              {/* Close button */}
-              <Button
-                variant="ghost"
-                size="icon"
-                className="absolute top-4 right-4 text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-200"
-                onClick={onClose}
-              >
-                <X className="h-5 w-5" />
-              </Button>
+            <X className="h-5 w-5" />
+          </button>
 
-              {/* Content */}
-              <div className="p-8 pt-12">
-                <div className="text-center">
-                  <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-4">
-                    {title}
-                  </h2>
-                  
-                  <p className="text-gray-600 dark:text-gray-300 text-sm leading-relaxed mb-8">
-                    {description}
-                  </p>
+          {/* Content */}
+          <div className="px-8 py-12 text-center">
+            <h2 className="text-xl font-semibold text-gray-900 mb-6">
+              {title}
+            </h2>
+            
+            <p className="text-gray-600 text-sm leading-relaxed mb-8 px-2">
+              {description}
+            </p>
 
-                  {/* Voice button */}
-                  <motion.div
-                    whileHover={{ scale: 1.05 }}
-                    whileTap={{ scale: 0.95 }}
-                  >
-                    <Button
-                      onClick={handleAskClick}
-                      className={`w-full h-16 text-lg font-semibold rounded-xl transition-all duration-300 ${
-                        isListening
-                          ? "bg-red-500 hover:bg-red-600 text-white"
-                          : "bg-green-500 hover:bg-green-600 text-white"
-                      }`}
-                    >
-                      <motion.div
-                        animate={isListening ? { scale: [1, 1.2, 1] } : {}}
-                        transition={{ repeat: Infinity, duration: 1 }}
-                        className="flex items-center justify-center gap-3"
-                      >
-                        {isListening ? (
-                          <>
-                            <MicOff className="h-6 w-6" />
-                            Stop Listening
-                          </>
-                        ) : (
-                          <>
-                            <Mic className="h-6 w-6" />
-                            Ask
-                          </>
-                        )}
-                      </motion.div>
-                    </Button>
-                  </motion.div>
-
-                  {/* Transcript display */}
-                  {transcript && (
-                    <motion.div
-                      initial={{ opacity: 0, y: 10 }}
-                      animate={{ opacity: 1, y: 0 }}
-                      className="mt-4 p-3 bg-gray-100 dark:bg-gray-800 rounded-lg"
-                    >
-                      <p className="text-sm text-gray-700 dark:text-gray-300">
-                        "{transcript}"
-                      </p>
-                    </motion.div>
-                  )}
-
-                  {/* Listening indicator */}
-                  {isListening && (
-                    <motion.div
-                      initial={{ opacity: 0 }}
-                      animate={{ opacity: 1 }}
-                      className="mt-4 flex items-center justify-center gap-2 text-green-600 dark:text-green-400"
-                    >
-                      <motion.div
-                        animate={{ scale: [1, 1.2, 1] }}
-                        transition={{ repeat: Infinity, duration: 0.8 }}
-                        className="w-2 h-2 bg-green-500 rounded-full"
-                      />
-                      <span className="text-sm">Listening...</span>
-                    </motion.div>
-                  )}
-                </div>
-              </div>
-            </div>
-          </motion.div>
-        </>
-      )}
-    </AnimatePresence>
+            {/* Ask Button */}
+            <button
+              onClick={handleAskClick}
+              disabled={isListening}
+              className="w-full bg-green-600 hover:bg-green-700 disabled:bg-green-400 text-white font-medium py-4 px-6 rounded-xl transition-colors duration-200 flex items-center justify-center gap-3"
+            >
+              <Mic className="h-5 w-5" />
+              {isListening ? "Listening..." : "Ask"}
+            </button>
+          </div>
+        </div>
+      </div>
+    </>
   );
 }
