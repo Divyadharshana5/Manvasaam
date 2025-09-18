@@ -314,21 +314,81 @@ export default function CustomerAuthPage() {
         {/* Enhanced animated background with farm theme */}
         <div className="absolute inset-0 bg-gradient-to-br from-emerald-50 via-green-50 to-lime-50 dark:from-emerald-950 dark:via-green-950 dark:to-lime-950 opacity-40 -z-10 gradient-shift"></div>
 
+        {/* Enhanced floating background elements */}
+        <div className="absolute inset-0 -z-5">
+          <div
+            className="absolute top-28 left-14 w-32 h-32 bg-emerald-200/25 dark:bg-emerald-800/25 rounded-full blur-xl floating-bubble stagger-1"
+          ></div>
+          <div
+            className="absolute top-20 right-18 w-28 h-28 bg-green-200/30 dark:bg-green-800/30 rounded-full blur-xl floating-bubble stagger-3"
+          ></div>
+          <div
+            className="absolute bottom-32 left-18 w-36 h-36 bg-lime-200/25 dark:bg-lime-800/25 rounded-full floating-bubble stagger-5"
+          ></div>
+          <div
+            className="absolute bottom-24 right-14 w-30 h-30 bg-emerald-300/30 dark:bg-emerald-700/30 rounded-full floating-bubble stagger-2"
+          ></div>
 
+          {/* Enhanced customer-specific animated elements */}
+          <div
+            className="absolute top-40 left-1/4 w-6 h-6 bg-blue-400/60 rounded-full customer-star-twinkle stagger-1"
+          ></div>
+          <div
+            className="absolute top-60 right-1/3 w-4 h-4 bg-pink-500/50 rounded-full customer-heart-beat stagger-3"
+          ></div>
+          <div
+            className="absolute bottom-40 left-1/3 w-5 h-5 bg-purple-500/40 rounded-full customer-cart-bounce stagger-4"
+          ></div>
+          <div
+            className="absolute top-1/2 left-10 w-3 h-3 bg-yellow-400/70 rounded-full particle-drift stagger-6"
+          ></div>
+          <div
+            className="absolute top-1/3 right-20 w-4 h-4 bg-orange-400/60 rounded-full particle-drift stagger-7"
+          ></div>
+          <div
+            className="absolute bottom-1/3 right-10 w-2 h-2 bg-cyan-400/80 rounded-full particle-drift stagger-8"
+          ></div>
+        </div>
 
+        {/* Hero Section */}
+        <div className="absolute inset-0 flex items-center justify-center -z-5">
+          <div className="text-center max-w-2xl mx-auto px-4">
+            <motion.h2
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.3, duration: 0.8 }}
+              className="text-4xl md:text-6xl font-bold text-emerald-700 dark:text-emerald-300 mb-4"
+            >
+              Empowering Farmers, Delivering Freshness
+            </motion.h2>
+          </div>
+        </div>
 
-
-        <Card className="w-full max-w-md bg-white/95 dark:bg-gray-900/95 backdrop-blur-sm border border-gray-200 dark:border-gray-700 relative z-10 shadow-lg">
+        <Card className="w-full max-w-md bg-white/95 dark:bg-gray-900/95 backdrop-blur-sm border border-emerald-200 dark:border-emerald-700 card-entrance relative z-10 hover:shadow-2xl hover:scale-[1.03] transition-all duration-500 hover:border-emerald-300 dark:hover:border-emerald-600 hover:bg-white dark:hover:bg-gray-900 group enhanced-hover smooth-transition gpu-accelerated">
           <CardHeader className="text-center px-4 sm:px-6 py-4 sm:py-6 relative">
-            {/* Icon */}
-            <div className="flex items-center justify-center w-16 h-16 mx-auto mb-4 bg-gray-100 dark:bg-gray-800 rounded-full">
-              <ShoppingCart className="h-8 w-8 text-gray-600 dark:text-gray-400" />
+            {/* Animated icon */}
+            <div className="flex items-center justify-center w-20 h-20 mx-auto mb-4 bg-gradient-to-br from-emerald-100 to-green-100 dark:from-emerald-900 dark:to-green-900 rounded-full border-2 border-emerald-200 dark:border-emerald-700 animate-in zoom-in duration-800 delay-500 hover:scale-110 transition-all duration-300 group-hover:shadow-lg hover:rotate-6 auth-animation-container icon-bounce-in stagger-1">
+              <motion.div
+                className="customer-cart-bounce"
+                whileHover={{
+                  scale: 1.15,
+                  rotate: 5,
+                  transition: { type: "spring", stiffness: 300, damping: 10 },
+                }}
+                whileTap={{
+                  scale: 0.95,
+                  rotate: -5,
+                  transition: { type: "spring", stiffness: 400, damping: 15 },
+                }}
+              >
+                <ShoppingCart className="h-10 w-10 text-emerald-600 dark:text-emerald-400" />
+              </motion.div>
             </div>
 
-            <CardTitle className="text-xl sm:text-2xl font-bold text-gray-900 dark:text-gray-100">
+            <CardTitle className="text-xl sm:text-2xl font-bold text-emerald-700 dark:text-emerald-300 animate-in slide-in-from-top-2 duration-800 delay-600 hover:text-emerald-600 dark:hover:text-emerald-200 transition-colors duration-300 text-reveal stagger-2">
               Customer Portal
             </CardTitle>
-            <CardDescription className="text-base sm:text-lg text-gray-600 dark:text-gray-400">
+            <CardDescription className="text-base sm:text-lg text-emerald-600 dark:text-emerald-400 animate-in fade-in duration-800 delay-800 hover:text-emerald-500 dark:hover:text-emerald-300 transition-colors duration-300 text-reveal stagger-3">
               Access your account
             </CardDescription>
           </CardHeader>
