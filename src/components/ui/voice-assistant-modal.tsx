@@ -112,19 +112,11 @@ export function VoiceAssistantModal({
       setTranscript("");
       setResponse("");
       recognition.start();
-      speak("बोलिए / Speak now");
     } else if (isListening && recognition) {
       recognition.stop();
       setIsListening(false);
     }
   };
-
-  const quickActions = [
-    { text: "किसान / Farmer", action: () => router.push("/login/farmer") },
-    { text: "ग्राहक / Customer", action: () => router.push("/login/customer") },
-    { text: "रेस्टोरेंट / Restaurant", action: () => router.push("/login/restaurant") },
-    { text: "हब / Hub", action: () => router.push("/login/hub") }
-  ];
 
   if (!isOpen) return null;
 
