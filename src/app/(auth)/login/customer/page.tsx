@@ -670,8 +670,8 @@ export default function CustomerAuthPage() {
         <VoiceAssistantModal
           isOpen={showVoiceAssistant}
           onClose={() => setShowVoiceAssistant(false)}
-          title="Enhanced Voice Assistant"
-          description="Ask me anything! I can help you navigate, answer questions about Manvaasam, or provide information about our platform. Try saying 'What is Manvaasam?' or 'Take me to the dashboard'."
+          title="Voice Helper - आवाज़ सहायक"
+          description="बोलकर बताएं कि आप क्या करना चाहते हैं। मैं आपकी मदद करूंगा। / Tell me what you want to do by speaking. I will help you."
           onVoiceCommand={handleVoiceCommand}
         />
       </div>
