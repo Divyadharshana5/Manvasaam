@@ -124,125 +124,67 @@ export function VoiceAssistantModal({
     <div className="fixed inset-0 z-[9999] flex items-center justify-center p-4">
       {/* Backdrop */}
       <div 
-        className="absolute inset-0 bg-black/60 backdrop-blur-sm"
+        className="absolute inset-0 bg-black/50"
         onClick={onClose}
       />
       
       {/* Modal */}
-      <div className="relative bg-white rounded-3xl shadow-2xl w-full max-w-md mx-4 overflow-hidden">
-        {/* Header */}
-        <div className="bg-gradient-to-r from-green-500 to-blue-500 p-6 text-white">
-          <button
-            onClick={onClose}
-            className="absolute top-4 right-4 text-white/80 hover:text-white transition-colors z-10"
-          >
-            <X className="h-6 w-6" />
-          </button>
-          
-          <div className="text-center">
-            <div className="w-16 h-16 bg-white/20 rounded-full flex items-center justify-center mx-auto mb-3">
-              <Mic className="h-8 w-8" />
-            </div>
-            <h2 className="text-xl font-bold mb-2">{title}</h2>
-            <p className="text-white/90 text-sm">{description}</p>
-          </div>
-        </div>
+      <div className="relative bg-white rounded-2xl shadow-xl w-full max-w-sm mx-4">
+        {/* Close button */}
+        <button
+          onClick={onClose}
+          className="absolute top-4 right-4 text-gray-400 hover:text-gray-600"
+        >
+          <X className="h-5 w-5" />
+        </button>
 
         {/* Content */}
-        <div className="p-6">
-          {/* Voice Input Section */}
-          <div className="text-center mb-6">
-            <button
-              onClick={handleAskClick}
-              disabled={false}
-              className={`w-full py-4 px-6 rounded-2xl font-semibold text-lg transition-all duration-200 flex items-center justify-center gap-3 shadow-lg ${
-                isListening 
-                  ? "bg-red-500 hover:bg-red-600 text-white animate-pulse" 
-                  : "bg-green-600 hover:bg-green-700 text-white hover:shadow-xl transform hover:scale-105"
-              }`}
-              style={{ minHeight: '64px' }}
-            >
-              {isListening ? (
-                <>
-                  <MicOff className="h-6 w-6 flex-shrink-0" />
-                  <span>सुन रहे हैं... / Listening...</span>
-                </>
-              ) : (
-                <>
-                  <Mic className="h-6 w-6 flex-shrink-0" />
-                  <span>बोलें / Speak</span>
-                </>
-              )}
-            </button>
-          </div>
+        <div className="p-8 text-center">
+          <h2 className="text-xl font-semibold text-gray-900 mb-6">
+            {title}
+          </h2>
+          
+          <p className="text-gray-600 text-sm mb-8">
+            {description}
+          </p>
+
+          {/* Ask Button */}
+          <button
+            onClick={handleAskClick}
+            disabled={isListening}
+            className={`w-full py-4 px-6 rounded-xl font-semibold text-lg transition-colors duration-200 flex items-center justify-center gap-3 ${
+              isListening 
+                ? "bg-red-500 hover:bg-red-600 text-white" 
+                : "bg-green-600 hover:bg-green-700 text-white"
+            }`}
+          >
+            <Mic className="h-5 w-5" />
+            {isListening ? "Listening..." : "Ask"}
+          </button>
 
           {/* Transcript Display */}
           {transcript && (
-            <div className="bg-blue-50 border border-blue-200 rounded-xl p-4 mb-4">
-              <div className="flex items-start gap-2">
-                <Mic className="h-4 w-4 text-blue-600 mt-1 flex-shrink-0" />
-                <div>
-                  <p className="text-sm font-medium text-blue-800">आपने कहा / You said:</p>
-                  <p className="text-blue-700">{transcript}</p>
-                </div>
-              </div>
+            <div className="mt-4 p-3 bg-gray-100 rounded-lg">
+              <p className="text-sm text-gray-700">
+                You said: "{transcript}"
+              </p>
             </div>
           )}
 
           {/* Response Display */}
           {response && (
-            <div className="bg-green-50 border border-green-200 rounded-xl p-4 mb-4">
-              <div className="flex items-start gap-2">
-                <Volume2 className="h-4 w-4 text-green-600 mt-1 flex-shrink-0" />
-                <div>
-                  <p className="text-sm font-medium text-green-800">जवाब / Response:</p>
-                  <p className="text-green-700">{response}</p>
-                </div>
-              </div>
-            </div>
-          )}
-
-          {/* Quick Actions */}
-          <div className="space-y-3">
-            <div className="flex items-center gap-2 text-sm text-gray-600 mb-3">
-              <HelpCircle className="h-4 w-4" />
-              <span>या यहाँ दबाएं / Or click here:</span>
-            </div>
-            
-            <div className="grid grid-cols-2 gap-2">
-              {quickActions.map((action, index) => (
-                <button
-                  key={index}
-                  onClick={() => {
-                    action.action();
-                    onClose();
-                  }}
-                  className="p-3 bg-gray-100 hover:bg-gray-200 rounded-xl text-sm font-medium text-gray-700 transition-colors duration-200 text-center"
-                >
-                  {action.text}
-                </button>
-              ))}
-            </div>
-          </div>
-
-          {/* Help Section */}
-          {showHelp && (
-            <div className="mt-4 p-4 bg-yellow-50 border border-yellow-200 rounded-xl">
-              <h3 className="font-semibold text-yellow-800 mb-2">कैसे इस्तेमाल करें / How to use:</h3>
-              <ul className="text-sm text-yellow-700 space-y-1">
-                <li>• "मैं किसान हूं" - किसान पोर्टल के लिए</li>
-                <li>• "मैं ग्राहक हूं" - खरीदारी के लिए</li>
-                <li>• "सब्जी बेचना है" - बेचने के लिए</li>
-                <li>• "सब्जी खरीदना है" - खरीदने के लिए</li>
-              </ul>
+            <div className="mt-4 p-3 bg-gray-100 rounded-lg">
+              <p className="text-sm text-gray-700">
+                {response}
+              </p>
             </div>
           )}
 
           {/* Browser Support Check */}
           {typeof window !== "undefined" && !("webkitSpeechRecognition" in window) && (
-            <div className="mt-4 p-3 bg-red-50 border border-red-200 rounded-xl">
-              <p className="text-sm text-red-700 text-center">
-                आवाज़ की सुविधा उपलब्ध नहीं है / Voice feature not available in this browser
+            <div className="mt-4 p-3 bg-red-100 rounded-lg">
+              <p className="text-sm text-red-700">
+                Voice feature not available in this browser
               </p>
             </div>
           )}
