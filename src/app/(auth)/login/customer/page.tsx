@@ -325,10 +325,10 @@ export default function CustomerAuthPage() {
               <ShoppingCart className="h-8 w-8 text-gray-600 dark:text-gray-400" />
             </div>
 
-            <CardTitle className="text-xl sm:text-2xl font-bold text-emerald-700 dark:text-emerald-300 animate-in slide-in-from-top-2 duration-800 delay-600 hover:text-emerald-600 dark:hover:text-emerald-200 transition-colors duration-300 text-reveal stagger-2">
+            <CardTitle className="text-xl sm:text-2xl font-bold text-gray-900 dark:text-gray-100">
               Customer Portal
             </CardTitle>
-            <CardDescription className="text-base sm:text-lg text-emerald-600 dark:text-emerald-400 animate-in fade-in duration-800 delay-800 hover:text-emerald-500 dark:hover:text-emerald-300 transition-colors duration-300 text-reveal stagger-3">
+            <CardDescription className="text-base sm:text-lg text-gray-600 dark:text-gray-400">
               Access your account
             </CardDescription>
           </CardHeader>
