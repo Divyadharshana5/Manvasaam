@@ -314,41 +314,7 @@ export default function CustomerAuthPage() {
         {/* Enhanced animated background with farm theme */}
         <div className="absolute inset-0 bg-gradient-to-br from-emerald-50 via-green-50 to-lime-50 dark:from-emerald-950 dark:via-green-950 dark:to-lime-950 opacity-40 -z-10 gradient-shift"></div>
 
-        {/* Enhanced floating background elements */}
-        <div className="absolute inset-0 -z-5">
-          <div
-            className="absolute top-28 left-14 w-32 h-32 bg-emerald-200/25 dark:bg-emerald-800/25 rounded-full blur-xl floating-bubble stagger-1"
-          ></div>
-          <div
-            className="absolute top-20 right-18 w-28 h-28 bg-green-200/30 dark:bg-green-800/30 rounded-full blur-xl floating-bubble stagger-3"
-          ></div>
-          <div
-            className="absolute bottom-32 left-18 w-36 h-36 bg-lime-200/25 dark:bg-lime-800/25 rounded-full floating-bubble stagger-5"
-          ></div>
-          <div
-            className="absolute bottom-24 right-14 w-30 h-30 bg-emerald-300/30 dark:bg-emerald-700/30 rounded-full floating-bubble stagger-2"
-          ></div>
 
-          {/* Enhanced customer-specific animated elements */}
-          <div
-            className="absolute top-40 left-1/4 w-6 h-6 bg-blue-400/60 rounded-full customer-star-twinkle stagger-1"
-          ></div>
-          <div
-            className="absolute top-60 right-1/3 w-4 h-4 bg-pink-500/50 rounded-full customer-heart-beat stagger-3"
-          ></div>
-          <div
-            className="absolute bottom-40 left-1/3 w-5 h-5 bg-purple-500/40 rounded-full customer-cart-bounce stagger-4"
-          ></div>
-          <div
-            className="absolute top-1/2 left-10 w-3 h-3 bg-yellow-400/70 rounded-full particle-drift stagger-6"
-          ></div>
-          <div
-            className="absolute top-1/3 right-20 w-4 h-4 bg-orange-400/60 rounded-full particle-drift stagger-7"
-          ></div>
-          <div
-            className="absolute bottom-1/3 right-10 w-2 h-2 bg-cyan-400/80 rounded-full particle-drift stagger-8"
-          ></div>
-        </div>
 
         {/* Hero Section */}
         <div className="absolute inset-0 flex items-center justify-center -z-5">
