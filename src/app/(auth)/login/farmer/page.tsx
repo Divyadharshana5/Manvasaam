@@ -7,6 +7,7 @@ import * as z from "zod";
 import { Button } from "@/components/ui/button";
 import { FastButton } from "@/components/ui/fast-button";
 import { useOptimizedNavigation } from "@/lib/navigation-optimizer";
+import { VoiceAssistantModal } from "@/components/ui/voice-assistant-modal";
 import {
   Card,
   CardContent,
