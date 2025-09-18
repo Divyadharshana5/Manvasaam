@@ -30,23 +30,23 @@ export function VoiceAssistantModal({
 
   // Simple voice commands
   const voiceCommands = [
-    { 
-      keywords: ["farmer", "किसान"], 
+    {
+      keywords: ["farmer", "किसान"],
       action: () => router.push("/login/farmer"),
       response: "Going to farmer portal"
     },
-    { 
-      keywords: ["customer", "ग्राहक"], 
+    {
+      keywords: ["customer", "ग्राहक"],
       action: () => router.push("/login/customer"),
       response: "Going to customer portal"
     },
-    { 
-      keywords: ["restaurant", "रेस्टोरेंट"], 
+    {
+      keywords: ["restaurant", "रेस्टोरेंट"],
       action: () => router.push("/login/restaurant"),
       response: "Going to restaurant portal"
     },
-    { 
-      keywords: ["hub", "हब"], 
+    {
+      keywords: ["hub", "हब"],
       action: () => router.push("/login/hub"),
       response: "Going to hub portal"
     }
@@ -66,7 +66,7 @@ export function VoiceAssistantModal({
             finalTranscript += event.results[i][0].transcript;
           }
         }
-        
+
         if (finalTranscript) {
           setTranscript(finalTranscript);
           processVoiceCommand(finalTranscript);
@@ -87,9 +87,9 @@ export function VoiceAssistantModal({
 
   const processVoiceCommand = (command: string) => {
     const lowerCommand = command.toLowerCase();
-    
+
     // Find matching command
-    const matchedCommand = voiceCommands.find(cmd => 
+    const matchedCommand = voiceCommands.find(cmd =>
       cmd.keywords.some(keyword => lowerCommand.includes(keyword.toLowerCase()))
     );
 
@@ -102,7 +102,7 @@ export function VoiceAssistantModal({
     } else {
       setResponse("Please say: farmer, customer, restaurant, or hub");
     }
-    
+
     onVoiceCommand?.(command);
   };
 
@@ -123,11 +123,11 @@ export function VoiceAssistantModal({
   return (
     <div className="fixed inset-0 z-[9999] flex items-center justify-center p-4">
       {/* Backdrop */}
-      <div 
+      <div
         className="absolute inset-0 bg-black/50"
         onClick={onClose}
       />
-      
+
       {/* Modal */}
       <div className="relative bg-white rounded-2xl shadow-xl w-full max-w-sm mx-4">
         {/* Close button */}
@@ -143,7 +143,7 @@ export function VoiceAssistantModal({
           <h2 className="text-xl font-semibold text-gray-900 mb-6">
             {title}
           </h2>
-          
+
           <p className="text-gray-600 text-sm mb-8">
             {description}
           </p>
@@ -152,11 +152,10 @@ export function VoiceAssistantModal({
           <button
             onClick={handleAskClick}
             disabled={isListening}
-            className={`w-full py-4 px-6 rounded-xl font-semibold text-lg transition-colors duration-200 flex items-center justify-center gap-3 ${
-              isListening 
-                ? "bg-red-500 hover:bg-red-600 text-white" 
-                : "bg-green-600 hover:bg-green-700 text-white"
-            }`}
+            className={`w-full py-4 px-6 rounded-xl font-semibold text-lg transition-colors duration-200 flex items-center justify-center gap-3 ${isListening
+              ? "bg-red-500 hover:bg-red-600 text-white"
+              : "bg-green-600 hover:bg-green-700 text-white"
+              }`}
           >
             <Mic className="h-5 w-5" />
             {isListening ? "Listening..." : "Ask"}
