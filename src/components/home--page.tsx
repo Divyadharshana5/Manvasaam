@@ -348,6 +348,14 @@ export default function HomePage() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [audioUrl]);
 
+  /*************  ✨ Windsurf Command ⭐  *************/
+  /**
+   * Returns the button state based on the current state of the voice assistant.
+   *
+   * @returns {disabled: boolean, text: string, onClick: function, variant: string, icon: JSX.Element}
+   */
+
+  /*******  0ff77ffd-5c81-4568-9282-fad22ccca966  *******/
   const getButtonState = () => {
     if (hasMicrophonePermission === false)
       return {
