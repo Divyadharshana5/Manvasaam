@@ -7,6 +7,7 @@ import * as z from "zod";
 import { Button } from "@/components/ui/button";
 import { FastButton } from "@/components/ui/fast-button";
 import { useOptimizedNavigation } from "@/lib/navigation-optimizer";
+import { VoiceAssistantModal } from "@/components/ui/voice-assistant-modal";
 import {
   Card,
   CardContent,
@@ -24,7 +25,7 @@ import {
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { useToast } from "@/hooks/use-toast";
-import { Loader2, Eye, EyeOff, ShoppingCart } from "lucide-react";
+import { Loader2, Eye, EyeOff, ShoppingCart, Mic } from "lucide-react";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { signInWithEmailAndPassword } from "firebase/auth";
 import { useRouter } from "next/navigation";
