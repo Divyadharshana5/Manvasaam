@@ -85,41 +85,22 @@ export function VoiceAssistantModal({
     }
   }, []);
 
-  const speak = (text: string) => {
-    if (synthRef.current) {
-      synthRef.current.cancel();
-      const utterance = new SpeechSynthesisUtterance(text);
-      utterance.lang = 'hi-IN';
-      utterance.rate = 0.8;
-      utterance.pitch = 1;
-      synthRef.current.speak(utterance);
-    }
-  };
-
   const processVoiceCommand = (command: string) => {
     const lowerCommand = command.toLowerCase();
     
     // Find matching command
     const matchedCommand = voiceCommands.find(cmd => 
-      lowerCommand.includes(cmd.hindi.toLowerCase()) || 
-      lowerCommand.includes(cmd.english.toLowerCase()) ||
-      cmd.hindi.toLowerCase().includes(lowerCommand) ||
-      cmd.english.toLowerCase().includes(lowerCommand)
+      cmd.keywords.some(keyword => lowerCommand.includes(keyword.toLowerCase()))
     );
 
     if (matchedCommand) {
       setResponse(matchedCommand.response);
-      speak(matchedCommand.response);
-      
       setTimeout(() => {
         matchedCommand.action();
         onClose();
-      }, 3000);
+      }, 2000);
     } else {
-      // Fallback responses
-      const fallbackResponse = "समझ नहीं आया। कृपया फिर से कहें: मैं किसान हूं, मैं ग्राहक हूं, या मदद चाहिए। / Didn't understand. Please say again: I am farmer, I am customer, or help.";
-      setResponse(fallbackResponse);
-      speak(fallbackResponse);
+      setResponse("Please say: farmer, customer, restaurant, or hub");
     }
     
     onVoiceCommand?.(command);
