@@ -610,6 +610,15 @@ export default function HomePage() {
           </div>
         </motion.footer>
       </div>
+      
+      {/* Voice Assistant Modal */}
+      <VoiceAssistantModal
+        isOpen={isAssistantOpen}
+        onClose={() => setIsAssistantOpen(false)}
+        title="Voice Helper - आवाज़ सहायक"
+        description="बोलकर बताएं कि आप क्या करना चाहते हैं। मैं आपकी मदद करूंगा। / Tell me what you want to do by speaking. I will help you."
+        onVoiceCommand={handleVoiceCommand}
+      />
     </LazyMotion>
   );
 }
