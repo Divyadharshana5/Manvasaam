@@ -53,7 +53,7 @@ import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 // Lazy load AI components for better initial load performance
 const VoiceAssistant = lazy(() => import("@/components/voice-assistant"));
 const ProductShowcase = lazy(() => import("@/components/product-showcase"));
-import { VoiceAssistantModal } from "@/components/ui/voice-assistant-modal";
+
 
 type AssistantState = "idle" | "listening" | "thinking" | "speaking";
 
@@ -186,6 +186,9 @@ export default function HomePage() {
   const { toast } = useToast();
 
   const [isAssistantOpen, setIsAssistantOpen] = useState(false);
+  const [voiceState, setVoiceState] = useState<"idle" | "listening" | "processing">("idle");
+  const mediaRecorderRef = useRef<MediaRecorder | null>(null);
+  const audioChunksRef = useRef<Blob[]>([]);
   const [loadingRoleHref, setLoadingRoleHref] = useState<string | null>(null);
 
   // Progressive loading state for better performance
@@ -269,30 +272,128 @@ export default function HomePage() {
     [router]
   );
 
-  const handleVoiceCommand = useCallback((command: string) => {
-    const lowerCommand = command.toLowerCase();
-    
-    // Enhanced voice commands for homepage navigation
-    if (lowerCommand.includes("किसान") || lowerCommand.includes("farmer")) {
-      setIsAssistantOpen(false);
-      router.push("/login/farmer");
-    } else if (lowerCommand.includes("ग्राहक") || lowerCommand.includes("customer")) {
-      setIsAssistantOpen(false);
-      router.push("/login/customer");
-    } else if (lowerCommand.includes("रेस्टोरेंट") || lowerCommand.includes("restaurant")) {
-      setIsAssistantOpen(false);
-      router.push("/login/restaurant");
-    } else if (lowerCommand.includes("हब") || lowerCommand.includes("hub")) {
-      setIsAssistantOpen(false);
-      router.push("/login/hub");
-    } else if (lowerCommand.includes("मदद") || lowerCommand.includes("help")) {
+  const getNotFoundMessage = useCallback(() => {
+    const messages: Record<string, string> = {
+      English: "Not Found",
+      Tamil: "கிடைக்கவில்லை",
+      Hindi: "नहीं मिला",
+      Malayalam: "കണ്ടെത്തിയില്ല",
+      Telugu: "కనుగొనబడలేదు",
+      Kannada: "ಸಿಗಲಿಲ್ಲ",
+      Bengali: "পাওয়া যায়নি",
+      Arabic: "غير موجود",
+      Urdu: "نہیں ملا",
+      Srilanka: "හමු නොවීය"
+    };
+    return messages[selectedLanguage] || "Not Found";
+  }, [selectedLanguage]);
+
+  const speak = useCallback((text: string) => {
+    if (typeof window !== "undefined" && window.speechSynthesis) {
+      window.speechSynthesis.cancel();
+      const utterance = new SpeechSynthesisUtterance(text);
+      const languageCodes: Record<string, string> = {
+        English: "en-US",
+        Tamil: "ta-IN",
+        Hindi: "hi-IN",
+        Malayalam: "ml-IN",
+        Telugu: "te-IN",
+        Kannada: "kn-IN",
+        Bengali: "bn-IN",
+        Arabic: "ar-SA",
+        Urdu: "ur-PK",
+        Srilanka: "si-LK"
+      };
+      utterance.lang = languageCodes[selectedLanguage] || "en-US";
+      utterance.rate = 1.0;
+      utterance.pitch = 1.0;
+      utterance.volume = 0.8;
+      setTimeout(() => {
+        window.speechSynthesis.speak(utterance);
+      }, 100);
+    }
+  }, [selectedLanguage]);
+
+  const startRecording = useCallback(async () => {
+    try {
+      const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
+      mediaRecorderRef.current = new MediaRecorder(stream, { mimeType: "audio/webm" });
+      audioChunksRef.current = [];
+      
+      mediaRecorderRef.current.ondataavailable = (event) => {
+        audioChunksRef.current.push(event.data);
+      };
+
+      mediaRecorderRef.current.onstop = processAudio;
+      mediaRecorderRef.current.start();
+      setVoiceState("listening");
+    } catch (error) {
       toast({
-        title: "Voice Commands Available",
-        description: "Say: 'I am farmer', 'I am customer', 'I am restaurant', or 'I am hub'",
-        duration: 4000,
+        variant: "destructive",
+        title: "Microphone Error",
+        description: "Could not access microphone. Please check permissions.",
       });
     }
-  }, [router, toast]);
+  }, []);
+
+  const stopRecording = useCallback(() => {
+    if (mediaRecorderRef.current && voiceState === "listening") {
+      mediaRecorderRef.current.stop();
+      mediaRecorderRef.current.stream.getTracks().forEach((track) => track.stop());
+    }
+  }, [voiceState]);
+
+  const processAudio = useCallback(async () => {
+    setVoiceState("processing");
+    
+    try {
+      const audioBlob = new Blob(audioChunksRef.current, { type: "audio/webm" });
+      const reader = new FileReader();
+      
+      reader.onloadend = async () => {
+        try {
+          const base64Audio = reader.result as string;
+          
+          const response = await fetch('/api/voice-navigation', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+              audioDataUri: base64Audio,
+              language: selectedLanguage,
+            }),
+          });
+
+          const result = await response.json();
+
+          if (result.success && result.shouldNavigate && result.pageKey) {
+            setIsAssistantOpen(false);
+            router.push(result.pageKey);
+            setVoiceState("idle");
+          } else {
+            speak(getNotFoundMessage());
+            setVoiceState("idle");
+          }
+        } catch (error) {
+          speak(getNotFoundMessage());
+          setVoiceState("idle");
+        }
+      };
+      
+      reader.readAsDataURL(audioBlob);
+    } catch (error) {
+      speak(getNotFoundMessage());
+      setVoiceState("idle");
+    }
+  }, [selectedLanguage, router, getNotFoundMessage, speak]);
+
+  const handleVoiceClick = useCallback(() => {
+    if (voiceState === "idle") {
+      setIsAssistantOpen(true);
+      setTimeout(() => startRecording(), 300);
+    } else if (voiceState === "listening") {
+      stopRecording();
+    }
+  }, [voiceState, startRecording, stopRecording]);
 
   // Optimized animation variants with reduced motion support
   const sentence = useMemo(
@@ -345,14 +446,25 @@ export default function HomePage() {
               <Button
                 variant="ghost"
                 size="sm"
-                onClick={() => setIsAssistantOpen(true)}
-                className="hover:bg-primary/90 hover:text-primary-foreground text-xs sm:text-sm px-2 sm:px-4"
+                onClick={handleVoiceClick}
+                disabled={voiceState === "processing"}
+                className={`hover:bg-primary/90 hover:text-primary-foreground text-xs sm:text-sm px-2 sm:px-4 ${
+                  voiceState === "listening" ? "bg-red-500 text-white animate-pulse" : ""
+                }`}
               >
-                <Mic className="mr-1 sm:mr-2 h-3 w-3 sm:h-4 sm:w-4" />
+                {voiceState === "processing" ? (
+                  <Loader2 className="mr-1 sm:mr-2 h-3 w-3 sm:h-4 sm:w-4 animate-spin" />
+                ) : voiceState === "listening" ? (
+                  <Square className="mr-1 sm:mr-2 h-3 w-3 sm:h-4 sm:w-4" />
+                ) : (
+                  <Mic className="mr-1 sm:mr-2 h-3 w-3 sm:h-4 sm:w-4" />
+                )}
                 <span className="hidden sm:inline">
-                  {t.sidebar.voiceAssistant}
+                  {voiceState === "listening" ? "Stop" : voiceState === "processing" ? "Processing..." : t.sidebar.voiceAssistant}
                 </span>
-                <span className="sm:hidden">Voice</span>
+                <span className="sm:hidden">
+                  {voiceState === "listening" ? "Stop" : voiceState === "processing" ? "..." : "Voice"}
+                </span>
               </Button>
             </m.div>
 
