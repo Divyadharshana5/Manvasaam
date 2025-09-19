@@ -67,6 +67,9 @@ const ROUTE_ALIASES = {
 
 export function VoiceAssistantGlobal() {
   const pathname = usePathname();
+  const router = useRouter();
+  const [isOpen, setIsOpen] = useState(false);
+  const recognitionRef = useRef<any>(null);
 
   // Hide voice assistant on login/register pages and homepage
   if (
@@ -83,9 +86,10 @@ export function VoiceAssistantGlobal() {
   // Position in top-right for homepage and hub portal pages, bottom-right for others
   const isHomePage = pathname === "/";
   const isHubPortal = pathname?.startsWith("/dashboard/hub");
-  const positionClass = (isHomePage || isHubPortal)
-    ? "fixed top-4 right-4 z-[9999]"
-    : "fixed bottom-6 right-6 z-[9999]";
+  const positionClass =
+    isHomePage || isHubPortal
+      ? "fixed top-4 right-4 z-[9999]"
+      : "fixed bottom-6 right-6 z-[9999]";
   const buttonSize = isHubPortal ? "icon" : "default";
   const buttonSizeClass = isHubPortal ? "w-10 h-10" : "w-16 h-16";
   const iconSize = isHubPortal ? "h-4 w-4" : "h-7 w-7";
