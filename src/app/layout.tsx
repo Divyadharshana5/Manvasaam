@@ -158,10 +158,10 @@ export default function RootLayout({
           <LanguageProvider>
             <NavigationProvider>
               <AuthProvider>{children}</AuthProvider>
+              {/* Voice Assistant always at right bottom, accessible on all pages */}
+              <GlobalVoiceAssistant />
             </NavigationProvider>
           </LanguageProvider>
-          {/* Voice Assistant always at right bottom, accessible on all pages */}
-          <GlobalVoiceAssistant />
         </FirebaseErrorBoundary>
         <Toaster />
       </body>
