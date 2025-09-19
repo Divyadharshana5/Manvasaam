@@ -54,6 +54,44 @@ export default function InstantVoiceAssistant({
     return messages[selectedLanguage] || "Not Found";
   }, [selectedLanguage]);
 
+  // Fallback keyword-based navigation
+  const getRouteFromKeywords = useCallback((text: string) => {
+    const lowerText = text.toLowerCase();
+    
+    // Common navigation keywords
+    const routes: Record<string, string> = {
+      "dashboard": "/dashboard",
+      "home": "/dashboard",
+      "orders": "/dashboard/orders",
+      "order": "/dashboard/orders",
+      "products": "/dashboard/products",
+      "product": "/dashboard/products",
+      "profile": "/dashboard/profile",
+      "inventory": "/dashboard/hub/inventory",
+      "stock": "/dashboard/hub/inventory",
+      "matchmaking": "/dashboard/matchmaking",
+      "match": "/dashboard/matchmaking",
+      "track": "/dashboard/track",
+      "tracking": "/dashboard/track",
+      "faq": "/dashboard/faq",
+      "help": "/dashboard/faq",
+      "marketing": "/dashboard/marketing",
+      "farmer": "/dashboard/farmer",
+      "customer": "/dashboard/customer",
+      "restaurant": "/dashboard/restaurant",
+      "hub": "/dashboard/hub"
+    };
+
+    // Find matching route
+    for (const [keyword, route] of Object.entries(routes)) {
+      if (lowerText.includes(keyword)) {
+        return route;
+      }
+    }
+    
+    return null;
+  }, []);
+
   const startRecording = useCallback(async () => {
     try {
       const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
