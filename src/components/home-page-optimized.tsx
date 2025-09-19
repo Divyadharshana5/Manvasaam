@@ -366,7 +366,6 @@ export default function HomePage() {
           const result = await response.json();
 
           if (result.success && result.shouldNavigate && result.pageKey) {
-            setIsAssistantOpen(false);
             router.push(result.pageKey);
             setVoiceState("idle");
           } else {
@@ -388,8 +387,7 @@ export default function HomePage() {
 
   const handleVoiceClick = useCallback(() => {
     if (voiceState === "idle") {
-      setIsAssistantOpen(true);
-      setTimeout(() => startRecording(), 300);
+      startRecording();
     } else if (voiceState === "listening") {
       stopRecording();
     }
