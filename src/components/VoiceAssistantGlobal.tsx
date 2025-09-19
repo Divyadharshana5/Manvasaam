@@ -66,10 +66,7 @@ const ROUTE_ALIASES = {
 };
 
 export function VoiceAssistantGlobal() {
-  const [isOpen, setIsOpen] = useState(false);
   const pathname = usePathname();
-  const router = useRouter();
-  const recognitionRef: MutableRefObject<any> = useRef(null);
 
   // Hide voice assistant on login/register pages and homepage
   if (
@@ -79,6 +76,9 @@ export function VoiceAssistantGlobal() {
   ) {
     return null;
   }
+
+  // Hide completely - functionality moved to homepage button
+  return null;
 
   // Position in top-right for homepage and hub portal pages, bottom-right for others
   const isHomePage = pathname === "/";
