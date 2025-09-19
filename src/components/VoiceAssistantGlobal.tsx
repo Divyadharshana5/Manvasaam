@@ -71,10 +71,11 @@ export function VoiceAssistantGlobal() {
   const router = useRouter();
   const recognitionRef: MutableRefObject<any> = useRef(null);
 
-  // Hide voice assistant on login/register pages
+  // Hide voice assistant on login/register pages and homepage
   if (
     pathname?.startsWith("/login") ||
-    pathname?.includes("register")
+    pathname?.includes("register") ||
+    pathname === "/"
   ) {
     return null;
   }
