@@ -7,16 +7,7 @@ import { Button } from "@/components/ui/button";
 import { Mic, Square, Loader2 } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 
-// Import AI flows
-const speechToText = async (params: any) => {
-  const { speechToText } = await import("@/ai/flows/stt-flow");
-  return speechToText(params);
-};
-
-const understandNavigation = async (params: any) => {
-  const { understandNavigation } = await import("@/ai/flows/navigation-flow");
-  return understandNavigation(params);
-};
+// Voice processing is now handled by the API route
 
 type VoiceState = "idle" | "listening" | "processing";
 
