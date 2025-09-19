@@ -6,11 +6,10 @@ import InstantVoiceAssistant from "./instant-voice-assistant";
 export default function GlobalVoiceAssistant() {
   const pathname = usePathname();
 
-  // Hide voice assistant on login/register pages and homepage
+  // Hide voice assistant on login/register pages
   if (
     pathname?.startsWith("/login") ||
-    pathname?.includes("register") ||
-    pathname === "/"
+    pathname?.includes("register")
   ) {
     return null;
   }
