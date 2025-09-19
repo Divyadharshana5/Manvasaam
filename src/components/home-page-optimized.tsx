@@ -185,7 +185,7 @@ export default function HomePage() {
   const router = useRouter();
   const { toast } = useToast();
 
-  const [isAssistantOpen, setIsAssistantOpen] = useState(false);
+
   const [voiceState, setVoiceState] = useState<"idle" | "listening" | "processing">("idle");
   const mediaRecorderRef = useRef<MediaRecorder | null>(null);
   const audioChunksRef = useRef<Blob[]>([]);
@@ -602,51 +602,7 @@ export default function HomePage() {
           </section>
         </main>
 
-        {/* Voice Assistant Dialog */}
-        <Dialog open={isAssistantOpen} onOpenChange={setIsAssistantOpen}>
-          <DialogContent className="max-w-lg w-full rounded-2xl border-0 shadow-2xl bg-white/95">
-            <DialogHeader>
-              <DialogTitle>Voice Assistant</DialogTitle>
-              <DialogDescription>
-                <span className="font-semibold">
-                  Speak your command to navigate.
-                </span>
-                <br />
-                For example: "Go to farmer login", "Open customer portal", "Show hub"
-              </DialogDescription>
-            </DialogHeader>
-            <div className="p-6">
-              {voiceState === "listening" && (
-                <div className="text-center text-red-500 animate-pulse mb-4">
-                  🎤 Listening...
-                </div>
-              )}
-              {voiceState === "processing" && (
-                <div className="text-center text-blue-500 mb-4">
-                  <Loader2 className="h-6 w-6 animate-spin mx-auto mb-2" />
-                  Processing your command...
-                </div>
-              )}
-              {voiceState === "idle" && (
-                <p className="text-center mb-4">Click the voice button above to start speaking.</p>
-              )}
-              <div className="flex justify-center gap-4">
-                <Button
-                  variant="outline"
-                  onClick={() => {
-                    setIsAssistantOpen(false);
-                    setVoiceState("idle");
-                    if (mediaRecorderRef.current) {
-                      mediaRecorderRef.current.stop();
-                    }
-                  }}
-                >
-                  Close
-                </Button>
-              </div>
-            </div>
-          </DialogContent>
-        </Dialog>
+
 
         {/* Optimized Footer */}
         <motion.footer
