@@ -116,20 +116,32 @@ export default function InstantVoiceAssistant({
             return;
           }
 
-          // Understand navigation intent
-          const navResult = await understandNavigation({
-            text: transcript,
-            language: selectedLanguage,
-          });
+          try {
+            // Understand navigation intent using Gemini AI
+            const navResult = await understandNavigation({
+              text: transcript,
+              language: selectedLanguage,
+            });
 
-          if (navResult.shouldNavigate && navResult.pageKey) {
-            // Navigate to the requested page
-            router.push(navResult.pageKey);
-            setVoiceState("idle");
-          } else {
-            // Page not found - speak "Not Found" in user's language
-            speak(getNotFoundMessage());
-            setVoiceState("idle");
+            if (navResult.shouldNavigate && navResult.pageKey) {
+              // Navigate to the requested page
+              router.push(navResult.pageKey);
+              setVoiceState("idle");
+            } else {
+              // Page not found - speak "Not Found" in user's language
+              speak(getNotFoundMessage());
+              setVoiceState("idle");
+            }
+          } catch (aiError) {
+            // Fallback to simple keyword matching if AI fails
+            const route = getRouteFromKeywords(transcript);
+            if (route) {
+              router.push(route);
+              setVoiceState("idle");
+            } else {
+              speak(getNotFoundMessage());
+              setVoiceState("idle");
+            }
           }
           
         } catch (error) {
