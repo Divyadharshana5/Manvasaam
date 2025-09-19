@@ -71,18 +71,18 @@ export function VoiceAssistantGlobal() {
   const router = useRouter();
   const recognitionRef: MutableRefObject<any> = useRef(null);
 
-  // Hide voice assistant on login/register pages and homepage
+  // Hide voice assistant on login/register pages
   if (
     pathname?.startsWith("/login") ||
-    pathname?.includes("register") ||
-    pathname === "/"
+    pathname?.includes("register")
   ) {
     return null;
   }
 
-  // Position in top-right for hub portal pages, bottom-right for others
+  // Position in top-right for homepage and hub portal pages, bottom-right for others
+  const isHomePage = pathname === "/";
   const isHubPortal = pathname?.startsWith("/dashboard/hub");
-  const positionClass = isHubPortal
+  const positionClass = (isHomePage || isHubPortal)
     ? "fixed top-4 right-4 z-[9999]"
     : "fixed bottom-6 right-6 z-[9999]";
   const buttonSize = isHubPortal ? "icon" : "default";
