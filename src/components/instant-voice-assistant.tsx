@@ -140,39 +140,27 @@ export default function InstantVoiceAssistant({
         try {
           const base64Audio = reader.result as string;
           
-          // Convert speech to text
-          const sttResult = await speechToText({
-            audioDataUri: base64Audio,
-            language: selectedLanguage,
-          });
-          
-          const { transcript } = sttResult;
-          
-          if (!transcript || transcript.trim() === "") {
-            speak(getNotFoundMessage());
-            setVoiceState("idle");
-            return;
-          }
-
-          try {
-            // Understand navigation intent using Gemini AI
-            const navResult = await understandNavigation({
-              text: transcript,
+          // Send to API route for processing
+          const response = await fetch('/api/voice-navigation', {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+              audioDataUri: base64Audio,
               language: selectedLanguage,
-            });
+            }),
+          });
 
-            if (navResult.shouldNavigate && navResult.pageKey) {
-              // Navigate to the requested page
-              router.push(navResult.pageKey);
-              setVoiceState("idle");
-            } else {
-              // Page not found - speak "Not Found" in user's language
-              speak(getNotFoundMessage());
-              setVoiceState("idle");
-            }
-          } catch (aiError) {
-            // Fallback to simple keyword matching if AI fails
-            const route = getRouteFromKeywords(transcript);
+          const result = await response.json();
+
+          if (result.success && result.shouldNavigate && result.pageKey) {
+            // Navigate to the requested page
+            router.push(result.pageKey);
+            setVoiceState("idle");
+          } else if (result.success && result.transcript) {
+            // Fallback to keyword matching
+            const route = getRouteFromKeywords(result.transcript);
             if (route) {
               router.push(route);
               setVoiceState("idle");
@@ -180,10 +168,14 @@ export default function InstantVoiceAssistant({
               speak(getNotFoundMessage());
               setVoiceState("idle");
             }
+          } else {
+            // No valid result - try keyword fallback or show not found
+            speak(getNotFoundMessage());
+            setVoiceState("idle");
           }
           
         } catch (error) {
-          console.error("AI processing error:", error);
+          console.error("Voice processing error:", error);
           speak(getNotFoundMessage());
           setVoiceState("idle");
         }
