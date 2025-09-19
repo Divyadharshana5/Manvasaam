@@ -343,6 +343,33 @@ export default function HomePage() {
     }
   }, [voiceState]);
 
+  const getRouteFromKeywords = useCallback((text: string) => {
+    const lowerText = text.toLowerCase();
+    const routes: Record<string, string> = {
+      "farmer": "/login/farmer",
+      "customer": "/login/customer", 
+      "restaurant": "/login/restaurant",
+      "hub": "/login/hub",
+      "dashboard": "/dashboard",
+      "orders": "/dashboard/orders",
+      "products": "/dashboard/products",
+      "profile": "/dashboard/profile",
+      "inventory": "/dashboard/hub/inventory",
+      "matchmaking": "/dashboard/matchmaking",
+      "track": "/dashboard/track",
+      "faq": "/dashboard/faq",
+      "help": "/dashboard/faq",
+      "marketing": "/dashboard/marketing"
+    };
+
+    for (const [keyword, route] of Object.entries(routes)) {
+      if (lowerText.includes(keyword)) {
+        return route;
+      }
+    }
+    return null;
+  }, []);
+
   const processAudio = useCallback(async () => {
     setVoiceState("processing");
     
@@ -366,24 +393,37 @@ export default function HomePage() {
           const result = await response.json();
 
           if (result.success && result.shouldNavigate && result.pageKey) {
-            router.push(result.pageKey);
-            setVoiceState("idle");
+            setTimeout(() => {
+              router.push(result.pageKey);
+              setVoiceState("idle");
+            }, 1000);
+          } else if (result.success && result.transcript) {
+            const route = getRouteFromKeywords(result.transcript);
+            if (route) {
+              setTimeout(() => {
+                router.push(route);
+                setVoiceState("idle");
+              }, 1000);
+            } else {
+              speak(getNotFoundMessage());
+              setTimeout(() => setVoiceState("idle"), 2000);
+            }
           } else {
             speak(getNotFoundMessage());
-            setVoiceState("idle");
+            setTimeout(() => setVoiceState("idle"), 2000);
           }
         } catch (error) {
           speak(getNotFoundMessage());
-          setVoiceState("idle");
+          setTimeout(() => setVoiceState("idle"), 2000);
         }
       };
       
       reader.readAsDataURL(audioBlob);
     } catch (error) {
       speak(getNotFoundMessage());
-      setVoiceState("idle");
+      setTimeout(() => setVoiceState("idle"), 2000);
     }
-  }, [selectedLanguage, router, getNotFoundMessage, speak]);
+  }, [selectedLanguage, router, getNotFoundMessage, speak, getRouteFromKeywords]);
 
   const handleVoiceClick = useCallback(() => {
     if (voiceState === "idle") {
