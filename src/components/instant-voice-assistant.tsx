@@ -150,6 +150,9 @@ export default function InstantVoiceAssistant({
 
   const speak = useCallback((text: string) => {
     if (typeof window !== "undefined" && window.speechSynthesis) {
+      // Cancel any ongoing speech
+      window.speechSynthesis.cancel();
+      
       const utterance = new SpeechSynthesisUtterance(text);
       
       // Set language based on selected language
@@ -167,10 +170,14 @@ export default function InstantVoiceAssistant({
       };
       
       utterance.lang = languageCodes[selectedLanguage] || "en-US";
-      utterance.rate = 0.9;
-      utterance.pitch = 1;
+      utterance.rate = 1.0;
+      utterance.pitch = 1.0;
+      utterance.volume = 0.8;
       
-      window.speechSynthesis.speak(utterance);
+      // Speak immediately
+      setTimeout(() => {
+        window.speechSynthesis.speak(utterance);
+      }, 100);
     }
   }, [selectedLanguage]);
 
