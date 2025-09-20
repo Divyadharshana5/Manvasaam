@@ -1,18 +1,42 @@
 "use client";
 
 import { useState } from "react";
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
-import { Mic, MicOff, Volume2, Settings, Languages, HelpCircle } from "lucide-react";
+import {
+  Mic,
+  MicOff,
+  Volume2,
+  Settings,
+  Languages,
+  HelpCircle,
+} from "lucide-react";
 import SimpleVoiceNavigation from "@/components/simple-voice-navigation";
 import { useLanguage } from "@/context/language-context";
 
 export default function VoiceAssistantPage() {
   const { selectedLanguage, setSelectedLanguage, t } = useLanguage();
-  
-  const languages = ["English", "Hindi", "Tamil", "Malayalam", "Telugu", "Kannada", "Bengali", "Arabic", "Urdu", "Srilanka"];
-  
+
+  const languages = [
+    "English",
+    "Hindi",
+    "Tamil",
+    "Malayalam",
+    "Telugu",
+    "Kannada",
+    "Bengali",
+    "Arabic",
+    "Urdu",
+    "Srilanka",
+  ] as const;
+
   const commands = [
     { command: "Dashboard", description: "Go to main dashboard" },
     { command: "Orders", description: "View and manage orders" },
@@ -20,7 +44,7 @@ export default function VoiceAssistantPage() {
     { command: "Track", description: "Track order status" },
     { command: "Profile", description: "View user profile" },
     { command: "Inventory", description: "Check stock levels" },
-    { command: "Reports", description: "View analytics and reports" }
+    { command: "Reports", description: "View analytics and reports" },
   ];
 
   return (
@@ -28,7 +52,9 @@ export default function VoiceAssistantPage() {
       <div className="flex items-center justify-between">
         <div>
           <h1 className="text-4xl font-bold tracking-tight">Voice Assistant</h1>
-          <p className="text-muted-foreground">Control your hub operations with voice commands</p>
+          <p className="text-muted-foreground">
+            Control your hub operations with voice commands
+          </p>
         </div>
         <Button variant="outline">
           <Settings className="mr-2 h-4 w-4" />
@@ -46,7 +72,7 @@ export default function VoiceAssistantPage() {
             <div className="relative flex justify-center">
               <SimpleVoiceNavigation size="lg" className="w-32 h-32" />
             </div>
-            
+
             <div>
               <p className="text-lg font-medium">Voice Navigation</p>
               <p className="text-sm text-muted-foreground">
@@ -92,15 +118,22 @@ export default function VoiceAssistantPage() {
       <Card>
         <CardHeader>
           <CardTitle>Available Commands</CardTitle>
-          <CardDescription>Try these voice commands to control your hub</CardDescription>
+          <CardDescription>
+            Try these voice commands to control your hub
+          </CardDescription>
         </CardHeader>
         <CardContent>
           <div className="grid gap-3 md:grid-cols-2">
             {commands.map((cmd, index) => (
-              <div key={index} className="flex items-center justify-between p-3 border rounded-lg">
+              <div
+                key={index}
+                className="flex items-center justify-between p-3 border rounded-lg"
+              >
                 <div>
                   <p className="font-medium">"{cmd.command}"</p>
-                  <p className="text-sm text-muted-foreground">{cmd.description}</p>
+                  <p className="text-sm text-muted-foreground">
+                    {cmd.description}
+                  </p>
                 </div>
                 <Button size="sm" variant="outline">
                   <Volume2 className="h-4 w-4" />
@@ -122,21 +155,27 @@ export default function VoiceAssistantPage() {
               <HelpCircle className="h-5 w-5 text-blue-500 mt-0.5" />
               <div>
                 <p className="font-medium">Speak clearly</p>
-                <p className="text-sm text-muted-foreground">Use clear pronunciation for better recognition</p>
+                <p className="text-sm text-muted-foreground">
+                  Use clear pronunciation for better recognition
+                </p>
               </div>
             </div>
             <div className="flex items-start gap-3">
               <HelpCircle className="h-5 w-5 text-blue-500 mt-0.5" />
               <div>
                 <p className="font-medium">Use keywords</p>
-                <p className="text-sm text-muted-foreground">Include action words like "show", "check", "call"</p>
+                <p className="text-sm text-muted-foreground">
+                  Include action words like "show", "check", "call"
+                </p>
               </div>
             </div>
             <div className="flex items-start gap-3">
               <HelpCircle className="h-5 w-5 text-blue-500 mt-0.5" />
               <div>
                 <p className="font-medium">Wait for response</p>
-                <p className="text-sm text-muted-foreground">Allow the assistant to process your command</p>
+                <p className="text-sm text-muted-foreground">
+                  Allow the assistant to process your command
+                </p>
               </div>
             </div>
           </div>
