@@ -3,6 +3,7 @@ import { useState, useRef } from "react";
 import { useRouter } from "next/navigation";
 import { Button } from "@/components/ui/button";
 import { Volume2, MicIcon } from "lucide-react";
+import { isAuthenticated } from "@/lib/auth-redirect";
 
 const KNOWN_ROUTES = [
   "/dashboard",
@@ -71,9 +72,7 @@ export function VoiceAssistantGlobal() {
   const getLanguage = () => navigator.language.split("-")[0] || "en";
 
   const checkAuth = () => {
-    // Check if user is authenticated (you can modify this based on your auth implementation)
-    const token = document.cookie.includes('auth-token') || localStorage.getItem('user');
-    return !!token;
+    return isAuthenticated();
   };
 
   const isProtectedRoute = (routeKey: string) => {

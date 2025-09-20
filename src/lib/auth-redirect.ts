@@ -27,7 +27,16 @@ export function getDashboardRoute(userType: UserType): string {
  * Redirect user to their appropriate dashboard
  */
 export function redirectToDashboard(userType: UserType, router: any) {
-  const route = getDashboardRoute(userType);
+  // Check if there's a pending redirect from voice assistant
+  const pendingRedirect = typeof window !== 'undefined' ? sessionStorage.getItem('redirectAfterLogin') : null;
+  
+  let route = getDashboardRoute(userType);
+  
+  // If there's a pending redirect, use that instead
+  if (pendingRedirect) {
+    route = pendingRedirect;
+    sessionStorage.removeItem('redirectAfterLogin');
+  }
   
   // Store user type in localStorage for persistence
   if (typeof window !== 'undefined') {
