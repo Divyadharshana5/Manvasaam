@@ -102,14 +102,13 @@ export function VoiceAssistantGlobal() {
   const router = useRouter();
   const recognitionRef = useRef<SpeechRecognition | null>(null);
 
-  // Initialize recognition instance only once
-  const getRecognition = () => {
-    if (recognitionRef.current) return recognitionRef.current;
+  // Always create a new recognition instance for each click (most reliable)
+  const createRecognition = () => {
     if (
       !("webkitSpeechRecognition" in window) &&
       !("SpeechRecognition" in window)
     ) {
-      console.warn("Speech recognition not supported in this browser.");
+      alert("Speech recognition not supported in this browser.");
       return null;
     }
     const SpeechRecognition =
@@ -118,7 +117,6 @@ export function VoiceAssistantGlobal() {
     recognition.continuous = false;
     recognition.interimResults = false;
     recognition.lang = getLocale();
-    recognitionRef.current = recognition;
     return recognition;
   };
 
@@ -212,13 +210,10 @@ export function VoiceAssistantGlobal() {
   };
 
   const startListening = () => {
-    const recognition = getRecognition();
+    const recognition = createRecognition();
     if (!recognition) return;
 
-    // Remove old handlers to avoid stacking
-    recognition.onresult = null;
-    recognition.onerror = null;
-    recognition.onend = null;
+    setIsListening(true);
 
     recognition.onstart = () => {
       setIsListening(true);
@@ -257,6 +252,9 @@ export function VoiceAssistantGlobal() {
 
     recognition.onerror = (e) => {
       setIsListening(false);
+      if (e.error === 'not-allowed' || e.error === 'denied') {
+        alert('Microphone access denied. Please allow microphone permissions in your browser settings.');
+      }
       console.error("Recognition error", e);
     };
     recognition.onend = () => {
@@ -269,6 +267,7 @@ export function VoiceAssistantGlobal() {
       console.log("Recognition started");
     } catch (err) {
       setIsListening(false);
+      alert('Could not start voice recognition. Please check your browser and microphone permissions.');
       console.error("Recognition start error", err);
     }
   };
