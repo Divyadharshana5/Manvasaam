@@ -151,63 +151,32 @@ export function VoiceAssistantGlobal() {
     speechSynthesis.speak(utterance);
   };
 
-  const startListening = async () => {
-    if (
-      !("webkitSpeechRecognition" in window) &&
-      !("SpeechRecognition" in window)
-    ) {
-      console.log("Speech recognition not supported");
+  const startListening = () => {
+    if (!('webkitSpeechRecognition' in window) && !('SpeechRecognition' in window)) {
       return;
     }
 
-    // Request microphone permission
-    try {
-      await navigator.mediaDevices.getUserMedia({ audio: true });
-    } catch (error) {
-      console.log('Microphone permission denied:', error);
-      return;
-    }
+    const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+    const recognition = new SpeechRecognition();
 
-    const SpeechRecognition =
-      window.SpeechRecognition || window.webkitSpeechRecognition;
-    recognitionRef.current = new SpeechRecognition();
+    recognition.continuous = false;
+    recognition.interimResults = false;
+    recognition.lang = 'en-US';
 
-    recognitionRef.current.continuous = false;
-    recognitionRef.current.interimResults = false;
-    recognitionRef.current.lang = navigator.language || 'en-US';
-    recognitionRef.current.maxAlternatives = 1;
-    
-    // Add timeout to prevent hanging
-    const timeout = setTimeout(() => {
-      if (recognitionRef.current) {
-        recognitionRef.current.stop();
-      }
-    }, 10000); // 10 second timeout
+    recognition.onstart = () => setIsListening(true);
 
-    recognitionRef.current.onstart = () => {
-      console.log('Speech recognition started');
-      if (speechSynthesis.speaking) {
-        speechSynthesis.cancel();
-      }
-      setIsListening(true);
-    };
-
-    recognitionRef.current.onresult = async (event) => {
+    recognition.onresult = async (event) => {
       const transcript = event.results[0]?.[0]?.transcript || "";
-      console.log('Voice input received:', transcript);
       
-      const route = await analyzeWithAI(transcript);
+      const route = getRouteFromText(transcript);
       
       if (route) {
-        // Find the route key for authentication checking
         const routeKey = Object.keys(ROUTE_ALIASES).find(key => 
           ROUTE_ALIASES[key as keyof typeof ROUTE_ALIASES] === route
         );
 
-        // Check if route requires authentication
         if (routeKey && isProtectedRoute(routeKey)) {
           if (!checkAuth()) {
-            // Redirect to home page to select role and login
             sessionStorage.setItem('redirectAfterLogin', route);
             router.push('/');
             return;
@@ -215,26 +184,14 @@ export function VoiceAssistantGlobal() {
         }
         router.push(route);
       } else {
-        const lang = getLanguage();
-        const message =
-          NOT_FOUND_MESSAGES[lang as keyof typeof NOT_FOUND_MESSAGES] ||
-          "Not Found";
-        speak(message);
+        speak("Not Found");
       }
     };
 
-    recognitionRef.current.onerror = (event) => {
-      console.log('Speech recognition error:', event.error);
-      clearTimeout(timeout);
-      setIsListening(false);
-    };
-
-    recognitionRef.current.onend = () => {
-      console.log('Speech recognition ended');
-      clearTimeout(timeout);
-      setIsListening(false);
-    };
-    recognitionRef.current.start();
+    recognition.onerror = () => setIsListening(false);
+    recognition.onend = () => setIsListening(false);
+    
+    recognition.start();
   };
 
   return (
