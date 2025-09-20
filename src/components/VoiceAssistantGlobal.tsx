@@ -252,8 +252,10 @@ export function VoiceAssistantGlobal() {
 
     recognition.onerror = (e) => {
       setIsListening(false);
-      if (e.error === 'not-allowed' || e.error === 'denied') {
-        alert('Microphone access denied. Please allow microphone permissions in your browser settings.');
+      if (e.error === "not-allowed" || e.error === "denied") {
+        alert(
+          "Microphone access denied. Please allow microphone permissions in your browser settings."
+        );
       }
       console.error("Recognition error", e);
     };
@@ -267,7 +269,9 @@ export function VoiceAssistantGlobal() {
       console.log("Recognition started");
     } catch (err) {
       setIsListening(false);
-      alert('Could not start voice recognition. Please check your browser and microphone permissions.');
+      alert(
+        "Could not start voice recognition. Please check your browser and microphone permissions."
+      );
       console.error("Recognition start error", err);
     }
   };
