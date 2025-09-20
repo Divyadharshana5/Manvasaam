@@ -89,7 +89,11 @@ export function VoiceAssistantGlobal() {
   const router = useRouter();
   const recognitionRef = useRef<SpeechRecognition | null>(null);
 
-  const getLanguage = () => navigator.language.split("-")[0] || "en";
+  // Replace with your app's language selection logic if available
+  const getLanguage = () => {
+    // Try to get from localStorage or context if you have a language selector
+    return localStorage.getItem('selectedLanguage') || navigator.language.split("-")[0] || "en";
+  };
 
   const checkAuth = () => {
     return isAuthenticated();
@@ -147,7 +151,7 @@ export function VoiceAssistantGlobal() {
       speechSynthesis.cancel();
     }
     const utterance = new SpeechSynthesisUtterance(text);
-    utterance.lang = navigator.language;
+    utterance.lang = getLanguage();
     speechSynthesis.speak(utterance);
   };
 
@@ -161,15 +165,18 @@ export function VoiceAssistantGlobal() {
 
     recognition.continuous = false;
     recognition.interimResults = false;
-    recognition.lang = 'en-US';
+    recognition.lang = getLanguage() + '-' + getLanguage().toUpperCase();
 
     recognition.onstart = () => setIsListening(true);
 
     recognition.onresult = async (event) => {
       const transcript = event.results[0]?.[0]?.transcript || "";
-      
-      const route = getRouteFromText(transcript);
-      
+      // Try AI/alias matching first
+      let route = await analyzeWithAI(transcript);
+      if (!route) {
+        route = getRouteFromText(transcript);
+      }
+
       if (route) {
         const routeKey = Object.keys(ROUTE_ALIASES).find(key => 
           ROUTE_ALIASES[key as keyof typeof ROUTE_ALIASES] === route
@@ -184,7 +191,8 @@ export function VoiceAssistantGlobal() {
         }
         router.push(route);
       } else {
-        speak("Not Found");
+        const lang = getLanguage();
+        speak(NOT_FOUND_MESSAGES[lang as keyof typeof NOT_FOUND_MESSAGES] || NOT_FOUND_MESSAGES['en']);
       }
     };
 
