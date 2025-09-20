@@ -327,6 +327,14 @@ export default function HomePage() {
       mediaRecorderRef.current.onstop = processAudio;
       mediaRecorderRef.current.start();
       setVoiceState("listening");
+      
+      // Auto-stop after 5 seconds
+      setTimeout(() => {
+        if (voiceState === "listening" && mediaRecorderRef.current) {
+          stopRecording();
+        }
+      }, 5000);
+      
     } catch (error) {
       toast({
         variant: "destructive",
@@ -334,14 +342,14 @@ export default function HomePage() {
         description: "Could not access microphone. Please check permissions.",
       });
     }
-  }, []);
+  }, [processAudio, voiceState]);
 
   const stopRecording = useCallback(() => {
-    if (mediaRecorderRef.current && voiceState === "listening") {
+    if (mediaRecorderRef.current && mediaRecorderRef.current.state === "recording") {
       mediaRecorderRef.current.stop();
       mediaRecorderRef.current.stream.getTracks().forEach((track) => track.stop());
     }
-  }, [voiceState]);
+  }, []);
 
   const getRouteFromKeywords = useCallback((text: string) => {
     const lowerText = text.toLowerCase().trim();
@@ -405,116 +413,66 @@ export default function HomePage() {
     try {
       const audioBlob = new Blob(audioChunksRef.current, { type: "audio/webm" });
       
-      // Try browser's built-in speech recognition first
+      // Use browser's built-in speech recognition
       if ('webkitSpeechRecognition' in window || 'SpeechRecognition' in window) {
-        try {
-          const SpeechRecognition = (window as any).SpeechRecognition || (window as any).webkitSpeechRecognition;
-          const recognition = new SpeechRecognition();
-          
-          recognition.continuous = false;
-          recognition.interimResults = false;
-          recognition.lang = selectedLanguage === 'English' ? 'en-US' : 'en-US'; // Default to English for now
-          
-          recognition.onresult = (event: any) => {
-            const transcript = event.results[0][0].transcript.toLowerCase().trim();
-            console.log('Speech recognized:', transcript);
-            
-            const route = getRouteFromKeywords(transcript);
-            if (route) {
-              setTimeout(() => {
-                router.push(route);
-                setVoiceState("idle");
-              }, 500);
-            } else {
-              speak(getNotFoundMessage());
-              setTimeout(() => setVoiceState("idle"), 2000);
-            }
-          };
-          
-          recognition.onerror = () => {
-            // Fallback to API if browser recognition fails
-            processWithAPI();
-          };
-          
-          // Convert blob to audio and use recognition
-          const audioUrl = URL.createObjectURL(audioBlob);
-          const audio = new Audio(audioUrl);
-          
-          // For now, fallback to API since we can't directly feed blob to recognition
-          processWithAPI();
-          
-        } catch (error) {
-          console.log('Browser speech recognition failed, trying API');
-          processWithAPI();
-        }
-      } else {
-        processWithAPI();
-      }
-      
-      async function processWithAPI() {
-        const reader = new FileReader();
+        const SpeechRecognition = (window as any).SpeechRecognition || (window as any).webkitSpeechRecognition;
+        const recognition = new SpeechRecognition();
         
-        reader.onloadend = async () => {
-          try {
-            const base64Audio = reader.result as string;
-            
-            const response = await fetch('/api/voice-navigation', {
-              method: 'POST',
-              headers: { 'Content-Type': 'application/json' },
-              body: JSON.stringify({
-                audioDataUri: base64Audio,
-                language: selectedLanguage,
-              }),
-            });
-
-            const result = await response.json();
-            console.log('API response:', result);
-
-            if (result.success && result.shouldNavigate && result.pageKey) {
-              setTimeout(() => {
-                router.push(result.pageKey);
-                setVoiceState("idle");
-              }, 500);
-            } else if (result.success && result.transcript) {
-              const route = getRouteFromKeywords(result.transcript);
-              if (route) {
-                setTimeout(() => {
-                  router.push(route);
-                  setVoiceState("idle");
-                }, 500);
-              } else {
-                speak(getNotFoundMessage());
-                setTimeout(() => setVoiceState("idle"), 2000);
-              }
-            } else {
-              // In demo mode, simulate some common voice commands
-              simulateDemoResponse();
-            }
-          } catch (error) {
-            console.error('API call failed:', error);
-            simulateDemoResponse();
+        recognition.continuous = false;
+        recognition.interimResults = false;
+        recognition.lang = 'en-US';
+        
+        recognition.onresult = (event: any) => {
+          const transcript = event.results[0][0].transcript.toLowerCase().trim();
+          console.log('Speech recognized:', transcript);
+          
+          const route = getRouteFromKeywords(transcript);
+          if (route) {
+            speak(`Navigating to ${transcript}`);
+            setTimeout(() => {
+              router.push(route);
+              setVoiceState("idle");
+            }, 1000);
+          } else {
+            speak(getNotFoundMessage());
+            setTimeout(() => setVoiceState("idle"), 2000);
           }
         };
         
-        reader.readAsDataURL(audioBlob);
-      }
-      
-      function simulateDemoResponse() {
-        // In demo mode, randomly pick a common navigation target
-        const demoRoutes = [
-          { route: '/login/farmer', message: 'Taking you to farmer login' },
-          { route: '/login/customer', message: 'Taking you to customer login' },
-          { route: '/dashboard', message: 'Opening dashboard' },
-          { route: '/dashboard/products', message: 'Showing products' }
-        ];
+        recognition.onerror = (event: any) => {
+          console.error('Speech recognition error:', event.error);
+          speak(getNotFoundMessage());
+          setTimeout(() => setVoiceState("idle"), 2000);
+        };
         
-        const randomRoute = demoRoutes[Math.floor(Math.random() * demoRoutes.length)];
+        recognition.onend = () => {
+          if (voiceState === "processing") {
+            setVoiceState("idle");
+          }
+        };
         
-        speak(randomRoute.message);
+        // Start recognition with the recorded audio
+        recognition.start();
+        
+      } else {
+        // Fallback: simulate voice recognition for demo
         setTimeout(() => {
-          router.push(randomRoute.route);
-          setVoiceState("idle");
-        }, 1500);
+          const demoCommands = [
+            { text: 'farmer', route: '/login/farmer' },
+            { text: 'customer', route: '/login/customer' },
+            { text: 'restaurant', route: '/login/restaurant' },
+            { text: 'hub', route: '/login/hub' },
+            { text: 'dashboard', route: '/dashboard' }
+          ];
+          
+          const randomCommand = demoCommands[Math.floor(Math.random() * demoCommands.length)];
+          speak(`Navigating to ${randomCommand.text}`);
+          
+          setTimeout(() => {
+            router.push(randomCommand.route);
+            setVoiceState("idle");
+          }, 1500);
+        }, 1000);
       }
       
     } catch (error) {
@@ -522,7 +480,7 @@ export default function HomePage() {
       speak(getNotFoundMessage());
       setTimeout(() => setVoiceState("idle"), 2000);
     }
-  }, [selectedLanguage, router, getNotFoundMessage, speak, getRouteFromKeywords]);
+  }, [selectedLanguage, router, getNotFoundMessage, speak, getRouteFromKeywords, voiceState]);
 
   const handleVoiceClick = useCallback(() => {
     if (voiceState === "idle") {
