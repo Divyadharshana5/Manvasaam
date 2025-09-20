@@ -353,27 +353,43 @@ export default function HomePage() {
       return;
     }
 
-    if (voiceState === "idle" && 'webkitSpeechRecognition' in window) {
+    if (voiceState === "idle") {
+      if (!('webkitSpeechRecognition' in window)) {
+        speak('Speech recognition not supported');
+        return;
+      }
+
       const recognition = new (window as any).webkitSpeechRecognition();
-      recognition.lang = 'en-US';
       recognition.continuous = false;
       recognition.interimResults = false;
+      recognition.lang = 'en-US';
 
       recognition.onstart = () => setVoiceState("listening");
       recognition.onend = () => setVoiceState("idle");
 
       recognition.onresult = (event: any) => {
-        const text = event.results[0][0].transcript.toLowerCase();
+        const transcript = event.results[0][0].transcript.toLowerCase().trim();
         
-        if (text.match(/farm/)) router.push('/login/farmer');
-        else if (text.match(/custom/)) router.push('/login/customer');
-        else if (text.match(/restaurant|rest/)) router.push('/login/restaurant');
-        else if (text.match(/hub|distribution/)) router.push('/login/hub');
-        else if (text.match(/dash|board/)) router.push('/dashboard');
-        else speak(getNotFoundMessage());
+        if (transcript.includes('farmer') || transcript.includes('farm')) {
+          router.push('/login/farmer');
+        } else if (transcript.includes('customer') || transcript.includes('buyer')) {
+          router.push('/login/customer');
+        } else if (transcript.includes('restaurant') || transcript.includes('hotel')) {
+          router.push('/login/restaurant');
+        } else if (transcript.includes('hub') || transcript.includes('center')) {
+          router.push('/login/hub');
+        } else if (transcript.includes('dashboard') || transcript.includes('home')) {
+          router.push('/dashboard');
+        } else {
+          speak(getNotFoundMessage());
+        }
       };
 
-      recognition.onerror = () => speak(getNotFoundMessage());
+      recognition.onerror = () => {
+        speak(getNotFoundMessage());
+        setVoiceState("idle");
+      };
+
       recognition.start();
     }
   }, [voiceState, router, getRouteFromKeywords, speak, getNotFoundMessage]);
