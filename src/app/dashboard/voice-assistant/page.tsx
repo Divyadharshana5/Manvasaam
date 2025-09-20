@@ -14,11 +14,13 @@ export default function VoiceAssistantPage() {
   const languages = ["English", "Hindi", "Tamil", "Malayalam", "Telugu", "Kannada", "Bengali", "Arabic", "Urdu", "Srilanka"];
   
   const commands = [
-    { command: "Check inventory", description: "View current stock levels" },
-    { command: "Show orders", description: "Display pending orders" },
-    { command: "Attendance report", description: "Get today's attendance" },
-    { command: "Sales summary", description: "View daily sales data" },
-    { command: "Call farmer", description: "Connect with farmers" }
+    { command: "Dashboard", description: "Go to main dashboard" },
+    { command: "Orders", description: "View and manage orders" },
+    { command: "Products", description: "Browse product catalog" },
+    { command: "Track", description: "Track order status" },
+    { command: "Profile", description: "View user profile" },
+    { command: "Inventory", description: "Check stock levels" },
+    { command: "Reports", description: "View analytics and reports" }
   ];
 
   return (
@@ -41,35 +43,26 @@ export default function VoiceAssistantPage() {
             <CardDescription>Tap to start voice commands</CardDescription>
           </CardHeader>
           <CardContent className="text-center space-y-6">
-            <div className="relative">
-              <Button
-                size="lg"
-                className={`w-32 h-32 rounded-full ${isListening ? 'bg-red-500 hover:bg-red-600' : 'bg-green-500 hover:bg-green-600'}`}
-                onClick={() => setIsListening(!isListening)}
-              >
-                {isListening ? (
-                  <MicOff className="h-12 w-12" />
-                ) : (
-                  <Mic className="h-12 w-12" />
-                )}
-              </Button>
-              {isListening && (
-                <div className="absolute inset-0 rounded-full border-4 border-red-400 animate-pulse"></div>
-              )}
+            <div className="relative flex justify-center">
+              <SimpleVoiceNavigation size="lg" className="w-32 h-32" />
             </div>
             
             <div>
-              <p className="text-lg font-medium">
-                {isListening ? "Listening..." : "Tap to speak"}
-              </p>
+              <p className="text-lg font-medium">Voice Navigation</p>
               <p className="text-sm text-muted-foreground">
-                {isListening ? "Say your command now" : "Voice assistant is ready"}
+                Click the microphone and say where you want to go
               </p>
             </div>
 
-            <Badge variant={isListening ? "destructive" : "secondary"}>
-              {isListening ? "Recording" : "Ready"}
-            </Badge>
+            <div className="text-sm text-muted-foreground space-y-2">
+              <p>Try saying:</p>
+              <div className="flex flex-wrap gap-2 justify-center">
+                <Badge variant="outline">"Dashboard"</Badge>
+                <Badge variant="outline">"Orders"</Badge>
+                <Badge variant="outline">"Products"</Badge>
+                <Badge variant="outline">"Profile"</Badge>
+              </div>
+            </div>
           </CardContent>
         </Card>
 
