@@ -102,6 +102,26 @@ export function VoiceAssistantGlobal() {
   const router = useRouter();
   const recognitionRef = useRef<SpeechRecognition | null>(null);
 
+  // Initialize recognition instance only once
+  const getRecognition = () => {
+    if (recognitionRef.current) return recognitionRef.current;
+    if (
+      !("webkitSpeechRecognition" in window) &&
+      !("SpeechRecognition" in window)
+    ) {
+      console.warn("Speech recognition not supported in this browser.");
+      return null;
+    }
+    const SpeechRecognition =
+      window.SpeechRecognition || window.webkitSpeechRecognition;
+    const recognition = new SpeechRecognition();
+    recognition.continuous = false;
+    recognition.interimResults = false;
+    recognition.lang = getLocale();
+    recognitionRef.current = recognition;
+    return recognition;
+  };
+
   // Map language code to locale for speech recognition
   const getLocale = () => {
     const lang = getLanguage();
@@ -192,50 +212,35 @@ export function VoiceAssistantGlobal() {
   };
 
   const startListening = () => {
-    if (
-      !("webkitSpeechRecognition" in window) &&
-      !("SpeechRecognition" in window)
-    ) {
-      console.warn("Speech recognition not supported in this browser.");
-      return;
-    }
+    const recognition = getRecognition();
+    if (!recognition) return;
 
-    // Stop any previous recognition
-    if (recognitionRef.current) {
-      recognitionRef.current.onresult = null;
-      recognitionRef.current.onerror = null;
-      recognitionRef.current.onend = null;
-      recognitionRef.current.stop();
-    }
+    // Remove old handlers to avoid stacking
+    recognition.onresult = null;
+    recognition.onerror = null;
+    recognition.onend = null;
 
-    const SpeechRecognition =
-      window.SpeechRecognition || window.webkitSpeechRecognition;
-    const recognition = new SpeechRecognition();
-    recognitionRef.current = recognition;
-
-    recognition.continuous = false;
-    recognition.interimResults = false;
-    recognition.lang = getLocale();
-
-    recognition.onstart = () => setIsListening(true);
+    recognition.onstart = () => {
+      setIsListening(true);
+      console.log('Voice recognition started');
+    };
 
     recognition.onresult = async (event) => {
       const transcript = event.results[0]?.[0]?.transcript || "";
-      // Try AI/alias matching first
+      console.log('Voice input:', transcript);
       let route = await analyzeWithAI(transcript);
       if (!route) {
         route = getRouteFromText(transcript);
       }
-
       if (route) {
         const routeKey = Object.keys(ROUTE_ALIASES).find(
           (key) => ROUTE_ALIASES[key as keyof typeof ROUTE_ALIASES] === route
         );
-
         if (routeKey && isProtectedRoute(routeKey)) {
           if (!checkAuth()) {
             sessionStorage.setItem("redirectAfterLogin", route);
             router.push("/");
+            setIsListening(false);
             return;
           }
         }
@@ -247,12 +252,25 @@ export function VoiceAssistantGlobal() {
             NOT_FOUND_MESSAGES["en"]
         );
       }
+      setIsListening(false);
     };
 
-    recognition.onerror = () => setIsListening(false);
-    recognition.onend = () => setIsListening(false);
+    recognition.onerror = (e) => {
+      setIsListening(false);
+      console.error('Recognition error', e);
+    };
+    recognition.onend = () => {
+      setIsListening(false);
+      console.log('Voice recognition ended');
+    };
 
-    recognition.start();
+    try {
+      recognition.start();
+      console.log('Recognition started');
+    } catch (err) {
+      setIsListening(false);
+      console.error('Recognition start error', err);
+    }
   };
 
   return (
