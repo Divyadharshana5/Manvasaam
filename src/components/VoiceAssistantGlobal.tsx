@@ -106,12 +106,18 @@ export function VoiceAssistantGlobal() {
   const getLocale = () => {
     const lang = getLanguage();
     switch (lang) {
-      case 'en': return 'en-US';
-      case 'hi': return 'hi-IN';
-      case 'te': return 'te-IN';
-      case 'ta': return 'ta-IN';
-      case 'bn': return 'bn-IN';
-      default: return lang + '-' + lang.toUpperCase();
+      case "en":
+        return "en-US";
+      case "hi":
+        return "hi-IN";
+      case "te":
+        return "te-IN";
+      case "ta":
+        return "ta-IN";
+      case "bn":
+        return "bn-IN";
+      default:
+        return lang + "-" + lang.toUpperCase();
     }
   };
 
@@ -190,7 +196,7 @@ export function VoiceAssistantGlobal() {
       !("webkitSpeechRecognition" in window) &&
       !("SpeechRecognition" in window)
     ) {
-      console.warn('Speech recognition not supported in this browser.');
+      console.warn("Speech recognition not supported in this browser.");
       return;
     }
 
