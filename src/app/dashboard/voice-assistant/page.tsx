@@ -72,7 +72,7 @@ export default function VoiceAssistantPage() {
             <CardDescription>Choose your preferred language</CardDescription>
           </CardHeader>
           <CardContent>
-            <div className="grid gap-2">
+            <div className="grid gap-2 max-h-64 overflow-y-auto">
               {languages.map((lang) => (
                 <Button
                   key={lang}
