@@ -143,6 +143,9 @@ export function VoiceAssistantGlobal() {
   };
 
   const speak = (text: string) => {
+    if (speechSynthesis.speaking) {
+      speechSynthesis.cancel();
+    }
     const utterance = new SpeechSynthesisUtterance(text);
     utterance.lang = navigator.language;
     speechSynthesis.speak(utterance);
@@ -165,7 +168,12 @@ export function VoiceAssistantGlobal() {
     recognitionRef.current.interimResults = false;
     recognitionRef.current.lang = navigator.language;
 
-    recognitionRef.current.onstart = () => setIsListening(true);
+    recognitionRef.current.onstart = () => {
+      if (speechSynthesis.speaking) {
+        speechSynthesis.cancel();
+      }
+      setIsListening(true);
+    };
 
     recognitionRef.current.onresult = async (event) => {
       const transcript = event.results[0]?.[0]?.transcript || "";
@@ -199,7 +207,6 @@ export function VoiceAssistantGlobal() {
 
     recognitionRef.current.onerror = () => {
       setIsListening(false);
-      alert("Voice recognition error");
     };
 
     recognitionRef.current.onend = () => setIsListening(false);
