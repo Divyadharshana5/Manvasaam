@@ -53,6 +53,8 @@ const ROUTE_ALIASES = {
   help: "/voice-assistant-help",
 };
 
+const PROTECTED_ROUTES = ["dashboard", "orders", "products", "track"];
+
 const NOT_FOUND_MESSAGES = {
   en: "Not Found",
   hi: "नहीं मिला",
@@ -67,6 +69,16 @@ export function VoiceAssistantGlobal() {
   const recognitionRef = useRef<SpeechRecognition | null>(null);
 
   const getLanguage = () => navigator.language.split("-")[0] || "en";
+
+  const checkAuth = () => {
+    // Check if user is authenticated (you can modify this based on your auth implementation)
+    const token = document.cookie.includes('auth-token') || localStorage.getItem('user');
+    return !!token;
+  };
+
+  const isProtectedRoute = (routeKey: string) => {
+    return PROTECTED_ROUTES.includes(routeKey);
+  };
 
   const analyzeWithAI = async (text: string) => {
     try {
@@ -120,11 +132,22 @@ export function VoiceAssistantGlobal() {
 
     recognitionRef.current.onresult = async (event) => {
       const transcript = event.results[0]?.[0]?.transcript || "";
-      alert(`Voice Input: ${transcript}`);
-
+      
       const route = await analyzeWithAI(transcript);
+      const routeKey = Object.keys(ROUTE_ALIASES).find(key => 
+        ROUTE_ALIASES[key as keyof typeof ROUTE_ALIASES] === route
+      );
 
       if (route) {
+        // Check if route requires authentication
+        if (routeKey && isProtectedRoute(routeKey)) {
+          if (!checkAuth()) {
+            // Redirect to login first, then to requested page
+            sessionStorage.setItem('redirectAfterLogin', route);
+            router.push('/login');
+            return;
+          }
+        }
         router.push(route);
       } else {
         const lang = getLanguage();
