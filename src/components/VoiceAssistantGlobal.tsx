@@ -151,12 +151,20 @@ export function VoiceAssistantGlobal() {
     speechSynthesis.speak(utterance);
   };
 
-  const startListening = () => {
+  const startListening = async () => {
     if (
       !("webkitSpeechRecognition" in window) &&
       !("SpeechRecognition" in window)
     ) {
-      alert("Speech recognition not supported");
+      console.log("Speech recognition not supported");
+      return;
+    }
+
+    // Request microphone permission
+    try {
+      await navigator.mediaDevices.getUserMedia({ audio: true });
+    } catch (error) {
+      console.log('Microphone permission denied:', error);
       return;
     }
 
@@ -166,7 +174,15 @@ export function VoiceAssistantGlobal() {
 
     recognitionRef.current.continuous = false;
     recognitionRef.current.interimResults = false;
-    recognitionRef.current.lang = navigator.language;
+    recognitionRef.current.lang = navigator.language || 'en-US';
+    recognitionRef.current.maxAlternatives = 1;
+    
+    // Add timeout to prevent hanging
+    const timeout = setTimeout(() => {
+      if (recognitionRef.current) {
+        recognitionRef.current.stop();
+      }
+    }, 10000); // 10 second timeout
 
     recognitionRef.current.onstart = () => {
       console.log('Speech recognition started');
@@ -209,11 +225,13 @@ export function VoiceAssistantGlobal() {
 
     recognitionRef.current.onerror = (event) => {
       console.log('Speech recognition error:', event.error);
+      clearTimeout(timeout);
       setIsListening(false);
     };
 
     recognitionRef.current.onend = () => {
       console.log('Speech recognition ended');
+      clearTimeout(timeout);
       setIsListening(false);
     };
     recognitionRef.current.start();
