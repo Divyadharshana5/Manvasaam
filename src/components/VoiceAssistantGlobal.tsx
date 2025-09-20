@@ -87,38 +87,71 @@ export function VoiceAssistantGlobal() {
     return null;
   };
 
-  const handleVoiceCommand = () => {
-    if (!('webkitSpeechRecognition' in window)) return;
-
-    const recognition = new (window as any).webkitSpeechRecognition();
-    recognition.lang = 'en-US';
-    recognition.continuous = false;
-    recognition.interimResults = false;
-
-    recognition.onstart = () => setIsListening(true);
-    recognition.onend = () => setIsListening(false);
-
-    recognition.onresult = (event: any) => {
-      const text = event.results[0][0].transcript.toLowerCase();
-      alert(`Heard: "${text}"`); // Debug what was heard
-      
-      // More flexible matching
-      if (text.match(/farm/)) router.push('/login/farmer');
-      else if (text.match(/custom/)) router.push('/login/customer');
-      else if (text.match(/restaurant|rest/)) router.push('/login/restaurant');
-      else if (text.match(/hub|distribution/)) router.push('/login/hub');
-      else if (text.match(/dash|board/)) router.push('/dashboard');
-      else {
-        alert(`No match found for: "${text}"`);
-        speechSynthesis.speak(new SpeechSynthesisUtterance('Not Found'));
+  const handleVoiceCommand = async () => {
+    try {
+      if (!navigator.mediaDevices || !('webkitSpeechRecognition' in window)) {
+        alert('Speech recognition not supported');
+        return;
       }
-    };
 
-    recognition.onerror = () => {
-      speechSynthesis.speak(new SpeechSynthesisUtterance('Not Found'));
-    };
+      // Request microphone permission
+      await navigator.mediaDevices.getUserMedia({ audio: true });
+      
+      const SpeechRecognition = (window as any).webkitSpeechRecognition;
+      const recognition = new SpeechRecognition();
+      
+      recognition.continuous = false;
+      recognition.interimResults = false;
+      recognition.lang = 'en-US';
+      recognition.maxAlternatives = 1;
 
-    recognition.start();
+      recognition.onstart = () => {
+        setIsListening(true);
+        console.log('Voice recognition started');
+      };
+
+      recognition.onend = () => {
+        setIsListening(false);
+        console.log('Voice recognition ended');
+      };
+
+      recognition.onresult = (event: any) => {
+        const transcript = event.results[0][0].transcript.toLowerCase().trim();
+        console.log('Transcript:', transcript);
+        
+        // Direct navigation based on keywords
+        if (transcript.includes('farmer') || transcript.includes('farm')) {
+          router.push('/login/farmer');
+        } else if (transcript.includes('customer') || transcript.includes('buyer')) {
+          router.push('/login/customer');
+        } else if (transcript.includes('restaurant') || transcript.includes('hotel')) {
+          router.push('/login/restaurant');
+        } else if (transcript.includes('hub') || transcript.includes('center')) {
+          router.push('/login/hub');
+        } else if (transcript.includes('dashboard') || transcript.includes('home')) {
+          router.push('/dashboard');
+        } else if (transcript.includes('product') || transcript.includes('item')) {
+          router.push('/dashboard/products');
+        } else if (transcript.includes('order') || transcript.includes('purchase')) {
+          router.push('/dashboard/orders');
+        } else {
+          const utterance = new SpeechSynthesisUtterance('Page not found');
+          speechSynthesis.speak(utterance);
+        }
+      };
+
+      recognition.onerror = (event: any) => {
+        console.error('Speech recognition error:', event.error);
+        setIsListening(false);
+        const utterance = new SpeechSynthesisUtterance('Voice recognition failed');
+        speechSynthesis.speak(utterance);
+      };
+
+      recognition.start();
+    } catch (error) {
+      console.error('Microphone access denied:', error);
+      alert('Please allow microphone access for voice commands');
+    }
   };
 
   return (
@@ -128,7 +161,7 @@ export function VoiceAssistantGlobal() {
       size="sm"
       className={isListening ? "bg-red-500 text-white" : ""}
     >
-      <Volume2 className="h-4 w-4" />
+      <Volume2 className="h-4 w-4 mr-1" />
       {isListening ? "Listening..." : "Voice"}
     </Button>
   );
