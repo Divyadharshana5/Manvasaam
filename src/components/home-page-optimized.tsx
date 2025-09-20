@@ -348,23 +348,41 @@ export default function HomePage() {
   }, []);
 
   const handleVoiceClick = useCallback(() => {
-    if (!('webkitSpeechRecognition' in window)) {
+    if (!('webkitSpeechRecognition' in window) && !('SpeechRecognition' in window)) {
       speak('Speech recognition not supported');
       return;
     }
 
     if (voiceState === "idle") {
-      const commands = ['farmer', 'customer', 'restaurant', 'hub', 'dashboard'];
-      const command = prompt(`Voice Command - Say one of: ${commands.join(', ')}`)?.toLowerCase();
+      const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+      const recognition = new SpeechRecognition();
       
-      if (!command) return;
+      recognition.continuous = false;
+      recognition.interimResults = false;
+      recognition.lang = navigator.language;
       
-      if (command.includes('farmer')) router.push('/login/farmer');
-      else if (command.includes('customer')) router.push('/login/customer');
-      else if (command.includes('restaurant')) router.push('/login/restaurant');
-      else if (command.includes('hub')) router.push('/login/hub');
-      else if (command.includes('dashboard')) router.push('/dashboard');
-      else speak(getNotFoundMessage());
+      recognition.onstart = () => setVoiceState("listening");
+      
+      recognition.onresult = (event) => {
+        const transcript = event.results[0]?.[0]?.transcript || "";
+        alert(`Voice Input: ${transcript}`);
+        
+        const route = getRouteFromKeywords(transcript);
+        
+        if (route) {
+          router.push(route);
+        } else {
+          speak(getNotFoundMessage());
+        }
+      };
+      
+      recognition.onerror = () => {
+        setVoiceState("idle");
+        speak('Voice recognition error');
+      };
+      
+      recognition.onend = () => setVoiceState("idle");
+      recognition.start();
     }
   }, [voiceState, router, getRouteFromKeywords, speak, getNotFoundMessage]);
 
