@@ -222,12 +222,12 @@ export function VoiceAssistantGlobal() {
 
     recognition.onstart = () => {
       setIsListening(true);
-      console.log('Voice recognition started');
+      console.log("Voice recognition started");
     };
 
     recognition.onresult = async (event) => {
       const transcript = event.results[0]?.[0]?.transcript || "";
-      console.log('Voice input:', transcript);
+      console.log("Voice input:", transcript);
       let route = await analyzeWithAI(transcript);
       if (!route) {
         route = getRouteFromText(transcript);
@@ -257,19 +257,19 @@ export function VoiceAssistantGlobal() {
 
     recognition.onerror = (e) => {
       setIsListening(false);
-      console.error('Recognition error', e);
+      console.error("Recognition error", e);
     };
     recognition.onend = () => {
       setIsListening(false);
-      console.log('Voice recognition ended');
+      console.log("Voice recognition ended");
     };
 
     try {
       recognition.start();
-      console.log('Recognition started');
+      console.log("Recognition started");
     } catch (err) {
       setIsListening(false);
-      console.error('Recognition start error', err);
+      console.error("Recognition start error", err);
     }
   };
 
