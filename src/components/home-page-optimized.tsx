@@ -186,9 +186,7 @@ export default function HomePage() {
   const { toast } = useToast();
 
 
-  const [voiceState, setVoiceState] = useState<"idle" | "listening" | "processing">("idle");
-  const mediaRecorderRef = useRef<MediaRecorder | null>(null);
-  const audioChunksRef = useRef<Blob[]>([]);
+  const [voiceState, setVoiceState] = useState<"idle" | "listening">("idle");
   const [loadingRoleHref, setLoadingRoleHref] = useState<string | null>(null);
 
   // Progressive loading state for better performance
@@ -314,181 +312,73 @@ export default function HomePage() {
     }
   }, [selectedLanguage]);
 
-  const startRecording = useCallback(async () => {
-    try {
-      const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
-      mediaRecorderRef.current = new MediaRecorder(stream, { mimeType: "audio/webm" });
-      audioChunksRef.current = [];
-      
-      mediaRecorderRef.current.ondataavailable = (event) => {
-        audioChunksRef.current.push(event.data);
-      };
-
-      mediaRecorderRef.current.onstop = processAudio;
-      mediaRecorderRef.current.start();
-      setVoiceState("listening");
-      
-      // Auto-stop after 5 seconds
-      setTimeout(() => {
-        if (voiceState === "listening" && mediaRecorderRef.current) {
-          stopRecording();
-        }
-      }, 5000);
-      
-    } catch (error) {
-      toast({
-        variant: "destructive",
-        title: "Microphone Error",
-        description: "Could not access microphone. Please check permissions.",
-      });
-    }
-  }, [processAudio, voiceState]);
-
-  const stopRecording = useCallback(() => {
-    if (mediaRecorderRef.current && mediaRecorderRef.current.state === "recording") {
-      mediaRecorderRef.current.stop();
-      mediaRecorderRef.current.stream.getTracks().forEach((track) => track.stop());
-    }
-  }, []);
-
   const getRouteFromKeywords = useCallback((text: string) => {
     const lowerText = text.toLowerCase().trim();
     
-    // Enhanced keyword mapping with multiple variations
     const routes: Record<string, string> = {
-      // Login pages
       "farmer": "/login/farmer",
       "customer": "/login/customer", 
       "restaurant": "/login/restaurant",
       "hub": "/login/hub",
-      "distribution": "/login/hub",
-      "login": "/login/customer", // Default login
-      "sign in": "/login/customer",
-      "register": "/login/customer",
-      
-      // Dashboard pages
       "dashboard": "/dashboard",
-      "main": "/dashboard",
-      "home": "/",
       "orders": "/dashboard/orders",
-      "order": "/dashboard/orders",
       "products": "/dashboard/products",
-      "product": "/dashboard/products",
       "profile": "/dashboard/profile",
-      "account": "/dashboard/profile",
       "inventory": "/dashboard/hub/inventory",
-      "stock": "/dashboard/hub/inventory",
       "matchmaking": "/dashboard/matchmaking",
-      "match": "/dashboard/matchmaking",
       "track": "/dashboard/track",
-      "tracking": "/dashboard/track",
       "faq": "/dashboard/faq",
       "help": "/dashboard/faq",
       "support": "/support",
       "marketing": "/dashboard/marketing",
       "voice": "/dashboard/voice-assistant",
-      "assistant": "/dashboard/voice-assistant",
       "privacy": "/privacy",
       "terms": "/terms"
     };
 
-    // Check for exact matches first
-    if (routes[lowerText]) {
-      return routes[lowerText];
-    }
-
-    // Check for partial matches
+    if (routes[lowerText]) return routes[lowerText];
+    
     for (const [keyword, route] of Object.entries(routes)) {
-      if (lowerText.includes(keyword)) {
-        return route;
-      }
+      if (lowerText.includes(keyword)) return route;
     }
     
     return null;
   }, []);
 
-  const processAudio = useCallback(async () => {
-    setVoiceState("processing");
-    
-    try {
-      const audioBlob = new Blob(audioChunksRef.current, { type: "audio/webm" });
-      
-      // Use browser's built-in speech recognition
-      if ('webkitSpeechRecognition' in window || 'SpeechRecognition' in window) {
-        const SpeechRecognition = (window as any).SpeechRecognition || (window as any).webkitSpeechRecognition;
-        const recognition = new SpeechRecognition();
-        
-        recognition.continuous = false;
-        recognition.interimResults = false;
-        recognition.lang = 'en-US';
-        
-        recognition.onresult = (event: any) => {
-          const transcript = event.results[0][0].transcript.toLowerCase().trim();
-          console.log('Speech recognized:', transcript);
-          
-          const route = getRouteFromKeywords(transcript);
-          if (route) {
-            speak(`Navigating to ${transcript}`);
-            setTimeout(() => {
-              router.push(route);
-              setVoiceState("idle");
-            }, 1000);
-          } else {
-            speak(getNotFoundMessage());
-            setTimeout(() => setVoiceState("idle"), 2000);
-          }
-        };
-        
-        recognition.onerror = (event: any) => {
-          console.error('Speech recognition error:', event.error);
-          speak(getNotFoundMessage());
-          setTimeout(() => setVoiceState("idle"), 2000);
-        };
-        
-        recognition.onend = () => {
-          if (voiceState === "processing") {
-            setVoiceState("idle");
-          }
-        };
-        
-        // Start recognition with the recorded audio
-        recognition.start();
-        
-      } else {
-        // Fallback: simulate voice recognition for demo
-        setTimeout(() => {
-          const demoCommands = [
-            { text: 'farmer', route: '/login/farmer' },
-            { text: 'customer', route: '/login/customer' },
-            { text: 'restaurant', route: '/login/restaurant' },
-            { text: 'hub', route: '/login/hub' },
-            { text: 'dashboard', route: '/dashboard' }
-          ];
-          
-          const randomCommand = demoCommands[Math.floor(Math.random() * demoCommands.length)];
-          speak(`Navigating to ${randomCommand.text}`);
-          
-          setTimeout(() => {
-            router.push(randomCommand.route);
-            setVoiceState("idle");
-          }, 1500);
-        }, 1000);
-      }
-      
-    } catch (error) {
-      console.error('Audio processing failed:', error);
-      speak(getNotFoundMessage());
-      setTimeout(() => setVoiceState("idle"), 2000);
-    }
-  }, [selectedLanguage, router, getNotFoundMessage, speak, getRouteFromKeywords, voiceState]);
-
   const handleVoiceClick = useCallback(() => {
-    if (voiceState === "idle") {
-      startRecording();
-    } else if (voiceState === "listening") {
-      stopRecording();
+    if (!('webkitSpeechRecognition' in window)) {
+      speak('Speech recognition not supported');
+      return;
     }
-  }, [voiceState, startRecording, stopRecording]);
+
+    if (voiceState === "idle") {
+      const recognition = new (window as any).webkitSpeechRecognition();
+      recognition.continuous = false;
+      recognition.interimResults = false;
+      recognition.lang = 'en-US';
+
+      recognition.onstart = () => setVoiceState("listening");
+      recognition.onend = () => setVoiceState("idle");
+
+      recognition.onresult = (event: any) => {
+        const transcript = event.results[0][0].transcript.toLowerCase().trim();
+        const route = getRouteFromKeywords(transcript);
+        
+        if (route) {
+          router.push(route);
+        } else {
+          speak(getNotFoundMessage());
+        }
+      };
+
+      recognition.onerror = () => {
+        speak(getNotFoundMessage());
+        setVoiceState("idle");
+      };
+
+      recognition.start();
+    }
+  }, [voiceState, router, getRouteFromKeywords, speak, getNotFoundMessage]);
 
   // Optimized animation variants with reduced motion support
   const sentence = useMemo(
@@ -542,23 +432,21 @@ export default function HomePage() {
                 variant="ghost"
                 size="sm"
                 onClick={handleVoiceClick}
-                disabled={voiceState === "processing"}
+                disabled={voiceState === "listening"}
                 className={`hover:bg-primary/90 hover:text-primary-foreground text-xs sm:text-sm px-2 sm:px-4 ${
                   voiceState === "listening" ? "bg-red-500 text-white animate-pulse" : ""
                 }`}
               >
-                {voiceState === "processing" ? (
-                  <Loader2 className="mr-1 sm:mr-2 h-3 w-3 sm:h-4 sm:w-4 animate-spin" />
-                ) : voiceState === "listening" ? (
+                {voiceState === "listening" ? (
                   <Square className="mr-1 sm:mr-2 h-3 w-3 sm:h-4 sm:w-4" />
                 ) : (
                   <Mic className="mr-1 sm:mr-2 h-3 w-3 sm:h-4 sm:w-4" />
                 )}
                 <span className="hidden sm:inline">
-                  {voiceState === "listening" ? "Stop" : voiceState === "processing" ? "Processing..." : t.sidebar.voiceAssistant}
+                  {voiceState === "listening" ? "Listening..." : t.sidebar.voiceAssistant}
                 </span>
                 <span className="sm:hidden">
-                  {voiceState === "listening" ? "Stop" : voiceState === "processing" ? "..." : "Voice"}
+                  {voiceState === "listening" ? "..." : "Voice"}
                 </span>
               </Button>
             </m.div>
