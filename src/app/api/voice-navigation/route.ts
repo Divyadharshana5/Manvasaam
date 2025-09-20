@@ -1,72 +1,36 @@
-import { NextRequest, NextResponse } from "next/server";
+import { NextRequest, NextResponse } from 'next/server';
+import { GoogleGenerativeAI } from '@google/generative-ai';
 
-// Import AI flows
-async function speechToText(params: any) {
-  try {
-    const { speechToText } = await import("@/ai/flows/stt-flow");
-    return speechToText(params);
-  } catch (error) {
-    console.error("STT import error:", error);
-    return { transcript: "" };
-  }
-}
-
-async function understandNavigation(params: any) {
-  try {
-    const { understandNavigation } = await import("@/ai/flows/navigation-flow");
-    return understandNavigation(params);
-  } catch (error) {
-    console.error("Navigation import error:", error);
-    return { shouldNavigate: false, message: "Not Found" };
-  }
-}
+const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY || '');
 
 export async function POST(request: NextRequest) {
   try {
-    const { audioDataUri, language } = await request.json();
-
-    if (!audioDataUri) {
-      return NextResponse.json(
-        { error: "Audio data is required" },
-        { status: 400 }
-      );
-    }
-
-    // Convert speech to text
-    const sttResult = await speechToText({
-      audioDataUri,
-      language: language || "English",
-    });
-
-    const { transcript } = sttResult;
-
-    if (!transcript || transcript.trim() === "") {
-      return NextResponse.json({
-        success: false,
-        message: "No speech detected",
-      });
-    }
-
-    // Understand navigation intent
-    const navResult = await understandNavigation({
-      text: transcript,
-      language: language || "English",
-    });
-
-    return NextResponse.json({
-      success: true,
-      transcript,
-      shouldNavigate: navResult.shouldNavigate,
-      pageKey: navResult.pageKey,
-      message: navResult.message,
-    });
-
-  } catch (error) {
-    console.error("Voice navigation error:", error);
+    const { text, routes } = await request.json();
     
-    return NextResponse.json({
-      success: false,
-      message: "Processing failed",
+    const model = genAI.getGenerativeModel({ model: 'gemini-pro' });
+    
+    const prompt = `
+    Analyze this voice command: "${text}"
+    
+    Available routes: ${routes.join(', ')}
+    
+    Return only the exact route name that best matches the user's intent.
+    If no match, return "null".
+    
+    Examples:
+    - "go to dashboard" → "dashboard"
+    - "farmer login" → "farmer"
+    - "show products" → "products"
+    - "random text" → "null"
+    `;
+
+    const result = await model.generateContent(prompt);
+    const response = result.response.text().trim().toLowerCase();
+    
+    return NextResponse.json({ 
+      route: response === 'null' ? null : response 
     });
+  } catch (error) {
+    return NextResponse.json({ route: null });
   }
 }
