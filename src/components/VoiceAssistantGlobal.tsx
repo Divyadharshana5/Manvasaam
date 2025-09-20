@@ -5,22 +5,52 @@ import { Button } from "@/components/ui/button";
 import { Volume2, MicIcon } from "lucide-react";
 
 const KNOWN_ROUTES = [
-  "/dashboard", "/dashboard/farmer", "/dashboard/customer", "/dashboard/hub",
-  "/dashboard/restaurant", "/dashboard/orders", "/dashboard/products", "/dashboard/faq",
-  "/dashboard/marketing", "/dashboard/matchmaking", "/dashboard/voice-assistant",
-  "/dashboard/track", "/dashboard/profile", "/dashboard/contact",
-  "/dashboard/hub/inventory", "/dashboard/hub/attendance", "/privacy", "/terms",
-  "/support", "/test-dropdown", "/test-hub", "/test-email", "/voice-assistant-help"
+  "/dashboard",
+  "/dashboard/farmer",
+  "/dashboard/customer",
+  "/dashboard/hub",
+  "/dashboard/restaurant",
+  "/dashboard/orders",
+  "/dashboard/products",
+  "/dashboard/faq",
+  "/dashboard/marketing",
+  "/dashboard/matchmaking",
+  "/dashboard/voice-assistant",
+  "/dashboard/track",
+  "/dashboard/profile",
+  "/dashboard/contact",
+  "/dashboard/hub/inventory",
+  "/dashboard/hub/attendance",
+  "/privacy",
+  "/terms",
+  "/support",
+  "/test-dropdown",
+  "/test-hub",
+  "/test-email",
+  "/voice-assistant-help",
 ];
 
 const ROUTE_ALIASES = {
-  dashboard: "/dashboard", farmer: "/login/farmer", customer: "/login/customer",
-  hub: "/login/hub", restaurant: "/login/restaurant", orders: "/dashboard/orders",
-  products: "/dashboard/products", faq: "/dashboard/faq", marketing: "/dashboard/marketing",
-  matchmaking: "/dashboard/matchmaking", "voice assistant": "/dashboard/voice-assistant",
-  track: "/dashboard/track", profile: "/dashboard/profile", contact: "/dashboard/contact",
-  inventory: "/dashboard/hub/inventory", attendance: "/dashboard/hub/attendance",
-  privacy: "/privacy", terms: "/terms", support: "/support", help: "/voice-assistant-help"
+  dashboard: "/dashboard",
+  farmer: "/login/farmer",
+  customer: "/login/customer",
+  hub: "/login/hub",
+  restaurant: "/login/restaurant",
+  orders: "/dashboard/orders",
+  products: "/dashboard/products",
+  faq: "/dashboard/faq",
+  marketing: "/dashboard/marketing",
+  matchmaking: "/dashboard/matchmaking",
+  "voice assistant": "/dashboard/voice-assistant",
+  track: "/dashboard/track",
+  profile: "/dashboard/profile",
+  contact: "/dashboard/contact",
+  inventory: "/dashboard/hub/inventory",
+  attendance: "/dashboard/hub/attendance",
+  privacy: "/privacy",
+  terms: "/terms",
+  support: "/support",
+  help: "/voice-assistant-help",
 };
 
 const NOT_FOUND_MESSAGES = {
@@ -28,7 +58,7 @@ const NOT_FOUND_MESSAGES = {
   hi: "नहीं मिला",
   te: "కనుగొనబడలేదు",
   ta: "கிடைக்கவில்லை",
-  bn: "পাওয়া যায়নি"
+  bn: "পাওয়া যায়নি",
 };
 
 export function VoiceAssistantGlobal() {
@@ -36,14 +66,14 @@ export function VoiceAssistantGlobal() {
   const router = useRouter();
   const recognitionRef = useRef<SpeechRecognition | null>(null);
 
-  const getLanguage = () => navigator.language.split('-')[0] || 'en';
+  const getLanguage = () => navigator.language.split("-")[0] || "en";
 
   const analyzeWithAI = async (text: string) => {
     try {
-      const response = await fetch('/api/voice-navigation', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ text, routes: Object.keys(ROUTE_ALIASES) })
+      const response = await fetch("/api/voice-navigation", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ text, routes: Object.keys(ROUTE_ALIASES) }),
       });
       const data = await response.json();
       return data.route || null;
@@ -70,38 +100,44 @@ export function VoiceAssistantGlobal() {
   };
 
   const startListening = () => {
-    if (!('webkitSpeechRecognition' in window) && !('SpeechRecognition' in window)) {
-      alert('Speech recognition not supported');
+    if (
+      !("webkitSpeechRecognition" in window) &&
+      !("SpeechRecognition" in window)
+    ) {
+      alert("Speech recognition not supported");
       return;
     }
 
-    const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+    const SpeechRecognition =
+      window.SpeechRecognition || window.webkitSpeechRecognition;
     recognitionRef.current = new SpeechRecognition();
-    
+
     recognitionRef.current.continuous = false;
     recognitionRef.current.interimResults = false;
     recognitionRef.current.lang = navigator.language;
 
     recognitionRef.current.onstart = () => setIsListening(true);
-    
+
     recognitionRef.current.onresult = async (event) => {
-      const transcript = event.results[0].transcript;
+      const transcript = event.results[0]?.[0]?.transcript || "";
       alert(`Voice Input: ${transcript}`);
-      
+
       const route = await analyzeWithAI(transcript);
-      
+
       if (route) {
         router.push(route);
       } else {
         const lang = getLanguage();
-        const message = NOT_FOUND_MESSAGES[lang as keyof typeof NOT_FOUND_MESSAGES] || 'Not Found';
+        const message =
+          NOT_FOUND_MESSAGES[lang as keyof typeof NOT_FOUND_MESSAGES] ||
+          "Not Found";
         speak(message);
       }
     };
 
     recognitionRef.current.onerror = () => {
       setIsListening(false);
-      alert('Voice recognition error');
+      alert("Voice recognition error");
     };
 
     recognitionRef.current.onend = () => setIsListening(false);
@@ -116,7 +152,11 @@ export function VoiceAssistantGlobal() {
       className={isListening ? "bg-red-500 text-white animate-pulse" : ""}
       disabled={isListening}
     >
-      {isListening ? <MicIcon className="h-4 w-4 mr-1" /> : <Volume2 className="h-4 w-4 mr-1" />}
+      {isListening ? (
+        <MicIcon className="h-4 w-4 mr-1" />
+      ) : (
+        <Volume2 className="h-4 w-4 mr-1" />
+      )}
       {isListening ? "Listening..." : "Voice"}
     </Button>
   );
