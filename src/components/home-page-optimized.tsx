@@ -336,8 +336,10 @@ export default function HomePage() {
       "terms": "/terms"
     };
 
+    // Exact match first
     if (routes[lowerText]) return routes[lowerText];
     
+    // Partial match
     for (const [keyword, route] of Object.entries(routes)) {
       if (lowerText.includes(keyword)) return route;
     }
