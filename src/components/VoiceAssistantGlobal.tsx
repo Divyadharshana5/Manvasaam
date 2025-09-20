@@ -142,9 +142,9 @@ export function VoiceAssistantGlobal() {
         // Check if route requires authentication
         if (routeKey && isProtectedRoute(routeKey)) {
           if (!checkAuth()) {
-            // Redirect to login first, then to requested page
+            // Redirect to home page to select role and login
             sessionStorage.setItem('redirectAfterLogin', route);
-            router.push('/login');
+            router.push('/');
             return;
           }
         }
