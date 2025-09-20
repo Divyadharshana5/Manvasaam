@@ -88,7 +88,11 @@ export function VoiceAssistantGlobal() {
         body: JSON.stringify({ text, routes: Object.keys(ROUTE_ALIASES) }),
       });
       const data = await response.json();
-      return data.route || null;
+      const routeKey = data.route;
+      if (routeKey && ROUTE_ALIASES[routeKey as keyof typeof ROUTE_ALIASES]) {
+        return ROUTE_ALIASES[routeKey as keyof typeof ROUTE_ALIASES];
+      }
+      return null;
     } catch {
       return getRouteFromText(text);
     }
@@ -96,11 +100,12 @@ export function VoiceAssistantGlobal() {
 
   const getRouteFromText = (text: string) => {
     const lowerText = text.toLowerCase().trim();
-    if (ROUTE_ALIASES[lowerText as keyof typeof ROUTE_ALIASES]) {
-      return ROUTE_ALIASES[lowerText as keyof typeof ROUTE_ALIASES];
-    }
+    
+    // Direct match first
     for (const [alias, route] of Object.entries(ROUTE_ALIASES)) {
-      if (lowerText.includes(alias)) return route;
+      if (lowerText === alias || lowerText.includes(alias)) {
+        return route;
+      }
     }
     return null;
   };
