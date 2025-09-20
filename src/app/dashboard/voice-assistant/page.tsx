@@ -5,12 +5,13 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Mic, MicOff, Volume2, Settings, Languages, HelpCircle } from "lucide-react";
+import SimpleVoiceNavigation from "@/components/simple-voice-navigation";
+import { useLanguage } from "@/context/language-context";
 
 export default function VoiceAssistantPage() {
-  const [isListening, setIsListening] = useState(false);
-  const [selectedLanguage, setSelectedLanguage] = useState("English");
-
-  const languages = ["English", "Hindi", "Marathi", "Gujarati", "Tamil"];
+  const { selectedLanguage, setSelectedLanguage, t } = useLanguage();
+  
+  const languages = ["English", "Hindi", "Tamil", "Malayalam", "Telugu", "Kannada", "Bengali", "Arabic", "Urdu", "Srilanka"];
   
   const commands = [
     { command: "Check inventory", description: "View current stock levels" },
