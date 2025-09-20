@@ -364,23 +364,19 @@ export default function HomePage() {
 
       recognition.onresult = (event: any) => {
         const transcript = event.results[0][0].transcript.toLowerCase().trim();
-        console.log('Voice input:', transcript);
+        console.log('Homepage voice input:', transcript);
         
-        let route = null;
-        if (transcript.includes('farmer')) route = '/login/farmer';
-        else if (transcript.includes('customer')) route = '/login/customer';
-        else if (transcript.includes('restaurant')) route = '/login/restaurant';
-        else if (transcript.includes('hub')) route = '/login/hub';
-        else if (transcript.includes('dashboard')) route = '/dashboard';
-        else if (transcript.includes('product')) route = '/dashboard/products';
-        else if (transcript.includes('order')) route = '/dashboard/orders';
-        else if (transcript.includes('profile')) route = '/dashboard/profile';
-        
-        if (route) {
-          console.log('Navigating to:', route);
-          router.push(route);
+        if (transcript.includes('farmer')) {
+          router.push('/login/farmer');
+        } else if (transcript.includes('customer')) {
+          router.push('/login/customer');
+        } else if (transcript.includes('restaurant')) {
+          router.push('/login/restaurant');
+        } else if (transcript.includes('hub')) {
+          router.push('/login/hub');
+        } else if (transcript.includes('dashboard')) {
+          router.push('/dashboard');
         } else {
-          console.log('No route found for:', transcript);
           speak(getNotFoundMessage());
         }
       };
