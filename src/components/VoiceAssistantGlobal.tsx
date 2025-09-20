@@ -4,6 +4,7 @@ import { useRouter } from "next/navigation";
 import { Button } from "@/components/ui/button";
 import { Volume2, MicIcon } from "lucide-react";
 import { isAuthenticated } from "@/lib/auth-redirect";
+import SimpleVoiceNavigation from "./simple-voice-navigation";
 
 const KNOWN_ROUTES = [
   "/dashboard",
