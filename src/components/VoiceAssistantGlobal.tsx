@@ -89,6 +89,7 @@ export function VoiceAssistantGlobal() {
 
   const handleVoiceCommand = () => {
     if (!('webkitSpeechRecognition' in window)) {
+      alert('Speech recognition not supported');
       return;
     }
 
@@ -97,35 +98,42 @@ export function VoiceAssistantGlobal() {
     recognition.interimResults = false;
     recognition.lang = 'en-US';
 
-    recognition.onstart = () => setIsListening(true);
-    recognition.onend = () => setIsListening(false);
+    recognition.onstart = () => {
+      setIsListening(true);
+      console.log('Speech recognition started');
+    };
+    
+    recognition.onend = () => {
+      setIsListening(false);
+      console.log('Speech recognition ended');
+    };
 
     recognition.onresult = (event: any) => {
       const transcript = event.results[0][0].transcript.toLowerCase().trim();
-      console.log('Voice input:', transcript);
+      console.log('Voice transcript:', transcript);
       
-      // Simple direct matching
-      let route = null;
-      if (transcript.includes('farmer')) route = '/login/farmer';
-      else if (transcript.includes('customer')) route = '/login/customer';
-      else if (transcript.includes('restaurant')) route = '/login/restaurant';
-      else if (transcript.includes('hub')) route = '/login/hub';
-      else if (transcript.includes('dashboard')) route = '/dashboard';
-      else if (transcript.includes('product')) route = '/dashboard/products';
-      else if (transcript.includes('order')) route = '/dashboard/orders';
-      else if (transcript.includes('profile')) route = '/dashboard/profile';
+      // Test with alert first
+      alert(`You said: ${transcript}`);
       
-      if (route) {
-        console.log('Navigating to:', route);
-        router.push(route);
+      if (transcript.includes('farmer')) {
+        router.push('/login/farmer');
+      } else if (transcript.includes('customer')) {
+        router.push('/login/customer');
+      } else if (transcript.includes('restaurant')) {
+        router.push('/login/restaurant');
+      } else if (transcript.includes('hub')) {
+        router.push('/login/hub');
+      } else if (transcript.includes('dashboard')) {
+        router.push('/dashboard');
       } else {
-        console.log('No route found');
         const utterance = new SpeechSynthesisUtterance('Not Found');
         speechSynthesis.speak(utterance);
       }
     };
 
-    recognition.onerror = () => {
+    recognition.onerror = (event: any) => {
+      console.log('Speech recognition error:', event.error);
+      alert(`Speech error: ${event.error}`);
       const utterance = new SpeechSynthesisUtterance('Not Found');
       speechSynthesis.speak(utterance);
     };
