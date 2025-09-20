@@ -88,31 +88,32 @@ export function VoiceAssistantGlobal() {
   };
 
   const handleVoiceCommand = () => {
-    // For testing, simulate voice commands with prompts
-    const command = prompt('Say a command (farmer, customer, restaurant, hub, dashboard):');
-    
-    if (!command) {
-      const utterance = new SpeechSynthesisUtterance('Not Found');
-      speechSynthesis.speak(utterance);
-      return;
-    }
+    if (!('webkitSpeechRecognition' in window)) return;
 
-    const lowerCommand = command.toLowerCase().trim();
-    
-    if (lowerCommand.includes('farmer')) {
-      router.push('/login/farmer');
-    } else if (lowerCommand.includes('customer')) {
-      router.push('/login/customer');
-    } else if (lowerCommand.includes('restaurant')) {
-      router.push('/login/restaurant');
-    } else if (lowerCommand.includes('hub')) {
-      router.push('/login/hub');
-    } else if (lowerCommand.includes('dashboard')) {
-      router.push('/dashboard');
-    } else {
-      const utterance = new SpeechSynthesisUtterance('Not Found');
-      speechSynthesis.speak(utterance);
-    }
+    const recognition = new (window as any).webkitSpeechRecognition();
+    recognition.lang = 'en-US';
+    recognition.continuous = false;
+    recognition.interimResults = false;
+
+    recognition.onstart = () => setIsListening(true);
+    recognition.onend = () => setIsListening(false);
+
+    recognition.onresult = (event: any) => {
+      const text = event.results[0][0].transcript.toLowerCase();
+      
+      if (text.includes('farmer')) router.push('/login/farmer');
+      else if (text.includes('customer')) router.push('/login/customer');
+      else if (text.includes('restaurant')) router.push('/login/restaurant');
+      else if (text.includes('hub')) router.push('/login/hub');
+      else if (text.includes('dashboard')) router.push('/dashboard');
+      else speechSynthesis.speak(new SpeechSynthesisUtterance('Not Found'));
+    };
+
+    recognition.onerror = () => {
+      speechSynthesis.speak(new SpeechSynthesisUtterance('Not Found'));
+    };
+
+    recognition.start();
   };
 
   return (
