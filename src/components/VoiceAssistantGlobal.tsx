@@ -139,11 +139,13 @@ export function VoiceAssistantGlobal() {
       const transcript = event.results[0]?.[0]?.transcript || "";
       
       const route = await analyzeWithAI(transcript);
-      const routeKey = Object.keys(ROUTE_ALIASES).find(key => 
-        ROUTE_ALIASES[key as keyof typeof ROUTE_ALIASES] === route
-      );
-
+      
       if (route) {
+        // Find the route key for authentication checking
+        const routeKey = Object.keys(ROUTE_ALIASES).find(key => 
+          ROUTE_ALIASES[key as keyof typeof ROUTE_ALIASES] === route
+        );
+
         // Check if route requires authentication
         if (routeKey && isProtectedRoute(routeKey)) {
           if (!checkAuth()) {
