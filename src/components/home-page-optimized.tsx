@@ -349,7 +349,6 @@ export default function HomePage() {
 
   const handleVoiceClick = useCallback(() => {
     if (!('webkitSpeechRecognition' in window) && !('SpeechRecognition' in window)) {
-      speak('Speech recognition not supported');
       return;
     }
 
@@ -361,11 +360,15 @@ export default function HomePage() {
       recognition.interimResults = false;
       recognition.lang = navigator.language;
       
-      recognition.onstart = () => setVoiceState("listening");
+      recognition.onstart = () => {
+        if (speechSynthesis.speaking) {
+          speechSynthesis.cancel();
+        }
+        setVoiceState("listening");
+      };
       
       recognition.onresult = (event) => {
         const transcript = event.results[0]?.[0]?.transcript || "";
-        alert(`Voice Input: ${transcript}`);
         
         const route = getRouteFromKeywords(transcript);
         
@@ -378,7 +381,6 @@ export default function HomePage() {
       
       recognition.onerror = () => {
         setVoiceState("idle");
-        speak('Voice recognition error');
       };
       
       recognition.onend = () => setVoiceState("idle");
