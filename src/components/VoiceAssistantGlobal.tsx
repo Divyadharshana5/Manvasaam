@@ -88,57 +88,31 @@ export function VoiceAssistantGlobal() {
   };
 
   const handleVoiceCommand = () => {
-    if (!('webkitSpeechRecognition' in window)) {
-      alert('Speech recognition not supported');
+    // For testing, simulate voice commands with prompts
+    const command = prompt('Say a command (farmer, customer, restaurant, hub, dashboard):');
+    
+    if (!command) {
+      const utterance = new SpeechSynthesisUtterance('Not Found');
+      speechSynthesis.speak(utterance);
       return;
     }
 
-    const recognition = new (window as any).webkitSpeechRecognition();
-    recognition.continuous = false;
-    recognition.interimResults = false;
-    recognition.lang = 'en-US';
-
-    recognition.onstart = () => {
-      setIsListening(true);
-      console.log('Speech recognition started');
-    };
+    const lowerCommand = command.toLowerCase().trim();
     
-    recognition.onend = () => {
-      setIsListening(false);
-      console.log('Speech recognition ended');
-    };
-
-    recognition.onresult = (event: any) => {
-      const transcript = event.results[0][0].transcript.toLowerCase().trim();
-      console.log('Voice transcript:', transcript);
-      
-      // Test with alert first
-      alert(`You said: ${transcript}`);
-      
-      if (transcript.includes('farmer')) {
-        router.push('/login/farmer');
-      } else if (transcript.includes('customer')) {
-        router.push('/login/customer');
-      } else if (transcript.includes('restaurant')) {
-        router.push('/login/restaurant');
-      } else if (transcript.includes('hub')) {
-        router.push('/login/hub');
-      } else if (transcript.includes('dashboard')) {
-        router.push('/dashboard');
-      } else {
-        const utterance = new SpeechSynthesisUtterance('Not Found');
-        speechSynthesis.speak(utterance);
-      }
-    };
-
-    recognition.onerror = (event: any) => {
-      console.log('Speech recognition error:', event.error);
-      alert(`Speech error: ${event.error}`);
+    if (lowerCommand.includes('farmer')) {
+      router.push('/login/farmer');
+    } else if (lowerCommand.includes('customer')) {
+      router.push('/login/customer');
+    } else if (lowerCommand.includes('restaurant')) {
+      router.push('/login/restaurant');
+    } else if (lowerCommand.includes('hub')) {
+      router.push('/login/hub');
+    } else if (lowerCommand.includes('dashboard')) {
+      router.push('/dashboard');
+    } else {
       const utterance = new SpeechSynthesisUtterance('Not Found');
       speechSynthesis.speak(utterance);
-    };
-
-    recognition.start();
+    }
   };
 
   return (
