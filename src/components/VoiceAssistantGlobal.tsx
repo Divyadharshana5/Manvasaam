@@ -98,6 +98,11 @@ const NOT_FOUND_MESSAGES = {
 };
 
 export function VoiceAssistantGlobal() {
+  return <SimpleVoiceNavigation size="sm" className="inline-flex" />;
+}
+
+// Keep the old implementation as a fallback
+function VoiceAssistantGlobalOld() {
   const [isListening, setIsListening] = useState(false);
   const router = useRouter();
   const recognitionRef = useRef<SpeechRecognition | null>(null);

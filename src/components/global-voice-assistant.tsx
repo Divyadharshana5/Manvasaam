@@ -1,7 +1,7 @@
 "use client";
 
 import { usePathname } from "next/navigation";
-import InstantVoiceAssistant from "./instant-voice-assistant";
+import SimpleVoiceNavigation from "./simple-voice-navigation";
 
 export default function GlobalVoiceAssistant() {
   const pathname = usePathname();
@@ -24,7 +24,7 @@ export default function GlobalVoiceAssistant() {
 
   return (
     <div className={positionClass}>
-      <InstantVoiceAssistant 
+      <SimpleVoiceNavigation 
         size={size}
         className="shadow-lg transition-all duration-200 hover:scale-105"
       />
