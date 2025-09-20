@@ -365,11 +365,11 @@ export default function HomePage() {
       recognition.onresult = (event: any) => {
         const text = event.results[0][0].transcript.toLowerCase();
         
-        if (text.includes('farmer')) router.push('/login/farmer');
-        else if (text.includes('customer')) router.push('/login/customer');
-        else if (text.includes('restaurant')) router.push('/login/restaurant');
-        else if (text.includes('hub')) router.push('/login/hub');
-        else if (text.includes('dashboard')) router.push('/dashboard');
+        if (text.match(/farm/)) router.push('/login/farmer');
+        else if (text.match(/custom/)) router.push('/login/customer');
+        else if (text.match(/restaurant|rest/)) router.push('/login/restaurant');
+        else if (text.match(/hub|distribution/)) router.push('/login/hub');
+        else if (text.match(/dash|board/)) router.push('/dashboard');
         else speak(getNotFoundMessage());
       };
 
