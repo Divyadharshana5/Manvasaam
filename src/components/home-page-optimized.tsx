@@ -186,7 +186,7 @@ export default function HomePage() {
   const { toast } = useToast();
 
 
-  const [voiceState, setVoiceState] = useState<"idle" | "listening">("idle");
+  const [voiceState, setVoiceState] = useState<"idle">("idle");
   const [loadingRoleHref, setLoadingRoleHref] = useState<string | null>(null);
 
   // Progressive loading state for better performance
@@ -354,40 +354,28 @@ export default function HomePage() {
     }
 
     if (voiceState === "idle") {
-      const recognition = new (window as any).webkitSpeechRecognition();
-      recognition.continuous = false;
-      recognition.interimResults = false;
-      recognition.lang = 'en-US';
-
-      recognition.onstart = () => setVoiceState("listening");
-      recognition.onend = () => setVoiceState("idle");
-
-      recognition.onresult = (event: any) => {
-        const transcript = event.results[0][0].transcript.toLowerCase().trim();
-        console.log('Homepage voice input:', transcript);
-        
-        if (transcript.includes('farmer')) {
-          router.push('/login/farmer');
-        } else if (transcript.includes('customer')) {
-          router.push('/login/customer');
-        } else if (transcript.includes('restaurant')) {
-          router.push('/login/restaurant');
-        } else if (transcript.includes('hub')) {
-          router.push('/login/hub');
-        } else if (transcript.includes('dashboard')) {
-          router.push('/dashboard');
-        } else {
-          speak(getNotFoundMessage());
-        }
-      };
-
-      recognition.onerror = (event: any) => {
-        console.log('Speech recognition error:', event.error);
+      const command = prompt('Say a command (farmer, customer, restaurant, hub, dashboard):');
+      
+      if (!command) {
         speak(getNotFoundMessage());
-        setVoiceState("idle");
-      };
+        return;
+      }
 
-      recognition.start();
+      const lowerCommand = command.toLowerCase().trim();
+      
+      if (lowerCommand.includes('farmer')) {
+        router.push('/login/farmer');
+      } else if (lowerCommand.includes('customer')) {
+        router.push('/login/customer');
+      } else if (lowerCommand.includes('restaurant')) {
+        router.push('/login/restaurant');
+      } else if (lowerCommand.includes('hub')) {
+        router.push('/login/hub');
+      } else if (lowerCommand.includes('dashboard')) {
+        router.push('/dashboard');
+      } else {
+        speak(getNotFoundMessage());
+      }
     }
   }, [voiceState, router, getRouteFromKeywords, speak, getNotFoundMessage]);
 
