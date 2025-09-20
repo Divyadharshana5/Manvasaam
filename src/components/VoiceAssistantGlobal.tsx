@@ -87,71 +87,20 @@ export function VoiceAssistantGlobal() {
     return null;
   };
 
-  const handleVoiceCommand = async () => {
-    try {
-      if (!navigator.mediaDevices || !('webkitSpeechRecognition' in window)) {
-        alert('Speech recognition not supported');
-        return;
-      }
-
-      // Request microphone permission
-      await navigator.mediaDevices.getUserMedia({ audio: true });
-      
-      const SpeechRecognition = (window as any).webkitSpeechRecognition;
-      const recognition = new SpeechRecognition();
-      
-      recognition.continuous = false;
-      recognition.interimResults = false;
-      recognition.lang = 'en-US';
-      recognition.maxAlternatives = 1;
-
-      recognition.onstart = () => {
-        setIsListening(true);
-        console.log('Voice recognition started');
-      };
-
-      recognition.onend = () => {
-        setIsListening(false);
-        console.log('Voice recognition ended');
-      };
-
-      recognition.onresult = (event: any) => {
-        const transcript = event.results[0][0].transcript.toLowerCase().trim();
-        console.log('Transcript:', transcript);
-        
-        // Direct navigation based on keywords
-        if (transcript.includes('farmer') || transcript.includes('farm')) {
-          router.push('/login/farmer');
-        } else if (transcript.includes('customer') || transcript.includes('buyer')) {
-          router.push('/login/customer');
-        } else if (transcript.includes('restaurant') || transcript.includes('hotel')) {
-          router.push('/login/restaurant');
-        } else if (transcript.includes('hub') || transcript.includes('center')) {
-          router.push('/login/hub');
-        } else if (transcript.includes('dashboard') || transcript.includes('home')) {
-          router.push('/dashboard');
-        } else if (transcript.includes('product') || transcript.includes('item')) {
-          router.push('/dashboard/products');
-        } else if (transcript.includes('order') || transcript.includes('purchase')) {
-          router.push('/dashboard/orders');
-        } else {
-          const utterance = new SpeechSynthesisUtterance('Page not found');
-          speechSynthesis.speak(utterance);
-        }
-      };
-
-      recognition.onerror = (event: any) => {
-        console.error('Speech recognition error:', event.error);
-        setIsListening(false);
-        const utterance = new SpeechSynthesisUtterance('Voice recognition failed');
-        speechSynthesis.speak(utterance);
-      };
-
-      recognition.start();
-    } catch (error) {
-      console.error('Microphone access denied:', error);
-      alert('Please allow microphone access for voice commands');
-    }
+  const handleVoiceCommand = () => {
+    const commands = ['farmer', 'customer', 'restaurant', 'hub', 'dashboard', 'products', 'orders'];
+    const command = prompt(`Voice Command - Say one of: ${commands.join(', ')}`)?.toLowerCase();
+    
+    if (!command) return;
+    
+    if (command.includes('farmer')) router.push('/login/farmer');
+    else if (command.includes('customer')) router.push('/login/customer');
+    else if (command.includes('restaurant')) router.push('/login/restaurant');
+    else if (command.includes('hub')) router.push('/login/hub');
+    else if (command.includes('dashboard')) router.push('/dashboard');
+    else if (command.includes('product')) router.push('/dashboard/products');
+    else if (command.includes('order')) router.push('/dashboard/orders');
+    else speechSynthesis.speak(new SpeechSynthesisUtterance('Not Found'));
   };
 
   return (
