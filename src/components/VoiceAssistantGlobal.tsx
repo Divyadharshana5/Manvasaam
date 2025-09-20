@@ -67,7 +67,14 @@ const ROUTE_ALIASES = {
   help: "/voice-assistant-help",
 };
 
-const PROTECTED_ROUTES = ["dashboard", "orders", "products", "track"];
+const PROTECTED_ROUTES = [
+  "dashboard", "go to dashboard", "open dashboard",
+  "orders", "my orders", "show orders",
+  "products", "show products", "view products",
+  "track", "track order", "track orders",
+  "profile", "my profile",
+  "inventory", "attendance", "marketing", "matchmaking", "contact"
+];
 
 const NOT_FOUND_MESSAGES = {
   en: "Not Found",
@@ -113,13 +120,26 @@ export function VoiceAssistantGlobal() {
   const getRouteFromText = (text: string) => {
     const lowerText = text.toLowerCase().trim();
     
-    // Direct match first
+    // Exact match first
+    if (ROUTE_ALIASES[lowerText as keyof typeof ROUTE_ALIASES]) {
+      return ROUTE_ALIASES[lowerText as keyof typeof ROUTE_ALIASES];
+    }
+    
+    // Partial match - find the best match
+    let bestMatch = null;
+    let bestScore = 0;
+    
     for (const [alias, route] of Object.entries(ROUTE_ALIASES)) {
-      if (lowerText === alias || lowerText.includes(alias)) {
-        return route;
+      if (lowerText.includes(alias)) {
+        const score = alias.length; // Longer matches are better
+        if (score > bestScore) {
+          bestMatch = route;
+          bestScore = score;
+        }
       }
     }
-    return null;
+    
+    return bestMatch;
   };
 
   const speak = (text: string) => {
