@@ -354,43 +354,17 @@ export default function HomePage() {
     }
 
     if (voiceState === "idle") {
-      if (!('webkitSpeechRecognition' in window)) {
-        speak('Speech recognition not supported');
-        return;
-      }
-
-      const recognition = new (window as any).webkitSpeechRecognition();
-      recognition.continuous = false;
-      recognition.interimResults = false;
-      recognition.lang = 'en-US';
-
-      recognition.onstart = () => setVoiceState("listening");
-      recognition.onend = () => setVoiceState("idle");
-
-      recognition.onresult = (event: any) => {
-        const transcript = event.results[0][0].transcript.toLowerCase().trim();
-        
-        if (transcript.includes('farmer') || transcript.includes('farm')) {
-          router.push('/login/farmer');
-        } else if (transcript.includes('customer') || transcript.includes('buyer')) {
-          router.push('/login/customer');
-        } else if (transcript.includes('restaurant') || transcript.includes('hotel')) {
-          router.push('/login/restaurant');
-        } else if (transcript.includes('hub') || transcript.includes('center')) {
-          router.push('/login/hub');
-        } else if (transcript.includes('dashboard') || transcript.includes('home')) {
-          router.push('/dashboard');
-        } else {
-          speak(getNotFoundMessage());
-        }
-      };
-
-      recognition.onerror = () => {
-        speak(getNotFoundMessage());
-        setVoiceState("idle");
-      };
-
-      recognition.start();
+      const commands = ['farmer', 'customer', 'restaurant', 'hub', 'dashboard'];
+      const command = prompt(`Voice Command - Say one of: ${commands.join(', ')}`)?.toLowerCase();
+      
+      if (!command) return;
+      
+      if (command.includes('farmer')) router.push('/login/farmer');
+      else if (command.includes('customer')) router.push('/login/customer');
+      else if (command.includes('restaurant')) router.push('/login/restaurant');
+      else if (command.includes('hub')) router.push('/login/hub');
+      else if (command.includes('dashboard')) router.push('/dashboard');
+      else speak(getNotFoundMessage());
     }
   }, [voiceState, router, getRouteFromKeywords, speak, getNotFoundMessage]);
 
