@@ -102,6 +102,19 @@ export function VoiceAssistantGlobal() {
   const router = useRouter();
   const recognitionRef = useRef<SpeechRecognition | null>(null);
 
+  // Map language code to locale for speech recognition
+  const getLocale = () => {
+    const lang = getLanguage();
+    switch (lang) {
+      case 'en': return 'en-US';
+      case 'hi': return 'hi-IN';
+      case 'te': return 'te-IN';
+      case 'ta': return 'ta-IN';
+      case 'bn': return 'bn-IN';
+      default: return lang + '-' + lang.toUpperCase();
+    }
+  };
+
   // Replace with your app's language selection logic if available
   const getLanguage = () => {
     // Try to get from localStorage or context if you have a language selector
@@ -177,16 +190,26 @@ export function VoiceAssistantGlobal() {
       !("webkitSpeechRecognition" in window) &&
       !("SpeechRecognition" in window)
     ) {
+      console.warn('Speech recognition not supported in this browser.');
       return;
+    }
+
+    // Stop any previous recognition
+    if (recognitionRef.current) {
+      recognitionRef.current.onresult = null;
+      recognitionRef.current.onerror = null;
+      recognitionRef.current.onend = null;
+      recognitionRef.current.stop();
     }
 
     const SpeechRecognition =
       window.SpeechRecognition || window.webkitSpeechRecognition;
     const recognition = new SpeechRecognition();
+    recognitionRef.current = recognition;
 
     recognition.continuous = false;
     recognition.interimResults = false;
-    recognition.lang = getLanguage() + "-" + getLanguage().toUpperCase();
+    recognition.lang = getLocale();
 
     recognition.onstart = () => setIsListening(true);
 
