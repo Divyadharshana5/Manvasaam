@@ -157,7 +157,10 @@ export default function RootLayout({
         <FirebaseErrorBoundary>
           <LanguageProvider>
             <NavigationProvider>
-              <AuthProvider>{children}</AuthProvider>
+              <AuthProvider>
+                {children}
+                <GlobalVoiceAssistant />
+              </AuthProvider>
             </NavigationProvider>
           </LanguageProvider>
         </FirebaseErrorBoundary>
