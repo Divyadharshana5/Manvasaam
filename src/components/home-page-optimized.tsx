@@ -364,16 +364,20 @@ export default function HomePage() {
 
       recognition.onresult = (event: any) => {
         const transcript = event.results[0][0].transcript.toLowerCase().trim();
+        console.log('Voice input:', transcript);
         const route = getRouteFromKeywords(transcript);
         
         if (route) {
+          console.log('Navigating to:', route);
           router.push(route);
         } else {
+          console.log('No route found for:', transcript);
           speak(getNotFoundMessage());
         }
       };
 
-      recognition.onerror = () => {
+      recognition.onerror = (event: any) => {
+        console.log('Speech recognition error:', event.error);
         speak(getNotFoundMessage());
         setVoiceState("idle");
       };

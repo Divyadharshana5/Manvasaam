@@ -106,7 +106,16 @@ export function VoiceAssistantGlobal() {
       
       if (route) {
         router.push(route);
+      } else {
+        // Speak "Not Found" when no route matches
+        const utterance = new SpeechSynthesisUtterance('Not Found');
+        speechSynthesis.speak(utterance);
       }
+    };
+
+    recognition.onerror = () => {
+      const utterance = new SpeechSynthesisUtterance('Not Found');
+      speechSynthesis.speak(utterance);
     };
 
     recognition.start();
