@@ -41,10 +41,10 @@ const KNOWN_ROUTES = [
 
 const ROUTE_ALIASES = {
   dashboard: "/dashboard",
-  farmer: "/dashboard/farmer",
-  customer: "/dashboard/customer",
-  hub: "/dashboard/hub",
-  restaurant: "/dashboard/restaurant",
+  farmer: "/login/farmer",
+  customer: "/login/customer",
+  hub: "/login/hub",
+  restaurant: "/login/restaurant",
   orders: "/dashboard/orders",
   products: "/dashboard/products",
   faq: "/dashboard/faq",
@@ -72,6 +72,12 @@ export function VoiceAssistantGlobal() {
   const getRouteFromText = (text: string) => {
     const lowerText = text.toLowerCase().trim();
     
+    // Check exact matches first
+    if (ROUTE_ALIASES[lowerText as keyof typeof ROUTE_ALIASES]) {
+      return ROUTE_ALIASES[lowerText as keyof typeof ROUTE_ALIASES];
+    }
+    
+    // Check partial matches
     for (const [alias, route] of Object.entries(ROUTE_ALIASES)) {
       if (lowerText.includes(alias)) {
         return route;
