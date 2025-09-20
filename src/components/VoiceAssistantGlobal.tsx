@@ -101,13 +101,25 @@ export function VoiceAssistantGlobal() {
     recognition.onend = () => setIsListening(false);
 
     recognition.onresult = (event: any) => {
-      const transcript = event.results[0][0].transcript;
-      const route = getRouteFromText(transcript);
+      const transcript = event.results[0][0].transcript.toLowerCase().trim();
+      console.log('Voice input:', transcript);
+      
+      // Simple direct matching
+      let route = null;
+      if (transcript.includes('farmer')) route = '/login/farmer';
+      else if (transcript.includes('customer')) route = '/login/customer';
+      else if (transcript.includes('restaurant')) route = '/login/restaurant';
+      else if (transcript.includes('hub')) route = '/login/hub';
+      else if (transcript.includes('dashboard')) route = '/dashboard';
+      else if (transcript.includes('product')) route = '/dashboard/products';
+      else if (transcript.includes('order')) route = '/dashboard/orders';
+      else if (transcript.includes('profile')) route = '/dashboard/profile';
       
       if (route) {
+        console.log('Navigating to:', route);
         router.push(route);
       } else {
-        // Speak "Not Found" when no route matches
+        console.log('No route found');
         const utterance = new SpeechSynthesisUtterance('Not Found');
         speechSynthesis.speak(utterance);
       }
