@@ -68,12 +68,25 @@ const ROUTE_ALIASES = {
 };
 
 const PROTECTED_ROUTES = [
-  "dashboard", "go to dashboard", "open dashboard",
-  "orders", "my orders", "show orders",
-  "products", "show products", "view products",
-  "track", "track order", "track orders",
-  "profile", "my profile",
-  "inventory", "attendance", "marketing", "matchmaking", "contact"
+  "dashboard",
+  "go to dashboard",
+  "open dashboard",
+  "orders",
+  "my orders",
+  "show orders",
+  "products",
+  "show products",
+  "view products",
+  "track",
+  "track order",
+  "track orders",
+  "profile",
+  "my profile",
+  "inventory",
+  "attendance",
+  "marketing",
+  "matchmaking",
+  "contact",
 ];
 
 const NOT_FOUND_MESSAGES = {
@@ -92,7 +105,11 @@ export function VoiceAssistantGlobal() {
   // Replace with your app's language selection logic if available
   const getLanguage = () => {
     // Try to get from localStorage or context if you have a language selector
-    return localStorage.getItem('selectedLanguage') || navigator.language.split("-")[0] || "en";
+    return (
+      localStorage.getItem("selectedLanguage") ||
+      navigator.language.split("-")[0] ||
+      "en"
+    );
   };
 
   const checkAuth = () => {
@@ -123,16 +140,16 @@ export function VoiceAssistantGlobal() {
 
   const getRouteFromText = (text: string) => {
     const lowerText = text.toLowerCase().trim();
-    
+
     // Exact match first
     if (ROUTE_ALIASES[lowerText as keyof typeof ROUTE_ALIASES]) {
       return ROUTE_ALIASES[lowerText as keyof typeof ROUTE_ALIASES];
     }
-    
+
     // Partial match - find the best match
     let bestMatch = null;
     let bestScore = 0;
-    
+
     for (const [alias, route] of Object.entries(ROUTE_ALIASES)) {
       if (lowerText.includes(alias)) {
         const score = alias.length; // Longer matches are better
@@ -142,7 +159,7 @@ export function VoiceAssistantGlobal() {
         }
       }
     }
-    
+
     return bestMatch;
   };
 
@@ -156,16 +173,20 @@ export function VoiceAssistantGlobal() {
   };
 
   const startListening = () => {
-    if (!('webkitSpeechRecognition' in window) && !('SpeechRecognition' in window)) {
+    if (
+      !("webkitSpeechRecognition" in window) &&
+      !("SpeechRecognition" in window)
+    ) {
       return;
     }
 
-    const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+    const SpeechRecognition =
+      window.SpeechRecognition || window.webkitSpeechRecognition;
     const recognition = new SpeechRecognition();
 
     recognition.continuous = false;
     recognition.interimResults = false;
-    recognition.lang = getLanguage() + '-' + getLanguage().toUpperCase();
+    recognition.lang = getLanguage() + "-" + getLanguage().toUpperCase();
 
     recognition.onstart = () => setIsListening(true);
 
@@ -178,27 +199,30 @@ export function VoiceAssistantGlobal() {
       }
 
       if (route) {
-        const routeKey = Object.keys(ROUTE_ALIASES).find(key => 
-          ROUTE_ALIASES[key as keyof typeof ROUTE_ALIASES] === route
+        const routeKey = Object.keys(ROUTE_ALIASES).find(
+          (key) => ROUTE_ALIASES[key as keyof typeof ROUTE_ALIASES] === route
         );
 
         if (routeKey && isProtectedRoute(routeKey)) {
           if (!checkAuth()) {
-            sessionStorage.setItem('redirectAfterLogin', route);
-            router.push('/');
+            sessionStorage.setItem("redirectAfterLogin", route);
+            router.push("/");
             return;
           }
         }
         router.push(route);
       } else {
         const lang = getLanguage();
-        speak(NOT_FOUND_MESSAGES[lang as keyof typeof NOT_FOUND_MESSAGES] || NOT_FOUND_MESSAGES['en']);
+        speak(
+          NOT_FOUND_MESSAGES[lang as keyof typeof NOT_FOUND_MESSAGES] ||
+            NOT_FOUND_MESSAGES["en"]
+        );
       }
     };
 
     recognition.onerror = () => setIsListening(false);
     recognition.onend = () => setIsListening(false);
-    
+
     recognition.start();
   };
 
