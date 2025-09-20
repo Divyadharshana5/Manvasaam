@@ -169,6 +169,7 @@ export function VoiceAssistantGlobal() {
     recognitionRef.current.lang = navigator.language;
 
     recognitionRef.current.onstart = () => {
+      console.log('Speech recognition started');
       if (speechSynthesis.speaking) {
         speechSynthesis.cancel();
       }
@@ -177,6 +178,7 @@ export function VoiceAssistantGlobal() {
 
     recognitionRef.current.onresult = async (event) => {
       const transcript = event.results[0]?.[0]?.transcript || "";
+      console.log('Voice input received:', transcript);
       
       const route = await analyzeWithAI(transcript);
       
@@ -205,11 +207,15 @@ export function VoiceAssistantGlobal() {
       }
     };
 
-    recognitionRef.current.onerror = () => {
+    recognitionRef.current.onerror = (event) => {
+      console.log('Speech recognition error:', event.error);
       setIsListening(false);
     };
 
-    recognitionRef.current.onend = () => setIsListening(false);
+    recognitionRef.current.onend = () => {
+      console.log('Speech recognition ended');
+      setIsListening(false);
+    };
     recognitionRef.current.start();
   };
 
