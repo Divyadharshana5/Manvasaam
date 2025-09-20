@@ -66,5 +66,55 @@ const ROUTE_ALIASES = {
 };
 
 export function VoiceAssistantGlobal() {
-  return null;
+  const [isListening, setIsListening] = useState(false);
+  const router = useRouter();
+
+  const getRouteFromText = (text: string) => {
+    const lowerText = text.toLowerCase().trim();
+    
+    for (const [alias, route] of Object.entries(ROUTE_ALIASES)) {
+      if (lowerText.includes(alias)) {
+        return route;
+      }
+    }
+    
+    return null;
+  };
+
+  const handleVoiceCommand = () => {
+    if (!('webkitSpeechRecognition' in window)) {
+      return;
+    }
+
+    const recognition = new (window as any).webkitSpeechRecognition();
+    recognition.continuous = false;
+    recognition.interimResults = false;
+    recognition.lang = 'en-US';
+
+    recognition.onstart = () => setIsListening(true);
+    recognition.onend = () => setIsListening(false);
+
+    recognition.onresult = (event: any) => {
+      const transcript = event.results[0][0].transcript;
+      const route = getRouteFromText(transcript);
+      
+      if (route) {
+        router.push(route);
+      }
+    };
+
+    recognition.start();
+  };
+
+  return (
+    <Button
+      onClick={handleVoiceCommand}
+      variant="ghost"
+      size="sm"
+      className={isListening ? "bg-red-500 text-white" : ""}
+    >
+      <Volume2 className="h-4 w-4" />
+      {isListening ? "Listening..." : "Voice"}
+    </Button>
+  );
 }
