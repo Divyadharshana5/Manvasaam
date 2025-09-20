@@ -100,13 +100,18 @@ export function VoiceAssistantGlobal() {
 
     recognition.onresult = (event: any) => {
       const text = event.results[0][0].transcript.toLowerCase();
+      alert(`Heard: "${text}"`); // Debug what was heard
       
-      if (text.includes('farmer')) router.push('/login/farmer');
-      else if (text.includes('customer')) router.push('/login/customer');
-      else if (text.includes('restaurant')) router.push('/login/restaurant');
-      else if (text.includes('hub')) router.push('/login/hub');
-      else if (text.includes('dashboard')) router.push('/dashboard');
-      else speechSynthesis.speak(new SpeechSynthesisUtterance('Not Found'));
+      // More flexible matching
+      if (text.match(/farm/)) router.push('/login/farmer');
+      else if (text.match(/custom/)) router.push('/login/customer');
+      else if (text.match(/restaurant|rest/)) router.push('/login/restaurant');
+      else if (text.match(/hub|distribution/)) router.push('/login/hub');
+      else if (text.match(/dash|board/)) router.push('/dashboard');
+      else {
+        alert(`No match found for: "${text}"`);
+        speechSynthesis.speak(new SpeechSynthesisUtterance('Not Found'));
+      }
     };
 
     recognition.onerror = () => {
