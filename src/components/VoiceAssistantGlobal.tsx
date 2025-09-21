@@ -12,131 +12,86 @@ export function VoiceAssistantGlobal() {
   const router = useRouter();
   const { selectedLanguage } = useLanguage();
 
-  const testVoice = async () => {
-    console.log('Voice button clicked');
+  const testVoice = () => {
+    console.log('=== VOICE BUTTON CLICKED ===');
     
     if (isListening) {
-      console.log('Already listening, returning');
+      console.log('Already listening');
       return;
     }
 
-    // Check browser support
-    if (!window.webkitSpeechRecognition) {
-      console.log('webkitSpeechRecognition not supported');
-      alert('Voice recognition not supported. Please use Chrome browser.');
+    // Force check for webkitSpeechRecognition
+    const SpeechRecognition = (window as any).webkitSpeechRecognition || (window as any).SpeechRecognition;
+    
+    if (!SpeechRecognition) {
+      console.log('Speech recognition NOT available');
+      alert('Speech recognition not available. Please use Chrome browser and ensure you are on HTTPS.');
       return;
     }
 
-    // Request microphone permission first
-    try {
-      console.log('Requesting microphone permission...');
-      const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
-      console.log('Microphone permission granted');
-      // Stop the stream immediately after getting permission
-      stream.getTracks().forEach(track => track.stop());
-    } catch (error) {
-      console.log('Microphone permission denied:', error);
-      alert('Microphone access required. Please allow microphone access in your browser.');
-      return;
-    }
+    console.log('Speech recognition available, creating instance...');
+    
+    const recognition = new SpeechRecognition();
+    
+    // Force basic settings
+    recognition.continuous = false;
+    recognition.interimResults = false;
+    recognition.lang = 'en-US';
+    
+    console.log('Recognition configured, setting up events...');
 
-    try {
-      console.log('Creating speech recognition...');
-      const recognition = new window.webkitSpeechRecognition();
+    recognition.onstart = function() {
+      setIsListening(true);
+      console.log('=== LISTENING STARTED ===');
+      console.log('Speak now!');
+    };
+
+    recognition.onresult = function(event) {
+      console.log('=== RESULT RECEIVED ===');
+      console.log('Event:', event);
       
-      // Basic configuration
-      recognition.continuous = false;
-      recognition.interimResults = false;
-      recognition.lang = 'en-US';
-      recognition.maxAlternatives = 1;
-
-      recognition.onstart = () => {
-        setIsListening(true);
-        console.log('STARTED LISTENING - Speak now!');
-      };
-
-      recognition.onresult = (event) => {
-        try {
-          const transcript = event.results[0][0].transcript;
-          console.log('HEARD:', transcript);
-          alert('You said: ' + transcript);
-          
-          const text = transcript.toLowerCase().trim();
-          
-          // Navigation logic
-          if (text.includes('dashboard')) {
-            console.log('Navigating to dashboard');
-            if (!isAuthenticated()) {
-              sessionStorage.setItem('redirectAfterLogin', '/dashboard');
-              router.push('/');
-            } else {
-              router.push('/dashboard');
-            }
-          } else if (text.includes('orders')) {
-            console.log('Navigating to orders');
-            if (!isAuthenticated()) {
-              sessionStorage.setItem('redirectAfterLogin', '/dashboard/orders');
-              router.push('/');
-            } else {
-              router.push('/dashboard/orders');
-            }
-          } else if (text.includes('products')) {
-            console.log('Navigating to products');
-            if (!isAuthenticated()) {
-              sessionStorage.setItem('redirectAfterLogin', '/dashboard/products');
-              router.push('/');
-            } else {
-              router.push('/dashboard/products');
-            }
-          } else if (text.includes('farmer')) {
-            console.log('Navigating to farmer login');
-            router.push('/login/farmer');
-          } else if (text.includes('customer')) {
-            console.log('Navigating to customer login');
-            router.push('/login/customer');
-          } else {
-            console.log('No matching command found for:', text);
-            const messages = {
-              'Tamil': 'கிடைக்கவில்லை',
-              'Hindi': 'नहीं मिला',
-              'English': 'Not Found'
-            };
-            const message = messages[selectedLanguage as keyof typeof messages] || 'Not Found';
-            
-            const utterance = new SpeechSynthesisUtterance(message);
-            speechSynthesis.speak(utterance);
-          }
-        } catch (error) {
-          console.error('Error processing speech result:', error);
-        }
-      };
-
-      recognition.onerror = (event) => {
-        console.log('ERROR:', event.error);
-        setIsListening(false);
+      if (event.results && event.results[0] && event.results[0][0]) {
+        const transcript = event.results[0][0].transcript;
+        console.log('TRANSCRIPT:', transcript);
+        alert('I heard: ' + transcript);
         
-        let errorMessage = 'Voice recognition error: ' + event.error;
-        if (event.error === 'not-allowed') {
-          errorMessage = 'Microphone access denied. Please allow microphone access.';
-        } else if (event.error === 'no-speech') {
-          errorMessage = 'No speech detected. Please try speaking again.';
+        // Simple navigation
+        const text = transcript.toLowerCase();
+        if (text.includes('dashboard')) {
+          router.push('/dashboard');
+        } else if (text.includes('farmer')) {
+          router.push('/login/farmer');
+        } else if (text.includes('customer')) {
+          router.push('/login/customer');
         }
-        
-        alert(errorMessage);
-      };
+      } else {
+        console.log('No results in event');
+        alert('No speech detected');
+      }
+    };
 
-      recognition.onend = () => {
-        setIsListening(false);
-        console.log('ENDED');
-      };
-
-      console.log('Starting speech recognition...');
-      recognition.start();
-      
-    } catch (error) {
-      console.error('Failed to create or start speech recognition:', error);
+    recognition.onerror = function(event) {
+      console.log('=== ERROR OCCURRED ===');
+      console.log('Error type:', event.error);
+      console.log('Error event:', event);
       setIsListening(false);
-      alert('Failed to start voice recognition: ' + error);
+      alert('Speech error: ' + event.error);
+    };
+
+    recognition.onend = function() {
+      console.log('=== LISTENING ENDED ===');
+      setIsListening(false);
+    };
+
+    console.log('Starting recognition...');
+    
+    try {
+      recognition.start();
+      console.log('Recognition.start() called successfully');
+    } catch (error) {
+      console.log('Error calling start():', error);
+      setIsListening(false);
+      alert('Failed to start: ' + error);
     }
   };
 
