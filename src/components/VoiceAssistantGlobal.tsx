@@ -4,6 +4,7 @@ import { useRouter } from "next/navigation";
 import { Button } from "@/components/ui/button";
 import { Volume2, MicIcon } from "lucide-react";
 import { isAuthenticated } from "@/lib/auth-redirect";
+import { useToast } from "@/hooks/use-toast";
 import ReliableVoiceNavigation from "./reliable-voice-navigation";
 
 const KNOWN_ROUTES = [
@@ -101,6 +102,7 @@ const NOT_FOUND_MESSAGES = {
 export function VoiceAssistantGlobal() {
   const [isListening, setIsListening] = useState(false);
   const router = useRouter();
+  const { toast } = useToast();
 
   const routes = {
     "dashboard": "/dashboard",
