@@ -12,112 +12,49 @@ export function VoiceAssistantGlobal() {
   const router = useRouter();
   const { selectedLanguage } = useLanguage();
 
-  const handleClick = async () => {
+  const testVoice = () => {
     if (isListening) return;
-    
-    // Check browser support
-    if (!window.webkitSpeechRecognition) {
-      alert('Voice recognition requires Chrome browser');
+
+    if (!('webkitSpeechRecognition' in window)) {
+      alert('Please use Chrome browser');
       return;
     }
 
-    // Request microphone permission explicitly
-    try {
-      const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
-      stream.getTracks().forEach(track => track.stop()); // Stop the stream immediately
-    } catch (error) {
-      alert('Please allow microphone access in your browser settings');
-      return;
-    }
-
-    const recognition = new window.webkitSpeechRecognition();
-    
-    // Configure recognition
+    const recognition = new (window as any).webkitSpeechRecognition();
+    recognition.lang = 'en-US';
     recognition.continuous = false;
     recognition.interimResults = false;
-    recognition.lang = 'en-US';
-    recognition.maxAlternatives = 1;
 
     recognition.onstart = () => {
       setIsListening(true);
-      console.log('Voice recognition started - speak now!');
+      console.log('STARTED LISTENING');
     };
 
-    recognition.onresult = (event) => {
-      const transcript = event.results[0][0].transcript.toLowerCase().trim();
-      console.log('Voice heard:', transcript);
+    recognition.onresult = (event: any) => {
+      const text = event.results[0][0].transcript;
+      console.log('HEARD:', text);
+      alert('You said: ' + text);
       
-      // Process voice commands
-      if (transcript.includes('dashboard')) {
-        if (!isAuthenticated()) {
-          sessionStorage.setItem('redirectAfterLogin', '/dashboard');
-          router.push('/');
-        } else {
-          router.push('/dashboard');
-        }
-      } else if (transcript.includes('orders')) {
-        if (!isAuthenticated()) {
-          sessionStorage.setItem('redirectAfterLogin', '/dashboard/orders');
-          router.push('/');
-        } else {
-          router.push('/dashboard/orders');
-        }
-      } else if (transcript.includes('products')) {
-        if (!isAuthenticated()) {
-          sessionStorage.setItem('redirectAfterLogin', '/dashboard/products');
-          router.push('/');
-        } else {
-          router.push('/dashboard/products');
-        }
-      } else if (transcript.includes('farmer')) {
+      // Simple navigation
+      if (text.toLowerCase().includes('dashboard')) {
+        router.push('/dashboard');
+      } else if (text.toLowerCase().includes('farmer')) {
         router.push('/login/farmer');
-      } else if (transcript.includes('customer')) {
-        router.push('/login/customer');
-      } else if (transcript.includes('hub')) {
-        router.push('/login/hub');
-      } else if (transcript.includes('restaurant')) {
-        router.push('/login/restaurant');
-      } else {
-        // Not found - speak in user's language
-        const messages = {
-          'Tamil': 'கிடைக்கவில்லை',
-          'Hindi': 'नहीं मिला',
-          'English': 'Not Found'
-        };
-        const message = messages[selectedLanguage as keyof typeof messages] || 'Not Found';
-        
-        const utterance = new SpeechSynthesisUtterance(message);
-        utterance.lang = 'en-US';
-        speechSynthesis.speak(utterance);
       }
     };
 
-    recognition.onerror = (event) => {
-      console.error('Speech recognition error:', event.error);
+    recognition.onerror = (event: any) => {
+      console.log('ERROR:', event.error);
       setIsListening(false);
-      
-      if (event.error === 'not-allowed') {
-        alert('Microphone access denied. Please allow microphone access and try again.');
-      } else if (event.error === 'no-speech') {
-        alert('No speech detected. Please speak clearly and try again.');
-      } else {
-        alert('Voice recognition error. Please try again.');
-      }
+      alert('Error: ' + event.error);
     };
 
     recognition.onend = () => {
       setIsListening(false);
-      console.log('Voice recognition ended');
+      console.log('ENDED');
     };
 
-    // Start recognition
-    try {
-      recognition.start();
-    } catch (error) {
-      console.error('Failed to start recognition:', error);
-      setIsListening(false);
-      alert('Failed to start voice recognition. Please try again.');
-    }
+    recognition.start();
   };
 
   return (
