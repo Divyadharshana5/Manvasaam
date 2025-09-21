@@ -445,13 +445,9 @@ export default function HomePage() {
                   voiceState === "listening" ? "bg-red-500 text-white animate-pulse" : ""
                 }`}
               >
-                {voiceState === "listening" ? (
-                  <Square className="mr-1 sm:mr-2 h-3 w-3 sm:h-4 sm:w-4" />
-                ) : (
-                  <Mic className="mr-1 sm:mr-2 h-3 w-3 sm:h-4 sm:w-4" />
-                )}
+                <Mic className="mr-1 sm:mr-2 h-3 w-3 sm:h-4 sm:w-4" />
                 <span className="hidden sm:inline">
-                  {voiceState === "listening" ? "Listening..." : t.sidebar.voiceAssistant}
+                  {voiceState === "listening" ? "Listening..." : "Voice"}
                 </span>
                 <span className="sm:hidden">
                   {voiceState === "listening" ? "..." : "Voice"}
