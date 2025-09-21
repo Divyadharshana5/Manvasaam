@@ -27,6 +27,7 @@ export default function SimpleVoiceNavigation({
 
     const [voiceState, setVoiceState] = useState<VoiceState>("idle");
     const recognitionRef = useRef<any>(null);
+    const retryCountRef = useRef(0);
 
     // Cleanup on unmount
     useEffect(() => {
@@ -281,6 +282,9 @@ export default function SimpleVoiceNavigation({
         }
 
         try {
+            // Reset retry counter for new session
+            retryCountRef.current = 0;
+            
             // Clean up any existing recognition
             if (recognitionRef.current) {
                 recognitionRef.current.abort();
@@ -339,6 +343,52 @@ export default function SimpleVoiceNavigation({
                 console.error('Speech recognition error:', event.error);
                 setVoiceState("idle");
                 
+                // Handle network errors with retry
+                if (event.error === 'network' && retryCountRef.current < 2) {
+                    retryCountRef.current++;
+                    console.log(`Network error, retrying... (${retryCountRef.current}/2)`);
+                    
+                    // Try again with minimal settings
+                    setTimeout(() => {
+                        try {
+                            const SpeechRecognition = (window as any).SpeechRecognition || (window as any).webkitSpeechRecognition;
+                            const newRecognition = new SpeechRecognition();
+                            
+                            // Minimal configuration for better compatibility
+                            newRecognition.continuous = false;
+                            newRecognition.interimResults = false;
+                            newRecognition.lang = 'en-US';
+                            
+                            newRecognition.onresult = recognitionRef.current.onresult;
+                            newRecognition.onend = () => {
+                                setVoiceState("idle");
+                                retryCountRef.current = 0;
+                            };
+                            newRecognition.onerror = () => {
+                                setVoiceState("idle");
+                                retryCountRef.current = 0;
+                                toast({
+                                    variant: "destructive",
+                                    title: "Voice Recognition Failed",
+                                    description: "Please try speaking again or use manual navigation.",
+                                });
+                            };
+                            
+                            recognitionRef.current = newRecognition;
+                            setVoiceState("listening");
+                            newRecognition.start();
+                            
+                        } catch (error) {
+                            setVoiceState("idle");
+                            retryCountRef.current = 0;
+                        }
+                    }, 500);
+                    return;
+                }
+                
+                // Reset retry count
+                retryCountRef.current = 0;
+                
                 let errorMessage = "Could not recognize speech. Please try again.";
                 
                 switch (event.error) {
@@ -352,13 +402,7 @@ export default function SimpleVoiceNavigation({
                         errorMessage = "Microphone access denied. Please allow microphone permissions and try again.";
                         break;
                     case 'network':
-                        // Retry with offline mode
-                        errorMessage = "Switching to offline mode. Please try again.";
-                        setTimeout(() => {
-                            if (voiceState === 'idle') {
-                                startListening();
-                            }
-                        }, 1000);
+                        errorMessage = "Voice recognition is having connectivity issues. Please try manual navigation.";
                         break;
                     case 'service-not-allowed':
                         errorMessage = "Speech service not available. Please try again later.";
@@ -367,11 +411,7 @@ export default function SimpleVoiceNavigation({
                         errorMessage = "Speech recognition failed. Please speak more clearly.";
                         break;
                     case 'language-not-supported':
-                        errorMessage = "Language not supported. Switching to English.";
-                        // Retry with English
-                        if (recognitionRef.current) {
-                            recognitionRef.current.lang = 'en-US';
-                        }
+                        errorMessage = "Language not supported. Using English instead.";
                         break;
                 }
                 
