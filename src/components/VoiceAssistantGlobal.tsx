@@ -104,75 +104,76 @@ export function VoiceAssistantGlobal() {
   const router = useRouter();
   const { toast } = useToast();
 
-  const routes = {
-    "dashboard": "/dashboard",
-    "orders": "/dashboard/orders",
-    "products": "/dashboard/products",
-    "profile": "/dashboard/profile",
-    "farmer": "/login/farmer",
-    "customer": "/login/customer",
-    "hub": "/login/hub",
-    "restaurant": "/login/restaurant",
-    "inventory": "/dashboard/hub/inventory",
-    "attendance": "/dashboard/hub/attendance",
-    "track": "/dashboard/track",
-    "matchmaking": "/dashboard/matchmaking",
-    "analytics": "/dashboard/hub/analytics",
-    "farmers": "/dashboard/hub/farmers",
-    "deliveries": "/dashboard/hub/deliveries",
-    "settings": "/dashboard/hub/settings",
-    "faq": "/dashboard/faq",
-    "help": "/dashboard/faq",
-    "support": "/support",
-    "marketing": "/dashboard/marketing",
-    "voice": "/dashboard/voice-assistant",
-    "privacy": "/privacy",
-    "terms": "/terms",
-    "contact": "/dashboard/contact"
+  const routes: Record<string, string> = {
+    dashboard: "/dashboard",
+    orders: "/dashboard/orders",
+    products: "/dashboard/products",
+    profile: "/dashboard/profile",
+    farmer: "/login/farmer",
+    customer: "/login/customer",
+    hub: "/login/hub",
+    restaurant: "/login/restaurant",
+    inventory: "/dashboard/hub/inventory",
+    attendance: "/dashboard/hub/attendance",
+    track: "/dashboard/track",
+    matchmaking: "/dashboard/matchmaking",
+    analytics: "/dashboard/hub/analytics",
+    farmers: "/dashboard/hub/farmers",
+    deliveries: "/dashboard/hub/deliveries",
+    settings: "/dashboard/hub/settings",
+    faq: "/dashboard/faq",
+    help: "/dashboard/faq",
+    support: "/support",
+    marketing: "/dashboard/marketing",
+    voice: "/dashboard/voice-assistant",
+    privacy: "/privacy",
+    terms: "/terms",
+    contact: "/dashboard/contact",
   };
 
   const startVoice = () => {
-    if (!('webkitSpeechRecognition' in window)) {
+    if (!("webkitSpeechRecognition" in window)) {
       toast({
         variant: "destructive",
         title: "Not Supported",
-        description: "Voice recognition requires Chrome browser. Please switch to Chrome.",
+        description:
+          "Voice recognition requires Chrome browser. Please switch to Chrome.",
       });
       return;
     }
 
     try {
       const recognition = new (window as any).webkitSpeechRecognition();
-      recognition.lang = 'en-US';
+      recognition.lang = "en-US";
       recognition.continuous = false;
       recognition.interimResults = false;
       recognition.maxAlternatives = 1;
 
       recognition.onstart = () => {
         setIsListening(true);
-        console.log('Voice recognition started');
+        console.log("Voice recognition started");
       };
-      
+
       recognition.onend = () => {
         setIsListening(false);
-        console.log('Voice recognition ended');
+        console.log("Voice recognition ended");
       };
-      
+
       recognition.onresult = (event: any) => {
         const transcript = event.results[0]?.[0]?.transcript;
         if (!transcript) return;
-        
+
         const text = transcript.toLowerCase().trim();
-        console.log('Voice input:', text);
-        
+        console.log("Voice input:", text);
+
         // Remove common navigation words
         const cleanText = text
-          .replace(/^(go to|navigate to|open|show|take me to|visit)\s+/i, '')
+          .replace(/^(go to|navigate to|open|show|take me to|visit)\s+/i, "")
           .trim();
-        
+
         // Find matching route
         let foundRoute = null;
-        
+
         // Exact match first
         if (routes[cleanText]) {
           foundRoute = routes[cleanText];
@@ -185,21 +186,23 @@ export function VoiceAssistantGlobal() {
             }
           }
         }
-        
+
         if (foundRoute) {
-          console.log('Navigating to:', foundRoute);
+          console.log("Navigating to:", foundRoute);
           router.push(foundRoute);
-          
+
           // Provide audio feedback
           if (window.speechSynthesis) {
-            const utterance = new SpeechSynthesisUtterance(`Going to ${cleanText}`);
-            utterance.lang = 'en-US';
+            const utterance = new SpeechSynthesisUtterance(
+              `Going to ${cleanText}`
+            );
+            utterance.lang = "en-US";
             utterance.rate = 1.2;
             utterance.volume = 0.7;
             window.speechSynthesis.speak(utterance);
           }
         } else {
-          console.log('No route found for:', text);
+          console.log("No route found for:", text);
           toast({
             variant: "destructive",
             title: "Command Not Found",
@@ -210,25 +213,26 @@ export function VoiceAssistantGlobal() {
 
       recognition.onerror = (event: any) => {
         setIsListening(false);
-        console.error('Voice recognition error:', event.error);
-        
-        let errorMessage = 'Voice recognition failed. Please try again.';
-        
+        console.error("Voice recognition error:", event.error);
+
+        let errorMessage = "Voice recognition failed. Please try again.";
+
         switch (event.error) {
-          case 'no-speech':
-            errorMessage = 'No speech detected. Please speak clearly.';
+          case "no-speech":
+            errorMessage = "No speech detected. Please speak clearly.";
             break;
-          case 'audio-capture':
-            errorMessage = 'Microphone not accessible. Check permissions.';
+          case "audio-capture":
+            errorMessage = "Microphone not accessible. Check permissions.";
             break;
-          case 'not-allowed':
-            errorMessage = 'Microphone access denied. Please allow permissions.';
+          case "not-allowed":
+            errorMessage =
+              "Microphone access denied. Please allow permissions.";
             break;
-          case 'network':
-            errorMessage = 'Network error. Check your connection.';
+          case "network":
+            errorMessage = "Network error. Check your connection.";
             break;
         }
-        
+
         toast({
           variant: "destructive",
           title: "Voice Error",
@@ -239,11 +243,11 @@ export function VoiceAssistantGlobal() {
       recognition.start();
     } catch (error) {
       setIsListening(false);
-      console.error('Failed to start voice recognition:', error);
+      console.error("Failed to start voice recognition:", error);
       toast({
         variant: "destructive",
         title: "Voice Error",
-        description: 'Failed to start voice recognition. Please try again.',
+        description: "Failed to start voice recognition. Please try again.",
       });
     }
   };
