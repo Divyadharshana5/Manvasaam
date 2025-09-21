@@ -59,7 +59,7 @@ export function VoiceAssistantGlobal() {
 
   return (
     <Button
-      onClick={handleClick}
+      onClick={testVoice}
       variant="ghost"
       size="sm"
       className={isListening ? "bg-red-500 text-white animate-pulse" : ""}
