@@ -1,121 +1,27 @@
 "use client";
-import { useState, useRef } from "react";
+import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { Button } from "@/components/ui/button";
 import { Volume2, MicIcon } from "lucide-react";
 import { isAuthenticated } from "@/lib/auth-redirect";
 import { useToast } from "@/hooks/use-toast";
-import ReliableVoiceNavigation from "./reliable-voice-navigation";
+import { useLanguage } from "@/context/language-context";
 
-const KNOWN_ROUTES = [
-  "/dashboard",
-  "/dashboard/farmer",
-  "/dashboard/customer",
-  "/dashboard/hub",
-  "/dashboard/restaurant",
-  "/dashboard/orders",
-  "/dashboard/products",
-  "/dashboard/faq",
-  "/dashboard/marketing",
-  "/dashboard/matchmaking",
-  "/dashboard/voice-assistant",
-  "/dashboard/track",
-  "/dashboard/profile",
-  "/dashboard/contact",
-  "/dashboard/hub/inventory",
-  "/dashboard/hub/attendance",
-  "/privacy",
-  "/terms",
-  "/support",
-  "/test-dropdown",
-  "/test-hub",
-  "/test-email",
-  "/voice-assistant-help",
-];
-
-const ROUTE_ALIASES = {
-  dashboard: "/dashboard",
-  "go to dashboard": "/dashboard",
-  "open dashboard": "/dashboard",
-  farmer: "/login/farmer",
-  "farmer login": "/login/farmer",
-  customer: "/login/customer",
-  "customer login": "/login/customer",
-  hub: "/login/hub",
-  "hub login": "/login/hub",
-  restaurant: "/login/restaurant",
-  "restaurant login": "/login/restaurant",
-  orders: "/dashboard/orders",
-  "my orders": "/dashboard/orders",
-  "show orders": "/dashboard/orders",
-  products: "/dashboard/products",
-  "show products": "/dashboard/products",
-  "view products": "/dashboard/products",
-  faq: "/dashboard/faq",
-  marketing: "/dashboard/marketing",
-  matchmaking: "/dashboard/matchmaking",
-  "voice assistant": "/dashboard/voice-assistant",
-  track: "/dashboard/track",
-  "track order": "/dashboard/track",
-  "track orders": "/dashboard/track",
-  profile: "/dashboard/profile",
-  "my profile": "/dashboard/profile",
-  contact: "/dashboard/contact",
-  inventory: "/dashboard/hub/inventory",
-  attendance: "/dashboard/hub/attendance",
-  privacy: "/privacy",
-  terms: "/terms",
-  support: "/support",
-  help: "/voice-assistant-help",
-};
-
-const PROTECTED_ROUTES = [
-  "dashboard",
-  "go to dashboard",
-  "open dashboard",
-  "orders",
-  "my orders",
-  "show orders",
-  "products",
-  "show products",
-  "view products",
-  "track",
-  "track order",
-  "track orders",
-  "profile",
-  "my profile",
-  "inventory",
-  "attendance",
-  "marketing",
-  "matchmaking",
-  "contact",
-];
-
-const NOT_FOUND_MESSAGES = {
-  en: "Not Found",
-  hi: "नहीं मिला",
-  te: "కనుగొనబడలేదు",
-  ta: "கிடைக்கவில்லை",
-  bn: "পাওয়া যায়নি",
-};
 
 export function VoiceAssistantGlobal() {
   const [isListening, setIsListening] = useState(false);
   const router = useRouter();
   const { toast } = useToast();
+  const { selectedLanguage } = useLanguage();
 
   const routes: Record<string, string> = {
     dashboard: "/dashboard",
     orders: "/dashboard/orders",
     products: "/dashboard/products",
     profile: "/dashboard/profile",
-    farmer: "/login/farmer",
-    customer: "/login/customer",
-    hub: "/login/hub",
-    restaurant: "/login/restaurant",
+    track: "/dashboard/track",
     inventory: "/dashboard/hub/inventory",
     attendance: "/dashboard/hub/attendance",
-    track: "/dashboard/track",
     matchmaking: "/dashboard/matchmaking",
     analytics: "/dashboard/hub/analytics",
     farmers: "/dashboard/hub/farmers",
@@ -123,12 +29,57 @@ export function VoiceAssistantGlobal() {
     settings: "/dashboard/hub/settings",
     faq: "/dashboard/faq",
     help: "/dashboard/faq",
-    support: "/support",
     marketing: "/dashboard/marketing",
-    voice: "/dashboard/voice-assistant",
-    privacy: "/privacy",
-    terms: "/terms",
     contact: "/dashboard/contact",
+    farmer: "/login/farmer",
+    customer: "/login/customer",
+    hub: "/login/hub",
+    restaurant: "/login/restaurant",
+    support: "/support",
+    privacy: "/privacy",
+    terms: "/terms"
+  };
+
+  const protectedRoutes = [
+    "dashboard", "orders", "products", "profile", "track", "inventory",
+    "attendance", "matchmaking", "analytics", "farmers", "deliveries",
+    "settings", "faq", "help", "marketing", "contact"
+  ];
+
+  const notFoundMessages: Record<string, string> = {
+    English: "Not Found",
+    Tamil: "கிடைக்கவில்லை",
+    Hindi: "नहीं मिला",
+    Malayalam: "കണ്ടെത്തിയില്ല",
+    Telugu: "కనుగొనబడలేదు",
+    Kannada: "ಸಿಗಲಿಲ್ಲ",
+    Bengali: "পাওয়া যায়নি",
+    Arabic: "غير موجود",
+    Urdu: "نہیں ملا",
+    Srilanka: "හමු නොවීය"
+  };
+
+  const speak = (text: string) => {
+    if (window.speechSynthesis) {
+      window.speechSynthesis.cancel();
+      const utterance = new SpeechSynthesisUtterance(text);
+      const languageCodes: Record<string, string> = {
+        English: "en-US",
+        Tamil: "ta-IN",
+        Hindi: "hi-IN",
+        Malayalam: "ml-IN",
+        Telugu: "te-IN",
+        Kannada: "kn-IN",
+        Bengali: "bn-IN",
+        Arabic: "ar-SA",
+        Urdu: "ur-PK",
+        Srilanka: "si-LK"
+      };
+      utterance.lang = languageCodes[selectedLanguage] || "en-US";
+      utterance.rate = 1.0;
+      utterance.volume = 0.8;
+      window.speechSynthesis.speak(utterance);
+    }
   };
 
   const startVoice = () => {
@@ -136,120 +87,84 @@ export function VoiceAssistantGlobal() {
       toast({
         variant: "destructive",
         title: "Not Supported",
-        description:
-          "Voice recognition requires Chrome browser. Please switch to Chrome.",
+        description: "Voice recognition requires Chrome browser.",
       });
       return;
     }
 
-    try {
-      const recognition = new (window as any).webkitSpeechRecognition();
-      recognition.lang = "en-US";
-      recognition.continuous = false;
-      recognition.interimResults = false;
-      recognition.maxAlternatives = 1;
+    const recognition = new (window as any).webkitSpeechRecognition();
+    recognition.lang = "en-US";
+    recognition.continuous = false;
+    recognition.interimResults = false;
 
-      recognition.onstart = () => {
-        setIsListening(true);
-        console.log("Voice recognition started");
-      };
+    recognition.onstart = () => {
+      setIsListening(true);
+    };
 
-      recognition.onend = () => {
-        setIsListening(false);
-        console.log("Voice recognition ended");
-      };
+    recognition.onend = () => {
+      setIsListening(false);
+    };
 
-      recognition.onresult = (event: any) => {
-        const transcript = event.results[0]?.[0]?.transcript;
-        if (!transcript) return;
+    recognition.onresult = (event: any) => {
+      const transcript = event.results[0]?.[0]?.transcript;
+      if (!transcript) return;
 
-        const text = transcript.toLowerCase().trim();
-        console.log("Voice input:", text);
+      const text = transcript.toLowerCase().trim();
+      console.log("Voice:", text);
 
-        // Remove common navigation words
-        const cleanText = text
-          .replace(/^(go to|navigate to|open|show|take me to|visit)\s+/i, "")
-          .trim();
+      // Clean the text
+      const cleanText = text
+        .replace(/^(go to|navigate to|open|show|take me to|visit)\s+/i, "")
+        .trim();
 
-        // Find matching route
-        let foundRoute = null;
+      // Find route
+      let foundRoute = null;
+      let routeKey = null;
 
-        // Exact match first
-        if (routes[cleanText]) {
-          foundRoute = routes[cleanText];
-        } else {
-          // Partial match
-          for (const [word, route] of Object.entries(routes)) {
-            if (cleanText.includes(word) || text.includes(word)) {
-              foundRoute = route;
-              break;
-            }
+      if (routes[cleanText]) {
+        foundRoute = routes[cleanText];
+        routeKey = cleanText;
+      } else {
+        for (const [word, route] of Object.entries(routes)) {
+          if (cleanText.includes(word)) {
+            foundRoute = route;
+            routeKey = word;
+            break;
           }
         }
+      }
 
-        if (foundRoute) {
-          console.log("Navigating to:", foundRoute);
-          router.push(foundRoute);
-
-          // Provide audio feedback
-          if (window.speechSynthesis) {
-            const utterance = new SpeechSynthesisUtterance(
-              `Going to ${cleanText}`
-            );
-            utterance.lang = "en-US";
-            utterance.rate = 1.2;
-            utterance.volume = 0.7;
-            window.speechSynthesis.speak(utterance);
+      if (foundRoute) {
+        // Check if route needs authentication
+        if (routeKey && protectedRoutes.includes(routeKey)) {
+          if (!isAuthenticated()) {
+            // Store intended route and go to login
+            sessionStorage.setItem("redirectAfterLogin", foundRoute);
+            router.push("/");
+            return;
           }
-        } else {
-          console.log("No route found for:", text);
-          toast({
-            variant: "destructive",
-            title: "Command Not Found",
-            description: `Could not find "${cleanText}". Try saying: dashboard, orders, products, farmer, customer, hub, or restaurant.`,
-          });
         }
-      };
+        
+        router.push(foundRoute);
+      } else {
+        // Not found - speak in selected language
+        const message = notFoundMessages[selectedLanguage] || "Not Found";
+        speak(message);
+      }
+    };
 
-      recognition.onerror = (event: any) => {
-        setIsListening(false);
-        console.error("Voice recognition error:", event.error);
-
-        let errorMessage = "Voice recognition failed. Please try again.";
-
-        switch (event.error) {
-          case "no-speech":
-            errorMessage = "No speech detected. Please speak clearly.";
-            break;
-          case "audio-capture":
-            errorMessage = "Microphone not accessible. Check permissions.";
-            break;
-          case "not-allowed":
-            errorMessage =
-              "Microphone access denied. Please allow permissions.";
-            break;
-          case "network":
-            errorMessage = "Network error. Check your connection.";
-            break;
-        }
-
+    recognition.onerror = (event: any) => {
+      setIsListening(false);
+      if (event.error === "not-allowed") {
         toast({
           variant: "destructive",
-          title: "Voice Error",
-          description: errorMessage,
+          title: "Permission Denied",
+          description: "Please allow microphone access.",
         });
-      };
+      }
+    };
 
-      recognition.start();
-    } catch (error) {
-      setIsListening(false);
-      console.error("Failed to start voice recognition:", error);
-      toast({
-        variant: "destructive",
-        title: "Voice Error",
-        description: "Failed to start voice recognition. Please try again.",
-      });
-    }
+    recognition.start();
   };
 
   return (
@@ -268,69 +183,6 @@ export function VoiceAssistantGlobal() {
     </Button>
   );
 }
-
-// Keep the old implementation as a fallback
-function VoiceAssistantGlobalOld() {
-  const [isListening, setIsListening] = useState(false);
-  const router = useRouter();
-  const recognitionRef = useRef<SpeechRecognition | null>(null);
-
-  // Always create a new recognition instance for each click (most reliable)
-  const createRecognition = () => {
-    if (
-      !("webkitSpeechRecognition" in window) &&
-      !("SpeechRecognition" in window)
-    ) {
-      alert("Speech recognition not supported in this browser.");
-      return null;
-    }
-    const SpeechRecognition =
-      window.SpeechRecognition || window.webkitSpeechRecognition;
-    const recognition = new SpeechRecognition();
-    recognition.continuous = false;
-    recognition.interimResults = false;
-    recognition.lang = getLocale();
-    return recognition;
-  };
-
-  // Map language code to locale for speech recognition
-  const getLocale = () => {
-    const lang = getLanguage();
-    switch (lang) {
-      case "en":
-        return "en-US";
-      case "hi":
-        return "hi-IN";
-      case "te":
-        return "te-IN";
-      case "ta":
-        return "ta-IN";
-      case "bn":
-        return "bn-IN";
-      default:
-        return lang + "-" + lang.toUpperCase();
-    }
-  };
-
-  // Replace with your app's language selection logic if available
-  const getLanguage = () => {
-    // Try to get from localStorage or context if you have a language selector
-    return (
-      localStorage.getItem("selectedLanguage") ||
-      navigator.language.split("-")[0] ||
-      "en"
-    );
-  };
-
-  const checkAuth = () => {
-    return isAuthenticated();
-  };
-
-  const isProtectedRoute = (routeKey: string) => {
-    return PROTECTED_ROUTES.includes(routeKey);
-  };
-
-  const analyzeWithAI = async (text: string) => {
     try {
       const response = await fetch("/api/voice-navigation", {
         method: "POST",
