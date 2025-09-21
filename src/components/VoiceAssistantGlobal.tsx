@@ -99,7 +99,69 @@ const NOT_FOUND_MESSAGES = {
 };
 
 export function VoiceAssistantGlobal() {
-  return <ReliableVoiceNavigation size="sm" className="inline-flex" />;
+  const [isListening, setIsListening] = useState(false);
+  const router = useRouter();
+
+  const routes = {
+    "dashboard": "/dashboard",
+    "orders": "/dashboard/orders",
+    "products": "/dashboard/products",
+    "profile": "/dashboard/profile",
+    "farmer": "/login/farmer",
+    "customer": "/login/customer",
+    "hub": "/login/hub",
+    "restaurant": "/login/restaurant"
+  };
+
+  const startVoice = () => {
+    if (!('webkitSpeechRecognition' in window)) {
+      alert('Use Chrome browser for voice features');
+      return;
+    }
+
+    const recognition = new (window as any).webkitSpeechRecognition();
+    recognition.lang = 'en-US';
+    recognition.continuous = false;
+    recognition.interimResults = false;
+
+    recognition.onstart = () => setIsListening(true);
+    recognition.onend = () => setIsListening(false);
+    
+    recognition.onresult = (event: any) => {
+      const text = event.results[0][0].transcript.toLowerCase();
+      console.log('Voice:', text);
+      
+      for (const [word, route] of Object.entries(routes)) {
+        if (text.includes(word)) {
+          router.push(route);
+          return;
+        }
+      }
+    };
+
+    recognition.onerror = () => {
+      setIsListening(false);
+      console.log('Voice error');
+    };
+
+    recognition.start();
+  };
+
+  return (
+    <Button
+      onClick={startVoice}
+      variant="ghost"
+      size="sm"
+      className={isListening ? "bg-red-500 text-white animate-pulse" : ""}
+    >
+      {isListening ? (
+        <MicIcon className="h-4 w-4 mr-1" />
+      ) : (
+        <Volume2 className="h-4 w-4 mr-1" />
+      )}
+      {isListening ? "Listening..." : "Voice"}
+    </Button>
+  );
 }
 
 // Keep the old implementation as a fallback
