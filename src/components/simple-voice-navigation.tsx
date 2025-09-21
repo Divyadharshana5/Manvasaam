@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useRef, useCallback } from "react";
+import { useState, useRef, useCallback, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import { useLanguage } from "@/context/language-context";
 import { useAuth } from "@/hooks/use-auth";
@@ -27,6 +27,20 @@ export default function SimpleVoiceNavigation({
 
     const [voiceState, setVoiceState] = useState<VoiceState>("idle");
     const recognitionRef = useRef<any>(null);
+
+    // Cleanup on unmount
+    useEffect(() => {
+        return () => {
+            if (recognitionRef.current) {
+                try {
+                    recognitionRef.current.abort();
+                    recognitionRef.current = null;
+                } catch (error) {
+                    console.error('Error cleaning up speech recognition:', error);
+                }
+            }
+        };
+    }, []);
 
     // Protected routes that require authentication
     const protectedRoutes = [
@@ -256,55 +270,150 @@ export default function SimpleVoiceNavigation({
 
     // Start voice recognition
     const startListening = useCallback(() => {
+        // Check browser support
         if (!('webkitSpeechRecognition' in window) && !('SpeechRecognition' in window)) {
             toast({
                 variant: "destructive",
                 title: "Not Supported",
-                description: "Speech recognition is not supported in this browser.",
+                description: "Speech recognition is not supported in this browser. Please use Chrome, Edge, or Safari.",
             });
             return;
         }
 
-        const SpeechRecognition = (window as any).SpeechRecognition || (window as any).webkitSpeechRecognition;
-        recognitionRef.current = new SpeechRecognition();
+        try {
+            // Clean up any existing recognition
+            if (recognitionRef.current) {
+                recognitionRef.current.abort();
+                recognitionRef.current = null;
+            }
 
-        recognitionRef.current.continuous = false;
-        recognitionRef.current.interimResults = false;
-        recognitionRef.current.lang = 'en-US';
+            const SpeechRecognition = (window as any).SpeechRecognition || (window as any).webkitSpeechRecognition;
+            recognitionRef.current = new SpeechRecognition();
 
-        recognitionRef.current.onstart = () => {
-            setVoiceState("listening");
-        };
+            // Configure recognition settings
+            recognitionRef.current.continuous = false;
+            recognitionRef.current.interimResults = false;
+            recognitionRef.current.maxAlternatives = 1;
+            
+            // Set language based on selected language with fallback
+            const languageCodes: Record<string, string> = {
+                English: "en-US",
+                Tamil: "ta-IN",
+                Hindi: "hi-IN",
+                Malayalam: "ml-IN",
+                Telugu: "te-IN",
+                Kannada: "kn-IN",
+                Bengali: "bn-IN",
+                Arabic: "ar-SA",
+                Urdu: "ur-PK",
+                Srilanka: "si-LK"
+            };
+            recognitionRef.current.lang = languageCodes[selectedLanguage] || 'en-US';
 
-        recognitionRef.current.onresult = (event: any) => {
-            const transcript = event.results[0][0].transcript;
-            setVoiceState("processing");
-            processVoiceCommand(transcript);
-            setTimeout(() => setVoiceState("idle"), 3000);
-        };
+            recognitionRef.current.onstart = () => {
+                setVoiceState("listening");
+                console.log('Voice recognition started');
+            };
 
-        recognitionRef.current.onerror = (event: any) => {
+            recognitionRef.current.onresult = (event: any) => {
+                try {
+                    const transcript = event.results[0]?.[0]?.transcript;
+                    if (transcript && transcript.trim()) {
+                        console.log('Voice transcript:', transcript);
+                        setVoiceState("processing");
+                        processVoiceCommand(transcript);
+                        setTimeout(() => setVoiceState("idle"), 3000);
+                    } else {
+                        setVoiceState("idle");
+                        toast({
+                            variant: "destructive",
+                            title: "No Speech Detected",
+                            description: "Please speak clearly and try again.",
+                        });
+                    }
+                } catch (error) {
+                    console.error('Error processing speech result:', error);
+                    setVoiceState("idle");
+                    toast({
+                        variant: "destructive",
+                        title: "Processing Error",
+                        description: "Error processing speech. Please try again.",
+                    });
+                }
+            };
+
+            recognitionRef.current.onerror = (event: any) => {
+                console.error('Speech recognition error:', event.error);
+                setVoiceState("idle");
+                
+                let errorMessage = "Could not recognize speech. Please try again.";
+                
+                switch (event.error) {
+                    case 'no-speech':
+                        errorMessage = "No speech detected. Please speak clearly and try again.";
+                        break;
+                    case 'audio-capture':
+                        errorMessage = "Microphone not accessible. Please check your microphone permissions.";
+                        break;
+                    case 'not-allowed':
+                        errorMessage = "Microphone access denied. Please allow microphone permissions and try again.";
+                        break;
+                    case 'network':
+                        errorMessage = "Network error. Please check your internet connection.";
+                        break;
+                    case 'service-not-allowed':
+                        errorMessage = "Speech service not available. Please try again later.";
+                        break;
+                    case 'bad-grammar':
+                        errorMessage = "Speech recognition failed. Please speak more clearly.";
+                        break;
+                    case 'language-not-supported':
+                        errorMessage = "Language not supported. Switching to English.";
+                        // Retry with English
+                        if (recognitionRef.current) {
+                            recognitionRef.current.lang = 'en-US';
+                        }
+                        break;
+                }
+                
+                toast({
+                    variant: "destructive",
+                    title: "Voice Recognition Error",
+                    description: errorMessage,
+                });
+            };
+
+            recognitionRef.current.onend = () => {
+                console.log('Voice recognition ended');
+                if (voiceState === "listening") {
+                    setVoiceState("idle");
+                }
+            };
+
+            // Start recognition with error handling
+            recognitionRef.current.start();
+            
+        } catch (error) {
+            console.error('Error starting speech recognition:', error);
             setVoiceState("idle");
             toast({
                 variant: "destructive",
-                title: "Voice Error",
-                description: "Could not recognize speech. Please try again.",
+                title: "Initialization Error",
+                description: "Could not start voice recognition. Please refresh the page and try again.",
             });
-        };
-
-        recognitionRef.current.onend = () => {
-            if (voiceState === "listening") {
-                setVoiceState("idle");
-            }
-        };
-
-        recognitionRef.current.start();
-    }, [processVoiceCommand, toast, voiceState]);
+        }
+    }, [processVoiceCommand, toast, voiceState, selectedLanguage]);
 
     // Stop listening
     const stopListening = useCallback(() => {
-        if (recognitionRef.current) {
-            recognitionRef.current.stop();
+        try {
+            if (recognitionRef.current) {
+                recognitionRef.current.stop();
+                recognitionRef.current = null;
+            }
+            setVoiceState("idle");
+        } catch (error) {
+            console.error('Error stopping speech recognition:', error);
             setVoiceState("idle");
         }
     }, []);
