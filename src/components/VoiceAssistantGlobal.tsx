@@ -62,6 +62,13 @@ export function VoiceAssistantGlobal() {
       faq: "/dashboard/faq",
       help: "/dashboard/faq",
       marketing: "/dashboard/marketing",
+      farmer: "/login/farmer",
+      customer: "/login/customer",
+      hub: "/login/hub",
+      restaurant: "/login/restaurant",
+      privacy: "/privacy",
+      terms: "/terms",
+      support: "/support"
     };
 
     const protectedRoutes = [
@@ -190,6 +197,41 @@ export function VoiceAssistantGlobal() {
         English: "Going to home",
         Tamil: "முகப்புக்கு செல்கிறேன்",
         Hindi: "होम पर जा रहे हैं",
+      },
+      farmer: {
+        English: "Going to farmer login",
+        Tamil: "விவசாயி உள்நுழைவுக்கு செல்கிறேன்",
+        Hindi: "किसान लॉगिन पर जा रहे हैं",
+      },
+      customer: {
+        English: "Going to customer login",
+        Tamil: "வாடிக்கையாளர் உள்நுழைவுக்கு செல்கிறேன்",
+        Hindi: "ग्राहक लॉगिन पर जा रहे हैं",
+      },
+      hub: {
+        English: "Going to hub login",
+        Tamil: "மையம் உள்நுழைவுக்கு செல்கிறேன்",
+        Hindi: "हब लॉगिन पर जा रहे हैं",
+      },
+      restaurant: {
+        English: "Going to restaurant login",
+        Tamil: "உணவகம் உள்நுழைவுக்கு செல்கிறேன்",
+        Hindi: "रेस्टोरेंट लॉगिन पर जा रहे हैं",
+      },
+      privacy: {
+        English: "Opening privacy policy",
+        Tamil: "தனியுரிமை கொள்கையை திறக்கிறேன்",
+        Hindi: "प्राइवेसी पॉलिसी खोल रहे हैं",
+      },
+      terms: {
+        English: "Opening terms of service",
+        Tamil: "சேவை விதிமுறைகளை திறக்கிறேன்",
+        Hindi: "सेवा की शर्तें खोल रहे हैं",
+      },
+      support: {
+        English: "Going to support",
+        Tamil: "ஆதரவுக்கு செல்கிறேன்",
+        Hindi: "सहायता पर जा रहे हैं",
       },
     };
 
