@@ -96,87 +96,97 @@ export function VoiceAssistantGlobal() {
 
   const startVoice = () => {
     if (!("webkitSpeechRecognition" in window)) {
-      toast({
-        variant: "destructive",
-        title: "Not Supported",
-        description: "Voice recognition requires Chrome browser.",
-      });
+      alert("Voice recognition only works in Chrome browser");
       return;
     }
 
-    const recognition = new (window as any).webkitSpeechRecognition();
-    recognition.lang = "en-US";
-    recognition.continuous = false;
-    recognition.interimResults = false;
+    try {
+      const recognition = new (window as any).webkitSpeechRecognition();
+      
+      // Essential settings only
+      recognition.continuous = false;
+      recognition.interimResults = false;
+      recognition.lang = "en-US";
+      
+      recognition.onstart = () => {
+        setIsListening(true);
+        console.log("Started listening");
+      };
 
-    recognition.onstart = () => {
-      setIsListening(true);
-    };
-
-    recognition.onend = () => {
-      setIsListening(false);
-    };
-
-    recognition.onresult = (event: any) => {
-      const transcript = event.results[0]?.[0]?.transcript;
-      if (!transcript) return;
-
-      const text = transcript.toLowerCase().trim();
-      console.log("Voice:", text);
-
-      // Clean the text
-      const cleanText = text
-        .replace(/^(go to|navigate to|open|show|take me to|visit)\s+/i, "")
-        .trim();
-
-      // Find route
-      let foundRoute = null;
-      let routeKey = null;
-
-      if (routes[cleanText]) {
-        foundRoute = routes[cleanText];
-        routeKey = cleanText;
-      } else {
-        for (const [word, route] of Object.entries(routes)) {
-          if (cleanText.includes(word)) {
-            foundRoute = route;
-            routeKey = word;
+      recognition.onresult = (event: any) => {
+        const transcript = event.results[0][0].transcript.toLowerCase().trim();
+        console.log("Heard:", transcript);
+        
+        // Simple word matching
+        let targetRoute = null;
+        let routeWord = null;
+        
+        // Check each word in the transcript
+        const words = transcript.split(" ");
+        for (const word of words) {
+          if (routes[word]) {
+            targetRoute = routes[word];
+            routeWord = word;
             break;
           }
         }
-      }
-
-      if (foundRoute) {
-        // Check if route needs authentication
-        if (routeKey && protectedRoutes.includes(routeKey)) {
-          if (!isAuthenticated()) {
-            // Store intended route and go to login
-            sessionStorage.setItem("redirectAfterLogin", foundRoute);
-            router.push("/");
-            return;
+        
+        // If no exact word match, check partial matches
+        if (!targetRoute) {
+          for (const [key, route] of Object.entries(routes)) {
+            if (transcript.includes(key)) {
+              targetRoute = route;
+              routeWord = key;
+              break;
+            }
           }
         }
+        
+        if (targetRoute) {
+          // Check authentication for protected routes
+          if (routeWord && protectedRoutes.includes(routeWord)) {
+            if (!isAuthenticated()) {
+              sessionStorage.setItem("redirectAfterLogin", targetRoute);
+              router.push("/");
+              return;
+            }
+          }
+          
+          console.log("Navigating to:", targetRoute);
+          router.push(targetRoute);
+        } else {
+          // Page not found - speak in user's language
+          const message = notFoundMessages[selectedLanguage] || "Not Found";
+          speak(message);
+        }
+        
+        setIsListening(false);
+      };
 
-        router.push(foundRoute);
-      } else {
-        // Not found - speak in selected language
-        const message = notFoundMessages[selectedLanguage] || "Not Found";
-        speak(message);
-      }
-    };
+      recognition.onerror = (event: any) => {
+        console.error("Speech error:", event.error);
+        setIsListening(false);
+        
+        if (event.error === "not-allowed") {
+          alert("Please allow microphone access and try again");
+        } else if (event.error === "no-speech") {
+          alert("No speech detected. Please try again");
+        }
+      };
 
-    recognition.onerror = (event: any) => {
+      recognition.onend = () => {
+        setIsListening(false);
+        console.log("Stopped listening");
+      };
+
+      // Start recognition
+      recognition.start();
+      
+    } catch (error) {
+      console.error("Recognition failed:", error);
       setIsListening(false);
-      if (event.error === "not-allowed") {
-        toast({
-          variant: "destructive",
-          title: "Permission Denied",
-          description: "Please allow microphone access.",
-        });
-      }
-    };
-
-    recognition.start();
+      alert("Voice recognition failed. Please try again");
+    }
   };
 
   return (
