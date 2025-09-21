@@ -7,7 +7,6 @@ import { isAuthenticated } from "@/lib/auth-redirect";
 import { useToast } from "@/hooks/use-toast";
 import { useLanguage } from "@/context/language-context";
 
-
 export function VoiceAssistantGlobal() {
   const [isListening, setIsListening] = useState(false);
   const router = useRouter();
@@ -37,13 +36,26 @@ export function VoiceAssistantGlobal() {
     restaurant: "/login/restaurant",
     support: "/support",
     privacy: "/privacy",
-    terms: "/terms"
+    terms: "/terms",
   };
 
   const protectedRoutes = [
-    "dashboard", "orders", "products", "profile", "track", "inventory",
-    "attendance", "matchmaking", "analytics", "farmers", "deliveries",
-    "settings", "faq", "help", "marketing", "contact"
+    "dashboard",
+    "orders",
+    "products",
+    "profile",
+    "track",
+    "inventory",
+    "attendance",
+    "matchmaking",
+    "analytics",
+    "farmers",
+    "deliveries",
+    "settings",
+    "faq",
+    "help",
+    "marketing",
+    "contact",
   ];
 
   const notFoundMessages: Record<string, string> = {
@@ -56,7 +68,7 @@ export function VoiceAssistantGlobal() {
     Bengali: "পাওয়া যায়নি",
     Arabic: "غير موجود",
     Urdu: "نہیں ملا",
-    Srilanka: "හමු නොවීය"
+    Srilanka: "හමු නොවීය",
   };
 
   const speak = (text: string) => {
@@ -73,7 +85,7 @@ export function VoiceAssistantGlobal() {
         Bengali: "bn-IN",
         Arabic: "ar-SA",
         Urdu: "ur-PK",
-        Srilanka: "si-LK"
+        Srilanka: "si-LK",
       };
       utterance.lang = languageCodes[selectedLanguage] || "en-US";
       utterance.rate = 1.0;
@@ -144,7 +156,7 @@ export function VoiceAssistantGlobal() {
             return;
           }
         }
-        
+
         router.push(foundRoute);
       } else {
         // Not found - speak in selected language
@@ -183,138 +195,4 @@ export function VoiceAssistantGlobal() {
     </Button>
   );
 }
-    try {
-      const response = await fetch("/api/voice-navigation", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ text, routes: Object.keys(ROUTE_ALIASES) }),
-      });
-      const data = await response.json();
-      const routeKey = data.route;
-      if (routeKey && ROUTE_ALIASES[routeKey as keyof typeof ROUTE_ALIASES]) {
-        return ROUTE_ALIASES[routeKey as keyof typeof ROUTE_ALIASES];
-      }
-      return null;
-    } catch {
-      return getRouteFromText(text);
-    }
-  };
-
-  const getRouteFromText = (text: string) => {
-    const lowerText = text.toLowerCase().trim();
-
-    // Exact match first
-    if (ROUTE_ALIASES[lowerText as keyof typeof ROUTE_ALIASES]) {
-      return ROUTE_ALIASES[lowerText as keyof typeof ROUTE_ALIASES];
-    }
-
-    // Partial match - find the best match
-    let bestMatch = null;
-    let bestScore = 0;
-
-    for (const [alias, route] of Object.entries(ROUTE_ALIASES)) {
-      if (lowerText.includes(alias)) {
-        const score = alias.length; // Longer matches are better
-        if (score > bestScore) {
-          bestMatch = route;
-          bestScore = score;
-        }
-      }
-    }
-
-    return bestMatch;
-  };
-
-  const speak = (text: string) => {
-    if (speechSynthesis.speaking) {
-      speechSynthesis.cancel();
-    }
-    const utterance = new SpeechSynthesisUtterance(text);
-    utterance.lang = getLanguage();
-    speechSynthesis.speak(utterance);
-  };
-
-  const startListening = () => {
-    const recognition = createRecognition();
-    if (!recognition) return;
-
-    setIsListening(true);
-
-    recognition.onstart = () => {
-      setIsListening(true);
-      console.log("Voice recognition started");
-    };
-
-    recognition.onresult = async (event) => {
-      const transcript = event.results[0]?.[0]?.transcript || "";
-      console.log("Voice input:", transcript);
-      let route = await analyzeWithAI(transcript);
-      if (!route) {
-        route = getRouteFromText(transcript);
-      }
-      if (route) {
-        const routeKey = Object.keys(ROUTE_ALIASES).find(
-          (key) => ROUTE_ALIASES[key as keyof typeof ROUTE_ALIASES] === route
-        );
-        if (routeKey && isProtectedRoute(routeKey)) {
-          if (!checkAuth()) {
-            sessionStorage.setItem("redirectAfterLogin", route);
-            router.push("/");
-            setIsListening(false);
-            return;
-          }
-        }
-        router.push(route);
-      } else {
-        const lang = getLanguage();
-        speak(
-          NOT_FOUND_MESSAGES[lang as keyof typeof NOT_FOUND_MESSAGES] ||
-            NOT_FOUND_MESSAGES["en"]
-        );
-      }
-      setIsListening(false);
-    };
-
-    recognition.onerror = (e) => {
-      setIsListening(false);
-      if (e.error === "not-allowed" || e.error === "denied") {
-        alert(
-          "Microphone access denied. Please allow microphone permissions in your browser settings."
-        );
-      }
-      console.error("Recognition error", e);
-    };
-    recognition.onend = () => {
-      setIsListening(false);
-      console.log("Voice recognition ended");
-    };
-
-    try {
-      recognition.start();
-      console.log("Recognition started");
-    } catch (err) {
-      setIsListening(false);
-      alert(
-        "Could not start voice recognition. Please check your browser and microphone permissions."
-      );
-      console.error("Recognition start error", err);
-    }
-  };
-
-  return (
-    <Button
-      onClick={startListening}
-      variant="ghost"
-      size="sm"
-      className={isListening ? "bg-red-500 text-white animate-pulse" : ""}
-      disabled={isListening}
-    >
-      {isListening ? (
-        <MicIcon className="h-4 w-4 mr-1" />
-      ) : (
-        <Volume2 className="h-4 w-4 mr-1" />
-      )}
-      {isListening ? "Listening..." : "Voice"}
-    </Button>
-  );
-}
+// removed duplicate/erroneous trailing voice-navigation helpers
