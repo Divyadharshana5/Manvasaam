@@ -290,25 +290,18 @@ export default function SimpleVoiceNavigation({
             const SpeechRecognition = (window as any).SpeechRecognition || (window as any).webkitSpeechRecognition;
             recognitionRef.current = new SpeechRecognition();
 
-            // Configure recognition settings
+            // Configure recognition settings for offline use
             recognitionRef.current.continuous = false;
             recognitionRef.current.interimResults = false;
             recognitionRef.current.maxAlternatives = 1;
             
-            // Set language based on selected language with fallback
-            const languageCodes: Record<string, string> = {
-                English: "en-US",
-                Tamil: "ta-IN",
-                Hindi: "hi-IN",
-                Malayalam: "ml-IN",
-                Telugu: "te-IN",
-                Kannada: "kn-IN",
-                Bengali: "bn-IN",
-                Arabic: "ar-SA",
-                Urdu: "ur-PK",
-                Srilanka: "si-LK"
-            };
-            recognitionRef.current.lang = languageCodes[selectedLanguage] || 'en-US';
+            // Force offline mode to avoid network dependency
+            if ('serviceURI' in recognitionRef.current) {
+                recognitionRef.current.serviceURI = '';
+            }
+            
+            // Always use en-US for better offline compatibility
+            recognitionRef.current.lang = 'en-US';
 
             recognitionRef.current.onstart = () => {
                 setVoiceState("listening");
@@ -359,7 +352,13 @@ export default function SimpleVoiceNavigation({
                         errorMessage = "Microphone access denied. Please allow microphone permissions and try again.";
                         break;
                     case 'network':
-                        errorMessage = "Network error. Please check your internet connection.";
+                        // Retry with offline mode
+                        errorMessage = "Switching to offline mode. Please try again.";
+                        setTimeout(() => {
+                            if (voiceState === 'idle') {
+                                startListening();
+                            }
+                        }, 1000);
                         break;
                     case 'service-not-allowed':
                         errorMessage = "Speech service not available. Please try again later.";
