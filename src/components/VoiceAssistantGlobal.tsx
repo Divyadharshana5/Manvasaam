@@ -17,8 +17,10 @@ export function VoiceAssistantGlobal() {
 
     try {
       await navigator.mediaDevices.getUserMedia({ audio: true });
-      
-      const SpeechRecognition = (window as any).webkitSpeechRecognition || (window as any).SpeechRecognition;
+
+      const SpeechRecognition =
+        (window as any).webkitSpeechRecognition ||
+        (window as any).SpeechRecognition;
       if (!SpeechRecognition) {
         speak("Please use Chrome browser");
         return;
@@ -31,7 +33,7 @@ export function VoiceAssistantGlobal() {
 
       recognition.onstart = () => setIsListening(true);
       recognition.onend = () => setIsListening(false);
-      
+
       recognition.onresult = async (event: any) => {
         const transcript = event.results[0][0].transcript.toLowerCase();
         await processVoiceCommand(transcript);
@@ -41,7 +43,7 @@ export function VoiceAssistantGlobal() {
         setIsListening(false);
         speak("Voice recognition error");
       };
-      
+
       recognition.start();
     } catch (error) {
       speak("Microphone access denied");
@@ -50,24 +52,32 @@ export function VoiceAssistantGlobal() {
 
   const processVoiceCommand = async (transcript: string) => {
     const routeMapping: Record<string, string> = {
-      "home": "/",
-      "dashboard": "/dashboard",
-      "orders": "/dashboard/orders",
-      "products": "/dashboard/products", 
-      "track": "/dashboard/track",
-      "profile": "/dashboard/profile",
-      "matchmaking": "/dashboard/matchmaking",
-      "faq": "/dashboard/faq",
-      "help": "/dashboard/faq",
-      "marketing": "/dashboard/marketing"
+      home: "/",
+      dashboard: "/dashboard",
+      orders: "/dashboard/orders",
+      products: "/dashboard/products",
+      track: "/dashboard/track",
+      profile: "/dashboard/profile",
+      matchmaking: "/dashboard/matchmaking",
+      faq: "/dashboard/faq",
+      help: "/dashboard/faq",
+      marketing: "/dashboard/marketing",
     };
 
-    const protectedRoutes = ["dashboard", "orders", "products", "track", "profile", "matchmaking", "marketing"];
+    const protectedRoutes = [
+      "dashboard",
+      "orders",
+      "products",
+      "track",
+      "profile",
+      "matchmaking",
+      "marketing",
+    ];
 
     // Extract page name from transcript
     const words = transcript.split(" ");
     let targetPage = "";
-    
+
     for (const word of words) {
       if (routeMapping[word]) {
         targetPage = word;
@@ -94,7 +104,7 @@ export function VoiceAssistantGlobal() {
   };
 
   const speak = (text: string) => {
-    if ('speechSynthesis' in window) {
+    if ("speechSynthesis" in window) {
       const utterance = new SpeechSynthesisUtterance(text);
       utterance.lang = getLanguageCode(selectedLanguage);
       speechSynthesis.speak(utterance);
@@ -112,7 +122,7 @@ export function VoiceAssistantGlobal() {
       Bengali: "bn-IN",
       Arabic: "ar-SA",
       Urdu: "ur-PK",
-      Srilanka: "si-LK"
+      Srilanka: "si-LK",
     };
     return codes[language] || "en-US";
   };
@@ -121,14 +131,14 @@ export function VoiceAssistantGlobal() {
     const messages: Record<string, string> = {
       English: "Not Found",
       Tamil: "கிடைக்கவில்லை",
-      Hindi: "नहीं मिला", 
+      Hindi: "नहीं मिला",
       Malayalam: "കണ്ടെത്തിയില്ല",
       Telugu: "కనుగొనబడలేదు",
       Kannada: "ಸಿಗಲಿಲ್ಲ",
       Bengali: "পাওয়া যায়নি",
       Arabic: "غير موجود",
       Urdu: "نہیں ملا",
-      Srilanka: "හමු නොවීය"
+      Srilanka: "හමු නොවීය",
     };
     return messages[selectedLanguage] || "Not Found";
   };
@@ -144,7 +154,7 @@ export function VoiceAssistantGlobal() {
       Bengali: "অনুগ্রহ করে প্রথমে লগইন করুন",
       Arabic: "يرجى تسجيل الدخول أولاً",
       Urdu: "پہلے لاگ ان کریں",
-      Srilanka: "කරුණාකර මුලින්ම ලොගින් වන්න"
+      Srilanka: "කරුණාකර මුලින්ම ලොගින් වන්න",
     };
     return messages[selectedLanguage] || "Please login first";
   };
@@ -154,36 +164,40 @@ export function VoiceAssistantGlobal() {
       dashboard: {
         English: "Going to dashboard",
         Tamil: "டாஷ்போர்டுக்கு செல்கிறேன்",
-        Hindi: "डैशबोर्ड पर जा रहे हैं"
+        Hindi: "डैशबोर्ड पर जा रहे हैं",
       },
       orders: {
         English: "Opening orders",
-        Tamil: "ஆர்டர்களை திறக்கிறேன்", 
-        Hindi: "ऑर्डर खोल रहे हैं"
+        Tamil: "ஆர்டர்களை திறக்கிறேன்",
+        Hindi: "ऑर्डर खोल रहे हैं",
       },
       products: {
         English: "Going to products",
         Tamil: "தயாரிப்புகளுக்கு செல்கிறேன்",
-        Hindi: "उत्पादों पर जा रहे हैं"
+        Hindi: "उत्पादों पर जा रहे हैं",
       },
       track: {
         English: "Opening track orders",
         Tamil: "ஆர்டர் கண்காணிப்பை திறக்கிறேன்",
-        Hindi: "ऑर्डर ट्रैकिंग खोल रहे हैं"
+        Hindi: "ऑर्डर ट्रैकिंग खोल रहे हैं",
       },
       profile: {
         English: "Going to profile",
         Tamil: "சுயவிவரத்திற்கு செல்கிறேன்",
-        Hindi: "प्रोफाइल पर जा रहे हैं"
+        Hindi: "प्रोफाइल पर जा रहे हैं",
       },
       home: {
         English: "Going to home",
         Tamil: "முகப்புக்கு செல்கிறேன்",
-        Hindi: "होम पर जा रहे हैं"
-      }
+        Hindi: "होम पर जा रहे हैं",
+      },
     };
-    
-    return messages[page]?.[selectedLanguage] || messages[page]?.["English"] || `Going to ${page}`;
+
+    return (
+      messages[page]?.[selectedLanguage] ||
+      messages[page]?.["English"] ||
+      `Going to ${page}`
+    );
   };
 
   return (

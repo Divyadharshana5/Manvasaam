@@ -35,13 +35,18 @@ export async function POST(request: NextRequest) {
       "support": "/dashboard/faq",
       "analytics": "/dashboard/analytics",
       "reports": "/dashboard/reports",
-      "settings": "/dashboard/settings"
+      "settings": "/dashboard/settings",
+      "marketing": "/dashboard/marketing",
+      "farmer": "/login/farmer",
+      "customer": "/login/customer",
+      "hub": "/login/hub",
+      "restaurant": "/login/restaurant"
     };
 
     // Protected routes that require authentication
     const protectedRoutes = [
       "dashboard", "orders", "products", "track", "profile",
-      "inventory", "matchmaking", "analytics", "reports", "settings"
+      "inventory", "matchmaking", "analytics", "reports", "settings", "marketing"
     ];
 
     // Process the transcript to find navigation intent
@@ -49,7 +54,7 @@ export async function POST(request: NextRequest) {
       const command = transcript.toLowerCase().trim();
       
       // Remove navigation words
-      const navigationWords = ['go to', 'navigate to', 'open', 'show', 'take me to', 'visit'];
+      const navigationWords = ['go to', 'navigate to', 'open', 'show', 'take me to', 'visit', 'goto'];
       let targetPage = command;
       
       navigationWords.forEach(word => {
@@ -57,6 +62,14 @@ export async function POST(request: NextRequest) {
           targetPage = command.replace(word, '').trim();
         }
       });
+
+      // Check for exact matches in route mapping
+      const words = targetPage.split(' ');
+      for (const word of words) {
+        if (routeMapping[word]) {
+          return word;
+        }
+      }
 
       return targetPage;
     };
