@@ -40,7 +40,10 @@ export async function POST(request: NextRequest) {
       "farmer": "/login/farmer",
       "customer": "/login/customer",
       "hub": "/login/hub",
-      "restaurant": "/login/restaurant"
+      "restaurant": "/login/restaurant",
+      "privacy": "/privacy",
+      "terms": "/terms",
+      "support": "/support"
     };
 
     // Protected routes that require authentication
