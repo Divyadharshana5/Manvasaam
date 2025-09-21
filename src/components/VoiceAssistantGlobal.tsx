@@ -12,105 +12,75 @@ export function VoiceAssistantGlobal() {
   const router = useRouter();
   const { selectedLanguage } = useLanguage();
 
-  const startVoice = async () => {
+  const handleClick = () => {
     if (isListening) return;
-
-    // Check if browser supports speech recognition
-    if (!window.webkitSpeechRecognition) {
-      alert('Please use Chrome browser for voice features');
+    
+    if (!('webkitSpeechRecognition' in window)) {
+      alert('Use Chrome browser');
       return;
     }
 
-    // Request microphone permission first
-    try {
-      await navigator.mediaDevices.getUserMedia({ audio: true });
-    } catch (err) {
-      alert('Microphone access required. Please allow and try again.');
-      return;
-    }
-
-    const recognition = new window.webkitSpeechRecognition();
+    const SpeechRecognition = (window as any).webkitSpeechRecognition;
+    const recognition = new SpeechRecognition();
+    
+    recognition.lang = 'en-US';
     recognition.continuous = false;
     recognition.interimResults = false;
-    recognition.lang = 'en-US';
 
-    recognition.onstart = () => {
-      setIsListening(true);
-    };
-
-    recognition.onresult = (event) => {
+    recognition.onstart = () => setIsListening(true);
+    recognition.onend = () => setIsListening(false);
+    
+    recognition.onresult = (event: any) => {
       const text = event.results[0][0].transcript.toLowerCase();
-      console.log('Voice input:', text);
       
-      // Routes mapping
-      const pages = {
-        'dashboard': '/dashboard',
-        'orders': '/dashboard/orders',
-        'products': '/dashboard/products', 
-        'profile': '/dashboard/profile',
-        'track': '/dashboard/track',
-        'farmer': '/login/farmer',
-        'customer': '/login/customer',
-        'hub': '/login/hub',
-        'restaurant': '/login/restaurant'
-      };
-      
-      const protected_pages = ['dashboard', 'orders', 'products', 'profile', 'track'];
-      
-      // Find page
-      let route = null;
-      let page = null;
-      
-      for (const [key, path] of Object.entries(pages)) {
-        if (text.includes(key)) {
-          route = path;
-          page = key;
-          break;
+      if (text.includes('dashboard')) {
+        if (!isAuthenticated()) {
+          sessionStorage.setItem('redirectAfterLogin', '/dashboard');
+          router.push('/');
+        } else {
+          router.push('/dashboard');
         }
-      }
-      
-      if (route) {
-        // Check auth for protected pages
-        if (page && protected_pages.includes(page)) {
-          if (!isAuthenticated()) {
-            sessionStorage.setItem('redirectAfterLogin', route);
-            router.push('/');
-            return;
-          }
+      } else if (text.includes('orders')) {
+        if (!isAuthenticated()) {
+          sessionStorage.setItem('redirectAfterLogin', '/dashboard/orders');
+          router.push('/');
+        } else {
+          router.push('/dashboard/orders');
         }
-        router.push(route);
+      } else if (text.includes('products')) {
+        if (!isAuthenticated()) {
+          sessionStorage.setItem('redirectAfterLogin', '/dashboard/products');
+          router.push('/');
+        } else {
+          router.push('/dashboard/products');
+        }
+      } else if (text.includes('farmer')) {
+        router.push('/login/farmer');
+      } else if (text.includes('customer')) {
+        router.push('/login/customer');
       } else {
-        // Not found - speak in user language
-        const msgs = {
-          'English': 'Not Found',
-          'Tamil': 'கிடைக்கவில்லை',
-          'Hindi': 'नहीं मिला'
-        };
-        const msg = msgs[selectedLanguage as keyof typeof msgs] || 'Not Found';
-        
-        const speech = new SpeechSynthesisUtterance(msg);
-        speechSynthesis.speak(speech);
+        const msg = selectedLanguage === 'Tamil' ? 'கிடைக்கவில்லை' : 
+                   selectedLanguage === 'Hindi' ? 'नहीं मिला' : 'Not Found';
+        const utterance = new SpeechSynthesisUtterance(msg);
+        speechSynthesis.speak(utterance);
       }
     };
 
-    recognition.onerror = () => {
+    recognition.onerror = () => setIsListening(false);
+    
+    try {
+      recognition.start();
+    } catch (e) {
       setIsListening(false);
-    };
-
-    recognition.onend = () => {
-      setIsListening(false);
-    };
-
-    recognition.start();
+    }
   };
 
   return (
     <Button
-      onClick={startVoice}
+      onClick={handleClick}
       variant="ghost"
       size="sm"
       className={isListening ? "bg-red-500 text-white animate-pulse" : ""}
-      disabled={isListening}
     >
       {isListening ? (
         <MicIcon className="h-4 w-4 mr-1" />
