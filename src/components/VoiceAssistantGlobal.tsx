@@ -70,13 +70,13 @@ export function VoiceAssistantGlobal() {
         }
       } else {
         console.log("No results in event");
-        alert("No speech detected");
-      }
+    recognition.onerror = function(event: any) {
+      console.log('=== ERROR OCCURRED ===');
+      console.log('Error type:', (event && (event).error) || 'unknown');
+      console.log('Error event:', event);
+      setIsListening(false);
+      alert('Speech error: ' + ((event && (event).error) || 'unknown'));
     };
-
-    recognition.onerror = function (event) {
-      console.log("=== ERROR OCCURRED ===");
-      console.log("Error type:", event.error);
       console.log("Error event:", event);
       setIsListening(false);
       alert("Speech error: " + event.error);
