@@ -95,97 +95,74 @@ export function VoiceAssistantGlobal() {
   };
 
   const startVoice = () => {
-    if (!("webkitSpeechRecognition" in window)) {
-      alert("Voice recognition only works in Chrome browser");
+    // Check browser support
+    if (!('webkitSpeechRecognition' in window)) {
+      alert('Please use Chrome browser for voice features');
       return;
     }
 
-    try {
-      const recognition = new (window as any).webkitSpeechRecognition();
-      
-      // Essential settings only
-      recognition.continuous = false;
-      recognition.interimResults = false;
-      recognition.lang = "en-US";
-      
-      recognition.onstart = () => {
-        setIsListening(true);
-        console.log("Started listening");
-      };
+    // Create recognition instance
+    const SpeechRecognition = (window as any).webkitSpeechRecognition;
+    const recognition = new SpeechRecognition();
 
-      recognition.onresult = (event: any) => {
-        const transcript = event.results[0][0].transcript.toLowerCase().trim();
-        console.log("Heard:", transcript);
-        
-        // Simple word matching
-        let targetRoute = null;
-        let routeWord = null;
-        
-        // Check each word in the transcript
-        const words = transcript.split(" ");
-        for (const word of words) {
-          if (routes[word]) {
-            targetRoute = routes[word];
-            routeWord = word;
-            break;
+    // Configure recognition
+    recognition.continuous = false;
+    recognition.interimResults = false;
+    recognition.lang = 'en-US';
+
+    // Start listening
+    recognition.onstart = () => {
+      setIsListening(true);
+    };
+
+    // Process results
+    recognition.onresult = (event: any) => {
+      const text = event.results[0][0].transcript.toLowerCase();
+      console.log('Voice input:', text);
+      
+      // Find matching route
+      let route = null;
+      let key = null;
+      
+      for (const [word, path] of Object.entries(routes)) {
+        if (text.includes(word)) {
+          route = path;
+          key = word;
+          break;
+        }
+      }
+      
+      if (route) {
+        // Check if protected route
+        if (key && protectedRoutes.includes(key)) {
+          if (!isAuthenticated()) {
+            sessionStorage.setItem('redirectAfterLogin', route);
+            router.push('/');
+            return;
           }
         }
-        
-        // If no exact word match, check partial matches
-        if (!targetRoute) {
-          for (const [key, route] of Object.entries(routes)) {
-            if (transcript.includes(key)) {
-              targetRoute = route;
-              routeWord = key;
-              break;
-            }
-          }
-        }
-        
-        if (targetRoute) {
-          // Check authentication for protected routes
-          if (routeWord && protectedRoutes.includes(routeWord)) {
-            if (!isAuthenticated()) {
-              sessionStorage.setItem("redirectAfterLogin", targetRoute);
-              router.push("/");
-              return;
-            }
-          }
-          
-          console.log("Navigating to:", targetRoute);
-          router.push(targetRoute);
-        } else {
-          // Page not found - speak in user's language
-          const message = notFoundMessages[selectedLanguage] || "Not Found";
-          speak(message);
-        }
-        
-        setIsListening(false);
-      };
+        router.push(route);
+      } else {
+        speak(notFoundMessages[selectedLanguage] || 'Not Found');
+      }
+    };
 
-      recognition.onerror = (event: any) => {
-        console.error("Speech error:", event.error);
-        setIsListening(false);
-        
-        if (event.error === "not-allowed") {
-          alert("Please allow microphone access and try again");
-        } else if (event.error === "no-speech") {
-          alert("No speech detected. Please try again");
-        }
-      };
-
-      recognition.onend = () => {
-        setIsListening(false);
-        console.log("Stopped listening");
-      };
-
-      // Start recognition
-      recognition.start();
-      
-    } catch (error) {
-      console.error("Recognition failed:", error);
+    // Handle errors
+    recognition.onerror = () => {
       setIsListening(false);
-      alert("Voice recognition failed. Please try again");
+    };
+
+    // End listening
+    recognition.onend = () => {
+      setIsListening(false);
+    };
+
+    // Start recognition
+    try {
+      recognition.start();
+    } catch (e) {
+      setIsListening(false);
+      alert('Voice recognition failed');
     }
   };
 
