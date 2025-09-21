@@ -15,71 +15,121 @@ export function VoiceAssistantGlobal() {
   const handleVoiceClick = () => {
     if (isListening) return;
 
-    if (!window.webkitSpeechRecognition) {
-      alert('Voice recognition not supported. Use Chrome browser.');
+    // Check browser support
+    if (!('webkitSpeechRecognition' in window)) {
+      alert('Voice recognition requires Chrome browser');
       return;
     }
 
-    const recognition = new window.webkitSpeechRecognition();
-    recognition.lang = 'en-US';
-    recognition.continuous = false;
-    recognition.interimResults = false;
+    try {
+      const recognition = new (window as any).webkitSpeechRecognition();
+      
+      // Basic settings
+      recognition.continuous = false;
+      recognition.interimResults = false;
+      recognition.lang = 'en-US';
 
-    recognition.onstart = () => setIsListening(true);
-    recognition.onend = () => setIsListening(false);
-    
-    recognition.onresult = (event) => {
-      const transcript = event.results[0][0].transcript.toLowerCase();
-      console.log('Voice:', transcript);
-      
-      const routes = {
-        'dashboard': '/dashboard',
-        'orders': '/dashboard/orders', 
-        'products': '/dashboard/products',
-        'profile': '/dashboard/profile',
-        'track': '/dashboard/track',
-        'farmer': '/login/farmer',
-        'customer': '/login/customer',
-        'hub': '/login/hub',
-        'restaurant': '/login/restaurant'
+      recognition.onstart = () => {
+        setIsListening(true);
+        console.log('Voice recognition started');
       };
-      
-      const protectedPages = ['dashboard', 'orders', 'products', 'profile', 'track'];
-      
-      let foundPage = null;
-      for (const [page, route] of Object.entries(routes)) {
-        if (transcript.includes(page)) {
-          foundPage = { page, route };
-          break;
-        }
-      }
-      
-      if (foundPage) {
-        if (protectedPages.includes(foundPage.page)) {
-          if (!isAuthenticated()) {
-            sessionStorage.setItem('redirectAfterLogin', foundPage.route);
-            router.push('/');
-            return;
+
+      recognition.onresult = (event: any) => {
+        const transcript = event.results[0][0].transcript.toLowerCase().trim();
+        console.log('Voice heard:', transcript);
+        
+        const routes = {
+          'dashboard': '/dashboard',
+          'orders': '/dashboard/orders', 
+          'products': '/dashboard/products',
+          'profile': '/dashboard/profile',
+          'track': '/dashboard/track',
+          'inventory': '/dashboard/hub/inventory',
+          'analytics': '/dashboard/hub/analytics',
+          'farmer': '/login/farmer',
+          'customer': '/login/customer',
+          'hub': '/login/hub',
+          'restaurant': '/login/restaurant'
+        };
+        
+        const protectedPages = ['dashboard', 'orders', 'products', 'profile', 'track', 'inventory', 'analytics'];
+        
+        // Find matching page
+        let foundRoute = null;
+        let pageKey = null;
+        
+        for (const [page, route] of Object.entries(routes)) {
+          if (transcript.includes(page)) {
+            foundRoute = route;
+            pageKey = page;
+            break;
           }
         }
-        router.push(foundPage.route);
-      } else {
-        const messages = {
-          'English': 'Not Found',
-          'Tamil': 'கிடைக்கவில்லை',
-          'Hindi': 'नहीं मिला'
-        };
-        const msg = messages[selectedLanguage as keyof typeof messages] || 'Not Found';
         
-        if (window.speechSynthesis) {
-          const utterance = new SpeechSynthesisUtterance(msg);
-          window.speechSynthesis.speak(utterance);
+        if (foundRoute) {
+          console.log('Found route:', foundRoute);
+          
+          // Check authentication for protected pages
+          if (pageKey && protectedPages.includes(pageKey)) {
+            if (!isAuthenticated()) {
+              console.log('Not authenticated, redirecting to login');
+              sessionStorage.setItem('redirectAfterLogin', foundRoute);
+              router.push('/');
+              return;
+            }
+          }
+          
+          // Navigate to page
+          router.push(foundRoute);
+        } else {
+          console.log('Page not found for:', transcript);
+          
+          // Speak "Not Found" in selected language
+          const messages = {
+            'English': 'Not Found',
+            'Tamil': 'கிடைக்கவில்லை',
+            'Hindi': 'नहीं मिला',
+            'Malayalam': 'കണ്ടെത്തിയില്ല',
+            'Telugu': 'కనుగొనబడలేదు',
+            'Kannada': 'ಸಿಗಲಿಲ್ಲ',
+            'Bengali': 'পাওয়া যায়নি'
+          };
+          
+          const message = messages[selectedLanguage as keyof typeof messages] || 'Not Found';
+          
+          if (window.speechSynthesis) {
+            window.speechSynthesis.cancel();
+            const utterance = new SpeechSynthesisUtterance(message);
+            utterance.lang = 'en-US';
+            window.speechSynthesis.speak(utterance);
+          }
         }
-      }
-    };
-    
-    recognition.onerror = () => setIsListening(false);
-    recognition.start();
+      };
+
+      recognition.onerror = (event: any) => {
+        console.error('Voice recognition error:', event.error);
+        setIsListening(false);
+        
+        if (event.error === 'not-allowed') {
+          alert('Please allow microphone access and try again');
+        } else if (event.error === 'no-speech') {
+          alert('No speech detected. Please try again');
+        }
+      };
+
+      recognition.onend = () => {
+        setIsListening(false);
+        console.log('Voice recognition ended');
+      };
+
+      // Start recognition
+      recognition.start();
+      
+    } catch (error) {
+      console.error('Failed to start voice recognition:', error);
+      setIsListening(false);
+      alert('Voice recognition failed. Please try again');
+    }
   };
 
   return (
