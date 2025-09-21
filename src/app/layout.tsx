@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import GlobalVoiceAssistant from "@/components/global-voice-assistant";
+
 import "./globals.css";
 import "./background.css";
 import "../styles/navigation-transitions.css";
@@ -159,7 +159,6 @@ export default function RootLayout({
             <NavigationProvider>
               <AuthProvider>
                 {children}
-                <GlobalVoiceAssistant />
               </AuthProvider>
             </NavigationProvider>
           </LanguageProvider>
