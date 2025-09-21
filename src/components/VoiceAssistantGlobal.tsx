@@ -110,41 +110,140 @@ export function VoiceAssistantGlobal() {
     "farmer": "/login/farmer",
     "customer": "/login/customer",
     "hub": "/login/hub",
-    "restaurant": "/login/restaurant"
+    "restaurant": "/login/restaurant",
+    "inventory": "/dashboard/hub/inventory",
+    "attendance": "/dashboard/hub/attendance",
+    "track": "/dashboard/track",
+    "matchmaking": "/dashboard/matchmaking",
+    "analytics": "/dashboard/hub/analytics",
+    "farmers": "/dashboard/hub/farmers",
+    "deliveries": "/dashboard/hub/deliveries",
+    "settings": "/dashboard/hub/settings",
+    "faq": "/dashboard/faq",
+    "help": "/dashboard/faq",
+    "support": "/support",
+    "marketing": "/dashboard/marketing",
+    "voice": "/dashboard/voice-assistant",
+    "privacy": "/privacy",
+    "terms": "/terms",
+    "contact": "/dashboard/contact"
   };
 
   const startVoice = () => {
     if (!('webkitSpeechRecognition' in window)) {
-      alert('Use Chrome browser for voice features');
+      toast({
+        variant: "destructive",
+        title: "Not Supported",
+        description: "Voice recognition requires Chrome browser. Please switch to Chrome.",
+      });
       return;
     }
 
-    const recognition = new (window as any).webkitSpeechRecognition();
-    recognition.lang = 'en-US';
-    recognition.continuous = false;
-    recognition.interimResults = false;
+    try {
+      const recognition = new (window as any).webkitSpeechRecognition();
+      recognition.lang = 'en-US';
+      recognition.continuous = false;
+      recognition.interimResults = false;
+      recognition.maxAlternatives = 1;
 
-    recognition.onstart = () => setIsListening(true);
-    recognition.onend = () => setIsListening(false);
-    
-    recognition.onresult = (event: any) => {
-      const text = event.results[0][0].transcript.toLowerCase();
-      console.log('Voice:', text);
+      recognition.onstart = () => {
+        setIsListening(true);
+        console.log('Voice recognition started');
+      };
       
-      for (const [word, route] of Object.entries(routes)) {
-        if (text.includes(word)) {
-          router.push(route);
-          return;
+      recognition.onend = () => {
+        setIsListening(false);
+        console.log('Voice recognition ended');
+      };
+      
+      recognition.onresult = (event: any) => {
+        const transcript = event.results[0]?.[0]?.transcript;
+        if (!transcript) return;
+        
+        const text = transcript.toLowerCase().trim();
+        console.log('Voice input:', text);
+        
+        // Remove common navigation words
+        const cleanText = text
+          .replace(/^(go to|navigate to|open|show|take me to|visit)\s+/i, '')
+          .trim();
+        
+        // Find matching route
+        let foundRoute = null;
+        
+        // Exact match first
+        if (routes[cleanText]) {
+          foundRoute = routes[cleanText];
+        } else {
+          // Partial match
+          for (const [word, route] of Object.entries(routes)) {
+            if (cleanText.includes(word) || text.includes(word)) {
+              foundRoute = route;
+              break;
+            }
+          }
         }
-      }
-    };
+        
+        if (foundRoute) {
+          console.log('Navigating to:', foundRoute);
+          router.push(foundRoute);
+          
+          // Provide audio feedback
+          if (window.speechSynthesis) {
+            const utterance = new SpeechSynthesisUtterance(`Going to ${cleanText}`);
+            utterance.lang = 'en-US';
+            utterance.rate = 1.2;
+            utterance.volume = 0.7;
+            window.speechSynthesis.speak(utterance);
+          }
+        } else {
+          console.log('No route found for:', text);
+          toast({
+            variant: "destructive",
+            title: "Command Not Found",
+            description: `Could not find "${cleanText}". Try saying: dashboard, orders, products, farmer, customer, hub, or restaurant.`,
+          });
+        }
+      };
 
-    recognition.onerror = () => {
+      recognition.onerror = (event: any) => {
+        setIsListening(false);
+        console.error('Voice recognition error:', event.error);
+        
+        let errorMessage = 'Voice recognition failed. Please try again.';
+        
+        switch (event.error) {
+          case 'no-speech':
+            errorMessage = 'No speech detected. Please speak clearly.';
+            break;
+          case 'audio-capture':
+            errorMessage = 'Microphone not accessible. Check permissions.';
+            break;
+          case 'not-allowed':
+            errorMessage = 'Microphone access denied. Please allow permissions.';
+            break;
+          case 'network':
+            errorMessage = 'Network error. Check your connection.';
+            break;
+        }
+        
+        toast({
+          variant: "destructive",
+          title: "Voice Error",
+          description: errorMessage,
+        });
+      };
+
+      recognition.start();
+    } catch (error) {
       setIsListening(false);
-      console.log('Voice error');
-    };
-
-    recognition.start();
+      console.error('Failed to start voice recognition:', error);
+      toast({
+        variant: "destructive",
+        title: "Voice Error",
+        description: 'Failed to start voice recognition. Please try again.',
+      });
+    }
   };
 
   return (
