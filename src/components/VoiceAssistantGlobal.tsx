@@ -70,16 +70,19 @@ export function VoiceAssistantGlobal() {
         }
       } else {
         console.log("No results in event");
-    recognition.onerror = function(event: any) {
-      console.log('=== ERROR OCCURRED ===');
-      console.log('Error type:', (event && (event).error) || 'unknown');
-      console.log('Error event:', event);
-      setIsListening(false);
-      alert('Speech error: ' + ((event && (event).error) || 'unknown'));
+        // No valid transcript was returned
+        setIsListening(false);
+        alert("No speech result detected.");
+      }
     };
+
+    // Proper error handler: SpeechRecognition onerror provides an error property.
+    recognition.onerror = function (event: any) {
+      console.log("=== ERROR OCCURRED ===");
+      console.log("Error type:", (event && event.error) || "unknown");
       console.log("Error event:", event);
       setIsListening(false);
-      alert("Speech error: " + event.error);
+      alert("Speech error: " + ((event && event.error) || "unknown"));
     };
 
     recognition.onend = function () {
