@@ -13,85 +13,89 @@ export function VoiceAssistantGlobal() {
   const { selectedLanguage } = useLanguage();
 
   const testVoice = () => {
-    console.log('=== VOICE BUTTON CLICKED ===');
-    
+    console.log("=== VOICE BUTTON CLICKED ===");
+
     if (isListening) {
-      console.log('Already listening');
+      console.log("Already listening");
       return;
     }
 
     // Force check for webkitSpeechRecognition
-    const SpeechRecognition = (window as any).webkitSpeechRecognition || (window as any).SpeechRecognition;
-    
+    const SpeechRecognition =
+      (window as any).webkitSpeechRecognition ||
+      (window as any).SpeechRecognition;
+
     if (!SpeechRecognition) {
-      console.log('Speech recognition NOT available');
-      alert('Speech recognition not available. Please use Chrome browser and ensure you are on HTTPS.');
+      console.log("Speech recognition NOT available");
+      alert(
+        "Speech recognition not available. Please use Chrome browser and ensure you are on HTTPS."
+      );
       return;
     }
 
-    console.log('Speech recognition available, creating instance...');
-    
+    console.log("Speech recognition available, creating instance...");
+
     const recognition = new SpeechRecognition();
-    
+
     // Force basic settings
     recognition.continuous = false;
     recognition.interimResults = false;
-    recognition.lang = 'en-US';
-    
-    console.log('Recognition configured, setting up events...');
+    recognition.lang = "en-US";
 
-    recognition.onstart = function() {
+    console.log("Recognition configured, setting up events...");
+
+    recognition.onstart = function () {
       setIsListening(true);
-      console.log('=== LISTENING STARTED ===');
-      console.log('Speak now!');
+      console.log("=== LISTENING STARTED ===");
+      console.log("Speak now!");
     };
 
-    recognition.onresult = function(event) {
-      console.log('=== RESULT RECEIVED ===');
-      console.log('Event:', event);
-      
+    recognition.onresult = function (event: SpeechRecognitionEvent) {
+      console.log("=== RESULT RECEIVED ===");
+      console.log("Event:", event);
+
       if (event.results && event.results[0] && event.results[0][0]) {
         const transcript = event.results[0][0].transcript;
-        console.log('TRANSCRIPT:', transcript);
-        alert('I heard: ' + transcript);
-        
+        console.log("TRANSCRIPT:", transcript);
+        alert("I heard: " + transcript);
+
         // Simple navigation
         const text = transcript.toLowerCase();
-        if (text.includes('dashboard')) {
-          router.push('/dashboard');
-        } else if (text.includes('farmer')) {
-          router.push('/login/farmer');
-        } else if (text.includes('customer')) {
-          router.push('/login/customer');
+        if (text.includes("dashboard")) {
+          router.push("/dashboard");
+        } else if (text.includes("farmer")) {
+          router.push("/login/farmer");
+        } else if (text.includes("customer")) {
+          router.push("/login/customer");
         }
       } else {
-        console.log('No results in event');
-        alert('No speech detected');
+        console.log("No results in event");
+        alert("No speech detected");
       }
     };
 
-    recognition.onerror = function(event) {
-      console.log('=== ERROR OCCURRED ===');
-      console.log('Error type:', event.error);
-      console.log('Error event:', event);
+    recognition.onerror = function (event) {
+      console.log("=== ERROR OCCURRED ===");
+      console.log("Error type:", event.error);
+      console.log("Error event:", event);
       setIsListening(false);
-      alert('Speech error: ' + event.error);
+      alert("Speech error: " + event.error);
     };
 
-    recognition.onend = function() {
-      console.log('=== LISTENING ENDED ===');
+    recognition.onend = function () {
+      console.log("=== LISTENING ENDED ===");
       setIsListening(false);
     };
 
-    console.log('Starting recognition...');
-    
+    console.log("Starting recognition...");
+
     try {
       recognition.start();
-      console.log('Recognition.start() called successfully');
+      console.log("Recognition.start() called successfully");
     } catch (error) {
-      console.log('Error calling start():', error);
+      console.log("Error calling start():", error);
       setIsListening(false);
-      alert('Failed to start: ' + error);
+      alert("Failed to start: " + error);
     }
   };
 
