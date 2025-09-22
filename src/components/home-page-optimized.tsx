@@ -348,46 +348,7 @@ export default function HomePage() {
     return null;
   }, []);
 
-  const handleVoiceClick = useCallback(() => {
-    if (!('webkitSpeechRecognition' in window) && !('SpeechRecognition' in window)) {
-      return;
-    }
 
-    if (voiceState === "idle") {
-      const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
-      const recognition = new SpeechRecognition();
-      
-      recognition.continuous = false;
-      recognition.interimResults = false;
-      recognition.lang = navigator.language;
-      
-      recognition.onstart = () => {
-        if (speechSynthesis.speaking) {
-          speechSynthesis.cancel();
-        }
-        setVoiceState("listening");
-      };
-      
-      recognition.onresult = (event) => {
-        const transcript = event.results[0]?.[0]?.transcript || "";
-        
-        const route = getRouteFromKeywords(transcript);
-        
-        if (route) {
-          router.push(route);
-        } else {
-          speak(getNotFoundMessage());
-        }
-      };
-      
-      recognition.onerror = () => {
-        setVoiceState("idle");
-      };
-      
-      recognition.onend = () => setVoiceState("idle");
-      recognition.start();
-    }
-  }, [voiceState, router, getRouteFromKeywords, speak, getNotFoundMessage]);
 
   // Optimized animation variants with reduced motion support
   const sentence = useMemo(
