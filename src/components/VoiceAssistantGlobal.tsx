@@ -311,8 +311,8 @@ export function VoiceAssistantGlobal() {
       onClick={startListening}
       variant="outline"
       size="sm"
-      className={`bg-white/80 border-green-300 hover:bg-green-100 hover:border-green-400 transition-all duration-200 ${
-        isListening ? "bg-red-500 text-white border-red-500 animate-pulse" : "text-green-700"
+      className={`hover:bg-primary/90 hover:text-primary-foreground hover:border-primary/90 ${
+        isListening ? "bg-red-500 text-white border-red-500 animate-pulse" : ""
       }`}
       disabled={isListening}
     >
