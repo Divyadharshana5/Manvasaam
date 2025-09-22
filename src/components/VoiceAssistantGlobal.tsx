@@ -16,6 +16,8 @@ export function VoiceAssistantGlobal() {
     if (isListening) return;
 
     try {
+      if (typeof window === "undefined") return;
+      
       await navigator.mediaDevices.getUserMedia({ audio: true });
 
       const SpeechRecognition =
@@ -138,7 +140,7 @@ export function VoiceAssistantGlobal() {
   };
 
   const speak = (text: string) => {
-    if ("speechSynthesis" in window) {
+    if (typeof window !== "undefined" && "speechSynthesis" in window) {
       const utterance = new SpeechSynthesisUtterance(text);
       utterance.lang = getLanguageCode(selectedLanguage);
       speechSynthesis.speak(utterance);
