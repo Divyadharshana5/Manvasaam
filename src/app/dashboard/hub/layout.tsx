@@ -1,47 +1,33 @@
 "use client";
 
-// Speaker Icon Circle Component
 import { useCallback, useState, useEffect } from "react";
 import { VoiceAssistantGlobal } from "@/components/VoiceAssistantGlobal";
 import { LanguageProvider } from "@/context/language-context";
 
-function SpeakerCircle() {
-  // Add a click handler for the speaker icon
-  const [open, setOpen] = useState(false);
+function VoiceAssistantFloating() {
   return (
-    <>
-      <div
-        style={{
-          position: "absolute",
-          bottom: "2rem",
-          right: "2rem",
-          zIndex: 50,
-          width: "56px",
-          height: "56px",
-          display: "flex",
-          alignItems: "center",
-          justifyContent: "center",
-          background: "linear-gradient(135deg, #22c55e 0%, #facc15 100%)",
-          borderRadius: "50%",
-          boxShadow: "0 4px 24px rgba(34,197,94,0.15)",
-          border: "2px solid #fff",
-          cursor: "pointer",
-        }}
-        className="speaker-circle"
-        onClick={() => setOpen(true)}
-        title="Activate Voice Assistant"
-        role="button"
-        tabIndex={0}
-        aria-label="Activate Voice Assistant"
-      >
-        <Mic
-          size={32}
-          color="#fff"
-          style={{ filter: "drop-shadow(0 2px 6px #22c55e)" }}
-        />
-      </div>
-      {open && <VoiceAssistantGlobal />}
-    </>
+    <div
+      style={{
+        position: "fixed",
+        bottom: "2rem",
+        right: "2rem",
+        zIndex: 50,
+        width: "56px",
+        height: "56px",
+        display: "flex",
+        alignItems: "center",
+        justifyContent: "center",
+        background: "linear-gradient(135deg, #22c55e 0%, #facc15 100%)",
+        borderRadius: "50%",
+        boxShadow: "0 4px 24px rgba(34,197,94,0.15)",
+        border: "2px solid #fff",
+        cursor: "pointer",
+      }}
+      className="voice-assistant-floating"
+      title="Voice Assistant"
+    >
+      <VoiceAssistantGlobal />
+    </div>
   );
 }
 
@@ -254,10 +240,6 @@ export default function HubLayout({ children }: { children: React.ReactNode }) {
       {/* Desktop sidebar */}
       <div className="hidden md:flex md:w-72 lg:w-80 relative">
         <Sidebar onSignOut={handleSignOut} preload={preload} />
-        {/* Move SpeakerCircle to left bottom */}
-        <div style={{ position: "absolute", left: "2rem", bottom: "2rem" }}>
-          <SpeakerCircle />
-        </div>
       </div>
 
       {/* Main column */}
@@ -279,12 +261,6 @@ export default function HubLayout({ children }: { children: React.ReactNode }) {
 
             <SheetContent side="left" className="flex flex-col relative">
               <Sidebar onSignOut={handleSignOut} preload={preload} />
-              {/* Move SpeakerCircle to left bottom for mobile */}
-              <div
-                style={{ position: "absolute", left: "2rem", bottom: "2rem" }}
-              >
-                <SpeakerCircle />
-              </div>
             </SheetContent>
           </Sheet>
         </div>
@@ -305,6 +281,9 @@ export default function HubLayout({ children }: { children: React.ReactNode }) {
           {children}
         </main>
       </div>
+      
+      {/* Floating Voice Assistant */}
+      <VoiceAssistantFloating />
     </div>
   );
 }
