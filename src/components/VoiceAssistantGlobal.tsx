@@ -8,7 +8,7 @@ import { useLanguage } from "@/context/language-context";
 
 export function VoiceAssistantGlobal() {
   const [isListening, setIsListening] = useState(false);
-  const  const router = useRouter();
+  const router = useRouter();
   const { user } = useAuth();
   const { selectedLanguage } = useLanguage();
 
