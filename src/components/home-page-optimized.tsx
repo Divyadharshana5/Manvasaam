@@ -49,6 +49,7 @@ import {
 import { useToast } from "@/hooks/use-toast";
 import { useRouter } from "next/navigation";
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
+import { VoiceAssistantGlobal } from "@/components/VoiceAssistantGlobal";
 
 // Lazy load AI components for better initial load performance
 const VoiceAssistant = lazy(() => import("@/components/voice-assistant"));
@@ -186,7 +187,7 @@ export default function HomePage() {
   const { toast } = useToast();
 
 
-  const [voiceState, setVoiceState] = useState<"idle" | "listening">("idle");
+
   const [loadingRoleHref, setLoadingRoleHref] = useState<string | null>(null);
 
   // Progressive loading state for better performance
@@ -436,23 +437,7 @@ export default function HomePage() {
           </m.div>
           <div className="flex items-center gap-2 sm:gap-4">
             <m.div whileHover={{ scale: 1.1 }}>
-              <Button
-                variant="ghost"
-                size="sm"
-                onClick={handleVoiceClick}
-                disabled={voiceState === "listening"}
-                className={`hover:bg-primary/90 hover:text-primary-foreground text-xs sm:text-sm px-2 sm:px-4 ${
-                  voiceState === "listening" ? "bg-red-500 text-white animate-pulse" : ""
-                }`}
-              >
-                <Mic className="mr-1 sm:mr-2 h-3 w-3 sm:h-4 sm:w-4" />
-                <span className="hidden sm:inline">
-                  {voiceState === "listening" ? "Listening..." : "Voice"}
-                </span>
-                <span className="sm:hidden">
-                  {voiceState === "listening" ? "..." : "Voice"}
-                </span>
-              </Button>
+              <VoiceAssistantGlobal />
             </m.div>
 
             <DropdownMenu>
