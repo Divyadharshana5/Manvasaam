@@ -1,6 +1,6 @@
 "use client";
 
-import { VoiceAssistantGlobal } from "@/components/VoiceAssistantGlobal";
+import { VoiceAssistantFloating } from "@/components/VoiceAssistantFloating";
 import { Mic } from "lucide-react";
 
 export function HubVoiceFloating() {
@@ -19,7 +19,7 @@ export function HubVoiceFloating() {
           boxShadow: "0 4px 20px rgba(34, 197, 94, 0.3)",
         }}
       >
-        <VoiceAssistantGlobal />
+        <VoiceAssistantFloating />
       </div>
       
       {/* Tooltip */}
