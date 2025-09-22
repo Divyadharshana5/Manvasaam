@@ -1,35 +1,7 @@
 "use client";
 
 import { useCallback, useState, useEffect } from "react";
-import { VoiceAssistantGlobal } from "@/components/VoiceAssistantGlobal";
-import { LanguageProvider } from "@/context/language-context";
-
-function VoiceAssistantFloating() {
-  return (
-    <div
-      style={{
-        position: "fixed",
-        bottom: "2rem",
-        right: "2rem",
-        zIndex: 50,
-        width: "56px",
-        height: "56px",
-        display: "flex",
-        alignItems: "center",
-        justifyContent: "center",
-        background: "linear-gradient(135deg, #22c55e 0%, #facc15 100%)",
-        borderRadius: "50%",
-        boxShadow: "0 4px 24px rgba(34,197,94,0.15)",
-        border: "2px solid #fff",
-        cursor: "pointer",
-      }}
-      className="voice-assistant-floating"
-      title="Voice Assistant"
-    >
-      <VoiceAssistantGlobal />
-    </div>
-  );
-}
+import { HubVoiceFloating } from "@/components/hub-voice-floating";
 
 import Link from "next/link";
 import { useFastNavigation } from "@/lib/fast-navigation";
@@ -283,7 +255,7 @@ export default function HubLayout({ children }: { children: React.ReactNode }) {
       </div>
       
       {/* Floating Voice Assistant */}
-      <VoiceAssistantFloating />
+      <HubVoiceFloating />
     </div>
   );
 }
