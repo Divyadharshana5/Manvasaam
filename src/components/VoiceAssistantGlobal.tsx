@@ -68,7 +68,15 @@ export function VoiceAssistantGlobal() {
       restaurant: "/login/restaurant",
       privacy: "/privacy",
       terms: "/terms",
-      support: "/support"
+      support: "/support",
+      // Hub-specific routes
+      inventory: "/dashboard/hub/inventory",
+      attendance: "/dashboard/hub/attendance",
+      deliveries: "/dashboard/hub/deliveries",
+      farmers: "/dashboard/hub/farmers",
+      analytics: "/dashboard/hub/analytics",
+      settings: "/dashboard/hub/settings",
+      overview: "/dashboard/hub"
     };
 
     const protectedRoutes = [
@@ -79,16 +87,35 @@ export function VoiceAssistantGlobal() {
       "profile",
       "matchmaking",
       "marketing",
+      "inventory",
+      "attendance",
+      "deliveries",
+      "farmers",
+      "analytics",
+      "settings",
+      "overview"
     ];
 
-    // Extract page name from transcript
-    const words = transcript.split(" ");
+    // Extract page name from transcript - check for multi-word commands first
+    const lowerTranscript = transcript.toLowerCase();
     let targetPage = "";
 
-    for (const word of words) {
-      if (routeMapping[word]) {
-        targetPage = word;
+    // Check for exact matches first
+    for (const [key, route] of Object.entries(routeMapping)) {
+      if (lowerTranscript.includes(key)) {
+        targetPage = key;
         break;
+      }
+    }
+
+    // If no exact match, check individual words
+    if (!targetPage) {
+      const words = transcript.split(" ");
+      for (const word of words) {
+        if (routeMapping[word.toLowerCase()]) {
+          targetPage = word.toLowerCase();
+          break;
+        }
       }
     }
 
@@ -212,6 +239,41 @@ export function VoiceAssistantGlobal() {
         English: "Going to hub login",
         Tamil: "மையம் உள்நுழைவுக்கு செல்கிறேன்",
         Hindi: "हब लॉगिन पर जा रहे हैं",
+      },
+      inventory: {
+        English: "Opening inventory",
+        Tamil: "சரக்கு பட்டியலை திறக்கிறேன்",
+        Hindi: "इन्वेंटरी खोल रहे हैं",
+      },
+      attendance: {
+        English: "Opening attendance",
+        Tamil: "வருகையை திறக்கிறேன்",
+        Hindi: "उपस्थिति खोल रहे हैं",
+      },
+      deliveries: {
+        English: "Opening deliveries",
+        Tamil: "விநியோगங்களை திறக்கிறேன்",
+        Hindi: "डिलीवरी खोल रहे हैं",
+      },
+      farmers: {
+        English: "Opening farmers",
+        Tamil: "விவசாயிகளை திறக்கிறேன்",
+        Hindi: "किसान खोल रहे हैं",
+      },
+      analytics: {
+        English: "Opening analytics",
+        Tamil: "பகுப्पाईवुகளை திறக்கிறேன்",
+        Hindi: "एनालिटिक्स खोल रहे हैं",
+      },
+      settings: {
+        English: "Opening settings",
+        Tamil: "அமைப்புகளை திறக்கிறேன்",
+        Hindi: "सेटिंग्स खोल रहे हैं",
+      },
+      overview: {
+        English: "Going to overview",
+        Tamil: "மேலோட்டத்திற்கு செல்கிறேன்",
+        Hindi: "ओवरव्यू पर जा रहे हैं",
       },
       restaurant: {
         English: "Going to restaurant login",
