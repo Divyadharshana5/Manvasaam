@@ -8,7 +8,7 @@ import { useLanguage } from "@/context/language-context";
 
 export function VoiceAssistantGlobal() {
   const [isListening, setIsListening] = useState(false);
-  const router = useRouter();
+  const  const router = useRouter();
   const { user } = useAuth();
   const { selectedLanguage } = useLanguage();
 
@@ -307,19 +307,16 @@ export function VoiceAssistantGlobal() {
   return (
     <Button
       onClick={startListening}
-      variant="ghost"
+      variant="outline"
       size="sm"
-      className={`hover:bg-primary/90 hover:text-primary-foreground transition-all duration-200 ${
-        isListening ? "bg-red-500 text-white animate-pulse" : ""
+      className={`bg-white/80 border-green-300 hover:bg-green-100 hover:border-green-400 transition-all duration-200 ${
+        isListening ? "bg-red-500 text-white border-red-500 animate-pulse" : "text-green-700"
       }`}
       disabled={isListening}
     >
-      <MicIcon className="h-4 w-4 mr-1" />
-      <span className="hidden sm:inline">
-        {isListening ? "Listening..." : "Voice"}
-      </span>
-      <span className="sm:hidden">
-        {isListening ? "..." : "Voice"}
+      <MicIcon className="h-4 w-4 mr-2" />
+      <span className="font-medium">
+        {isListening ? "Listening..." : "Voice Assistant"}
       </span>
     </Button>
   );
