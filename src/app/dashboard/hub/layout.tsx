@@ -1,7 +1,7 @@
 "use client";
 
 import { useCallback, useState, useEffect } from "react";
-import { HubVoiceFloating } from "@/components/hub-voice-floating";
+import { VoiceAssistantGlobal } from "@/components/VoiceAssistantGlobal";
 
 import Link from "next/link";
 import { useFastNavigation } from "@/lib/fast-navigation";
@@ -243,8 +243,7 @@ export default function HubLayout({ children }: { children: React.ReactNode }) {
               Hub Management Portal
             </h2>
             <div className="flex items-center gap-3">
-              {/* Voice Navigation text removed as requested */}
-              {/* VoiceAssistantGlobal is now used globally, so SimpleVoiceNav removed */}
+              <VoiceAssistantGlobal />
             </div>
           </div>
         </div>
@@ -254,8 +253,7 @@ export default function HubLayout({ children }: { children: React.ReactNode }) {
         </main>
       </div>
       
-      {/* Floating Voice Assistant */}
-      <HubVoiceFloating />
+
     </div>
   );
 }
