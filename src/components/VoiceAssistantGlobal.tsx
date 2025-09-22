@@ -247,11 +247,18 @@ export function VoiceAssistantGlobal() {
       onClick={startListening}
       variant="ghost"
       size="sm"
-      className={isListening ? "bg-red-500 text-white animate-pulse" : ""}
+      className={`hover:bg-primary/90 hover:text-primary-foreground transition-all duration-200 ${
+        isListening ? "bg-red-500 text-white animate-pulse" : ""
+      }`}
       disabled={isListening}
     >
       <MicIcon className="h-4 w-4 mr-1" />
-      {isListening ? "Listening..." : "Voice"}
+      <span className="hidden sm:inline">
+        {isListening ? "Listening..." : "Voice"}
+      </span>
+      <span className="sm:hidden">
+        {isListening ? "..." : "Voice"}
+      </span>
     </Button>
   );
 }
