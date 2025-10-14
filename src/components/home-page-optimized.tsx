@@ -211,14 +211,50 @@ export default function HomePage() {
         icon: <Tractor className="h-12 w-12 text-primary" />,
       },
       {
-        name: "Transport Services",
-        description: "Local transport system for delivering goods from farmers to retail shops",
+        name: selectedLanguage === "Tamil" ? "போக்குவரத்து சேவைகள்" : 
+              selectedLanguage === "Hindi" ? "परिवहन सेवाएं" :
+              selectedLanguage === "Malayalam" ? "ഗതാഗത സേവനങ്ങൾ" :
+              selectedLanguage === "Telugu" ? "రవాణా సేవలు" :
+              selectedLanguage === "Kannada" ? "ಸಾರಿಗೆ ಸೇವೆಗಳು" :
+              selectedLanguage === "Bengali" ? "পরিবহন সেবা" :
+              selectedLanguage === "Arabic" ? "خدمات النقل" :
+              selectedLanguage === "Urdu" ? "نقل و حمل کی خدمات" :
+              selectedLanguage === "Srilanka" ? "ප්‍රවාහන සේවා" :
+              "Transport Services",
+        description: selectedLanguage === "Tamil" ? "விவசாயிகளிடமிருந்து சில்லறை கடைகளுக்கு பொருட்களை வழங்குவதற்கான உள்ளூர் போக்குவரத்து அமைப்பு" :
+                    selectedLanguage === "Hindi" ? "किसानों से खुदरा दुकानों तक सामान पहुंचाने के लिए स्थानीय परिवहन प्रणाली" :
+                    selectedLanguage === "Malayalam" ? "കർഷകരിൽ നിന്ന് റീട്ടെയിൽ ഷോപ്പുകളിലേക്ക് സാധനങ്ങൾ എത്തിക്കുന്നതിനുള്ള പ്രാദേശിക ഗതാഗത സംവിധാനം" :
+                    selectedLanguage === "Telugu" ? "రైతుల నుండి రిటైల్ దుకాణాలకు వస్తువులను పంపిణీ చేయడానికి స్థానిక రవాణా వ్యవస్థ" :
+                    selectedLanguage === "Kannada" ? "ರೈತರಿಂದ ಚಿಲ್ಲರೆ ಅಂಗಡಿಗಳಿಗೆ ಸರಕುಗಳನ್ನು ವಿತರಿಸಲು ಸ್ಥಳೀಯ ಸಾರಿಗೆ ವ್ಯವಸ್ಥೆ" :
+                    selectedLanguage === "Bengali" ? "কৃষকদের থেকে খুচরা দোকানে পণ্য সরবরাহের জন্য স্থানীয় পরিবহন ব্যবস্থা" :
+                    selectedLanguage === "Arabic" ? "نظام النقل المحلي لتوصيل البضائع من المزارعين إلى متاجر التجزئة" :
+                    selectedLanguage === "Urdu" ? "کسانوں سے ریٹیل شاپس تک سامان پہنچانے کے لیے مقامی نقل و حمل کا نظام" :
+                    selectedLanguage === "Srilanka" ? "ගොවීන්ගෙන් සිල්ලර වෙළඳසැල් වෙත භාණ්ඩ බෙදා හැරීම සඳහා ප්‍රාදේශීය ප්‍රවාහන පද්ධතිය" :
+                    "Local transport system for delivering goods from farmers to retail shops",
         href: "/login/transport",
         icon: <Building className="h-12 w-12 text-primary" />,
       },
       {
-        name: "Retail Shops",
-        description: "Buy fresh products directly from farmers in your area",
+        name: selectedLanguage === "Tamil" ? "சில்லறை கடைகள்" :
+              selectedLanguage === "Hindi" ? "खुदरा दुकानें" :
+              selectedLanguage === "Malayalam" ? "റീട്ടെയിൽ ഷോപ്പുകൾ" :
+              selectedLanguage === "Telugu" ? "రిటైల్ దుకాణాలు" :
+              selectedLanguage === "Kannada" ? "ಚಿಲ್ಲರೆ ಅಂಗಡಿಗಳು" :
+              selectedLanguage === "Bengali" ? "খুচরা দোকান" :
+              selectedLanguage === "Arabic" ? "متاجر التجزئة" :
+              selectedLanguage === "Urdu" ? "ریٹیل شاپس" :
+              selectedLanguage === "Srilanka" ? "සිල්ලර වෙළඳසැල්" :
+              "Retail Shops",
+        description: selectedLanguage === "Tamil" ? "உங்கள் பகுதியில் உள்ள விவசாயிகளிடமிருந்து நேரடியாக புதிய பொருட்களை வாங்குங்கள்" :
+                    selectedLanguage === "Hindi" ? "अपने क्षेत्र के किसानों से सीधे ताजे उत्पाद खरीदें" :
+                    selectedLanguage === "Malayalam" ? "നിങ്ങളുടെ പ്രദേശത്തെ കർഷകരിൽ നിന്ന് നേരിട്ട് പുതിയ ഉൽപ്പന്നങ്ങൾ വാങ്ങുക" :
+                    selectedLanguage === "Telugu" ? "మీ ప్రాంతంలోని రైతుల నుండి నేరుగా తాజా ఉత్పత్తులను కొనుగోలు చేయండి" :
+                    selectedLanguage === "Kannada" ? "ನಿಮ್ಮ ಪ್ರದೇಶದ ರೈತರಿಂದ ನೇರವಾಗಿ ತಾಜಾ ಉತ್ಪನ್ನಗಳನ್ನು ಖರೀದಿಸಿ" :
+                    selectedLanguage === "Bengali" ? "আপনার এলাকার কৃষকদের কাছ থেকে সরাসরি তাজা পণ্য কিনুন" :
+                    selectedLanguage === "Arabic" ? "اشتري المنتجات الطازجة مباشرة من المزارعين في منطقتك" :
+                    selectedLanguage === "Urdu" ? "اپنے علاقے کے کسانوں سے براہ راست تازہ پیداوار خریدیں" :
+                    selectedLanguage === "Srilanka" ? "ඔබේ ප්‍රදේශයේ ගොවීන්ගෙන් සෘජුවම නැවුම් නිෂ්පාදන මිලදී ගන්න" :
+                    "Buy fresh products directly from farmers in your area",
         href: "/login/retail",
         icon: <Users className="h-12 w-12 text-primary" />,
       },
