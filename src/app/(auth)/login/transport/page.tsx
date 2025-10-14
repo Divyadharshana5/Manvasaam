@@ -449,25 +449,25 @@ export default function TransportAuthPage() {
     <div className="animate-in fade-in duration-1000 relative min-h-screen flex flex-col overflow-hidden">
       {/* Main Content Area */}
       <div className="flex-1 flex items-center justify-center p-4">
-        {/* Enhanced animated background with transport theme */}
-        <div className="absolute inset-0 bg-gradient-to-br from-blue-50 via-cyan-50 to-teal-50 dark:from-blue-950 dark:via-cyan-950 dark:to-teal-950 opacity-40 -z-10 gradient-shift"></div>
+        {/* Enhanced animated background with farm theme */}
+        <div className="absolute inset-0 bg-gradient-to-br from-emerald-50 via-green-50 to-lime-50 dark:from-emerald-950 dark:via-green-950 dark:to-lime-950 opacity-40 -z-10 gradient-shift"></div>
 
-        {/* Floating background elements with transport theme */}
+        {/* Floating background elements with farm theme */}
         <div className="absolute inset-0 -z-5">
           <div
-            className="absolute top-28 left-14 w-32 h-32 bg-blue-200/25 dark:bg-blue-800/25 rounded-full blur-xl floating-bubble"
+            className="absolute top-28 left-14 w-32 h-32 bg-emerald-200/25 dark:bg-emerald-800/25 rounded-full blur-xl floating-bubble"
             style={{ animationDelay: "0.3s" }}
           ></div>
           <div
-            className="absolute top-20 right-18 w-28 h-28 bg-cyan-200/30 dark:bg-cyan-800/30 rounded-full blur-xl floating-bubble"
+            className="absolute top-20 right-18 w-28 h-28 bg-green-200/30 dark:bg-green-800/30 rounded-full blur-xl floating-bubble"
             style={{ animationDelay: "0.9s" }}
           ></div>
           <div
-            className="absolute bottom-32 left-18 w-36 h-36 bg-teal-200/25 dark:bg-teal-800/25 rounded-full floating-bubble"
+            className="absolute bottom-32 left-18 w-36 h-36 bg-lime-200/25 dark:bg-lime-800/25 rounded-full floating-bubble"
             style={{ animationDelay: "1.5s" }}
           ></div>
           <div
-            className="absolute bottom-24 right-14 w-30 h-30 bg-blue-300/30 dark:bg-blue-700/30 rounded-full floating-bubble"
+            className="absolute bottom-24 right-14 w-30 h-30 bg-emerald-300/30 dark:bg-emerald-700/30 rounded-full floating-bubble"
             style={{ animationDelay: "0.6s" }}
           ></div>
         </div>
@@ -479,17 +479,17 @@ export default function TransportAuthPage() {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.3, duration: 0.8 }}
-              className="text-4xl md:text-6xl font-bold text-blue-700 dark:text-blue-300 mb-4"
+              className="text-4xl md:text-6xl font-bold text-emerald-700 dark:text-emerald-300 mb-4"
             >
               Connecting Farms to Markets
             </motion.h2>
           </div>
         </div>
 
-        <Card className="w-full max-w-md bg-white/95 dark:bg-gray-900/95 backdrop-blur-sm border border-blue-200 dark:border-blue-700 card-entrance relative z-10 hover:shadow-2xl hover:scale-[1.03] transition-all duration-500 hover:border-blue-300 dark:hover:border-blue-600 hover:bg-white dark:hover:bg-gray-900 group enhanced-hover smooth-transition gpu-accelerated">
+        <Card className="w-full max-w-md bg-white/95 dark:bg-gray-900/95 backdrop-blur-sm border border-emerald-200 dark:border-emerald-700 card-entrance relative z-10 hover:shadow-2xl hover:scale-[1.03] transition-all duration-500 hover:border-emerald-300 dark:hover:border-emerald-600 hover:bg-white dark:hover:bg-gray-900 group enhanced-hover smooth-transition gpu-accelerated">
           <CardHeader className="text-center px-4 sm:px-6 py-4 sm:py-6 relative">
             {/* Animated icon */}
-            <div className="flex items-center justify-center w-20 h-20 mx-auto mb-4 bg-gradient-to-br from-blue-100 to-cyan-100 dark:from-blue-900 dark:to-cyan-900 rounded-full border-2 border-blue-200 dark:border-blue-700 icon-bounce-in hover:scale-110 transition-all duration-300 group-hover:shadow-lg hover:rotate-6 auth-animation-container stagger-1">
+            <div className="flex items-center justify-center w-20 h-20 mx-auto mb-4 bg-gradient-to-br from-emerald-100 to-green-100 dark:from-emerald-900 dark:to-green-900 rounded-full border-2 border-emerald-200 dark:border-emerald-700 icon-bounce-in hover:scale-110 transition-all duration-300 group-hover:shadow-lg hover:rotate-6 auth-animation-container stagger-1">
               <motion.div
                 className="farmer-tractor-animate"
                 whileHover={{
@@ -503,14 +503,14 @@ export default function TransportAuthPage() {
                   transition: { type: "spring", stiffness: 400, damping: 15 },
                 }}
               >
-                <Truck className="h-10 w-10 text-blue-600 dark:text-blue-400" />
+                <Truck className="h-10 w-10 text-emerald-600 dark:text-emerald-400" />
               </motion.div>
             </div>
 
-            <CardTitle className="text-xl sm:text-2xl font-bold text-blue-700 dark:text-blue-300 animate-in slide-in-from-top-2 duration-800 delay-600 hover:text-blue-600 dark:hover:text-blue-200 transition-colors duration-300 text-reveal stagger-2">
+            <CardTitle className="text-xl sm:text-2xl font-bold text-emerald-700 dark:text-emerald-300 animate-in slide-in-from-top-2 duration-800 delay-600 hover:text-emerald-600 dark:hover:text-emerald-200 transition-colors duration-300 text-reveal stagger-2">
               Transport Portal
             </CardTitle>
-            <CardDescription className="text-base sm:text-lg text-blue-600 dark:text-blue-400 animate-in fade-in duration-800 delay-800 hover:text-blue-500 dark:hover:text-blue-300 transition-colors duration-300 text-reveal stagger-3">
+            <CardDescription className="text-base sm:text-lg text-emerald-600 dark:text-emerald-400 animate-in fade-in duration-800 delay-800 hover:text-emerald-500 dark:hover:text-emerald-300 transition-colors duration-300 text-reveal stagger-3">
               Logistics management access
             </CardDescription>
           </CardHeader>
@@ -522,16 +522,16 @@ export default function TransportAuthPage() {
               }}
               className="w-full animate-in fade-in duration-500 delay-500 relative z-30"
             >
-              <TabsList className="grid w-full grid-cols-2 bg-gradient-to-r from-blue-100 to-cyan-100 dark:from-blue-900 dark:to-cyan-900 p-1 rounded-lg relative z-40 pointer-events-auto animate-in slide-in-from-bottom-2 duration-600 delay-1000 shadow-inner">
+              <TabsList className="grid w-full grid-cols-2 bg-gradient-to-r from-emerald-100 to-green-100 dark:from-emerald-900 dark:to-green-900 p-1 rounded-lg relative z-40 pointer-events-auto animate-in slide-in-from-bottom-2 duration-600 delay-1000 shadow-inner">
                 <TabsTrigger
                   value="login"
-                  className="data-[state=active]:bg-gradient-to-r data-[state=active]:from-blue-200 data-[state=active]:to-cyan-200 dark:data-[state=active]:from-blue-700 dark:data-[state=active]:to-cyan-700 data-[state=active]:shadow-md transition-all duration-400 cursor-pointer hover:scale-105 hover:bg-blue-150 dark:hover:bg-blue-800 transform-gpu animate-in slide-in-from-left-2 duration-500 delay-1200"
+                  className="data-[state=active]:bg-gradient-to-r data-[state=active]:from-emerald-200 data-[state=active]:to-green-200 dark:data-[state=active]:from-emerald-700 dark:data-[state=active]:to-green-700 data-[state=active]:shadow-md transition-all duration-400 cursor-pointer hover:scale-105 hover:bg-emerald-150 dark:hover:bg-emerald-800 transform-gpu animate-in slide-in-from-left-2 duration-500 delay-1200"
                 >
                   {t.auth.login}
                 </TabsTrigger>
                 <TabsTrigger
                   value="register"
-                  className="data-[state=active]:bg-gradient-to-r data-[state=active]:from-blue-200 data-[state=active]:to-cyan-200 dark:data-[state=active]:from-blue-700 dark:data-[state=active]:to-cyan-700 data-[state=active]:shadow-md transition-all duration-400 cursor-pointer hover:scale-105 hover:bg-blue-150 dark:hover:bg-blue-800 transform-gpu animate-in slide-in-from-right-2 duration-500 delay-1200"
+                  className="data-[state=active]:bg-gradient-to-r data-[state=active]:from-emerald-200 data-[state=active]:to-green-200 dark:data-[state=active]:from-emerald-700 dark:data-[state=active]:to-green-700 data-[state=active]:shadow-md transition-all duration-400 cursor-pointer hover:scale-105 hover:bg-emerald-150 dark:hover:bg-emerald-800 transform-gpu animate-in slide-in-from-right-2 duration-500 delay-1200"
                 >
                   {t.auth.register}
                 </TabsTrigger>
@@ -613,7 +613,7 @@ export default function TransportAuthPage() {
                     />
                     <Button
                       type="submit"
-                      className="w-full bg-gradient-to-r from-blue-600 to-cyan-600 hover:from-blue-700 hover:to-cyan-700 text-white"
+                      className="w-full bg-gradient-to-r from-emerald-600 to-green-600 hover:from-emerald-700 hover:to-green-700 text-white"
                       disabled={loading}
                     >
                       {loading && (
