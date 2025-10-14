@@ -2,7 +2,7 @@
 
 **Empowering Farmers, Delivering Freshness**
 
-Manvaasam is a comprehensive digital platform that connects farmers, distribution hubs, customers, and restaurants in a seamless agricultural marketplace ecosystem. Our mission is to bridge the gap between farm and table while ensuring fair prices for farmers and fresh produce for consumers.
+Manvaasam is a comprehensive digital platform that connects farmers, transport services, and retail shops in a seamless agricultural marketplace ecosystem. Our mission is to bridge the gap between farm and table while ensuring fair prices for farmers and fresh produce for retail shops in Ranipet, Kanchipuram, Tiruvallur, Chengalpattu, and Vellore districts.
 
 > **Demo Mode Available**: The application runs in full demo mode with mock data when Firebase is not configured, allowing you to explore all features without setup.
 
