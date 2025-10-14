@@ -211,22 +211,16 @@ export default function HomePage() {
         icon: <Tractor className="h-12 w-12 text-primary" />,
       },
       {
-        name: t.roles.customer.name,
-        description: t.roles.customer.description,
-        href: "/login/customer",
-        icon: <Users className="h-12 w-12 text-primary" />,
-      },
-      {
-        name: t.roles.hub.name,
-        description: t.roles.hub.description,
-        href: "/login/hub",
+        name: "Transport Services",
+        description: "Local transport system for delivering goods from farmers to retail shops",
+        href: "/login/transport",
         icon: <Building className="h-12 w-12 text-primary" />,
       },
       {
-        name: t.roles.restaurant.name,
-        description: t.roles.restaurant.description,
-        href: "/login/restaurant",
-        icon: <Utensils className="h-12 w-12 text-primary" />,
+        name: "Retail Shops",
+        description: "Buy fresh products directly from farmers in your area",
+        href: "/login/retail",
+        icon: <Users className="h-12 w-12 text-primary" />,
       },
     ],
     [t.roles]
@@ -245,9 +239,8 @@ export default function HomePage() {
   useEffect(() => {
     const loginPages = [
       "/login/farmer",
-      "/login/customer",
-      "/login/hub",
-      "/login/restaurant",
+      "/login/transport",
+      "/login/retail",
     ];
 
     // Prefetch after a short delay to not block initial render
@@ -318,9 +311,8 @@ export default function HomePage() {
     
     const routes: Record<string, string> = {
       "farmer": "/login/farmer",
-      "customer": "/login/customer", 
-      "restaurant": "/login/restaurant",
-      "hub": "/login/hub",
+      "transport": "/login/transport",
+      "retail": "/login/retail",
       "dashboard": "/dashboard",
       "orders": "/dashboard/orders",
       "products": "/dashboard/products",
@@ -500,14 +492,14 @@ export default function HomePage() {
               <CardContent className="p-0 sm:p-4">
                 <div className="flex flex-col sm:flex-row items-center justify-center gap-3 sm:gap-4 text-base sm:text-lg font-semibold text-foreground">
                   <span className="text-center px-2 py-1 rounded-lg bg-primary/10">
-                    {t.roles.farmer.name}
+                    Farmers
                   </span>
                   <ArrowRight
                     size={20}
                     className="text-primary animate-arrow-flow sm:rotate-0 rotate-90 flex-shrink-0"
                   />
                   <span className="text-center px-2 py-1 rounded-lg bg-primary/10">
-                    {t.roles.hub.name}
+                    Transport
                   </span>
                   <ArrowRight
                     size={20}
@@ -515,7 +507,7 @@ export default function HomePage() {
                     style={{ animationDelay: "0.5s" }}
                   />
                   <span className="text-center px-2 py-1 rounded-lg bg-primary/10">
-                    {t.roles.customer.name}
+                    Retail Shops
                   </span>
                 </div>
               </CardContent>
@@ -585,9 +577,8 @@ export default function HomePage() {
                     >
                       <span className="text-sm">
                         {role.name === t.roles.farmer.name && "🌾"}
-                        {role.name === t.roles.customer.name && "🛒"}
-                        {role.name === t.roles.hub.name && "🏢"}
-                        {role.name === t.roles.restaurant.name && "🍽️"}
+                        {role.name === "Transport Services" && "🚚"}
+                        {role.name === "Retail Shops" && "🏪"}
                       </span>
                       <span>{role.name}</span>
                     </Link>
