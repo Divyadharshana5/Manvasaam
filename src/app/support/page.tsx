@@ -45,24 +45,24 @@ function SupportContent() {
   const faqItems = useMemo(
     () => [
       {
-        question: "How do I create an account?",
-        answer: "Click any role button on homepage and follow registration.",
+        question: "How do farmers register?",
+        answer: "Click Farmer button on homepage, complete registration with farm details from Ranipet, Kanchipuram, Tiruvallur, Chengalpattu, or Vellore.",
       },
       {
-        question: "How to list products?",
-        answer: "Login as farmer, go to dashboard, click 'Add Product'.",
+        question: "How does transport service work?",
+        answer: "Transport services pick up from farmers and deliver to retail shops with real-time tracking.",
       },
       {
-        question: "What payment methods?",
-        answer: "UPI, bank transfers, digital wallets, cash on delivery.",
+        question: "How do retail shops order?",
+        answer: "Login as retail shop, browse local farmers' products, place orders for delivery.",
       },
       {
-        question: "How to contact users?",
-        answer: "Use built-in messaging or voice assistant feature.",
+        question: "What areas are covered?",
+        answer: "Currently serving Ranipet, Kanchipuram, Tiruvallur, Chengalpattu, and Vellore districts.",
       },
       {
-        question: "Any fees?",
-        answer: "Free registration. Small commission on transactions.",
+        question: "Any fees for using platform?",
+        answer: "Free registration for all users. Small service fee on completed transactions.",
       },
     ],
     []
@@ -363,8 +363,7 @@ function SupportContent() {
                 Support Center
               </h1>
               <p className="text-lg text-gray-600 max-w-2xl mx-auto leading-relaxed">
-                How we collect, use, and protect your information on Manvaasam
-                platform
+                Get help with farmers, transport services, and retail shops on Manvaasam platform
               </p>
               <div className="inline-flex items-center gap-2 px-4 py-2 bg-green-50 border border-green-200 rounded-full">
                 <div className="w-2 h-2 bg-green-500 rounded-full animate-pulse"></div>
@@ -577,7 +576,7 @@ function SupportContent() {
                   className="gap-1 text-xs border-red-300 text-red-700 hover:bg-red-100"
                 >
                   <Mail className="h-3 w-3" />
-                  slytherinpls8@gmail.com
+                  slytherinpsl7@gmail.com
                 </Button>
               </div>
             </CardContent>
