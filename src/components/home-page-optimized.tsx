@@ -17,6 +17,7 @@ import {
   Square,
   Loader2,
   MicOff,
+  Truck,
 } from "lucide-react";
 import {
   DropdownMenu,
@@ -232,7 +233,7 @@ export default function HomePage() {
                     selectedLanguage === "Srilanka" ? "ගොවීන්ගෙන් සිල්ලර වෙළඳසැල් වෙත භාණ්ඩ බෙදා හැරීම සඳහා ප්‍රාදේශීය ප්‍රවාහන පද්ධතිය" :
                     "Local transport system for delivering goods from farmers to retail shops",
         href: "/login/transport",
-        icon: <Building className="h-12 w-12 text-primary" />,
+        icon: <Truck className="h-12 w-12 text-primary" />,
       },
       {
         name: selectedLanguage === "Tamil" ? "சில்லறை கடைகள்" :
@@ -256,7 +257,7 @@ export default function HomePage() {
                     selectedLanguage === "Srilanka" ? "ඔබේ ප්‍රදේශයේ ගොවීන්ගෙන් සෘජුවම නැවුම් නිෂ්පාදන මිලදී ගන්න" :
                     "Buy fresh products directly from farmers in your area",
         href: "/login/retail",
-        icon: <Users className="h-12 w-12 text-primary" />,
+        icon: <Building className="h-12 w-12 text-primary" />,
       },
     ],
     [t.roles]
