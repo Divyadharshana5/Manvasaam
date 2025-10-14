@@ -65,9 +65,8 @@ export function VoiceAssistantGlobal() {
       help: "/dashboard/faq",
       marketing: "/dashboard/marketing",
       farmer: "/login/farmer",
-      customer: "/login/customer",
-      hub: "/login/hub",
-      restaurant: "/login/restaurant",
+      transport: "/login/transport",
+      retail: "/login/retail",
       privacy: "/privacy",
       terms: "/terms",
       support: "/support",
@@ -232,15 +231,15 @@ export function VoiceAssistantGlobal() {
         Tamil: "விவசாயி உள்நுழைவுக்கு செல்கிறேன்",
         Hindi: "किसान लॉगिन पर जा रहे हैं",
       },
-      customer: {
-        English: "Going to customer login",
-        Tamil: "வாடிக்கையாளர் உள்நுழைவுக்கு செல்கிறேன்",
-        Hindi: "ग्राहक लॉगिन पर जा रहे हैं",
+      transport: {
+        English: "Going to transport login",
+        Tamil: "போக்குவரத்து உள்நுழைவுக்கு செல்கிறேன்",
+        Hindi: "ट्रांसपोर्ट लॉगिन पर जा रहे हैं",
       },
-      hub: {
-        English: "Going to hub login",
-        Tamil: "மையம் உள்நுழைவுக்கு செல்கிறேன்",
-        Hindi: "हब लॉगिन पर जा रहे हैं",
+      retail: {
+        English: "Going to retail login",
+        Tamil: "சில்லறை உள்நுழைவுக்கு செல்கிறேன்",
+        Hindi: "रिटेल लॉगिन पर जा रहे हैं",
       },
       inventory: {
         English: "Opening inventory",
@@ -277,11 +276,7 @@ export function VoiceAssistantGlobal() {
         Tamil: "மேலோட்டத்திற்கு செல்கிறேன்",
         Hindi: "ओवरव्यू पर जा रहे हैं",
       },
-      restaurant: {
-        English: "Going to restaurant login",
-        Tamil: "உணவகம் உள்நுழைவுக்கு செல்கிறேன்",
-        Hindi: "रेस्टोरेंट लॉगिन पर जा रहे हैं",
-      },
+
       privacy: {
         English: "Opening privacy policy",
         Tamil: "தனியுரிமை கொள்கையை திறக்கிறேன்",
