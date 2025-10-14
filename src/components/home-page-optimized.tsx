@@ -625,7 +625,7 @@ export default function HomePage() {
               <div className="flex items-center gap-6 text-sm text-muted-foreground">
                 <div className="flex items-center gap-2">
                   <span>📧</span>
-                  <span>slytherinpls8@gmail.com</span>
+                  <span>slytherinpsl7@gmail.com</span>
                 </div>
                 <div className="flex items-center gap-2">
                   <span>📞</span>
