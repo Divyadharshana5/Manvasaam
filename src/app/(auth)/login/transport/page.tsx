@@ -550,14 +550,14 @@ export default function TransportAuthPage() {
                       name="email"
                       render={({ field }) => (
                         <FormItem>
-                          <FormLabel className="text-blue-700 dark:text-blue-300 font-medium">
+                          <FormLabel className="text-emerald-700 dark:text-emerald-300 font-medium">
                             {t.auth.emailLabel}
                           </FormLabel>
                           <FormControl>
                             <Input
                               type="email"
                               placeholder="transport@gmail.com"
-                              className="border-blue-200 dark:border-blue-700 focus:border-blue-400 dark:focus:border-blue-500 focus:ring-blue-200 dark:focus:ring-blue-800 bg-blue-50/50 dark:bg-blue-950/50 placeholder:text-blue-500 dark:placeholder:text-blue-400"
+                              className="border-emerald-200 dark:border-emerald-700 focus:border-emerald-400 dark:focus:border-emerald-500 focus:ring-emerald-200 dark:focus:ring-emerald-800 bg-emerald-50/50 dark:bg-emerald-950/50 placeholder:text-emerald-500 dark:placeholder:text-emerald-400"
                               {...field}
                             />
                           </FormControl>
@@ -571,14 +571,14 @@ export default function TransportAuthPage() {
                       render={({ field }) => (
                         <FormItem>
                           <div className="flex justify-between items-center">
-                            <FormLabel className="text-blue-700 dark:text-blue-300 font-medium">
+                            <FormLabel className="text-emerald-700 dark:text-emerald-300 font-medium">
                               {t.auth.passwordLabel}
                             </FormLabel>
                             <Button
                               variant="link"
                               size="sm"
                               type="button"
-                              className="p-0 h-auto text-xs text-blue-600 dark:text-blue-400 hover:text-blue-800 dark:hover:text-blue-200"
+                              className="p-0 h-auto text-xs text-emerald-600 dark:text-emerald-400 hover:text-emerald-800 dark:hover:text-emerald-200"
                               onClick={onForgotPassword}
                               disabled={loading}
                             >
@@ -589,20 +589,20 @@ export default function TransportAuthPage() {
                             <div className="relative">
                               <Input
                                 type={showPassword ? "text" : "password"}
-                                className="border-blue-200 dark:border-blue-700 focus:border-blue-400 dark:focus:border-blue-500 focus:ring-blue-200 dark:focus:ring-blue-800 bg-blue-50/50 dark:bg-blue-950/50"
+                                className="border-emerald-200 dark:border-emerald-700 focus:border-emerald-400 dark:focus:border-emerald-500 focus:ring-emerald-200 dark:focus:ring-emerald-800 bg-emerald-50/50 dark:bg-emerald-950/50"
                                 {...field}
                               />
                               <Button
                                 type="button"
                                 variant="ghost"
                                 size="icon"
-                                className="absolute right-1 top-1/2 -translate-y-1/2 h-7 w-7 hover:bg-blue-100 dark:hover:bg-blue-900"
+                                className="absolute right-1 top-1/2 -translate-y-1/2 h-7 w-7 hover:bg-emerald-100 dark:hover:bg-emerald-900"
                                 onClick={() => setShowPassword(!showPassword)}
                               >
                                 {showPassword ? (
-                                  <EyeOff className="h-4 w-4 text-blue-600 dark:text-blue-400" />
+                                  <EyeOff className="h-4 w-4 text-emerald-600 dark:text-emerald-400" />
                                 ) : (
-                                  <Eye className="h-4 w-4 text-blue-600 dark:text-blue-400" />
+                                  <Eye className="h-4 w-4 text-emerald-600 dark:text-emerald-400" />
                                 )}
                               </Button>
                             </div>
@@ -624,21 +624,21 @@ export default function TransportAuthPage() {
                     
                     {/* Fingerprint Login Option */}
                     {passkeyStatus.supported && (
-                      <div className="mt-4 pt-4 border-t border-blue-200 dark:border-blue-700">
+                      <div className="mt-4 pt-4 border-t border-emerald-200 dark:border-emerald-700">
                         <div className="text-center mb-3">
-                          <span className="text-xs text-blue-600 dark:text-blue-400">
+                          <span className="text-xs text-emerald-600 dark:text-emerald-400">
                             Or use fingerprint authentication
                           </span>
                         </div>
-                        <div className="bg-blue-50 dark:bg-blue-950 p-2 rounded mb-3">
-                          <p className="text-xs text-blue-700 dark:text-blue-300 text-center">
+                        <div className="bg-emerald-50 dark:bg-emerald-950 p-2 rounded mb-3">
+                          <p className="text-xs text-emerald-700 dark:text-emerald-300 text-center">
                             👆 Touch your fingerprint sensor for quick & secure login
                           </p>
                         </div>
                         <Button
                           type="button"
                           variant="outline"
-                          className="w-full border-blue-300 dark:border-blue-600 text-blue-700 dark:text-blue-300 hover:bg-blue-50 dark:hover:bg-blue-900"
+                          className="w-full border-emerald-300 dark:border-emerald-600 text-emerald-700 dark:text-emerald-300 hover:bg-emerald-50 dark:hover:bg-emerald-900"
                           onClick={handleFingerprintLogin}
                           disabled={loading || !loginForm.getValues("email")}
                         >
@@ -673,14 +673,14 @@ export default function TransportAuthPage() {
                       name="username"
                       render={({ field }) => (
                         <FormItem>
-                          <FormLabel className="text-blue-700 dark:text-blue-300 font-medium">
+                          <FormLabel className="text-emerald-700 dark:text-emerald-300 font-medium">
                             {t.auth.usernameLabel}
                           </FormLabel>
                           <FormControl>
                             <Input
                               type="text"
                               placeholder="Transport Company"
-                              className="border-blue-200 dark:border-blue-700 focus:border-blue-400 dark:focus:border-blue-500 focus:ring-blue-200 dark:focus:ring-blue-800 bg-blue-50/50 dark:bg-blue-950/50 placeholder:text-blue-500 dark:placeholder:text-blue-400"
+                              className="border-emerald-200 dark:border-emerald-700 focus:border-emerald-400 dark:focus:border-emerald-500 focus:ring-emerald-200 dark:focus:ring-emerald-800 bg-emerald-50/50 dark:bg-emerald-950/50 placeholder:text-emerald-500 dark:placeholder:text-emerald-400"
                               {...field}
                             />
                           </FormControl>
@@ -693,14 +693,14 @@ export default function TransportAuthPage() {
                       name="email"
                       render={({ field }) => (
                         <FormItem>
-                          <FormLabel className="text-blue-700 dark:text-blue-300 font-medium">
+                          <FormLabel className="text-emerald-700 dark:text-emerald-300 font-medium">
                             {t.auth.emailLabel}
                           </FormLabel>
                           <FormControl>
                             <Input
                               type="email"
                               placeholder="transport@gmail.com"
-                              className="border-blue-200 dark:border-blue-700 focus:border-blue-400 dark:focus:border-blue-500 focus:ring-blue-200 dark:focus:ring-blue-800 bg-blue-50/50 dark:bg-blue-950/50 placeholder:text-blue-500 dark:placeholder:text-blue-400"
+                              className="border-emerald-200 dark:border-emerald-700 focus:border-emerald-400 dark:focus:border-emerald-500 focus:ring-emerald-200 dark:focus:ring-emerald-800 bg-emerald-50/50 dark:bg-emerald-950/50 placeholder:text-emerald-500 dark:placeholder:text-emerald-400"
                               {...field}
                             />
                           </FormControl>
@@ -713,7 +713,7 @@ export default function TransportAuthPage() {
                       name="phone"
                       render={({ field }) => (
                         <FormItem>
-                          <FormLabel className="text-blue-700 dark:text-blue-300 font-medium">
+                          <FormLabel className="text-emerald-700 dark:text-emerald-300 font-medium">
                             {t.auth.phoneLabel}
                           </FormLabel>
                           <FormControl>
@@ -721,7 +721,7 @@ export default function TransportAuthPage() {
                               type="tel"
                               placeholder="1234567890"
                               maxLength={10}
-                              className="border-blue-200 dark:border-blue-700 focus:border-blue-400 dark:focus:border-blue-500 focus:ring-blue-200 dark:focus:ring-blue-800 bg-blue-50/50 dark:bg-blue-950/50 placeholder:text-blue-500 dark:placeholder:text-blue-400"
+                              className="border-emerald-200 dark:border-emerald-700 focus:border-emerald-400 dark:focus:border-emerald-500 focus:ring-emerald-200 dark:focus:ring-emerald-800 bg-emerald-50/50 dark:bg-emerald-950/50 placeholder:text-emerald-500 dark:placeholder:text-emerald-400"
                               {...field}
                               onInput={(e) => {
                                 e.currentTarget.value =
@@ -799,18 +799,18 @@ export default function TransportAuthPage() {
                     />
                     
                     {/* Optional Fingerprint Authentication Section */}
-                    <div className="border-t border-blue-200 dark:border-blue-700 pt-4 mt-4">
+                    <div className="border-t border-emerald-200 dark:border-emerald-700 pt-4 mt-4">
                       <div className="flex items-center justify-between mb-3">
                         <div className="flex items-center space-x-2">
-                          <Fingerprint className="h-5 w-5 text-blue-600 dark:text-blue-400" />
-                          <span className="text-sm font-medium text-blue-700 dark:text-blue-300">
+                          <Fingerprint className="h-5 w-5 text-emerald-600 dark:text-emerald-400" />
+                          <span className="text-sm font-medium text-emerald-700 dark:text-emerald-300">
                             Fingerprint Authentication (Optional)
                           </span>
                         </div>
                         {passkeyStatus.registered ? (
                           <CheckCircle className="h-5 w-5 text-green-600 dark:text-green-400" />
                         ) : passkeyStatus.supported ? (
-                          <div className="w-2 h-2 bg-blue-400 rounded-full" />
+                          <div className="w-2 h-2 bg-emerald-400 rounded-full" />
                         ) : null}
                       </div>
                       
@@ -822,8 +822,8 @@ export default function TransportAuthPage() {
                         className="mb-2"
                       />
                       
-                      <div className="bg-blue-50 dark:bg-blue-950 p-3 rounded-lg mb-3">
-                        <p className="text-xs text-blue-700 dark:text-blue-300 leading-relaxed">
+                      <div className="bg-emerald-50 dark:bg-emerald-950 p-3 rounded-lg mb-3">
+                        <p className="text-xs text-emerald-700 dark:text-emerald-300 leading-relaxed">
                           👆 <strong>Easy & Secure:</strong> Use your fingerprint to login quickly without remembering passwords. 
                           This is completely optional - you can still use your password anytime.
                         </p>
@@ -834,7 +834,7 @@ export default function TransportAuthPage() {
                           type="button"
                           variant="outline"
                           size="sm"
-                          className="w-full border-blue-300 dark:border-blue-600 text-blue-700 dark:text-blue-300 hover:bg-blue-50 dark:hover:bg-blue-900"
+                          className="w-full border-emerald-300 dark:border-emerald-600 text-emerald-700 dark:text-emerald-300 hover:bg-emerald-50 dark:hover:bg-emerald-900"
                           onClick={handlePasskeyRegistration}
                           disabled={passkeyStatus.status === "registering"}
                         >
@@ -862,7 +862,7 @@ export default function TransportAuthPage() {
 
                     <Button
                       type="submit"
-                      className="w-full bg-gradient-to-r from-blue-600 to-cyan-600 hover:from-blue-700 hover:to-cyan-700 text-white transition-all duration-400 hover:scale-[1.05] hover:shadow-xl active:scale-[0.98] transform-gpu animate-in slide-in-from-bottom-2 duration-600 delay-700 hover:rotate-1"
+                      className="w-full bg-gradient-to-r from-emerald-600 to-green-600 hover:from-emerald-700 hover:to-green-700 text-white transition-all duration-400 hover:scale-[1.05] hover:shadow-xl active:scale-[0.98] transform-gpu animate-in slide-in-from-bottom-2 duration-600 delay-700 hover:rotate-1"
                       disabled={loading}
                     >
                       {loading && (
