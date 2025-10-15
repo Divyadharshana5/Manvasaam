@@ -337,12 +337,12 @@ We welcome contributions from the community! Please read our contributing guidel
 
 ## 🎯 Roadmap
 
-### **Recent Updates (v0.1.1)**
-- [x] Enhanced EmailJS error handling with automatic fallback
-- [x] Improved password reset functionality with demo mode support
-- [x] Added comprehensive logging for EmailJS debugging
-- [x] Implemented graceful error recovery for email service failures
-- [x] Created EmailJS test component for debugging
+### **Recent Updates (v0.1.2)**
+- [x] Updated transport login page to use farmer's emerald/green color scheme
+- [x] Standardized all login pages with identical structure and features
+- [x] Enhanced voice assistant with transport and retail navigation support
+- [x] Updated homepage icons: Truck for transport, Building for retail
+- [x] Unified authentication experience across all user types
 
 ### **Upcoming Features**
 - [ ] Production Firebase integration
@@ -357,7 +357,7 @@ We welcome contributions from the community! Please read our contributing guidel
 - [ ] Carbon footprint tracking
 - [ ] Farmer education platform
 
-### **Current Version**: 0.1.1
+### **Current Version**: 0.1.2
 ### **Last Updated**: January 2025
 
 ## 🔧 Recent Bug Fixes & Improvements
