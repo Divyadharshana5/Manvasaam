@@ -40,7 +40,7 @@ Manvaasam is a comprehensive digital platform that connects farmers, transport s
 - **Runtime**: Node.js with Next.js API routes
 - **Database**: MongoDB 6.8.0
 - **Authentication**: Firebase Auth with Admin SDK (with mock mode fallback)
-- **File Storage**: Firebase Storage
+- **File Storage**: MongoDB Storage
 - **Session Management**: HTTP-only cookies
 - **Email Service**: EmailJS 4.4.1 for password reset functionality
 
