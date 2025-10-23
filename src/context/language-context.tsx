@@ -7,7 +7,6 @@ export const translations = {
   English: {
     tagline: "Empowering Farmers, Delivering Freshness",
     quote: "Breathing life into agriculture",
-    inspirationalQuote: "Let us breathe life into agriculture",
     joinCommunity: "Join Our Community",
     roles: {
       farmer: {
