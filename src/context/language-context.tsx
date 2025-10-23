@@ -6,6 +6,7 @@ import React, { createContext, useState, useContext, ReactNode, useEffect } from
 export const translations = {
   English: {
     tagline: "Empowering Farmers, Delivering Freshness",
+    quote: "Breathing life into agriculture",
     joinCommunity: "Join Our Community",
     roles: {
       farmer: {
@@ -214,6 +215,7 @@ export const translations = {
   },
   Tamil: {
     tagline: "விவசாயிகளை மேம்படுத்துதல், புத்துணர்ச்சியை வழங்குதல்",
+    quote: "உணவுத்துறை வேவசாயிக்கு உயிருத்துவோம்",
     joinCommunity: "எங்கள் சமூகத்தில் சேரவும்",
     roles: {
       farmer: {
@@ -422,6 +424,7 @@ export const translations = {
   },
   Malayalam: {
     tagline: "കർഷകരെ ശാക്തീകരിക്കുന്നു, പുതുമ നൽകുന്നു",
+    quote: "കൃഷിക്ക് ജീവൻ നൽകുന്നു",
     joinCommunity: "ഞങ്ങളുടെ കമ്മ്യൂണിറ്റിയിൽ ചേരുക",
     roles: {
       farmer: {
@@ -630,6 +633,7 @@ export const translations = {
   },
   Telugu: {
     tagline: "రైతులకు సాధికారత, తాజాదనాన్ని అందించడం",
+    quote: "వ్యవసాయానికి ప్రాణం పోస్తున్నాము",
     joinCommunity: "మా సంఘంలో చేరండి",
     roles: {
       farmer: {
