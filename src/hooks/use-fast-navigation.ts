@@ -47,9 +47,8 @@ export function useFastNavigationHook() {
     (route: string, userRole?: string) => {
       const roleBasedRoutes: Record<string, string[]> = {
         farmer: ["/dashboard/farmer", "/dashboard/farmer/products"],
-        hub: ["/dashboard/hub", "/dashboard/hub/inventory"],
-        customer: ["/dashboard", "/dashboard/products"],
-        restaurant: ["/dashboard/restaurant", "/dashboard/restaurant/orders"],
+        retail: ["/dashboard/retail", "/dashboard/retail/products"],
+        transport: ["/dashboard/transport", "/dashboard/transport/orders"],
       };
 
       const preloadNext = userRole ? roleBasedRoutes[userRole] || [] : [];
