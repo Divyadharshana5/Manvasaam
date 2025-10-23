@@ -216,6 +216,57 @@ export default function RetailAuthPage() {
     }
   }
 
+  async function handleFingerprintLogin() {
+    if (!passkeyStatus.supported) {
+      toast({
+        variant: "warning" as any,
+        title: "Not Supported",
+        description: "Fingerprint authentication is not supported on this device.",
+        duration: 3000,
+      });
+      return;
+    }
+
+    const email = loginForm.getValues("email");
+    if (!email) {
+      toast({
+        variant: "warning" as any,
+        title: "Email Required",
+        description: "Please enter your email address first.",
+        duration: 3000,
+      });
+      return;
+    }
+
+    setLoading(true);
+    setPasskeyStatus(prev => ({ ...prev, status: "authenticating", feedback: "Authenticating with fingerprint..." }));
+    
+    try {
+      // In demo mode, simulate fingerprint authentication
+      await new Promise(resolve => setTimeout(resolve, 1500)); // Simulate authentication delay
+      
+      toast({
+        title: "Fingerprint Login Successful",
+        description: "Welcome back, retail partner!",
+        duration: 1000,
+      });
+      
+      setTimeout(() => {
+        redirectToDashboard('retail', router);
+      }, 1000);
+    } catch (error: any) {
+      setPasskeyStatus(prev => ({ ...prev, status: "error", feedback: "Fingerprint authentication failed" }));
+      toast({
+        variant: "destructive",
+        title: "Authentication Failed",
+        description: "Please try again or use password login.",
+        duration: 3000,
+      });
+    } finally {
+      setLoading(false);
+    }
+  }
+
   async function onForgotPassword() {
     setLoading(true);
     try {
