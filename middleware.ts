@@ -10,15 +10,15 @@ export function middleware(request: NextRequest) {
   
   // Define protected routes that require authentication
   const protectedRoutes = [
-    '/dashboard/restaurant'
+    '/dashboard/retail',
+    '/dashboard/transport'
   ];
   
   // Define auth routes that should redirect if already authenticated
   const authRoutes = [
     '/login/farmer',
-    '/login/customer',
-    '/login/hub', 
-    '/login/restaurant'
+    '/login/retail',
+    '/login/transport'
   ];
   
   // Check if current path is a protected route
@@ -34,8 +34,8 @@ export function middleware(request: NextRequest) {
   
   // If accessing auth route while authenticated, redirect to appropriate dashboard
   if (isAuthRoute && isAuthenticated) {
-    // All authenticated users redirect to restaurant dashboard
-    return NextResponse.redirect(new URL('/dashboard/restaurant', request.url));
+    // All authenticated users redirect to retail dashboard by default
+    return NextResponse.redirect(new URL('/dashboard/retail', request.url));
   }
   
   return NextResponse.next();
