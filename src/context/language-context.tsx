@@ -1057,6 +1057,7 @@ export const translations = {
   Kannada: {
     tagline: "ರೈತರನ್ನು ಸಬಲೀಕರಣಗೊಳಿಸುವುದು, ತಾಜಾತನವನ್ನು ತಲುಪಿಸುವುದು",
     quote: "ಕೃಷಿಗೆ ಜೀವ ನೀಡುತ್ತಿದ್ದೇವೆ",
+    inspirationalQuote: "ಕೃಷಿಗೆ ಜೀವ ನೀಡುತ್ತೇವೆ",
     joinCommunity: "ನಮ್ಮ ಸಮುದಾಯಕ್ಕೆ ಸೇರಿ",
     roles: {
       farmer: {
@@ -1266,6 +1267,7 @@ export const translations = {
   Bengali: {
     tagline: "কৃষকদের ক্ষমতায়ন, সতেজতা সরবরাহ",
     quote: "কৃষিতে প্রাণ সঞ্চার করছি",
+    inspirationalQuote: "কৃষিতে প্রাণ সঞ্চার করব",
     joinCommunity: "আমাদের সম্প্রদায়ে যোগ দিন",
     roles: {
       farmer: {
@@ -1475,6 +1477,7 @@ export const translations = {
   Arabic: {
     tagline: "تمكين المزارعين، وتوصيل المنتجات الطازجة",
     quote: "نبث الحياة في الزراعة",
+    inspirationalQuote: "سنبث الحياة في الزراعة",
     joinCommunity: "انضم إلى مجتمعنا",
     roles: {
       farmer: {
