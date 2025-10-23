@@ -457,7 +457,7 @@ export default function RestaurantAuthPage() {
                     name="restaurantName"
                     render={({ field }) => (
                       <FormItem>
-                        <FormLabel>{t.auth.restaurantNameLabel}</FormLabel>
+                        <FormLabel className="text-emerald-700 dark:text-emerald-300 font-medium">{t.auth.restaurantNameLabel}</FormLabel>
                         <FormControl>
                           <Input
                             type="text"
@@ -466,7 +466,7 @@ export default function RestaurantAuthPage() {
                             {...field}
                           />
                         </FormControl>
-                        <FormMessage />
+                        <FormMessage className="text-red-600 dark:text-red-400" />
                       </FormItem>
                     )}
                   />
@@ -475,7 +475,7 @@ export default function RestaurantAuthPage() {
                     name="email"
                     render={({ field }) => (
                       <FormItem>
-                        <FormLabel>{t.auth.restaurantEmailLabel}</FormLabel>
+                        <FormLabel className="text-emerald-700 dark:text-emerald-300 font-medium">{t.auth.restaurantEmailLabel}</FormLabel>
                         <FormControl>
                           <Input
                             type="email"
@@ -484,7 +484,7 @@ export default function RestaurantAuthPage() {
                             {...field}
                           />
                         </FormControl>
-                        <FormMessage />
+                        <FormMessage className="text-red-600 dark:text-red-400" />
                       </FormItem>
                     )}
                   />
@@ -493,7 +493,7 @@ export default function RestaurantAuthPage() {
                     name="phone"
                     render={({ field }) => (
                       <FormItem>
-                        <FormLabel>{t.auth.restaurantPhoneLabel}</FormLabel>
+                        <FormLabel className="text-emerald-700 dark:text-emerald-300 font-medium">{t.auth.restaurantPhoneLabel}</FormLabel>
                         <FormControl>
                           <Input
                             type="tel"
@@ -507,7 +507,7 @@ export default function RestaurantAuthPage() {
                             }}
                           />
                         </FormControl>
-                        <FormMessage />
+                        <FormMessage className="text-red-600 dark:text-red-400" />
                       </FormItem>
                     )}
                   />
@@ -516,7 +516,7 @@ export default function RestaurantAuthPage() {
                     name="location"
                     render={({ field }) => (
                       <FormItem>
-                        <FormLabel>{t.auth.locationLabel}</FormLabel>
+                        <FormLabel className="text-emerald-700 dark:text-emerald-300 font-medium">{t.auth.locationLabel}</FormLabel>
                         <FormControl>
                           <Input
                             type="text"
@@ -534,7 +534,7 @@ export default function RestaurantAuthPage() {
                     name="password"
                     render={({ field }) => (
                       <FormItem>
-                        <FormLabel>{t.auth.passwordLabel}</FormLabel>
+                        <FormLabel className="text-emerald-700 dark:text-emerald-300 font-medium">{t.auth.passwordLabel}</FormLabel>
                         <FormControl>
                           <div className="relative">
                             <Input
@@ -566,7 +566,7 @@ export default function RestaurantAuthPage() {
                     name="confirmPassword"
                     render={({ field }) => (
                       <FormItem>
-                        <FormLabel>{t.auth.confirmPasswordLabel}</FormLabel>
+                        <FormLabel className="text-emerald-700 dark:text-emerald-300 font-medium">{t.auth.confirmPasswordLabel}</FormLabel>
                         <FormControl>
                           <div className="relative">
                             <Input
