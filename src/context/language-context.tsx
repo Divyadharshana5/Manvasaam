@@ -1477,7 +1477,7 @@ export const translations = {
   Arabic: {
     tagline: "تمكين المزارعين، وتوصيل المنتجات الطازجة",
     quote: "نبث الحياة في الزراعة",
-    inspirationalQuote: "تعالوا نعيد الحياة للزراعة!",
+    inspirationalQuote: "أونافوتوم فيفاسايكو أويروتوفوم",
     joinCommunity: "انضم إلى مجتمعنا",
     roles: {
       farmer: {
@@ -1687,7 +1687,7 @@ export const translations = {
   Urdu: {
     tagline: "کسانوں کو بااختیار بنانا، تازگی فراہم کرنا",
     quote: "زراعت میں جان ڈال رہے ہیں",
-    inspirationalQuote: "چلو، کھیتی کو دوبارہ زندہ کرتے ہیں!",
+    inspirationalQuote: "اُنَووُتُّم ویوَسایِکُّ اُیِرُتُّووم",
     joinCommunity: "ہماری کمیونٹی میں شامل ہوں",
     roles: {
       farmer: {
@@ -1897,7 +1897,7 @@ export const translations = {
   Srilanka: {
     tagline: "ගොවීන් සවිබල ගැන්වීම, නැවුම් බව ලබා දීම",
     quote: "කෘෂිකර්මයට ජීවය ලබා දෙමින්",
-    inspirationalQuote: "එන්න, ගොවිතැනට ජීවය දෙමු!",
+    inspirationalQuote: "උණවුත්තුම් වේවසායික්කු උයිරුත්තුවෝම්",
     joinCommunity: "අපගේ ප්‍රජාවට සම්බන්ධ වන්න",
     roles: {
       farmer: {

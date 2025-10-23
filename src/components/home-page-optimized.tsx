@@ -492,8 +492,8 @@ export default function HomePage() {
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: 0.3 }}
             >
-              <h2 className="text-lg sm:text-xl md:text-2xl lg:text-3xl font-black mb-4 text-primary [text-shadow:0_0_8px_rgb(255_255_255/_90%)] tracking-wide px-4 italic font-extrabold">
-                <strong>"{t.inspirationalQuote}"</strong>
+              <h2 className="text-lg sm:text-xl md:text-2xl lg:text-3xl font-bold mb-4 text-primary [text-shadow:0_0_8px_rgb(255_255_255/_90%)] tracking-wide px-4">
+                <strong>{t.inspirationalQuote}</strong>
               </h2>
               <h2 className="text-xl sm:text-2xl md:text-3xl lg:text-4xl font-bold text-black [text-shadow:0_0_8px_rgb(255_255_255/_80%)] tracking-wide px-4">
                 {t.joinCommunity}
