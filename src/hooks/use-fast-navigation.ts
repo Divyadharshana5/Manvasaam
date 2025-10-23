@@ -105,20 +105,36 @@ export function useFarmerNavigation() {
   return { navigateToFarmerPages, preload };
 }
 
-export function useHubNavigation() {
+export function useRetailNavigation() {
   const { navigate, preload } = useFastNavigationHook();
 
-  const navigateToHubPages = useCallback(
+  const navigateToRetailPages = useCallback(
     (page: string) => {
-      const route = `/dashboard/hub${page ? `/${page}` : ""}`;
+      const route = `/dashboard/retail${page ? `/${page}` : ""}`;
       navigate(route, {
-        preloadNext: ["/dashboard/hub/inventory", "/dashboard/hub/orders"],
+        preloadNext: ["/dashboard/retail/products", "/dashboard/retail/orders"],
       });
     },
     [navigate]
   );
 
-  return { navigateToHubPages, preload };
+  return { navigateToRetailPages, preload };
+}
+
+export function useTransportNavigation() {
+  const { navigate, preload } = useFastNavigationHook();
+
+  const navigateToTransportPages = useCallback(
+    (page: string) => {
+      const route = `/dashboard/transport${page ? `/${page}` : ""}`;
+      navigate(route, {
+        preloadNext: ["/dashboard/transport/orders", "/dashboard/transport/vehicles"],
+      });
+    },
+    [navigate]
+  );
+
+  return { navigateToTransportPages, preload };
 }
 
 export function useCustomerNavigation() {
