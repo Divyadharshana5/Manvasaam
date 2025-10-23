@@ -257,7 +257,9 @@ export default function RetailAuthPage() {
 
       toast({
         title: "Registration Successful",
-        description: "Your retail account has been created. Please log in.",
+        description: usePasskey 
+          ? "Your retail account has been created with fingerprint authentication. Please log in."
+          : "Your retail account has been created. Please log in.",
         duration: 5000,
       });
       setActiveTab("login");
