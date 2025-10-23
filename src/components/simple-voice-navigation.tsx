@@ -284,7 +284,7 @@ export default function SimpleVoiceNavigation({
         try {
             // Reset retry counter for new session
             retryCountRef.current = 0;
-            
+
             // Clean up any existing recognition
             if (recognitionRef.current) {
                 recognitionRef.current.abort();
@@ -298,12 +298,12 @@ export default function SimpleVoiceNavigation({
             recognitionRef.current.continuous = false;
             recognitionRef.current.interimResults = false;
             recognitionRef.current.maxAlternatives = 1;
-            
+
             // Force offline mode to avoid network dependency
             if ('serviceURI' in recognitionRef.current) {
                 recognitionRef.current.serviceURI = '';
             }
-            
+
             // Always use en-US for better offline compatibility
             recognitionRef.current.lang = 'en-US';
 
@@ -342,23 +342,23 @@ export default function SimpleVoiceNavigation({
             recognitionRef.current.onerror = (event: any) => {
                 console.error('Speech recognition error:', event.error);
                 setVoiceState("idle");
-                
+
                 // Handle network errors with retry
                 if (event.error === 'network' && retryCountRef.current < 2) {
                     retryCountRef.current++;
                     console.log(`Network error, retrying... (${retryCountRef.current}/2)`);
-                    
+
                     // Try again with minimal settings
                     setTimeout(() => {
                         try {
                             const SpeechRecognition = (window as any).SpeechRecognition || (window as any).webkitSpeechRecognition;
                             const newRecognition = new SpeechRecognition();
-                            
+
                             // Minimal configuration for better compatibility
                             newRecognition.continuous = false;
                             newRecognition.interimResults = false;
                             newRecognition.lang = 'en-US';
-                            
+
                             newRecognition.onresult = recognitionRef.current.onresult;
                             newRecognition.onend = () => {
                                 setVoiceState("idle");
@@ -373,11 +373,11 @@ export default function SimpleVoiceNavigation({
                                     description: "Please try speaking again or use manual navigation.",
                                 });
                             };
-                            
+
                             recognitionRef.current = newRecognition;
                             setVoiceState("listening");
                             newRecognition.start();
-                            
+
                         } catch (error) {
                             setVoiceState("idle");
                             retryCountRef.current = 0;
@@ -385,12 +385,12 @@ export default function SimpleVoiceNavigation({
                     }, 500);
                     return;
                 }
-                
+
                 // Reset retry count
                 retryCountRef.current = 0;
-                
+
                 let errorMessage = "Could not recognize speech. Please try again.";
-                
+
                 switch (event.error) {
                     case 'no-speech':
                         errorMessage = "No speech detected. Please speak clearly and try again.";
@@ -414,7 +414,7 @@ export default function SimpleVoiceNavigation({
                         errorMessage = "Language not supported. Using English instead.";
                         break;
                 }
-                
+
                 toast({
                     variant: "destructive",
                     title: "Voice Recognition Error",
@@ -431,7 +431,7 @@ export default function SimpleVoiceNavigation({
 
             // Start recognition with error handling
             recognitionRef.current.start();
-            
+
         } catch (error) {
             console.error('Error starting speech recognition:', error);
             setVoiceState("idle");
