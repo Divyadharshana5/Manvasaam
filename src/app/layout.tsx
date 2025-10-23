@@ -1,4 +1,4 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 
 import "./globals.css";
 import "./background.css";
@@ -36,12 +36,7 @@ export const metadata: Metadata = {
   authors: [{ name: "Manvaasam Team" }],
   creator: "Manvaasam",
   publisher: "Manvaasam",
-  viewport: {
-    width: "device-width",
-    initialScale: 1,
-    maximumScale: 1,
-    userScalable: false,
-  },
+
   manifest: "/manifest.json",
   robots: {
     index: true,
@@ -102,6 +97,13 @@ export const metadata: Metadata = {
       },
     ],
   },
+};
+
+export const viewport: Viewport = {
+  width: "device-width",
+  initialScale: 1,
+  maximumScale: 1,
+  userScalable: false,
 };
 
 export default function RootLayout({
