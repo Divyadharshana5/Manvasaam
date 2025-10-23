@@ -70,9 +70,8 @@ export function VoiceAssistantGlobal() {
       privacy: "/privacy",
       terms: "/terms",
       support: "/support",
-      // Hub-specific routes
-      inventory: "/dashboard/hub/inventory",
-      attendance: "/dashboard/hub/attendance",
+      // General routes
+      inventory: "/dashboard/inventory",
       deliveries: "/dashboard/hub/deliveries",
       farmers: "/dashboard/hub/farmers",
       analytics: "/dashboard/hub/analytics",
