@@ -88,25 +88,19 @@ export function useVoiceAssistant(): VoiceAssistantHook {
       };
     }
     
-    // Hub routes
+    // Default routes
     return {
-      'overview': '/dashboard/hub',
-      'dashboard': '/dashboard/hub',
-      'home': '/dashboard/hub',
-      'orders': '/dashboard/hub/orders',
-      'order': '/dashboard/hub/orders',
-      'deliveries': '/dashboard/hub/deliveries',
-      'delivery': '/dashboard/hub/deliveries',
-      'farmers': '/dashboard/hub/farmers',
-      'farmer': '/dashboard/hub/farmers',
-      'analytics': '/dashboard/hub/analytics',
-      'reports': '/dashboard/hub/analytics',
-      'settings': '/dashboard/hub/settings',
-      'setting': '/dashboard/hub/settings',
+      'overview': '/dashboard',
+      'dashboard': '/dashboard',
+      'home': '/dashboard',
+      'orders': '/dashboard/orders',
+      'order': '/dashboard/orders',
+      'products': '/dashboard/products',
+      'product': '/dashboard/products',
+      'track': '/dashboard/track',
       'profile': '/dashboard/profile',
-      'inventory': '/dashboard/hub/inventory',
-      'stock': '/dashboard/hub/inventory',
-      'attendance': '/dashboard/hub/attendance',
+      'faq': '/dashboard/faq',
+      'help': '/dashboard/faq',
     };
   };
 
