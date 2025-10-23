@@ -125,12 +125,8 @@ export function NavigationProvider({ children }: NavigationProviderProps) {
         "/dashboard/farmer/products",
         "/dashboard/farmer/matchmaking",
       ],
-      "/dashboard/hub": ["/dashboard/hub/inventory", "/dashboard/hub/orders"],
-      "/dashboard/customer": ["/dashboard/products", "/dashboard/orders"],
-      "/dashboard/restaurant": [
-        "/dashboard/restaurant/orders",
-        "/dashboard/restaurant/products",
-      ],
+      "/dashboard/retail": ["/dashboard/retail/products", "/dashboard/retail/orders"],
+      "/dashboard/transport": ["/dashboard/transport/orders", "/dashboard/transport/vehicles"],
     };
 
     return routeMap[currentRoute] || [];

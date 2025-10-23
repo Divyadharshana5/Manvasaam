@@ -68,9 +68,8 @@ export default function InstantVoiceAssistant({
       "help": "/dashboard/faq",
       "marketing": "/dashboard/marketing",
       "farmer": "/dashboard/farmer",
-      "customer": "/dashboard/customer",
-      "restaurant": "/dashboard/restaurant",
-      "hub": "/dashboard/hub"
+      "retail": "/dashboard/retail",
+      "transport": "/dashboard/transport"
     };
 
     // Find matching route
