@@ -583,6 +583,41 @@ export default function RetailAuthPage() {
                       )}
                       {t.auth.login}
                     </Button>
+                    
+                    {/* Fingerprint Login Option */}
+                    {passkeyStatus.supported && (
+                      <div className="mt-4 pt-4 border-t border-emerald-200 dark:border-emerald-700">
+                        <div className="text-center mb-3">
+                          <span className="text-xs text-emerald-600 dark:text-emerald-400">
+                            Or use fingerprint authentication
+                          </span>
+                        </div>
+                        <div className="bg-emerald-50 dark:bg-emerald-950 p-2 rounded mb-3">
+                          <p className="text-xs text-emerald-700 dark:text-emerald-300 text-center">
+                            👆 Touch your fingerprint sensor for quick & secure login
+                          </p>
+                        </div>
+                        <Button
+                          type="button"
+                          variant="outline"
+                          className="w-full border-emerald-300 dark:border-emerald-600 text-emerald-700 dark:text-emerald-300 hover:bg-emerald-50 dark:hover:bg-emerald-900"
+                          onClick={handleFingerprintLogin}
+                          disabled={loading || !loginForm.getValues("email")}
+                        >
+                          {loading && passkeyStatus.status === "authenticating" ? (
+                            <>
+                              <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                              Authenticating...
+                            </>
+                          ) : (
+                            <>
+                              <Fingerprint className="mr-2 h-4 w-4" />
+                              Login with Fingerprint
+                            </>
+                          )}
+                        </Button>
+                      </div>
+                    )}
                   </form>
                 </Form>
               </TabsContent>
