@@ -119,12 +119,8 @@ export function NavigationProvider({ children }: NavigationProviderProps) {
   const getNextLikelyRoutes = (currentRoute: string): string[] => {
     const routeMap: Record<string, string[]> = {
       "/login/farmer": ["/dashboard/farmer", "/dashboard/farmer/products"],
-      "/login/hub": ["/dashboard/hub", "/dashboard/hub/inventory"],
-      "/login/customer": ["/dashboard", "/dashboard/products"],
-      "/login/restaurant": [
-        "/dashboard/restaurant",
-        "/dashboard/restaurant/orders",
-      ],
+      "/login/retail": ["/dashboard/retail", "/dashboard/retail/products"],
+      "/login/transport": ["/dashboard/transport", "/dashboard/transport/orders"],
       "/dashboard/farmer": [
         "/dashboard/farmer/products",
         "/dashboard/farmer/matchmaking",
