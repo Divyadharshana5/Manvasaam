@@ -7,7 +7,7 @@ export const translations = {
   English: {
     tagline: "Empowering Farmers, Delivering Freshness",
     quote: "Breathing life into agriculture",
-    inspirationalQuote: "We will breathe life into agriculture",
+    inspirationalQuote: "Let us revive life-giving farming",
     joinCommunity: "Join Our Community",
     roles: {
       farmer: {
@@ -217,7 +217,7 @@ export const translations = {
   Tamil: {
     tagline: "விவசாயிகளை மேம்படுத்துதல், புத்துணர்ச்சியை வழங்குதல்",
     quote: "உணவுத்துறை வேவசாயிக்கு உயிருத்துவோம்",
-    inspirationalQuote: "உணவுத்துறை வேவசாயிக்கு உயிருத்துவோம்",
+    inspirationalQuote: "உயிர் தரும் விவசாயத்தை மீண்டும் உயிர்ப்பிப்போம்",
     joinCommunity: "எங்கள் சமூகத்தில் சேரவும்",
     roles: {
       farmer: {
@@ -427,7 +427,7 @@ export const translations = {
   Malayalam: {
     tagline: "കർഷകരെ ശാക്തീകരിക്കുന്നു, പുതുമ നൽകുന്നു",
     quote: "കൃഷിക്ക് ജീവൻ നൽകുന്നു",
-    inspirationalQuote: "ഉണവുത്തും വേവസായിക്കു ഉയിരുത്തുവോം",
+    inspirationalQuote: "ഉണവുത്തും വിവസായിക്കു ഉയിരുത്തുവോം",
     joinCommunity: "ഞങ്ങളുടെ കമ്മ്യൂണിറ്റിയിൽ ചേരുക",
     roles: {
       farmer: {
@@ -637,7 +637,7 @@ export const translations = {
   Telugu: {
     tagline: "రైతులకు సాధికారత, తాజాదనాన్ని అందించడం",
     quote: "వ్యవసాయానికి ప్రాణం పోస్తున్నాము",
-    inspirationalQuote: "వ్యవసాయానికి ప్రాణం పోస్తాము",
+    inspirationalQuote: "జీవనాధార వ్యవసాయాన్ని పునరుజ్జీవింపజేయండి",
     joinCommunity: "మా సంఘంలో చేరండి",
     roles: {
       farmer: {
@@ -847,7 +847,7 @@ export const translations = {
   Hindi: {
     tagline: "किसानों को सशक्त बनाना, ताजगी पहुंचाना",
     quote: "कृषि में जीवन फूंक रहे हैं",
-    inspirationalQuote: "कृषि में जीवन फूंकेंगे",
+    inspirationalQuote: "आइए जीवनदायी कृषि को पुनर्जीवित करें",
     joinCommunity: "हमारे समुदाय में शामिल हों",
     roles: {
       farmer: {
@@ -1057,7 +1057,7 @@ export const translations = {
   Kannada: {
     tagline: "ರೈತರನ್ನು ಸಬಲೀಕರಣಗೊಳಿಸುವುದು, ತಾಜಾತನವನ್ನು ತಲುಪಿಸುವುದು",
     quote: "ಕೃಷಿಗೆ ಜೀವ ನೀಡುತ್ತಿದ್ದೇವೆ",
-    inspirationalQuote: "ಕೃಷಿಗೆ ಜೀವ ನೀಡುತ್ತೇವೆ",
+    inspirationalQuote: "ಜೀವನದಾಯಕ ಕೃಷಿಯನ್ನು ಪುನರುಜ್ಜೀವಿಸೋಣ",
     joinCommunity: "ನಮ್ಮ ಸಮುದಾಯಕ್ಕೆ ಸೇರಿ",
     roles: {
       farmer: {
@@ -1267,7 +1267,7 @@ export const translations = {
   Bengali: {
     tagline: "কৃষকদের ক্ষমতায়ন, সতেজতা সরবরাহ",
     quote: "কৃষিতে প্রাণ সঞ্চার করছি",
-    inspirationalQuote: "কৃষিতে প্রাণ সঞ্চার করব",
+    inspirationalQuote: "আসুন জীবনদায়ী কৃষিকে পুনরুজ্জীবিত করি",
     joinCommunity: "আমাদের সম্প্রদায়ে যোগ দিন",
     roles: {
       farmer: {
@@ -1477,7 +1477,7 @@ export const translations = {
   Arabic: {
     tagline: "تمكين المزارعين، وتوصيل المنتجات الطازجة",
     quote: "نبث الحياة في الزراعة",
-    inspirationalQuote: "سنبث الحياة في الزراعة",
+    inspirationalQuote: "دعونا نحيي الزراعة المانحة للحياة",
     joinCommunity: "انضم إلى مجتمعنا",
     roles: {
       farmer: {
@@ -1687,7 +1687,7 @@ export const translations = {
   Urdu: {
     tagline: "کسانوں کو بااختیار بنانا، تازگی فراہم کرنا",
     quote: "زراعت میں جان ڈال رہے ہیں",
-    inspirationalQuote: "زراعت میں جان ڈالیں گے",
+    inspirationalQuote: "آئیے زندگی بخش کاشتکاری کو دوبارہ زندہ کریں",
     joinCommunity: "ہماری کمیونٹی میں شامل ہوں",
     roles: {
       farmer: {
@@ -1897,7 +1897,7 @@ export const translations = {
   Srilanka: {
     tagline: "ගොවීන් සවිබල ගැන්වීම, නැවුම් බව ලබා දීම",
     quote: "කෘෂිකර්මයට ජීවය ලබා දෙමින්",
-    inspirationalQuote: "කෘෂිකර්මයට ජීවය ලබා දෙමු",
+    inspirationalQuote: "ජීවන දායක කෘෂිකර්මය පුනර්ජීවනය කරමු",
     joinCommunity: "අපගේ ප්‍රජාවට සම්බන්ධ වන්න",
     roles: {
       farmer: {
