@@ -775,6 +775,53 @@ export default function RetailAuthPage() {
                       )}
                       Register Shop
                     </Button>
+                    
+                    {/* Fingerprint Setup Option */}
+                    {passkeyStatus.supported && !passkeyStatus.registered && (
+                      <div className="mt-4 pt-4 border-t border-emerald-200 dark:border-emerald-700">
+                        <div className="text-center mb-3">
+                          <span className="text-xs text-emerald-600 dark:text-emerald-400">
+                            Optional: Set up fingerprint authentication
+                          </span>
+                        </div>
+                        <div className="bg-emerald-50 dark:bg-emerald-950 p-2 rounded mb-3">
+                          <p className="text-xs text-emerald-700 dark:text-emerald-300 text-center">
+                            🔒 Enable quick & secure login with your fingerprint
+                          </p>
+                        </div>
+                        <Button
+                          type="button"
+                          variant="outline"
+                          className="w-full border-emerald-300 dark:border-emerald-600 text-emerald-700 dark:text-emerald-300 hover:bg-emerald-50 dark:hover:bg-emerald-900"
+                          onClick={handlePasskeyRegistration}
+                          disabled={loading || !registerForm.getValues("email")}
+                        >
+                          {passkeyStatus.status === "registering" ? (
+                            <>
+                              <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                              Setting up...
+                            </>
+                          ) : (
+                            <>
+                              <Fingerprint className="mr-2 h-4 w-4" />
+                              Set up Fingerprint
+                            </>
+                          )}
+                        </Button>
+                        
+                        {passkeyStatus.feedback && passkeyStatus.status !== "ready" && (
+                          <div className="mt-2 text-center">
+                            <span className={`text-xs ${
+                              passkeyStatus.status === "success" ? "text-green-600 dark:text-green-400" :
+                              passkeyStatus.status === "error" ? "text-red-600 dark:text-red-400" :
+                              "text-emerald-600 dark:text-emerald-400"
+                            }`}>
+                              {passkeyStatus.feedback}
+                            </span>
+                          </div>
+                        )}
+                      </div>
+                    )}
                   </form>
                 </Form>
               </TabsContent>
