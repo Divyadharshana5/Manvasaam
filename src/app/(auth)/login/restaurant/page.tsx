@@ -546,13 +546,13 @@ export default function RestaurantAuthPage() {
                               type="button"
                               variant="ghost"
                               size="icon"
-                              className="absolute right-1 top-1/2 -translate-y-1/2 h-7 w-7"
+                              className="absolute right-1 top-1/2 -translate-y-1/2 h-7 w-7 hover:bg-emerald-100 dark:hover:bg-emerald-900"
                               onClick={() => setShowPassword(!showPassword)}
                             >
                               {showPassword ? (
-                                <EyeOff className="h-4 w-4" />
+                                <EyeOff className="h-4 w-4 text-emerald-600 dark:text-emerald-400" />
                               ) : (
-                                <Eye className="h-4 w-4" />
+                                <Eye className="h-4 w-4 text-emerald-600 dark:text-emerald-400" />
                               )}
                             </Button>
                           </div>
@@ -578,15 +578,15 @@ export default function RestaurantAuthPage() {
                               type="button"
                               variant="ghost"
                               size="icon"
-                              className="absolute right-1 top-1/2 -translate-y-1/2 h-7 w-7"
+                              className="absolute right-1 top-1/2 -translate-y-1/2 h-7 w-7 hover:bg-emerald-100 dark:hover:bg-emerald-900"
                               onClick={() =>
                                 setShowConfirmPassword(!showConfirmPassword)
                               }
                             >
                               {showConfirmPassword ? (
-                                <EyeOff className="h-4 w-4" />
+                                <EyeOff className="h-4 w-4 text-emerald-600 dark:text-emerald-400" />
                               ) : (
-                                <Eye className="h-4 w-4" />
+                                <Eye className="h-4 w-4 text-emerald-600 dark:text-emerald-400" />
                               )}
                             </Button>
                           </div>
