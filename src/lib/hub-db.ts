@@ -1,4 +1,5 @@
 import { db } from './firebase-admin';
+import type { QueryDocumentSnapshot, DocumentSnapshot } from 'firebase-admin/firestore';
 
 export interface Hub {
   id: string;
@@ -31,7 +32,7 @@ export async function getAllHubs(): Promise<Hub[]> {
     const snapshot = await hubsRef.get();
     
     const hubs: Hub[] = [];
-    snapshot.forEach(doc => {
+    snapshot.forEach((doc: QueryDocumentSnapshot) => {
       const data = doc.data();
       hubs.push({
         id: doc.id,
@@ -61,7 +62,7 @@ export async function getHubInventory(hubId: string, includeAll: boolean = true)
     const snapshot = await inventoryRef.get();
     
     const inventory: InventoryItem[] = [];
-    snapshot.forEach(doc => {
+    snapshot.forEach((doc: QueryDocumentSnapshot) => {
       const data = doc.data();
       inventory.push({
         id: doc.id,
