@@ -21,13 +21,11 @@ export function NavigationProvider({ children }: NavigationProviderProps) {
     // Preload critical routes immediately
     const criticalRoutes = [
       "/login/farmer",
-      "/login/hub",
-      "/login/customer",
-      "/login/restaurant",
+      "/login/retail",
+      "/login/transport",
       "/dashboard/farmer",
-      "/dashboard/hub",
-      "/dashboard/customer",
-      "/dashboard/restaurant",
+      "/dashboard/retail",
+      "/dashboard/transport",
       "/privacy",
       "/terms",
       "/support",
@@ -44,12 +42,8 @@ export function NavigationProvider({ children }: NavigationProviderProps) {
     if (userType) {
       const userSpecificRoutes = {
         farmer: ["/dashboard/farmer/products", "/dashboard/farmer/matchmaking"],
-        hub: ["/dashboard/hub/inventory", "/dashboard/hub/orders"],
-        customer: ["/dashboard/products", "/dashboard/orders"],
-        restaurant: [
-          "/dashboard/restaurant/orders",
-          "/dashboard/restaurant/products",
-        ],
+        retail: ["/dashboard/retail/products", "/dashboard/retail/orders"],
+        transport: ["/dashboard/transport/orders", "/dashboard/transport/vehicles"],
       };
 
       const routes =
