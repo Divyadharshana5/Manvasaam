@@ -1687,6 +1687,7 @@ export const translations = {
   Urdu: {
     tagline: "کسانوں کو بااختیار بنانا، تازگی فراہم کرنا",
     quote: "زراعت میں جان ڈال رہے ہیں",
+    inspirationalQuote: "زراعت میں جان ڈالیں گے",
     joinCommunity: "ہماری کمیونٹی میں شامل ہوں",
     roles: {
       farmer: {
