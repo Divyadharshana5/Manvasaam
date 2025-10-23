@@ -449,8 +449,8 @@ export default function RetailAuthPage() {
     <div className="animate-in fade-in duration-1000 relative min-h-screen flex flex-col overflow-hidden">
       {/* Main Content Area */}
       <div className="flex-1 flex items-center justify-center p-4">
-        {/* Enhanced animated background with retail theme */}
-        <div className="absolute inset-0 bg-gradient-to-br from-purple-50 via-pink-50 to-rose-50 dark:from-purple-950 dark:via-pink-950 dark:to-rose-950 opacity-40 -z-10 gradient-shift"></div>
+        {/* Enhanced animated background with farm theme */}
+        <div className="absolute inset-0 bg-gradient-to-br from-emerald-50 via-green-50 to-lime-50 dark:from-emerald-950 dark:via-green-950 dark:to-lime-950 opacity-40 -z-10 gradient-shift"></div>
 
         {/* Floating background elements with retail theme */}
         <div className="absolute inset-0 -z-5">
