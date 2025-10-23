@@ -5,14 +5,15 @@ export interface OrderItem {
     price: number;
   }
   
-  export interface Customer {
+  export interface Buyer {
     name: string;
     email: string;
+    type: 'retail' | 'transport';
   }
   
   export interface Order {
     id: string;
-    customer: Customer;
+    buyer: Buyer;
     date: string;
     status: "Processing" | "Shipped" | "Delivered" | "Cancelled";
     total: number;
