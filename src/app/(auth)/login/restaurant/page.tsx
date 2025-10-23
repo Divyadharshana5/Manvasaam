@@ -233,7 +233,11 @@ export default function RestaurantAuthPage() {
   }
 
   return (
-    <div className="animate-in fade-in duration-1000 relative min-h-screen flex items-center justify-center p-4 overflow-hidden">
+    <div className="animate-in fade-in duration-1000 relative min-h-screen flex flex-col overflow-hidden">
+
+
+      {/* Main Content Area */}
+      <div className="flex-1 flex items-center justify-center p-4">
       {/* Enhanced animated background with farm theme */}
       <div className="absolute inset-0 bg-gradient-to-br from-emerald-50 via-green-50 to-lime-50 dark:from-emerald-950 dark:via-green-950 dark:to-lime-950 opacity-40 -z-10 gradient-shift"></div>
 
@@ -626,6 +630,7 @@ export default function RestaurantAuthPage() {
           </Tabs>
         </CardContent>
       </Card>
+      </div>
     </div>
   );
 }
