@@ -18,7 +18,6 @@ import {
     AlertCircle,
     DollarSign,
     Truck,
-    Plus,
     Minus,
     Mic,
     MessageCircle,
