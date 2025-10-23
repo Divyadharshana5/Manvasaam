@@ -1,4 +1,4 @@
-import { db } from './firebase-admin';
+import { adminDb as db } from './firebase-admin';
 import type { QueryDocumentSnapshot, DocumentSnapshot } from 'firebase-admin/firestore';
 
 export interface Hub {
@@ -28,6 +28,11 @@ export interface InventoryItem {
 
 export async function getAllHubs(): Promise<Hub[]> {
   try {
+    if (!db) {
+      console.error('Firebase not initialized');
+      return [];
+    }
+    
     const hubsRef = db.collection('hubs');
     const snapshot = await hubsRef.get();
     
@@ -53,6 +58,11 @@ export async function getAllHubs(): Promise<Hub[]> {
 
 export async function getHubInventory(hubId: string, includeAll: boolean = true): Promise<InventoryItem[]> {
   try {
+    if (!db) {
+      console.error('Firebase not initialized');
+      return [];
+    }
+    
     let inventoryRef = db.collection('hubs').doc(hubId).collection('inventory');
     
     if (!includeAll) {
@@ -90,6 +100,11 @@ export async function getHubInventory(hubId: string, includeAll: boolean = true)
 
 export async function getHubById(hubId: string): Promise<Hub | null> {
   try {
+    if (!db) {
+      console.error('Firebase not initialized');
+      return null;
+    }
+    
     const hubRef = db.collection('hubs').doc(hubId);
     const doc = await hubRef.get();
     
