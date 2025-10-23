@@ -1887,6 +1887,7 @@ export const translations = {
   },
   Srilanka: {
     tagline: "ගොවීන් සවිබල ගැන්වීම, නැවුම් බව ලබා දීම",
+    quote: "කෘෂිකර්මයට ජීවය ලබා දෙමින්",
     joinCommunity: "අපගේ ප්‍රජාවට සම්බන්ධ වන්න",
     roles: {
       farmer: {

@@ -568,6 +568,30 @@ export default function HomePage() {
                 </motion.span>
               ))}
             </motion.h1>
+            
+            {/* Inspirational Quote */}
+            <motion.div
+              className="mb-8 sm:mb-10 md:mb-12"
+              initial={{ opacity: 0, scale: 0.9 }}
+              animate={{ opacity: 1, scale: 1 }}
+              transition={{ duration: 0.8, delay: 0.5, ease: "easeOut" }}
+            >
+              <div className="relative">
+                <div className="absolute inset-0 bg-gradient-to-r from-emerald-500/20 via-green-500/30 to-lime-500/20 rounded-2xl blur-xl"></div>
+                <div className="relative bg-white/90 dark:bg-gray-900/90 backdrop-blur-md border-2 border-emerald-200/50 dark:border-emerald-700/50 rounded-2xl p-6 sm:p-8 mx-4 sm:mx-8 shadow-2xl">
+                  <div className="text-center">
+                    <div className="text-6xl sm:text-7xl md:text-8xl mb-4 opacity-20 text-emerald-600">
+                      "
+                    </div>
+                    <h3 className="text-lg sm:text-xl md:text-2xl lg:text-3xl font-bold text-emerald-800 dark:text-emerald-200 mb-4 leading-relaxed italic">
+                      {t.quote}
+                    </h3>
+                    <div className="w-16 h-1 bg-gradient-to-r from-emerald-500 to-green-500 mx-auto rounded-full"></div>
+                  </div>
+                </div>
+              </div>
+            </motion.div>
+            
             <h2 className="text-xl sm:text-2xl md:text-3xl lg:text-4xl font-bold mb-4 sm:mb-5 md:mb-6 text-black [text-shadow:0_0_8px_rgb(255_255_255/_80%)] tracking-wide px-2">
               {t.joinCommunity}
             </h2>
