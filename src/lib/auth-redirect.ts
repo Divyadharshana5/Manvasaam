@@ -3,7 +3,7 @@
  * Handles automatic redirection to appropriate dashboards based on user type
  */
 
-export type UserType = 'farmer' | 'customer' | 'hub' | 'restaurant';
+export type UserType = 'farmer' | 'retail' | 'transport';
 
 /**
  * Get the dashboard route for a specific user type
@@ -12,12 +12,10 @@ export function getDashboardRoute(userType: UserType): string {
   switch (userType) {
     case 'farmer':
       return '/dashboard/farmer';
-    case 'customer':
-      return '/dashboard/customer';
-    case 'hub':
-      return '/dashboard/hub';
-    case 'restaurant':
-      return '/dashboard/restaurant';
+    case 'retail':
+      return '/dashboard/retail';
+    case 'transport':
+      return '/dashboard/transport';
     default:
       return '/dashboard';
   }
@@ -59,16 +57,15 @@ export function getUserType(): UserType | null {
   
   // Try to get from localStorage first
   const storedType = localStorage.getItem('userType') as UserType;
-  if (storedType && ['farmer', 'customer', 'hub', 'restaurant'].includes(storedType)) {
+  if (storedType && ['farmer', 'retail', 'transport'].includes(storedType)) {
     return storedType;
   }
   
   // Try to infer from current URL
   const path = window.location.pathname;
   if (path.includes('/farmer')) return 'farmer';
-  if (path.includes('/customer')) return 'customer';
-  if (path.includes('/hub')) return 'hub';
-  if (path.includes('/restaurant')) return 'restaurant';
+  if (path.includes('/retail')) return 'retail';
+  if (path.includes('/transport')) return 'transport';
   
   return null;
 }
