@@ -97,7 +97,7 @@ export default function HomePage() {
         icon: <Building className="h-12 w-12 text-primary" />,
       },
       {
-        name: "Transport Service", 
+        name: "Transport Service",
         description: "Manage logistics and delivery operations",
         href: "/login/transport",
         icon: <Truck className="h-12 w-12 text-primary" />,
@@ -236,7 +236,7 @@ export default function HomePage() {
       setLastResponse(text);
       setAudioUrl("");
       try {
-        const result = await textToSpeech(text);
+        const result = await textToSpeech({ text, language: selectedLanguage });
         setAudioUrl(result.audioDataUri);
       } catch {
         toast({
@@ -252,7 +252,7 @@ export default function HomePage() {
 
   useEffect(() => {
     if (audioUrl && audioRef.current) {
-      audioRef.current.play().catch(() => {});
+      audioRef.current.play().catch(() => { });
       audioRef.current.onended = () => {
         setAssistantState("idle");
       };
@@ -301,8 +301,8 @@ export default function HomePage() {
     setLoadingRoleHref(href);
     setTimeout(() => {
       setTimeout(() => {
-      router.push(href);
-    }, 2000);
+        router.push(href);
+      }, 2000);
     }, 2000);
   };
 
@@ -651,7 +651,7 @@ export default function HomePage() {
                     className="text-primary animate-arrow-flow sm:rotate-0 rotate-90 flex-shrink-0"
                   />
                   <span className="text-center px-2 py-1 rounded-lg bg-primary/10">
-                    {t.roles.hub.name}
+                    Transport Services
                   </span>
                   <ArrowRight
                     size={20}
@@ -659,7 +659,7 @@ export default function HomePage() {
                     style={{ animationDelay: "0.5s" }}
                   />
                   <span className="text-center px-2 py-1 rounded-lg bg-primary/10">
-                    {t.roles.customer.name}
+                    Retail Shops
                   </span>
                 </div>
               </CardContent>
@@ -722,23 +722,11 @@ export default function HomePage() {
                     transition={{ duration: 0.2 }}
                   >
                     <Link
-                      href="/login/customer"
+                      href="/login/transport"
                       className="flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-gradient-to-r from-blue-50 to-primary/5 hover:from-primary/10 hover:to-blue-100 border border-primary/20 hover:border-primary/40 transition-all duration-200 text-xs font-medium text-foreground hover:text-primary shadow-sm hover:shadow-md"
                     >
-                      <span className="text-sm">🛒</span>
-                      <span>Customer</span>
-                    </Link>
-                  </motion.div>
-                  <motion.div
-                    whileHover={{ scale: 1.1, y: -2 }}
-                    transition={{ duration: 0.2 }}
-                  >
-                    <Link
-                      href="/login/hub"
-                      className="flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-gradient-to-r from-purple-50 to-primary/5 hover:from-primary/10 hover:to-purple-100 border border-primary/20 hover:border-primary/40 transition-all duration-200 text-xs font-medium text-foreground hover:text-primary shadow-sm hover:shadow-md"
-                    >
-                      <span className="text-sm">🏢</span>
-                      <span>Hub</span>
+                      <span className="text-sm">�</span>
+                      <span>Transport</span>
                     </Link>
                   </motion.div>
                   <motion.div
