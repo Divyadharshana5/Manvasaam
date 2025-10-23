@@ -146,6 +146,70 @@ export default function RetailAuthPage() {
     }
   }
 
+  async function handlePasskeyRegistration() {
+    if (!passkeyStatus.supported) {
+      toast({
+        variant: "warning" as any,
+        title: "Not Supported",
+        description: "Fingerprint authentication is not supported on this device.",
+        duration: 3000,
+      });
+      return;
+    }
+
+    setPasskeyStatus(prev => ({ ...prev, status: "registering", feedback: "Setting up fingerprint authentication..." }));
+    
+    const email = registerForm.getValues("email");
+    if (!email) {
+      toast({
+        variant: "warning" as any,
+        title: "Email Required",
+        description: "Please enter your email first.",
+        duration: 3000,
+      });
+      setPasskeyStatus(prev => ({ ...prev, status: "ready" }));
+      return;
+    }
+
+    const result = await registerPasskey(email);
+    
+    if (result.success && result.credentialId) {
+      setPasskeyStatus({
+        supported: true,
+        registered: true,
+        credentialId: result.credentialId,
+        feedback: "Fingerprint authentication set up successfully!",
+        status: "success"
+      });
+      registerForm.setValue("passkeyCredentialId", result.credentialId);
+      setUsePasskey(true);
+      toast({
+        title: "Fingerprint Set Up",
+        description: "You can now use fingerprint authentication for secure login.",
+        duration: 2000,
+      });
+      
+      // Auto switch to login tab after fingerprint setup
+      setTimeout(() => {
+        setActiveTab("login");
+        loginForm.setValue("email", registerForm.getValues("email"));
+      }, 2000);
+    } else {
+      setPasskeyStatus({
+        supported: true,
+        registered: false,
+        feedback: result.error || "Failed to set up fingerprint authentication",
+        status: "error"
+      });
+      toast({
+        variant: "destructive",
+        title: "Setup Failed",
+        description: result.error || "Could not set up fingerprint authentication.",
+        duration: 3000,
+      });
+    }
+  }
+
   async function onRegister(values: z.infer<typeof registerSchema>) {
     setLoading(true);
     try {
