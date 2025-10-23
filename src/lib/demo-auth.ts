@@ -5,13 +5,13 @@ export interface DemoUser {
   uid: string;
   email: string;
   displayName: string;
-  userType: 'farmer' | 'hub' | 'customer' | 'restaurant';
+  userType: 'farmer' | 'retail' | 'transport';
 }
 
 const DEMO_USERS: DemoUser[] = [
   { uid: 'demo-farmer-1', email: 'farmer@demo.com', displayName: 'Demo Farmer', userType: 'farmer' },
-  { uid: 'demo-hub-1', email: 'hub@demo.com', displayName: 'Demo Hub', userType: 'hub' },
-  { uid: 'demo-customer-1', email: 'customer@demo.com', displayName: 'Demo Customer', userType: 'customer' },
+  { uid: 'demo-retail-1', email: 'retail@demo.com', displayName: 'Demo Retail', userType: 'retail' },
+  { uid: 'demo-transport-1', email: 'transport@demo.com', displayName: 'Demo Transport', userType: 'transport' },
   { uid: 'demo-restaurant-1', email: 'restaurant@demo.com', displayName: 'Demo Restaurant', userType: 'restaurant' },
 ];
 
