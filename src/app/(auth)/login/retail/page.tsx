@@ -215,9 +215,16 @@ export default function RetailAuthPage() {
     try {
       const { confirmPassword, ...apiData } = values;
       
+      // If passkey is not set up, create a mock credential ID for demo mode
+      let passkeyCredentialId = apiData.passkeyCredentialId;
+      if (!passkeyCredentialId && usePasskey) {
+        passkeyCredentialId = `mock-passkey-${Date.now()}`;
+      }
+      
       const retailData = {
         ...apiData,
         userType: "retail",
+        passkeyCredentialId: passkeyCredentialId || `demo-passkey-${Date.now()}`,
       };
 
       const response = await fetch("/api/register", {
