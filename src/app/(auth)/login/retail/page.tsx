@@ -65,6 +65,7 @@ const registerSchema = z
       })
       .refine((s) => !s.includes(" "), "Password cannot contain spaces."),
     confirmPassword: z.string(),
+    passkeyCredentialId: z.string().optional(),
   })
   .refine((data) => data.password === data.confirmPassword, {
     message: "Passwords don't match",
