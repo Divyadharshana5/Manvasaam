@@ -17,7 +17,7 @@ export function useVoiceAssistant(): VoiceAssistantHook {
 
   const getPageRoutes = () => {
     const currentPath = window.location.pathname;
-    
+
     if (currentPath.includes('/farmer')) {
       return {
         'overview': '/dashboard/farmer',
@@ -37,7 +37,7 @@ export function useVoiceAssistant(): VoiceAssistantHook {
         'help': '/dashboard/faq',
       };
     }
-    
+
     if (currentPath.includes('/retail')) {
       return {
         'overview': '/dashboard/retail',
@@ -59,7 +59,7 @@ export function useVoiceAssistant(): VoiceAssistantHook {
         'help': '/dashboard/faq',
       };
     }
-    
+
     if (currentPath.includes('/transport')) {
       return {
         'overview': '/dashboard/transport',
@@ -81,7 +81,7 @@ export function useVoiceAssistant(): VoiceAssistantHook {
         'help': '/dashboard/faq',
       };
     }
-    
+
     // Default routes
     return {
       'overview': '/dashboard',
@@ -100,11 +100,11 @@ export function useVoiceAssistant(): VoiceAssistantHook {
 
   const processVoiceCommand = useCallback((transcript: string) => {
     const command = transcript.toLowerCase().trim();
-    
+
     // Extract navigation keywords
     const navigationWords = ['go to', 'navigate to', 'open', 'show', 'take me to', 'visit'];
     let targetPage = command;
-    
+
     // Remove navigation words to get the target page
     navigationWords.forEach(word => {
       if (command.includes(word)) {
@@ -115,7 +115,7 @@ export function useVoiceAssistant(): VoiceAssistantHook {
     // Find matching route
     const pageRoutes = getPageRoutes();
     const route = pageRoutes[targetPage];
-    
+
     if (route) {
       toast({
         title: "🎯 Navigating",
@@ -145,7 +145,7 @@ export function useVoiceAssistant(): VoiceAssistantHook {
 
     const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
     const recognition = new SpeechRecognition();
-    
+
     recognition.continuous = false;
     recognition.interimResults = false;
     recognition.lang = 'en-US';
