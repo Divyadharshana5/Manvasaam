@@ -11,9 +11,8 @@ export function useFastNavigation() {
   useEffect(() => {
     const routes = [
       "/dashboard/farmer",
-      "/dashboard/customer", 
-      "/dashboard/hub",
-      "/dashboard/restaurant",
+      "/dashboard/retail", 
+      "/dashboard/transport",
       "/dashboard/orders",
       "/dashboard/products",
       "/dashboard/profile"

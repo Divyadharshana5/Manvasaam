@@ -9,12 +9,11 @@ import { useCallback, useEffect, useRef } from "react";
 const CRITICAL_ROUTES = [
   "/dashboard/farmer",
   "/dashboard/hub",
-  "/dashboard/customer",
-  "/dashboard/restaurant",
+  "/dashboard/retail",
+  "/dashboard/transport",
   "/login/farmer",
-  "/login/hub",
-  "/login/customer",
-  "/login/restaurant",
+  "/login/retail",
+  "/login/transport",
   "/privacy",
   "/terms",
   "/support",
@@ -167,13 +166,11 @@ export class NavigationOptimizer {
     // Update page title immediately
     const routeTitles: Record<string, string> = {
       "/login/farmer": "Farmer Login - Manvaasam",
-      "/login/hub": "Hub Login - Manvaasam",
-      "/login/customer": "Customer Login - Manvaasam",
-      "/login/restaurant": "Restaurant Login - Manvaasam",
+      "/login/retail": "Retail Login - Manvaasam",
+      "/login/transport": "Transport Login - Manvaasam",
       "/dashboard/farmer": "Farmer Dashboard - Manvaasam",
-      "/dashboard/hub": "Hub Dashboard - Manvaasam",
-      "/dashboard/customer": "Customer Dashboard - Manvaasam",
-      "/dashboard/restaurant": "Restaurant Dashboard - Manvaasam",
+      "/dashboard/retail": "Retail Dashboard - Manvaasam",
+      "/dashboard/transport": "Transport Dashboard - Manvaasam",
     };
 
     if (routeTitles[route]) {
