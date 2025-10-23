@@ -427,7 +427,7 @@ export const translations = {
   Malayalam: {
     tagline: "കർഷകരെ ശാക്തീകരിക്കുന്നു, പുതുമ നൽകുന്നു",
     quote: "കൃഷിക്ക് ജീവൻ നൽകുന്നു",
-    inspirationalQuote: "വരൂ, കൃഷിക്ക് ജീവൻ നൽകാം!",
+    inspirationalQuote: "ഉണവുത്തും വേവസായിക്കു ഉയിരുത്തുവോം",
     joinCommunity: "ഞങ്ങളുടെ കമ്മ്യൂണിറ്റിയിൽ ചേരുക",
     roles: {
       farmer: {
@@ -637,7 +637,7 @@ export const translations = {
   Telugu: {
     tagline: "రైతులకు సాధికారత, తాజాదనాన్ని అందించడం",
     quote: "వ్యవసాయానికి ప్రాణం పోస్తున్నాము",
-    inspirationalQuote: "రండి, వ్యవసాయానికి ప్రాణం పోద్దాం!",
+    inspirationalQuote: "ఉణవుత్తుం వేవసాయిక్కు ఉయిరుత్తువోం",
     joinCommunity: "మా సంఘంలో చేరండి",
     roles: {
       farmer: {
@@ -847,7 +847,7 @@ export const translations = {
   Hindi: {
     tagline: "किसानों को सशक्त बनाना, ताजगी पहुंचाना",
     quote: "कृषि में जीवन फूंक रहे हैं",
-    inspirationalQuote: "चलो, खेती को फिर से जिंदा करते हैं!",
+    inspirationalQuote: "उणवुत्तुम् वेवसायिक्कु उयिरुत्तुवोम्",
     joinCommunity: "हमारे समुदाय में शामिल हों",
     roles: {
       farmer: {
@@ -1057,7 +1057,7 @@ export const translations = {
   Kannada: {
     tagline: "ರೈತರನ್ನು ಸಬಲೀಕರಣಗೊಳಿಸುವುದು, ತಾಜಾತನವನ್ನು ತಲುಪಿಸುವುದು",
     quote: "ಕೃಷಿಗೆ ಜೀವ ನೀಡುತ್ತಿದ್ದೇವೆ",
-    inspirationalQuote: "ಬನ್ನಿ, ಕೃಷಿಗೆ ಜೀವ ಕೊಡೋಣ!",
+    inspirationalQuote: "ಉಣವುತ್ತುಂ ವೇವಸಾಯಿಕ್ಕು ಉಯಿರುತ್ತುವೋಂ",
     joinCommunity: "ನಮ್ಮ ಸಮುದಾಯಕ್ಕೆ ಸೇರಿ",
     roles: {
       farmer: {
@@ -1267,7 +1267,7 @@ export const translations = {
   Bengali: {
     tagline: "কৃষকদের ক্ষমতায়ন, সতেজতা সরবরাহ",
     quote: "কৃষিতে প্রাণ সঞ্চার করছি",
-    inspirationalQuote: "এসো, কৃষিকে আবার জীবন্ত করি!",
+    inspirationalQuote: "উণবুত্তুম বেবসায়িক্কু উয়িরুত্তুবোম",
     joinCommunity: "আমাদের সম্প্রদায়ে যোগ দিন",
     roles: {
       farmer: {
