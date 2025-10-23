@@ -9,10 +9,7 @@ const nextConfig: NextConfig = {
   eslint: {
     ignoreDuringBuilds: true,
   },
-  // Performance optimizations
-  experimental: {
-    optimizePackageImports: ['framer-motion', 'lucide-react'],
-  },
+
   // Compression and caching
   compress: true,
   poweredByHeader: false,
