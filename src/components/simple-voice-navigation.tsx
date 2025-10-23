@@ -62,17 +62,17 @@ export default function SimpleVoiceNavigation({
         };
 
         // User-specific routes
-        if (userType === 'restaurant' || currentPath.includes('/restaurant')) {
+        if (userType === 'retail' || currentPath.includes('/retail')) {
             return {
                 ...baseRoutes,
-                "dashboard": "/dashboard/restaurant",
-                "orders": "/dashboard/restaurant/orders",
-                "products": "/dashboard/restaurant/products",
-                "inventory": "/dashboard/restaurant/inventory",
-                "farmers": "/dashboard/restaurant/farmers",
-                "reports": "/dashboard/restaurant/reports",
-                "analytics": "/dashboard/restaurant/reports",
-                "settings": "/dashboard/restaurant/settings",
+                "dashboard": "/dashboard/retail",
+                "orders": "/dashboard/retail/orders",
+                "products": "/dashboard/retail/products",
+                "inventory": "/dashboard/retail/inventory",
+                "suppliers": "/dashboard/retail/suppliers",
+                "reports": "/dashboard/retail/reports",
+                "analytics": "/dashboard/retail/reports",
+                "settings": "/dashboard/retail/settings",
                 "profile": "/dashboard/profile"
             };
         }
@@ -89,27 +89,16 @@ export default function SimpleVoiceNavigation({
             };
         }
 
-        if (userType === 'hub' || currentPath.includes('/hub')) {
+        if (userType === 'transport' || currentPath.includes('/transport')) {
             return {
                 ...baseRoutes,
-                "dashboard": "/dashboard/hub",
-                "orders": "/dashboard/hub/orders",
-                "inventory": "/dashboard/hub/inventory",
-                "attendance": "/dashboard/hub/attendance",
-                "analytics": "/dashboard/hub/analytics",
-                "profile": "/dashboard/profile"
-            };
-        }
-
-        if (userType === 'customer' || currentPath.includes('/customer')) {
-            return {
-                ...baseRoutes,
-                "dashboard": "/dashboard/customer",
-                "products": "/dashboard/products",
-                "orders": "/dashboard/orders",
-                "track": "/dashboard/track",
-                "cart": "/dashboard/customer/cart",
-                "settings": "/dashboard/customer/settings",
+                "dashboard": "/dashboard/transport",
+                "orders": "/dashboard/transport/orders",
+                "routes": "/dashboard/transport/routes",
+                "vehicles": "/dashboard/transport/vehicles",
+                "drivers": "/dashboard/transport/drivers",
+                "analytics": "/dashboard/transport/analytics",
+                "settings": "/dashboard/transport/settings",
                 "profile": "/dashboard/profile"
             };
         }
