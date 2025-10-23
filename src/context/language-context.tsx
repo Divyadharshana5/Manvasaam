@@ -634,7 +634,6 @@ export const translations = {
   Telugu: {
     tagline: "రైతులకు సాధికారత, తాజాదనాన్ని అందించడం",
     quote: "వ్యవసాయానికి ప్రాణం పోస్తున్నాము",
-    inspirationalQuote: "వ్యవసాయానికి ప్రాణం పోద్దాం",
     joinCommunity: "మా సంఘంలో చేరండి",
     roles: {
       farmer: {
@@ -844,7 +843,7 @@ export const translations = {
   Hindi: {
     tagline: "किसानों को सशक्त बनाना, ताजगी पहुंचाना",
     quote: "कृषि में जीवन फूंक रहे हैं",
-    inspirationalQuote: "कृषि में प्राण फूंकें",
+
     joinCommunity: "हमारे समुदाय में शामिल हों",
     roles: {
       farmer: {
@@ -1054,7 +1053,7 @@ export const translations = {
   Kannada: {
     tagline: "ರೈತರನ್ನು ಸಬಲೀಕರಣಗೊಳಿಸುವುದು, ತಾಜಾತನವನ್ನು ತಲುಪಿಸುವುದು",
     quote: "ಕೃಷಿಗೆ ಜೀವ ನೀಡುತ್ತಿದ್ದೇವೆ",
-    inspirationalQuote: "ಕೃಷಿಗೆ ಪ್ರಾಣ ಕೊಡೋಣ",
+
     joinCommunity: "ನಮ್ಮ ಸಮುದಾಯಕ್ಕೆ ಸೇರಿ",
     roles: {
       farmer: {
@@ -1264,7 +1263,7 @@ export const translations = {
   Bengali: {
     tagline: "কৃষকদের ক্ষমতায়ন, সতেজতা সরবরাহ",
     quote: "কৃষিতে প্রাণ সঞ্চার করছি",
-    inspirationalQuote: "কৃষিতে প্রাণ সঞ্চার করি",
+
     joinCommunity: "আমাদের সম্প্রদায়ে যোগ দিন",
     roles: {
       farmer: {
@@ -1474,7 +1473,7 @@ export const translations = {
   Arabic: {
     tagline: "تمكين المزارعين، وتوصيل المنتجات الطازجة",
     quote: "نبث الحياة في الزراعة",
-    inspirationalQuote: "لنبث الروح في الزراعة",
+
     joinCommunity: "انضم إلى مجتمعنا",
     roles: {
       farmer: {
@@ -1684,7 +1683,7 @@ export const translations = {
   Urdu: {
     tagline: "کسانوں کو بااختیار بنانا، تازگی فراہم کرنا",
     quote: "زراعت میں جان ڈال رہے ہیں",
-    inspirationalQuote: "کھیتی میں جان ڈالیں",
+
     joinCommunity: "ہماری کمیونٹی میں شامل ہوں",
     roles: {
       farmer: {
@@ -1894,7 +1893,7 @@ export const translations = {
   Srilanka: {
     tagline: "ගොවීන් සවිබල ගැන්වීම, නැවුම් බව ලබා දීම",
     quote: "කෘෂිකර්මයට ජීවය ලබා දෙමින්",
-    inspirationalQuote: "කෘෂිකර්මයට ජීවය දෙමු",
+
     joinCommunity: "අපගේ ප්‍රජාවට සම්බන්ධ වන්න",
     roles: {
       farmer: {
