@@ -11,7 +11,7 @@ import {
   Users,
   Building,
   Tractor,
-  Utensils,
+  Truck,
   Mic,
   Volume2,
   Square,
@@ -746,11 +746,11 @@ export default function HomePage() {
                     transition={{ duration: 0.2 }}
                   >
                     <Link
-                      href="/login/restaurant"
-                      className="flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-gradient-to-r from-orange-50 to-primary/5 hover:from-primary/10 hover:to-orange-100 border border-primary/20 hover:border-primary/40 transition-all duration-200 text-xs font-medium text-foreground hover:text-primary shadow-sm hover:shadow-md"
+                      href="/login/retail"
+                      className="flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-gradient-to-r from-purple-50 to-primary/5 hover:from-primary/10 hover:to-purple-100 border border-primary/20 hover:border-primary/40 transition-all duration-200 text-xs font-medium text-foreground hover:text-primary shadow-sm hover:shadow-md"
                     >
-                      <span className="text-sm">🍽️</span>
-                      <span>Restaurant</span>
+                      <span className="text-sm">🏪</span>
+                      <span>Retail</span>
                     </Link>
                   </motion.div>
                 </div>
