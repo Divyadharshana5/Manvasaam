@@ -24,7 +24,7 @@ import {
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { useToast } from "@/hooks/use-toast";
-import { Loader2, Eye, EyeOff, Building } from "lucide-react";
+import { Loader2, Eye, EyeOff, Building, Fingerprint, CheckCircle, AlertCircle } from "lucide-react";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { useRouter } from "next/navigation";
 import { redirectToDashboard } from "@/lib/auth-redirect";
@@ -32,6 +32,8 @@ import { useLanguage } from "@/context/language-context";
 import "@/styles/navigation-transitions.css";
 import "@/styles/auth-animations.css";
 import { motion } from "framer-motion";
+import { registerPasskey, authenticatePasskey, getInitialPasskeyStatus, type PasskeyStatus } from "@/lib/passkey";
+import { FingerprintStatus } from "@/components/ui/fingerprint-status";
 
 const loginSchema = z.object({
   email: z.string().email({ message: "Invalid email address." }),

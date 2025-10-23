@@ -114,7 +114,9 @@ export function useVoiceAssistant(): VoiceAssistantHook {
 
     // Find matching route
     const pageRoutes = getPageRoutes();
-    const route = pageRoutes[targetPage];
+    const route = Object.prototype.hasOwnProperty.call(pageRoutes, targetPage) 
+      ? pageRoutes[targetPage as keyof typeof pageRoutes] 
+      : undefined;
 
     if (route) {
       toast({
