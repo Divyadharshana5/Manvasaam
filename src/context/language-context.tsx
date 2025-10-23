@@ -847,6 +847,7 @@ export const translations = {
   Hindi: {
     tagline: "किसानों को सशक्त बनाना, ताजगी पहुंचाना",
     quote: "कृषि में जीवन फूंक रहे हैं",
+    inspirationalQuote: "कृषि में जीवन फूंकेंगे",
     joinCommunity: "हमारे समुदाय में शामिल हों",
     roles: {
       farmer: {
