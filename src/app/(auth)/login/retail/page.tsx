@@ -81,6 +81,18 @@ export default function RetailAuthPage() {
   const { t } = useLanguage();
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
+  const [passkeyStatus, setPasskeyStatus] = useState<PasskeyStatus>({
+    supported: false,
+    registered: false,
+    feedback: "Loading...",
+    status: "ready"
+  });
+  const [usePasskey, setUsePasskey] = useState(false);
+
+  // Initialize passkey status on client side only
+  useEffect(() => {
+    setPasskeyStatus(getInitialPasskeyStatus());
+  }, []);
 
   const loginForm = useForm<z.infer<typeof loginSchema>>({
     resolver: zodResolver(loginSchema),
