@@ -172,10 +172,9 @@ export default function SimpleVoiceNavigation({
         const userType = getUserType();
         const currentPath = window.location.pathname;
 
-        if (userType === 'restaurant' || currentPath.includes('/restaurant')) return '/login/restaurant';
+        if (userType === 'retail' || currentPath.includes('/retail')) return '/login/retail';
         if (userType === 'farmer' || currentPath.includes('/farmer')) return '/login/farmer';
-        if (userType === 'hub' || currentPath.includes('/hub')) return '/login/hub';
-        if (userType === 'customer' || currentPath.includes('/customer')) return '/login/customer';
+        if (userType === 'transport' || currentPath.includes('/transport')) return '/login/transport';
 
         // Default to home page which has login options
         return '/';
