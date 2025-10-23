@@ -21,7 +21,7 @@ export function TestVoiceNavigation() {
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
           text: testText,
-          routes: ["dashboard", "orders", "products", "track", "farmer", "customer", "hub", "restaurant"]
+          routes: ["dashboard", "orders", "products", "track", "farmer", "retail", "transport"]
         }),
       });
 
