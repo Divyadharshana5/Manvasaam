@@ -7,7 +7,7 @@ export const translations = {
   English: {
     tagline: "Empowering Farmers, Delivering Freshness",
     quote: "Breathing life into agriculture",
-    inspirationalQuote: "Let us breathe life into agriculture",
+    inspirationalQuote: "Unavuttum vevasayikku uyiruttuvom",
     joinCommunity: "Join Our Community",
     roles: {
       farmer: {
@@ -217,7 +217,7 @@ export const translations = {
   Tamil: {
     tagline: "விவசாயிகளை மேம்படுத்துதல், புத்துணர்ச்சியை வழங்குதல்",
     quote: "உணவுத்துறை வேவசாயிக்கு உயிருத்துவோம்",
-    inspirationalQuote: "உணவுத்துறை வேவசாயிக்கு உயிருத்துவோம்",
+    inspirationalQuote: "உணவுத்தும் வேவசாயிக்கு உயிருத்துவோம்",
     joinCommunity: "எங்கள் சமூகத்தில் சேரவும்",
     roles: {
       farmer: {
