@@ -107,6 +107,7 @@ export default function RetailAuthPage() {
       phone: "",
       password: "",
       confirmPassword: "",
+      passkeyCredentialId: undefined,
     },
   });
 
