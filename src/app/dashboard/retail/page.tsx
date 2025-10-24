@@ -216,52 +216,100 @@ export default function RetailDashboard() {
                 </Card>
             </div>
 
-            {/* Stats Cards */}
-            <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
-                <Card>
-                    <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-                        <CardTitle className="text-sm font-medium">Total Orders</CardTitle>
-                        <ShoppingCart className="h-4 w-4 text-muted-foreground" />
-                    </CardHeader>
-                    <CardContent>
-                        <div className="text-2xl font-bold">{stats.totalOrders}</div>
-                        <p className="text-xs text-muted-foreground">+12% from last month</p>
-                    </CardContent>
-                </Card>
+            {/* Main Content Tabs */}
+            <Tabs value={activeTab} onValueChange={setActiveTab} className="space-y-4">
+                <TabsList className="grid w-full grid-cols-4">
+                    <TabsTrigger value="overview">Overview</TabsTrigger>
+                    <TabsTrigger value="inventory">Inventory</TabsTrigger>
+                    <TabsTrigger value="orders">Orders</TabsTrigger>
+                    <TabsTrigger value="analytics">Analytics</TabsTrigger>
+                </TabsList>
 
-                <Card>
-                    <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-                        <CardTitle className="text-sm font-medium">Pending Deliveries</CardTitle>
-                        <Truck className="h-4 w-4 text-muted-foreground" />
-                    </CardHeader>
-                    <CardContent>
-                        <div className="text-2xl font-bold">{stats.pendingDeliveries}</div>
-                        <p className="text-xs text-muted-foreground">-2 from yesterday</p>
-                    </CardContent>
-                </Card>
+                <TabsContent value="overview" className="space-y-4">
+                    {/* Monthly Stats Cards */}
+                    <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
+                        <Card>
+                            <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+                                <CardTitle className="text-sm font-medium">Total Orders</CardTitle>
+                                <ShoppingCart className="h-4 w-4 text-muted-foreground" />
+                            </CardHeader>
+                            <CardContent>
+                                <div className="text-2xl font-bold">{stats.totalOrders}</div>
+                                <p className="text-xs text-muted-foreground">
+                                    <TrendingUp className="inline h-3 w-3 mr-1" />
+                                    +12% from last month
+                                </p>
+                            </CardContent>
+                        </Card>
 
-                <Card>
-                    <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-                        <CardTitle className="text-sm font-medium">Total Spent</CardTitle>
-                        <DollarSign className="h-4 w-4 text-muted-foreground" />
-                    </CardHeader>
-                    <CardContent>
-                        <div className="text-2xl font-bold">₹{stats.totalSpent.toLocaleString()}</div>
-                        <p className="text-xs text-muted-foreground">+8% from last month</p>
-                    </CardContent>
-                </Card>
+                        <Card>
+                            <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+                                <CardTitle className="text-sm font-medium">Monthly Revenue</CardTitle>
+                                <DollarSign className="h-4 w-4 text-muted-foreground" />
+                            </CardHeader>
+                            <CardContent>
+                                <div className="text-2xl font-bold">₹{stats.monthlyRevenue.toLocaleString()}</div>
+                                <p className="text-xs text-muted-foreground">
+                                    <TrendingUp className="inline h-3 w-3 mr-1" />
+                                    +8% from last month
+                                </p>
+                            </CardContent>
+                        </Card>
 
-                <Card>
-                    <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-                        <CardTitle className="text-sm font-medium">Active Products</CardTitle>
-                        <Package className="h-4 w-4 text-muted-foreground" />
-                    </CardHeader>
-                    <CardContent>
-                        <div className="text-2xl font-bold">{stats.activeProducts}</div>
-                        <p className="text-xs text-muted-foreground">+15 new this week</p>
-                    </CardContent>
-                </Card>
-            </div>
+                        <Card>
+                            <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+                                <CardTitle className="text-sm font-medium">Customer Rating</CardTitle>
+                                <Star className="h-4 w-4 text-muted-foreground" />
+                            </CardHeader>
+                            <CardContent>
+                                <div className="text-2xl font-bold">{stats.customerSatisfaction}</div>
+                                <p className="text-xs text-muted-foreground">
+                                    <Star className="inline h-3 w-3 mr-1 fill-yellow-400 text-yellow-400" />
+                                    Excellent rating
+                                </p>
+                            </CardContent>
+                        </Card>
+
+                        <Card>
+                            <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+                                <CardTitle className="text-sm font-medium">Inventory Value</CardTitle>
+                                <Package className="h-4 w-4 text-muted-foreground" />
+                            </CardHeader>
+                            <CardContent>
+                                <div className="text-2xl font-bold">₹{stats.inventoryValue.toLocaleString()}</div>
+                                <p className="text-xs text-muted-foreground">
+                                    <AlertCircle className="inline h-3 w-3 mr-1 text-orange-500" />
+                                    {stats.lowStockItems} low stock items
+                                </p>
+                            </CardContent>
+                        </Card>
+                    </div>
+
+                    {/* Quick Actions */}
+                    <Card>
+                        <CardHeader>
+                            <CardTitle className="flex items-center gap-2">
+                                <Zap className="h-5 w-5" />
+                                Quick Actions
+                            </CardTitle>
+                            <CardDescription>Frequently used actions for your retail operations</CardDescription>
+                        </CardHeader>
+                        <CardContent>
+                            <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
+                                {quickActions.map((action, index) => (
+                                    <Button key={index} variant="outline" className="h-20 flex-col" asChild>
+                                        <Link href={action.href}>
+                                            <div className={`p-2 rounded-full ${action.color} text-white mb-2`}>
+                                                <action.icon className="h-6 w-6" />
+                                            </div>
+                                            <span>{action.name}</span>
+                                        </Link>
+                                    </Button>
+                                ))}
+                            </div>
+                        </CardContent>
+                    </Card>
+                </TabsContent>
 
             {/* Quick Actions */}
             <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
