@@ -325,7 +325,7 @@ export default function RetailDashboard() {
                             </Button>
                         </div>
                     </div>
-                    
+
                     <div className="grid gap-4">
                         {inventory.map((item, index) => (
                             <Card key={index} className={item.stock <= item.minStock ? "border-orange-200 bg-orange-50" : ""}>
@@ -346,8 +346,8 @@ export default function RetailDashboard() {
                                                 <p className="text-sm text-muted-foreground">Stock: {item.stock} kg</p>
                                             </div>
                                             <div className="w-24">
-                                                <Progress 
-                                                    value={(item.stock / (item.minStock * 2)) * 100} 
+                                                <Progress
+                                                    value={(item.stock / (item.minStock * 2)) * 100}
                                                     className="h-2"
                                                 />
                                                 {item.stock <= item.minStock && (
@@ -374,7 +374,7 @@ export default function RetailDashboard() {
                             New Order
                         </Button>
                     </div>
-                    
+
                     <div className="space-y-4">
                         {orders.map((order) => (
                             <Card key={order.id}>
@@ -427,13 +427,13 @@ export default function RetailDashboard() {
                                     <span className="font-semibold">94%</span>
                                 </div>
                                 <Progress value={94} className="h-2" />
-                                
+
                                 <div className="flex justify-between items-center">
                                     <span className="text-sm">Customer Retention</span>
                                     <span className="font-semibold">87%</span>
                                 </div>
                                 <Progress value={87} className="h-2" />
-                                
+
                                 <div className="flex justify-between items-center">
                                     <span className="text-sm">Supplier Reliability</span>
                                     <span className="font-semibold">91%</span>
@@ -456,7 +456,7 @@ export default function RetailDashboard() {
                                 </div>
                                 <Progress value={83} className="h-2" />
                                 <p className="text-xs text-muted-foreground">₹125K achieved (83%)</p>
-                                
+
                                 <div className="flex justify-between items-center">
                                     <span className="text-sm">Orders Target</span>
                                     <span className="font-semibold">100</span>
@@ -469,33 +469,26 @@ export default function RetailDashboard() {
                 </TabsContent>
             </Tabs>
 
-            {/* Recent Orders and Suppliers */}
-            <div className="grid gap-4 md:grid-cols-2">
+            {/* Bottom Section - Recent Activities and Suppliers */}
+            <div className="grid gap-4 md:grid-cols-3">
                 <Card>
                     <CardHeader>
-                        <CardTitle>Recent Orders</CardTitle>
-                        <CardDescription>Your latest purchase orders</CardDescription>
+                        <CardTitle className="flex items-center gap-2">
+                            <Clock className="h-5 w-5" />
+                            Recent Activities
+                        </CardTitle>
+                        <CardDescription>Latest updates and notifications</CardDescription>
                     </CardHeader>
                     <CardContent>
                         <div className="space-y-4">
-                            {orders.map((order) => (
-                                <div key={order.id} className="flex items-center justify-between p-3 border rounded-lg">
-                                    <div className="flex-1">
-                                        <div className="flex items-center gap-2">
-                                            <span className="font-medium">{order.id}</span>
-                                            <Badge variant={
-                                                order.status === 'delivered' ? 'default' :
-                                                    order.status === 'pending' ? 'secondary' : 'outline'
-                                            }>
-                                                {order.status}
-                                            </Badge>
-                                        </div>
-                                        <p className="text-sm text-muted-foreground">{order.supplier}</p>
-                                        <p className="text-sm">{order.items} - {order.quantity}</p>
+                            {recentActivities.map((activity, index) => (
+                                <div key={index} className="flex items-start gap-3">
+                                    <div className="p-2 bg-gray-100 rounded-full">
+                                        <activity.icon className="h-4 w-4" />
                                     </div>
-                                    <div className="text-right">
-                                        <p className="font-medium">₹{order.amount}</p>
-                                        <p className="text-xs text-muted-foreground">{order.date}</p>
+                                    <div className="flex-1">
+                                        <p className="text-sm">{activity.message}</p>
+                                        <p className="text-xs text-muted-foreground">{activity.time}</p>
                                     </div>
                                 </div>
                             ))}
@@ -505,34 +498,112 @@ export default function RetailDashboard() {
 
                 <Card>
                     <CardHeader>
-                        <CardTitle>Top Suppliers</CardTitle>
-                        <CardDescription>Your most reliable suppliers</CardDescription>
+                        <CardTitle className="flex items-center gap-2">
+                            <Building className="h-5 w-5" />
+                            Top Suppliers
+                        </CardTitle>
+                        <CardDescription>Your most reliable partners</CardDescription>
                     </CardHeader>
                     <CardContent>
                         <div className="space-y-4">
                             {suppliers.map((supplier, index) => (
-                                <div key={index} className="flex items-center justify-between p-3 border rounded-lg">
+                                <div key={index} className="flex items-center justify-between">
                                     <div className="flex items-center gap-3">
-                                        <div className="w-10 h-10 bg-green-100 rounded-full flex items-center justify-center">
-                                            <Building className="h-5 w-5 text-green-600" />
+                                        <div className={`w-8 h-8 rounded-full flex items-center justify-center ${supplier.status === 'active' ? 'bg-green-100' : 'bg-orange-100'
+                                            }`}>
+                                            <Building className={`h-4 w-4 ${supplier.status === 'active' ? 'text-green-600' : 'text-orange-600'
+                                                }`} />
                                         </div>
                                         <div>
-                                            <p className="font-medium">{supplier.name}</p>
-                                            <p className="text-sm text-muted-foreground">{supplier.category}</p>
+                                            <p className="font-medium text-sm">{supplier.name}</p>
+                                            <p className="text-xs text-muted-foreground">{supplier.category}</p>
                                         </div>
                                     </div>
                                     <div className="text-right">
                                         <div className="flex items-center gap-1">
-                                            <span className="text-sm">⭐ {supplier.rating}</span>
+                                            <Star className="h-3 w-3 fill-yellow-400 text-yellow-400" />
+                                            <span className="text-xs">{supplier.rating}</span>
                                         </div>
-                                        <p className="text-xs text-muted-foreground">{supplier.orders} orders</p>
+                                        <Badge variant={supplier.status === 'active' ? 'default' : 'secondary'} className="text-xs">
+                                            {supplier.status}
+                                        </Badge>
                                     </div>
                                 </div>
                             ))}
                         </div>
                     </CardContent>
                 </Card>
+
+                <Card>
+                    <CardHeader>
+                        <CardTitle className="flex items-center gap-2">
+                            <Leaf className="h-5 w-5" />
+                            Sustainability Metrics
+                        </CardTitle>
+                        <CardDescription>Your environmental impact</CardDescription>
+                    </CardHeader>
+                    <CardContent className="space-y-4">
+                        <div>
+                            <div className="flex justify-between items-center mb-2">
+                                <span className="text-sm">Local Sourcing</span>
+                                <span className="font-semibold">78%</span>
+                            </div>
+                            <Progress value={78} className="h-2" />
+                        </div>
+
+                        <div>
+                            <div className="flex justify-between items-center mb-2">
+                                <span className="text-sm">Organic Products</span>
+                                <span className="font-semibold">65%</span>
+                            </div>
+                            <Progress value={65} className="h-2" />
+                        </div>
+
+                        <div>
+                            <div className="flex justify-between items-center mb-2">
+                                <span className="text-sm">Waste Reduction</span>
+                                <span className="font-semibold">82%</span>
+                            </div>
+                            <Progress value={82} className="h-2" />
+                        </div>
+
+                        <div className="pt-2 border-t">
+                            <div className="flex items-center gap-2 text-green-600">
+                                <Leaf className="h-4 w-4" />
+                                <span className="text-sm font-medium">Eco-Friendly Store</span>
+                            </div>
+                            <p className="text-xs text-muted-foreground mt-1">
+                                You're contributing to sustainable agriculture!
+                            </p>
+                        </div>
+                    </CardContent>
+                </Card>
             </div>
+
+            {/* Voice Assistant Integration */}
+            <Card className="bg-gradient-to-r from-blue-50 to-purple-50 border-blue-200">
+                <CardContent className="p-6">
+                    <div className="flex items-center justify-between">
+                        <div className="flex items-center gap-4">
+                            <div className="p-3 bg-blue-100 rounded-full">
+                                <Mic className="h-6 w-6 text-blue-600" />
+                            </div>
+                            <div>
+                                <h3 className="font-semibold">Voice Assistant</h3>
+                                <p className="text-sm text-muted-foreground">
+                                    Ask me about orders, inventory, or get quick insights
+                                </p>
+                            </div>
+                        </div>
+                        <Button asChild>
+                            <Link href="/dashboard/voice-assistant">
+                                <Mic className="h-4 w-4 mr-2" />
+                                Start Voice Chat
+                            </Link>
+                        </Button>
+                    </div>
+                </CardContent>
+            </Card>
         </div>
     );
 }
