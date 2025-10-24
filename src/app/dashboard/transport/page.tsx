@@ -287,52 +287,100 @@ export default function TransportDashboard() {
                 </Card>
             </div>
 
-            {/* Stats Cards */}
-            <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
-                <Card>
-                    <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-                        <CardTitle className="text-sm font-medium">Active Deliveries</CardTitle>
-                        <Truck className="h-4 w-4 text-muted-foreground" />
-                    </CardHeader>
-                    <CardContent>
-                        <div className="text-2xl font-bold">{stats.activeDeliveries}</div>
-                        <p className="text-xs text-muted-foreground">+3 from yesterday</p>
-                    </CardContent>
-                </Card>
+            {/* Main Content Tabs */}
+            <Tabs value={activeTab} onValueChange={setActiveTab} className="space-y-4">
+                <TabsList className="grid w-full grid-cols-4">
+                    <TabsTrigger value="overview">Overview</TabsTrigger>
+                    <TabsTrigger value="fleet">Fleet</TabsTrigger>
+                    <TabsTrigger value="deliveries">Deliveries</TabsTrigger>
+                    <TabsTrigger value="analytics">Analytics</TabsTrigger>
+                </TabsList>
 
-                <Card>
-                    <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-                        <CardTitle className="text-sm font-medium">Completed Today</CardTitle>
-                        <CheckCircle className="h-4 w-4 text-muted-foreground" />
-                    </CardHeader>
-                    <CardContent>
-                        <div className="text-2xl font-bold">{stats.completedToday}</div>
-                        <p className="text-xs text-muted-foreground">+5 from yesterday</p>
-                    </CardContent>
-                </Card>
+                <TabsContent value="overview" className="space-y-4">
+                    {/* Monthly Stats Cards */}
+                    <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
+                        <Card>
+                            <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+                                <CardTitle className="text-sm font-medium">Active Deliveries</CardTitle>
+                                <Truck className="h-4 w-4 text-muted-foreground" />
+                            </CardHeader>
+                            <CardContent>
+                                <div className="text-2xl font-bold">{stats.activeDeliveries}</div>
+                                <p className="text-xs text-muted-foreground">
+                                    <TrendingUp className="inline h-3 w-3 mr-1" />
+                                    +3 from yesterday
+                                </p>
+                            </CardContent>
+                        </Card>
 
-                <Card>
-                    <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-                        <CardTitle className="text-sm font-medium">Total Revenue</CardTitle>
-                        <DollarSign className="h-4 w-4 text-muted-foreground" />
-                    </CardHeader>
-                    <CardContent>
-                        <div className="text-2xl font-bold">₹{stats.totalRevenue.toLocaleString()}</div>
-                        <p className="text-xs text-muted-foreground">+12% from last month</p>
-                    </CardContent>
-                </Card>
+                        <Card>
+                            <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+                                <CardTitle className="text-sm font-medium">Monthly Revenue</CardTitle>
+                                <DollarSign className="h-4 w-4 text-muted-foreground" />
+                            </CardHeader>
+                            <CardContent>
+                                <div className="text-2xl font-bold">₹{stats.totalRevenue.toLocaleString()}</div>
+                                <p className="text-xs text-muted-foreground">
+                                    <TrendingUp className="inline h-3 w-3 mr-1" />
+                                    +12% from last month
+                                </p>
+                            </CardContent>
+                        </Card>
 
-                <Card>
-                    <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-                        <CardTitle className="text-sm font-medium">Active Vehicles</CardTitle>
-                        <Navigation className="h-4 w-4 text-muted-foreground" />
-                    </CardHeader>
-                    <CardContent>
-                        <div className="text-2xl font-bold">{stats.activeVehicles}</div>
-                        <p className="text-xs text-muted-foreground">2 in maintenance</p>
-                    </CardContent>
-                </Card>
-            </div>
+                        <Card>
+                            <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+                                <CardTitle className="text-sm font-medium">Customer Rating</CardTitle>
+                                <Star className="h-4 w-4 text-muted-foreground" />
+                            </CardHeader>
+                            <CardContent>
+                                <div className="text-2xl font-bold">{stats.customerRating}</div>
+                                <p className="text-xs text-muted-foreground">
+                                    <Star className="inline h-3 w-3 mr-1 fill-yellow-400 text-yellow-400" />
+                                    Excellent service
+                                </p>
+                            </CardContent>
+                        </Card>
+
+                        <Card>
+                            <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+                                <CardTitle className="text-sm font-medium">On-Time Delivery</CardTitle>
+                                <Timer className="h-4 w-4 text-muted-foreground" />
+                            </CardHeader>
+                            <CardContent>
+                                <div className="text-2xl font-bold">{stats.onTimeDelivery}%</div>
+                                <p className="text-xs text-muted-foreground">
+                                    <CheckCircle className="inline h-3 w-3 mr-1 text-green-500" />
+                                    Above target
+                                </p>
+                            </CardContent>
+                        </Card>
+                    </div>
+
+                    {/* Quick Actions */}
+                    <Card>
+                        <CardHeader>
+                            <CardTitle className="flex items-center gap-2">
+                                <Zap className="h-5 w-5" />
+                                Quick Actions
+                            </CardTitle>
+                            <CardDescription>Frequently used actions for transport operations</CardDescription>
+                        </CardHeader>
+                        <CardContent>
+                            <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
+                                {quickActions.map((action, index) => (
+                                    <Button key={index} variant="outline" className="h-20 flex-col" asChild>
+                                        <Link href={action.href}>
+                                            <div className={`p-2 rounded-full ${action.color} text-white mb-2`}>
+                                                <action.icon className="h-6 w-6" />
+                                            </div>
+                                            <span>{action.name}</span>
+                                        </Link>
+                                    </Button>
+                                ))}
+                            </div>
+                        </CardContent>
+                    </Card>
+                </TabsContent>
 
             {/* Quick Actions */}
             <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
