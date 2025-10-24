@@ -601,7 +601,7 @@ export default function TransportDashboard() {
             <div className="grid gap-4 md:grid-cols-3">
                 <Card>
                     <CardHeader>
-                        <CardTitle className="flex items-center gap-2">
+                        <CardTitle className="flex items-center gap-2 text-lg">
                             <Activity className="h-5 w-5" />
                             Recent Activities
                         </CardTitle>
@@ -626,7 +626,7 @@ export default function TransportDashboard() {
 
                 <Card>
                     <CardHeader>
-                        <CardTitle className="flex items-center gap-2">
+                        <CardTitle className="flex items-center gap-2 text-lg">
                             <Users className="h-5 w-5" />
                             Driver Performance
                         </CardTitle>
@@ -668,7 +668,7 @@ export default function TransportDashboard() {
 
                 <Card>
                     <CardHeader>
-                        <CardTitle className="flex items-center gap-2">
+                        <CardTitle className="flex items-center gap-2 text-lg">
                             <Gauge className="h-5 w-5" />
                             Fleet Health
                         </CardTitle>
