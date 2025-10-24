@@ -60,12 +60,12 @@ function Sidebar({ className, onSignOut }: { className?: string; onSignOut: () =
   }
 
   return (
-    <div className={cn("pb-4 bg-gradient-to-b from-orange-50/30 via-amber-50/30 to-yellow-50/30 dark:from-orange-950/30 dark:via-amber-950/30 dark:to-yellow-950/30 flex flex-col h-full", className)}>
+    <div className={cn("pb-4 bg-gradient-to-b from-emerald-50/30 via-green-50/30 to-lime-50/30 dark:from-emerald-950/30 dark:via-green-950/30 dark:to-lime-950/30 flex flex-col h-full", className)}>
       <div className="flex-1 space-y-4 py-4">
         <div className="px-3 py-2">
-          <div className="flex items-center gap-2 mb-6 p-3 rounded-lg bg-gradient-to-r from-orange-100 to-amber-100 dark:from-orange-900 dark:to-amber-900 border border-orange-200 dark:border-orange-700">
-            <Truck className="h-5 w-5 text-orange-600 dark:text-orange-400" />
-            <h2 className="text-lg font-semibold text-orange-800 dark:text-orange-200">
+          <div className="flex items-center gap-2 mb-6 p-3 rounded-lg bg-gradient-to-r from-emerald-100 to-green-100 dark:from-emerald-900 dark:to-green-900 border border-emerald-200 dark:border-emerald-700">
+            <Truck className="h-5 w-5 text-emerald-600 dark:text-emerald-400" />
+            <h2 className="text-lg font-semibold text-emerald-800 dark:text-emerald-200">
               Transport Portal
             </h2>
           </div>
@@ -75,13 +75,13 @@ function Sidebar({ className, onSignOut }: { className?: string; onSignOut: () =
                 <Button
                   variant={pathname === item.href ? "secondary" : "ghost"}
                   className={cn(
-                    "w-full justify-start hover:bg-orange-100 dark:hover:bg-orange-900",
-                    pathname === item.href && "bg-gradient-to-r from-orange-200 to-amber-200 dark:from-orange-800 dark:to-amber-800 text-orange-800 dark:text-orange-200 border border-orange-300 dark:border-orange-600"
+                    "w-full justify-start hover:bg-emerald-100 dark:hover:bg-emerald-900",
+                    pathname === item.href && "bg-gradient-to-r from-emerald-200 to-green-200 dark:from-emerald-800 dark:to-green-800 text-emerald-800 dark:text-emerald-200 border border-emerald-300 dark:border-emerald-600"
                   )}
                 >
                   <item.icon className={cn(
                     "mr-2 h-4 w-4",
-                    pathname === item.href ? "text-orange-700 dark:text-orange-300" : "text-orange-600 dark:text-orange-400"
+                    pathname === item.href ? "text-emerald-700 dark:text-emerald-300" : "text-emerald-600 dark:text-emerald-400"
                   )} />
                   {item.title}
                 </Button>
@@ -90,21 +90,21 @@ function Sidebar({ className, onSignOut }: { className?: string; onSignOut: () =
           </div>
         </div>
       </div>
-      <div className="px-3 py-3 border-t-2 border-gradient-to-r from-orange-200 via-amber-200 to-yellow-200 dark:from-orange-700 dark:via-amber-700 dark:to-yellow-700 bg-gradient-to-r from-orange-50/50 via-amber-50/50 to-yellow-50/50 dark:from-orange-950/50 dark:via-amber-950/50 dark:to-yellow-950/50">
+      <div className="px-3 py-3 border-t-2 border-gradient-to-r from-emerald-200 via-green-200 to-lime-200 dark:from-emerald-700 dark:via-green-700 dark:to-lime-700 bg-gradient-to-r from-emerald-50/50 via-green-50/50 to-lime-50/50 dark:from-emerald-950/50 dark:via-green-950/50 dark:to-lime-950/50">
         <Button
           onClick={onSignOut}
           variant="ghost"
-          className="w-full justify-start group relative overflow-hidden bg-gradient-to-r from-orange-100 via-amber-100 to-yellow-100 dark:from-orange-900 dark:via-amber-900 dark:to-yellow-900 hover:from-orange-500 hover:via-amber-500 hover:to-yellow-500 dark:hover:from-orange-600 dark:hover:via-amber-600 dark:hover:to-yellow-600 text-orange-700 dark:text-orange-300 hover:text-white dark:hover:text-white border-2 border-orange-200 dark:border-orange-700 hover:border-amber-400 dark:hover:border-amber-500 transition-all duration-500 hover:scale-105 hover:shadow-xl hover:shadow-orange-200 dark:hover:shadow-orange-900/50 rounded-xl p-3"
+          className="w-full justify-start group relative overflow-hidden bg-gradient-to-r from-green-100 via-emerald-100 to-lime-100 dark:from-green-900 dark:via-emerald-900 dark:to-lime-900 hover:from-green-500 hover:via-emerald-500 hover:to-lime-500 dark:hover:from-green-600 dark:hover:via-emerald-600 dark:hover:to-lime-600 text-green-700 dark:text-green-300 hover:text-white dark:hover:text-white border-2 border-emerald-200 dark:border-emerald-700 hover:border-green-400 dark:hover:border-green-500 transition-all duration-500 hover:scale-105 hover:shadow-xl hover:shadow-green-200 dark:hover:shadow-green-900/50 rounded-xl p-3"
         >
-          <div className="absolute inset-0 bg-gradient-to-r from-orange-500/0 via-amber-500/0 to-yellow-500/0 group-hover:from-orange-500/30 group-hover:via-amber-500/30 group-hover:to-yellow-500/30 transition-all duration-500 rounded-xl"></div>
-          <div className="absolute inset-0 rounded-xl opacity-0 group-hover:opacity-100 group-hover:animate-ping bg-gradient-to-r from-orange-400/20 via-amber-400/20 to-yellow-400/20 transition-all duration-300"></div>
+          <div className="absolute inset-0 bg-gradient-to-r from-green-500/0 via-emerald-500/0 to-lime-500/0 group-hover:from-green-500/30 group-hover:via-emerald-500/30 group-hover:to-lime-500/30 transition-all duration-500 rounded-xl"></div>
+          <div className="absolute inset-0 rounded-xl opacity-0 group-hover:opacity-100 group-hover:animate-ping bg-gradient-to-r from-green-400/20 via-emerald-400/20 to-lime-400/20 transition-all duration-300"></div>
           <Power className="mr-3 h-5 w-5 group-hover:animate-bounce relative z-10 transition-all duration-300" />
           <span className="relative z-10 font-bold text-sm group-hover:text-base transition-all duration-300">
             🚪 Sign Out
           </span>
           <DoorOpen className="ml-auto h-5 w-5 opacity-0 group-hover:opacity-100 transition-all duration-500 relative z-10 group-hover:translate-x-1" />
-          <div className="absolute top-1 right-1 w-2 h-2 bg-yellow-400 rounded-full opacity-0 group-hover:opacity-100 group-hover:animate-ping transition-all duration-700 delay-200"></div>
-          <div className="absolute bottom-1 left-8 w-1 h-1 bg-amber-400 rounded-full opacity-0 group-hover:opacity-100 group-hover:animate-ping transition-all duration-700 delay-400"></div>
+          <div className="absolute top-1 right-1 w-2 h-2 bg-lime-400 rounded-full opacity-0 group-hover:opacity-100 group-hover:animate-ping transition-all duration-700 delay-200"></div>
+          <div className="absolute bottom-1 left-8 w-1 h-1 bg-green-400 rounded-full opacity-0 group-hover:opacity-100 group-hover:animate-ping transition-all duration-700 delay-400"></div>
         </Button>
       </div>
     </div>
@@ -196,7 +196,7 @@ export default function TransportLayout({ children }: { children: React.ReactNod
 
   return (
     <div className="grid min-h-screen w-full md:grid-cols-[220px_1fr] lg:grid-cols-[280px_1fr]">
-      <div className="hidden border-r border-orange-200 dark:border-orange-700 bg-gradient-to-b from-orange-50/50 to-amber-50/50 dark:from-orange-950/50 dark:to-amber-950/50 md:block">
+      <div className="hidden border-r border-emerald-200 dark:border-emerald-700 bg-gradient-to-b from-emerald-50/50 to-green-50/50 dark:from-emerald-950/50 dark:to-green-950/50 md:block">
         <div className="flex h-full max-h-screen flex-col">
           <Sidebar onSignOut={handleSignOut} />
         </div>
