@@ -74,13 +74,13 @@ function Sidebar({ className, onSignOut }: { className?: string; onSignOut: () =
                 <Button
                   variant={pathname === item.href ? "secondary" : "ghost"}
                   className={cn(
-                    "w-full justify-start hover:bg-blue-100 dark:hover:bg-blue-900",
-                    pathname === item.href && "bg-gradient-to-r from-blue-200 to-indigo-200 dark:from-blue-800 dark:to-indigo-800 text-blue-800 dark:text-blue-200 border border-blue-300 dark:border-blue-600"
+                    "w-full justify-start hover:bg-emerald-100 dark:hover:bg-emerald-900",
+                    pathname === item.href && "bg-gradient-to-r from-emerald-200 to-green-200 dark:from-emerald-800 dark:to-green-800 text-emerald-800 dark:text-emerald-200 border border-emerald-300 dark:border-emerald-600"
                   )}
                 >
                   <item.icon className={cn(
                     "mr-2 h-4 w-4",
-                    pathname === item.href ? "text-blue-700 dark:text-blue-300" : "text-blue-600 dark:text-blue-400"
+                    pathname === item.href ? "text-emerald-700 dark:text-emerald-300" : "text-emerald-600 dark:text-emerald-400"
                   )} />
                   {item.title}
                 </Button>
@@ -89,7 +89,7 @@ function Sidebar({ className, onSignOut }: { className?: string; onSignOut: () =
           </div>
         </div>
       </div>
-      <div className="px-3 py-3 border-t-2 border-gradient-to-r from-blue-200 via-indigo-200 to-purple-200 dark:from-blue-700 dark:via-indigo-700 dark:to-purple-700 bg-gradient-to-r from-blue-50/50 via-indigo-50/50 to-purple-50/50 dark:from-blue-950/50 dark:via-indigo-950/50 dark:to-purple-950/50">
+      <div className="px-3 py-3 border-t-2 border-gradient-to-r from-emerald-200 via-green-200 to-lime-200 dark:from-emerald-700 dark:via-green-700 dark:to-lime-700 bg-gradient-to-r from-emerald-50/50 via-green-50/50 to-lime-50/50 dark:from-emerald-950/50 dark:via-green-950/50 dark:to-lime-950/50">
         <Button
           onClick={onSignOut}
           variant="ghost"
