@@ -2,7 +2,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { AppLayout } from "@/components/app-layout";
+
 import {
   Card,
   CardHeader,
@@ -244,8 +244,8 @@ export default function ProfilePage() {
   };
 
   return (
-    <AppLayout>
-      <div className="flex-1 space-y-4 p-4 md:p-8 pt-6">
+    <div className="min-h-screen bg-background">
+      <div className="container mx-auto space-y-4 p-4 md:p-8 pt-6">
         <div className="flex items-center justify-between space-y-2">
           <div>
             <h2 className="text-3xl font-bold tracking-tight">{t.profile.title}</h2>
