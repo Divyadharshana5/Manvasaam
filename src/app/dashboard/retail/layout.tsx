@@ -93,17 +93,17 @@ function Sidebar({ className, onSignOut }: { className?: string; onSignOut: () =
         <Button
           onClick={onSignOut}
           variant="ghost"
-          className="w-full justify-start group relative overflow-hidden bg-gradient-to-r from-blue-100 via-indigo-100 to-purple-100 dark:from-blue-900 dark:via-indigo-900 dark:to-purple-900 hover:from-blue-500 hover:via-indigo-500 hover:to-purple-500 dark:hover:from-blue-600 dark:hover:via-indigo-600 dark:hover:to-purple-600 text-blue-700 dark:text-blue-300 hover:text-white dark:hover:text-white border-2 border-blue-200 dark:border-blue-700 hover:border-indigo-400 dark:hover:border-indigo-500 transition-all duration-500 hover:scale-105 hover:shadow-xl hover:shadow-blue-200 dark:hover:shadow-blue-900/50 rounded-xl p-3"
+          className="w-full justify-start group relative overflow-hidden bg-gradient-to-r from-green-100 via-emerald-100 to-lime-100 dark:from-green-900 dark:via-emerald-900 dark:to-lime-900 hover:from-green-500 hover:via-emerald-500 hover:to-lime-500 dark:hover:from-green-600 dark:hover:via-emerald-600 dark:hover:to-lime-600 text-green-700 dark:text-green-300 hover:text-white dark:hover:text-white border-2 border-emerald-200 dark:border-emerald-700 hover:border-green-400 dark:hover:border-green-500 transition-all duration-500 hover:scale-105 hover:shadow-xl hover:shadow-green-200 dark:hover:shadow-green-900/50 rounded-xl p-3"
         >
-          <div className="absolute inset-0 bg-gradient-to-r from-blue-500/0 via-indigo-500/0 to-purple-500/0 group-hover:from-blue-500/30 group-hover:via-indigo-500/30 group-hover:to-purple-500/30 transition-all duration-500 rounded-xl"></div>
-          <div className="absolute inset-0 rounded-xl opacity-0 group-hover:opacity-100 group-hover:animate-ping bg-gradient-to-r from-blue-400/20 via-indigo-400/20 to-purple-400/20 transition-all duration-300"></div>
+          <div className="absolute inset-0 bg-gradient-to-r from-green-500/0 via-emerald-500/0 to-lime-500/0 group-hover:from-green-500/30 group-hover:via-emerald-500/30 group-hover:to-lime-500/30 transition-all duration-500 rounded-xl"></div>
+          <div className="absolute inset-0 rounded-xl opacity-0 group-hover:opacity-100 group-hover:animate-ping bg-gradient-to-r from-green-400/20 via-emerald-400/20 to-lime-400/20 transition-all duration-300"></div>
           <Power className="mr-3 h-5 w-5 group-hover:animate-bounce relative z-10 transition-all duration-300" />
           <span className="relative z-10 font-bold text-sm group-hover:text-base transition-all duration-300">
             🚪 Sign Out
           </span>
           <DoorOpen className="ml-auto h-5 w-5 opacity-0 group-hover:opacity-100 transition-all duration-500 relative z-10 group-hover:translate-x-1" />
-          <div className="absolute top-1 right-1 w-2 h-2 bg-purple-400 rounded-full opacity-0 group-hover:opacity-100 group-hover:animate-ping transition-all duration-700 delay-200"></div>
-          <div className="absolute bottom-1 left-8 w-1 h-1 bg-indigo-400 rounded-full opacity-0 group-hover:opacity-100 group-hover:animate-ping transition-all duration-700 delay-400"></div>
+          <div className="absolute top-1 right-1 w-2 h-2 bg-lime-400 rounded-full opacity-0 group-hover:opacity-100 group-hover:animate-ping transition-all duration-700 delay-200"></div>
+          <div className="absolute bottom-1 left-8 w-1 h-1 bg-green-400 rounded-full opacity-0 group-hover:opacity-100 group-hover:animate-ping transition-all duration-700 delay-400"></div>
         </Button>
       </div>
     </div>
