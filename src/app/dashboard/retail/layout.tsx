@@ -216,14 +216,14 @@ export default function RetailLayout({ children }: { children: React.ReactNode }
           </div>
         </div>
         
-        <div className="border-b border-blue-200 dark:border-blue-700 bg-gradient-to-r from-blue-50 to-indigo-50 dark:from-blue-950 dark:to-indigo-950 p-4">
+        <div className="border-b border-emerald-200 dark:border-emerald-700 bg-gradient-to-r from-emerald-50 to-green-50 dark:from-emerald-950 dark:to-green-950 p-4">
           <div className="flex items-center justify-between">
-            <h2 className="text-lg font-semibold text-blue-800 dark:text-blue-200">Retail Management Portal</h2>
+            <h2 className="text-lg font-semibold text-emerald-800 dark:text-emerald-200">Retail Management Portal</h2>
             <Button 
               className={`font-semibold px-6 py-2 rounded-full shadow-lg transition-all duration-300 hover:scale-105 ${
                 isListening 
                   ? 'bg-red-500 hover:bg-red-600 animate-pulse' 
-                  : 'bg-gradient-to-r from-blue-500 via-indigo-500 to-purple-500 hover:from-blue-600 hover:via-indigo-600 hover:to-purple-600'
+                  : 'bg-gradient-to-r from-emerald-500 via-green-500 to-lime-500 hover:from-emerald-600 hover:via-green-600 hover:to-lime-600'
               } text-white`}
               onClick={startListening}
               disabled={isListening}
