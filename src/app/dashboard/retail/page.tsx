@@ -311,36 +311,163 @@ export default function RetailDashboard() {
                     </Card>
                 </TabsContent>
 
-            {/* Quick Actions */}
-            <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
-                <Button className="h-20 flex-col" asChild>
-                    <Link href="/dashboard/retail/orders">
-                        <ShoppingCart className="h-6 w-6 mb-2" />
-                        <span>View Orders</span>
-                    </Link>
-                </Button>
+                <TabsContent value="inventory" className="space-y-4">
+                    <div className="flex items-center justify-between">
+                        <h3 className="text-lg font-semibold">Inventory Management</h3>
+                        <div className="flex gap-2">
+                            <Button variant="outline" size="sm">
+                                <Filter className="h-4 w-4 mr-2" />
+                                Filter
+                            </Button>
+                            <Button variant="outline" size="sm">
+                                <Download className="h-4 w-4 mr-2" />
+                                Export
+                            </Button>
+                        </div>
+                    </div>
+                    
+                    <div className="grid gap-4">
+                        {inventory.map((item, index) => (
+                            <Card key={index} className={item.stock <= item.minStock ? "border-orange-200 bg-orange-50" : ""}>
+                                <CardContent className="p-4">
+                                    <div className="flex items-center justify-between">
+                                        <div className="flex items-center gap-4">
+                                            <div className="p-2 bg-green-100 rounded-lg">
+                                                <item.icon className="h-6 w-6 text-green-600" />
+                                            </div>
+                                            <div>
+                                                <h4 className="font-semibold">{item.name}</h4>
+                                                <p className="text-sm text-muted-foreground">{item.category} • {item.supplier}</p>
+                                            </div>
+                                        </div>
+                                        <div className="flex items-center gap-4">
+                                            <div className="text-right">
+                                                <p className="font-semibold">₹{item.price}/kg</p>
+                                                <p className="text-sm text-muted-foreground">Stock: {item.stock} kg</p>
+                                            </div>
+                                            <div className="w-24">
+                                                <Progress 
+                                                    value={(item.stock / (item.minStock * 2)) * 100} 
+                                                    className="h-2"
+                                                />
+                                                {item.stock <= item.minStock && (
+                                                    <p className="text-xs text-orange-600 mt-1">Low Stock!</p>
+                                                )}
+                                            </div>
+                                            <Button size="sm">
+                                                <Plus className="h-4 w-4 mr-1" />
+                                                Reorder
+                                            </Button>
+                                        </div>
+                                    </div>
+                                </CardContent>
+                            </Card>
+                        ))}
+                    </div>
+                </TabsContent>
 
-                <Button variant="outline" className="h-20 flex-col" asChild>
-                    <Link href="/dashboard/retail/products">
-                        <Package className="h-6 w-6 mb-2" />
-                        <span>Manage Products</span>
-                    </Link>
-                </Button>
+                <TabsContent value="orders" className="space-y-4">
+                    <div className="flex items-center justify-between">
+                        <h3 className="text-lg font-semibold">Recent Orders</h3>
+                        <Button>
+                            <Plus className="h-4 w-4 mr-2" />
+                            New Order
+                        </Button>
+                    </div>
+                    
+                    <div className="space-y-4">
+                        {orders.map((order) => (
+                            <Card key={order.id}>
+                                <CardContent className="p-4">
+                                    <div className="flex items-center justify-between">
+                                        <div className="flex-1">
+                                            <div className="flex items-center gap-2 mb-2">
+                                                <span className="font-medium">{order.id}</span>
+                                                <Badge variant={
+                                                    order.status === 'delivered' ? 'default' :
+                                                        order.status === 'pending' ? 'secondary' : 'outline'
+                                                }>
+                                                    {order.status}
+                                                </Badge>
+                                            </div>
+                                            <p className="text-sm text-muted-foreground">{order.supplier}</p>
+                                            <p className="text-sm">{order.items} - {order.quantity}</p>
+                                        </div>
+                                        <div className="text-right">
+                                            <p className="font-medium">₹{order.amount}</p>
+                                            <p className="text-xs text-muted-foreground">{order.date}</p>
+                                            <div className="flex gap-2 mt-2">
+                                                <Button size="sm" variant="outline">
+                                                    <Eye className="h-4 w-4" />
+                                                </Button>
+                                                <Button size="sm" variant="outline">
+                                                    <Truck className="h-4 w-4" />
+                                                </Button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </CardContent>
+                            </Card>
+                        ))}
+                    </div>
+                </TabsContent>
 
-                <Button variant="outline" className="h-20 flex-col" asChild>
-                    <Link href="/dashboard/retail/suppliers">
-                        <Users className="h-6 w-6 mb-2" />
-                        <span>Suppliers</span>
-                    </Link>
-                </Button>
+                <TabsContent value="analytics" className="space-y-4">
+                    <div className="grid gap-4 md:grid-cols-2">
+                        <Card>
+                            <CardHeader>
+                                <CardTitle className="flex items-center gap-2">
+                                    <BarChart3 className="h-5 w-5" />
+                                    Performance Metrics
+                                </CardTitle>
+                            </CardHeader>
+                            <CardContent className="space-y-4">
+                                <div className="flex justify-between items-center">
+                                    <span className="text-sm">Order Fulfillment Rate</span>
+                                    <span className="font-semibold">94%</span>
+                                </div>
+                                <Progress value={94} className="h-2" />
+                                
+                                <div className="flex justify-between items-center">
+                                    <span className="text-sm">Customer Retention</span>
+                                    <span className="font-semibold">87%</span>
+                                </div>
+                                <Progress value={87} className="h-2" />
+                                
+                                <div className="flex justify-between items-center">
+                                    <span className="text-sm">Supplier Reliability</span>
+                                    <span className="font-semibold">91%</span>
+                                </div>
+                                <Progress value={91} className="h-2" />
+                            </CardContent>
+                        </Card>
 
-                <Button variant="outline" className="h-20 flex-col" asChild>
-                    <Link href="/dashboard/voice-assistant">
-                        <Mic className="h-6 w-6 mb-2" />
-                        <span>Voice Assistant</span>
-                    </Link>
-                </Button>
-            </div>
+                        <Card>
+                            <CardHeader>
+                                <CardTitle className="flex items-center gap-2">
+                                    <Target className="h-5 w-5" />
+                                    Monthly Goals
+                                </CardTitle>
+                            </CardHeader>
+                            <CardContent className="space-y-4">
+                                <div className="flex justify-between items-center">
+                                    <span className="text-sm">Revenue Target</span>
+                                    <span className="font-semibold">₹150K</span>
+                                </div>
+                                <Progress value={83} className="h-2" />
+                                <p className="text-xs text-muted-foreground">₹125K achieved (83%)</p>
+                                
+                                <div className="flex justify-between items-center">
+                                    <span className="text-sm">Orders Target</span>
+                                    <span className="font-semibold">100</span>
+                                </div>
+                                <Progress value={89} className="h-2" />
+                                <p className="text-xs text-muted-foreground">89 orders completed</p>
+                            </CardContent>
+                        </Card>
+                    </div>
+                </TabsContent>
+            </Tabs>
 
             {/* Recent Orders and Suppliers */}
             <div className="grid gap-4 md:grid-cols-2">
