@@ -59,12 +59,12 @@ function Sidebar({ className, onSignOut }: { className?: string; onSignOut: () =
   }
 
   return (
-    <div className={cn("pb-4 bg-gradient-to-b from-blue-50/30 via-indigo-50/30 to-purple-50/30 dark:from-blue-950/30 dark:via-indigo-950/30 dark:to-purple-950/30 flex flex-col h-full", className)}>
+    <div className={cn("pb-4 bg-gradient-to-b from-emerald-50/30 via-green-50/30 to-lime-50/30 dark:from-emerald-950/30 dark:via-green-950/30 dark:to-lime-950/30 flex flex-col h-full", className)}>
       <div className="flex-1 space-y-4 py-4">
         <div className="px-3 py-2">
-          <div className="flex items-center gap-2 mb-6 p-3 rounded-lg bg-gradient-to-r from-blue-100 to-indigo-100 dark:from-blue-900 dark:to-indigo-900 border border-blue-200 dark:border-blue-700">
-            <Building className="h-5 w-5 text-blue-600 dark:text-blue-400" />
-            <h2 className="text-lg font-semibold text-blue-800 dark:text-blue-200">
+          <div className="flex items-center gap-2 mb-6 p-3 rounded-lg bg-gradient-to-r from-emerald-100 to-green-100 dark:from-emerald-900 dark:to-green-900 border border-emerald-200 dark:border-emerald-700">
+            <Building className="h-5 w-5 text-emerald-600 dark:text-emerald-400" />
+            <h2 className="text-lg font-semibold text-emerald-800 dark:text-emerald-200">
               Retail Portal
             </h2>
           </div>
