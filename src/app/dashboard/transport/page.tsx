@@ -55,13 +55,32 @@ import { useState } from "react";
 export default function TransportDashboard() {
     const [companyName] = useState("Swift Logistics");
     const [searchQuery, setSearchQuery] = useState("");
+    const [activeTab, setActiveTab] = useState("overview");
 
-    // Mock data
+    // Enhanced Mock data
     const stats = {
         activeDeliveries: 24,
         completedToday: 18,
         totalRevenue: 185000,
-        activeVehicles: 12
+        activeVehicles: 12,
+        monthlyDeliveries: 456,
+        fuelEfficiency: 12.5,
+        customerRating: 4.7,
+        onTimeDelivery: 94
+    };
+
+    const todayStats = {
+        deliveriesToday: 18,
+        revenueToday: 12500,
+        distanceCovered: 850,
+        fuelConsumed: 68
+    };
+
+    const performanceMetrics = {
+        deliverySuccess: 96,
+        customerSatisfaction: 94,
+        vehicleUtilization: 87,
+        driverEfficiency: 91
     };
 
     const deliveries = [
