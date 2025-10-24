@@ -597,34 +597,26 @@ export default function TransportDashboard() {
                 </TabsContent>
             </Tabs>
 
-            {/* Active Deliveries and Vehicle Status */}
-            <div className="grid gap-4 md:grid-cols-2">
+            {/* Bottom Section - Recent Activities, Drivers, and Fleet Health */}
+            <div className="grid gap-4 md:grid-cols-3">
                 <Card>
                     <CardHeader>
-                        <CardTitle>Active Deliveries</CardTitle>
-                        <CardDescription>Current delivery status</CardDescription>
+                        <CardTitle className="flex items-center gap-2">
+                            <Activity className="h-5 w-5" />
+                            Recent Activities
+                        </CardTitle>
+                        <CardDescription>Latest fleet updates and notifications</CardDescription>
                     </CardHeader>
                     <CardContent>
                         <div className="space-y-4">
-                            {deliveries.map((delivery) => (
-                                <div key={delivery.id} className="flex items-center justify-between p-3 border rounded-lg">
-                                    <div className="flex-1">
-                                        <div className="flex items-center gap-2">
-                                            <span className="font-medium">{delivery.id}</span>
-                                            <Badge variant={
-                                                delivery.status === 'delivered' ? 'default' :
-                                                    delivery.status === 'in-transit' ? 'secondary' : 'outline'
-                                            }>
-                                                {delivery.status}
-                                            </Badge>
-                                        </div>
-                                        <p className="text-sm text-muted-foreground">{delivery.from} → {delivery.to}</p>
-                                        <p className="text-sm">{delivery.items}</p>
-                                        <p className="text-xs text-muted-foreground">Driver: {delivery.driver}</p>
+                            {recentActivities.map((activity, index) => (
+                                <div key={index} className="flex items-start gap-3">
+                                    <div className="p-2 bg-gray-100 rounded-full">
+                                        <activity.icon className="h-4 w-4" />
                                     </div>
-                                    <div className="text-right">
-                                        <p className="font-medium">{delivery.eta}</p>
-                                        <p className="text-xs text-muted-foreground">{delivery.distance}</p>
+                                    <div className="flex-1">
+                                        <p className="text-sm">{activity.message}</p>
+                                        <p className="text-xs text-muted-foreground">{activity.time}</p>
                                     </div>
                                 </div>
                             ))}
@@ -634,45 +626,116 @@ export default function TransportDashboard() {
 
                 <Card>
                     <CardHeader>
-                        <CardTitle>Vehicle Status</CardTitle>
-                        <CardDescription>Fleet management overview</CardDescription>
+                        <CardTitle className="flex items-center gap-2">
+                            <Users className="h-5 w-5" />
+                            Driver Performance
+                        </CardTitle>
+                        <CardDescription>Top performing drivers</CardDescription>
                     </CardHeader>
                     <CardContent>
                         <div className="space-y-4">
-                            {vehicles.map((vehicle, index) => (
-                                <div key={index} className="flex items-center justify-between p-3 border rounded-lg">
+                            {drivers.map((driver, index) => (
+                                <div key={index} className="flex items-center justify-between">
                                     <div className="flex items-center gap-3">
-                                        <div className={`w-10 h-10 rounded-full flex items-center justify-center ${vehicle.status === 'active' ? 'bg-green-100' :
-                                            vehicle.status === 'available' ? 'bg-blue-100' : 'bg-orange-100'
-                                            }`}>
-                                            <Truck className={`h-5 w-5 ${vehicle.status === 'active' ? 'text-green-600' :
-                                                vehicle.status === 'available' ? 'text-blue-600' : 'text-orange-600'
-                                                }`} />
+                                        <div className={`w-8 h-8 rounded-full flex items-center justify-center ${
+                                            driver.status === 'active' ? 'bg-green-100' : 
+                                            driver.status === 'available' ? 'bg-blue-100' : 'bg-gray-100'
+                                        }`}>
+                                            <User className={`h-4 w-4 ${
+                                                driver.status === 'active' ? 'text-green-600' : 
+                                                driver.status === 'available' ? 'text-blue-600' : 'text-gray-600'
+                                            }`} />
                                         </div>
                                         <div>
-                                            <p className="font-medium">{vehicle.id}</p>
-                                            <p className="text-sm text-muted-foreground">{vehicle.driver}</p>
-                                            <p className="text-xs text-muted-foreground">{vehicle.location}</p>
+                                            <p className="font-medium text-sm">{driver.name}</p>
+                                            <p className="text-xs text-muted-foreground">{driver.experience}</p>
                                         </div>
                                     </div>
                                     <div className="text-right">
-                                        <Badge variant={
-                                            vehicle.status === 'active' ? 'default' :
-                                                vehicle.status === 'available' ? 'secondary' : 'destructive'
-                                        }>
-                                            {vehicle.status}
-                                        </Badge>
-                                        <div className="flex items-center gap-1 mt-1">
-                                            <Fuel className="h-3 w-3" />
-                                            <span className="text-xs">{vehicle.fuel}%</span>
+                                        <div className="flex items-center gap-1">
+                                            <Star className="h-3 w-3 fill-yellow-400 text-yellow-400" />
+                                            <span className="text-xs">{driver.rating}</span>
                                         </div>
+                                        <Badge variant={driver.status === 'active' ? 'default' : 'secondary'} className="text-xs">
+                                            {driver.status}
+                                        </Badge>
                                     </div>
                                 </div>
                             ))}
                         </div>
                     </CardContent>
                 </Card>
+
+                <Card>
+                    <CardHeader>
+                        <CardTitle className="flex items-center gap-2">
+                            <Gauge className="h-5 w-5" />
+                            Fleet Health
+                        </CardTitle>
+                        <CardDescription>Overall fleet performance</CardDescription>
+                    </CardHeader>
+                    <CardContent className="space-y-4">
+                        <div>
+                            <div className="flex justify-between items-center mb-2">
+                                <span className="text-sm">Fuel Efficiency</span>
+                                <span className="font-semibold">{stats.fuelEfficiency} km/l</span>
+                            </div>
+                            <Progress value={85} className="h-2" />
+                        </div>
+                        
+                        <div>
+                            <div className="flex justify-between items-center mb-2">
+                                <span className="text-sm">Vehicle Uptime</span>
+                                <span className="font-semibold">96%</span>
+                            </div>
+                            <Progress value={96} className="h-2" />
+                        </div>
+                        
+                        <div>
+                            <div className="flex justify-between items-center mb-2">
+                                <span className="text-sm">Safety Score</span>
+                                <span className="font-semibold">98%</span>
+                            </div>
+                            <Progress value={98} className="h-2" />
+                        </div>
+
+                        <div className="pt-2 border-t">
+                            <div className="flex items-center gap-2 text-green-600">
+                                <Award className="h-4 w-4" />
+                                <span className="text-sm font-medium">Excellent Fleet</span>
+                            </div>
+                            <p className="text-xs text-muted-foreground mt-1">
+                                Your fleet is performing above industry standards!
+                            </p>
+                        </div>
+                    </CardContent>
+                </Card>
             </div>
+
+            {/* Voice Assistant Integration */}
+            <Card className="bg-gradient-to-r from-green-50 to-blue-50 border-green-200">
+                <CardContent className="p-6">
+                    <div className="flex items-center justify-between">
+                        <div className="flex items-center gap-4">
+                            <div className="p-3 bg-green-100 rounded-full">
+                                <Mic className="h-6 w-6 text-green-600" />
+                            </div>
+                            <div>
+                                <h3 className="font-semibold">Transport Voice Assistant</h3>
+                                <p className="text-sm text-muted-foreground">
+                                    Get real-time updates on deliveries, fleet status, and route optimization
+                                </p>
+                            </div>
+                        </div>
+                        <Button asChild>
+                            <Link href="/dashboard/voice-assistant">
+                                <Mic className="h-4 w-4 mr-2" />
+                                Start Voice Chat
+                            </Link>
+                        </Button>
+                    </div>
+                </CardContent>
+            </Card>
         </div>
     );
 }
