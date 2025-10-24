@@ -200,7 +200,7 @@ export default function TransportDashboard() {
             {/* Enhanced Header */}
             <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
                 <div>
-                    <h1 className="text-3xl font-bold tracking-tight">Transport Dashboard</h1>
+                    <h1 className="text-2xl font-bold tracking-tight">Transport Dashboard</h1>
                     <p className="text-muted-foreground">Welcome back, {companyName}</p>
                     <div className="flex items-center gap-2 mt-2">
                         <Badge variant="outline" className="text-green-600">
@@ -359,7 +359,7 @@ export default function TransportDashboard() {
                     {/* Quick Actions */}
                     <Card>
                         <CardHeader>
-                            <CardTitle className="flex items-center gap-2">
+                            <CardTitle className="flex items-center gap-2 text-lg">
                                 <Zap className="h-5 w-5" />
                                 Quick Actions
                             </CardTitle>
