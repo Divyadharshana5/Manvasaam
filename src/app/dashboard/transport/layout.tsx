@@ -208,7 +208,7 @@ export default function TransportLayout({ children }: { children: React.ReactNod
               <Button
                 variant="outline"
                 size="icon"
-                className="border-orange-200 hover:bg-orange-100 dark:border-orange-700 dark:hover:bg-orange-900"
+                className="border-emerald-200 hover:bg-emerald-100 dark:border-emerald-700 dark:hover:bg-emerald-900"
               >
                 <Menu className="h-4 w-4" />
               </Button>
@@ -222,14 +222,14 @@ export default function TransportLayout({ children }: { children: React.ReactNod
           </div>
         </div>
         
-        <div className="border-b border-orange-200 dark:border-orange-700 bg-gradient-to-r from-orange-50 to-amber-50 dark:from-orange-950 dark:to-amber-950 p-4">
+        <div className="border-b border-emerald-200 dark:border-emerald-700 bg-gradient-to-r from-emerald-50 to-green-50 dark:from-emerald-950 dark:to-green-950 p-4">
           <div className="flex items-center justify-between">
-            <h2 className="text-lg font-semibold text-orange-800 dark:text-orange-200">Transport Management Portal</h2>
+            <h2 className="text-lg font-semibold text-emerald-800 dark:text-emerald-200">Transport Management Portal</h2>
             <Button 
               className={`font-semibold px-6 py-2 rounded-full shadow-lg transition-all duration-300 hover:scale-105 ${
                 isListening 
                   ? 'bg-red-500 hover:bg-red-600 animate-pulse' 
-                  : 'bg-gradient-to-r from-orange-500 via-amber-500 to-yellow-500 hover:from-orange-600 hover:via-amber-600 hover:to-yellow-600'
+                  : 'bg-gradient-to-r from-emerald-500 via-green-500 to-lime-500 hover:from-emerald-600 hover:via-green-600 hover:to-lime-600'
               } text-white`}
               onClick={startListening}
               disabled={isListening}
