@@ -382,36 +382,220 @@ export default function TransportDashboard() {
                     </Card>
                 </TabsContent>
 
-            {/* Quick Actions */}
-            <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
-                <Button className="h-20 flex-col" asChild>
-                    <Link href="/dashboard/transport/orders">
-                        <Package className="h-6 w-6 mb-2" />
-                        <span>View Orders</span>
-                    </Link>
-                </Button>
+                <TabsContent value="fleet" className="space-y-4">
+                    <div className="flex items-center justify-between">
+                        <h3 className="text-lg font-semibold">Fleet Management</h3>
+                        <div className="flex gap-2">
+                            <Button variant="outline" size="sm">
+                                <Filter className="h-4 w-4 mr-2" />
+                                Filter
+                            </Button>
+                            <Button variant="outline" size="sm">
+                                <Download className="h-4 w-4 mr-2" />
+                                Export
+                            </Button>
+                        </div>
+                    </div>
+                    
+                    <div className="grid gap-4">
+                        {vehicles.map((vehicle, index) => (
+                            <Card key={index} className={vehicle.status === 'maintenance' ? "border-orange-200 bg-orange-50" : ""}>
+                                <CardContent className="p-4">
+                                    <div className="flex items-center justify-between">
+                                        <div className="flex items-center gap-4">
+                                            <div className={`p-3 rounded-lg ${
+                                                vehicle.status === 'active' ? 'bg-green-100' :
+                                                vehicle.status === 'available' ? 'bg-blue-100' : 'bg-orange-100'
+                                            }`}>
+                                                <Truck className={`h-6 w-6 ${
+                                                    vehicle.status === 'active' ? 'text-green-600' :
+                                                    vehicle.status === 'available' ? 'text-blue-600' : 'text-orange-600'
+                                                }`} />
+                                            </div>
+                                            <div>
+                                                <h4 className="font-semibold">{vehicle.id}</h4>
+                                                <p className="text-sm text-muted-foreground">Driver: {vehicle.driver}</p>
+                                                <p className="text-sm text-muted-foreground">Location: {vehicle.location}</p>
+                                            </div>
+                                        </div>
+                                        <div className="flex items-center gap-6">
+                                            <div className="text-center">
+                                                <div className="flex items-center gap-1 mb-1">
+                                                    <Fuel className="h-4 w-4" />
+                                                    <span className="text-sm font-medium">{vehicle.fuel}%</span>
+                                                </div>
+                                                <Progress value={vehicle.fuel} className="w-16 h-2" />
+                                            </div>
+                                            <div className="text-center">
+                                                <div className="flex items-center gap-1 mb-1">
+                                                    <ThermometerSun className="h-4 w-4" />
+                                                    <span className="text-sm font-medium">{vehicle.temperature}°C</span>
+                                                </div>
+                                                <Progress value={(vehicle.temperature / 100) * 100} className="w-16 h-2" />
+                                            </div>
+                                            <div className="text-center">
+                                                <div className="flex items-center gap-1 mb-1">
+                                                    <Battery className="h-4 w-4" />
+                                                    <span className="text-sm font-medium">{vehicle.battery}%</span>
+                                                </div>
+                                                <Progress value={vehicle.battery} className="w-16 h-2" />
+                                            </div>
+                                            <div className="text-right">
+                                                <Badge variant={
+                                                    vehicle.status === 'active' ? 'default' :
+                                                    vehicle.status === 'available' ? 'secondary' : 'destructive'
+                                                }>
+                                                    {vehicle.status}
+                                                </Badge>
+                                                <p className="text-xs text-muted-foreground mt-1">{vehicle.mileage} km/l</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </CardContent>
+                            </Card>
+                        ))}
+                    </div>
+                </TabsContent>
 
-                <Button variant="outline" className="h-20 flex-col" asChild>
-                    <Link href="/dashboard/transport/vehicles">
-                        <Truck className="h-6 w-6 mb-2" />
-                        <span>Manage Vehicles</span>
-                    </Link>
-                </Button>
+                <TabsContent value="deliveries" className="space-y-4">
+                    <div className="flex items-center justify-between">
+                        <h3 className="text-lg font-semibold">Active Deliveries</h3>
+                        <Button>
+                            <Plus className="h-4 w-4 mr-2" />
+                            New Delivery
+                        </Button>
+                    </div>
+                    
+                    <div className="space-y-4">
+                        {deliveries.map((delivery) => (
+                            <Card key={delivery.id}>
+                                <CardContent className="p-4">
+                                    <div className="flex items-center justify-between">
+                                        <div className="flex-1">
+                                            <div className="flex items-center gap-2 mb-2">
+                                                <span className="font-medium">{delivery.id}</span>
+                                                <Badge variant={
+                                                    delivery.status === 'delivered' ? 'default' :
+                                                        delivery.status === 'in-transit' ? 'secondary' : 'outline'
+                                                }>
+                                                    {delivery.status}
+                                                </Badge>
+                                            </div>
+                                            <div className="flex items-center gap-2 mb-1">
+                                                <MapPin className="h-4 w-4 text-muted-foreground" />
+                                                <span className="text-sm">{delivery.from} → {delivery.to}</span>
+                                            </div>
+                                            <p className="text-sm text-muted-foreground">Items: {delivery.items}</p>
+                                            <p className="text-sm text-muted-foreground">Driver: {delivery.driver}</p>
+                                        </div>
+                                        <div className="text-right">
+                                            <p className="font-medium">{delivery.eta}</p>
+                                            <p className="text-sm text-muted-foreground">{delivery.distance}</p>
+                                            <div className="flex gap-2 mt-2">
+                                                <Button size="sm" variant="outline">
+                                                    <Eye className="h-4 w-4" />
+                                                </Button>
+                                                <Button size="sm" variant="outline">
+                                                    <Navigation className="h-4 w-4" />
+                                                </Button>
+                                                <Button size="sm" variant="outline">
+                                                    <Phone className="h-4 w-4" />
+                                                </Button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </CardContent>
+                            </Card>
+                        ))}
+                    </div>
+                </TabsContent>
 
-                <Button variant="outline" className="h-20 flex-col" asChild>
-                    <Link href="/dashboard/transport/routes">
-                        <Route className="h-6 w-6 mb-2" />
-                        <span>Routes</span>
-                    </Link>
-                </Button>
+                <TabsContent value="analytics" className="space-y-4">
+                    <div className="grid gap-4 md:grid-cols-2">
+                        <Card>
+                            <CardHeader>
+                                <CardTitle className="flex items-center gap-2">
+                                    <BarChart3 className="h-5 w-5" />
+                                    Performance Metrics
+                                </CardTitle>
+                            </CardHeader>
+                            <CardContent className="space-y-4">
+                                <div className="flex justify-between items-center">
+                                    <span className="text-sm">Delivery Success Rate</span>
+                                    <span className="font-semibold">{performanceMetrics.deliverySuccess}%</span>
+                                </div>
+                                <Progress value={performanceMetrics.deliverySuccess} className="h-2" />
+                                
+                                <div className="flex justify-between items-center">
+                                    <span className="text-sm">Customer Satisfaction</span>
+                                    <span className="font-semibold">{performanceMetrics.customerSatisfaction}%</span>
+                                </div>
+                                <Progress value={performanceMetrics.customerSatisfaction} className="h-2" />
+                                
+                                <div className="flex justify-between items-center">
+                                    <span className="text-sm">Vehicle Utilization</span>
+                                    <span className="font-semibold">{performanceMetrics.vehicleUtilization}%</span>
+                                </div>
+                                <Progress value={performanceMetrics.vehicleUtilization} className="h-2" />
+                            </CardContent>
+                        </Card>
 
-                <Button variant="outline" className="h-20 flex-col" asChild>
-                    <Link href="/dashboard/voice-assistant">
-                        <Mic className="h-6 w-6 mb-2" />
-                        <span>Voice Assistant</span>
-                    </Link>
-                </Button>
-            </div>
+                        <Card>
+                            <CardHeader>
+                                <CardTitle className="flex items-center gap-2">
+                                    <Target className="h-5 w-5" />
+                                    Monthly Goals
+                                </CardTitle>
+                            </CardHeader>
+                            <CardContent className="space-y-4">
+                                <div className="flex justify-between items-center">
+                                    <span className="text-sm">Revenue Target</span>
+                                    <span className="font-semibold">₹200K</span>
+                                </div>
+                                <Progress value={92} className="h-2" />
+                                <p className="text-xs text-muted-foreground">₹185K achieved (92%)</p>
+                                
+                                <div className="flex justify-between items-center">
+                                    <span className="text-sm">Delivery Target</span>
+                                    <span className="font-semibold">500</span>
+                                </div>
+                                <Progress value={91} className="h-2" />
+                                <p className="text-xs text-muted-foreground">456 deliveries completed</p>
+                            </CardContent>
+                        </Card>
+                    </div>
+
+                    {/* Route Efficiency */}
+                    <Card>
+                        <CardHeader>
+                            <CardTitle className="flex items-center gap-2">
+                                <Route className="h-5 w-5" />
+                                Route Efficiency
+                            </CardTitle>
+                            <CardDescription>Performance analysis of different routes</CardDescription>
+                        </CardHeader>
+                        <CardContent>
+                            <div className="space-y-4">
+                                {routes.map((route, index) => (
+                                    <div key={index} className="flex items-center justify-between p-3 border rounded-lg">
+                                        <div>
+                                            <h4 className="font-medium">{route.name}</h4>
+                                            <p className="text-sm text-muted-foreground">{route.distance} • {route.avgTime}</p>
+                                        </div>
+                                        <div className="flex items-center gap-4">
+                                            <div className="text-center">
+                                                <p className="text-sm font-medium">{route.efficiency}%</p>
+                                                <Progress value={route.efficiency} className="w-16 h-2" />
+                                            </div>
+                                            <Badge variant="outline">{route.vehicles} vehicles</Badge>
+                                        </div>
+                                    </div>
+                                ))}
+                            </div>
+                        </CardContent>
+                    </Card>
+                </TabsContent>
+            </Tabs>
 
             {/* Active Deliveries and Vehicle Status */}
             <div className="grid gap-4 md:grid-cols-2">
