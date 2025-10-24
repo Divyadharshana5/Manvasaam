@@ -197,25 +197,21 @@ export default function TransportDashboard() {
 
     return (
         <div className="flex flex-1 flex-col gap-4 p-4 md:gap-8 md:p-8">
-            {/* Enhanced Header */}
+            {/* Status and Search */}
             <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
-                <div>
-                    <h1 className="text-2xl font-bold tracking-tight">Transport Dashboard</h1>
-                    <p className="text-muted-foreground">Welcome back, {companyName}</p>
-                    <div className="flex items-center gap-2 mt-2">
-                        <Badge variant="outline" className="text-green-600">
-                            <Activity className="h-3 w-3 mr-1" />
-                            Fleet Active
-                        </Badge>
-                        <Badge variant="secondary">
-                            <Clock className="h-3 w-3 mr-1" />
-                            Last update: 1 min ago
-                        </Badge>
-                        <Badge variant="outline" className="text-blue-600">
-                            <Shield className="h-3 w-3 mr-1" />
-                            Safety Certified
-                        </Badge>
-                    </div>
+                <div className="flex items-center gap-2">
+                    <Badge variant="outline" className="text-green-600">
+                        <Activity className="h-3 w-3 mr-1" />
+                        Fleet Active
+                    </Badge>
+                    <Badge variant="secondary">
+                        <Clock className="h-3 w-3 mr-1" />
+                        Last update: 1 min ago
+                    </Badge>
+                    <Badge variant="outline" className="text-blue-600">
+                        <Shield className="h-3 w-3 mr-1" />
+                        Safety Certified
+                    </Badge>
                 </div>
                 <div className="flex items-center gap-2">
                     <div className="relative">
@@ -232,9 +228,6 @@ export default function TransportDashboard() {
                     </Button>
                     <Button variant="outline" size="icon">
                         <RefreshCw className="h-4 w-4" />
-                    </Button>
-                    <Button variant="outline" size="icon">
-                        <Settings className="h-4 w-4" />
                     </Button>
                 </div>
             </div>
