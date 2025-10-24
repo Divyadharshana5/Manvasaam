@@ -190,7 +190,7 @@ export default function RetailLayout({ children }: { children: React.ReactNode }
 
   return (
     <div className="grid min-h-screen w-full md:grid-cols-[220px_1fr] lg:grid-cols-[280px_1fr]">
-      <div className="hidden border-r border-blue-200 dark:border-blue-700 bg-gradient-to-b from-blue-50/50 to-indigo-50/50 dark:from-blue-950/50 dark:to-indigo-950/50 md:block">
+      <div className="hidden border-r border-emerald-200 dark:border-emerald-700 bg-gradient-to-b from-emerald-50/50 to-green-50/50 dark:from-emerald-950/50 dark:to-green-950/50 md:block">
         <div className="flex h-full max-h-screen flex-col">
           <Sidebar onSignOut={handleSignOut} />
         </div>
@@ -202,7 +202,7 @@ export default function RetailLayout({ children }: { children: React.ReactNode }
               <Button
                 variant="outline"
                 size="icon"
-                className="border-blue-200 hover:bg-blue-100 dark:border-blue-700 dark:hover:bg-blue-900"
+                className="border-emerald-200 hover:bg-emerald-100 dark:border-emerald-700 dark:hover:bg-emerald-900"
               >
                 <Menu className="h-4 w-4" />
               </Button>
