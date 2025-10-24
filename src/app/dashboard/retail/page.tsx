@@ -130,21 +130,17 @@ export default function RetailDashboard() {
 
     return (
         <div className="flex flex-1 flex-col gap-4 p-4 md:gap-8 md:p-8">
-            {/* Enhanced Header */}
+            {/* Status and Search */}
             <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
-                <div>
-                    <h1 className="text-2xl font-bold tracking-tight">Retail Dashboard</h1>
-                    <p className="text-muted-foreground">Welcome back, {shopName}</p>
-                    <div className="flex items-center gap-2 mt-2">
-                        <Badge variant="outline" className="text-green-600">
-                            <CheckCircle className="h-3 w-3 mr-1" />
-                            Online
-                        </Badge>
-                        <Badge variant="secondary">
-                            <Clock className="h-3 w-3 mr-1" />
-                            Last sync: 2 min ago
-                        </Badge>
-                    </div>
+                <div className="flex items-center gap-2">
+                    <Badge variant="outline" className="text-green-600">
+                        <CheckCircle className="h-3 w-3 mr-1" />
+                        Online
+                    </Badge>
+                    <Badge variant="secondary">
+                        <Clock className="h-3 w-3 mr-1" />
+                        Last sync: 2 min ago
+                    </Badge>
                 </div>
                 <div className="flex items-center gap-2">
                     <div className="relative">
@@ -161,9 +157,6 @@ export default function RetailDashboard() {
                     </Button>
                     <Button variant="outline" size="icon">
                         <RefreshCw className="h-4 w-4" />
-                    </Button>
-                    <Button variant="outline" size="icon">
-                        <Settings className="h-4 w-4" />
                     </Button>
                 </div>
             </div>
