@@ -4,6 +4,8 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
+import { Progress } from "@/components/ui/progress";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import {
     ShoppingCart,
     Package,
@@ -18,6 +20,9 @@ import {
     AlertCircle,
     DollarSign,
     Truck,
+    Search,
+    Plus,
+    Minus,
     Mic,
     MessageCircle,
     Phone,
@@ -28,6 +33,15 @@ import {
     Eye,
     Settings,
     User,
+    Star,
+    Calendar,
+    BarChart3,
+    Filter,
+    Download,
+    RefreshCw,
+    Zap,
+    Target,
+    Leaf,
 } from "lucide-react";
 import Link from "next/link";
 import { useState } from "react";
@@ -35,13 +49,25 @@ import { useState } from "react";
 export default function RetailDashboard() {
     const [shopName] = useState("Fresh Market Store");
     const [searchQuery, setSearchQuery] = useState("");
+    const [activeTab, setActiveTab] = useState("overview");
 
-    // Mock data
+    // Enhanced Mock data
     const stats = {
         totalOrders: 89,
         pendingDeliveries: 12,
         totalSpent: 245000,
-        activeProducts: 234
+        activeProducts: 234,
+        monthlyRevenue: 125000,
+        customerSatisfaction: 4.8,
+        inventoryValue: 89000,
+        lowStockItems: 8
+    };
+
+    const todayStats = {
+        ordersToday: 12,
+        revenueToday: 8500,
+        newCustomers: 3,
+        deliveriesCompleted: 15
     };
 
     const orders = [
@@ -75,10 +101,31 @@ export default function RetailDashboard() {
     ];
 
     const suppliers = [
-        { name: "Green Valley Farm", category: "Vegetables", rating: 4.8, orders: 23 },
-        { name: "Sunrise Dairy", category: "Dairy", rating: 4.9, orders: 18 },
-        { name: "Mountain Fruits", category: "Fruits", rating: 4.7, orders: 15 },
-        { name: "Golden Grains", category: "Cereals", rating: 4.6, orders: 12 }
+        { name: "Green Valley Farm", category: "Vegetables", rating: 4.8, orders: 23, lastDelivery: "2024-01-15", status: "active" },
+        { name: "Sunrise Dairy", category: "Dairy", rating: 4.9, orders: 18, lastDelivery: "2024-01-14", status: "active" },
+        { name: "Mountain Fruits", category: "Fruits", rating: 4.7, orders: 15, lastDelivery: "2024-01-13", status: "active" },
+        { name: "Golden Grains", category: "Cereals", rating: 4.6, orders: 12, lastDelivery: "2024-01-12", status: "pending" }
+    ];
+
+    const inventory = [
+        { name: "Fresh Tomatoes", category: "Vegetables", stock: 45, minStock: 20, price: 80, supplier: "Green Valley Farm", icon: Apple },
+        { name: "Organic Milk", category: "Dairy", stock: 8, minStock: 15, price: 65, supplier: "Sunrise Dairy", icon: Milk },
+        { name: "Wheat Flour", category: "Grains", stock: 25, minStock: 10, price: 45, supplier: "Golden Grains", icon: Wheat },
+        { name: "Fresh Apples", category: "Fruits", stock: 12, minStock: 20, price: 120, supplier: "Mountain Fruits", icon: Apple }
+    ];
+
+    const recentActivities = [
+        { type: "order", message: "New order from Green Valley Farm", time: "2 hours ago", icon: ShoppingCart },
+        { type: "delivery", message: "Delivery completed for ORD-001", time: "4 hours ago", icon: Truck },
+        { type: "stock", message: "Low stock alert: Organic Milk", time: "6 hours ago", icon: AlertCircle },
+        { type: "payment", message: "Payment received ₹8,500", time: "8 hours ago", icon: DollarSign }
+    ];
+
+    const quickActions = [
+        { name: "Place Order", icon: Plus, href: "/dashboard/retail/orders/new", color: "bg-green-500" },
+        { name: "Check Inventory", icon: Package, href: "/dashboard/retail/inventory", color: "bg-blue-500" },
+        { name: "Contact Supplier", icon: Phone, href: "/dashboard/retail/suppliers", color: "bg-purple-500" },
+        { name: "View Analytics", icon: BarChart3, href: "/dashboard/retail/analytics", color: "bg-orange-500" }
     ];
 
     return (
