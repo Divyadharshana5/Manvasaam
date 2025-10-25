@@ -22,6 +22,7 @@ import {
     Truck,
     Search,
     Plus,
+    Phone,
     Bell,
     Eye,
     Star,
