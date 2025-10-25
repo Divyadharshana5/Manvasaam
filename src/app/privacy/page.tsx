@@ -296,8 +296,7 @@ function PrivacyContent() {
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.6, delay: 0.8 }}
               >
-                How we collect, use, and protect your information on Manvaasam
-                platform
+                Your privacy is our priority. Learn how we collect, use, and protect your information on the Manvaasam agricultural platform with complete transparency and security.
               </motion.p>
               <motion.div 
                 className="inline-flex items-center gap-2 px-4 py-2 bg-green-50 border border-green-200 rounded-full"
