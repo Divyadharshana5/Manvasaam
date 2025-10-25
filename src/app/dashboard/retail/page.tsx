@@ -22,19 +22,9 @@ import {
     Truck,
     Search,
     Plus,
-    Minus,
-    Mic,
-    MessageCircle,
-    Phone,
-    QrCode,
-    CreditCard,
-    MapPin,
     Bell,
     Eye,
-    Settings,
-    User,
     Star,
-    Calendar,
     BarChart3,
     Filter,
     Download,
@@ -47,7 +37,6 @@ import Link from "next/link";
 import { useState } from "react";
 
 export default function RetailDashboard() {
-    const [shopName] = useState("Fresh Market Store");
     const [searchQuery, setSearchQuery] = useState("");
     const [activeTab, setActiveTab] = useState("overview");
 
