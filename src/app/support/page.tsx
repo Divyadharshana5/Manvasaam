@@ -568,7 +568,7 @@ function SupportContent() {
                   className="gap-1 text-xs"
                 >
                   <Phone className="h-3 w-3" />
-                  Emergency: +91 9876543210
+                  Emergency: +91 8765432109
                 </Button>
                 <Button
                   variant="outline"
