@@ -481,16 +481,16 @@ function SupportContent() {
               </div>
               <div className="grid md:grid-cols-2 gap-4 text-xs">
                 <div>
-                  <h4 className="font-medium mb-1">Live Chat & Phone</h4>
-                  <p className="text-gray-600">Mon-Fri: 9AM-8PM IST</p>
-                  <p className="text-gray-600">Sat-Sun: 10AM-6PM IST</p>
+                  <h4 className="font-medium mb-1">Live Chat & Phone Support</h4>
+                  <p className="text-gray-600">Mon-Fri: 8AM-9PM IST</p>
+                  <p className="text-gray-600">Sat-Sun: 9AM-7PM IST</p>
+                  <p className="text-gray-600">Emergency: 24/7 available</p>
                 </div>
                 <div>
-                  <h4 className="font-medium mb-1">Email Support</h4>
-                  <p className="text-gray-600">24/7 - Response within 24hrs</p>
-                  <p className="text-gray-600">
-                    Multilingual support available
-                  </p>
+                  <h4 className="font-medium mb-1">Email & Digital Support</h4>
+                  <p className="text-gray-600">24/7 - Response within 12hrs</p>
+                  <p className="text-gray-600">Tamil, English, Hindi support</p>
+                  <p className="text-gray-600">WhatsApp support available</p>
                 </div>
               </div>
             </CardContent>
