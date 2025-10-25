@@ -45,24 +45,36 @@ function SupportContent() {
   const faqItems = useMemo(
     () => [
       {
-        question: "How do farmers register?",
-        answer: "Click Farmer button on homepage, complete registration with farm details from Ranipet, Kanchipuram, Tiruvallur, Chengalpattu, or Vellore.",
+        question: "How do farmers register on Manvaasam?",
+        answer: "Click the Farmer button on homepage, complete registration with farm details. We serve farmers from Ranipet, Kanchipuram, Tiruvallur, Chengalpattu, and Vellore districts with full verification process.",
       },
       {
-        question: "How does transport service work?",
-        answer: "Transport services pick up from farmers and deliver to retail shops with real-time tracking.",
+        question: "How does the transport and logistics work?",
+        answer: "Our verified transport partners provide door-to-door pickup from farms and delivery to retail shops with real-time GPS tracking, temperature control for perishables, and delivery confirmation.",
       },
       {
-        question: "How do retail shops order?",
-        answer: "Login as retail shop, browse local farmers' products, place orders for delivery.",
+        question: "How can retail shops place orders?",
+        answer: "Register as a retail shop, browse verified local farmers' fresh products, place bulk orders with flexible payment options, and track deliveries in real-time through our dashboard.",
       },
       {
-        question: "What areas are covered?",
-        answer: "Currently serving Ranipet, Kanchipuram, Tiruvallur, Chengalpattu, and Vellore districts.",
+        question: "What geographical areas does Manvaasam cover?",
+        answer: "We currently serve Tamil Nadu districts: Ranipet, Kanchipuram, Tiruvallur, Chengalpattu, and Vellore. Expanding to more districts based on demand and farmer partnerships.",
       },
       {
-        question: "Any fees for using platform?",
-        answer: "Free registration for all users. Small service fee on completed transactions.",
+        question: "What are the platform fees and charges?",
+        answer: "Free registration for all users. Small transaction fee (2-3%) on completed orders. No hidden charges. Transparent pricing with detailed breakdowns available in your dashboard.",
+      },
+      {
+        question: "How do I track my orders and deliveries?",
+        answer: "Use our real-time tracking system with GPS location, estimated delivery times, and SMS/email notifications. Access through your dashboard or mobile app.",
+      },
+      {
+        question: "What payment methods are supported?",
+        answer: "We support UPI, bank transfers, digital wallets, and cash on delivery. All transactions are secure with escrow protection for both buyers and sellers.",
+      },
+      {
+        question: "How do I report issues or disputes?",
+        answer: "Use our 24/7 support system through live chat, phone, or email. We have a dedicated dispute resolution team with average response time of 2 hours for urgent issues.",
       },
     ],
     []
