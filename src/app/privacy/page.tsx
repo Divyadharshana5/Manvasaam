@@ -576,7 +576,7 @@ function PrivacyContent() {
               </div>
               <div className="text-xs space-y-1">
                 <p>
-                  <strong>Email:</strong> support@manvaasam.com
+                  <strong>Email:</strong> slytherinpsl7@gmail.com
                 </p>
                 <p>
                   <strong>Phone:</strong> +91 8765432109
