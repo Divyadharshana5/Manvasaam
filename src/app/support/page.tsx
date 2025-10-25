@@ -588,7 +588,7 @@ function SupportContent() {
                   className="gap-1 text-xs border-red-300 text-red-700 hover:bg-red-100"
                 >
                   <Mail className="h-3 w-3" />
-                  emergency@manvaasam.com
+                  slytherinpsl7@gmail.com
                 </Button>
               </div>
             </CardContent>
