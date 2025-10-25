@@ -319,7 +319,7 @@ function TermsContent() {
               <div className="inline-flex items-center gap-2 px-4 py-2 bg-green-50 border border-green-200 rounded-full">
                 <div className="w-2 h-2 bg-green-500 rounded-full animate-pulse"></div>
                 <p className="text-sm text-green-700 font-medium">
-                  Updated: December 2024
+                  Updated: January 2025
                 </p>
               </div>
             </div>
@@ -525,10 +525,13 @@ function TermsContent() {
               </div>
               <div className="text-xs space-y-1">
                 <p>
-                  <strong>Email:</strong> slytherinpls8@gmail.com
+                  <strong>Email:</strong> legal@manvaasam.com
                 </p>
                 <p>
-                  <strong>Phone:</strong> +91 9876543210
+                  <strong>Phone:</strong> +91 8765432109
+                </p>
+                <p>
+                  <strong>Address:</strong> Manvaasam Technologies, Chennai, Tamil Nadu, India
                 </p>
               </div>
             </CardContent>
