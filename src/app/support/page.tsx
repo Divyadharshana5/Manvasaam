@@ -368,7 +368,7 @@ function SupportContent() {
               <div className="inline-flex items-center gap-2 px-4 py-2 bg-green-50 border border-green-200 rounded-full">
                 <div className="w-2 h-2 bg-green-500 rounded-full animate-pulse"></div>
                 <p className="text-sm text-green-700 font-medium">
-                  Updated: December 2024
+                  Updated: January 2025
                 </p>
               </div>
             </div>
