@@ -319,7 +319,7 @@ function PrivacyContent() {
                   }}
                 />
                 <p className="text-sm text-green-700 font-medium">
-                  Updated: December 2024
+                  Updated: January 2025
                 </p>
               </motion.div>
             </div>
@@ -577,10 +577,13 @@ function PrivacyContent() {
               </div>
               <div className="text-xs space-y-1">
                 <p>
-                  <strong>Email:</strong> slytherinpls8@gmail.com
+                  <strong>Email:</strong> support@manvaasam.com
                 </p>
                 <p>
-                  <strong>Phone:</strong> +91 9876543210
+                  <strong>Phone:</strong> +91 8765432109
+                </p>
+                <p>
+                  <strong>Address:</strong> Manvaasam Technologies, Chennai, Tamil Nadu, India
                 </p>
               </div>
             </CardContent>
