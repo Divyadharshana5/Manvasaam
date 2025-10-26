@@ -127,7 +127,7 @@ const pagePaths: Record<string, string> = {
   products: "/dashboard/products",
   orders: "/dashboard/orders",
   profile: "/dashboard/profile",
-  inventory: "/dashboard/hub/inventory",
+  inventory: "/dashboard/farmer/products",
   matchmaking: "/dashboard/matchmaking",
   track: "/dashboard/track",
 
