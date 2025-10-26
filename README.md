@@ -10,7 +10,7 @@ Manvaasam is a comprehensive digital platform that connects farmers, transport s
 
 ### **Core Mission**
 - **Empower Farmers**: Provide direct market access and fair pricing
-- **Connect Communities**: Bridge farmers, hubs, customers, and restaurants
+- **Connect Communities**: Bridge farmers, retail shops, and transport services
 - **Ensure Freshness**: Streamline the supply chain for faster delivery
 - **Promote Sustainability**: Support local agriculture and reduce food waste
 
