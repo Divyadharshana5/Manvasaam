@@ -145,11 +145,10 @@ const pagePaths: Record<string, string> = {
   farmerProducts: "/dashboard/farmer/products",
   farmerMatchmaking: "/dashboard/farmer/matchmaking",
 
-  // Hub dashboard
-  hubDashboard: "/dashboard/hub",
-  hubInventory: "/dashboard/hub/inventory",
-  hubOrders: "/dashboard/hub/orders",
-  hubAttendance: "/dashboard/hub/attendance",
+  // Retail dashboard
+  retailDashboard: "/dashboard/retail",
+  retailInventory: "/dashboard/retail/products",
+  retailOrders: "/dashboard/retail/orders",
   hubMatchmaking: "/dashboard/hub/matchmaking",
 
   // Customer dashboard
