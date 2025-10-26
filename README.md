@@ -15,7 +15,7 @@ Manvaasam is a comprehensive digital platform that connects farmers, transport s
 - **Promote Sustainability**: Support local agriculture and reduce food waste
 
 ### **Key Features**
-- 🌱 **Multi-Role Platform**: Separate dashboards for farmers, hubs, customers, and restaurants
+- 🌱 **Multi-Role Platform**: Separate dashboards for farmers, retail shops, and transport services
 - 🎤 **AI Voice Assistant**: Multilingual voice navigation and support
 - 📱 **Mobile-First Design**: Optimized for all devices with fast loading
 - 🔐 **Secure Authentication**: Firebase-based auth with passkey support for farmers
