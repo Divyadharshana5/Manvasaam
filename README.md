@@ -79,31 +79,22 @@ Manvaasam is a comprehensive digital platform that connects farmers, transport s
 - **Passkey Authentication**: Secure biometric login
 - **Voice Assistant**: Hands-free navigation and order updates
 
-### 🏢 **Distribution Hubs**
-- **Branch Management**: Multi-location hub operations with centralized control
-- **Inventory Management**: Real-time stock tracking with low-stock alerts
-- **Farmer Network**: Auto-assignment of farmers to nearest hubs
-- **Order Processing**: Bulk order management and distribution workflows
-- **Quality Control**: Product inspection and grading systems
-- **Logistics Coordination**: Delivery scheduling and real-time tracking
-- **Analytics Dashboard**: Performance metrics and revenue tracking
-- **Admin Portal**: Hub network management and capacity monitoring
-
-### 🛒 **Customers**
+### 🏪 **Retail Shops**
 - **Product Discovery**: Browse fresh produce by category/location
 - **Order Placement**: Easy ordering with delivery options
-- **Subscription Services**: Regular delivery schedules
+- **Inventory Management**: Real-time stock tracking with low-stock alerts
 - **Quality Assurance**: Product reviews and ratings
 - **Nutritional Information**: Detailed product information
 - **Order Tracking**: Real-time delivery updates
+- **Analytics Dashboard**: Performance metrics and revenue tracking
 
-### 🍽️ **Restaurants**
-- **Bulk Ordering**: Commercial quantity purchases
-- **Supplier Management**: Direct farmer relationships
-- **Menu Planning**: Seasonal ingredient availability
-- **Cost Management**: Competitive pricing and budgeting
-- **Quality Standards**: Specification-based ordering
-- **Delivery Scheduling**: Flexible delivery windows
+### 🚚 **Transport Services**
+- **Logistics Coordination**: Delivery scheduling and real-time tracking
+- **Route Optimization**: Efficient delivery planning
+- **Order Processing**: Bulk order management and distribution workflows
+- **Quality Control**: Product inspection and grading systems
+- **Performance Tracking**: Delivery metrics and analytics
+- **Fleet Management**: Vehicle and driver coordination
 
 ## 🎯 Key Functionalities
 
