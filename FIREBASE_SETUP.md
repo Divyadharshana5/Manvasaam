@@ -41,13 +41,13 @@ If Firebase is not configured, the application will run in **mock mode**:
 - ⚠️ Data won't persist between server restarts
 - ⚠️ No real authentication security
 
-## Testing Hub Authentication
+## Testing Retail Authentication
 
 ### Registration Test:
-1. Go to `/login/hub`
+1. Go to `/login/retail`
 2. Click "Register" tab
 3. Fill in:
-   - Branch Name: "Test Hub"
+   - Shop Name: "Test Retail Shop"
    - Email: "test@gmail.com"
    - Location: "Test City"
    - Phone: "1234567890"
