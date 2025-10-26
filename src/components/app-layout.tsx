@@ -48,9 +48,9 @@ interface UserProfile {
 
 const authPages = [
   "/",
-  "/login/farmer-customer",
-  "/login/hub",
-  "/login/restaurant",
+  "/login/farmer",
+  "/login/retail",
+  "/login/transport",
   "/voice-assistant",
 ];
 
