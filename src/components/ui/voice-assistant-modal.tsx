@@ -38,28 +38,10 @@ export function VoiceAssistantModal({
       response: "किसान पोर्टल पर जा रहे हैं / Going to farmer portal"
     },
     { 
-      hindi: "मैं ग्राहक हूं", 
-      english: "I am customer", 
-      action: () => router.push("/login/customer"),
-      response: "ग्राहक पोर्टल पर जा रहे हैं / Going to customer portal"
-    },
-    { 
-      hindi: "मैं रेस्टोरेंट हूं", 
-      english: "I am restaurant", 
-      action: () => router.push("/login/restaurant"),
-      response: "रेस्टोरेंट पोर्टल पर जा रहे हैं / Going to restaurant portal"
-    },
-    { 
-      hindi: "मैं हब हूं", 
-      english: "I am hub", 
-      action: () => router.push("/login/hub"),
-      response: "हब पोर्टल पर जा रहे हैं / Going to hub portal"
-    },
-    { 
       hindi: "सब्जी खरीदना है", 
       english: "buy vegetables", 
-      action: () => router.push("/login/customer"),
-      response: "सब्जी खरीदने के लिए ग्राहक पोर्टल पर जा रहे हैं / Going to customer portal to buy vegetables"
+      action: () => router.push("/login/retail"),
+      response: "सब्जी खरीदने के लिए रिटेल पोर्टल पर जा रहे हैं / Going to retail portal to buy vegetables"
     },
     { 
       hindi: "सब्जी बेचना है", 
@@ -177,9 +159,8 @@ export function VoiceAssistantModal({
 
   const quickActions = [
     { text: "किसान / Farmer", action: () => router.push("/login/farmer") },
-    { text: "ग्राहक / Customer", action: () => router.push("/login/customer") },
-    { text: "रेस्टोरेंट / Restaurant", action: () => router.push("/login/restaurant") },
-    { text: "हब / Hub", action: () => router.push("/login/hub") }
+    { text: "रिटेल / Retail", action: () => router.push("/login/retail") },
+    { text: "ट्रांसपोर्ट / Transport", action: () => router.push("/login/transport") }
   ];
 
   if (!isOpen) return null;
