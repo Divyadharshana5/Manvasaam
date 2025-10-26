@@ -354,7 +354,7 @@ export default function HomePage() {
       "orders": "/dashboard/orders",
       "products": "/dashboard/products",
       "profile": "/dashboard/profile",
-      "inventory": "/dashboard/hub/inventory",
+      "inventory": "/dashboard/farmer/products",
       "matchmaking": "/dashboard/matchmaking",
       "track": "/dashboard/track",
       "faq": "/dashboard/faq",
