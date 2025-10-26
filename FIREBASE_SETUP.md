@@ -1,4 +1,4 @@
-# Firebase Setup Guide for Hub Authentication
+# Firebase Setup Guide for Retail Authentication
 
 ## Environment Variables Required
 
@@ -53,7 +53,7 @@ If Firebase is not configured, the application will run in **mock mode**:
    - Phone: "1234567890"
    - Password: "TestPass123!"
    - Confirm Password: "TestPass123!"
-4. Click "Register Hub"
+4. Click "Register Shop"
 
 ### Login Test:
 1. Use the same credentials from registration
