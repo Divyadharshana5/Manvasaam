@@ -314,7 +314,7 @@ We welcome contributions from the community! Please read our contributing guidel
 - **Documentation**: 
   - [Firebase Setup Guide](./FIREBASE_SETUP.md)
   - [EmailJS Setup Guide](./EMAILJS_SETUP.md)
-  - [Hub System Demo](./HUB_SYSTEM_DEMO.md)
+  - [System Demo Guide](./SYSTEM_DEMO.md)
   - [Performance Optimizations](./PERFORMANCE_OPTIMIZATIONS.md)
   - [Project Blueprint](./docs/blueprint.md)
 - **Demo Mode**: Full functionality available without configuration
