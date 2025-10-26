@@ -229,23 +229,23 @@ Home Page → Role Selection → Login/Register → Dashboard
 4. Access farmer dashboard
 5. Add crops and manage inventory
 
-**Customer Shopping:**
+**Retail Shopping:**
 1. Browse products by category and location
-2. Check availability at nearest hub
+2. Check availability from farmers
 3. Add items to cart with stock reservation
 4. Place order with delivery details
 5. Track order status in real-time
 
-**Restaurant Operations:**
-1. Register as restaurant user
-2. Access bulk ordering interface
-3. Manage supplier relationships
-4. Schedule regular deliveries
-5. Track commercial orders
+**Transport Operations:**
+1. Register as transport service
+2. Access logistics management interface
+3. Manage delivery routes and schedules
+4. Coordinate with farmers and retail shops
+5. Track delivery performance
 
 ### **Demo Mode Features**
 - **Mock Authentication**: Test all user flows without Firebase
-- **Sample Data**: Pre-populated hubs, inventory, and user data
+- **Sample Data**: Pre-populated inventory and user data
 - **Full Functionality**: All features work with simulated backend
 - **Clear Indicators**: Demo mode warnings throughout the interface
 - **EmailJS Fallback**: Password reset works in demo mode when EmailJS is not configured
