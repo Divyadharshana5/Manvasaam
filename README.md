@@ -224,11 +224,11 @@ Home Page → Role Selection → Login/Register → Dashboard
 
 ### **User Journeys**
 
-**Hub Registration & Management:**
-1. Navigate to `/login/hub`
-2. Complete hub registration with branch details
-3. Access hub dashboard with real-time metrics
-4. Manage inventory, farmers, and deliveries
+**Retail Registration & Management:**
+1. Navigate to `/login/retail`
+2. Complete retail registration with shop details
+3. Access retail dashboard with real-time metrics
+4. Manage inventory and orders
 5. View analytics and performance data
 
 **Farmer Registration:**
