@@ -57,7 +57,7 @@ If Firebase is not configured, the application will run in **mock mode**:
 
 ### Login Test:
 1. Use the same credentials from registration
-2. Should redirect to `/dashboard/hub`
+2. Should redirect to `/dashboard/retail`
 
 ## Troubleshooting
 
