@@ -57,24 +57,24 @@ export function FastNav({
 
   const roleNavItems = [
     {
-      href: "/login/farmer-customer",
-      label: "Farmer/Customer",
+      href: "/login/farmer",
+      label: "Farmer",
       icon: Tractor,
       description: "Access farming tools",
       color: "from-orange-500 to-red-500",
     },
     {
-      href: "/login/hub",
-      label: "Hub",
+      href: "/login/retail",
+      label: "Retail",
       icon: Building,
-      description: "Manage operations",
+      description: "Manage retail operations",
       color: "from-indigo-500 to-purple-500",
     },
     {
-      href: "/login/restaurant",
-      label: "Restaurant",
-      icon: Utensils,
-      description: "Order fresh produce",
+      href: "/login/transport",
+      label: "Transport",
+      icon: Truck,
+      description: "Manage logistics",
       color: "from-pink-500 to-rose-500",
     },
   ];
