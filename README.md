@@ -225,7 +225,7 @@ Home Page → Role Selection → Login/Register → Dashboard
 **Farmer Registration:**
 1. Select "Farmer" role
 2. Complete registration with passkey setup
-3. Auto-assignment to nearest hub
+3. Connect with retail shops in your area
 4. Access farmer dashboard
 5. Add crops and manage inventory
 
