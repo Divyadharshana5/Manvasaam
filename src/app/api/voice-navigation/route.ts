@@ -38,9 +38,8 @@ export async function POST(request: NextRequest) {
       "settings": "/dashboard/settings",
       "marketing": "/dashboard/marketing",
       "farmer": "/login/farmer",
-      "customer": "/login/customer",
-      "hub": "/login/hub",
-      "restaurant": "/login/restaurant",
+      "retail": "/login/retail",
+      "transport": "/login/transport",
       "privacy": "/privacy",
       "terms": "/terms",
       "support": "/support"
