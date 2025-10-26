@@ -74,7 +74,7 @@ Manvaasam is a comprehensive digital platform that connects farmers, transport s
 ### 🌾 **Farmers**
 - **Profile Management**: Crop listings, farm details, certifications
 - **Product Catalog**: Add/manage crops with pricing and availability
-- **Order Management**: Receive and fulfill orders from hubs/customers
+- **Order Management**: Receive and fulfill orders from retail shops
 - **Analytics Dashboard**: Track sales, revenue, and performance
 - **Passkey Authentication**: Secure biometric login
 - **Voice Assistant**: Hands-free navigation and order updates
