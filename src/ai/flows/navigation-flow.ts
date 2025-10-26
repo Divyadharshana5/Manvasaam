@@ -119,10 +119,9 @@ const pagePaths: Record<string, string> = {
   dashboard: "/dashboard",
 
   // Authentication pages
-  restaurantLogin: "/login/restaurant",
   farmerLogin: "/login/farmer",
-  customerLogin: "/login/customer",
-  hubLogin: "/login/hub",
+  retailLogin: "/login/retail",
+  transportLogin: "/login/transport",
 
   // Dashboard sections
   products: "/dashboard/products",
