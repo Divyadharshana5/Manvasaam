@@ -245,11 +245,10 @@ Available pages and their keys:
 - farmerProducts: Farmer product management
 - farmerMatchmaking: Farmer matchmaking
 
-**Hub Dashboard:**
-- hubDashboard: Hub main dashboard
-- hubInventory: Hub inventory management
-- hubOrders: Hub order processing
-- hubAttendance: Hub staff attendance
+**Retail Dashboard:**
+- retailDashboard: Retail main dashboard
+- retailInventory: Retail inventory management
+- retailOrders: Retail order processing
 - hubMatchmaking: Hub farmer matching
 
 **Customer Dashboard:**
