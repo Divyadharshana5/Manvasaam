@@ -223,10 +223,12 @@ export default function TransportDashboard() {
                             className="pl-8 w-64"
                         />
                     </div>
-                    <Button variant="outline" size="icon">
-                        <Bell className="h-4 w-4" />
+                    <Button variant="outline" size="icon" asChild>
+                        <Link href="/dashboard/transport/notifications">
+                            <Bell className="h-4 w-4" />
+                        </Link>
                     </Button>
-                    <Button variant="outline" size="icon">
+                    <Button variant="outline" size="icon" onClick={() => window.location.reload()}>
                         <RefreshCw className="h-4 w-4" />
                     </Button>
                 </div>
