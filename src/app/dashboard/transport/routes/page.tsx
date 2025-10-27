@@ -42,6 +42,27 @@ export default function RoutesPage() {
     }
   };
 
+  // Handler for running single optimization
+  const handleRunOptimization = async () => {
+    setIsRunningOptimization(true);
+    
+    try {
+      // Simulate optimization process
+      await new Promise(resolve => setTimeout(resolve, 2500));
+      
+      console.log('Running route optimization with current settings...');
+      
+      // Show success message
+      alert('Route optimization completed successfully! Efficiency improved by 8.5%');
+      
+    } catch (error) {
+      console.error('Error running optimization:', error);
+      alert('Failed to run optimization. Please try again.');
+    } finally {
+      setIsRunningOptimization(false);
+    }
+  };
+
   const routes = [
     {
       id: "RT-001",
