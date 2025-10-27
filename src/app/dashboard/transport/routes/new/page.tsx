@@ -370,8 +370,8 @@ export default function NewRoutePage() {
                                             <div
                                                 key={option.value}
                                                 className={`p-3 border rounded-lg cursor-pointer transition-colors ${routeData.optimizeFor === option.value
-                                                        ? "border-blue-500 bg-blue-50"
-                                                        : "border-gray-200 hover:border-gray-300"
+                                                    ? "border-blue-500 bg-blue-50"
+                                                    : "border-gray-200 hover:border-gray-300"
                                                     }`}
                                                 onClick={() => setRouteData({ ...routeData, optimizeFor: option.value })}
                                             >
