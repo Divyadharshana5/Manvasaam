@@ -259,7 +259,7 @@ export default function TransportNotifications() {
                                                             <div className="w-2 h-2 bg-blue-500 rounded-full"></div>
                                                         )}
                                                         <Button variant="ghost" size="sm" className="h-8 w-8 p-0">
-                                                            <MarkAsRead className="h-3 w-3" />
+                                                            <Check className="h-3 w-3" />
                                                         </Button>
                                                         <Button variant="ghost" size="sm" className="h-8 w-8 p-0">
                                                             <Trash2 className="h-3 w-3" />
