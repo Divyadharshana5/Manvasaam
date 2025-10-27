@@ -127,13 +127,28 @@ export default function RoutesPage() {
       <div className="flex items-center justify-between">
         <h1 className="text-3xl font-bold">Route Management</h1>
         <div className="flex space-x-2">
-          <Button variant="outline">
-            <Zap className="mr-2 h-4 w-4" />
-            Optimize All
+          <Button 
+            variant="outline" 
+            onClick={handleOptimizeAll}
+            disabled={isOptimizing}
+          >
+            {isOptimizing ? (
+              <>
+                <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                {optimizationComplete ? "Completing..." : "Optimizing..."}
+              </>
+            ) : (
+              <>
+                <Zap className="mr-2 h-4 w-4" />
+                Optimize All
+              </>
+            )}
           </Button>
-          <Button className="bg-emerald-600 hover:bg-emerald-700">
-            <Route className="mr-2 h-4 w-4" />
-            New Route
+          <Button className="bg-emerald-600 hover:bg-emerald-700" asChild>
+            <Link href="/dashboard/transport/routes/new">
+              <Route className="mr-2 h-4 w-4" />
+              New Route
+            </Link>
           </Button>
         </div>
       </div>
@@ -248,9 +263,22 @@ export default function RoutesPage() {
                 <span className="text-sm">Weather Integration</span>
                 <Badge className="bg-green-100 text-green-800">Enabled</Badge>
               </div>
-              <Button className="w-full mt-4">
-                <Zap className="mr-2 h-4 w-4" />
-                Run Optimization
+              <Button 
+                className="w-full mt-4" 
+                onClick={handleRunOptimization}
+                disabled={isRunningOptimization}
+              >
+                {isRunningOptimization ? (
+                  <>
+                    <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                    Optimizing...
+                  </>
+                ) : (
+                  <>
+                    <Zap className="mr-2 h-4 w-4" />
+                    Run Optimization
+                  </>
+                )}
               </Button>
             </div>
           </CardContent>
