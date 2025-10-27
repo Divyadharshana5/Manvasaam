@@ -55,10 +55,16 @@ export default function AnalyticsPage() {
       <div className="flex items-center justify-between">
         <h1 className="text-3xl font-bold">Analytics Dashboard</h1>
         <div className="flex space-x-2">
-          <Button variant="outline">Export Report</Button>
-          <Button className="bg-emerald-600 hover:bg-emerald-700">
-            <BarChart3 className="mr-2 h-4 w-4" />
-            Generate Report
+          <Button variant="outline" asChild>
+            <Link href="/dashboard/transport/analytics/export">
+              Export Report
+            </Link>
+          </Button>
+          <Button className="bg-emerald-600 hover:bg-emerald-700" asChild>
+            <Link href="/dashboard/transport/analytics/generate">
+              <BarChart3 className="mr-2 h-4 w-4" />
+              Generate Report
+            </Link>
           </Button>
         </div>
       </div>
