@@ -19,7 +19,7 @@ import {
     Settings,
     Search,
     Filter,
-    MarkAsRead,
+    Check,
     Trash2,
     ArrowLeft,
     Activity,
@@ -172,7 +172,7 @@ export default function TransportNotifications() {
                         {unreadCount} unread
                     </Badge>
                     <Button variant="outline" size="sm">
-                        <MarkAsRead className="h-4 w-4 mr-2" />
+                        <Check className="h-4 w-4 mr-2" />
                         Mark All Read
                     </Button>
                     <Button variant="outline" size="sm">
