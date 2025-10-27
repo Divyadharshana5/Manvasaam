@@ -26,8 +26,7 @@ import {
     Route,
     Wrench,
     DollarSign,
-    Calendar,
-    Star
+    Calendar
 } from "lucide-react";
 import Link from "next/link";
 import { useState } from "react";
@@ -139,11 +138,11 @@ export default function TransportNotifications() {
 
     const filteredNotifications = notifications.filter(notification => {
         const matchesSearch = notification.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
-                            notification.message.toLowerCase().includes(searchQuery.toLowerCase());
-        const matchesTab = activeTab === "all" || 
-                         (activeTab === "unread" && !notification.read) ||
-                         (activeTab === "urgent" && notification.type === "urgent") ||
-                         notification.category === activeTab;
+            notification.message.toLowerCase().includes(searchQuery.toLowerCase());
+        const matchesTab = activeTab === "all" ||
+            (activeTab === "unread" && !notification.read) ||
+            (activeTab === "urgent" && notification.type === "urgent") ||
+            notification.category === activeTab;
         return matchesSearch && matchesTab;
     });
 
@@ -154,179 +153,178 @@ export default function TransportNotifications() {
             <div className="flex flex-col gap-4 p-4 md:gap-6 md:p-6 max-w-7xl mx-auto">
                 {/* Header */}
                 <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
-                <div className="flex items-center gap-4">
-                    <Button variant="outline" size="icon" asChild>
-                        <Link href="/dashboard/transport">
-                            <ArrowLeft className="h-4 w-4" />
-                        </Link>
-                    </Button>
-                    <div>
-                        <h1 className="text-2xl font-bold">Notifications</h1>
-                        <p className="text-muted-foreground">
-                            Stay updated with your transport operations
-                        </p>
+                    <div className="flex items-center gap-4">
+                        <Button variant="outline" size="icon" asChild>
+                            <Link href="/dashboard/transport">
+                                <ArrowLeft className="h-4 w-4" />
+                            </Link>
+                        </Button>
+                        <div>
+                            <h1 className="text-2xl font-bold">Notifications</h1>
+                            <p className="text-muted-foreground">
+                                Stay updated with your transport operations
+                            </p>
+                        </div>
+                    </div>
+                    <div className="flex items-center gap-2">
+                        <Badge variant="secondary">
+                            {unreadCount} unread
+                        </Badge>
+                        <Button variant="outline" size="sm">
+                            <Check className="h-4 w-4 mr-2" />
+                            Mark All Read
+                        </Button>
+                        <Button variant="outline" size="sm">
+                            <Settings className="h-4 w-4 mr-2" />
+                            Settings
+                        </Button>
                     </div>
                 </div>
-                <div className="flex items-center gap-2">
-                    <Badge variant="secondary">
-                        {unreadCount} unread
-                    </Badge>
-                    <Button variant="outline" size="sm">
-                        <Check className="h-4 w-4 mr-2" />
-                        Mark All Read
+
+                {/* Search and Filter */}
+                <div className="flex flex-col sm:flex-row gap-4">
+                    <div className="relative flex-1 max-w-md">
+                        <Search className="absolute left-2 top-2.5 h-4 w-4 text-muted-foreground" />
+                        <Input
+                            placeholder="Search notifications..."
+                            value={searchQuery}
+                            onChange={(e) => setSearchQuery(e.target.value)}
+                            className="pl-8"
+                        />
+                    </div>
+                    <Button variant="outline" className="w-fit">
+                        <Filter className="h-4 w-4 mr-2" />
+                        Filter
                     </Button>
-                    <Button variant="outline" size="sm">
-                        <Settings className="h-4 w-4 mr-2" />
-                        Settings
-                    </Button>
-                </div>
-            </div>
-
-            {/* Search and Filter */}
-            <div className="flex flex-col sm:flex-row gap-4">
-                <div className="relative flex-1 max-w-md">
-                    <Search className="absolute left-2 top-2.5 h-4 w-4 text-muted-foreground" />
-                    <Input
-                        placeholder="Search notifications..."
-                        value={searchQuery}
-                        onChange={(e) => setSearchQuery(e.target.value)}
-                        className="pl-8"
-                    />
-                </div>
-                <Button variant="outline" className="w-fit">
-                    <Filter className="h-4 w-4 mr-2" />
-                    Filter
-                </Button>
-            </div>
-
-            {/* Notification Tabs */}
-            <Tabs value={activeTab} onValueChange={setActiveTab} className="space-y-4">
-                <div className="overflow-x-auto">
-                    <TabsList className="grid w-full grid-cols-7 min-w-[700px]">
-                        <TabsTrigger value="all">All</TabsTrigger>
-                        <TabsTrigger value="unread">Unread</TabsTrigger>
-                        <TabsTrigger value="urgent">Urgent</TabsTrigger>
-                        <TabsTrigger value="vehicle">Vehicle</TabsTrigger>
-                        <TabsTrigger value="delivery">Delivery</TabsTrigger>
-                        <TabsTrigger value="route">Route</TabsTrigger>
-                        <TabsTrigger value="maintenance">Maintenance</TabsTrigger>
-                    </TabsList>
                 </div>
 
-                <TabsContent value={activeTab} className="space-y-4">
-                    {filteredNotifications.length === 0 ? (
-                        <Card>
-                            <CardContent className="p-8 text-center">
-                                <Bell className="h-12 w-12 text-muted-foreground mx-auto mb-4" />
-                                <h3 className="text-lg font-semibold mb-2">No notifications found</h3>
-                                <p className="text-muted-foreground">
-                                    {searchQuery ? "Try adjusting your search terms" : "You're all caught up!"}
-                                </p>
-                            </CardContent>
-                        </Card>
-                    ) : (
-                        <div className="space-y-3 max-h-[600px] overflow-y-auto">
-                            {filteredNotifications.map((notification) => (
-                                <Card 
-                                    key={notification.id} 
-                                    className={`${getNotificationColor(notification.type)} ${
-                                        !notification.read ? "border-l-4 border-l-blue-500" : ""
-                                    } hover:shadow-md transition-shadow`}
-                                >
-                                    <CardContent className="p-4">
-                                        <div className="flex items-start gap-3">
-                                            <div className={`p-2 rounded-full bg-white ${getIconColor(notification.type)} flex-shrink-0`}>
-                                                <notification.icon className="h-4 w-4" />
-                                            </div>
-                                            <div className="flex-1 min-w-0">
-                                                <div className="flex items-start justify-between gap-2">
-                                                    <div className="flex-1 min-w-0">
-                                                        <h4 className="font-semibold mb-1 text-sm">{notification.title}</h4>
-                                                        <p className="text-sm text-muted-foreground mb-2 line-clamp-2">
-                                                            {notification.message}
-                                                        </p>
-                                                        <div className="flex items-center gap-2 flex-wrap">
-                                                            <Badge variant="outline" className="text-xs">
-                                                                {notification.category}
-                                                            </Badge>
-                                                            <span className="text-xs text-muted-foreground">
-                                                                {notification.time}
-                                                            </span>
+                {/* Notification Tabs */}
+                <Tabs value={activeTab} onValueChange={setActiveTab} className="space-y-4">
+                    <div className="overflow-x-auto">
+                        <TabsList className="grid w-full grid-cols-7 min-w-[700px]">
+                            <TabsTrigger value="all">All</TabsTrigger>
+                            <TabsTrigger value="unread">Unread</TabsTrigger>
+                            <TabsTrigger value="urgent">Urgent</TabsTrigger>
+                            <TabsTrigger value="vehicle">Vehicle</TabsTrigger>
+                            <TabsTrigger value="delivery">Delivery</TabsTrigger>
+                            <TabsTrigger value="route">Route</TabsTrigger>
+                            <TabsTrigger value="maintenance">Maintenance</TabsTrigger>
+                        </TabsList>
+                    </div>
+
+                    <TabsContent value={activeTab} className="space-y-4">
+                        {filteredNotifications.length === 0 ? (
+                            <Card>
+                                <CardContent className="p-8 text-center">
+                                    <Bell className="h-12 w-12 text-muted-foreground mx-auto mb-4" />
+                                    <h3 className="text-lg font-semibold mb-2">No notifications found</h3>
+                                    <p className="text-muted-foreground">
+                                        {searchQuery ? "Try adjusting your search terms" : "You're all caught up!"}
+                                    </p>
+                                </CardContent>
+                            </Card>
+                        ) : (
+                            <div className="space-y-3 max-h-[600px] overflow-y-auto">
+                                {filteredNotifications.map((notification) => (
+                                    <Card
+                                        key={notification.id}
+                                        className={`${getNotificationColor(notification.type)} ${!notification.read ? "border-l-4 border-l-blue-500" : ""
+                                            } hover:shadow-md transition-shadow`}
+                                    >
+                                        <CardContent className="p-4">
+                                            <div className="flex items-start gap-3">
+                                                <div className={`p-2 rounded-full bg-white ${getIconColor(notification.type)} flex-shrink-0`}>
+                                                    <notification.icon className="h-4 w-4" />
+                                                </div>
+                                                <div className="flex-1 min-w-0">
+                                                    <div className="flex items-start justify-between gap-2">
+                                                        <div className="flex-1 min-w-0">
+                                                            <h4 className="font-semibold mb-1 text-sm">{notification.title}</h4>
+                                                            <p className="text-sm text-muted-foreground mb-2 line-clamp-2">
+                                                                {notification.message}
+                                                            </p>
+                                                            <div className="flex items-center gap-2 flex-wrap">
+                                                                <Badge variant="outline" className="text-xs">
+                                                                    {notification.category}
+                                                                </Badge>
+                                                                <span className="text-xs text-muted-foreground">
+                                                                    {notification.time}
+                                                                </span>
+                                                            </div>
                                                         </div>
-                                                    </div>
-                                                    <div className="flex items-center gap-1 flex-shrink-0">
-                                                        {!notification.read && (
-                                                            <div className="w-2 h-2 bg-blue-500 rounded-full"></div>
-                                                        )}
-                                                        <Button variant="ghost" size="sm" className="h-8 w-8 p-0">
-                                                            <Check className="h-3 w-3" />
-                                                        </Button>
-                                                        <Button variant="ghost" size="sm" className="h-8 w-8 p-0">
-                                                            <Trash2 className="h-3 w-3" />
-                                                        </Button>
+                                                        <div className="flex items-center gap-1 flex-shrink-0">
+                                                            {!notification.read && (
+                                                                <div className="w-2 h-2 bg-blue-500 rounded-full"></div>
+                                                            )}
+                                                            <Button variant="ghost" size="sm" className="h-8 w-8 p-0">
+                                                                <Check className="h-3 w-3" />
+                                                            </Button>
+                                                            <Button variant="ghost" size="sm" className="h-8 w-8 p-0">
+                                                                <Trash2 className="h-3 w-3" />
+                                                            </Button>
+                                                        </div>
                                                     </div>
                                                 </div>
                                             </div>
-                                        </div>
-                                    </CardContent>
-                                </Card>
-                            ))}
-                        </div>
-                    )}
-                </TabsContent>
-            </Tabs>
+                                        </CardContent>
+                                    </Card>
+                                ))}
+                            </div>
+                        )}
+                    </TabsContent>
+                </Tabs>
 
-            {/* Quick Stats */}
-            <div className="grid gap-4 md:grid-cols-4">
-                <Card>
-                    <CardContent className="p-4">
-                        <div className="flex items-center justify-between">
-                            <div>
-                                <p className="text-sm font-medium text-muted-foreground">Total Notifications</p>
-                                <p className="text-2xl font-bold">{notifications.length}</p>
+                {/* Quick Stats */}
+                <div className="grid gap-4 md:grid-cols-4">
+                    <Card>
+                        <CardContent className="p-4">
+                            <div className="flex items-center justify-between">
+                                <div>
+                                    <p className="text-sm font-medium text-muted-foreground">Total Notifications</p>
+                                    <p className="text-2xl font-bold">{notifications.length}</p>
+                                </div>
+                                <Bell className="h-8 w-8 text-blue-500" />
                             </div>
-                            <Bell className="h-8 w-8 text-blue-500" />
-                        </div>
-                    </CardContent>
-                </Card>
-                <Card>
-                    <CardContent className="p-4">
-                        <div className="flex items-center justify-between">
-                            <div>
-                                <p className="text-sm font-medium text-muted-foreground">Unread</p>
-                                <p className="text-2xl font-bold text-blue-600">{unreadCount}</p>
+                        </CardContent>
+                    </Card>
+                    <Card>
+                        <CardContent className="p-4">
+                            <div className="flex items-center justify-between">
+                                <div>
+                                    <p className="text-sm font-medium text-muted-foreground">Unread</p>
+                                    <p className="text-2xl font-bold text-blue-600">{unreadCount}</p>
+                                </div>
+                                <Activity className="h-8 w-8 text-blue-500" />
                             </div>
-                            <Activity className="h-8 w-8 text-blue-500" />
-                        </div>
-                    </CardContent>
-                </Card>
-                <Card>
-                    <CardContent className="p-4">
-                        <div className="flex items-center justify-between">
-                            <div>
-                                <p className="text-sm font-medium text-muted-foreground">Urgent</p>
-                                <p className="text-2xl font-bold text-red-600">
-                                    {notifications.filter(n => n.type === "urgent").length}
-                                </p>
+                        </CardContent>
+                    </Card>
+                    <Card>
+                        <CardContent className="p-4">
+                            <div className="flex items-center justify-between">
+                                <div>
+                                    <p className="text-sm font-medium text-muted-foreground">Urgent</p>
+                                    <p className="text-2xl font-bold text-red-600">
+                                        {notifications.filter(n => n.type === "urgent").length}
+                                    </p>
+                                </div>
+                                <AlertTriangle className="h-8 w-8 text-red-500" />
                             </div>
-                            <AlertTriangle className="h-8 w-8 text-red-500" />
-                        </div>
-                    </CardContent>
-                </Card>
-                <Card>
-                    <CardContent className="p-4">
-                        <div className="flex items-center justify-between">
-                            <div>
-                                <p className="text-sm font-medium text-muted-foreground">Today</p>
-                                <p className="text-2xl font-bold text-green-600">
-                                    {notifications.filter(n => n.time.includes("hour") || n.time.includes("minute")).length}
-                                </p>
+                        </CardContent>
+                    </Card>
+                    <Card>
+                        <CardContent className="p-4">
+                            <div className="flex items-center justify-between">
+                                <div>
+                                    <p className="text-sm font-medium text-muted-foreground">Today</p>
+                                    <p className="text-2xl font-bold text-green-600">
+                                        {notifications.filter(n => n.time.includes("hour") || n.time.includes("minute")).length}
+                                    </p>
+                                </div>
+                                <Calendar className="h-8 w-8 text-green-500" />
                             </div>
-                            <Calendar className="h-8 w-8 text-green-500" />
-                        </div>
-                    </CardContent>
-                </Card>
-            </div>
+                        </CardContent>
+                    </Card>
+                </div>
             </div>
         </div>
     );
