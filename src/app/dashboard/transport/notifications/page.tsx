@@ -184,7 +184,7 @@ export default function TransportNotifications() {
 
             {/* Search and Filter */}
             <div className="flex flex-col sm:flex-row gap-4">
-                <div className="relative flex-1">
+                <div className="relative flex-1 max-w-md">
                     <Search className="absolute left-2 top-2.5 h-4 w-4 text-muted-foreground" />
                     <Input
                         placeholder="Search notifications..."
@@ -193,7 +193,7 @@ export default function TransportNotifications() {
                         className="pl-8"
                     />
                 </div>
-                <Button variant="outline">
+                <Button variant="outline" className="w-fit">
                     <Filter className="h-4 w-4 mr-2" />
                     Filter
                 </Button>
@@ -201,15 +201,17 @@ export default function TransportNotifications() {
 
             {/* Notification Tabs */}
             <Tabs value={activeTab} onValueChange={setActiveTab} className="space-y-4">
-                <TabsList className="grid w-full grid-cols-7">
-                    <TabsTrigger value="all">All</TabsTrigger>
-                    <TabsTrigger value="unread">Unread</TabsTrigger>
-                    <TabsTrigger value="urgent">Urgent</TabsTrigger>
-                    <TabsTrigger value="vehicle">Vehicle</TabsTrigger>
-                    <TabsTrigger value="delivery">Delivery</TabsTrigger>
-                    <TabsTrigger value="route">Route</TabsTrigger>
-                    <TabsTrigger value="maintenance">Maintenance</TabsTrigger>
-                </TabsList>
+                <div className="overflow-x-auto">
+                    <TabsList className="grid w-full grid-cols-7 min-w-[700px]">
+                        <TabsTrigger value="all">All</TabsTrigger>
+                        <TabsTrigger value="unread">Unread</TabsTrigger>
+                        <TabsTrigger value="urgent">Urgent</TabsTrigger>
+                        <TabsTrigger value="vehicle">Vehicle</TabsTrigger>
+                        <TabsTrigger value="delivery">Delivery</TabsTrigger>
+                        <TabsTrigger value="route">Route</TabsTrigger>
+                        <TabsTrigger value="maintenance">Maintenance</TabsTrigger>
+                    </TabsList>
+                </div>
 
                 <TabsContent value={activeTab} className="space-y-4">
                     {filteredNotifications.length === 0 ? (
