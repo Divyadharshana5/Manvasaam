@@ -10,6 +10,7 @@ import Link from "next/link";
 export default function RoutesPage() {
   const [isOptimizing, setIsOptimizing] = useState(false);
   const [optimizationComplete, setOptimizationComplete] = useState(false);
+  const [isRunningOptimization, setIsRunningOptimization] = useState(false);
 
   // Handler for optimizing all routes
   const handleOptimizeAll = async () => {
