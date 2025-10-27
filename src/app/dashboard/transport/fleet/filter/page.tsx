@@ -83,7 +83,7 @@ export default function FleetFilter() {
             location: "all",
             driver: "all",
             mileageRange: [0, 20],
-            serviceStatus: [],
+            serviceStatus: [] as string[],
             dateRange: "all"
         });
     };
