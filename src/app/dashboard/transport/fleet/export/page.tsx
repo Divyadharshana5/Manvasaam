@@ -393,7 +393,7 @@ export default function FleetExport() {
                                     <Checkbox
                                         id="includeCharts"
                                         checked={exportSettings.includeCharts}
-                                        onCheckedChange={(checked) => setExportSettings({ ...exportSettings, includeCharts: checked })}
+                                        onCheckedChange={(checked) => setExportSettings({ ...exportSettings, includeCharts: !!checked })}
                                     />
                                     <Label htmlFor="includeCharts">Include charts and graphs</Label>
                                 </div>
@@ -414,7 +414,7 @@ export default function FleetExport() {
                                 <Checkbox
                                     id="emailReport"
                                     checked={exportSettings.emailReport}
-                                    onCheckedChange={(checked) => setExportSettings({ ...exportSettings, emailReport: checked })}
+                                    onCheckedChange={(checked) => setExportSettings({ ...exportSettings, emailReport: !!checked })}
                                 />
                                 <Label htmlFor="emailReport">Email report after generation</Label>
                             </div>
