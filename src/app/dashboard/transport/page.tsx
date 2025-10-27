@@ -493,14 +493,20 @@ export default function TransportDashboard() {
                                             <p className="font-medium">{delivery.eta}</p>
                                             <p className="text-sm text-muted-foreground">{delivery.distance}</p>
                                             <div className="flex gap-2 mt-2">
-                                                <Button size="sm" variant="outline">
-                                                    <Eye className="h-4 w-4" />
+                                                <Button size="sm" variant="outline" asChild>
+                                                    <Link href={`/dashboard/transport/deliveries/details?id=${delivery.id}`}>
+                                                        <Eye className="h-4 w-4" />
+                                                    </Link>
                                                 </Button>
-                                                <Button size="sm" variant="outline">
-                                                    <Navigation className="h-4 w-4" />
+                                                <Button size="sm" variant="outline" asChild>
+                                                    <Link href={`/dashboard/transport/deliveries/tracking?id=${delivery.id}`}>
+                                                        <Navigation className="h-4 w-4" />
+                                                    </Link>
                                                 </Button>
-                                                <Button size="sm" variant="outline">
-                                                    <Phone className="h-4 w-4" />
+                                                <Button size="sm" variant="outline" asChild>
+                                                    <Link href={`/dashboard/transport/deliveries/contact?driver=${delivery.driver}&delivery=${delivery.id}`}>
+                                                        <Phone className="h-4 w-4" />
+                                                    </Link>
                                                 </Button>
                                             </div>
                                         </div>
