@@ -10,6 +10,37 @@ import Link from "next/link";
 export default function RoutesPage() {
   const [isOptimizing, setIsOptimizing] = useState(false);
   const [optimizationComplete, setOptimizationComplete] = useState(false);
+
+  // Handler for optimizing all routes
+  const handleOptimizeAll = async () => {
+    setIsOptimizing(true);
+    setOptimizationComplete(false);
+    
+    try {
+      // Simulate AI optimization process
+      await new Promise(resolve => setTimeout(resolve, 3000));
+      
+      console.log('Optimizing all routes with AI algorithms...');
+      
+      // Show completion
+      setOptimizationComplete(true);
+      
+      // Show success message
+      setTimeout(() => {
+        alert('Route optimization completed! All routes have been optimized for maximum efficiency.');
+        setOptimizationComplete(false);
+      }, 1000);
+      
+    } catch (error) {
+      console.error('Error optimizing routes:', error);
+      alert('Failed to optimize routes. Please try again.');
+    } finally {
+      setTimeout(() => {
+        setIsOptimizing(false);
+      }, 4000);
+    }
+  };
+
   const routes = [
     {
       id: "RT-001",
