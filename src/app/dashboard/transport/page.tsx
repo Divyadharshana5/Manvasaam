@@ -459,9 +459,11 @@ export default function TransportDashboard() {
                 <TabsContent value="deliveries" className="space-y-4">
                     <div className="flex items-center justify-between">
                         <h3 className="text-lg font-semibold">Active Deliveries</h3>
-                        <Button>
-                            <Plus className="h-4 w-4 mr-2" />
-                            New Delivery
+                        <Button asChild>
+                            <Link href="/dashboard/transport/deliveries/new">
+                                <Plus className="h-4 w-4 mr-2" />
+                                New Delivery
+                            </Link>
                         </Button>
                     </div>
                     
