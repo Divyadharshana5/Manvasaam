@@ -381,13 +381,17 @@ export default function TransportDashboard() {
                     <div className="flex items-center justify-between">
                         <h3 className="text-lg font-semibold">Fleet Management</h3>
                         <div className="flex gap-2">
-                            <Button variant="outline" size="sm">
-                                <Filter className="h-4 w-4 mr-2" />
-                                Filter
+                            <Button variant="outline" size="sm" asChild>
+                                <Link href="/dashboard/transport/fleet/filter">
+                                    <Filter className="h-4 w-4 mr-2" />
+                                    Filter
+                                </Link>
                             </Button>
-                            <Button variant="outline" size="sm">
-                                <Download className="h-4 w-4 mr-2" />
-                                Export
+                            <Button variant="outline" size="sm" asChild>
+                                <Link href="/dashboard/transport/fleet/export">
+                                    <Download className="h-4 w-4 mr-2" />
+                                    Export
+                                </Link>
                             </Button>
                         </div>
                     </div>
