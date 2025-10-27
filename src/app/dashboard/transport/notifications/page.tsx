@@ -225,27 +225,27 @@ export default function TransportNotifications() {
                             </CardContent>
                         </Card>
                     ) : (
-                        <div className="space-y-3">
+                        <div className="space-y-3 max-h-[600px] overflow-y-auto">
                             {filteredNotifications.map((notification) => (
                                 <Card 
                                     key={notification.id} 
                                     className={`${getNotificationColor(notification.type)} ${
                                         !notification.read ? "border-l-4 border-l-blue-500" : ""
-                                    }`}
+                                    } hover:shadow-md transition-shadow`}
                                 >
                                     <CardContent className="p-4">
-                                        <div className="flex items-start gap-4">
-                                            <div className={`p-2 rounded-full bg-white ${getIconColor(notification.type)}`}>
-                                                <notification.icon className="h-5 w-5" />
+                                        <div className="flex items-start gap-3">
+                                            <div className={`p-2 rounded-full bg-white ${getIconColor(notification.type)} flex-shrink-0`}>
+                                                <notification.icon className="h-4 w-4" />
                                             </div>
-                                            <div className="flex-1">
-                                                <div className="flex items-start justify-between gap-4">
-                                                    <div>
-                                                        <h4 className="font-semibold mb-1">{notification.title}</h4>
-                                                        <p className="text-sm text-muted-foreground mb-2">
+                                            <div className="flex-1 min-w-0">
+                                                <div className="flex items-start justify-between gap-2">
+                                                    <div className="flex-1 min-w-0">
+                                                        <h4 className="font-semibold mb-1 text-sm">{notification.title}</h4>
+                                                        <p className="text-sm text-muted-foreground mb-2 line-clamp-2">
                                                             {notification.message}
                                                         </p>
-                                                        <div className="flex items-center gap-2">
+                                                        <div className="flex items-center gap-2 flex-wrap">
                                                             <Badge variant="outline" className="text-xs">
                                                                 {notification.category}
                                                             </Badge>
@@ -254,15 +254,15 @@ export default function TransportNotifications() {
                                                             </span>
                                                         </div>
                                                     </div>
-                                                    <div className="flex items-center gap-2">
+                                                    <div className="flex items-center gap-1 flex-shrink-0">
                                                         {!notification.read && (
                                                             <div className="w-2 h-2 bg-blue-500 rounded-full"></div>
                                                         )}
-                                                        <Button variant="ghost" size="sm">
-                                                            <MarkAsRead className="h-4 w-4" />
+                                                        <Button variant="ghost" size="sm" className="h-8 w-8 p-0">
+                                                            <MarkAsRead className="h-3 w-3" />
                                                         </Button>
-                                                        <Button variant="ghost" size="sm">
-                                                            <Trash2 className="h-4 w-4" />
+                                                        <Button variant="ghost" size="sm" className="h-8 w-8 p-0">
+                                                            <Trash2 className="h-3 w-3" />
                                                         </Button>
                                                     </div>
                                                 </div>
