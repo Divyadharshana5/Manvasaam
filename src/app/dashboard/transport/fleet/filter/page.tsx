@@ -38,7 +38,7 @@ export default function FleetFilter() {
         location: "all",
         driver: "all",
         mileageRange: [0, 20],
-        serviceStatus: [],
+        serviceStatus: [] as string[],
         dateRange: "all"
     });
 
@@ -144,7 +144,7 @@ export default function FleetFilter() {
                                         id="search"
                                         placeholder="Search by ID, driver, location..."
                                         value={filters.search}
-                                        onChange={(e) => setFilters({...filters, search: e.target.value})}
+                                        onChange={(e) => setFilters({ ...filters, search: e.target.value })}
                                         className="pl-8"
                                     />
                                 </div>
@@ -156,12 +156,11 @@ export default function FleetFilter() {
                                     {statusOptions.map((status) => (
                                         <div
                                             key={status.value}
-                                            className={`p-3 border rounded-lg cursor-pointer transition-colors ${
-                                                filters.status === status.value
+                                            className={`p-3 border rounded-lg cursor-pointer transition-colors ${filters.status === status.value
                                                     ? "border-blue-500 bg-blue-50"
                                                     : "border-gray-200 hover:border-gray-300"
-                                            }`}
-                                            onClick={() => setFilters({...filters, status: status.value})}
+                                                }`}
+                                            onClick={() => setFilters({ ...filters, status: status.value })}
                                         >
                                             <div className="flex items-center justify-between">
                                                 <span className="text-sm font-medium">{status.label}</span>
@@ -188,7 +187,7 @@ export default function FleetFilter() {
                         <CardContent className="space-y-4">
                             <div>
                                 <Label htmlFor="location">Location</Label>
-                                <Select value={filters.location} onValueChange={(value) => setFilters({...filters, location: value})}>
+                                <Select value={filters.location} onValueChange={(value) => setFilters({ ...filters, location: value })}>
                                     <SelectTrigger>
                                         <SelectValue placeholder="Select location" />
                                     </SelectTrigger>
@@ -204,7 +203,7 @@ export default function FleetFilter() {
 
                             <div>
                                 <Label htmlFor="driver">Driver</Label>
-                                <Select value={filters.driver} onValueChange={(value) => setFilters({...filters, driver: value})}>
+                                <Select value={filters.driver} onValueChange={(value) => setFilters({ ...filters, driver: value })}>
                                     <SelectTrigger>
                                         <SelectValue placeholder="Select driver" />
                                     </SelectTrigger>
@@ -237,7 +236,7 @@ export default function FleetFilter() {
                                 </div>
                                 <Slider
                                     value={filters.fuelRange}
-                                    onValueChange={(value) => setFilters({...filters, fuelRange: value})}
+                                    onValueChange={(value) => setFilters({ ...filters, fuelRange: value })}
                                     max={100}
                                     step={5}
                                     className="w-full"
@@ -251,7 +250,7 @@ export default function FleetFilter() {
                                 </div>
                                 <Slider
                                     value={filters.batteryRange}
-                                    onValueChange={(value) => setFilters({...filters, batteryRange: value})}
+                                    onValueChange={(value) => setFilters({ ...filters, batteryRange: value })}
                                     max={100}
                                     step={5}
                                     className="w-full"
@@ -265,7 +264,7 @@ export default function FleetFilter() {
                                 </div>
                                 <Slider
                                     value={filters.temperatureRange}
-                                    onValueChange={(value) => setFilters({...filters, temperatureRange: value})}
+                                    onValueChange={(value) => setFilters({ ...filters, temperatureRange: value })}
                                     max={100}
                                     step={5}
                                     className="w-full"
@@ -279,7 +278,7 @@ export default function FleetFilter() {
                                 </div>
                                 <Slider
                                     value={filters.mileageRange}
-                                    onValueChange={(value) => setFilters({...filters, mileageRange: value})}
+                                    onValueChange={(value) => setFilters({ ...filters, mileageRange: value })}
                                     max={20}
                                     step={0.5}
                                     className="w-full"
