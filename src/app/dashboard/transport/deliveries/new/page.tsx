@@ -307,17 +307,23 @@ export default function NewDeliveryPage() {
                         </CardHeader>
                         <CardContent>
                             <div className="space-y-2">
-                                <Button variant="outline" size="sm" className="w-full justify-start">
-                                    <Navigation className="h-4 w-4 mr-2" />
-                                    Track Similar Route
+                                <Button variant="outline" size="sm" className="w-full justify-start" asChild>
+                                    <Link href="/dashboard/transport/routes">
+                                        <Navigation className="h-4 w-4 mr-2" />
+                                        Track Similar Route
+                                    </Link>
                                 </Button>
-                                <Button variant="outline" size="sm" className="w-full justify-start">
-                                    <Phone className="h-4 w-4 mr-2" />
-                                    Contact Customer
+                                <Button variant="outline" size="sm" className="w-full justify-start" asChild>
+                                    <Link href="/dashboard/transport/deliveries/contact">
+                                        <Phone className="h-4 w-4 mr-2" />
+                                        Contact Customer
+                                    </Link>
                                 </Button>
-                                <Button variant="outline" size="sm" className="w-full justify-start">
-                                    <AlertCircle className="h-4 w-4 mr-2" />
-                                    Set Alerts
+                                <Button variant="outline" size="sm" className="w-full justify-start" asChild>
+                                    <Link href="/dashboard/transport/notifications">
+                                        <AlertCircle className="h-4 w-4 mr-2" />
+                                        Set Alerts
+                                    </Link>
                                 </Button>
                             </div>
                         </CardContent>
