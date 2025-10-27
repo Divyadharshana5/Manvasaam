@@ -240,4 +240,180 @@ export default function FleetExport() {
                                     {dateRangeOptions.map((option) => (
                                         <SelectItem key={option.value} value={option.value}>
                                             {option.label}
-             
+                                        </SelectItem>
+                                    ))}
+                                </SelectContent>
+                            </Select>
+
+                            {exportSettings.dateRange === "custom" && (
+                                <div className="space-y-2">
+                                    <div>
+                                        <Label htmlFor="startDate">Start Date</Label>
+                                        <Input
+                                            id="startDate"
+                                            type="date"
+                                            value={exportSettings.customStartDate}
+                                            onChange={(e) => setExportSettings({...exportSettings, customStartDate: e.target.value})}
+                                        />
+                                    </div>
+                                    <div>
+                                        <Label htmlFor="endDate">End Date</Label>
+                                        <Input
+                                            id="endDate"
+                                            type="date"
+                                            value={exportSettings.customEndDate}
+                                            onChange={(e) => setExportSettings({...exportSettings, customEndDate: e.target.value})}
+                                        />
+                                    </div>
+                                </div>
+                            )}
+                        </CardContent>
+                    </Card>
+
+                    {/* Filter Options */}
+                    <Card>
+                        <CardHeader>
+                            <CardTitle className="flex items-center gap-2">
+                                <Truck className="h-5 w-5" />
+                                Filter & Group
+                            </CardTitle>
+                            <CardDescription>Filter vehicles and organize data</CardDescription>
+                        </CardHeader>
+                        <CardContent className="space-y-4">
+                            <div>
+                                <Label>Filter Vehicles</Label>
+                                <Select 
+                                    value={exportSettings.filterBy} 
+                                    onValueChange={(value) => setExportSettings({...exportSettings, filterBy: value})}
+                                >
+                                    <SelectTrigger>
+                                        <SelectValue placeholder="Select filter" />
+                                    </SelectTrigger>
+                                    <SelectContent>
+                                        {filterOptions.map((option) => (
+                                            <SelectItem key={option.value} value={option.value}>
+                                                {option.label}
+                                            </SelectItem>
+                                        ))}
+                                    </SelectContent>
+                                </Select>
+                            </div>
+
+                            <div>
+                                <Label>Group By</Label>
+                                <Select 
+                                    value={exportSettings.groupBy} 
+                                    onValueChange={(value) => setExportSettings({...exportSettings, groupBy: value})}
+                                >
+                                    <SelectTrigger>
+                                        <SelectValue placeholder="Select grouping" />
+                                    </SelectTrigger>
+                                    <SelectContent>
+                                        {groupByOptions.map((option) => (
+                                            <SelectItem key={option.value} value={option.value}>
+                                                {option.label}
+                                            </SelectItem>
+                                        ))}
+                                    </SelectContent>
+                                </Select>
+                            </div>
+                        </CardContent>
+                    </Card>
+                </div>
+
+                {/* Field Selection */}
+                <Card>
+                    <CardHeader>
+                        <CardTitle>Select Fields to Export</CardTitle>
+                        <CardDescription>Choose which data fields to include in your export</CardDescription>
+                    </CardHeader>
+                    <CardContent>
+                        <div className="space-y-6">
+                            {Object.entries(fieldsByCategory).map(([category, fields]) => (
+                                <div key={category}>
+                                    <div className="flex items-center justify-between mb-3">
+                                        <h4 className="font-medium capitalize">{category} Fields</h4>
+                                        <div className="flex gap-2">
+                                            <Button 
+                                                variant="outline" 
+                                                size="sm"
+                                                onClick={() => handleSelectAllFields(category)}
+                                            >
+                                                Select All
+                                            </Button>
+                                            <Button 
+                                                variant="outline" 
+                                                size="sm"
+                                                onClick={() => handleDeselectAllFields(category)}
+                                            >
+                                                Deselect All
+                                            </Button>
+                                        </div>
+                                    </div>
+                                    <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3">
+                                        {fields.map((field) => (
+                                            <div key={field.id} className="flex items-center space-x-2">
+                                                <Checkbox
+                                                    id={field.id}
+                                                    checked={exportSettings.includeFields.includes(field.id)}
+                                                    onCheckedChange={() => handleFieldToggle(field.id)}
+                                                />
+                                                <Label htmlFor={field.id} className="text-sm cursor-pointer">
+                                                    {field.label}
+                                                </Label>
+                                            </div>
+                                        ))}
+                                    </div>
+                                </div>
+                            ))}
+                        </div>
+                    </CardContent>
+                </Card>
+
+                {/* Report Settings */}
+                <div className="grid gap-6 md:grid-cols-2">
+                    <Card>
+                        <CardHeader>
+                            <CardTitle>Report Settings</CardTitle>
+                            <CardDescription>Customize your report appearance and delivery</CardDescription>
+                        </CardHeader>
+                        <CardContent className="space-y-4">
+                            <div>
+                                <Label htmlFor="reportName">Report Name</Label>
+                                <Input
+                                    id="reportName"
+                                    value={exportSettings.reportName}
+                                    onChange={(e) => setExportSettings({...exportSettings, reportName: e.target.value})}
+                                    placeholder="Enter report name"
+                                />
+                            </div>
+
+                            {exportSettings.format === "pdf" && (
+                                <div className="flex items-center space-x-2">
+                                    <Checkbox
+                                        id="includeCharts"
+                                        checked={exportSettings.includeCharts}
+                                        onCheckedChange={(checked) => setExportSettings({...exportSettings, includeCharts: checked})}
+                                    />
+                                    <Label htmlFor="includeCharts">Include charts and graphs</Label>
+                                </div>
+                            )}
+                        </CardContent>
+                    </Card>
+
+                    <Card>
+                        <CardHeader>
+                            <CardTitle className="flex items-center gap-2">
+                                <Mail className="h-5 w-5" />
+                                Email Delivery
+                            </CardTitle>
+                            <CardDescription>Optionally email the report</CardDescription>
+                        </CardHeader>
+                        <CardContent className="space-y-4">
+                            <div className="flex items-center space-x-2">
+                                <Checkbox
+                                    id="emailReport"
+                                    checked={exportSettings.emailReport}
+                                    onCheckedChange={(checked) => setExportSettings({...exportSettings, emailReport: checked})}
+                                />
+                                <Label 
