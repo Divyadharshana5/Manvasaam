@@ -22,6 +22,8 @@ import {
     AlertCircle,
     CheckCircle,
     Plus,
+    Save,
+    Loader2
 } from "lucide-react";
 import Link from "next/link";
 import { useState } from "react";
@@ -32,6 +34,82 @@ export default function NewDeliveryPage() {
     const [deliveryType, setDeliveryType] = useState("");
     const [isScheduling, setIsScheduling] = useState(false);
     const [isSaving, setIsSaving] = useState(false);
+
+    // Handler for scheduling delivery
+    const handleScheduleDelivery = async () => {
+        setIsScheduling(true);
+        
+        // Simulate API call
+        try {
+            // Collect form data
+            const deliveryData = {
+                pickupLocation: (document.getElementById('pickup-location') as HTMLInputElement)?.value,
+                deliveryLocation: (document.getElementById('delivery-location') as HTMLInputElement)?.value,
+                deliveryType,
+                pickupDate: (document.getElementById('pickup-date') as HTMLInputElement)?.value,
+                pickupTime: (document.getElementById('pickup-time') as HTMLInputElement)?.value,
+                cargoDetails: (document.getElementById('cargo-details') as HTMLTextAreaElement)?.value,
+                selectedVehicle,
+                selectedDriver,
+                status: 'scheduled'
+            };
+
+            // Simulate API delay
+            await new Promise(resolve => setTimeout(resolve, 2000));
+            
+            console.log('Scheduling delivery:', deliveryData);
+            
+            // Show success message
+            alert('Delivery scheduled successfully! Redirecting to delivery details...');
+            
+            // Generate a mock delivery ID
+            const deliveryId = `DEL-${Date.now().toString().slice(-3)}`;
+            
+            // Redirect to delivery details page
+            window.location.href = `/dashboard/transport/deliveries/details?id=${deliveryId}`;
+            
+        } catch (error) {
+            console.error('Error scheduling delivery:', error);
+            alert('Failed to schedule delivery. Please try again.');
+        } finally {
+            setIsScheduling(false);
+        }
+    };
+
+    // Handler for saving as draft
+    const handleSaveAsDraft = async () => {
+        setIsSaving(true);
+        
+        try {
+            // Collect form data
+            const draftData = {
+                pickupLocation: (document.getElementById('pickup-location') as HTMLInputElement)?.value,
+                deliveryLocation: (document.getElementById('delivery-location') as HTMLInputElement)?.value,
+                deliveryType,
+                pickupDate: (document.getElementById('pickup-date') as HTMLInputElement)?.value,
+                pickupTime: (document.getElementById('pickup-time') as HTMLInputElement)?.value,
+                cargoDetails: (document.getElementById('cargo-details') as HTMLTextAreaElement)?.value,
+                selectedVehicle,
+                selectedDriver,
+                status: 'draft',
+                savedAt: new Date().toISOString()
+            };
+
+            // Simulate API delay
+            await new Promise(resolve => setTimeout(resolve, 1500));
+            
+            console.log('Saving draft:', draftData);
+            
+            // Show success message
+            alert('Draft saved successfully! You can continue editing later.');
+            
+        } catch (error) {
+            console.error('Error saving draft:', error);
+            alert('Failed to save draft. Please try again.');
+        } finally {
+            setIsSaving(false);
+        }
+    };
 
     const vehicles = [
         { id: "TRK-001", model: "Tata Ace", capacity: "1 Ton", fuel: 85, status: "available" },
@@ -292,12 +370,40 @@ export default function NewDeliveryPage() {
                             </div>
 
                             <div className="space-y-2 pt-4">
-                                <Button className="w-full">
-                                    <CheckCircle className="h-4 w-4 mr-2" />
-                                    Schedule Delivery
+                                <Button 
+                                    className="w-full" 
+                                    onClick={handleScheduleDelivery}
+                                    disabled={isScheduling || !selectedVehicle || !selectedDriver}
+                                >
+                                    {isScheduling ? (
+                                        <>
+                                            <Loader2 className="h-4 w-4 mr-2 animate-spin" />
+                                            Scheduling...
+                                        </>
+                                    ) : (
+                                        <>
+                                            <CheckCircle className="h-4 w-4 mr-2" />
+                                            Schedule Delivery
+                                        </>
+                                    )}
                                 </Button>
-                                <Button variant="outline" className="w-full">
-                                    Save as Draft
+                                <Button 
+                                    variant="outline" 
+                                    className="w-full"
+                                    onClick={handleSaveAsDraft}
+                                    disabled={isSaving}
+                                >
+                                    {isSaving ? (
+                                        <>
+                                            <Loader2 className="h-4 w-4 mr-2 animate-spin" />
+                                            Saving...
+                                        </>
+                                    ) : (
+                                        <>
+                                            <Save className="h-4 w-4 mr-2" />
+                                            Save as Draft
+                                        </>
+                                    )}
                                 </Button>
                             </div>
                         </CardContent>
