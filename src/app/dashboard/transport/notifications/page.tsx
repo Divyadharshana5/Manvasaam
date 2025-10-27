@@ -150,9 +150,10 @@ export default function TransportNotifications() {
     const unreadCount = notifications.filter(n => !n.read).length;
 
     return (
-        <div className="flex flex-1 flex-col gap-4 p-4 md:gap-8 md:p-8">
-            {/* Header */}
-            <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
+        <div className="min-h-screen w-full overflow-auto">
+            <div className="flex flex-col gap-4 p-4 md:gap-6 md:p-6 max-w-7xl mx-auto">
+                {/* Header */}
+                <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
                 <div className="flex items-center gap-4">
                     <Button variant="outline" size="icon" asChild>
                         <Link href="/dashboard/transport">
@@ -323,6 +324,7 @@ export default function TransportNotifications() {
                         </div>
                     </CardContent>
                 </Card>
+            </div>
             </div>
         </div>
     );
