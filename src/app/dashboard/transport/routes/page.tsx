@@ -3,9 +3,13 @@
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
-import { Route, MapPin, Clock, Zap, Navigation, TrendingUp } from "lucide-react";
+import { Route, MapPin, Clock, Zap, Navigation, TrendingUp, Loader2, CheckCircle, Plus } from "lucide-react";
+import { useState } from "react";
+import Link from "next/link";
 
 export default function RoutesPage() {
+  const [isOptimizing, setIsOptimizing] = useState(false);
+  const [optimizationComplete, setOptimizationComplete] = useState(false);
   const routes = [
     {
       id: "RT-001",
