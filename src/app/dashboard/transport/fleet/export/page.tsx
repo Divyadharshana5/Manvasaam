@@ -117,10 +117,10 @@ export default function FleetExport() {
     };
 
     const handleSelectAllFields = (category?: string) => {
-        const fieldsToSelect = category 
+        const fieldsToSelect = category
             ? availableFields.filter(f => f.category === category).map(f => f.id)
             : availableFields.map(f => f.id);
-        
+
         setExportSettings(prev => ({
             ...prev,
             includeFields: [...new Set([...prev.includeFields, ...fieldsToSelect])]
@@ -128,10 +128,10 @@ export default function FleetExport() {
     };
 
     const handleDeselectAllFields = (category?: string) => {
-        const fieldsToDeselect = category 
+        const fieldsToDeselect = category
             ? availableFields.filter(f => f.category === category).map(f => f.id)
             : availableFields.map(f => f.id);
-        
+
         setExportSettings(prev => ({
             ...prev,
             includeFields: prev.includeFields.filter(f => !fieldsToDeselect.includes(f))
@@ -141,10 +141,10 @@ export default function FleetExport() {
     const handleExport = () => {
         // In a real app, this would trigger the export process
         console.log("Exporting with settings:", exportSettings);
-        
+
         // Simulate export process
         const fileName = `${exportSettings.reportName}_${new Date().toISOString().split('T')[0]}.${exportSettings.format}`;
-        
+
         // Create a mock download
         const element = document.createElement('a');
         element.setAttribute('href', 'data:text/plain;charset=utf-8,' + encodeURIComponent('Mock fleet data export'));
@@ -198,9 +198,9 @@ export default function FleetExport() {
                             <CardDescription>Choose your preferred file format</CardDescription>
                         </CardHeader>
                         <CardContent>
-                            <RadioGroup 
-                                value={exportSettings.format} 
-                                onValueChange={(value) => setExportSettings({...exportSettings, format: value})}
+                            <RadioGroup
+                                value={exportSettings.format}
+                                onValueChange={(value) => setExportSettings({ ...exportSettings, format: value })}
                                 className="space-y-3"
                             >
                                 {formatOptions.map((format) => (
@@ -229,9 +229,9 @@ export default function FleetExport() {
                             <CardDescription>Select the time period for your report</CardDescription>
                         </CardHeader>
                         <CardContent className="space-y-4">
-                            <Select 
-                                value={exportSettings.dateRange} 
-                                onValueChange={(value) => setExportSettings({...exportSettings, dateRange: value})}
+                            <Select
+                                value={exportSettings.dateRange}
+                                onValueChange={(value) => setExportSettings({ ...exportSettings, dateRange: value })}
                             >
                                 <SelectTrigger>
                                     <SelectValue placeholder="Select date range" />
@@ -253,7 +253,7 @@ export default function FleetExport() {
                                             id="startDate"
                                             type="date"
                                             value={exportSettings.customStartDate}
-                                            onChange={(e) => setExportSettings({...exportSettings, customStartDate: e.target.value})}
+                                            onChange={(e) => setExportSettings({ ...exportSettings, customStartDate: e.target.value })}
                                         />
                                     </div>
                                     <div>
@@ -262,7 +262,7 @@ export default function FleetExport() {
                                             id="endDate"
                                             type="date"
                                             value={exportSettings.customEndDate}
-                                            onChange={(e) => setExportSettings({...exportSettings, customEndDate: e.target.value})}
+                                            onChange={(e) => setExportSettings({ ...exportSettings, customEndDate: e.target.value })}
                                         />
                                     </div>
                                 </div>
@@ -282,9 +282,9 @@ export default function FleetExport() {
                         <CardContent className="space-y-4">
                             <div>
                                 <Label>Filter Vehicles</Label>
-                                <Select 
-                                    value={exportSettings.filterBy} 
-                                    onValueChange={(value) => setExportSettings({...exportSettings, filterBy: value})}
+                                <Select
+                                    value={exportSettings.filterBy}
+                                    onValueChange={(value) => setExportSettings({ ...exportSettings, filterBy: value })}
                                 >
                                     <SelectTrigger>
                                         <SelectValue placeholder="Select filter" />
@@ -301,9 +301,9 @@ export default function FleetExport() {
 
                             <div>
                                 <Label>Group By</Label>
-                                <Select 
-                                    value={exportSettings.groupBy} 
-                                    onValueChange={(value) => setExportSettings({...exportSettings, groupBy: value})}
+                                <Select
+                                    value={exportSettings.groupBy}
+                                    onValueChange={(value) => setExportSettings({ ...exportSettings, groupBy: value })}
                                 >
                                     <SelectTrigger>
                                         <SelectValue placeholder="Select grouping" />
@@ -334,15 +334,15 @@ export default function FleetExport() {
                                     <div className="flex items-center justify-between mb-3">
                                         <h4 className="font-medium capitalize">{category} Fields</h4>
                                         <div className="flex gap-2">
-                                            <Button 
-                                                variant="outline" 
+                                            <Button
+                                                variant="outline"
                                                 size="sm"
                                                 onClick={() => handleSelectAllFields(category)}
                                             >
                                                 Select All
                                             </Button>
-                                            <Button 
-                                                variant="outline" 
+                                            <Button
+                                                variant="outline"
                                                 size="sm"
                                                 onClick={() => handleDeselectAllFields(category)}
                                             >
@@ -383,7 +383,7 @@ export default function FleetExport() {
                                 <Input
                                     id="reportName"
                                     value={exportSettings.reportName}
-                                    onChange={(e) => setExportSettings({...exportSettings, reportName: e.target.value})}
+                                    onChange={(e) => setExportSettings({ ...exportSettings, reportName: e.target.value })}
                                     placeholder="Enter report name"
                                 />
                             </div>
@@ -393,7 +393,7 @@ export default function FleetExport() {
                                     <Checkbox
                                         id="includeCharts"
                                         checked={exportSettings.includeCharts}
-                                        onCheckedChange={(checked) => setExportSettings({...exportSettings, includeCharts: checked})}
+                                        onCheckedChange={(checked) => setExportSettings({ ...exportSettings, includeCharts: checked })}
                                     />
                                     <Label htmlFor="includeCharts">Include charts and graphs</Label>
                                 </div>
@@ -414,6 +414,74 @@ export default function FleetExport() {
                                 <Checkbox
                                     id="emailReport"
                                     checked={exportSettings.emailReport}
-                                    onCheckedChange={(checked) => setExportSettings({...exportSettings, emailReport: checked})}
+                                    onCheckedChange={(checked) => setExportSettings({ ...exportSettings, emailReport: checked })}
                                 />
-                                <Label 
+                                <Label htmlFor="emailReport">Email report after generation</Label>
+                            </div>
+
+                            {exportSettings.emailReport && (
+                                <div>
+                                    <Label htmlFor="emailAddress">Email Address</Label>
+                                    <Input
+                                        id="emailAddress"
+                                        type="email"
+                                        value={exportSettings.emailAddress}
+                                        onChange={(e) => setExportSettings({ ...exportSettings, emailAddress: e.target.value })}
+                                        placeholder="Enter email address"
+                                    />
+                                </div>
+                            )}
+                        </CardContent>
+                    </Card>
+                </div>
+
+                {/* Export Summary */}
+                <Card>
+                    <CardHeader>
+                        <CardTitle>Export Summary</CardTitle>
+                        <CardDescription>Review your export settings</CardDescription>
+                    </CardHeader>
+                    <CardContent>
+                        <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
+                            <div>
+                                <Label className="text-sm font-medium">Format</Label>
+                                <p className="text-sm text-muted-foreground">
+                                    {formatOptions.find(f => f.value === exportSettings.format)?.label}
+                                </p>
+                            </div>
+                            <div>
+                                <Label className="text-sm font-medium">Date Range</Label>
+                                <p className="text-sm text-muted-foreground">
+                                    {dateRangeOptions.find(d => d.value === exportSettings.dateRange)?.label}
+                                </p>
+                            </div>
+                            <div>
+                                <Label className="text-sm font-medium">Fields</Label>
+                                <p className="text-sm text-muted-foreground">
+                                    {exportSettings.includeFields.length} selected
+                                </p>
+                            </div>
+                            <div>
+                                <Label className="text-sm font-medium">Filter</Label>
+                                <p className="text-sm text-muted-foreground">
+                                    {filterOptions.find(f => f.value === exportSettings.filterBy)?.label}
+                                </p>
+                            </div>
+                        </div>
+                    </CardContent>
+                </Card>
+
+                {/* Action Buttons */}
+                <div className="flex justify-end gap-2">
+                    <Button variant="outline" asChild>
+                        <Link href="/dashboard/transport">Cancel</Link>
+                    </Button>
+                    <Button onClick={handleExport} className="min-w-32">
+                        <Download className="h-4 w-4 mr-2" />
+                        Export Data
+                    </Button>
+                </div>
+            </div>
+        </div>
+    );
+}
