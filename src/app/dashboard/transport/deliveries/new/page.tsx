@@ -30,6 +30,8 @@ export default function NewDeliveryPage() {
     const [selectedVehicle, setSelectedVehicle] = useState("");
     const [selectedDriver, setSelectedDriver] = useState("");
     const [deliveryType, setDeliveryType] = useState("");
+    const [isScheduling, setIsScheduling] = useState(false);
+    const [isSaving, setIsSaving] = useState(false);
 
     const vehicles = [
         { id: "TRK-001", model: "Tata Ace", capacity: "1 Ton", fuel: 85, status: "available" },
