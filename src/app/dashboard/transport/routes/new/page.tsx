@@ -470,8 +470,7 @@ export default function NewRoutePage() {
                                 </Button>
 
                                 <Button
-                                    variant={"outline" as const}
-                                    className="w-full"
+                                    className="w-full border border-input bg-background hover:bg-accent hover:text-accent-foreground"
                                     onClick={handleSaveAsDraft}
                                     disabled={isSaving}
                                 >
