@@ -183,7 +183,7 @@ export default function NewRoutePage() {
                                     </div>
                                     <div>
                                         <Label htmlFor="routeType">Route Type</Label>
-                                        <Select value={routeData.routeType} onValueChange={(value) => setRouteData({ ...routeData, routeType: value })}>
+                                        <Select value={routeData.routeType} onValueChange={(value: string) => setRouteData({ ...routeData, routeType: value })}>
                                             <SelectTrigger>
                                                 <SelectValue placeholder="Select route type" />
                                             </SelectTrigger>
