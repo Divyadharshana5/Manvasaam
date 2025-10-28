@@ -407,7 +407,7 @@ export default function HomePage() {
 
   return (
     <LazyMotion features={domAnimation}>
-      <div className="relative mobile-container min-h-screen bg-gradient-to-br from-green-50 via-blue-50 to-purple-50">
+      <div className="relative mobile-container bg-gradient-to-br from-green-50 via-blue-50 to-purple-50">
         {/* Optimized Animated Background Elements */}
         <AnimatedBackground />
 
@@ -458,7 +458,7 @@ export default function HomePage() {
           </div>
         </header>
 
-        <main className="flex min-h-screen flex-col items-center justify-center pt-16 sm:pt-20 md:pt-24 px-4 sm:px-6 md:px-8">
+        <main className="flex flex-col items-center pt-16 sm:pt-20 md:pt-24 px-4 sm:px-6 md:px-8 pb-8">
           <div
             className="absolute inset-0 z-0 bg-cover bg-center bg-no-repeat bg-fixed bg-ken-burns"
             style={{
