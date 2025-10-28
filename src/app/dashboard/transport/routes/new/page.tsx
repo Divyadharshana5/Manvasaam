@@ -286,7 +286,7 @@ export default function NewRoutePage() {
                                 <div>
                                     <div className="flex items-center justify-between mb-3">
                                         <Label>Waypoints (Optional)</Label>
-                                        <Button type="button" variant={"outline" as const} size={"sm" as const} onClick={addWaypoint}>
+                                        <Button type="button" className="border border-input bg-background hover:bg-accent hover:text-accent-foreground h-9 rounded-md px-3" onClick={addWaypoint}>
                                             <Plus className="h-4 w-4 mr-2" />
                                             Add Waypoint
                                         </Button>
