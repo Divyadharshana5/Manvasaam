@@ -471,7 +471,7 @@ export default function NewRoutePage() {
                                 </Button>
 
                                 <Button
-                                    variant="outline"
+                                    variant={"outline" as const}
                                     className="w-full"
                                     onClick={handleSaveAsDraft}
                                     disabled={isSaving}
