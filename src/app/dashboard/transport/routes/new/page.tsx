@@ -487,7 +487,7 @@ export default function NewRoutePage() {
                                     )}
                                 </Button>
 
-                                <Button variant={"outline" as const} className="w-full">
+                                <Button className="w-full border border-input bg-background hover:bg-accent hover:text-accent-foreground">
                                     <Zap className="h-4 w-4 mr-2" />
                                     Auto-Optimize
                                 </Button>
