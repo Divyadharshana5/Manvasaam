@@ -489,7 +489,7 @@ export default function NewRoutePage() {
                                     )}
                                 </Button>
 
-                                <Button variant="outline" className="w-full">
+                                <Button variant={"outline" as const} className="w-full">
                                     <Zap className="h-4 w-4 mr-2" />
                                     Auto-Optimize
                                 </Button>
