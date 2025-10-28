@@ -434,8 +434,7 @@ export default function HomePage() {
               <DropdownMenuTrigger asChild>
                 <motion.div whileHover={{ scale: 1.1 }}>
                   <Button
-                    variant="outline"
-                    className="hover:bg-primary/90 hover:text-primary-foreground hover:border-primary/90"
+                    className="border border-input bg-background hover:bg-primary/90 hover:text-primary-foreground hover:border-primary/90"
                   >
                     <Languages className="mr-2 h-4 w-4" />
                     {selectedLanguage}
