@@ -215,7 +215,7 @@ export default function NewRoutePage() {
                                 <div className="grid grid-cols-3 gap-4">
                                     <div>
                                         <Label htmlFor="priority">Priority</Label>
-                                        <Select value={routeData.priority} onValueChange={(value) => setRouteData({ ...routeData, priority: value })}>
+                                        <Select value={routeData.priority} onValueChange={(value: string) => setRouteData({ ...routeData, priority: value })}>
                                             <SelectTrigger>
                                                 <SelectValue placeholder="Priority" />
                                             </SelectTrigger>
