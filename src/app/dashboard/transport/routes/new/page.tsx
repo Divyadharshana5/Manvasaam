@@ -302,8 +302,7 @@ export default function NewRoutePage() {
                                                 {waypoints.length > 1 && (
                                                     <Button
                                                         type="button"
-                                                        variant={"outline" as const}
-                                                        size={"icon" as const}
+                                                        className="border border-input bg-background hover:bg-accent hover:text-accent-foreground h-10 w-10"
                                                         onClick={() => removeWaypoint(index)}
                                                     >
                                                         <Plus className="h-4 w-4 rotate-45" />
