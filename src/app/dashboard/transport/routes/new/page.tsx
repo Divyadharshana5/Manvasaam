@@ -141,7 +141,7 @@ export default function NewRoutePage() {
                 {/* Header */}
                 <div className="flex items-center justify-between">
                     <div className="flex items-center gap-4">
-                        <Button variant={"outline" as const} size={"icon" as const} asChild>
+                        <Button asChild className="border border-input bg-background hover:bg-accent hover:text-accent-foreground h-10 w-10">
                             <Link href="/dashboard/transport/routes">
                                 <ArrowLeft className="h-4 w-4" />
                             </Link>
@@ -153,7 +153,7 @@ export default function NewRoutePage() {
                             </p>
                         </div>
                     </div>
-                    <Badge variant={"secondary" as const}>
+                    <Badge className="border-transparent bg-secondary text-secondary-foreground hover:bg-secondary/80">
                         Route Builder
                     </Badge>
                 </div>
