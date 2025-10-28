@@ -141,7 +141,7 @@ export default function NewRoutePage() {
                 {/* Header */}
                 <div className="flex items-center justify-between">
                     <div className="flex items-center gap-4">
-                        <Button variant="outline" size="icon" asChild>
+                        <Button variant={"outline" as const} size={"icon" as const} asChild>
                             <Link href="/dashboard/transport/routes">
                                 <ArrowLeft className="h-4 w-4" />
                             </Link>
@@ -153,7 +153,7 @@ export default function NewRoutePage() {
                             </p>
                         </div>
                     </div>
-                    <Badge variant="secondary">
+                    <Badge variant={"secondary" as const}>
                         Route Builder
                     </Badge>
                 </div>
@@ -286,7 +286,7 @@ export default function NewRoutePage() {
                                 <div>
                                     <div className="flex items-center justify-between mb-3">
                                         <Label>Waypoints (Optional)</Label>
-                                        <Button type="button" variant="outline" size="sm" onClick={addWaypoint}>
+                                        <Button type="button" variant={"outline" as const} size={"sm" as const} onClick={addWaypoint}>
                                             <Plus className="h-4 w-4 mr-2" />
                                             Add Waypoint
                                         </Button>
@@ -302,8 +302,8 @@ export default function NewRoutePage() {
                                                 {waypoints.length > 1 && (
                                                     <Button
                                                         type="button"
-                                                        variant="outline"
-                                                        size="icon"
+                                                        variant={"outline" as const}
+                                                        size={"icon" as const}
                                                         onClick={() => removeWaypoint(index)}
                                                     >
                                                         <Plus className="h-4 w-4 rotate-45" />
@@ -329,7 +329,7 @@ export default function NewRoutePage() {
                                 <div className="grid grid-cols-2 gap-4">
                                     <div>
                                         <Label htmlFor="vehicleType">Vehicle Type</Label>
-                                        <Select value={routeData.vehicleType} onValueChange={(value) => setRouteData({ ...routeData, vehicleType: value })}>
+                                        <Select value={routeData.vehicleType} onValueChange={(value: string) => setRouteData({ ...routeData, vehicleType: value })}>
                                             <SelectTrigger>
                                                 <SelectValue placeholder="Select vehicle type" />
                                             </SelectTrigger>
