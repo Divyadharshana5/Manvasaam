@@ -7,6 +7,9 @@ const nextConfig: NextConfig = {
     ignoreBuildErrors: true,
   },
 
+  // Turbopack configuration (required for Next.js 16)
+  turbopack: {},
+
   // Compression and caching
   compress: true,
   poweredByHeader: false,
