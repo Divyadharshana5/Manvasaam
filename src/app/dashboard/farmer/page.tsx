@@ -20,7 +20,11 @@ import {
   ShoppingCart,
   Plus,
   Loader2,
+  Bell,
+  RefreshCw,
+  Search,
 } from "lucide-react";
+import { Input } from "@/components/ui/input";
 import Link from "next/link";
 
 interface Product {
