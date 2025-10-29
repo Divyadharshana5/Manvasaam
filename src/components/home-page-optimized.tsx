@@ -25,25 +25,14 @@ import {
   languages,
 } from "@/context/language-context";
 import {
-  Dialog,
-  DialogContent,
-  DialogHeader,
-  DialogTitle,
-  DialogDescription,
-  DialogTrigger,
-} from "@/components/ui/dialog";
-import {
   useState,
-  useRef,
   useEffect,
   useMemo,
   useCallback,
   lazy,
   Suspense,
 } from "react";
-import { useToast } from "@/hooks/use-toast";
 import { useRouter } from "next/navigation";
-import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 import { VoiceAssistantGlobal } from "@/components/VoiceAssistantGlobal";
 
 // Lazy load AI components for better initial load performance
