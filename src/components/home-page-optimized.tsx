@@ -8,15 +8,9 @@ import { ManvaasamLogo } from "@/components/icons";
 import {
   ArrowRight,
   Languages,
-  Users,
   Building,
   Tractor,
-  Utensils,
-  Mic,
-  Volume2,
-  Square,
   Loader2,
-  MicOff,
   Truck,
 } from "lucide-react";
 import {
