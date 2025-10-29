@@ -139,17 +139,22 @@ export default function RetailDashboard() {
         { name: "View Analytics", icon: BarChart3, href: "/dashboard/retail/analytics", color: "bg-orange-500" }
     ];
 
-    // Notification handler
-    const handleNotificationClick = useCallback(() => {
-        toast({
-            title: "Notifications",
-            description: `You have ${notifications} new notifications`,
-            duration: 3000,
-        });
-        
-        // Simulate marking notifications as read
+    // Clear individual notification
+    const clearNotification = useCallback((id: number) => {
+        setNotificationsList(prev => prev.filter(notif => notif.id !== id));
+        setNotifications(prev => Math.max(0, prev - 1));
+    }, []);
+
+    // Clear all notifications
+    const clearAllNotifications = useCallback(() => {
+        setNotificationsList([]);
         setNotifications(0);
-    }, [notifications, toast]);
+        toast({
+            title: "Notifications Cleared",
+            description: "All notifications have been cleared",
+            duration: 2000,
+        });
+    }, [toast]);
 
     // Refresh handler
     const handleRefresh = useCallback(async () => {
