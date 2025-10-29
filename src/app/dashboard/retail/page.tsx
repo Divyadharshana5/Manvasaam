@@ -193,11 +193,26 @@ export default function RetailDashboard() {
                             className="pl-8 w-64"
                         />
                     </div>
-                    <Button variant="outline" size="icon">
+                    <Button 
+                        variant="outline" 
+                        size="icon" 
+                        onClick={handleNotificationClick}
+                        className="relative"
+                    >
                         <Bell className="h-4 w-4" />
+                        {notifications > 0 && (
+                            <span className="absolute -top-1 -right-1 h-4 w-4 bg-red-500 text-white text-xs rounded-full flex items-center justify-center">
+                                {notifications}
+                            </span>
+                        )}
                     </Button>
-                    <Button variant="outline" size="icon">
-                        <RefreshCw className="h-4 w-4" />
+                    <Button 
+                        variant="outline" 
+                        size="icon" 
+                        onClick={handleRefresh}
+                        disabled={isRefreshing}
+                    >
+                        <RefreshCw className={`h-4 w-4 ${isRefreshing ? 'animate-spin' : ''}`} />
                     </Button>
                 </div>
             </div>
