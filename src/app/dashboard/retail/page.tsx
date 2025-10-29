@@ -118,56 +118,7 @@ export default function RetailDashboard() {
         { name: "View Analytics", icon: BarChart3, href: "/dashboard/retail/analytics", color: "bg-orange-500" }
     ];
 
-    // Clear individual notification
-    const clearNotification = useCallback((id: number) => {
-        setNotificationsList(prev => prev.filter(notif => notif.id !== id));
-        setNotifications(prev => Math.max(0, prev - 1));
-    }, []);
 
-    // Clear all notifications
-    const clearAllNotifications = useCallback(() => {
-        setNotificationsList([]);
-        setNotifications(0);
-        toast({
-            title: "Notifications Cleared",
-            description: "All notifications have been cleared",
-            duration: 2000,
-        });
-    }, [toast]);
-
-    // Refresh handler
-    const handleRefresh = useCallback(async () => {
-        setIsRefreshing(true);
-
-        try {
-            // Simulate API call delay
-            await new Promise(resolve => setTimeout(resolve, 1500));
-
-            // Update last sync time
-            setLastSync("Just now");
-
-            toast({
-                title: "Dashboard Refreshed",
-                description: "All data has been updated successfully",
-                duration: 2000,
-            });
-
-            // Reset sync time after a few seconds
-            setTimeout(() => {
-                setLastSync("1 min ago");
-            }, 60000);
-
-        } catch (error) {
-            toast({
-                title: "Refresh Failed",
-                description: "Unable to refresh data. Please try again.",
-                variant: "destructive",
-                duration: 3000,
-            });
-        } finally {
-            setIsRefreshing(false);
-        }
-    }, [toast]);
 
     return (
         <div className="flex flex-1 flex-col gap-4 p-4 md:gap-8 md:p-8">
