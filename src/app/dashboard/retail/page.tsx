@@ -159,25 +159,25 @@ export default function RetailDashboard() {
     // Refresh handler
     const handleRefresh = useCallback(async () => {
         setIsRefreshing(true);
-        
+
         try {
             // Simulate API call delay
             await new Promise(resolve => setTimeout(resolve, 1500));
-            
+
             // Update last sync time
             setLastSync("Just now");
-            
+
             toast({
                 title: "Dashboard Refreshed",
                 description: "All data has been updated successfully",
                 duration: 2000,
             });
-            
+
             // Reset sync time after a few seconds
             setTimeout(() => {
                 setLastSync("1 min ago");
             }, 60000);
-            
+
         } catch (error) {
             toast({
                 title: "Refresh Failed",
@@ -216,9 +216,9 @@ export default function RetailDashboard() {
                     </div>
                     <DropdownMenu>
                         <DropdownMenuTrigger asChild>
-                            <Button 
-                                variant="outline" 
-                                size="icon" 
+                            <Button
+                                variant="outline"
+                                size="icon"
                                 className="relative"
                             >
                                 <Bell className="h-4 w-4" />
@@ -233,9 +233,9 @@ export default function RetailDashboard() {
                             <DropdownMenuLabel className="flex items-center justify-between">
                                 Notifications
                                 {notifications > 0 && (
-                                    <Button 
-                                        variant="ghost" 
-                                        size="sm" 
+                                    <Button
+                                        variant="ghost"
+                                        size="sm"
                                         onClick={clearAllNotifications}
                                         className="h-6 px-2 text-xs"
                                     >
@@ -247,10 +247,9 @@ export default function RetailDashboard() {
                             {notificationsList.length > 0 ? (
                                 notificationsList.map((notification) => (
                                     <DropdownMenuItem key={notification.id} className="flex items-start gap-3 p-3">
-                                        <div className={`w-2 h-2 rounded-full mt-2 ${
-                                            notification.type === 'warning' ? 'bg-orange-500' :
-                                            notification.type === 'success' ? 'bg-green-500' : 'bg-blue-500'
-                                        }`} />
+                                        <div className={`w-2 h-2 rounded-full mt-2 ${notification.type === 'warning' ? 'bg-orange-500' :
+                                                notification.type === 'success' ? 'bg-green-500' : 'bg-blue-500'
+                                            }`} />
                                         <div className="flex-1">
                                             <p className="font-medium text-sm">{notification.title}</p>
                                             <p className="text-xs text-muted-foreground">{notification.message}</p>
@@ -275,9 +274,9 @@ export default function RetailDashboard() {
                             )}
                         </DropdownMenuContent>
                     </DropdownMenu>
-                    <Button 
-                        variant="outline" 
-                        size="icon" 
+                    <Button
+                        variant="outline"
+                        size="icon"
                         onClick={handleRefresh}
                         disabled={isRefreshing}
                         className={isRefreshing ? 'opacity-75' : ''}
