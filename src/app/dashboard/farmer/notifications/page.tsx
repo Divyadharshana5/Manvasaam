@@ -184,4 +184,113 @@ export default function FarmerNotifications() {
                             </CardContent>
                         </Card>
                     ) : (
-                        <div className="space-y-3 
+                        <div className="space-y-3 max-h-[600px] overflow-y-auto">
+                            {filteredNotifications.map((notification) => (
+                                <Card
+                                    key={notification.id}
+                                    className={`transition-all hover:shadow-md ${
+                                        !notification.read ? "border-l-4 border-l-primary" : ""
+                                    }`}
+                                >
+                                    <CardContent className="p-4">
+                                        <div className="flex items-start gap-4">
+                                            <div className={`p-2 rounded-full ${getTypeColor(notification.type)}`}>
+                                                <notification.icon className="h-4 w-4" />
+                                            </div>
+                                            <div className="flex-1 min-w-0">
+                                                <div className="flex items-start justify-between gap-2">
+                                                    <div className="flex-1">
+                                                        <h4 className="font-semibold text-sm mb-1">
+                                                            {notification.title}
+                                                            {!notification.read && (
+                                                                <span className="ml-2 w-2 h-2 bg-primary rounded-full inline-block"></span>
+                                                            )}
+                                                        </h4>
+                                                        <p className="text-sm text-muted-foreground mb-2">
+                                                            {notification.message}
+                                                        </p>
+                                                        <div className="flex items-center gap-4 text-xs text-muted-foreground">
+                                                            <span className="flex items-center gap-1">
+                                                                <Clock className="h-3 w-3" />
+                                                                {notification.time}
+                                                            </span>
+                                                            <Badge variant="outline" className="text-xs">
+                                                                {notification.category}
+                                                            </Badge>
+                                                        </div>
+                                                    </div>
+                                                    <div className="flex gap-1">
+                                                        {!notification.read && (
+                                                            <Button variant="ghost" size="sm">
+                                                                <Check className="h-4 w-4" />
+                                                            </Button>
+                                                        )}
+                                                        <Button variant="ghost" size="sm">
+                                                            <Trash2 className="h-4 w-4" />
+                                                        </Button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </CardContent>
+                                </Card>
+                            ))}
+                        </div>
+                    )}
+                </TabsContent>
+            </Tabs>
+
+            {/* Notification Stats */}
+            <div className="grid gap-4 md:grid-cols-4">
+                <Card>
+                    <CardContent className="p-4">
+                        <div className="flex items-center justify-between">
+                            <div>
+                                <p className="text-sm font-medium text-muted-foreground">Total Notifications</p>
+                                <p className="text-2xl font-bold">{notifications.length}</p>
+                            </div>
+                            <Bell className="h-8 w-8 text-blue-500" />
+                        </div>
+                    </CardContent>
+                </Card>
+                <Card>
+                    <CardContent className="p-4">
+                        <div className="flex items-center justify-between">
+                            <div>
+                                <p className="text-sm font-medium text-muted-foreground">Unread</p>
+                                <p className="text-2xl font-bold text-orange-600">{unreadCount}</p>
+                            </div>
+                            <Activity className="h-8 w-8 text-orange-500" />
+                        </div>
+                    </CardContent>
+                </Card>
+                <Card>
+                    <CardContent className="p-4">
+                        <div className="flex items-center justify-between">
+                            <div>
+                                <p className="text-sm font-medium text-muted-foreground">Urgent</p>
+                                <p className="text-2xl font-bold text-red-600">
+                                    {notifications.filter(n => n.type === "urgent").length}
+                                </p>
+                            </div>
+                            <AlertTriangle className="h-8 w-8 text-red-500" />
+                        </div>
+                    </CardContent>
+                </Card>
+                <Card>
+                    <CardContent className="p-4">
+                        <div className="flex items-center justify-between">
+                            <div>
+                                <p className="text-sm font-medium text-muted-foreground">Today</p>
+                                <p className="text-2xl font-bold text-green-600">
+                                    {notifications.filter(n => n.time.includes("hour") || n.time.includes("minute")).length}
+                                </p>
+                            </div>
+                            <Calendar className="h-8 w-8 text-green-500" />
+                        </div>
+                    </CardContent>
+                </Card>
+            </div>
+        </div>
+    );
+}
