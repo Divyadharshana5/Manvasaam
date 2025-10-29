@@ -236,14 +236,7 @@ export default function HomePage() {
     [t.roles]
   );
 
-  // Progressive loading effect for better performance
-  useEffect(() => {
-    const timer = setTimeout(() => {
-      setIsContentLoaded(true);
-    }, 100);
 
-    return () => clearTimeout(timer);
-  }, []);
 
   // Prefetch all login pages for instant navigation
   useEffect(() => {
