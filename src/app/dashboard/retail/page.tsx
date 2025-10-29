@@ -214,19 +214,67 @@ export default function RetailDashboard() {
                             className="pl-8 w-64"
                         />
                     </div>
-                    <Button 
-                        variant="outline" 
-                        size="icon" 
-                        onClick={handleNotificationClick}
-                        className="relative"
-                    >
-                        <Bell className="h-4 w-4" />
-                        {notifications > 0 && (
-                            <span className="absolute -top-1 -right-1 h-4 w-4 bg-red-500 text-white text-xs rounded-full flex items-center justify-center">
-                                {notifications}
-                            </span>
-                        )}
-                    </Button>
+                    <DropdownMenu>
+                        <DropdownMenuTrigger asChild>
+                            <Button 
+                                variant="outline" 
+                                size="icon" 
+                                className="relative"
+                            >
+                                <Bell className="h-4 w-4" />
+                                {notifications > 0 && (
+                                    <span className="absolute -top-1 -right-1 h-4 w-4 bg-red-500 text-white text-xs rounded-full flex items-center justify-center">
+                                        {notifications}
+                                    </span>
+                                )}
+                            </Button>
+                        </DropdownMenuTrigger>
+                        <DropdownMenuContent align="end" className="w-80">
+                            <DropdownMenuLabel className="flex items-center justify-between">
+                                Notifications
+                                {notifications > 0 && (
+                                    <Button 
+                                        variant="ghost" 
+                                        size="sm" 
+                                        onClick={clearAllNotifications}
+                                        className="h-6 px-2 text-xs"
+                                    >
+                                        Clear All
+                                    </Button>
+                                )}
+                            </DropdownMenuLabel>
+                            <DropdownMenuSeparator />
+                            {notificationsList.length > 0 ? (
+                                notificationsList.map((notification) => (
+                                    <DropdownMenuItem key={notification.id} className="flex items-start gap-3 p-3">
+                                        <div className={`w-2 h-2 rounded-full mt-2 ${
+                                            notification.type === 'warning' ? 'bg-orange-500' :
+                                            notification.type === 'success' ? 'bg-green-500' : 'bg-blue-500'
+                                        }`} />
+                                        <div className="flex-1">
+                                            <p className="font-medium text-sm">{notification.title}</p>
+                                            <p className="text-xs text-muted-foreground">{notification.message}</p>
+                                            <p className="text-xs text-muted-foreground mt-1">{notification.time}</p>
+                                        </div>
+                                        <Button
+                                            variant="ghost"
+                                            size="sm"
+                                            onClick={() => clearNotification(notification.id)}
+                                            className="h-6 w-6 p-0"
+                                        >
+                                            <X className="h-3 w-3" />
+                                        </Button>
+                                    </DropdownMenuItem>
+                                ))
+                            ) : (
+                                <DropdownMenuItem disabled>
+                                    <div className="text-center py-4 text-muted-foreground">
+                                        No new notifications
+                                    </div>
+                                </DropdownMenuItem>
+                            )}
+                        </DropdownMenuContent>
+                    </DropdownMenu>
                     <Button 
                         variant="outline" 
                         size="icon" 
