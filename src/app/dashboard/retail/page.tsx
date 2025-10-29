@@ -280,6 +280,7 @@ export default function RetailDashboard() {
                         size="icon" 
                         onClick={handleRefresh}
                         disabled={isRefreshing}
+                        className={isRefreshing ? 'opacity-75' : ''}
                     >
                         <RefreshCw className={`h-4 w-4 ${isRefreshing ? 'animate-spin' : ''}`} />
                     </Button>
