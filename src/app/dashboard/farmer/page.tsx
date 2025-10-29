@@ -109,6 +109,39 @@ export default function FarmerDashboard() {
 
   return (
     <div className="flex flex-1 flex-col gap-4 p-4 md:gap-8 md:p-8">
+      {/* Status and Search */}
+      <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
+        <div className="flex items-center gap-2">
+          <Badge variant="outline" className="text-green-600">
+            <CheckCircle className="h-3 w-3 mr-1" />
+            Farm Active
+          </Badge>
+          <Badge variant="secondary">
+            <Clock className="h-3 w-3 mr-1" />
+            Last update: 1 min ago
+          </Badge>
+        </div>
+        <div className="flex items-center gap-2">
+          <div className="relative">
+            <Search className="absolute left-2 top-2.5 h-4 w-4 text-muted-foreground" />
+            <Input
+              placeholder="Search products, orders..."
+              value={searchQuery}
+              onChange={(e) => setSearchQuery(e.target.value)}
+              className="pl-8 w-64"
+            />
+          </div>
+          <Button variant="outline" size="icon" asChild>
+            <Link href="/dashboard/farmer/notifications">
+              <Bell className="h-4 w-4" />
+            </Link>
+          </Button>
+          <Button variant="outline" size="icon" onClick={fetchFarmerProducts} disabled={isLoading}>
+            <RefreshCw className={`h-4 w-4 ${isLoading ? 'animate-spin' : ''}`} />
+          </Button>
+        </div>
+      </div>
+
       <div className="flex items-center justify-between">
         <div>
           <h1 className="text-3xl font-bold tracking-tight">Farmer Dashboard</h1>
@@ -117,10 +150,6 @@ export default function FarmerDashboard() {
           </p>
         </div>
         <div className="flex gap-2">
-          <Button variant="outline" onClick={fetchFarmerProducts} disabled={isLoading}>
-            {isLoading ? <Loader2 className="mr-2 h-4 w-4 animate-spin" /> : null}
-            Refresh
-          </Button>
           <Button asChild>
             <Link href="/dashboard/farmer/products">
               <Plus className="mr-2 h-4 w-4" />
