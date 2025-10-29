@@ -164,14 +164,8 @@ const RoleCard = ({
 export default function HomePage() {
   const { selectedLanguage, setSelectedLanguage, t } = useLanguage();
   const router = useRouter();
-  const { toast } = useToast();
-
-
 
   const [loadingRoleHref, setLoadingRoleHref] = useState<string | null>(null);
-
-  // Progressive loading state for better performance
-  const [isContentLoaded, setIsContentLoaded] = useState(false);
 
   // Memoize expensive calculations for better performance
   const taglineWords = useMemo(() => t.tagline.split(" "), [t.tagline]);
