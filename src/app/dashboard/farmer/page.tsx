@@ -43,6 +43,7 @@ export default function FarmerDashboard() {
   const { user } = useAuth();
   const [products, setProducts] = useState<Product[]>([]);
   const [isLoading, setIsLoading] = useState(true);
+  const [searchQuery, setSearchQuery] = useState("");
   const [stats, setStats] = useState({
     activeProducts: 0,
     totalOrders: 24,
