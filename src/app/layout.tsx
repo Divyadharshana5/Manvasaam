@@ -9,15 +9,8 @@ import { Toaster } from "@/components/ui/toaster";
 import { LanguageProvider } from "@/context/language-context";
 import { NavigationProvider } from "@/components/navigation-provider";
 import { FirebaseErrorBoundary } from "@/components/firebase-error-boundary";
-import { PT_Sans } from "next/font/google";
-
-const ptSans = PT_Sans({
-  subsets: ["latin"],
-  weight: ["400", "700"],
-  variable: "--font-pt-sans",
-  display: "swap", // Optimize font loading
-  preload: true,
-});
+// Using system fonts for better compatibility with Next.js 16.0.0 + Turbopack
+const fontFamily = "system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif";
 
 export const metadata: Metadata = {
   title: {
@@ -116,12 +109,6 @@ export default function RootLayout({
       <head>
         {/* Preload critical resources */}
         <link rel="preload" href="/bg-agri.png" as="image" />
-        <link rel="dns-prefetch" href="//fonts.googleapis.com" />
-        <link
-          rel="preconnect"
-          href="//fonts.gstatic.com"
-          crossOrigin="anonymous"
-        />
 
         {/* Performance hints */}
         <meta name="theme-color" content="#22c55e" />
@@ -132,7 +119,7 @@ export default function RootLayout({
           dangerouslySetInnerHTML={{
             __html: `
             body { 
-              font-family: ${ptSans.style.fontFamily}, system-ui, -apple-system, sans-serif;
+              font-family: ${fontFamily};
               margin: 0;
               padding: 0;
               overflow-x: hidden;
@@ -155,7 +142,7 @@ export default function RootLayout({
           }}
         />
       </head>
-      <body className={`${ptSans.variable} font-sans antialiased`}>
+      <body className="font-sans antialiased">
         <FirebaseErrorBoundary>
           <LanguageProvider>
             <NavigationProvider>
