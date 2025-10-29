@@ -36,11 +36,7 @@ import { useRouter } from "next/navigation";
 import { VoiceAssistantGlobal } from "@/components/VoiceAssistantGlobal";
 
 // Lazy load AI components for better initial load performance
-const VoiceAssistant = lazy(() => import("@/components/voice-assistant"));
 const ProductShowcase = lazy(() => import("@/components/product-showcase"));
-
-
-type AssistantState = "idle" | "listening" | "thinking" | "speaking";
 
 // Memoized components for better performance
 const AnimatedBackground = () => (
