@@ -123,6 +123,52 @@ export default function RetailDashboard() {
         { name: "View Analytics", icon: BarChart3, href: "/dashboard/retail/analytics", color: "bg-orange-500" }
     ];
 
+    // Notification handler
+    const handleNotificationClick = useCallback(() => {
+        toast({
+            title: "Notifications",
+            description: `You have ${notifications} new notifications`,
+            duration: 3000,
+        });
+        
+        // Simulate marking notifications as read
+        setNotifications(0);
+    }, [notifications, toast]);
+
+    // Refresh handler
+    const handleRefresh = useCallback(async () => {
+        setIsRefreshing(true);
+        
+        try {
+            // Simulate API call delay
+            await new Promise(resolve => setTimeout(resolve, 1500));
+            
+            // Update last sync time
+            setLastSync("Just now");
+            
+            toast({
+                title: "Dashboard Refreshed",
+                description: "All data has been updated successfully",
+                duration: 2000,
+            });
+            
+            // Reset sync time after a few seconds
+            setTimeout(() => {
+                setLastSync("1 min ago");
+            }, 60000);
+            
+        } catch (error) {
+            toast({
+                title: "Refresh Failed",
+                description: "Unable to refresh data. Please try again.",
+                variant: "destructive",
+                duration: 3000,
+            });
+        } finally {
+            setIsRefreshing(false);
+        }
+    }, [toast]);
+
     return (
         <div className="flex flex-1 flex-col gap-4 p-4 md:gap-8 md:p-8">
             {/* Status and Search */}
