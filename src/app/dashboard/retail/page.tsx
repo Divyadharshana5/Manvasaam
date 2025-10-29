@@ -55,6 +55,13 @@ export default function RetailDashboard() {
     const [lastSync, setLastSync] = useState("2 min ago");
     const { toast } = useToast();
 
+    // Sample notifications data
+    const [notificationsList, setNotificationsList] = useState([
+        { id: 1, title: "Low Stock Alert", message: "Organic Milk is running low", time: "5 min ago", type: "warning" },
+        { id: 2, title: "New Order", message: "Order #ORD-004 received from Green Valley Farm", time: "10 min ago", type: "info" },
+        { id: 3, title: "Payment Received", message: "₹8,500 payment confirmed", time: "15 min ago", type: "success" }
+    ]);
+
     // Enhanced Mock data
     const stats = {
         totalOrders: 89,
