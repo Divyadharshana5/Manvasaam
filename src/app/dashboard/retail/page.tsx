@@ -35,8 +35,7 @@ import {
     Leaf,
 } from "lucide-react";
 import Link from "next/link";
-import { useState, useCallback } from "react";
-import { useToast } from "@/hooks/use-toast";
+import { useState } from "react";
 
 export default function RetailDashboard() {
     const [searchQuery, setSearchQuery] = useState("");
