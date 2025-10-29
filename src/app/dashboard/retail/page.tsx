@@ -33,16 +33,7 @@ import {
     Zap,
     Target,
     Leaf,
-    X,
 } from "lucide-react";
-import {
-    DropdownMenu,
-    DropdownMenuContent,
-    DropdownMenuItem,
-    DropdownMenuLabel,
-    DropdownMenuSeparator,
-    DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu";
 import Link from "next/link";
 import { useState, useCallback } from "react";
 import { useToast } from "@/hooks/use-toast";
