@@ -180,7 +180,7 @@ export default function RetailDashboard() {
                     </Badge>
                     <Badge variant="secondary">
                         <Clock className="h-3 w-3 mr-1" />
-                        Last sync: 2 min ago
+                        Last sync: {lastSync}
                     </Badge>
                 </div>
                 <div className="flex items-center gap-2">
