@@ -41,6 +41,10 @@ import { useToast } from "@/hooks/use-toast";
 export default function RetailDashboard() {
     const [searchQuery, setSearchQuery] = useState("");
     const [activeTab, setActiveTab] = useState("overview");
+    const [isRefreshing, setIsRefreshing] = useState(false);
+    const [notifications, setNotifications] = useState(3);
+    const [lastSync, setLastSync] = useState("2 min ago");
+    const { toast } = useToast();
 
     // Enhanced Mock data
     const stats = {
