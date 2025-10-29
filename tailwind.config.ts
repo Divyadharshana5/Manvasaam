@@ -12,9 +12,9 @@ export default {
   theme: {
     extend: {
       fontFamily: {
-        sans: ['var(--font-pt-sans)', ...fontFamily.sans],
-        body: ['var(--font-pt-sans)', ...fontFamily.sans],
-        headline: ['var(--font-pt-sans)', ...fontFamily.sans],
+        sans: [...fontFamily.sans],
+        body: [...fontFamily.sans],
+        headline: [...fontFamily.sans],
         code: ['monospace'],
       },
       colors: {
