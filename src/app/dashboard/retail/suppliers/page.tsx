@@ -32,6 +32,7 @@ export default function SuppliersPage() {
     const [searchQuery, setSearchQuery] = useState("");
     const [selectedSupplier, setSelectedSupplier] = useState<any>(null);
     const [messageDialog, setMessageDialog] = useState(false);
+    const [addSupplierDialog, setAddSupplierDialog] = useState(false);
 
     const suppliers = [
         { 
