@@ -146,6 +146,62 @@ export default function InventoryPage() {
         }
     };
 
+    const handleExport = async () => {
+        setIsExporting(true);
+        
+        try {
+            // Simulate export process
+            await new Promise(resolve => setTimeout(resolve, 2000));
+            
+            // Create CSV content
+            const headers = ['Name', 'Category', 'Stock', 'Min Stock', 'Max Stock', 'Price', 'Supplier', 'Value', 'Last Updated'];
+            const csvContent = [
+                headers.join(','),
+                ...filteredInventory.map(item => [
+                    item.name,
+                    item.category,
+                    item.stock,
+                    item.minStock,
+                    item.maxStock,
+                    item.price,
+                    item.supplier,
+                    item.value,
+                    item.lastUpdated
+                ].join(','))
+            ].join('\n');
+            
+            // Create and download file
+            const blob = new Blob([csvContent], { type: 'text/csv' });
+            const url = window.URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = `inventory-export-${new Date().toISOString().split('T')[0]}.csv`;
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+            window.URL.revokeObjectURL(url);
+            
+            alert('Inventory exported successfully!');
+            
+        } catch (error) {
+            console.error('Export failed:', error);
+            alert('Failed to export inventory. Please try again.');
+        } finally {
+            setIsExporting(false);
+        }
+    };
+
+    const handleAddProduct = () => {
+        // For now, show an alert. In a real app, this would open a modal or navigate to add product page
+        alert('Add Product functionality - This would open a form to add a new product to inventory');
+        // You could also navigate to a dedicated add product page:
+        // router.push('/dashboard/retail/inventory/add');
+    };
+
+    const clearSearch = () => {
+        setSearchQuery("");
+    };
+
     return (
         <div className="flex flex-1 flex-col gap-4 p-4 md:gap-8 md:p-8">
             {/* Header */}
