@@ -51,12 +51,12 @@ export default function NewOrderPage() {
     ];
 
     const addOrderItem = () => {
-        setOrderItems([...orderItems, { 
-            id: orderItems.length + 1, 
-            product: "", 
-            quantity: 1, 
-            unit: "kg", 
-            price: 0 
+        setOrderItems([...orderItems, {
+            id: orderItems.length + 1,
+            product: "",
+            quantity: 1,
+            unit: "kg",
+            price: 0
         }]);
     };
 
@@ -65,7 +65,7 @@ export default function NewOrderPage() {
     };
 
     const updateOrderItem = (id: number, field: string, value: any) => {
-        setOrderItems(orderItems.map(item => 
+        setOrderItems(orderItems.map(item =>
             item.id === id ? { ...item, [field]: value } : item
         ));
     };
@@ -79,25 +79,25 @@ export default function NewOrderPage() {
             alert("Please select a supplier");
             return false;
         }
-        
+
         const validItems = orderItems.filter(item => item.product && item.quantity > 0 && item.price > 0);
         if (validItems.length === 0) {
             alert("Please add at least one valid item to your order");
             return false;
         }
-        
+
         return true;
     };
 
     const handlePlaceOrder = async () => {
         if (!validateOrder()) return;
-        
+
         setIsPlacingOrder(true);
-        
+
         try {
             // Simulate API call
             await new Promise(resolve => setTimeout(resolve, 2000));
-            
+
             // Create order object
             const orderData = {
                 supplierId: selectedSupplier,
@@ -106,13 +106,13 @@ export default function NewOrderPage() {
                 status: 'pending',
                 createdAt: new Date().toISOString()
             };
-            
+
             console.log("Order placed:", orderData);
             alert("Order placed successfully!");
-            
+
             // Redirect to orders page
             router.push("/dashboard/retail/orders");
-            
+
         } catch (error) {
             console.error("Error placing order:", error);
             alert("Failed to place order. Please try again.");
@@ -123,11 +123,11 @@ export default function NewOrderPage() {
 
     const handleSaveDraft = async () => {
         setIsSavingDraft(true);
-        
+
         try {
             // Simulate API call
             await new Promise(resolve => setTimeout(resolve, 1000));
-            
+
             // Create draft object
             const draftData = {
                 supplierId: selectedSupplier,
@@ -136,10 +136,10 @@ export default function NewOrderPage() {
                 status: 'draft',
                 savedAt: new Date().toISOString()
             };
-            
+
             console.log("Draft saved:", draftData);
             alert("Order saved as draft!");
-            
+
         } catch (error) {
             console.error("Error saving draft:", error);
             alert("Failed to save draft. Please try again.");
@@ -229,8 +229,8 @@ export default function NewOrderPage() {
                             {orderItems.map((item, index) => (
                                 <div key={item.id} className="flex items-center gap-4 p-4 border rounded-lg">
                                     <div className="flex-1 grid grid-cols-4 gap-4">
-                                        <Select 
-                                            value={item.product} 
+                                        <Select
+                                            value={item.product}
                                             onValueChange={(value) => updateOrderItem(item.id, 'product', value)}
                                         >
                                             <SelectTrigger>
@@ -246,21 +246,21 @@ export default function NewOrderPage() {
                                         </Select>
 
                                         <div className="flex items-center gap-2">
-                                            <Button 
-                                                variant="outline" 
+                                            <Button
+                                                variant="outline"
                                                 size="icon"
                                                 onClick={() => updateOrderItem(item.id, 'quantity', Math.max(1, item.quantity - 1))}
                                             >
                                                 <Minus className="h-4 w-4" />
                                             </Button>
-                                            <Input 
-                                                type="number" 
+                                            <Input
+                                                type="number"
                                                 value={item.quantity}
                                                 onChange={(e) => updateOrderItem(item.id, 'quantity', parseInt(e.target.value) || 1)}
                                                 className="w-20 text-center"
                                             />
-                                            <Button 
-                                                variant="outline" 
+                                            <Button
+                                                variant="outline"
                                                 size="icon"
                                                 onClick={() => updateOrderItem(item.id, 'quantity', item.quantity + 1)}
                                             >
@@ -268,8 +268,8 @@ export default function NewOrderPage() {
                                             </Button>
                                         </div>
 
-                                        <Select 
-                                            value={item.unit} 
+                                        <Select
+                                            value={item.unit}
                                             onValueChange={(value) => updateOrderItem(item.id, 'unit', value)}
                                         >
                                             <SelectTrigger>
@@ -283,17 +283,17 @@ export default function NewOrderPage() {
                                             </SelectContent>
                                         </Select>
 
-                                        <Input 
-                                            type="number" 
+                                        <Input
+                                            type="number"
                                             placeholder="Price per unit"
                                             value={item.price}
                                             onChange={(e) => updateOrderItem(item.id, 'price', parseFloat(e.target.value) || 0)}
                                         />
                                     </div>
-                                    
+
                                     {orderItems.length > 1 && (
-                                        <Button 
-                                            variant="outline" 
+                                        <Button
+                                            variant="outline"
                                             size="icon"
                                             onClick={() => removeOrderItem(item.id)}
                                         >
@@ -317,8 +317,8 @@ export default function NewOrderPage() {
                         <CardContent className="space-y-4">
                             <div className="space-y-2">
                                 <Label htmlFor="notes">Special Instructions</Label>
-                                <Textarea 
-                                    id="notes" 
+                                <Textarea
+                                    id="notes"
                                     placeholder="Any special delivery instructions or notes..."
                                     rows={3}
                                 />
@@ -347,7 +347,7 @@ export default function NewOrderPage() {
                                     )
                                 ))}
                             </div>
-                            
+
                             <div className="border-t pt-2">
                                 <div className="flex justify-between font-semibold">
                                     <span>Total Amount</span>
@@ -356,16 +356,16 @@ export default function NewOrderPage() {
                             </div>
 
                             <div className="space-y-2 pt-4">
-                                <Button 
-                                    className="w-full" 
+                                <Button
+                                    className="w-full"
                                     onClick={handlePlaceOrder}
                                     disabled={isPlacingOrder || calculateTotal() === 0}
                                 >
                                     <ShoppingCart className="h-4 w-4 mr-2" />
                                     {isPlacingOrder ? "Placing Order..." : "Place Order"}
                                 </Button>
-                                <Button 
-                                    variant="outline" 
+                                <Button
+                                    variant="outline"
                                     className="w-full"
                                     onClick={handleSaveDraft}
                                     disabled={isSavingDraft}
