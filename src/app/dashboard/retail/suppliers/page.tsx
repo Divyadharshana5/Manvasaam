@@ -322,11 +322,21 @@ export default function SuppliersPage() {
                                     <MessageCircle className="h-4 w-4 mr-2" />
                                     Contact
                                 </Button>
-                                <Button variant="outline" size="sm" className="flex-1">
+                                <Button 
+                                    variant="outline" 
+                                    size="sm" 
+                                    className="flex-1"
+                                    onClick={() => handleOrderFromSupplier(supplier)}
+                                >
                                     <Package className="h-4 w-4 mr-2" />
                                     Order
                                 </Button>
-                                <Button variant="outline" size="sm">
+                                <Button 
+                                    variant="outline" 
+                                    size="sm"
+                                    onClick={() => handleCallSupplier(supplier)}
+                                    title={`Call ${supplier.name}`}
+                                >
                                     <Phone className="h-4 w-4" />
                                 </Button>
                             </div>
