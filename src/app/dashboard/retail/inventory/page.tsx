@@ -202,6 +202,29 @@ export default function InventoryPage() {
         setSearchQuery("");
     };
 
+    const handleViewProduct = (item: any) => {
+        alert(`Viewing details for: ${item.name}\n\nCategory: ${item.category}\nStock: ${item.stock}/${item.maxStock}\nPrice: ₹${item.price}\nSupplier: ${item.supplier}\nValue: ₹${item.value}\nLast Updated: ${item.lastUpdated}`);
+    };
+
+    const handleEditProduct = (item: any) => {
+        const newPrice = prompt(`Edit price for ${item.name}:`, item.price.toString());
+        if (newPrice && !isNaN(Number(newPrice))) {
+            // In a real app, this would update the database
+            alert(`Price updated for ${item.name}: ₹${newPrice}`);
+            console.log(`Updated ${item.name} price to ₹${newPrice}`);
+        }
+    };
+
+    const handleAddStock = (item: any) => {
+        const additionalStock = prompt(`Add stock for ${item.name} (current: ${item.stock}):`, "10");
+        if (additionalStock && !isNaN(Number(additionalStock)) && Number(additionalStock) > 0) {
+            const newStock = item.stock + Number(additionalStock);
+            // In a real app, this would update the database
+            alert(`Stock updated for ${item.name}: ${newStock} units (added ${additionalStock})`);
+            console.log(`Added ${additionalStock} units to ${item.name}. New stock: ${newStock}`);
+        }
+    };
+
     return (
         <div className="flex flex-1 flex-col gap-4 p-4 md:gap-8 md:p-8">
             {/* Header */}
