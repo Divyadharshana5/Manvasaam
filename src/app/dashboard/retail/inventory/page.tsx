@@ -307,21 +307,21 @@ export default function InventoryPage() {
                 <CardContent className="p-4">
                     <div className="flex flex-col sm:flex-row gap-4">
                         <div className="relative flex-1">
-                            <Search className="absolute left-2 top-2.5 h-4 w-4 text-muted-foreground" />
+                            <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-muted-foreground z-10" />
                             <Input
                                 placeholder="Search products or suppliers..."
                                 value={searchQuery}
                                 onChange={(e) => setSearchQuery(e.target.value)}
-                                className="pl-8 pr-8"
+                                className="pl-10 pr-10 h-10"
                             />
                             {searchQuery && (
                                 <Button
                                     variant="ghost"
                                     size="sm"
                                     onClick={clearSearch}
-                                    className="absolute right-1 top-1 h-6 w-6 p-0 hover:bg-gray-100"
+                                    className="absolute right-2 top-1/2 transform -translate-y-1/2 h-6 w-6 p-0 hover:bg-gray-100 z-10"
                                 >
-                                    <X className="h-3 w-3" />
+                                    <X className="h-4 w-4" />
                                 </Button>
                             )}
                         </div>
