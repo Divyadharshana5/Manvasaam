@@ -216,11 +216,15 @@ export default function InventoryPage() {
                     <p className="text-muted-foreground">Monitor and manage your product inventory</p>
                 </div>
                 <div className="flex items-center gap-2">
-                    <Button variant="outline">
+                    <Button 
+                        variant="outline"
+                        onClick={handleExport}
+                        disabled={isExporting}
+                    >
                         <Download className="h-4 w-4 mr-2" />
-                        Export
+                        {isExporting ? "Exporting..." : "Export"}
                     </Button>
-                    <Button>
+                    <Button onClick={handleAddProduct}>
                         <Plus className="h-4 w-4 mr-2" />
                         Add Product
                     </Button>
