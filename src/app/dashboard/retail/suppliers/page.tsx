@@ -123,6 +123,21 @@ export default function SuppliersPage() {
         setSearchQuery("");
     };
 
+    const handleOrderFromSupplier = (supplier: any) => {
+        // In a real app, this would navigate to the order page with pre-filled supplier info
+        const orderUrl = `/dashboard/retail/orders/new?supplier=${supplier.id}&supplierName=${encodeURIComponent(supplier.name)}`;
+        alert(`Redirecting to place order from ${supplier.name}...\n\nThis would navigate to: ${orderUrl}`);
+        // window.location.href = orderUrl; // Uncomment for actual navigation
+    };
+
+    const handleCallSupplier = (supplier: any) => {
+        // In a real app, this could integrate with a calling system or open the phone app
+        if (confirm(`Call ${supplier.name} at ${supplier.phone}?`)) {
+            // For mobile devices, this would open the phone app
+            window.location.href = `tel:${supplier.phone}`;
+        }
+    };
+
     return (
         <div className="flex flex-1 flex-col gap-4 p-4 md:gap-8 md:p-8">
             {/* Header */}
