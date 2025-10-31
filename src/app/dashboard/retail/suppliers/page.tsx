@@ -362,6 +362,87 @@ export default function SuppliersPage() {
                     </div>
                 </DialogContent>
             </Dialog>
+
+            {/* Add Supplier Dialog */}
+            <Dialog open={addSupplierDialog} onOpenChange={setAddSupplierDialog}>
+                <DialogContent className="sm:max-w-[500px]">
+                    <DialogHeader>
+                        <DialogTitle>Add New Supplier</DialogTitle>
+                        <DialogDescription>
+                            Add a new supplier to your network. Fill in the details below.
+                        </DialogDescription>
+                    </DialogHeader>
+                    <div className="space-y-4 py-4">
+                        <div className="grid grid-cols-2 gap-4">
+                            <div className="space-y-2">
+                                <Label htmlFor="supplier-name">Supplier Name</Label>
+                                <Input id="supplier-name" placeholder="e.g., Fresh Farm Co." />
+                            </div>
+                            <div className="space-y-2">
+                                <Label htmlFor="category">Category</Label>
+                                <select id="category" className="w-full p-2 border rounded-md">
+                                    <option value="">Select category</option>
+                                    <option value="Vegetables">Vegetables</option>
+                                    <option value="Fruits">Fruits</option>
+                                    <option value="Dairy">Dairy</option>
+                                    <option value="Cereals">Cereals</option>
+                                    <option value="Meat">Meat</option>
+                                    <option value="Other">Other</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div className="grid grid-cols-2 gap-4">
+                            <div className="space-y-2">
+                                <Label htmlFor="phone">Phone Number</Label>
+                                <Input id="phone" placeholder="+91 98765 43210" />
+                            </div>
+                            <div className="space-y-2">
+                                <Label htmlFor="email">Email Address</Label>
+                                <Input id="email" type="email" placeholder="contact@supplier.com" />
+                            </div>
+                        </div>
+                        <div className="space-y-2">
+                            <Label htmlFor="address">Address</Label>
+                            <Textarea 
+                                id="address" 
+                                placeholder="Complete address with city, state, and postal code"
+                                rows={2}
+                            />
+                        </div>
+                        <div className="space-y-2">
+                            <Label htmlFor="products">Products/Services</Label>
+                            <Textarea 
+                                id="products" 
+                                placeholder="List the main products or services this supplier provides"
+                                rows={2}
+                            />
+                        </div>
+                        <div className="space-y-2">
+                            <Label htmlFor="notes">Additional Notes</Label>
+                            <Textarea 
+                                id="notes" 
+                                placeholder="Any additional information about this supplier"
+                                rows={2}
+                            />
+                        </div>
+                    </div>
+                    <div className="flex gap-2">
+                        <Button onClick={() => setAddSupplierDialog(false)} variant="outline" className="flex-1">
+                            Cancel
+                        </Button>
+                        <Button 
+                            className="flex-1"
+                            onClick={() => {
+                                alert("Supplier added successfully!");
+                                setAddSupplierDialog(false);
+                            }}
+                        >
+                            <Plus className="h-4 w-4 mr-2" />
+                            Add Supplier
+                        </Button>
+                    </div>
+                </DialogContent>
+            </Dialog>
         </div>
     );
 }
