@@ -25,12 +25,16 @@ import {
 } from "lucide-react";
 import Link from "next/link";
 import { useState } from "react";
+import { useRouter } from "next/navigation";
 
 export default function NewOrderPage() {
+    const router = useRouter();
     const [selectedSupplier, setSelectedSupplier] = useState("");
     const [orderItems, setOrderItems] = useState([
         { id: 1, product: "", quantity: 1, unit: "kg", price: 0 }
     ]);
+    const [isPlacingOrder, setIsPlacingOrder] = useState(false);
+    const [isSavingDraft, setIsSavingDraft] = useState(false);
 
     const suppliers = [
         { id: "1", name: "Green Valley Farm", category: "Vegetables", rating: 4.8 },
@@ -68,6 +72,80 @@ export default function NewOrderPage() {
 
     const calculateTotal = () => {
         return orderItems.reduce((total, item) => total + (item.quantity * item.price), 0);
+    };
+
+    const validateOrder = () => {
+        if (!selectedSupplier) {
+            alert("Please select a supplier");
+            return false;
+        }
+        
+        const validItems = orderItems.filter(item => item.product && item.quantity > 0 && item.price > 0);
+        if (validItems.length === 0) {
+            alert("Please add at least one valid item to your order");
+            return false;
+        }
+        
+        return true;
+    };
+
+    const handlePlaceOrder = async () => {
+        if (!validateOrder()) return;
+        
+        setIsPlacingOrder(true);
+        
+        try {
+            // Simulate API call
+            await new Promise(resolve => setTimeout(resolve, 2000));
+            
+            // Create order object
+            const orderData = {
+                supplierId: selectedSupplier,
+                items: orderItems.filter(item => item.product && item.quantity > 0),
+                total: calculateTotal(),
+                status: 'pending',
+                createdAt: new Date().toISOString()
+            };
+            
+            console.log("Order placed:", orderData);
+            alert("Order placed successfully!");
+            
+            // Redirect to orders page
+            router.push("/dashboard/retail/orders");
+            
+        } catch (error) {
+            console.error("Error placing order:", error);
+            alert("Failed to place order. Please try again.");
+        } finally {
+            setIsPlacingOrder(false);
+        }
+    };
+
+    const handleSaveDraft = async () => {
+        setIsSavingDraft(true);
+        
+        try {
+            // Simulate API call
+            await new Promise(resolve => setTimeout(resolve, 1000));
+            
+            // Create draft object
+            const draftData = {
+                supplierId: selectedSupplier,
+                items: orderItems,
+                total: calculateTotal(),
+                status: 'draft',
+                savedAt: new Date().toISOString()
+            };
+            
+            console.log("Draft saved:", draftData);
+            alert("Order saved as draft!");
+            
+        } catch (error) {
+            console.error("Error saving draft:", error);
+            alert("Failed to save draft. Please try again.");
+        } finally {
+            setIsSavingDraft(false);
+        }
     };
 
     return (
@@ -278,12 +356,21 @@ export default function NewOrderPage() {
                             </div>
 
                             <div className="space-y-2 pt-4">
-                                <Button className="w-full">
+                                <Button 
+                                    className="w-full" 
+                                    onClick={handlePlaceOrder}
+                                    disabled={isPlacingOrder || calculateTotal() === 0}
+                                >
                                     <ShoppingCart className="h-4 w-4 mr-2" />
-                                    Place Order
+                                    {isPlacingOrder ? "Placing Order..." : "Place Order"}
                                 </Button>
-                                <Button variant="outline" className="w-full">
-                                    Save as Draft
+                                <Button 
+                                    variant="outline" 
+                                    className="w-full"
+                                    onClick={handleSaveDraft}
+                                    disabled={isSavingDraft}
+                                >
+                                    {isSavingDraft ? "Saving..." : "Save as Draft"}
                                 </Button>
                             </div>
                         </CardContent>
