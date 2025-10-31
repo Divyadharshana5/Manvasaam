@@ -136,7 +136,7 @@ export default function SuppliersPage() {
                     <h1 className="text-3xl font-bold tracking-tight">Supplier Management</h1>
                     <p className="text-muted-foreground">Manage your supplier relationships and communications</p>
                 </div>
-                <Button>
+                <Button onClick={handleAddSupplier}>
                     <Plus className="h-4 w-4 mr-2" />
                     Add Supplier
                 </Button>
