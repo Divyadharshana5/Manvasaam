@@ -148,6 +148,46 @@ export default function NewOrderPage() {
         }
     };
 
+    const handleQuickAddProduct = (product: typeof products[0]) => {
+        // Check if product already exists in order items
+        const existingItemIndex = orderItems.findIndex(item => item.product === product.name);
+        
+        if (existingItemIndex !== -1) {
+            // If product exists, increase quantity
+            updateOrderItem(orderItems[existingItemIndex].id, 'quantity', orderItems[existingItemIndex].quantity + 1);
+        } else {
+            // Find first empty item or add new item
+            const emptyItemIndex = orderItems.findIndex(item => !item.product);
+            
+            if (emptyItemIndex !== -1) {
+                // Fill empty item
+                const emptyItem = orderItems[emptyItemIndex];
+                updateOrderItem(emptyItem.id, 'product', product.name);
+                updateOrderItem(emptyItem.id, 'price', product.price);
+                updateOrderItem(emptyItem.id, 'quantity', 1);
+                updateOrderItem(emptyItem.id, 'unit', product.category === 'Dairy' ? 'liter' : 'kg');
+            } else {
+                // Add new item
+                const newItem = {
+                    id: orderItems.length + 1,
+                    product: product.name,
+                    quantity: 1,
+                    unit: product.category === 'Dairy' ? 'liter' : 'kg',
+                    price: product.price
+                };
+                setOrderItems([...orderItems, newItem]);
+            }
+        }
+        
+        // Auto-select supplier if not already selected
+        if (!selectedSupplier) {
+            const supplierMatch = suppliers.find(s => s.name === product.supplier);
+            if (supplierMatch) {
+                setSelectedSupplier(supplierMatch.id);
+            }
+        }
+    };
+
     return (
         <div className="flex flex-1 flex-col gap-4 p-4 md:gap-8 md:p-8">
             {/* Header */}
