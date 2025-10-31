@@ -289,8 +289,18 @@ export default function InventoryPage() {
                                 placeholder="Search products or suppliers..."
                                 value={searchQuery}
                                 onChange={(e) => setSearchQuery(e.target.value)}
-                                className="pl-8"
+                                className="pl-8 pr-8"
                             />
+                            {searchQuery && (
+                                <Button
+                                    variant="ghost"
+                                    size="sm"
+                                    onClick={clearSearch}
+                                    className="absolute right-1 top-1 h-6 w-6 p-0 hover:bg-gray-100"
+                                >
+                                    <X className="h-3 w-3" />
+                                </Button>
+                            )}
                         </div>
                         <div className="flex gap-2">
                             {categories.map((category) => (
