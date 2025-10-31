@@ -428,13 +428,31 @@ export default function InventoryPage() {
                                             </div>
                                             
                                             <div className="flex gap-2">
-                                                <Button size="sm" variant="outline">
+                                                <Button 
+                                                    size="sm" 
+                                                    variant="outline"
+                                                    onClick={() => handleViewProduct(item)}
+                                                    className="hover:bg-blue-50 hover:border-blue-300"
+                                                    title="View product details"
+                                                >
                                                     <Eye className="h-4 w-4" />
                                                 </Button>
-                                                <Button size="sm" variant="outline">
+                                                <Button 
+                                                    size="sm" 
+                                                    variant="outline"
+                                                    onClick={() => handleEditProduct(item)}
+                                                    className="hover:bg-yellow-50 hover:border-yellow-300"
+                                                    title="Edit product"
+                                                >
                                                     <Edit className="h-4 w-4" />
                                                 </Button>
-                                                <Button size="sm" variant="outline">
+                                                <Button 
+                                                    size="sm" 
+                                                    variant="outline"
+                                                    onClick={() => handleAddStock(item)}
+                                                    className="hover:bg-green-50 hover:border-green-300"
+                                                    title="Add stock"
+                                                >
                                                     <Plus className="h-4 w-4" />
                                                 </Button>
                                             </div>
