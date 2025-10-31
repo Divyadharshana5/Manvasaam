@@ -12,7 +12,7 @@ import {
     Package,
     Plus,
     Minus,
-    ArrowLeft,
+    ArrowLeft, 
     Search,
     Calendar,
     Truck,
