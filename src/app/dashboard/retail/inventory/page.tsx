@@ -30,6 +30,7 @@ import { useState } from "react";
 export default function InventoryPage() {
     const [searchQuery, setSearchQuery] = useState("");
     const [filterCategory, setFilterCategory] = useState("all");
+    const [isExporting, setIsExporting] = useState(false);
 
     const inventory = [
         { 
