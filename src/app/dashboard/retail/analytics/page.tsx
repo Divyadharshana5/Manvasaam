@@ -29,6 +29,7 @@ import { useState } from "react";
 
 export default function AnalyticsPage() {
     const [timeRange, setTimeRange] = useState("30d");
+    const [isExporting, setIsExporting] = useState(false);
 
     const salesData = {
         totalRevenue: 125000,
