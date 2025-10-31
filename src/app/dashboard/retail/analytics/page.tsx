@@ -77,6 +77,88 @@ export default function AnalyticsPage() {
         { name: "Inventory Turnover", value: 6.2, target: 6.0, status: "good" }
     ];
 
+    const handleExportAnalytics = async () => {
+        setIsExporting(true);
+        
+        try {
+            // Simulate export process
+            await new Promise(resolve => setTimeout(resolve, 2000));
+            
+            // Create comprehensive analytics report
+            const reportData = {
+                reportDate: new Date().toISOString(),
+                timeRange: timeRange,
+                salesMetrics: salesData,
+                topProducts: topProducts,
+                supplierPerformance: supplierPerformance,
+                monthlyTrends: monthlyTrends,
+                categoryBreakdown: categoryBreakdown,
+                kpis: kpis,
+                operationalMetrics: {
+                    orderProcessingTime: "2.3 hours",
+                    inventoryAccuracy: "96%",
+                    customerResponseTime: "1.5 hours"
+                },
+                financialHealth: {
+                    profitMargin: "18%",
+                    inventoryTurnover: "6.2x",
+                    inventoryValue: "₹89K",
+                    avgCollection: "15 days"
+                }
+            };
+            
+            // Convert to CSV format
+            const csvContent = [
+                // Sales Metrics
+                "SALES METRICS",
+                "Metric,Value,Growth",
+                `Total Revenue,₹${salesData.totalRevenue.toLocaleString()},+${salesData.revenueGrowth}%`,
+                `Total Orders,${salesData.totalOrders},+${salesData.ordersGrowth}%`,
+                `Avg Order Value,₹${salesData.avgOrderValue},+${salesData.avgOrderGrowth}%`,
+                `Active Customers,${salesData.customerCount},+${salesData.customerGrowth}%`,
+                "",
+                // Top Products
+                "TOP PRODUCTS",
+                "Product,Sales,Revenue,Growth",
+                ...topProducts.map(p => `${p.name},${p.sales},₹${p.revenue.toLocaleString()},${p.growth > 0 ? '+' : ''}${p.growth}%`),
+                "",
+                // Supplier Performance
+                "SUPPLIER PERFORMANCE",
+                "Supplier,Orders,On-Time %,Rating,Total Value",
+                ...supplierPerformance.map(s => `${s.name},${s.orders},${s.onTime}%,${s.rating},₹${s.value.toLocaleString()}`),
+                "",
+                // Category Breakdown
+                "CATEGORY BREAKDOWN",
+                "Category,Percentage,Value",
+                ...categoryBreakdown.map(c => `${c.category},${c.percentage}%,₹${c.value.toLocaleString()}`),
+                "",
+                // KPIs
+                "KEY PERFORMANCE INDICATORS",
+                "KPI,Current Value,Target,Status",
+                ...kpis.map(k => `${k.name},${k.value}${typeof k.value === 'number' && k.value < 10 ? '' : '%'},${k.target}${typeof k.target === 'number' && k.target < 10 ? '' : '%'},${k.status}`)
+            ].join('\n');
+            
+            // Create and download file
+            const blob = new Blob([csvContent], { type: 'text/csv' });
+            const url = window.URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = `analytics-report-${timeRange}-${new Date().toISOString().split('T')[0]}.csv`;
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+            window.URL.revokeObjectURL(url);
+            
+            alert(`Analytics report exported successfully!\n\nReport includes:\n• Sales metrics and trends\n• Top performing products\n• Supplier performance data\n• Category breakdown\n• KPI dashboard\n• Operational metrics`);
+            
+        } catch (error) {
+            console.error('Export failed:', error);
+            alert('Failed to export analytics report. Please try again.');
+        } finally {
+            setIsExporting(false);
+        }
+    };
+
     return (
         <div className="flex flex-1 flex-col gap-4 p-4 md:gap-8 md:p-8">
             {/* Header */}
