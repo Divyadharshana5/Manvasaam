@@ -185,9 +185,13 @@ export default function AnalyticsPage() {
                             </Button>
                         ))}
                     </div>
-                    <Button variant="outline">
+                    <Button 
+                        variant="outline"
+                        onClick={handleExportAnalytics}
+                        disabled={isExporting}
+                    >
                         <Download className="h-4 w-4 mr-2" />
-                        Export
+                        {isExporting ? "Exporting..." : "Export"}
                     </Button>
                 </div>
             </div>
