@@ -361,7 +361,7 @@ For real-time updates, contact supplier at ${order.supplierContact}
           ) : (
             <div className="space-y-4">
               {filteredOrders.map((order) => (
-                <Card key={order.id} className="hover:shadow-md transition-shadow">
+                <Card key={order.id} className="hover:shadow-md transition-shadow cursor-pointer" onClick={() => handleViewOrder(order)}>
                   <CardContent className="p-6">
                     <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-4">
                       {/* Order Info */}
