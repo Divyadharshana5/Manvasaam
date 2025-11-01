@@ -1,0 +1,353 @@
+"use client";
+
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import { Badge } from "@/components/ui/badge";
+import { Button } from "@/components/ui/button";
+import {
+  ArrowLeft,
+  Package,
+  User,
+  Phone,
+  MapPin,
+  Calendar,
+  Truck,
+  DollarSign,
+  CheckCircle,
+  Clock,
+  AlertCircle,
+  Edit,
+  Download,
+  MessageSquare,
+} from "lucide-react";
+import Link from "next/link";
+import { useRouter } from "next/navigation";
+import { useState } from "react";
+
+interface OrderDetailsPageProps {
+  params: {
+    id: string;
+  };
+}
+
+export default function OrderDetailsPage({ params }: OrderDetailsPageProps) {
+  const router = useRouter();
+  const [isProcessing, setIsProcessing] = useState(false);
+
+  // Mock data - in a real app, this would be fetched based on params.id
+  const order = {
+    id: params.id,
+    supplier: "Green Valley Farm",
+    supplierContact: "+91 98765 43210",
+    supplierEmail: "orders@greenvalleyfarm.com",
+    items: [
+      { name: "Fresh Tomatoes", quantity: "25 kg", price: 80, total: 2000 },
+      { name: "Fresh Onions", quantity: "20 kg", price: 60, total: 1200 },
+      { name: "Potatoes", quantity: "30 kg", price: 40, total: 1200 },
+      { name: "Carrots", quantity: "15 kg", price: 70, total: 1050 },
+    ],
+    subtotal: 5450,
+    tax: 272.5,
+    shipping: 100,
+    totalAmount: 5822.5,
+    status: "pending",
+    orderDate: "2024-01-15",
+    deliveryDate: "2024-01-16",
+    deliveryAddress: "123 Market Street, Downtown, City - 400001",
+    paymentStatus: "pending",
+    priority: "medium",
+    notes: "Please ensure fresh vegetables. Call before delivery.",
+    orderHistory: [
+      { date: "2024-01-15 10:30 AM", status: "Order Placed", description: "Order created and sent to supplier" },
+      { date: "2024-01-15 11:15 AM", status: "Order Confirmed", description: "Supplier confirmed the order" },
+    ]
+  };
+
+  const getStatusColor = (status: string) => {
+    switch (status) {
+      case "delivered": return "bg-green-100 text-green-800";
+      case "pending": return "bg-yellow-100 text-yellow-800";
+      case "processing": return "bg-blue-100 text-blue-800";
+      case "cancelled": return "bg-red-100 text-red-800";
+      default: return "bg-gray-100 text-gray-800";
+    }
+  };
+
+  const getPaymentStatusColor = (status: string) => {
+    switch (status) {
+      case "paid": return "bg-green-100 text-green-800";
+      case "pending": return "bg-yellow-100 text-yellow-800";
+      case "refunded": return "bg-blue-100 text-blue-800";
+      default: return "bg-gray-100 text-gray-800";
+    }
+  };
+
+  const getPriorityColor = (priority: string) => {
+    switch (priority) {
+      case "high": return "bg-red-100 text-red-800";
+      case "medium": return "bg-orange-100 text-orange-800";
+      case "low": return "bg-green-100 text-green-800";
+      default: return "bg-gray-100 text-gray-800";
+    }
+  };
+
+  const handleProcessOrder = async () => {
+    if (order.status !== 'pending') {
+      alert('Only pending orders can be processed.');
+      return;
+    }
+
+    const confirmProcess = confirm(
+      `Are you sure you want to process order ${order.id}?\n\n` +
+      `This will change the status to "processing" and notify the supplier.`
+    );
+
+    if (!confirmProcess) return;
+
+    setIsProcessing(true);
+
+    try {
+      await new Promise(resolve => setTimeout(resolve, 2000));
+      alert(`Order ${order.id} has been successfully processed!`);
+      // In a real app, you would update the order status
+      router.push('/dashboard/retail/orders');
+    } catch (error) {
+      alert('Failed to process order. Please try again.');
+    } finally {
+      setIsProcessing(false);
+    }
+  };
+
+  const handleContactSupplier = () => {
+    const message = `Hello ${order.supplier},\n\nRegarding order ${order.id} scheduled for delivery on ${order.deliveryDate}.\n\nPlease confirm the status.\n\nThank you!`;
+    
+    // In a real app, this might open an email client or messaging system
+    if (confirm(`Send message to ${order.supplier}?\n\n"${message}"`)) {
+      alert('Message sent to supplier!');
+    }
+  };
+
+  return (
+    <div className="flex flex-1 flex-col gap-6 p-4 md:gap-8 md:p-8">
+      {/* Header */}
+      <div className="flex items-center gap-4">
+        <Button variant="outline" size="icon" asChild>
+          <Link href="/dashboard/retail/orders">
+            <ArrowLeft className="h-4 w-4" />
+          </Link>
+        </Button>
+        <div className="flex-1">
+          <h1 className="text-3xl font-bold tracking-tight">Order Details</h1>
+          <p className="text-muted-foreground">Order ID: {order.id}</p>
+        </div>
+        <div className="flex items-center gap-2">
+          <Button variant="outline">
+            <Download className="h-4 w-4 mr-2" />
+            Export
+          </Button>
+          <Button variant="outline" onClick={handleContactSupplier}>
+            <MessageSquare className="h-4 w-4 mr-2" />
+            Contact Supplier
+          </Button>
+          {order.status === 'pending' && (
+            <Button 
+              onClick={handleProcessOrder}
+              disabled={isProcessing}
+              className="bg-emerald-600 hover:bg-emerald-700"
+            >
+              {isProcessing ? (
+                <>
+                  <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-white mr-2"></div>
+                  Processing...
+                </>
+              ) : (
+                'Process Order'
+              )}
+            </Button>
+          )}
+        </div>
+      </div>
+
+      <div className="grid gap-6 md:grid-cols-3">
+        {/* Order Information */}
+        <div className="md:col-span-2 space-y-6">
+          {/* Order Status */}
+          <Card>
+            <CardHeader>
+              <CardTitle className="flex items-center justify-between">
+                <span>Order Status</span>
+                <div className="flex gap-2">
+                  <Badge className={getStatusColor(order.status)}>
+                    {order.status}
+                  </Badge>
+                  <Badge className={getPriorityColor(order.priority)}>
+                    {order.priority} priority
+                  </Badge>
+                </div>
+              </CardTitle>
+            </CardHeader>
+            <CardContent>
+              <div className="grid grid-cols-2 gap-4 text-sm">
+                <div className="flex items-center gap-2">
+                  <Calendar className="h-4 w-4 text-muted-foreground" />
+                  <div>
+                    <p className="font-medium">Order Date</p>
+                    <p>{order.orderDate}</p>
+                  </div>
+                </div>
+                <div className="flex items-center gap-2">
+                  <Truck className="h-4 w-4 text-muted-foreground" />
+                  <div>
+                    <p className="font-medium">Delivery Date</p>
+                    <p>{order.deliveryDate}</p>
+                  </div>
+                </div>
+              </div>
+            </CardContent>
+          </Card>
+
+          {/* Items */}
+          <Card>
+            <CardHeader>
+              <CardTitle>Order Items</CardTitle>
+              <CardDescription>{order.items.length} items</CardDescription>
+            </CardHeader>
+            <CardContent>
+              <div className="space-y-4">
+                {order.items.map((item, index) => (
+                  <div key={index} className="flex items-center justify-between p-3 bg-gray-50 rounded-lg">
+                    <div className="flex items-center gap-3">
+                      <Package className="h-5 w-5 text-muted-foreground" />
+                      <div>
+                        <p className="font-medium">{item.name}</p>
+                        <p className="text-sm text-muted-foreground">{item.quantity}</p>
+                      </div>
+                    </div>
+                    <div className="text-right">
+                      <p className="font-medium">₹{item.total.toLocaleString()}</p>
+                      <p className="text-sm text-muted-foreground">₹{item.price}/unit</p>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </CardContent>
+          </Card>
+
+          {/* Order History */}
+          <Card>
+            <CardHeader>
+              <CardTitle>Order History</CardTitle>
+            </CardHeader>
+            <CardContent>
+              <div className="space-y-4">
+                {order.orderHistory.map((event, index) => (
+                  <div key={index} className="flex items-start gap-3">
+                    <div className="mt-1">
+                      <CheckCircle className="h-4 w-4 text-green-500" />
+                    </div>
+                    <div className="flex-1">
+                      <p className="font-medium">{event.status}</p>
+                      <p className="text-sm text-muted-foreground">{event.description}</p>
+                      <p className="text-xs text-muted-foreground mt-1">{event.date}</p>
+                    </div>
+                  </div>
+                ))}
+                {order.status === 'pending' && (
+                  <div className="flex items-start gap-3">
+                    <div className="mt-1">
+                      <Clock className="h-4 w-4 text-yellow-500" />
+                    </div>
+                    <div className="flex-1">
+                      <p className="font-medium">Awaiting Processing</p>
+                      <p className="text-sm text-muted-foreground">Order is ready to be processed</p>
+                    </div>
+                  </div>
+                )}
+              </div>
+            </CardContent>
+          </Card>
+        </div>
+
+        {/* Sidebar */}
+        <div className="space-y-6">
+          {/* Supplier Information */}
+          <Card>
+            <CardHeader>
+              <CardTitle className="flex items-center gap-2">
+                <User className="h-5 w-5" />
+                Supplier Details
+              </CardTitle>
+            </CardHeader>
+            <CardContent className="space-y-4">
+              <div>
+                <p className="font-medium">{order.supplier}</p>
+                <p className="text-sm text-muted-foreground">{order.supplierEmail}</p>
+              </div>
+              <div className="flex items-center gap-2">
+                <Phone className="h-4 w-4 text-muted-foreground" />
+                <span className="text-sm">{order.supplierContact}</span>
+              </div>
+            </CardContent>
+          </Card>
+
+          {/* Delivery Information */}
+          <Card>
+            <CardHeader>
+              <CardTitle className="flex items-center gap-2">
+                <MapPin className="h-5 w-5" />
+                Delivery Address
+              </CardTitle>
+            </CardHeader>
+            <CardContent>
+              <p className="text-sm">{order.deliveryAddress}</p>
+            </CardContent>
+          </Card>
+
+          {/* Payment Summary */}
+          <Card>
+            <CardHeader>
+              <CardTitle className="flex items-center gap-2">
+                <DollarSign className="h-5 w-5" />
+                Payment Summary
+              </CardTitle>
+            </CardHeader>
+            <CardContent className="space-y-3">
+              <div className="flex justify-between text-sm">
+                <span>Subtotal</span>
+                <span>₹{order.subtotal.toLocaleString()}</span>
+              </div>
+              <div className="flex justify-between text-sm">
+                <span>Tax (5%)</span>
+                <span>₹{order.tax.toLocaleString()}</span>
+              </div>
+              <div className="flex justify-between text-sm">
+                <span>Shipping</span>
+                <span>₹{order.shipping.toLocaleString()}</span>
+              </div>
+              <div className="border-t pt-3">
+                <div className="flex justify-between font-medium">
+                  <span>Total</span>
+                  <span>₹{order.totalAmount.toLocaleString()}</span>
+                </div>
+                <Badge className={`mt-2 ${getPaymentStatusColor(order.paymentStatus)}`}>
+                  {order.paymentStatus}
+                </Badge>
+              </div>
+            </CardContent>
+          </Card>
+
+          {/* Notes */}
+          {order.notes && (
+            <Card>
+              <CardHeader>
+                <CardTitle>Order Notes</CardTitle>
+              </CardHeader>
+              <CardContent>
+                <p className="text-sm">{order.notes}</p>
+              </CardContent>
+            </Card>
+          )}
+        </div>
+      </div>
+    </div>
+  );
+}
