@@ -461,8 +461,20 @@ For real-time updates, contact supplier at ${order.supplierContact}
                             View
                           </Button>
                           {order.status === 'pending' && (
-                            <Button size="sm" className="bg-emerald-600 hover:bg-emerald-700">
-                              Process
+                            <Button 
+                              size="sm" 
+                              className="bg-emerald-600 hover:bg-emerald-700"
+                              onClick={() => handleProcessOrder(order)}
+                              disabled={processingOrderId === order.id}
+                            >
+                              {processingOrderId === order.id ? (
+                                <>
+                                  <div className="animate-spin rounded-full h-3 w-3 border-b-2 border-white mr-2"></div>
+                                  Processing...
+                                </>
+                              ) : (
+                                'Process'
+                              )}
                             </Button>
                           )}
                           {order.status === 'processing' && (
