@@ -32,6 +32,8 @@ interface OrderDetailsPageProps {
 export default function OrderDetailsPage({ params }: OrderDetailsPageProps) {
   const router = useRouter();
   const [isProcessing, setIsProcessing] = useState(false);
+  const [isExporting, setIsExporting] = useState(false);
+  const [isContacting, setIsContacting] = useState(false);
 
   // Mock data - in a real app, this would be fetched based on params.id
   const order = {
