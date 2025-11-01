@@ -98,22 +98,83 @@ export default function OrderDetailsPage({ params }: OrderDetailsPageProps) {
       return;
     }
 
-    const confirmProcess = confirm(
-      `Are you sure you want to process order ${order.id}?\n\n` +
-      `This will change the status to "processing" and notify the supplier.`
-    );
+    // Show detailed confirmation
+    const orderSummary = `
+ORDER PROCESSING CONFIRMATION
 
+Order ID: ${order.id}
+Supplier: ${order.supplier}
+Items: ${order.items.length} products
+Total Value: ₹${order.totalAmount.toLocaleString()}
+Delivery Date: ${order.deliveryDate}
+
+Actions that will be taken:
+✓ Order status → PROCESSING
+✓ Supplier notification sent
+✓ Inventory allocation
+✓ Delivery scheduling
+✓ Payment processing initiated
+
+Continue with processing?
+    `;
+
+    const confirmProcess = confirm(orderSummary);
     if (!confirmProcess) return;
 
     setIsProcessing(true);
 
     try {
-      await new Promise(resolve => setTimeout(resolve, 2000));
-      alert(`Order ${order.id} has been successfully processed!`);
-      // In a real app, you would update the order status
-      router.push('/dashboard/retail/orders');
+      // Simulate processing steps
+      await new Promise(resolve => setTimeout(resolve, 1000));
+      
+      // Step 1: Update order status
+      console.log('Step 1: Updating order status...');
+      await new Promise(resolve => setTimeout(resolve, 500));
+      
+      // Step 2: Send supplier notification
+      console.log('Step 2: Sending supplier notification...');
+      await new Promise(resolve => setTimeout(resolve, 500));
+      
+      // Step 3: Allocate inventory
+      console.log('Step 3: Allocating inventory...');
+      await new Promise(resolve => setTimeout(resolve, 500));
+      
+      // Step 4: Schedule delivery
+      console.log('Step 4: Scheduling delivery...');
+      await new Promise(resolve => setTimeout(resolve, 500));
+
+      const successMessage = `
+✅ ORDER PROCESSED SUCCESSFULLY!
+
+Order ${order.id} Status: PROCESSING
+
+Completed Actions:
+✓ Order status updated
+✓ ${order.supplier} notified via email & SMS
+✓ Inventory allocated for ${order.items.length} items
+✓ Delivery scheduled for ${order.deliveryDate}
+✓ Payment processing initiated
+
+Next Steps:
+• Supplier will prepare items
+• You'll receive updates via notifications
+• Track progress in the orders dashboard
+
+Estimated completion: ${order.deliveryDate}
+      `;
+
+      alert(successMessage);
+      
+      // In a real app, you would update the order status and refresh data
+      // For demo purposes, we'll navigate back to orders list
+      const stayOnPage = confirm('Order processed successfully!\n\nStay on this page to view details?');
+      if (!stayOnPage) {
+        router.push('/dashboard/retail/orders');
+      }
+      
     } catch (error) {
-      alert('Failed to process order. Please try again.');
+      console.error('Failed to process order:', error);
+      alert('❌ Failed to process order. Please try again or contact support.');
     } finally {
       setIsProcessing(false);
     }
