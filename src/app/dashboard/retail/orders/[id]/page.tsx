@@ -119,12 +119,48 @@ export default function OrderDetailsPage({ params }: OrderDetailsPageProps) {
     }
   };
 
-  const handleContactSupplier = () => {
-    const message = `Hello ${order.supplier},\n\nRegarding order ${order.id} scheduled for delivery on ${order.deliveryDate}.\n\nPlease confirm the status.\n\nThank you!`;
-    
-    // In a real app, this might open an email client or messaging system
-    if (confirm(`Send message to ${order.supplier}?\n\n"${message}"`)) {
-      alert('Message sent to supplier!');
+  const handleContactSupplier = async () => {
+    const messageOptions = [
+      `Hello ${order.supplier},\n\nRegarding order ${order.id} scheduled for delivery on ${order.deliveryDate}.\n\nPlease confirm the status and expected delivery time.\n\nThank you!`,
+      `Hi ${order.supplier},\n\nI wanted to check on the progress of order ${order.id}.\n\nIs everything on track for delivery on ${order.deliveryDate}?\n\nBest regards`,
+      `Dear ${order.supplier},\n\nOrder ${order.id} - Please provide an update on the preparation status.\n\nTotal items: ${order.items.length}\nDelivery address: ${order.deliveryAddress}\n\nThanks!`
+    ];
+
+    const selectedMessage = prompt(
+      `Choose message type:\n\n1. Status confirmation\n2. Progress check\n3. Preparation update\n\nEnter 1, 2, or 3:`,
+      "1"
+    );
+
+    if (!selectedMessage || !["1", "2", "3"].includes(selectedMessage)) {
+      return;
+    }
+
+    const messageIndex = parseInt(selectedMessage) - 1;
+    const message = messageOptions[messageIndex];
+
+    const customMessage = prompt(
+      `Edit message if needed:\n\n(Click OK to send as-is, or modify the text)`,
+      message
+    );
+
+    if (!customMessage) return;
+
+    setIsContacting(true);
+
+    try {
+      // Simulate sending message
+      await new Promise(resolve => setTimeout(resolve, 1500));
+      
+      // In a real app, this would send email/SMS or create a notification
+      console.log(`Message sent to ${order.supplier}:`, customMessage);
+      
+      alert(`✅ Message sent successfully to ${order.supplier}!\n\nSent via: Email (${order.supplierEmail})\nBackup: SMS (${order.supplierContact})\n\nThey will be notified immediately.`);
+      
+    } catch (error) {
+      console.error('Failed to send message:', error);
+      alert('❌ Failed to send message. Please try again or contact supplier directly.');
+    } finally {
+      setIsContacting(false);
     }
   };
 
