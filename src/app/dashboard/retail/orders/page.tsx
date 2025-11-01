@@ -160,32 +160,8 @@ export default function OrdersPage() {
   });
 
   const handleViewOrder = (order: any) => {
-    // Create detailed view of the order
-    const orderDetails = `
-ORDER DETAILS - ${order.id}
-
-Supplier: ${order.supplier}
-Contact: ${order.supplierContact}
-Status: ${order.status.toUpperCase()}
-Priority: ${order.priority.toUpperCase()}
-
-Order Date: ${order.orderDate}
-Delivery Date: ${order.deliveryDate}
-Delivery Address: ${order.deliveryAddress}
-
-ITEMS:
-${order.items.map((item: any, index: number) => 
-  `${index + 1}. ${item.name} - ${item.quantity} @ ₹${item.price}/unit`
-).join('\n')}
-
-TOTAL AMOUNT: ₹${order.totalAmount.toLocaleString()}
-Payment Status: ${order.paymentStatus.toUpperCase()}
-    `;
-    
-    alert(orderDetails);
-    
-    // In a real app, you might navigate to a detailed view page:
-    // router.push(`/dashboard/retail/orders/${order.id}`);
+    // Navigate to detailed order view
+    router.push(`/dashboard/retail/orders/${order.id}`);
   };
 
   const handleProcessOrder = async (order: any) => {
