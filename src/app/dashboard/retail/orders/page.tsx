@@ -452,7 +452,11 @@ For real-time updates, contact supplier at ${order.supplierContact}
                         </div>
                         
                         <div className="flex gap-2">
-                          <Button variant="outline" size="sm">
+                          <Button 
+                            variant="outline" 
+                            size="sm"
+                            onClick={() => handleViewOrder(order)}
+                          >
                             <Eye className="h-4 w-4 mr-1" />
                             View
                           </Button>
