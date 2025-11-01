@@ -14,8 +14,6 @@ import {
   DollarSign,
   CheckCircle,
   Clock,
-  AlertCircle,
-  Edit,
   Download,
   MessageSquare,
 } from "lucide-react";
