@@ -159,6 +159,95 @@ export default function OrdersPage() {
     return matchesSearch && matchesStatus && matchesTab;
   });
 
+  const handleViewOrder = (order: any) => {
+    // Create detailed view of the order
+    const orderDetails = `
+ORDER DETAILS - ${order.id}
+
+Supplier: ${order.supplier}
+Contact: ${order.supplierContact}
+Status: ${order.status.toUpperCase()}
+Priority: ${order.priority.toUpperCase()}
+
+Order Date: ${order.orderDate}
+Delivery Date: ${order.deliveryDate}
+Delivery Address: ${order.deliveryAddress}
+
+ITEMS:
+${order.items.map((item: any, index: number) => 
+  `${index + 1}. ${item.name} - ${item.quantity} @ ₹${item.price}/unit`
+).join('\n')}
+
+TOTAL AMOUNT: ₹${order.totalAmount.toLocaleString()}
+Payment Status: ${order.paymentStatus.toUpperCase()}
+    `;
+    
+    alert(orderDetails);
+    
+    // In a real app, you might navigate to a detailed view page:
+    // router.push(`/dashboard/retail/orders/${order.id}`);
+  };
+
+  const handleProcessOrder = async (order: any) => {
+    if (order.status !== 'pending') {
+      alert('Only pending orders can be processed.');
+      return;
+    }
+
+    const confirmProcess = confirm(
+      `Are you sure you want to process order ${order.id}?\n\n` +
+      `Supplier: ${order.supplier}\n` +
+      `Total Amount: ₹${order.totalAmount.toLocaleString()}\n\n` +
+      `This will change the status to "processing".`
+    );
+
+    if (!confirmProcess) return;
+
+    setProcessingOrderId(order.id);
+
+    try {
+      // Simulate API call to process the order
+      await new Promise(resolve => setTimeout(resolve, 2000));
+      
+      // In a real app, this would make an API call to update the order status
+      console.log(`Processing order ${order.id}`);
+      
+      alert(`Order ${order.id} has been successfully processed!\n\nStatus updated to: PROCESSING\nThe supplier has been notified.`);
+      
+      // In a real app, you would update the order status in your state/database
+      // For now, we'll just show the success message
+      
+    } catch (error) {
+      console.error('Failed to process order:', error);
+      alert('Failed to process order. Please try again.');
+    } finally {
+      setProcessingOrderId(null);
+    }
+  };
+
+  const handleTrackOrder = (order: any) => {
+    const trackingInfo = `
+TRACKING INFORMATION - ${order.id}
+
+Current Status: ${order.status.toUpperCase()}
+Supplier: ${order.supplier}
+
+Tracking Timeline:
+✓ Order Placed - ${order.orderDate}
+✓ Order Confirmed - ${order.orderDate}
+🚛 In Transit - Expected ${order.deliveryDate}
+📦 Out for Delivery - ${order.deliveryDate}
+🏠 Delivered - Pending
+
+Estimated Delivery: ${order.deliveryDate}
+Delivery Address: ${order.deliveryAddress}
+
+For real-time updates, contact supplier at ${order.supplierContact}
+    `;
+    
+    alert(trackingInfo);
+  };
+
   return (
     <div className="space-y-6">
       <div className="flex items-center justify-between">
