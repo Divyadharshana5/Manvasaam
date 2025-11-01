@@ -26,8 +26,10 @@ import {
 } from "lucide-react";
 import Link from "next/link";
 import { useState } from "react";
+import { useRouter } from "next/navigation";
 
 export default function InventoryPage() {
+    const router = useRouter();
     const [searchQuery, setSearchQuery] = useState("");
     const [filterCategory, setFilterCategory] = useState("all");
     const [isExporting, setIsExporting] = useState(false);
@@ -192,10 +194,7 @@ export default function InventoryPage() {
     };
 
     const handleAddProduct = () => {
-        // For now, show an alert. In a real app, this would open a modal or navigate to add product page
-        alert('Add Product functionality - This would open a form to add a new product to inventory');
-        // You could also navigate to a dedicated add product page:
-        // router.push('/dashboard/retail/inventory/add');
+        router.push('/dashboard/retail/inventory/add');
     };
 
     const clearSearch = () => {
