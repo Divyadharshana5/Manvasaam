@@ -478,7 +478,11 @@ For real-time updates, contact supplier at ${order.supplierContact}
                             </Button>
                           )}
                           {order.status === 'processing' && (
-                            <Button size="sm" variant="outline">
+                            <Button 
+                              size="sm" 
+                              variant="outline"
+                              onClick={() => handleTrackOrder(order)}
+                            >
                               <Truck className="h-4 w-4 mr-1" />
                               Track
                             </Button>
