@@ -36,9 +36,11 @@ import { useState } from "react";
 import { useRouter } from "next/navigation";
 
 export default function OrdersPage() {
+  const router = useRouter();
   const [searchQuery, setSearchQuery] = useState("");
   const [statusFilter, setStatusFilter] = useState("all");
   const [activeTab, setActiveTab] = useState("all");
+  const [processingOrderId, setProcessingOrderId] = useState<string | null>(null);
 
   const orders = [
     {
