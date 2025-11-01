@@ -427,7 +427,7 @@ For real-time updates, contact supplier at ${order.supplierContact}
                           </Badge>
                         </div>
                         
-                        <div className="flex gap-2">
+                        <div className="flex gap-2" onClick={(e) => e.stopPropagation()}>
                           <Button 
                             variant="outline" 
                             size="sm"
