@@ -883,14 +883,14 @@ export default function ProfilePage() {
                           description: "Successfully placed your first order", 
                           time: "2 days ago", 
                           icon: Package, 
-                          color: "text-blue-600" 
+                          color: "text-green-600" 
                         },
                         { 
                           title: "Account Verified", 
                           description: "Your account has been verified", 
                           time: "1 week ago", 
                           icon: Shield, 
-                          color: "text-purple-600" 
+                          color: "text-emerald-600" 
                         },
                       ].map((item, index) => (
                         <div key={index} className="flex gap-4">
