@@ -433,7 +433,7 @@ export default function ProfilePage() {
   };
 
   const DashboardIcon = getDashboardIcon(userProfile?.userType);
-  const statCards = getStatCards(userProfile?.userType, userProfile);
+  const statCards = getStatCards(userProfile?.userType, userProfile || undefined);
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-slate-50 via-blue-50 to-indigo-50">
