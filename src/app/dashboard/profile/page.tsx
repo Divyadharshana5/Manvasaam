@@ -678,7 +678,7 @@ export default function ProfilePage() {
                       </h2>
                       <p className="text-lg text-gray-600 mt-1">{userProfile.email}</p>
                       <div className="flex items-center justify-center lg:justify-start gap-2 mt-2">
-                        <DashboardIcon className="h-5 w-5 text-blue-600" />
+                        <DashboardIcon className="h-5 w-5 text-green-600" />
                         <Badge variant="secondary" className="bg-blue-100 text-blue-800">
                           {userProfile.role || userProfile.userType}
                         </Badge>
