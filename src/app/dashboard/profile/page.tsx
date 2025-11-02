@@ -366,8 +366,8 @@ export default function ProfilePage() {
         
         if (values.photo instanceof File) {
             photoURL = await uploadImage(values.photo);
-            if (user.photoURL !== photoURL) {
-              await updateProfile(user, { photoURL });
+            if ((user as any).photoURL !== photoURL) {
+              await updateProfile(user as any, { photoURL });
             }
         }
         
