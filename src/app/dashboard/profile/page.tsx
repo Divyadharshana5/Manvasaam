@@ -1058,24 +1058,90 @@ export default function ProfilePage() {
                     </CardHeader>
                     <CardContent className="space-y-6">
                       {[
-                        { label: "Email Notifications", key: "emailUpdates", icon: Mail },
-                        { label: "SMS Alerts", key: "smsAlerts", icon: Smartphone },
-                        { label: "Push Notifications", key: "notifications", icon: Bell },
+                        { 
+                          label: "Email Notifications", 
+                          description: "Receive updates about orders, payments, and account activity",
+                          key: "emailUpdates", 
+                          icon: Mail 
+                        },
+                        { 
+                          label: "SMS Alerts", 
+                          description: "Get instant notifications for urgent updates and delivery status",
+                          key: "smsAlerts", 
+                          icon: Smartphone 
+                        },
+                        { 
+                          label: "Push Notifications", 
+                          description: "Browser notifications for real-time updates and messages",
+                          key: "notifications", 
+                          icon: Bell 
+                        },
+                        { 
+                          label: "Marketing Communications", 
+                          description: "Receive promotional offers, newsletters, and product updates",
+                          key: "marketing", 
+                          icon: Globe 
+                        },
+                        { 
+                          label: "Weekly Reports", 
+                          description: "Get weekly summary of your business performance and analytics",
+                          key: "weeklyReports", 
+                          icon: TrendingUp 
+                        },
                       ].map((pref, index) => (
-                        <div key={index} className="flex items-center justify-between">
-                          <div className="flex items-center gap-3">
-                            <pref.icon className="h-5 w-5 text-gray-500" />
-                            <span className="font-medium">{pref.label}</span>
+                        <div key={index} className="flex items-start justify-between p-4 rounded-lg border">
+                          <div className="flex items-start gap-3 flex-1">
+                            <div className="p-2 rounded-lg bg-gray-100 mt-1">
+                              <pref.icon className="h-4 w-4 text-gray-600" />
+                            </div>
+                            <div className="flex-1">
+                              <div className="font-medium text-gray-900">{pref.label}</div>
+                              <div className="text-sm text-gray-500 mt-1">{pref.description}</div>
+                            </div>
                           </div>
                           <Switch 
                             checked={Boolean(userProfile.preferences?.[pref.key as keyof typeof userProfile.preferences]) || false}
                             onCheckedChange={(checked) => {
                               // In real app, update preferences
                               console.log(`${pref.key}: ${checked}`);
+                              toast({
+                                title: "Preference Updated",
+                                description: `${pref.label} has been ${checked ? 'enabled' : 'disabled'}.`,
+                              });
                             }}
                           />
                         </div>
                       ))}
+                      
+                      <Separator />
+                      
+                      <div className="space-y-4">
+                        <h4 className="font-semibold text-gray-900">Data & Privacy</h4>
+                        <div className="grid grid-cols-1 gap-3">
+                          <Button variant="outline" className="justify-start h-auto p-4">
+                            <div className="flex items-center gap-3">
+                              <div className="p-2 rounded-lg bg-blue-100">
+                                <Download className="h-4 w-4 text-blue-600" />
+                              </div>
+                              <div className="text-left">
+                                <div className="font-medium">Download Your Data</div>
+                                <div className="text-sm text-gray-500">Export all your account data and transaction history</div>
+                              </div>
+                            </div>
+                          </Button>
+                          <Button variant="outline" className="justify-start h-auto p-4">
+                            <div className="flex items-center gap-3">
+                              <div className="p-2 rounded-lg bg-red-100">
+                                <X className="h-4 w-4 text-red-600" />
+                              </div>
+                              <div className="text-left">
+                                <div className="font-medium">Delete Account</div>
+                                <div className="text-sm text-gray-500">Permanently delete your account and all associated data</div>
+                              </div>
+                            </div>
+                          </Button>
+                        </div>
+                      </div>
                     </CardContent>
                   </Card>
 
