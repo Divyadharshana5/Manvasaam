@@ -432,170 +432,324 @@ export default function ProfilePage() {
     );
   };
 
+  const DashboardIcon = getDashboardIcon(userProfile?.userType);
+  const statCards = getStatCards(userProfile?.userType, userProfile);
+
   return (
-    <div className="min-h-screen bg-background">
-      <div className="container mx-auto space-y-4 p-4 md:p-8 pt-6">
-        <div className="flex items-center justify-between space-y-2">
+    <div className="min-h-screen bg-gradient-to-br from-slate-50 via-blue-50 to-indigo-50">
+      <div className="container mx-auto space-y-6 p-4 md:p-8 pt-6">
+        {/* Header */}
+        <div className="flex items-center justify-between">
           <div>
-            <h2 className="text-3xl font-bold tracking-tight">{t.profile.title}</h2>
-            <p className="text-muted-foreground">
-              {t.profile.description}
+            <h1 className="text-4xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
+              Profile Dashboard
+            </h1>
+            <p className="text-muted-foreground text-lg mt-2">
+              Manage your account and preferences
             </p>
           </div>
+          <Dialog open={isEditDialogOpen} onOpenChange={setIsEditDialogOpen}>
+            <DialogTrigger asChild>
+              <Button className="bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700">
+                <Edit3 className="mr-2 h-4 w-4" />
+                Edit Profile
+              </Button>
+            </DialogTrigger>
+            <DialogContent className="max-w-2xl max-h-[90vh] overflow-y-auto">
+              <DialogHeader>
+                <DialogTitle>Edit Profile</DialogTitle>
+                <DialogDescription>
+                  Update your profile information and preferences
+                </DialogDescription>
+              </DialogHeader>
+              <Form {...form}>
+                <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
+                  {/* Profile Picture */}
+                  <FormField
+                    control={form.control}
+                    name="photo"
+                    render={({ field }) => (
+                      <FormItem>
+                        <FormLabel>Profile Picture</FormLabel>
+                        <div className="flex items-center gap-6">
+                          <div className="relative">
+                            <Avatar className="h-24 w-24 border-4 border-primary/20">
+                              <AvatarImage src={imagePreview || undefined} />
+                              <AvatarFallback><User className="h-12 w-12" /></AvatarFallback>
+                            </Avatar>
+                            <Button
+                              type="button"
+                              size="sm"
+                              className="absolute -bottom-2 -right-2 rounded-full h-8 w-8 p-0"
+                              onClick={() => document.getElementById('photo-upload')?.click()}
+                            >
+                              <Camera className="h-4 w-4" />
+                            </Button>
+                          </div>
+                          <FormControl>
+                            <Input 
+                              id="photo-upload"
+                              type="file" 
+                              accept="image/*" 
+                              onChange={handleImageChange} 
+                              className="hidden"
+                            />
+                          </FormControl>
+                        </div>
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
+
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    {/* Basic Info */}
+                    {userProfile?.userType === 'hub' ? (
+                      <FormField
+                        control={form.control}
+                        name="branchName"
+                        render={({ field }) => (
+                          <FormItem>
+                            <FormLabel>Branch Name</FormLabel>
+                            <FormControl>
+                              <Input placeholder="Central Hub" {...field} />
+                            </FormControl>
+                            <FormMessage />
+                          </FormItem>
+                        )}
+                      />
+                    ) : (
+                      <FormField
+                        control={form.control}
+                        name="username"
+                        render={({ field }) => (
+                          <FormItem>
+                            <FormLabel>Full Name</FormLabel>
+                            <FormControl>
+                              <Input placeholder="John Doe" {...field} />
+                            </FormControl>
+                            <FormMessage />
+                          </FormItem>
+                        )}
+                      />
+                    )}
+
+                    <FormField
+                      control={form.control}
+                      name="email"
+                      render={({ field }) => (
+                        <FormItem>
+                          <FormLabel>Email</FormLabel>
+                          <FormControl>
+                            <Input type="email" placeholder="john@example.com" {...field} />
+                          </FormControl>
+                          <FormMessage />
+                        </FormItem>
+                      )}
+                    />
+
+                    <FormField
+                      control={form.control}
+                      name="phone"
+                      render={({ field }) => (
+                        <FormItem>
+                          <FormLabel>Phone</FormLabel>
+                          <FormControl>
+                            <Input type="tel" placeholder="+91 98765 43210" {...field} />
+                          </FormControl>
+                          <FormMessage />
+                        </FormItem>
+                      )}
+                    />
+
+                    <FormField
+                      control={form.control}
+                      name="location"
+                      render={({ field }) => (
+                        <FormItem>
+                          <FormLabel>Location</FormLabel>
+                          <FormControl>
+                            <Input placeholder="Mumbai, Maharashtra" {...field} />
+                          </FormControl>
+                          <FormMessage />
+                        </FormItem>
+                      )}
+                    />
+
+                    <FormField
+                      control={form.control}
+                      name="company"
+                      render={({ field }) => (
+                        <FormItem>
+                          <FormLabel>Company</FormLabel>
+                          <FormControl>
+                            <Input placeholder="Your Company Name" {...field} />
+                          </FormControl>
+                          <FormMessage />
+                        </FormItem>
+                      )}
+                    />
+
+                    <FormField
+                      control={form.control}
+                      name="role"
+                      render={({ field }) => (
+                        <FormItem>
+                          <FormLabel>Role</FormLabel>
+                          <FormControl>
+                            <Input placeholder="Your Role/Position" {...field} />
+                          </FormControl>
+                          <FormMessage />
+                        </FormItem>
+                      )}
+                    />
+                  </div>
+
+                  {uploadProgress !== null && (
+                    <div className="space-y-2">
+                      <div className="flex justify-between text-sm">
+                        <span>Uploading...</span>
+                        <span>{Math.round(uploadProgress)}%</span>
+                      </div>
+                      <Progress value={uploadProgress} />
+                    </div>
+                  )}
+
+                  <DialogFooter>
+                    <DialogClose asChild>
+                      <Button type="button" variant="outline">Cancel</Button>
+                    </DialogClose>
+                    <Button type="submit" disabled={isUpdating}>
+                      {isUpdating && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
+                      Save Changes
+                    </Button>
+                  </DialogFooter>
+                </form>
+              </Form>
+            </DialogContent>
+          </Dialog>
         </div>
 
-        <Card className="shadow-lg border-2 border-primary/10">
-          <CardHeader className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
-            <div>
-                <CardTitle>{t.profile.cardTitle}</CardTitle>
-                <CardDescription>{t.profile.cardDescription}</CardDescription>
+        {loading ? (
+          <div className="space-y-6">
+            <Card className="p-6">
+              <div className="flex items-center space-x-6">
+                <Skeleton className="h-32 w-32 rounded-full" />
+                <div className="space-y-3">
+                  <Skeleton className="h-8 w-[300px]" />
+                  <Skeleton className="h-6 w-[200px]" />
+                  <Skeleton className="h-4 w-[250px]" />
+                </div>
+              </div>
+            </Card>
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+              {[1, 2, 3, 4].map((i) => (
+                <Card key={i} className="p-6">
+                  <Skeleton className="h-12 w-12 rounded-lg mb-4" />
+                  <Skeleton className="h-6 w-20 mb-2" />
+                  <Skeleton className="h-4 w-16" />
+                </Card>
+              ))}
             </div>
-            <Dialog open={isEditDialogOpen} onOpenChange={setIsEditDialogOpen}>
-                <DialogTrigger asChild>
-                    <Button variant="outline">{t.profile.editProfile}</Button>
-                </DialogTrigger>
-                <DialogContent>
-                    <DialogHeader>
-                        <DialogTitle>{t.profile.editDialogTitle}</DialogTitle>
-                        <DialogDescription>
-                            {t.profile.editDialogDescription}
-                        </DialogDescription>
-                    </DialogHeader>
-                    <Form {...form}>
-                        <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
-                            <FormField
-                                control={form.control}
-                                name="photo"
-                                render={({ field }) => (
-                                <FormItem>
-                                    <FormLabel>{t.profile.profilePicture}</FormLabel>
-                                    <div className="flex items-center gap-4">
-                                        <Avatar className="h-20 w-20">
-                                            <AvatarImage src={imagePreview || undefined} />
-                                            <AvatarFallback><User className="h-10 w-10" /></AvatarFallback>
-                                        </Avatar>
-                                        <FormControl>
-                                            <Input type="file" accept="image/*" onChange={handleImageChange} className="max-w-xs"/>
-                                        </FormControl>
-                                    </div>
-                                    <FormMessage />
-                                </FormItem>
-                                )}
-                            />
-
-                            {userProfile?.userType === 'hub' ? (
-                                <FormField
-                                    control={form.control}
-                                    name="branchName"
-                                    render={({ field }) => (
-                                        <FormItem>
-                                            <FormLabel>{t.profile.branchName}</FormLabel>
-                                            <FormControl>
-                                                <Input placeholder="Central Hub" {...field} />
-                                            </FormControl>
-                                            <FormMessage />
-                                        </FormItem>
-                                    )}
-                                />
-                            ) : (
-                                <FormField
-                                    control={form.control}
-                                    name="username"
-                                    render={({ field }) => (
-                                        <FormItem>
-                                            <FormLabel>{t.profile.username}</FormLabel>
-                                            <FormControl>
-                                                <Input placeholder="John Doe" {...field} />
-                                            </FormControl>
-                                            <FormMessage />
-                                        </FormItem>
-                                    )}
-                                />
-                            )}
-                             <FormField
-                                control={form.control}
-                                name="email"
-                                render={({ field }) => (
-                                    <FormItem>
-                                        <FormLabel>{t.profile.email}</FormLabel>
-                                        <FormControl>
-                                            <Input type="email" placeholder="m@example.com" {...field} />
-                                        </FormControl>
-                                        <FormMessage />
-                                    </FormItem>
-                                )}
-                            />
-                            <FormField
-                                control={form.control}
-                                name="phone"
-                                render={({ field }) => (
-                                    <FormItem>
-                                        <FormLabel>{t.profile.phone}</FormLabel>
-                                        <FormControl>
-                                            <Input type="tel" placeholder="123-456-7890" {...field} />
-                                        </FormControl>
-                                        <FormMessage />
-                                    </FormItem>
-                                )}
-                            />
-                             {uploadProgress !== null && (
-                                <Progress value={uploadProgress} />
-                            )}
-                            <DialogFooter>
-                                <DialogClose asChild>
-                                    <Button type="button" variant="secondary">{t.profile.cancel}</Button>
-                                </DialogClose>
-                                <Button type="submit" disabled={isUpdating}>
-                                    {isUpdating && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
-                                    {t.profile.saveChanges}
-                                </Button>
-                            </DialogFooter>
-                        </form>
-                    </Form>
-                </DialogContent>
-            </Dialog>
-          </CardHeader>
-          <CardContent>
-            {loading ? (
-              <div className="space-y-4">
-                 <div className="flex items-center space-x-4">
-                    <Skeleton className="h-24 w-24 rounded-full" />
-                    <div className="space-y-2">
-                        <Skeleton className="h-6 w-[250px]" />
-                        <Skeleton className="h-4 w-[200px]" />
-                    </div>
-                </div>
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-4 pt-4">
-                    <Skeleton className="h-12 w-full" />
-                    <Skeleton className="h-12 w-full" />
-                    <Skeleton className="h-12 w-full" />
-                    <Skeleton className="h-12 w-full" />
-                </div>
-              </div>
-            ) : userProfile ? (
-              <div className="space-y-6">
-                <div className="flex flex-col sm:flex-row items-center space-y-4 sm:space-y-0 sm:space-x-6">
-                    <Avatar className="h-28 w-28 border-4 border-primary/20">
+          </div>
+        ) : userProfile ? (
+          <>
+            {/* Profile Header Card */}
+            <Card className="overflow-hidden border-0 shadow-xl bg-gradient-to-r from-white via-blue-50 to-purple-50">
+              <CardContent className="p-8">
+                <div className="flex flex-col lg:flex-row items-center lg:items-start gap-8">
+                  {/* Avatar and Basic Info */}
+                  <div className="flex flex-col items-center text-center lg:text-left">
+                    <div className="relative">
+                      <Avatar className="h-32 w-32 border-4 border-white shadow-xl">
                         <AvatarImage src={userProfile.photoURL || undefined} />
-                        <AvatarFallback>
-                            <User className="h-12 w-12" />
+                        <AvatarFallback className="bg-gradient-to-br from-blue-500 to-purple-600 text-white text-2xl">
+                          <User className="h-16 w-16" />
                         </AvatarFallback>
-                    </Avatar>
-                    <div>
-                        <h3 className="text-3xl font-bold text-center sm:text-left">{userProfile.username || userProfile.branchName}</h3>
-                        <p className="text-muted-foreground text-center sm:text-left text-lg">{userProfile.email}</p>
+                      </Avatar>
+                      {userProfile.verified && (
+                        <div className="absolute -bottom-2 -right-2 bg-green-500 rounded-full p-2">
+                          <CheckCircle className="h-4 w-4 text-white" />
+                        </div>
+                      )}
                     </div>
-                </div>
-                <div className="border-t border-dashed pt-6">
-                 {renderProfileDetails()}
-                </div>
-              </div>
-            ) : (
-              <p>{t.profile.loadError}</p>
-            )}
-          </CardContent>
-        </Card>
-      </div>
-    </div>
-  );
+                    <div className="mt-4">
+                      <h2 className="text-3xl font-bold text-gray-900">
+                        {userProfile.username || userProfile.branchName}
+                      </h2>
+                      <p className="text-lg text-gray-600 mt-1">{userProfile.email}</p>
+                      <div className="flex items-center justify-center lg:justify-start gap-2 mt-2">
+                        <DashboardIcon className="h-5 w-5 text-blue-600" />
+                        <Badge variant="secondary" className="bg-blue-100 text-blue-800">
+                          {userProfile.role || userProfile.userType}
+                        </Badge>
+                        {userProfile.verified && (
+                          <Badge className="bg-green-100 text-green-800">
+                            <Shield className="h-3 w-3 mr-1" />
+                            Verified
+                          </Badge>
+                        )}
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* Bio and Details */}
+                  <div className="flex-1 space-y-6">
+                    <div>
+                      <div className="flex items-center justify-between mb-3">
+                        <h3 className="text-lg font-semibold text-gray-900">About</h3>
+                        <Button
+                          variant="ghost"
+                          size="sm"
+                          onClick={() => setIsEditingBio(!isEditingBio)}
+                        >
+                          <Edit3 className="h-4 w-4" />
+                        </Button>
+                      </div>
+                      {isEditingBio ? (
+                        <div className="space-y-3">
+                          <textarea
+                            value={tempBio}
+                            onChange={(e) => setTempBio(e.target.value)}
+                            className="w-full p-3 border rounded-lg resize-none"
+                            rows={3}
+                            maxLength={500}
+                          />
+                          <div className="flex gap-2">
+                            <Button size="sm" onClick={() => {
+                              // In real app, save to backend
+                              setUserProfile(prev => prev ? {...prev, bio: tempBio} : null);
+                              setIsEditingBio(false);
+                            }}>
+                              <Save className="h-4 w-4 mr-1" />
+                              Save
+                            </Button>
+                            <Button 
+                              variant="outline" 
+                              size="sm" 
+                              onClick={() => {
+                                setTempBio(userProfile.bio || "");
+                                setIsEditingBio(false);
+                              }}
+                            >
+                              <X className="h-4 w-4 mr-1" />
+                              Cancel
+                            </Button>
+                          </div>
+                        </div>
+                      ) : (
+                        <p className="text-gray-600 leading-relaxed">
+                          {userProfile.bio || getDefaultBio(userProfile.userType)}
+                        </p>
+                      )}
+                    </div>
+
+                    {/* Quick Info */}
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                      {userProfile.location && (
+                        <div className="flex items-center gap-3">
+                          <MapPin className="h-5 w-5 text-gray-500" />
+                          <span className="text-gray-700">{userProfile.location}</span>
+                        </div>
+                      )}
+  
 }
