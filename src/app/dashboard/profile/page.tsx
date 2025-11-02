@@ -41,7 +41,9 @@ import {
   CreditCard,
   Package,
   Truck,
-  Sprout
+  Sprout,
+  Download,
+  Trophy
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import {
@@ -892,20 +894,55 @@ export default function ProfilePage() {
                     </CardHeader>
                     <CardContent className="space-y-3">
                       {[
-                        { label: "Update Profile", icon: User, color: "bg-green-500" },
-                        { label: "Change Password", icon: Lock, color: "bg-emerald-500" },
-                        { label: "Notification Settings", icon: Bell, color: "bg-green-500" },
-                        { label: "Privacy Settings", icon: Shield, color: "bg-teal-500" },
+                        { 
+                          label: "Update Profile", 
+                          description: "Edit your personal information",
+                          icon: User, 
+                          color: "bg-green-500" 
+                        },
+                        { 
+                          label: "Change Password", 
+                          description: "Update your security credentials",
+                          icon: Lock, 
+                          color: "bg-emerald-500" 
+                        },
+                        { 
+                          label: "Notification Settings", 
+                          description: "Manage your alert preferences",
+                          icon: Bell, 
+                          color: "bg-green-500" 
+                        },
+                        { 
+                          label: "Privacy Settings", 
+                          description: "Control your data visibility",
+                          icon: Shield, 
+                          color: "bg-teal-500" 
+                        },
+                        { 
+                          label: "Business Verification", 
+                          description: "Verify your business credentials",
+                          icon: Award, 
+                          color: "bg-yellow-500" 
+                        },
+                        { 
+                          label: "Export Data", 
+                          description: "Download your account data",
+                          icon: Download, 
+                          color: "bg-blue-500" 
+                        },
                       ].map((action, index) => (
                         <Button
                           key={index}
                           variant="outline"
-                          className="w-full justify-start h-12"
+                          className="w-full justify-start h-16 p-4"
                         >
-                          <div className={`p-2 rounded-lg ${action.color} mr-3`}>
+                          <div className={`p-2 rounded-lg ${action.color} mr-4 flex-shrink-0`}>
                             <action.icon className="h-4 w-4 text-white" />
                           </div>
-                          {action.label}
+                          <div className="text-left">
+                            <div className="font-medium">{action.label}</div>
+                            <div className="text-sm text-gray-500">{action.description}</div>
+                          </div>
                         </Button>
                       ))}
                     </CardContent>
@@ -924,37 +961,88 @@ export default function ProfilePage() {
                       {[
                         { 
                           title: "Profile Completed", 
-                          description: "You've completed your profile setup", 
+                          description: "You've completed your profile setup with all required information including business verification", 
                           time: "Today", 
                           icon: CheckCircle, 
-                          color: "text-green-600" 
+                          color: "text-green-600",
+                          status: "completed"
                         },
                         { 
-                          title: "First Order", 
-                          description: "Successfully placed your first order", 
+                          title: "Business Verification Approved", 
+                          description: "Your business documents have been reviewed and approved by our verification team", 
+                          time: "Yesterday", 
+                          icon: Award, 
+                          color: "text-yellow-600",
+                          status: "completed"
+                        },
+                        { 
+                          title: "First Successful Transaction", 
+                          description: "Successfully completed your first order worth ₹12,500 with 5-star customer rating", 
                           time: "2 days ago", 
                           icon: Package, 
-                          color: "text-green-600" 
+                          color: "text-green-600",
+                          status: "completed"
+                        },
+                        { 
+                          title: "Payment Method Added", 
+                          description: "Successfully linked your bank account for seamless transactions", 
+                          time: "3 days ago", 
+                          icon: CreditCard, 
+                          color: "text-blue-600",
+                          status: "completed"
                         },
                         { 
                           title: "Account Verified", 
-                          description: "Your account has been verified", 
+                          description: "Your email and phone number have been successfully verified", 
                           time: "1 week ago", 
                           icon: Shield, 
-                          color: "text-emerald-600" 
+                          color: "text-emerald-600",
+                          status: "completed"
+                        },
+                        { 
+                          title: "Welcome to Manvasaam", 
+                          description: "Account created and welcome email sent. Started your journey with us!", 
+                          time: "2 weeks ago", 
+                          icon: User, 
+                          color: "text-purple-600",
+                          status: "completed"
                         },
                       ].map((item, index) => (
-                        <div key={index} className="flex gap-4">
-                          <div className={`p-2 rounded-full bg-gray-100`}>
-                            <item.icon className={`h-5 w-5 ${item.color}`} />
-                          </div>
-                          <div className="flex-1">
-                            <h4 className="font-semibold text-gray-900">{item.title}</h4>
-                            <p className="text-gray-600">{item.description}</p>
-                            <p className="text-sm text-gray-500 mt-1">{item.time}</p>
+                        <div key={index} className="relative">
+                          {index < 5 && (
+                            <div className="absolute left-6 top-12 w-0.5 h-16 bg-gray-200"></div>
+                          )}
+                          <div className="flex gap-4">
+                            <div className={`p-3 rounded-full ${item.status === 'completed' ? 'bg-green-100' : 'bg-gray-100'} relative z-10`}>
+                              <item.icon className={`h-5 w-5 ${item.color}`} />
+                            </div>
+                            <div className="flex-1 pb-8">
+                              <div className="flex items-center gap-2 mb-2">
+                                <h4 className="font-semibold text-gray-900">{item.title}</h4>
+                                <Badge 
+                                  variant={item.status === 'completed' ? 'default' : 'secondary'}
+                                  className={item.status === 'completed' ? 'bg-green-100 text-green-800' : ''}
+                                >
+                                  {item.status === 'completed' ? 'Completed' : 'Pending'}
+                                </Badge>
+                              </div>
+                              <p className="text-gray-600 mb-2">{item.description}</p>
+                              <p className="text-sm text-gray-500">{item.time}</p>
+                            </div>
                           </div>
                         </div>
                       ))}
+                      <div className="pt-4 border-t">
+                        <div className="bg-green-50 p-4 rounded-lg">
+                          <div className="flex items-center gap-2 mb-2">
+                            <Trophy className="h-5 w-5 text-green-600" />
+                            <h4 className="font-semibold text-green-900">Achievement Unlocked!</h4>
+                          </div>
+                          <p className="text-green-700 text-sm">
+                            Congratulations! You've completed all onboarding steps and are now a verified member of our community.
+                          </p>
+                        </div>
+                      </div>
                     </div>
                   </CardContent>
                 </Card>
