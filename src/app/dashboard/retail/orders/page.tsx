@@ -161,8 +161,33 @@ export default function OrdersPage() {
                          order.supplier.toLowerCase().includes(searchQuery.toLowerCase());
     const matchesStatus = statusFilter === "all" || order.status === statusFilter;
     const matchesTab = activeTab === "all" || order.status === activeTab;
+    const matchesPriority = priorityFilter === "all" || order.priority === priorityFilter;
+    const matchesPayment = paymentFilter === "all" || order.paymentStatus === paymentFilter;
+    const matchesSupplier = supplierFilter === "all" || order.supplier === supplierFilter;
     
-    return matchesSearch && matchesStatus && matchesTab;
+    // Date filter logic
+    let matchesDate = true;
+    if (dateFilter !== "all") {
+      const orderDate = new Date(order.orderDate);
+      const today = new Date();
+      const daysDiff = Math.floor((today.getTime() - orderDate.getTime()) / (1000 * 60 * 60 * 24));
+      
+      switch (dateFilter) {
+        case "today":
+          matchesDate = daysDiff === 0;
+          break;
+        case "week":
+          matchesDate = daysDiff <= 7;
+          break;
+        case "month":
+          matchesDate = daysDiff <= 30;
+          break;
+        default:
+          matchesDate = true;
+      }
+    }
+    
+    return matchesSearch && matchesStatus && matchesTab && matchesPriority && matchesPayment && matchesSupplier && matchesDate;
   });
 
   const handleViewOrder = (order: any) => {
