@@ -751,5 +751,226 @@ export default function ProfilePage() {
                           <span className="text-gray-700">{userProfile.location}</span>
                         </div>
                       )}
-  
+                      {userProfile.phone && (
+                        <div className="flex items-center gap-3">
+                          <Phone className="h-5 w-5 text-gray-500" />
+                          <span className="text-gray-700">{userProfile.phone}</span>
+                        </div>
+                      )}
+                      {userProfile.lastActive && (
+                        <div className="flex items-center gap-3">
+                          <Activity className="h-5 w-5 text-green-500" />
+                          <span className="text-gray-700">Active now</span>
+                        </div>
+                      )}
+                      {userProfile.joinedDate && (
+                        <div className="flex items-center gap-3">
+                          <Calendar className="h-5 w-5 text-gray-500" />
+                          <span className="text-gray-700">
+                            Joined {new Date(userProfile.joinedDate).toLocaleDateString()}
+                          </span>
+                        </div>
+                      )}
+                    </div>
+                  </div>
+                </div>
+              </CardContent>
+            </Card>
+
+            {/* Stats Cards */}
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+              {statCards.map((stat, index) => (
+                <Card key={index} className="border-0 shadow-lg hover:shadow-xl transition-all duration-300 hover:-translate-y-1">
+                  <CardContent className="p-6">
+                    <div className="flex items-center justify-between">
+                      <div>
+                        <p className="text-sm font-medium text-gray-600 mb-1">{stat.title}</p>
+                        <p className="text-2xl font-bold text-gray-900">{stat.value}</p>
+                      </div>
+                      <div className={`p-3 rounded-lg bg-gray-50`}>
+                        <stat.icon className={`h-6 w-6 ${stat.color}`} />
+                      </div>
+                    </div>
+                  </CardContent>
+                </Card>
+              ))}
+            </div>
+
+            {/* Tabs Section */}
+            <Tabs value={activeTab} onValueChange={setActiveTab} className="space-y-6">
+              <TabsList className="grid w-full grid-cols-3 lg:w-[400px]">
+                <TabsTrigger value="overview">Overview</TabsTrigger>
+                <TabsTrigger value="activity">Activity</TabsTrigger>
+                <TabsTrigger value="settings">Settings</TabsTrigger>
+              </TabsList>
+
+              <TabsContent value="overview" className="space-y-6">
+                <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+                  {/* Recent Activity */}
+                  <Card className="border-0 shadow-lg">
+                    <CardHeader>
+                      <CardTitle className="flex items-center gap-2">
+                        <Activity className="h-5 w-5" />
+                        Recent Activity
+                      </CardTitle>
+                    </CardHeader>
+                    <CardContent className="space-y-4">
+                      {[
+                        { action: "Order completed", time: "2 hours ago", icon: CheckCircle, color: "text-green-600" },
+                        { action: "Profile updated", time: "1 day ago", icon: User, color: "text-blue-600" },
+                        { action: "New message received", time: "3 days ago", icon: Mail, color: "text-purple-600" },
+                      ].map((activity, index) => (
+                        <div key={index} className="flex items-center gap-3 p-3 rounded-lg bg-gray-50">
+                          <activity.icon className={`h-5 w-5 ${activity.color}`} />
+                          <div className="flex-1">
+                            <p className="font-medium text-gray-900">{activity.action}</p>
+                            <p className="text-sm text-gray-500">{activity.time}</p>
+                          </div>
+                        </div>
+                      ))}
+                    </CardContent>
+                  </Card>
+
+                  {/* Quick Actions */}
+                  <Card className="border-0 shadow-lg">
+                    <CardHeader>
+                      <CardTitle className="flex items-center gap-2">
+                        <Settings className="h-5 w-5" />
+                        Quick Actions
+                      </CardTitle>
+                    </CardHeader>
+                    <CardContent className="space-y-3">
+                      {[
+                        { label: "Update Profile", icon: User, color: "bg-blue-500" },
+                        { label: "Change Password", icon: Lock, color: "bg-purple-500" },
+                        { label: "Notification Settings", icon: Bell, color: "bg-green-500" },
+                        { label: "Privacy Settings", icon: Shield, color: "bg-orange-500" },
+                      ].map((action, index) => (
+                        <Button
+                          key={index}
+                          variant="outline"
+                          className="w-full justify-start h-12"
+                        >
+                          <div className={`p-2 rounded-lg ${action.color} mr-3`}>
+                            <action.icon className="h-4 w-4 text-white" />
+                          </div>
+                          {action.label}
+                        </Button>
+                      ))}
+                    </CardContent>
+                  </Card>
+                </div>
+              </TabsContent>
+
+              <TabsContent value="activity" className="space-y-6">
+                <Card className="border-0 shadow-lg">
+                  <CardHeader>
+                    <CardTitle>Activity Timeline</CardTitle>
+                    <CardDescription>Your recent activities and achievements</CardDescription>
+                  </CardHeader>
+                  <CardContent>
+                    <div className="space-y-6">
+                      {[
+                        { 
+                          title: "Profile Completed", 
+                          description: "You've completed your profile setup", 
+                          time: "Today", 
+                          icon: CheckCircle, 
+                          color: "text-green-600" 
+                        },
+                        { 
+                          title: "First Order", 
+                          description: "Successfully placed your first order", 
+                          time: "2 days ago", 
+                          icon: Package, 
+                          color: "text-blue-600" 
+                        },
+                        { 
+                          title: "Account Verified", 
+                          description: "Your account has been verified", 
+                          time: "1 week ago", 
+                          icon: Shield, 
+                          color: "text-purple-600" 
+                        },
+                      ].map((item, index) => (
+                        <div key={index} className="flex gap-4">
+                          <div className={`p-2 rounded-full bg-gray-100`}>
+                            <item.icon className={`h-5 w-5 ${item.color}`} />
+                          </div>
+                          <div className="flex-1">
+                            <h4 className="font-semibold text-gray-900">{item.title}</h4>
+                            <p className="text-gray-600">{item.description}</p>
+                            <p className="text-sm text-gray-500 mt-1">{item.time}</p>
+                          </div>
+                        </div>
+                      ))}
+                    </div>
+                  </CardContent>
+                </Card>
+              </TabsContent>
+
+              <TabsContent value="settings" className="space-y-6">
+                <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+                  {/* Preferences */}
+                  <Card className="border-0 shadow-lg">
+                    <CardHeader>
+                      <CardTitle>Preferences</CardTitle>
+                      <CardDescription>Manage your account preferences</CardDescription>
+                    </CardHeader>
+                    <CardContent className="space-y-6">
+                      {[
+                        { label: "Email Notifications", key: "emailUpdates", icon: Mail },
+                        { label: "SMS Alerts", key: "smsAlerts", icon: Smartphone },
+                        { label: "Push Notifications", key: "notifications", icon: Bell },
+                      ].map((pref, index) => (
+                        <div key={index} className="flex items-center justify-between">
+                          <div className="flex items-center gap-3">
+                            <pref.icon className="h-5 w-5 text-gray-500" />
+                            <span className="font-medium">{pref.label}</span>
+                          </div>
+                          <Switch 
+                            checked={userProfile.preferences?.[pref.key as keyof typeof userProfile.preferences] || false}
+                            onCheckedChange={(checked) => {
+                              // In real app, update preferences
+                              console.log(`${pref.key}: ${checked}`);
+                            }}
+                          />
+                        </div>
+                      ))}
+                    </CardContent>
+                  </Card>
+
+                  {/* Security */}
+                  <Card className="border-0 shadow-lg">
+                    <CardHeader>
+                      <CardTitle>Security</CardTitle>
+                      <CardDescription>Manage your security settings</CardDescription>
+                    </CardHeader>
+                    <CardContent className="space-y-4">
+                      <Button variant="outline" className="w-full justify-start">
+                        <Lock className="mr-3 h-4 w-4" />
+                        Change Password
+                      </Button>
+                      <Button variant="outline" className="w-full justify-start">
+                        <Shield className="mr-3 h-4 w-4" />
+                        Two-Factor Authentication
+                      </Button>
+                      <Button variant="outline" className="w-full justify-start">
+                        <Globe className="mr-3 h-4 w-4" />
+                        Privacy Settings
+                      </Button>
+                    </CardContent>
+                  </Card>
+                </div>
+              </TabsContent>
+            </Tabs>
+          </>
+        ) : (
+          <Card className="p-8 text-center">
+            <p className="text-gray-500">Failed to load profile data</p>
+          </Card>
+        )}
+      </div>
+    </div>
+  );
 }
