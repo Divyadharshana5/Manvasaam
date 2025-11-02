@@ -1152,18 +1152,96 @@ export default function ProfilePage() {
                       <CardDescription>Manage your security settings</CardDescription>
                     </CardHeader>
                     <CardContent className="space-y-4">
-                      <Button variant="outline" className="w-full justify-start">
-                        <Lock className="mr-3 h-4 w-4" />
-                        Change Password
-                      </Button>
-                      <Button variant="outline" className="w-full justify-start">
-                        <Shield className="mr-3 h-4 w-4" />
-                        Two-Factor Authentication
-                      </Button>
-                      <Button variant="outline" className="w-full justify-start">
-                        <Globe className="mr-3 h-4 w-4" />
-                        Privacy Settings
-                      </Button>
+                      <div className="bg-green-50 p-4 rounded-lg mb-4">
+                        <div className="flex items-center gap-2 mb-2">
+                          <Shield className="h-5 w-5 text-green-600" />
+                          <span className="font-semibold text-green-900">Security Status: Strong</span>
+                        </div>
+                        <p className="text-sm text-green-700">
+                          Your account is well-protected with verified email, strong password, and active monitoring.
+                        </p>
+                      </div>
+
+                      <div className="space-y-3">
+                        <Button variant="outline" className="w-full justify-start h-auto p-4">
+                          <div className="flex items-center gap-3">
+                            <div className="p-2 rounded-lg bg-blue-100">
+                              <Lock className="h-4 w-4 text-blue-600" />
+                            </div>
+                            <div className="text-left flex-1">
+                              <div className="font-medium">Change Password</div>
+                              <div className="text-sm text-gray-500">Update your account password for better security</div>
+                            </div>
+                            <Badge variant="secondary">Last changed 3 months ago</Badge>
+                          </div>
+                        </Button>
+
+                        <Button variant="outline" className="w-full justify-start h-auto p-4">
+                          <div className="flex items-center gap-3">
+                            <div className="p-2 rounded-lg bg-green-100">
+                              <Shield className="h-4 w-4 text-green-600" />
+                            </div>
+                            <div className="text-left flex-1">
+                              <div className="font-medium">Two-Factor Authentication</div>
+                              <div className="text-sm text-gray-500">Add an extra layer of security to your account</div>
+                            </div>
+                            <Badge className="bg-green-100 text-green-800">Enabled</Badge>
+                          </div>
+                        </Button>
+
+                        <Button variant="outline" className="w-full justify-start h-auto p-4">
+                          <div className="flex items-center gap-3">
+                            <div className="p-2 rounded-lg bg-purple-100">
+                              <Globe className="h-4 w-4 text-purple-600" />
+                            </div>
+                            <div className="text-left flex-1">
+                              <div className="font-medium">Privacy Settings</div>
+                              <div className="text-sm text-gray-500">Control who can see your profile and activity</div>
+                            </div>
+                          </div>
+                        </Button>
+
+                        <Button variant="outline" className="w-full justify-start h-auto p-4">
+                          <div className="flex items-center gap-3">
+                            <div className="p-2 rounded-lg bg-orange-100">
+                              <Activity className="h-4 w-4 text-orange-600" />
+                            </div>
+                            <div className="text-left flex-1">
+                              <div className="font-medium">Login Activity</div>
+                              <div className="text-sm text-gray-500">View recent login attempts and active sessions</div>
+                            </div>
+                          </div>
+                        </Button>
+
+                        <Button variant="outline" className="w-full justify-start h-auto p-4">
+                          <div className="flex items-center gap-3">
+                            <div className="p-2 rounded-lg bg-red-100">
+                              <AlertCircle className="h-4 w-4 text-red-600" />
+                            </div>
+                            <div className="text-left flex-1">
+                              <div className="font-medium">Security Alerts</div>
+                              <div className="text-sm text-gray-500">Manage alerts for suspicious account activity</div>
+                            </div>
+                          </div>
+                        </Button>
+                      </div>
+
+                      <Separator />
+
+                      <div className="bg-yellow-50 p-4 rounded-lg">
+                        <div className="flex items-start gap-3">
+                          <AlertCircle className="h-5 w-5 text-yellow-600 mt-0.5" />
+                          <div>
+                            <h4 className="font-semibold text-yellow-900 mb-1">Security Recommendation</h4>
+                            <p className="text-sm text-yellow-700 mb-3">
+                              Consider enabling backup authentication methods and regularly reviewing your login activity.
+                            </p>
+                            <Button size="sm" className="bg-yellow-600 hover:bg-yellow-700 text-white">
+                              Review Security Settings
+                            </Button>
+                          </div>
+                        </div>
+                      </div>
                     </CardContent>
                   </Card>
                 </div>
