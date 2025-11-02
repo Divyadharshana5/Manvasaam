@@ -209,7 +209,7 @@ export default function ProfilePage() {
             title: "Revenue",
             value: `₹${(profile?.totalRevenue || 180000).toLocaleString()}`,
             icon: TrendingUp,
-            color: "text-purple-600"
+            color: "text-emerald-600"
           }
         ];
       case 'transport':
