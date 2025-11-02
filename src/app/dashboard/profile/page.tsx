@@ -841,10 +841,10 @@ export default function ProfilePage() {
                     </CardHeader>
                     <CardContent className="space-y-3">
                       {[
-                        { label: "Update Profile", icon: User, color: "bg-blue-500" },
-                        { label: "Change Password", icon: Lock, color: "bg-purple-500" },
+                        { label: "Update Profile", icon: User, color: "bg-green-500" },
+                        { label: "Change Password", icon: Lock, color: "bg-emerald-500" },
                         { label: "Notification Settings", icon: Bell, color: "bg-green-500" },
-                        { label: "Privacy Settings", icon: Shield, color: "bg-orange-500" },
+                        { label: "Privacy Settings", icon: Shield, color: "bg-teal-500" },
                       ].map((action, index) => (
                         <Button
                           key={index}
