@@ -41,6 +41,12 @@ export default function OrdersPage() {
   const [statusFilter, setStatusFilter] = useState("all");
   const [activeTab, setActiveTab] = useState("all");
   const [processingOrderId, setProcessingOrderId] = useState<string | null>(null);
+  const [showMoreFilters, setShowMoreFilters] = useState(false);
+  const [dateFilter, setDateFilter] = useState("all");
+  const [priorityFilter, setPriorityFilter] = useState("all");
+  const [paymentFilter, setPaymentFilter] = useState("all");
+  const [supplierFilter, setSupplierFilter] = useState("all");
+  const [isRefreshing, setIsRefreshing] = useState(false);
 
   const orders = [
     {
