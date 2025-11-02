@@ -245,7 +245,7 @@ export default function ProfilePage() {
         // Enhanced profile data with mock statistics based on user type
         const enhancedProfile = {
           ...data,
-          photoURL: user.photoURL || data.photoURL,
+          photoURL: (user as any).photoURL || data.photoURL,
           verified: true,
           rating: 4.8,
           location: data.location || "Mumbai, Maharashtra",
