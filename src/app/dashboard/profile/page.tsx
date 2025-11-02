@@ -225,7 +225,7 @@ export default function ProfilePage() {
             title: "Revenue",
             value: `₹${(profile?.totalRevenue || 125000).toLocaleString()}`,
             icon: TrendingUp,
-            color: "text-purple-600"
+            color: "text-emerald-600"
           }
         ];
       default:
@@ -817,8 +817,8 @@ export default function ProfilePage() {
                     <CardContent className="space-y-4">
                       {[
                         { action: "Order completed", time: "2 hours ago", icon: CheckCircle, color: "text-green-600" },
-                        { action: "Profile updated", time: "1 day ago", icon: User, color: "text-blue-600" },
-                        { action: "New message received", time: "3 days ago", icon: Mail, color: "text-purple-600" },
+                        { action: "Profile updated", time: "1 day ago", icon: User, color: "text-green-600" },
+                        { action: "New message received", time: "3 days ago", icon: Mail, color: "text-emerald-600" },
                       ].map((activity, index) => (
                         <div key={index} className="flex items-center gap-3 p-3 rounded-lg bg-gray-50">
                           <activity.icon className={`h-5 w-5 ${activity.color}`} />
