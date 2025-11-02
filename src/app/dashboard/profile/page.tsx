@@ -929,7 +929,7 @@ export default function ProfilePage() {
                             <span className="font-medium">{pref.label}</span>
                           </div>
                           <Switch 
-                            checked={userProfile.preferences?.[pref.key as keyof typeof userProfile.preferences] || false}
+                            checked={Boolean(userProfile.preferences?.[pref.key as keyof typeof userProfile.preferences]) || false}
                             onCheckedChange={(checked) => {
                               // In real app, update preferences
                               console.log(`${pref.key}: ${checked}`);
