@@ -780,6 +780,48 @@ export default function ProfilePage() {
               </CardContent>
             </Card>
 
+            {/* Performance Summary */}
+            <Card className="border-0 shadow-lg bg-gradient-to-r from-green-500 to-emerald-600 text-white mb-6">
+              <CardContent className="p-6">
+                <div className="flex items-center justify-between mb-4">
+                  <div>
+                    <h3 className="text-xl font-bold mb-2">Performance Overview</h3>
+                    <p className="text-green-100">Your business is performing excellently this month!</p>
+                  </div>
+                  <div className="text-right">
+                    <div className="text-3xl font-bold">98%</div>
+                    <div className="text-green-100 text-sm">Success Rate</div>
+                  </div>
+                </div>
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                  <div className="bg-white/10 rounded-lg p-4">
+                    <div className="flex items-center gap-2 mb-2">
+                      <TrendingUp className="h-5 w-5" />
+                      <span className="font-semibold">Growth</span>
+                    </div>
+                    <div className="text-2xl font-bold">+24%</div>
+                    <div className="text-green-100 text-sm">vs last month</div>
+                  </div>
+                  <div className="bg-white/10 rounded-lg p-4">
+                    <div className="flex items-center gap-2 mb-2">
+                      <Star className="h-5 w-5" />
+                      <span className="font-semibold">Rating</span>
+                    </div>
+                    <div className="text-2xl font-bold">4.9/5</div>
+                    <div className="text-green-100 text-sm">Customer satisfaction</div>
+                  </div>
+                  <div className="bg-white/10 rounded-lg p-4">
+                    <div className="flex items-center gap-2 mb-2">
+                      <Clock className="h-5 w-5" />
+                      <span className="font-semibold">Response</span>
+                    </div>
+                    <div className="text-2xl font-bold">2.3h</div>
+                    <div className="text-green-100 text-sm">Avg response time</div>
+                  </div>
+                </div>
+              </CardContent>
+            </Card>
+
             {/* Stats Cards */}
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
               {statCards.map((stat, index) => (
