@@ -654,7 +654,7 @@ export default function ProfilePage() {
         ) : userProfile ? (
           <>
             {/* Profile Header Card */}
-            <Card className="overflow-hidden border-0 shadow-xl bg-gradient-to-r from-white via-blue-50 to-purple-50">
+            <Card className="overflow-hidden border-0 shadow-xl bg-gradient-to-r from-white via-green-50 to-emerald-50">
               <CardContent className="p-8">
                 <div className="flex flex-col lg:flex-row items-center lg:items-start gap-8">
                   {/* Avatar and Basic Info */}
@@ -662,7 +662,7 @@ export default function ProfilePage() {
                     <div className="relative">
                       <Avatar className="h-32 w-32 border-4 border-white shadow-xl">
                         <AvatarImage src={userProfile.photoURL || undefined} />
-                        <AvatarFallback className="bg-gradient-to-br from-blue-500 to-purple-600 text-white text-2xl">
+                        <AvatarFallback className="bg-gradient-to-br from-green-500 to-emerald-600 text-white text-2xl">
                           <User className="h-16 w-16" />
                         </AvatarFallback>
                       </Avatar>
