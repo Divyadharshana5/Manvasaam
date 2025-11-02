@@ -361,7 +361,7 @@ For real-time updates, contact supplier at ${order.supplierContact}
 
       {/* Filters and Search */}
       <div className="flex flex-col sm:flex-row gap-4 items-start sm:items-center justify-between">
-        <div className="flex items-center gap-2">
+        <div className="flex items-center gap-2 flex-wrap">
           <div className="relative">
             <Search className="absolute left-2 top-2.5 h-4 w-4 text-muted-foreground" />
             <Input
@@ -383,6 +383,19 @@ For real-time updates, contact supplier at ${order.supplierContact}
               <SelectItem value="cancelled">Cancelled</SelectItem>
             </SelectContent>
           </Select>
+          {/* Active Filters Indicator */}
+          {(searchQuery || statusFilter !== "all" || dateFilter !== "all" || priorityFilter !== "all" || paymentFilter !== "all" || supplierFilter !== "all") && (
+            <Badge variant="secondary" className="ml-2">
+              {[
+                searchQuery ? "search" : null,
+                statusFilter !== "all" ? "status" : null,
+                dateFilter !== "all" ? "date" : null,
+                priorityFilter !== "all" ? "priority" : null,
+                paymentFilter !== "all" ? "payment" : null,
+                supplierFilter !== "all" ? "supplier" : null
+              ].filter(Boolean).length} active
+            </Badge>
+          )}
         </div>
         <div className="flex gap-2">
           <Button 
