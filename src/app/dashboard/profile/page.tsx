@@ -816,18 +816,69 @@ export default function ProfilePage() {
                     </CardHeader>
                     <CardContent className="space-y-4">
                       {[
-                        { action: "Order completed", time: "2 hours ago", icon: CheckCircle, color: "text-green-600" },
-                        { action: "Profile updated", time: "1 day ago", icon: User, color: "text-green-600" },
-                        { action: "New message received", time: "3 days ago", icon: Mail, color: "text-emerald-600" },
+                        { 
+                          action: "Order #ORD-2024-156 completed", 
+                          description: "Successfully delivered 25kg tomatoes to Green Valley Market",
+                          time: "2 hours ago", 
+                          icon: CheckCircle, 
+                          color: "text-green-600",
+                          badge: "Completed"
+                        },
+                        { 
+                          action: "Profile information updated", 
+                          description: "Added new contact information and business details",
+                          time: "1 day ago", 
+                          icon: User, 
+                          color: "text-green-600",
+                          badge: "Updated"
+                        },
+                        { 
+                          action: "New supplier message received", 
+                          description: "Fresh Farms Co. sent you a new product catalog",
+                          time: "3 days ago", 
+                          icon: Mail, 
+                          color: "text-emerald-600",
+                          badge: "Message"
+                        },
+                        { 
+                          action: "Payment processed successfully", 
+                          description: "₹15,750 payment received for order #ORD-2024-154",
+                          time: "5 days ago", 
+                          icon: CreditCard, 
+                          color: "text-green-600",
+                          badge: "Payment"
+                        },
+                        { 
+                          action: "New product listing created", 
+                          description: "Added 'Organic Spinach - Premium Grade' to inventory",
+                          time: "1 week ago", 
+                          icon: Package, 
+                          color: "text-emerald-600",
+                          badge: "Product"
+                        },
                       ].map((activity, index) => (
-                        <div key={index} className="flex items-center gap-3 p-3 rounded-lg bg-gray-50">
-                          <activity.icon className={`h-5 w-5 ${activity.color}`} />
-                          <div className="flex-1">
-                            <p className="font-medium text-gray-900">{activity.action}</p>
-                            <p className="text-sm text-gray-500">{activity.time}</p>
+                        <div key={index} className="flex items-start gap-3 p-4 rounded-lg bg-gray-50 hover:bg-gray-100 transition-colors">
+                          <div className="p-2 rounded-full bg-white shadow-sm">
+                            <activity.icon className={`h-4 w-4 ${activity.color}`} />
+                          </div>
+                          <div className="flex-1 min-w-0">
+                            <div className="flex items-center gap-2 mb-1">
+                              <p className="font-medium text-gray-900 text-sm">{activity.action}</p>
+                              <Badge variant="secondary" className="text-xs px-2 py-0.5">
+                                {activity.badge}
+                              </Badge>
+                            </div>
+                            <p className="text-sm text-gray-600 mb-2">{activity.description}</p>
+                            <p className="text-xs text-gray-500">{activity.time}</p>
                           </div>
                         </div>
                       ))}
+                      <div className="pt-4 border-t">
+                        <Button variant="outline" className="w-full">
+                          <Activity className="mr-2 h-4 w-4" />
+                          View All Activity
+                        </Button>
+                      </div>
                     </CardContent>
                   </Card>
 
