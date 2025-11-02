@@ -389,7 +389,7 @@ export default function ProfilePage() {
             description: t.profile.updateSuccessDescription,
         });
         
-        await user.reload(); 
+        await (user as any).reload(); 
         await fetchUserProfile();
         setIsEditDialogOpen(false);
 
