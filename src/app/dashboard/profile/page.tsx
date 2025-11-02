@@ -14,7 +14,35 @@ import {
 import { useAuth } from "@/hooks/use-auth";
 import { Skeleton } from "@/components/ui/skeleton";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-import { Loader2, User, Mail, Phone, Building, Calendar } from "lucide-react";
+import { 
+  Loader2, 
+  User, 
+  Mail, 
+  Phone, 
+  Building, 
+  Calendar,
+  MapPin,
+  Shield,
+  Star,
+  Award,
+  TrendingUp,
+  Activity,
+  Clock,
+  CheckCircle,
+  Edit3,
+  Camera,
+  Save,
+  X,
+  Settings,
+  Bell,
+  Lock,
+  Globe,
+  Smartphone,
+  CreditCard,
+  Package,
+  Truck,
+  Sprout
+} from "lucide-react";
 import { Button } from "@/components/ui/button";
 import {
   Dialog,
@@ -26,6 +54,10 @@ import {
   DialogClose,
   DialogTrigger,
 } from "@/components/ui/dialog";
+import { Badge } from "@/components/ui/badge";
+import { Separator } from "@/components/ui/separator";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { Switch } from "@/components/ui/switch";
 import {
   Form,
   FormControl,
@@ -55,6 +87,25 @@ interface UserProfile {
   phone?: string;
   createdAt?: string;
   photoURL?: string;
+  location?: string;
+  bio?: string;
+  website?: string;
+  company?: string;
+  role?: string;
+  verified?: boolean;
+  rating?: number;
+  totalOrders?: number;
+  completedDeliveries?: number;
+  totalRevenue?: number;
+  joinedDate?: string;
+  lastActive?: string;
+  preferences?: {
+    notifications?: boolean;
+    emailUpdates?: boolean;
+    smsAlerts?: boolean;
+    darkMode?: boolean;
+    language?: string;
+  };
 }
 
 const profileFormSchema = z.object({
@@ -63,6 +114,11 @@ const profileFormSchema = z.object({
   phone: z.string().min(10, { message: "Please enter a valid phone number." }).optional().or(z.literal('')),
   photo: z.any().optional(),
   email: z.string().email({ message: "Please enter a valid email." }).optional().or(z.literal('')),
+  location: z.string().optional().or(z.literal('')),
+  bio: z.string().max(500, { message: "Bio must be less than 500 characters." }).optional().or(z.literal('')),
+  website: z.string().url({ message: "Please enter a valid URL." }).optional().or(z.literal('')),
+  company: z.string().optional().or(z.literal('')),
+  role: z.string().optional().or(z.literal('')),
 });
 
 
@@ -76,11 +132,106 @@ export default function ProfilePage() {
   const [uploadProgress, setUploadProgress] = useState<number | null>(null);
   const [imagePreview, setImagePreview] = useState<string | null>(null);
   const { t } = useLanguage();
+  const [activeTab, setActiveTab] = useState("overview");
+  const [isEditingBio, setIsEditingBio] = useState(false);
+  const [tempBio, setTempBio] = useState("");
 
   const form = useForm<z.infer<typeof profileFormSchema>>({
     resolver: zodResolver(profileFormSchema),
     defaultValues: {},
   });
+
+  const getDefaultBio = (userType?: string) => {
+    switch (userType) {
+      case 'retail':
+        return "Passionate about bringing fresh, quality products to our community. Committed to supporting local farmers and sustainable practices.";
+      case 'farmer':
+        return "Dedicated to sustainable farming practices and growing the finest organic produce. Proud to feed our community with healthy, fresh crops.";
+      case 'transport':
+        return "Reliable logistics partner ensuring fresh produce reaches its destination safely and on time. Excellence in every delivery.";
+      default:
+        return "Welcome to my profile! I'm excited to be part of this amazing agricultural community.";
+    }
+  };
+
+  const getDashboardIcon = (userType?: string) => {
+    switch (userType) {
+      case 'retail': return Package;
+      case 'farmer': return Sprout;
+      case 'transport': return Truck;
+      default: return Building;
+    }
+  };
+
+  const getStatCards = (userType?: string, profile?: UserProfile) => {
+    const baseStats = [
+      {
+        title: "Member Since",
+        value: profile?.joinedDate ? new Date(profile.joinedDate).getFullYear().toString() : "2024",
+        icon: Calendar,
+        color: "text-blue-600"
+      },
+      {
+        title: "Rating",
+        value: `${profile?.rating || 4.8}/5.0`,
+        icon: Star,
+        color: "text-yellow-600"
+      }
+    ];
+
+    switch (userType) {
+      case 'retail':
+        return [
+          ...baseStats,
+          {
+            title: "Total Orders",
+            value: profile?.totalOrders?.toString() || "156",
+            icon: Package,
+            color: "text-green-600"
+          },
+          {
+            title: "Revenue",
+            value: `₹${(profile?.totalRevenue || 245000).toLocaleString()}`,
+            icon: TrendingUp,
+            color: "text-purple-600"
+          }
+        ];
+      case 'farmer':
+        return [
+          ...baseStats,
+          {
+            title: "Products Sold",
+            value: profile?.totalOrders?.toString() || "89",
+            icon: Sprout,
+            color: "text-green-600"
+          },
+          {
+            title: "Revenue",
+            value: `₹${(profile?.totalRevenue || 180000).toLocaleString()}`,
+            icon: TrendingUp,
+            color: "text-purple-600"
+          }
+        ];
+      case 'transport':
+        return [
+          ...baseStats,
+          {
+            title: "Deliveries",
+            value: profile?.completedDeliveries?.toString() || "342",
+            icon: Truck,
+            color: "text-green-600"
+          },
+          {
+            title: "Revenue",
+            value: `₹${(profile?.totalRevenue || 125000).toLocaleString()}`,
+            icon: TrendingUp,
+            color: "text-purple-600"
+          }
+        ];
+      default:
+        return baseStats;
+    }
+  };
 
   const fetchUserProfile = async () => {
     if (user) {
@@ -91,10 +242,42 @@ export default function ProfilePage() {
           throw new Error("Failed to fetch user profile");
         }
         const data = await response.json();
-        setUserProfile({
+        // Enhanced profile data with mock statistics based on user type
+        const enhancedProfile = {
           ...data,
           photoURL: user.photoURL || data.photoURL,
-        });
+          verified: true,
+          rating: 4.8,
+          location: data.location || "Mumbai, Maharashtra",
+          bio: data.bio || getDefaultBio(data.userType),
+          joinedDate: data.createdAt,
+          lastActive: new Date().toISOString(),
+          preferences: {
+            notifications: true,
+            emailUpdates: true,
+            smsAlerts: false,
+            darkMode: false,
+            language: "en",
+            ...data.preferences
+          },
+          // Add role-specific stats
+          ...(data.userType === 'retail' && {
+            totalOrders: 156,
+            totalRevenue: 245000,
+            role: "Store Manager"
+          }),
+          ...(data.userType === 'farmer' && {
+            totalOrders: 89,
+            totalRevenue: 180000,
+            role: "Organic Farmer"
+          }),
+          ...(data.userType === 'transport' && {
+            completedDeliveries: 342,
+            totalRevenue: 125000,
+            role: "Fleet Manager"
+          })
+        };
+        setUserProfile(enhancedProfile);
       } catch (error) {
         console.error(error);
         toast({
