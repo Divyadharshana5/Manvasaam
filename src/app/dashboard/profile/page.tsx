@@ -308,8 +308,14 @@ export default function ProfilePage() {
             branchName: userProfile.branchName || "",
             phone: userProfile.phone || "",
             email: userProfile.email || "",
+            location: userProfile.location || "",
+            bio: userProfile.bio || "",
+            website: userProfile.website || "",
+            company: userProfile.company || "",
+            role: userProfile.role || "",
         });
         setImagePreview(userProfile.photoURL || null);
+        setTempBio(userProfile.bio || "");
     }
   }, [userProfile, isEditDialogOpen, form]);
 
