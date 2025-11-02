@@ -169,7 +169,7 @@ export default function ProfilePage() {
         title: "Member Since",
         value: profile?.joinedDate ? new Date(profile.joinedDate).getFullYear().toString() : "2024",
         icon: Calendar,
-        color: "text-blue-600"
+        color: "text-green-600"
       },
       {
         title: "Rating",
@@ -679,7 +679,7 @@ export default function ProfilePage() {
                       <p className="text-lg text-gray-600 mt-1">{userProfile.email}</p>
                       <div className="flex items-center justify-center lg:justify-start gap-2 mt-2">
                         <DashboardIcon className="h-5 w-5 text-green-600" />
-                        <Badge variant="secondary" className="bg-blue-100 text-blue-800">
+                        <Badge variant="secondary" className="bg-green-100 text-green-800">
                           {userProfile.role || userProfile.userType}
                         </Badge>
                         {userProfile.verified && (
