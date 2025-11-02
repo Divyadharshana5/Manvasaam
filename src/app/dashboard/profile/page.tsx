@@ -436,7 +436,7 @@ export default function ProfilePage() {
   const statCards = getStatCards(userProfile?.userType, userProfile || undefined);
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-50 via-blue-50 to-indigo-50">
+    <div className="min-h-screen bg-gradient-to-br from-slate-50 via-green-50 to-emerald-50">
       <div className="container mx-auto space-y-6 p-4 md:p-8 pt-6">
         {/* Header */}
         <div className="flex items-center justify-between">
