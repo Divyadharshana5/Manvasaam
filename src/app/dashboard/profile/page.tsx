@@ -201,7 +201,17 @@ export default function ProfilePage() {
 
   const form = useForm<z.infer<typeof profileFormSchema>>({
     resolver: zodResolver(profileFormSchema),
-    defaultValues: {},
+    defaultValues: {
+      username: "",
+      branchName: "",
+      phone: "",
+      email: "",
+      location: "",
+      bio: "",
+      website: "",
+      company: "",
+      role: "",
+    },
   });
 
   const getDefaultBio = (userType?: string) => {
