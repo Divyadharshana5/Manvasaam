@@ -55,26 +55,41 @@ export async function PATCH(
 
     const body = await request.json();
     
+    // Check if Firebase is configured
+    if (!adminDb) {
+      // In mock mode, just return success
+      console.log("Mock mode: Profile update request received for user:", uid);
+      console.log("Mock mode: Update data:", body);
+      return NextResponse.json({ 
+        message: "Profile updated successfully (mock mode)",
+        mockMode: true 
+      }, { status: 200 });
+    }
+    
     const allowedUpdates: { [key: string]: any } = {};
     const authUpdates: { [key: string]: any } = {};
 
-    if (body.username) allowedUpdates.username = body.username;
-    if (body.phone) allowedUpdates.phone = body.phone;
-    if (body.branchName) allowedUpdates.branchName = body.branchName;
-    if (body.location) allowedUpdates.location = body.location;
-    if (body.bio) allowedUpdates.bio = body.bio;
-    if (body.website) allowedUpdates.website = body.website;
-    if (body.company) allowedUpdates.company = body.company;
-    if (body.role) allowedUpdates.role = body.role;
-    if (body.photoURL) {
+    // Handle all possible fields, including empty strings
+    if (body.username !== undefined) allowedUpdates.username = body.username;
+    if (body.phone !== undefined) allowedUpdates.phone = body.phone;
+    if (body.branchName !== undefined) allowedUpdates.branchName = body.branchName;
+    if (body.location !== undefined) allowedUpdates.location = body.location;
+    if (body.bio !== undefined) allowedUpdates.bio = body.bio;
+    if (body.website !== undefined) allowedUpdates.website = body.website;
+    if (body.company !== undefined) allowedUpdates.company = body.company;
+    if (body.role !== undefined) allowedUpdates.role = body.role;
+    if (body.photoURL !== undefined) {
         allowedUpdates.photoURL = body.photoURL;
-        authUpdates.photoURL = body.photoURL;
+        if (adminAuth) {
+          authUpdates.photoURL = body.photoURL;
+        }
     }
-    if (body.email) {
+    if (body.email !== undefined) {
         allowedUpdates.email = body.email;
-        authUpdates.email = body.email;
+        if (adminAuth) {
+          authUpdates.email = body.email;
+        }
     }
-
 
     if (Object.keys(allowedUpdates).length === 0) {
         return NextResponse.json({ message: "No valid fields to update" }, { status: 400 });
@@ -87,7 +102,7 @@ export async function PATCH(
     await adminDb.collection("users").doc(uid).update(allowedUpdates);
 
     // Update Firebase Auth user if needed
-    if (Object.keys(authUpdates).length > 0) {
+    if (Object.keys(authUpdates).length > 0 && adminAuth) {
         await adminAuth.updateUser(uid, authUpdates);
     }
 
