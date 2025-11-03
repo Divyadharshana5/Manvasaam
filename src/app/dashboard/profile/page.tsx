@@ -129,7 +129,15 @@ const profileFormSchema = z.object({
   bio: z.string().optional().refine((val) => !val || val.length <= 500, {
     message: "Bio must be less than 500 characters."
   }),
-  website: z.string().optional().refine((val) => !val || z.string().url().safeParse(val).success, {
+  website: z.string().optional().refine((val) => {
+    if (!val || val.trim() === '') return true;
+    try {
+      new URL(val.startsWith('http') ? val : `https://${val}`);
+      return true;
+    } catch {
+      return false;
+    }
+  }, {
     message: "Please enter a valid URL."
   }),
   company: z.string().optional(),
