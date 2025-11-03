@@ -337,8 +337,8 @@ export default function ProfilePage() {
         console.error(error);
         toast({
           variant: "destructive",
-          title: t.profile.updateErrorTitle,
-          description: t.profile.loadError,
+          title: "Error",
+          description: "Failed to load profile data",
         });
       } finally {
         setProfileLoading(false);
