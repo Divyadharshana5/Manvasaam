@@ -112,34 +112,14 @@ interface UserProfile {
 }
 
 const profileFormSchema = z.object({
-  username: z.string().optional().refine((val) => !val || val.length >= 2, {
-    message: "Username must be at least 2 characters."
-  }),
-  branchName: z.string().optional().refine((val) => !val || val.length >= 2, {
-    message: "Branch name must be at least 2 characters."
-  }),
-  phone: z.string().optional().refine((val) => !val || val.length >= 10, {
-    message: "Please enter a valid phone number."
-  }),
+  username: z.string().optional(),
+  branchName: z.string().optional(),
+  phone: z.string().optional(),
   photo: z.any().optional(),
-  email: z.string().optional().refine((val) => !val || z.string().email().safeParse(val).success, {
-    message: "Please enter a valid email."
-  }),
+  email: z.string().optional(),
   location: z.string().optional(),
-  bio: z.string().optional().refine((val) => !val || val.length <= 500, {
-    message: "Bio must be less than 500 characters."
-  }),
-  website: z.string().optional().refine((val) => {
-    if (!val || val.trim() === '') return true;
-    try {
-      new URL(val.startsWith('http') ? val : `https://${val}`);
-      return true;
-    } catch {
-      return false;
-    }
-  }, {
-    message: "Please enter a valid URL."
-  }),
+  bio: z.string().optional(),
+  website: z.string().optional(),
   company: z.string().optional(),
   role: z.string().optional(),
 });
