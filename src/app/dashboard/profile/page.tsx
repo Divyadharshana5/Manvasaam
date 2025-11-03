@@ -474,13 +474,13 @@ export default function ProfilePage() {
   const loading = authLoading || profileLoading;
 
   const renderProfileDetails = () => {
-    if (!userProfile) return <p>{t.profile.noProfileData}</p>;
+    if (!userProfile) return <p>No profile data available</p>;
 
     const details = [
-      { label: t.profile.emailLabel, value: userProfile.email, icon: Mail },
-      { label: t.profile.phoneLabel, value: userProfile.phone, icon: Phone },
-      { label: userProfile.userType === 'hub' ? t.profile.branchIdLabel : t.profile.userTypeLabel, value: userProfile.userType === 'hub' ? userProfile.branchId : userProfile.userType, icon: Building },
-      { label: t.profile.memberSinceLabel, value: userProfile.createdAt ? new Date(userProfile.createdAt).toLocaleDateString() : 'N/A', icon: Calendar },
+      { label: "Email", value: userProfile.email, icon: Mail },
+      { label: "Phone", value: userProfile.phone, icon: Phone },
+      { label: userProfile.userType === 'hub' ? "Branch ID" : "User Type", value: userProfile.userType === 'hub' ? userProfile.branchId : userProfile.userType, icon: Building },
+      { label: "Member Since", value: userProfile.createdAt ? new Date(userProfile.createdAt).toLocaleDateString() : 'N/A', icon: Calendar },
     ];
 
     return (
