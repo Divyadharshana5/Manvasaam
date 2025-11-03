@@ -152,7 +152,12 @@ export default function ProfilePage() {
   
   // Debug user state
   useEffect(() => {
-    console.log("User state:", { user: user?.uid, authLoading });
+    console.log("User state:", { 
+      user: user?.uid, 
+      authLoading, 
+      userEmail: user?.email,
+      userObject: user 
+    });
   }, [user, authLoading]);
   const [isEditDialogOpen, setIsEditDialogOpen] = useState(false);
   const [isUpdating, setIsUpdating] = useState(false);
