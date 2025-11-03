@@ -149,6 +149,11 @@ export default function ProfilePage() {
   const { user, loading: authLoading } = useAuth();
   const [userProfile, setUserProfile] = useState<UserProfile | null>(null);
   const [profileLoading, setProfileLoading] = useState(true);
+  
+  // Debug user state
+  useEffect(() => {
+    console.log("User state:", { user: user?.uid, authLoading });
+  }, [user, authLoading]);
   const [isEditDialogOpen, setIsEditDialogOpen] = useState(false);
   const [isUpdating, setIsUpdating] = useState(false);
   const { toast } = useToast();
@@ -161,11 +166,20 @@ export default function ProfilePage() {
 
   // Test function to verify API connectivity
   const testProfileUpdate = async () => {
-    if (!user) return;
+    console.log("Test button clicked, user:", user?.uid);
+    if (!user) {
+      toast({
+        variant: "destructive",
+        title: "No User",
+        description: "User not authenticated",
+      });
+      return;
+    }
     
     try {
       const testData = { username: "Test User " + Date.now() };
       console.log("Testing profile update with:", testData);
+      console.log("API URL:", `/api/users/${user.uid}`);
       
       const response = await fetch(`/api/users/${user.uid}`, {
         method: "PATCH",
@@ -173,6 +187,7 @@ export default function ProfilePage() {
         body: JSON.stringify(testData),
       });
       
+      console.log("Response status:", response.status);
       const result = await response.json();
       console.log("Test response:", result);
       
