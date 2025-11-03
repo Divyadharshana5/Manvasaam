@@ -151,6 +151,46 @@ export default function ProfilePage() {
   const [isEditingBio, setIsEditingBio] = useState(false);
   const [tempBio, setTempBio] = useState("");
 
+  // Test function to verify API connectivity
+  const testProfileUpdate = async () => {
+    if (!user) return;
+    
+    try {
+      const testData = { username: "Test User " + Date.now() };
+      console.log("Testing profile update with:", testData);
+      
+      const response = await fetch(`/api/users/${user.uid}`, {
+        method: "PATCH",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(testData),
+      });
+      
+      const result = await response.json();
+      console.log("Test response:", result);
+      
+      if (response.ok) {
+        toast({
+          title: "Test Successful",
+          description: "Profile API is working correctly.",
+        });
+        await fetchUserProfile();
+      } else {
+        toast({
+          variant: "destructive",
+          title: "Test Failed",
+          description: result.message || "API test failed",
+        });
+      }
+    } catch (error: any) {
+      console.error("Test error:", error);
+      toast({
+        variant: "destructive",
+        title: "Test Error",
+        description: error.message,
+      });
+    }
+  };
+
   const form = useForm<z.infer<typeof profileFormSchema>>({
     resolver: zodResolver(profileFormSchema),
     defaultValues: {},
@@ -474,13 +514,21 @@ export default function ProfilePage() {
               Manage your account and preferences
             </p>
           </div>
-          <Dialog open={isEditDialogOpen} onOpenChange={setIsEditDialogOpen}>
-            <DialogTrigger asChild>
-              <Button className="bg-gradient-to-r from-green-600 to-emerald-600 hover:from-green-700 hover:to-emerald-700">
-                <Edit3 className="mr-2 h-4 w-4" />
-                Edit Profile
-              </Button>
-            </DialogTrigger>
+          <div className="flex gap-2">
+            <Button 
+              variant="outline" 
+              onClick={testProfileUpdate}
+              className="border-green-600 text-green-600 hover:bg-green-50"
+            >
+              Test Save
+            </Button>
+            <Dialog open={isEditDialogOpen} onOpenChange={setIsEditDialogOpen}>
+              <DialogTrigger asChild>
+                <Button className="bg-gradient-to-r from-green-600 to-emerald-600 hover:from-green-700 hover:to-emerald-700">
+                  <Edit3 className="mr-2 h-4 w-4" />
+                  Edit Profile
+                </Button>
+              </DialogTrigger>
             <DialogContent className="max-w-2xl max-h-[90vh] overflow-y-auto">
               <DialogHeader>
                 <DialogTitle>Edit Profile</DialogTitle>
@@ -653,6 +701,7 @@ export default function ProfilePage() {
               </Form>
             </DialogContent>
           </Dialog>
+          </div>
         </div>
 
         {loading ? (
