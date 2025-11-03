@@ -430,7 +430,11 @@ export default function ProfilePage() {
 }
 
   async function onSubmit(values: z.infer<typeof profileFormSchema>) {
-    if (!user) return;
+    console.log("onSubmit called with values:", values);
+    if (!user) {
+      console.log("No user found, aborting submit");
+      return;
+    }
     setIsUpdating(true);
     setUploadProgress(null);
 
