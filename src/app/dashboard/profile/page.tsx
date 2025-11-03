@@ -750,8 +750,8 @@ export default function ProfilePage() {
                                 setIsUpdating(false);
                               }
                             }}>
-                              <Save className="h-4 w-4 mr-1" />
-                              Save
+                              {isUpdating ? <Loader2 className="h-4 w-4 mr-1 animate-spin" /> : <Save className="h-4 w-4 mr-1" />}
+                              {isUpdating ? 'Saving...' : 'Save'}
                             </Button>
                             <Button 
                               variant="outline" 

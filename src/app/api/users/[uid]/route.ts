@@ -61,6 +61,11 @@ export async function PATCH(
     if (body.username) allowedUpdates.username = body.username;
     if (body.phone) allowedUpdates.phone = body.phone;
     if (body.branchName) allowedUpdates.branchName = body.branchName;
+    if (body.location) allowedUpdates.location = body.location;
+    if (body.bio) allowedUpdates.bio = body.bio;
+    if (body.website) allowedUpdates.website = body.website;
+    if (body.company) allowedUpdates.company = body.company;
+    if (body.role) allowedUpdates.role = body.role;
     if (body.photoURL) {
         allowedUpdates.photoURL = body.photoURL;
         authUpdates.photoURL = body.photoURL;
@@ -74,6 +79,9 @@ export async function PATCH(
     if (Object.keys(allowedUpdates).length === 0) {
         return NextResponse.json({ message: "No valid fields to update" }, { status: 400 });
     }
+
+    // Add timestamp for last update
+    allowedUpdates.updatedAt = new Date().toISOString();
 
     // Update Firestore
     await adminDb.collection("users").doc(uid).update(allowedUpdates);
