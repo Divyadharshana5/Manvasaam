@@ -401,14 +401,13 @@ export default function ProfilePage() {
 
         console.log("Profile update - Response status:", response.status);
         
-        if (!response.ok) {
-            const errorData = await response.json();
-            console.error("Profile update - Error response:", errorData);
-            throw new Error(errorData.message || "Failed to update profile");
-        }
-
         const responseData = await response.json();
-        console.log("Profile update - Success response:", responseData);
+        console.log("Profile update - Response data:", responseData);
+        
+        if (!response.ok) {
+            console.error("Profile update - Error response:", responseData);
+            throw new Error(responseData.message || "Failed to update profile");
+        }
 
         toast({
             title: "Profile Updated",
