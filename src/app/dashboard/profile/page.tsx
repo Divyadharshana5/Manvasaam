@@ -718,10 +718,37 @@ export default function ProfilePage() {
                             maxLength={500}
                           />
                           <div className="flex gap-2">
-                            <Button size="sm" onClick={() => {
-                              // In real app, save to backend
-                              setUserProfile(prev => prev ? {...prev, bio: tempBio} : null);
-                              setIsEditingBio(false);
+                            <Button size="sm" disabled={isUpdating} onClick={async () => {
+                              if (!user) return;
+                              
+                              try {
+                                setIsUpdating(true);
+                                const response = await fetch(`/api/users/${user.uid}`, {
+                                  method: "PATCH",
+                                  headers: { "Content-Type": "application/json" },
+                                  body: JSON.stringify({ bio: tempBio }),
+                                });
+
+                                if (!response.ok) {
+                                  throw new Error("Failed to update bio");
+                                }
+
+                                setUserProfile(prev => prev ? {...prev, bio: tempBio} : null);
+                                setIsEditingBio(false);
+                                
+                                toast({
+                                  title: "Bio Updated",
+                                  description: "Your bio has been updated successfully.",
+                                });
+                              } catch (error) {
+                                toast({
+                                  variant: "destructive",
+                                  title: "Update Failed",
+                                  description: "Failed to update bio. Please try again.",
+                                });
+                              } finally {
+                                setIsUpdating(false);
+                              }
                             }}>
                               <Save className="h-4 w-4 mr-1" />
                               Save
