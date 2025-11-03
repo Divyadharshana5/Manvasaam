@@ -532,14 +532,20 @@ export default function ProfilePage() {
                 </DialogDescription>
               </DialogHeader>
               <Form {...form}>
-                <form onSubmit={form.handleSubmit(onSubmit, (errors) => {
-                  console.log("Form validation errors:", errors);
-                  toast({
-                    variant: "destructive",
-                    title: "Validation Error",
-                    description: "Please check the form for errors.",
-                  });
-                })} className="space-y-6">
+                <form onSubmit={form.handleSubmit(
+                  (values) => {
+                    console.log("Form submitted successfully with values:", values);
+                    onSubmit(values);
+                  }, 
+                  (errors) => {
+                    console.log("Form validation errors:", errors);
+                    toast({
+                      variant: "destructive",
+                      title: "Validation Error",
+                      description: "Please check the form for errors.",
+                    });
+                  }
+                )} className="space-y-6">
                   {/* Profile Picture */}
                   <FormField
                     control={form.control}
