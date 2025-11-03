@@ -450,11 +450,21 @@ export default function ProfilePage() {
 }
 
   async function onSubmit(values: z.infer<typeof profileFormSchema>) {
+    console.log("=== PROFILE UPDATE START ===");
     console.log("onSubmit called with values:", values);
-    if (!user) {
-      console.log("No user found, aborting submit");
+    console.log("User object:", user);
+    console.log("User UID:", user?.uid);
+    
+    if (!user || !user.uid) {
+      console.error("No user or user.uid found, aborting submit");
+      toast({
+        variant: "destructive",
+        title: "Authentication Error",
+        description: "User not properly authenticated",
+      });
       return;
     }
+    
     setIsUpdating(true);
     setUploadProgress(null);
 
@@ -463,10 +473,18 @@ export default function ProfilePage() {
         
         let photoURL = userProfile?.photoURL;
         
+        // Skip photo upload for now to simplify debugging
         if (values.photo instanceof File) {
-            photoURL = await uploadImage(values.photo);
-            if ((user as any).photoURL !== photoURL) {
-              await updateProfile(user as any, { photoURL });
+            console.log("Photo upload detected, uploading...");
+            try {
+              photoURL = await uploadImage(values.photo);
+              console.log("Photo uploaded successfully:", photoURL);
+              if ((user as any).photoURL !== photoURL) {
+                await updateProfile(user as any, { photoURL });
+              }
+            } catch (photoError) {
+              console.error("Photo upload failed:", photoError);
+              // Continue without photo update
             }
         }
         
@@ -474,6 +492,7 @@ export default function ProfilePage() {
         const updateData = { ...profileData, photoURL };
         
         console.log("Profile update - Sending data:", updateData);
+        console.log("API URL:", `/api/users/${user.uid}`);
 
         const response = await fetch(`/api/users/${user.uid}`, {
             method: "PATCH",
@@ -482,34 +501,44 @@ export default function ProfilePage() {
         });
 
         console.log("Profile update - Response status:", response.status);
+        console.log("Profile update - Response headers:", response.headers);
         
         const responseData = await response.json();
         console.log("Profile update - Response data:", responseData);
         
         if (!response.ok) {
             console.error("Profile update - Error response:", responseData);
-            throw new Error(responseData.message || "Failed to update profile");
+            throw new Error(responseData.message || `HTTP ${response.status}: Failed to update profile`);
         }
 
+        console.log("Profile update successful!");
         toast({
             title: "Profile Updated",
             description: "Your profile has been updated successfully.",
         });
         
-        await (user as any).reload(); 
+        // Skip user reload for demo mode
+        if (typeof (user as any).reload === 'function') {
+          await (user as any).reload();
+        }
+        
         await fetchUserProfile();
         setIsEditDialogOpen(false);
+        console.log("=== PROFILE UPDATE SUCCESS ===");
 
     } catch (error: any) {
+      console.error("=== PROFILE UPDATE ERROR ===");
       console.error("Profile update - Error:", error);
+      console.error("Error stack:", error.stack);
       toast({
         variant: "destructive",
         title: "Update Failed",
-        description: error.message,
+        description: error.message || "An unknown error occurred",
       });
     } finally {
       setIsUpdating(false);
       setUploadProgress(null);
+      console.log("=== PROFILE UPDATE END ===");
     }
   }
 
