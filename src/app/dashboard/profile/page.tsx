@@ -736,7 +736,16 @@ export default function ProfilePage() {
                     <DialogClose asChild>
                       <Button type="button" variant="outline">Cancel</Button>
                     </DialogClose>
-                    <Button type="submit" disabled={isUpdating}>
+                    <Button 
+                      type="button" 
+                      disabled={isUpdating}
+                      onClick={async () => {
+                        console.log("Save button clicked directly");
+                        const formValues = form.getValues();
+                        console.log("Current form values:", formValues);
+                        await onSubmit(formValues);
+                      }}
+                    >
                       {isUpdating && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
                       Save Changes
                     </Button>
