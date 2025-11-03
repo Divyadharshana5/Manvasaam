@@ -738,6 +738,30 @@ export default function ProfilePage() {
                     </DialogClose>
                     <Button 
                       type="button" 
+                      variant="outline"
+                      onClick={async () => {
+                        if (!user) return;
+                        try {
+                          const response = await fetch(`/api/users/${user.uid}`, {
+                            method: "PATCH",
+                            headers: { "Content-Type": "application/json" },
+                            body: JSON.stringify({ username: "Direct Test " + Date.now() }),
+                          });
+                          const result = await response.json();
+                          console.log("Direct API test:", result);
+                          toast({
+                            title: response.ok ? "Direct API Success" : "Direct API Failed",
+                            description: result.message || "Direct API test completed",
+                          });
+                        } catch (error: any) {
+                          console.error("Direct API error:", error);
+                        }
+                      }}
+                    >
+                      Direct API Test
+                    </Button>
+                    <Button 
+                      type="button" 
                       disabled={isUpdating}
                       onClick={async () => {
                         console.log("Save button clicked directly");
