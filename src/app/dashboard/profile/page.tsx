@@ -559,6 +559,24 @@ export default function ProfilePage() {
           <div className="flex gap-2">
             <Button 
               variant="outline" 
+              onClick={() => {
+                console.log("User check:", {
+                  user: user,
+                  uid: user?.uid,
+                  email: user?.email,
+                  authLoading
+                });
+                toast({
+                  title: "User Check",
+                  description: `User: ${user?.uid || 'No user'}, Loading: ${authLoading}`,
+                });
+              }}
+              className="border-blue-600 text-blue-600 hover:bg-blue-50"
+            >
+              Check User
+            </Button>
+            <Button 
+              variant="outline" 
               onClick={testProfileUpdate}
               className="border-green-600 text-green-600 hover:bg-green-50"
             >
