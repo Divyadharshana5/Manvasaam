@@ -112,16 +112,28 @@ interface UserProfile {
 }
 
 const profileFormSchema = z.object({
-  username: z.string().min(2, { message: "Username must be at least 2 characters." }).optional().or(z.literal('')),
-  branchName: z.string().min(2, { message: "Branch name must be at least 2 characters." }).optional().or(z.literal('')),
-  phone: z.string().min(10, { message: "Please enter a valid phone number." }).optional().or(z.literal('')),
+  username: z.string().optional().refine((val) => !val || val.length >= 2, {
+    message: "Username must be at least 2 characters."
+  }),
+  branchName: z.string().optional().refine((val) => !val || val.length >= 2, {
+    message: "Branch name must be at least 2 characters."
+  }),
+  phone: z.string().optional().refine((val) => !val || val.length >= 10, {
+    message: "Please enter a valid phone number."
+  }),
   photo: z.any().optional(),
-  email: z.string().email({ message: "Please enter a valid email." }).optional().or(z.literal('')),
-  location: z.string().optional().or(z.literal('')),
-  bio: z.string().max(500, { message: "Bio must be less than 500 characters." }).optional().or(z.literal('')),
-  website: z.string().url({ message: "Please enter a valid URL." }).optional().or(z.literal('')),
-  company: z.string().optional().or(z.literal('')),
-  role: z.string().optional().or(z.literal('')),
+  email: z.string().optional().refine((val) => !val || z.string().email().safeParse(val).success, {
+    message: "Please enter a valid email."
+  }),
+  location: z.string().optional(),
+  bio: z.string().optional().refine((val) => !val || val.length <= 500, {
+    message: "Bio must be less than 500 characters."
+  }),
+  website: z.string().optional().refine((val) => !val || z.string().url().safeParse(val).success, {
+    message: "Please enter a valid URL."
+  }),
+  company: z.string().optional(),
+  role: z.string().optional(),
 });
 
 
@@ -365,6 +377,8 @@ export default function ProfilePage() {
     setUploadProgress(null);
 
     try {
+        console.log("Profile update - Form values:", values);
+        
         let photoURL = userProfile?.photoURL;
         
         if (values.photo instanceof File) {
@@ -375,21 +389,30 @@ export default function ProfilePage() {
         }
         
         const { photo, ...profileData } = values;
+        const updateData = { ...profileData, photoURL };
+        
+        console.log("Profile update - Sending data:", updateData);
 
         const response = await fetch(`/api/users/${user.uid}`, {
             method: "PATCH",
             headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({ ...profileData, photoURL }),
+            body: JSON.stringify(updateData),
         });
 
+        console.log("Profile update - Response status:", response.status);
+        
         if (!response.ok) {
             const errorData = await response.json();
+            console.error("Profile update - Error response:", errorData);
             throw new Error(errorData.message || "Failed to update profile");
         }
 
+        const responseData = await response.json();
+        console.log("Profile update - Success response:", responseData);
+
         toast({
-            title: t.profile.updateSuccessTitle,
-            description: t.profile.updateSuccessDescription,
+            title: "Profile Updated",
+            description: "Your profile has been updated successfully.",
         });
         
         await (user as any).reload(); 
@@ -397,9 +420,10 @@ export default function ProfilePage() {
         setIsEditDialogOpen(false);
 
     } catch (error: any) {
+      console.error("Profile update - Error:", error);
       toast({
         variant: "destructive",
-        title: t.profile.updateErrorTitle,
+        title: "Update Failed",
         description: error.message,
       });
     } finally {
