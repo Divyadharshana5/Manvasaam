@@ -342,8 +342,17 @@ export default function ProfilePage() {
         });
         setImagePreview(userProfile.photoURL || null);
         setTempBio(userProfile.bio || "");
+        setHasUnsavedChanges(false);
     }
   }, [userProfile, isEditDialogOpen, form]);
+
+  // Watch for form changes to detect unsaved changes
+  useEffect(() => {
+    const subscription = form.watch(() => {
+      setHasUnsavedChanges(true);
+    });
+    return () => subscription.unsubscribe();
+  }, [form]);
 
   const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
