@@ -444,9 +444,14 @@ export default function ProfilePage() {
         }
 
         console.log("Profile update successful!");
+        
+        // Update local state immediately for better UX
+        setUserProfile(prev => prev ? { ...prev, ...updateData } : null);
+        
         toast({
-            title: "Profile Updated",
-            description: "Your profile has been updated successfully.",
+            title: "✅ Profile Updated Successfully",
+            description: "Your profile information has been saved and updated.",
+            duration: 3000,
         });
         
         // Skip user reload for demo mode
@@ -454,8 +459,14 @@ export default function ProfilePage() {
           await (user as any).reload();
         }
         
+        // Refresh profile data from server
         await fetchUserProfile();
         setIsEditDialogOpen(false);
+        
+        // Reset form state
+        form.reset();
+        setImagePreview(null);
+        
         console.log("=== PROFILE UPDATE SUCCESS ===");
 
     } catch (error: any) {
