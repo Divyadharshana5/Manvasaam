@@ -795,6 +795,7 @@ export default function ProfilePage() {
           </div>
         ) : userProfile ? (
           <>
+            {console.log("Rendering profile with data:", userProfile)}
             {/* Profile Header Card */}
             <Card className="overflow-hidden border-0 shadow-xl bg-gradient-to-r from-white via-green-50 to-emerald-50">
               <CardContent className="p-8">
