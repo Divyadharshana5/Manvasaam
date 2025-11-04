@@ -703,13 +703,28 @@ export default function ProfilePage() {
                     </div>
                   )}
 
-                  <DialogFooter>
+                  <DialogFooter className="gap-2">
                     <DialogClose asChild>
-                      <Button type="button" variant="outline">Cancel</Button>
+                      <Button type="button" variant="outline" disabled={isUpdating}>
+                        Cancel
+                      </Button>
                     </DialogClose>
-                    <Button type="submit" disabled={isUpdating}>
-                      {isUpdating && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
-                      Save Changes
+                    <Button 
+                      type="submit" 
+                      disabled={isUpdating || uploadProgress !== null}
+                      className="bg-gradient-to-r from-green-600 to-emerald-600 hover:from-green-700 hover:to-emerald-700"
+                    >
+                      {isUpdating ? (
+                        <>
+                          <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                          {uploadProgress !== null ? `Uploading... ${Math.round(uploadProgress)}%` : 'Saving...'}
+                        </>
+                      ) : (
+                        <>
+                          <Save className="mr-2 h-4 w-4" />
+                          Save Changes
+                        </>
+                      )}
                     </Button>
                   </DialogFooter>
                 </form>
