@@ -263,7 +263,6 @@ export default function ProfilePage() {
             role: userProfile.role || "",
         });
         setImagePreview(userProfile.photoURL || null);
-        setTempBio(userProfile.bio || "");
         setHasUnsavedChanges(false);
     }
   }, [userProfile, isEditDialogOpen, form]);
