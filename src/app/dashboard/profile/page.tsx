@@ -959,7 +959,11 @@ export default function ProfilePage() {
                 </CardDescription>
               </CardHeader>
               <CardContent className="p-6">
-                {renderProfileDetails()}
+                {userProfile ? renderProfileDetails() : (
+                  <div className="text-center py-8">
+                    <p className="text-gray-500">Loading profile details...</p>
+                  </div>
+                )}
               </CardContent>
             </Card>
 
