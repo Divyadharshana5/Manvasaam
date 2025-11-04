@@ -586,10 +586,10 @@ export default function ProfilePage() {
         <div className="flex items-center justify-between">
           <div>
             <h1 className="text-4xl font-bold bg-gradient-to-r from-green-600 to-emerald-600 bg-clip-text text-transparent">
-              Profile Dashboard
+              Profile Details
             </h1>
             <p className="text-muted-foreground text-lg mt-2">
-              Manage your account and preferences
+              View and manage your profile information
             </p>
           </div>
           <div className="flex gap-2">
