@@ -592,13 +592,23 @@ export default function ProfilePage() {
               Manage your account and preferences
             </p>
           </div>
-          <Dialog open={isEditDialogOpen} onOpenChange={setIsEditDialogOpen}>
-            <DialogTrigger asChild>
-              <Button className="bg-gradient-to-r from-green-600 to-emerald-600 hover:from-green-700 hover:to-emerald-700">
-                <Edit3 className="mr-2 h-4 w-4" />
-                Edit Profile
-              </Button>
-            </DialogTrigger>
+          <div className="flex gap-2">
+            <Button 
+              onClick={() => {
+                console.log("Force refresh profile data");
+                fetchUserProfile();
+              }}
+              variant="outline"
+            >
+              Refresh Profile
+            </Button>
+            <Dialog open={isEditDialogOpen} onOpenChange={setIsEditDialogOpen}>
+              <DialogTrigger asChild>
+                <Button className="bg-gradient-to-r from-green-600 to-emerald-600 hover:from-green-700 hover:to-emerald-700">
+                  <Edit3 className="mr-2 h-4 w-4" />
+                  Edit Profile
+                </Button>
+              </DialogTrigger>
             <DialogContent className="max-w-2xl max-h-[90vh] overflow-y-auto">
               <DialogHeader>
                 <DialogTitle className="flex items-center gap-2">
@@ -821,10 +831,15 @@ export default function ProfilePage() {
           </CardHeader>
           <CardContent className="p-6 bg-white">
             <div className="mb-4 p-3 bg-blue-50 rounded-lg border border-blue-200">
-              <p className="text-sm text-blue-700">
+              <p className="text-sm text-blue-700 mb-2">
                 Debug: Profile loaded = {userProfile ? 'Yes' : 'No'}, 
                 Loading = {loading ? 'Yes' : 'No'}, 
                 User = {user?.uid || 'None'}
+              </p>
+              <p className="text-xs text-blue-600">
+                API Response: {userProfile ? 'Data received' : 'No data'} | 
+                Auth State: {user ? 'Authenticated' : 'Not authenticated'} | 
+                Component State: {profileLoading ? 'Loading' : 'Ready'}
               </p>
             </div>
             {renderProfileDetails()}
