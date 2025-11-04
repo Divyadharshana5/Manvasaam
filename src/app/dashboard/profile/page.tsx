@@ -959,7 +959,6 @@ export default function ProfilePage() {
                 </CardDescription>
               </CardHeader>
               <CardContent className="p-6">
-                {console.log("About to render profile details...")}
                 {renderProfileDetails()}
               </CardContent>
             </Card>
