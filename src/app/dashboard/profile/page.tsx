@@ -112,14 +112,14 @@ interface UserProfile {
 }
 
 const profileFormSchema = z.object({
-  username: z.string().optional(),
-  branchName: z.string().optional(),
-  phone: z.string().optional(),
+  username: z.string().min(2, "Name must be at least 2 characters").optional().or(z.literal("")),
+  branchName: z.string().min(2, "Branch name must be at least 2 characters").optional().or(z.literal("")),
+  phone: z.string().regex(/^[\+]?[1-9][\d]{0,15}$/, "Please enter a valid phone number").optional().or(z.literal("")),
   photo: z.any().optional(),
-  email: z.string().optional(),
+  email: z.string().email("Please enter a valid email address").optional().or(z.literal("")),
   location: z.string().optional(),
-  bio: z.string().optional(),
-  website: z.string().optional(),
+  bio: z.string().max(500, "Bio must be less than 500 characters").optional().or(z.literal("")),
+  website: z.string().url("Please enter a valid website URL").optional().or(z.literal("")),
   company: z.string().optional(),
   role: z.string().optional(),
 });
