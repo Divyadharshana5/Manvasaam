@@ -481,19 +481,26 @@ export default function ProfilePage() {
 
     const details = [
       { label: "Email", value: userProfile.email, icon: Mail },
-      { label: "Phone", value: userProfile.phone, icon: Phone },
+      { label: "Phone", value: userProfile.phone || "Not provided", icon: Phone },
+      { label: "Location", value: userProfile.location || "Not specified", icon: MapPin },
+      { label: "Company", value: userProfile.company || "Not specified", icon: Building },
+      { label: "Role", value: userProfile.role || userProfile.userType, icon: User },
       { label: userProfile.userType === 'hub' ? "Branch ID" : "User Type", value: userProfile.userType === 'hub' ? userProfile.branchId : userProfile.userType, icon: Building },
       { label: "Member Since", value: userProfile.createdAt ? new Date(userProfile.createdAt).toLocaleDateString() : 'N/A', icon: Calendar },
+      { label: "Last Active", value: userProfile.lastActive ? "Active now" : "Recently", icon: Activity },
+      { label: "Verification Status", value: userProfile.verified ? "Verified" : "Pending", icon: Shield },
     ];
 
     return (
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mt-6">
-            {details.filter(item => item.value).map(item => (
-                <div key={item.label} className="flex items-center gap-4">
-                    <item.icon className="h-8 w-8 text-primary" />
-                    <div>
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mt-6">
+            {details.map(item => (
+                <div key={item.label} className="flex items-center gap-4 p-4 bg-gray-50 rounded-lg hover:bg-gray-100 transition-colors">
+                    <div className="p-2 rounded-lg bg-white shadow-sm">
+                        <item.icon className="h-5 w-5 text-primary" />
+                    </div>
+                    <div className="flex-1 min-w-0">
                         <p className="text-sm font-medium text-muted-foreground">{item.label}</p>
-                        <p className="text-lg font-semibold">{item.value}</p>
+                        <p className="text-base font-semibold text-gray-900 truncate">{item.value}</p>
                     </div>
                 </div>
             ))}
