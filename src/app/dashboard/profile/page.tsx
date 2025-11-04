@@ -498,24 +498,34 @@ export default function ProfilePage() {
   const loading = authLoading || profileLoading;
 
   const renderProfileDetails = () => {
-    if (!userProfile) return <p>No profile data available</p>;
+    console.log("renderProfileDetails called, userProfile:", userProfile);
+    
+    if (!userProfile) {
+      return (
+        <div className="text-center py-8">
+          <p className="text-gray-500">No profile data available</p>
+        </div>
+      );
+    }
 
     const details = [
-      { label: "Email", value: userProfile.email, icon: Mail },
+      { label: "Email", value: userProfile.email || "Not provided", icon: Mail },
       { label: "Phone", value: userProfile.phone || "Not provided", icon: Phone },
       { label: "Location", value: userProfile.location || "Not specified", icon: MapPin },
       { label: "Company", value: userProfile.company || "Not specified", icon: Building },
-      { label: "Role", value: userProfile.role || userProfile.userType, icon: User },
-      { label: userProfile.userType === 'hub' ? "Branch ID" : "User Type", value: userProfile.userType === 'hub' ? userProfile.branchId : userProfile.userType, icon: Building },
+      { label: "Role", value: userProfile.role || userProfile.userType || "Not specified", icon: User },
+      { label: userProfile.userType === 'hub' ? "Branch ID" : "User Type", value: userProfile.userType === 'hub' ? (userProfile.branchId || "Not specified") : (userProfile.userType || "Not specified"), icon: Building },
       { label: "Member Since", value: userProfile.createdAt ? new Date(userProfile.createdAt).toLocaleDateString() : 'N/A', icon: Calendar },
       { label: "Last Active", value: userProfile.lastActive ? "Active now" : "Recently", icon: Activity },
       { label: "Verification Status", value: userProfile.verified ? "Verified" : "Pending", icon: Shield },
     ];
 
+    console.log("Profile details to render:", details);
+
     return (
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mt-6">
-            {details.map(item => (
-                <div key={item.label} className="flex items-center gap-4 p-4 bg-gray-50 rounded-lg hover:bg-gray-100 transition-colors">
+            {details.map((item, index) => (
+                <div key={`${item.label}-${index}`} className="flex items-center gap-4 p-4 bg-gray-50 rounded-lg hover:bg-gray-100 transition-colors">
                     <div className="p-2 rounded-lg bg-white shadow-sm">
                         <item.icon className="h-5 w-5 text-primary" />
                     </div>
