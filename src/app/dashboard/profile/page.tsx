@@ -948,17 +948,18 @@ export default function ProfilePage() {
             </Card>
 
             {/* User Details Section */}
-            <Card className="border-0 shadow-lg">
-              <CardHeader>
-                <CardTitle className="flex items-center gap-2">
+            <Card className="border shadow-lg bg-white">
+              <CardHeader className="bg-gradient-to-r from-green-50 to-emerald-50">
+                <CardTitle className="flex items-center gap-2 text-green-800">
                   <User className="h-5 w-5" />
                   Profile Details
                 </CardTitle>
-                <CardDescription>
+                <CardDescription className="text-green-600">
                   Your complete profile information and account details
                 </CardDescription>
               </CardHeader>
-              <CardContent>
+              <CardContent className="p-6">
+                {console.log("About to render profile details...")}
                 {renderProfileDetails()}
               </CardContent>
             </Card>
