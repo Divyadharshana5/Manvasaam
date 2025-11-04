@@ -303,6 +303,7 @@ export default function ProfilePage() {
             role: "Fleet Manager"
           })
         };
+        console.log("Enhanced profile data:", enhancedProfile);
         setUserProfile(enhancedProfile);
       } catch (error) {
         console.error(error);
