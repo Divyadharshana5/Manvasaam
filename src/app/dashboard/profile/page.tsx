@@ -847,29 +847,7 @@ export default function ProfilePage() {
           </CardContent>
         </Card>
 
-        {loading ? (
-          <div className="space-y-6">
-            <Card className="p-6">
-              <div className="flex items-center space-x-6">
-                <Skeleton className="h-32 w-32 rounded-full" />
-                <div className="space-y-3">
-                  <Skeleton className="h-8 w-[300px]" />
-                  <Skeleton className="h-6 w-[200px]" />
-                  <Skeleton className="h-4 w-[250px]" />
-                </div>
-              </div>
-            </Card>
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
-              {[1, 2, 3, 4].map((i) => (
-                <Card key={i} className="p-6">
-                  <Skeleton className="h-12 w-12 rounded-lg mb-4" />
-                  <Skeleton className="h-6 w-20 mb-2" />
-                  <Skeleton className="h-4 w-16" />
-                </Card>
-              ))}
-            </div>
-          </div>
-        ) : userProfile ? (
+
           <>
             {/* Profile Header Card */}
             <Card className="overflow-hidden border-0 shadow-xl bg-gradient-to-r from-white via-green-50 to-emerald-50">
