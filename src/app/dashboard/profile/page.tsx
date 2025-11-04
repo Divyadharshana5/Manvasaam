@@ -967,22 +967,18 @@ export default function ProfilePage() {
             </Card>
 
             {/* User Details Section */}
-            <Card className="border shadow-lg bg-white">
-              <CardHeader className="bg-gradient-to-r from-green-50 to-emerald-50">
-                <CardTitle className="flex items-center gap-2 text-green-800">
-                  <User className="h-5 w-5" />
+            <Card className="border-2 border-green-200 shadow-xl bg-white mb-6">
+              <CardHeader className="bg-gradient-to-r from-green-50 to-emerald-50 border-b border-green-200">
+                <CardTitle className="flex items-center gap-2 text-green-800 text-xl">
+                  <User className="h-6 w-6" />
                   Profile Details
                 </CardTitle>
-                <CardDescription className="text-green-600">
+                <CardDescription className="text-green-600 text-base">
                   Your complete profile information and account details
                 </CardDescription>
               </CardHeader>
-              <CardContent className="p-6">
-                {userProfile ? renderProfileDetails() : (
-                  <div className="text-center py-8">
-                    <p className="text-gray-500">Loading profile details...</p>
-                  </div>
-                )}
+              <CardContent className="p-6 bg-white">
+                {renderProfileDetails()}
               </CardContent>
             </Card>
 
