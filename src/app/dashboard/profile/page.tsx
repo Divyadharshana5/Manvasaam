@@ -978,6 +978,13 @@ export default function ProfilePage() {
                 </CardDescription>
               </CardHeader>
               <CardContent className="p-6 bg-white">
+                <div className="mb-4 p-3 bg-blue-50 rounded-lg border border-blue-200">
+                  <p className="text-sm text-blue-700">
+                    Debug: Profile loaded = {userProfile ? 'Yes' : 'No'}, 
+                    Loading = {loading ? 'Yes' : 'No'}, 
+                    User = {user?.uid || 'None'}
+                  </p>
+                </div>
                 {renderProfileDetails()}
               </CardContent>
             </Card>
