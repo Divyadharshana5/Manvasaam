@@ -554,7 +554,14 @@ export default function ProfilePage() {
             </DialogTrigger>
             <DialogContent className="max-w-2xl max-h-[90vh] overflow-y-auto">
               <DialogHeader>
-                <DialogTitle>Edit Profile</DialogTitle>
+                <DialogTitle className="flex items-center gap-2">
+                  Edit Profile
+                  {hasUnsavedChanges && (
+                    <Badge variant="secondary" className="bg-yellow-100 text-yellow-800">
+                      Unsaved Changes
+                    </Badge>
+                  )}
+                </DialogTitle>
                 <DialogDescription>
                   Update your profile information and preferences
                 </DialogDescription>
