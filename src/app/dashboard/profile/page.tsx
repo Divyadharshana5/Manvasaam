@@ -510,33 +510,50 @@ export default function ProfilePage() {
   const renderProfileDetails = () => {
     console.log("renderProfileDetails called, userProfile:", userProfile);
     
-    if (!userProfile) {
-      return (
-        <div className="text-center py-8">
-          <p className="text-gray-500 mb-4">No profile data available</p>
-          <Button onClick={() => fetchUserProfile()} variant="outline">
-            Retry Loading Profile
-          </Button>
-        </div>
-      );
-    }
+    // Always show profile details with fallback data to ensure visibility
+    const profileData = userProfile || {
+      email: user?.email || "demo@example.com",
+      phone: "Not provided",
+      location: "Not specified", 
+      company: "Not specified",
+      role: "User",
+      userType: "retail",
+      createdAt: new Date().toISOString(),
+      lastActive: new Date().toISOString(),
+      verified: false
+    };
 
     const details = [
-      { label: "Email", value: userProfile.email || "Not provided", icon: Mail },
-      { label: "Phone", value: userProfile.phone || "Not provided", icon: Phone },
-      { label: "Location", value: userProfile.location || "Not specified", icon: MapPin },
-      { label: "Company", value: userProfile.company || "Not specified", icon: Building },
-      { label: "Role", value: userProfile.role || userProfile.userType || "Not specified", icon: User },
-      { label: userProfile.userType === 'hub' ? "Branch ID" : "User Type", value: userProfile.userType === 'hub' ? (userProfile.branchId || "Not specified") : (userProfile.userType || "Not specified"), icon: Building },
-      { label: "Member Since", value: userProfile.createdAt ? new Date(userProfile.createdAt).toLocaleDateString() : 'N/A', icon: Calendar },
-      { label: "Last Active", value: userProfile.lastActive ? "Active now" : "Recently", icon: Activity },
-      { label: "Verification Status", value: userProfile.verified ? "Verified" : "Pending", icon: Shield },
+      { label: "Email", value: profileData.email || "Not provided", icon: Mail },
+      { label: "Phone", value: profileData.phone || "Not provided", icon: Phone },
+      { label: "Location", value: profileData.location || "Not specified", icon: MapPin },
+      { label: "Company", value: profileData.company || "Not specified", icon: Building },
+      { label: "Role", value: profileData.role || profileData.userType || "Not specified", icon: User },
+      { label: profileData.userType === 'hub' ? "Branch ID" : "User Type", value: profileData.userType === 'hub' ? (profileData.branchId || "Not specified") : (profileData.userType || "Not specified"), icon: Building },
+      { label: "Member Since", value: profileData.createdAt ? new Date(profileData.createdAt).toLocaleDateString() : 'N/A', icon: Calendar },
+      { label: "Last Active", value: profileData.lastActive ? "Active now" : "Recently", icon: Activity },
+      { label: "Verification Status", value: profileData.verified ? "Verified" : "Pending", icon: Shield },
     ];
 
     console.log("Profile details to render:", details);
 
     return (
         <div className="space-y-4">
+          {!userProfile && (
+            <div className="mb-4 p-4 bg-yellow-50 rounded-lg border border-yellow-200">
+              <p className="text-sm text-yellow-700">
+                ⚠️ Showing fallback data. Profile not fully loaded yet.
+                <Button 
+                  onClick={() => fetchUserProfile()} 
+                  variant="outline" 
+                  size="sm" 
+                  className="ml-2"
+                >
+                  Retry Loading
+                </Button>
+              </p>
+            </div>
+          )}
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
             {details.map((item, index) => (
                 <div key={`${item.label}-${index}`} className="flex items-center gap-4 p-4 bg-gradient-to-r from-gray-50 to-gray-100 rounded-lg hover:from-green-50 hover:to-emerald-50 transition-all duration-200 border border-gray-200">
@@ -552,7 +569,7 @@ export default function ProfilePage() {
           </div>
           <div className="mt-6 p-4 bg-green-50 rounded-lg border border-green-200">
             <p className="text-sm text-green-700">
-              ✅ Profile details loaded successfully. Last updated: {new Date().toLocaleString()}
+              ✅ Profile details {userProfile ? 'loaded successfully' : 'showing with fallback data'}. Last updated: {new Date().toLocaleString()}
             </p>
           </div>
         </div>
