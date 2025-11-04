@@ -816,6 +816,7 @@ export default function ProfilePage() {
               </Form>
             </DialogContent>
           </Dialog>
+          </div>
         </div>
 
         {/* Always show Profile Details - even during loading */}
