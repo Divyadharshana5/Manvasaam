@@ -355,6 +355,15 @@ export default function ProfilePage() {
     return () => subscription.unsubscribe();
   }, [form]);
 
+  // Debug effect to track profile data changes
+  useEffect(() => {
+    console.log("Profile data changed:", {
+      userProfile,
+      loading: authLoading || profileLoading,
+      user: user?.uid
+    });
+  }, [userProfile, authLoading, profileLoading, user]);
+
   const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
     if (file) {
