@@ -513,7 +513,10 @@ export default function ProfilePage() {
     if (!userProfile) {
       return (
         <div className="text-center py-8">
-          <p className="text-gray-500">No profile data available</p>
+          <p className="text-gray-500 mb-4">No profile data available</p>
+          <Button onClick={() => fetchUserProfile()} variant="outline">
+            Retry Loading Profile
+          </Button>
         </div>
       );
     }
@@ -533,18 +536,25 @@ export default function ProfilePage() {
     console.log("Profile details to render:", details);
 
     return (
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mt-6">
+        <div className="space-y-4">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
             {details.map((item, index) => (
-                <div key={`${item.label}-${index}`} className="flex items-center gap-4 p-4 bg-gray-50 rounded-lg hover:bg-gray-100 transition-colors">
-                    <div className="p-2 rounded-lg bg-white shadow-sm">
-                        <item.icon className="h-5 w-5 text-primary" />
+                <div key={`${item.label}-${index}`} className="flex items-center gap-4 p-4 bg-gradient-to-r from-gray-50 to-gray-100 rounded-lg hover:from-green-50 hover:to-emerald-50 transition-all duration-200 border border-gray-200">
+                    <div className="p-3 rounded-lg bg-white shadow-md border">
+                        <item.icon className="h-5 w-5 text-green-600" />
                     </div>
                     <div className="flex-1 min-w-0">
-                        <p className="text-sm font-medium text-muted-foreground">{item.label}</p>
+                        <p className="text-sm font-medium text-gray-600 mb-1">{item.label}</p>
                         <p className="text-base font-semibold text-gray-900 truncate">{item.value}</p>
                     </div>
                 </div>
             ))}
+          </div>
+          <div className="mt-6 p-4 bg-green-50 rounded-lg border border-green-200">
+            <p className="text-sm text-green-700">
+              ✅ Profile details loaded successfully. Last updated: {new Date().toLocaleString()}
+            </p>
+          </div>
         </div>
     );
   };
