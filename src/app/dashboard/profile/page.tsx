@@ -1006,29 +1006,6 @@ export default function ProfilePage() {
               </CardContent>
             </Card>
 
-            {/* User Details Section */}
-            <Card className="border-2 border-green-200 shadow-xl bg-white mb-6">
-              <CardHeader className="bg-gradient-to-r from-green-50 to-emerald-50 border-b border-green-200">
-                <CardTitle className="flex items-center gap-2 text-green-800 text-xl">
-                  <User className="h-6 w-6" />
-                  Profile Details
-                </CardTitle>
-                <CardDescription className="text-green-600 text-base">
-                  Your complete profile information and account details
-                </CardDescription>
-              </CardHeader>
-              <CardContent className="p-6 bg-white">
-                <div className="mb-4 p-3 bg-blue-50 rounded-lg border border-blue-200">
-                  <p className="text-sm text-blue-700">
-                    Debug: Profile loaded = {userProfile ? 'Yes' : 'No'}, 
-                    Loading = {loading ? 'Yes' : 'No'}, 
-                    User = {user?.uid || 'None'}
-                  </p>
-                </div>
-                {renderProfileDetails()}
-              </CardContent>
-            </Card>
-
             {/* Performance Summary */}
             <Card className="border-0 shadow-lg bg-gradient-to-r from-green-500 to-emerald-600 text-white mb-6">
               <CardContent className="p-6">
