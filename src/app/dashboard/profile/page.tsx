@@ -148,6 +148,7 @@ export default function ProfilePage() {
   const [activeTab, setActiveTab] = useState("overview");
   const [isEditingBio, setIsEditingBio] = useState(false);
   const [tempBio, setTempBio] = useState("");
+  const [hasUnsavedChanges, setHasUnsavedChanges] = useState(false);
 
 
 
