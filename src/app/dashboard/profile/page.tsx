@@ -908,6 +908,22 @@ export default function ProfilePage() {
               </CardContent>
             </Card>
 
+            {/* User Details Section */}
+            <Card className="border-0 shadow-lg">
+              <CardHeader>
+                <CardTitle className="flex items-center gap-2">
+                  <User className="h-5 w-5" />
+                  Profile Details
+                </CardTitle>
+                <CardDescription>
+                  Your complete profile information and account details
+                </CardDescription>
+              </CardHeader>
+              <CardContent>
+                {renderProfileDetails()}
+              </CardContent>
+            </Card>
+
             {/* Performance Summary */}
             <Card className="border-0 shadow-lg bg-gradient-to-r from-green-500 to-emerald-600 text-white mb-6">
               <CardContent className="p-6">
