@@ -137,8 +137,8 @@ const sidebarItems = [
     icon: BarChart3,
   },
   {
-    title: "Profile",
-    href: "/dashboard/profile",
+    title: "Shop Profile",
+    href: "/dashboard/retail/profile",
     icon: Settings,
   },
   {
