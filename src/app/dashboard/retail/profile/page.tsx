@@ -438,32 +438,22 @@ export default function RetailProfilePage() {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-50 via-green-50 to-emerald-50">
-      <div className="container mx-auto space-y-6 p-4 md:p-8 pt-6">
-        {/* Header */}
-        <div className="flex items-center justify-between">
-          <div>
-            <h1 className="text-4xl font-bold bg-gradient-to-r from-green-600 to-emerald-600 bg-clip-text text-transparent">
-              Shop Profile
-            </h1>
-            <p className="text-muted-foreground text-lg mt-2">
-              Manage your retail shop information and details
-            </p>
-          </div>
-          <div className="flex gap-2">
-            <Button 
-              onClick={fetchShopProfile}
-              variant="outline"
-            >
-              Refresh Profile
+    <div className="space-y-6">
+      {/* Header */}
+      <div className="flex items-center justify-between">
+        <div>
+          <h1 className="text-2xl font-bold text-gray-900">Shop Profile</h1>
+          <p className="text-gray-600 mt-1">
+            View and manage your shop information
+          </p>
+        </div>
+        <Dialog open={isEditDialogOpen} onOpenChange={setIsEditDialogOpen}>
+          <DialogTrigger asChild>
+            <Button>
+              <Edit3 className="mr-2 h-4 w-4" />
+              Edit Profile
             </Button>
-            <Dialog open={isEditDialogOpen} onOpenChange={setIsEditDialogOpen}>
-              <DialogTrigger asChild>
-                <Button className="bg-gradient-to-r from-green-600 to-emerald-600 hover:from-green-700 hover:to-emerald-700">
-                  <Edit3 className="mr-2 h-4 w-4" />
-                  Edit Shop Details
-                </Button>
-              </DialogTrigger>
+          </DialogTrigger>
               <DialogContent className="max-w-4xl max-h-[90vh] overflow-y-auto">
                 <DialogHeader>
                   <DialogTitle>Edit Shop Profile</DialogTitle>
