@@ -765,44 +765,31 @@ export default function RetailProfilePage() {
           </div>
         </div>
 
-        {/* Shop Profile Card */}
-        <Card className="border-2 border-green-200 shadow-xl bg-white">
-          <CardHeader className="bg-gradient-to-r from-green-50 to-emerald-50 border-b border-green-200">
-            <div className="flex items-center gap-4">
-              <Avatar className="h-16 w-16 border-4 border-green-200">
-                <AvatarImage src={shopProfile?.photoURL || undefined} />
-                <AvatarFallback className="bg-green-100 text-green-700 text-xl font-bold">
-                  <Store className="h-8 w-8" />
-                </AvatarFallback>
-              </Avatar>
-              <div className="flex-1">
-                <CardTitle className="flex items-center gap-2 text-green-800 text-2xl">
-                  {shopProfile?.shopName || "Shop Profile"}
-                  {shopProfile?.verified && (
-                    <Badge className="bg-green-100 text-green-800">
-                      <CheckCircle className="h-3 w-3 mr-1" />
-                      Verified
-                    </Badge>
-                  )}
-                </CardTitle>
-                <CardDescription className="text-green-600 text-base">
-                  {shopProfile?.shopType || "Retail Store"} • {shopProfile?.city || "Location"}
-                </CardDescription>
-              </div>
-            </div>
-          </CardHeader>
-          <CardContent className="p-6 bg-white">
-            {loading ? (
-              <div className="flex items-center justify-center py-12">
-                <Loader2 className="h-8 w-8 animate-spin text-green-600" />
-                <span className="ml-2 text-gray-600">Loading shop details...</span>
-              </div>
-            ) : (
-              renderShopDetails()
+      {/* Shop Profile Card */}
+      <Card>
+        <CardHeader>
+          <CardTitle className="flex items-center gap-2">
+            <Store className="h-5 w-5" />
+            {shopProfile?.shopName || "Shop Information"}
+            {shopProfile?.verified && (
+              <Badge variant="secondary">
+                <CheckCircle className="h-3 w-3 mr-1" />
+                Verified
+              </Badge>
             )}
-          </CardContent>
-        </Card>
-      </div>
+          </CardTitle>
+        </CardHeader>
+        <CardContent>
+          {loading ? (
+            <div className="flex items-center justify-center py-12">
+              <Loader2 className="h-6 w-6 animate-spin" />
+              <span className="ml-2 text-gray-600">Loading shop details...</span>
+            </div>
+          ) : (
+            renderShopDetails()
+          )}
+        </CardContent>
+      </Card>
     </div>
   );
 }
