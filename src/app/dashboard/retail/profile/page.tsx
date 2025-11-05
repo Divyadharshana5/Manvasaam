@@ -293,96 +293,127 @@ export default function RetailProfilePage() {
       verified: false
     };
 
-    const shopDetails = [
-      { 
-        section: "Shop Information",
-        items: [
-          { label: "Shop Name", value: profileData.shopName || "Not provided", icon: Store },
-          { label: "Shop Type", value: profileData.shopType || "Retail Store", icon: Package },
-          { label: "Owner Name", value: profileData.ownerName || "Not provided", icon: User },
-          { label: "Established", value: profileData.establishedYear || "Not specified", icon: Calendar },
-        ]
-      },
-      {
-        section: "Contact Details", 
-        items: [
-          { label: "Email", value: profileData.email || "Not provided", icon: Mail },
-          { label: "Primary Phone", value: profileData.phone || "Not provided", icon: Phone },
-          { label: "Alternate Phone", value: profileData.alternatePhone || "Not provided", icon: Phone },
-          { label: "Website", value: profileData.website || "Not provided", icon: Globe },
-        ]
-      },
-      {
-        section: "Address & Location",
-        items: [
-          { label: "Address", value: profileData.address || "Not provided", icon: MapPin },
-          { label: "City", value: profileData.city || "Not specified", icon: Building },
-          { label: "State", value: profileData.state || "Not specified", icon: Building },
-          { label: "Pincode", value: profileData.pincode || "Not specified", icon: MapPin },
-          { label: "Landmark", value: profileData.landmark || "Not specified", icon: MapPin },
-        ]
-      },
-      {
-        section: "Business Details",
-        items: [
-          { label: "GST Number", value: profileData.gstNumber || "Not provided", icon: CreditCard },
-          { label: "License Number", value: profileData.licenseNumber || "Not provided", icon: Shield },
-          { label: "Business Hours", value: profileData.businessHours || "Not specified", icon: Clock },
-          { label: "Delivery Radius", value: profileData.deliveryRadius ? `${profileData.deliveryRadius}` : "Not specified", icon: MapPin },
-        ]
-      }
-    ];
-
     return (
-      <div className="space-y-8">
-        {shopDetails.map((section, sectionIndex) => (
-          <div key={sectionIndex}>
-            <h3 className="text-lg font-semibold text-gray-800 mb-4 flex items-center gap-2">
-              <div className="w-1 h-6 bg-green-500 rounded"></div>
-              {section.section}
-            </h3>
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-              {section.items.map((item, index) => (
-                <div key={`${sectionIndex}-${index}`} className="flex items-center gap-4 p-4 bg-gradient-to-r from-gray-50 to-gray-100 rounded-lg hover:from-green-50 hover:to-emerald-50 transition-all duration-200 border border-gray-200">
-                  <div className="p-3 rounded-lg bg-white shadow-md border">
-                    <item.icon className="h-5 w-5 text-green-600" />
-                  </div>
-                  <div className="flex-1 min-w-0">
-                    <p className="text-sm font-medium text-gray-600 mb-1">{item.label}</p>
-                    <p className="text-base font-semibold text-gray-900 truncate">{item.value}</p>
-                  </div>
-                </div>
-              ))}
+      <div className="space-y-6">
+        {/* Basic Information */}
+        <div>
+          <h3 className="text-lg font-semibold mb-4 border-b pb-2">Basic Information</h3>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <div className="space-y-1">
+              <label className="text-sm font-medium text-gray-600">Shop Name</label>
+              <p className="text-base">{profileData.shopName || "Not provided"}</p>
+            </div>
+            <div className="space-y-1">
+              <label className="text-sm font-medium text-gray-600">Owner Name</label>
+              <p className="text-base">{profileData.ownerName || "Not provided"}</p>
+            </div>
+            <div className="space-y-1">
+              <label className="text-sm font-medium text-gray-600">Shop Type</label>
+              <p className="text-base">{profileData.shopType || "Retail Store"}</p>
+            </div>
+            <div className="space-y-1">
+              <label className="text-sm font-medium text-gray-600">Established Year</label>
+              <p className="text-base">{profileData.establishedYear || "Not specified"}</p>
             </div>
           </div>
-        ))}
+        </div>
+
+        {/* Contact Information */}
+        <div>
+          <h3 className="text-lg font-semibold mb-4 border-b pb-2">Contact Information</h3>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <div className="space-y-1">
+              <label className="text-sm font-medium text-gray-600">Email</label>
+              <p className="text-base">{profileData.email || "Not provided"}</p>
+            </div>
+            <div className="space-y-1">
+              <label className="text-sm font-medium text-gray-600">Primary Phone</label>
+              <p className="text-base">{profileData.phone || "Not provided"}</p>
+            </div>
+            <div className="space-y-1">
+              <label className="text-sm font-medium text-gray-600">Alternate Phone</label>
+              <p className="text-base">{profileData.alternatePhone || "Not provided"}</p>
+            </div>
+            <div className="space-y-1">
+              <label className="text-sm font-medium text-gray-600">Website</label>
+              <p className="text-base">{profileData.website || "Not provided"}</p>
+            </div>
+          </div>
+        </div>
+
+        {/* Address */}
+        <div>
+          <h3 className="text-lg font-semibold mb-4 border-b pb-2">Address</h3>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <div className="space-y-1 md:col-span-2">
+              <label className="text-sm font-medium text-gray-600">Address</label>
+              <p className="text-base">{profileData.address || "Not provided"}</p>
+            </div>
+            <div className="space-y-1">
+              <label className="text-sm font-medium text-gray-600">City</label>
+              <p className="text-base">{profileData.city || "Not specified"}</p>
+            </div>
+            <div className="space-y-1">
+              <label className="text-sm font-medium text-gray-600">State</label>
+              <p className="text-base">{profileData.state || "Not specified"}</p>
+            </div>
+            <div className="space-y-1">
+              <label className="text-sm font-medium text-gray-600">Pincode</label>
+              <p className="text-base">{profileData.pincode || "Not specified"}</p>
+            </div>
+            <div className="space-y-1">
+              <label className="text-sm font-medium text-gray-600">Landmark</label>
+              <p className="text-base">{profileData.landmark || "Not specified"}</p>
+            </div>
+          </div>
+        </div>
+
+        {/* Business Details */}
+        <div>
+          <h3 className="text-lg font-semibold mb-4 border-b pb-2">Business Details</h3>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <div className="space-y-1">
+              <label className="text-sm font-medium text-gray-600">GST Number</label>
+              <p className="text-base">{profileData.gstNumber || "Not provided"}</p>
+            </div>
+            <div className="space-y-1">
+              <label className="text-sm font-medium text-gray-600">License Number</label>
+              <p className="text-base">{profileData.licenseNumber || "Not provided"}</p>
+            </div>
+            <div className="space-y-1">
+              <label className="text-sm font-medium text-gray-600">Business Hours</label>
+              <p className="text-base">{profileData.businessHours || "Not specified"}</p>
+            </div>
+            <div className="space-y-1">
+              <label className="text-sm font-medium text-gray-600">Delivery Radius</label>
+              <p className="text-base">{profileData.deliveryRadius || "Not specified"}</p>
+            </div>
+          </div>
+        </div>
 
         {/* Additional Information */}
         {(profileData.description || profileData.specialties) && (
           <div>
-            <h3 className="text-lg font-semibold text-gray-800 mb-4 flex items-center gap-2">
-              <div className="w-1 h-6 bg-green-500 rounded"></div>
-              Additional Information
-            </h3>
+            <h3 className="text-lg font-semibold mb-4 border-b pb-2">Additional Information</h3>
             <div className="space-y-4">
               {profileData.description && (
-                <div className="p-4 bg-gradient-to-r from-blue-50 to-indigo-50 rounded-lg border border-blue-200">
-                  <h4 className="font-medium text-blue-800 mb-2">Shop Description</h4>
-                  <p className="text-blue-700">{profileData.description}</p>
+                <div className="space-y-1">
+                  <label className="text-sm font-medium text-gray-600">Description</label>
+                  <p className="text-base text-gray-700">{profileData.description}</p>
                 </div>
               )}
               {profileData.specialties && (
-                <div className="p-4 bg-gradient-to-r from-purple-50 to-pink-50 rounded-lg border border-purple-200">
-                  <h4 className="font-medium text-purple-800 mb-2">Specialties</h4>
-                  <p className="text-purple-700">{profileData.specialties}</p>
+                <div className="space-y-1">
+                  <label className="text-sm font-medium text-gray-600">Specialties</label>
+                  <p className="text-base text-gray-700">{profileData.specialties}</p>
                 </div>
               )}
               {profileData.paymentMethods && profileData.paymentMethods.length > 0 && (
-                <div className="p-4 bg-gradient-to-r from-green-50 to-emerald-50 rounded-lg border border-green-200">
-                  <h4 className="font-medium text-green-800 mb-2">Payment Methods Accepted</h4>
+                <div className="space-y-1">
+                  <label className="text-sm font-medium text-gray-600">Payment Methods</label>
                   <div className="flex flex-wrap gap-2">
                     {profileData.paymentMethods.map((method, index) => (
-                      <Badge key={index} variant="secondary" className="bg-green-100 text-green-800">
+                      <Badge key={index} variant="outline">
                         {method}
                       </Badge>
                     ))}
@@ -393,21 +424,14 @@ export default function RetailProfilePage() {
           </div>
         )}
 
-        {/* Status Information */}
-        <div className="mt-6 p-4 bg-green-50 rounded-lg border border-green-200">
-          <div className="flex items-center gap-2 mb-2">
-            {profileData.verified ? (
-              <CheckCircle className="h-5 w-5 text-green-600" />
-            ) : (
-              <AlertCircle className="h-5 w-5 text-yellow-600" />
-            )}
-            <span className="font-medium text-green-800">
-              Verification Status: {profileData.verified ? 'Verified Shop' : 'Pending Verification'}
+        {/* Verification Status */}
+        <div className="pt-4 border-t">
+          <div className="flex items-center gap-2">
+            <CheckCircle className="h-4 w-4 text-green-600" />
+            <span className="text-sm text-gray-600">
+              Status: {profileData.verified ? 'Verified' : 'Pending Verification'}
             </span>
           </div>
-          <p className="text-sm text-green-700">
-            Profile last updated: {new Date().toLocaleString()}
-          </p>
         </div>
       </div>
     );
