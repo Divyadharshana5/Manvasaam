@@ -762,8 +762,7 @@ export default function RetailProfilePage() {
                 </Form>
               </DialogContent>
             </Dialog>
-          </div>
-        </div>
+        </Dialog>
 
       {/* Shop Profile Card */}
       <Card>
