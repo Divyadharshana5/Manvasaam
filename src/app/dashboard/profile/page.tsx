@@ -1,50 +1,20 @@
-
 "use client";
 
 import { useEffect, useState } from "react";
-
 import {
   Card,
   CardHeader,
   CardTitle,
   CardContent,
-  CardDescription,
-  CardFooter,
 } from "@/components/ui/card";
 import { useAuth } from "@/hooks/use-auth";
-import { Skeleton } from "@/components/ui/skeleton";
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { 
   Loader2, 
-  User, 
-  Mail, 
-  Phone, 
-  Building, 
-  Calendar,
-  MapPin,
-  Shield,
-  Star,
-  Award,
-  TrendingUp,
-  Activity,
-  Clock,
-  CheckCircle,
   Edit3,
-  Camera,
   Save,
-  X,
-  Settings,
-  Bell,
-  Lock,
-  Globe,
-  Smartphone,
-  CreditCard,
-  Package,
-  Truck,
-  Sprout,
-  Download,
-  Trophy,
-  AlertCircle
+  User,
+  Store,
+  CheckCircle
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import {
@@ -58,9 +28,6 @@ import {
   DialogTrigger,
 } from "@/components/ui/dialog";
 import { Badge } from "@/components/ui/badge";
-import { Separator } from "@/components/ui/separator";
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { Switch } from "@/components/ui/switch";
 import {
   Form,
   FormControl,
@@ -70,115 +37,209 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
+import { Textarea } from "@/components/ui/textarea";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import * as z from "zod";
 import { useToast } from "@/hooks/use-toast";
-import { storage } from "@/lib/firebase";
-import { ref, uploadBytesResumable, getDownloadURL } from "firebase/storage";
-import { updateProfile } from "firebase/auth";
-import { Progress } from "@/components/ui/progress";
-import { useLanguage } from "@/context/language-context";
-
 
 interface UserProfile {
+  // Basic Information
   username?: string;
+  shopName?: string;
+  shopType?: string;
+  ownerName?: string;
   email?: string;
+  phone?: string;
+  alternatePhone?: string;
+  
+  // Address & Location
+  address?: string;
+  city?: string;
+  state?: string;
+  pincode?: string;
+  landmark?: string;
+  
+  // Business Details
+  gstNumber?: string;
+  licenseNumber?: string;
+  establishedYear?: string;
+  businessHours?: string;
+  website?: string;
+  
+  // Additional Info
+  description?: string;
+  specialties?: string;
+  paymentMethods?: string[];
+  deliveryRadius?: string;
+  
+  // System Info
   userType?: string;
   branchName?: string;
   branchId?: string;
-  phone?: string;
   createdAt?: string;
+  verified?: boolean;
   photoURL?: string;
-  location?: string;
-  bio?: string;
-  website?: string;
+  lastActive?: string;
   company?: string;
   role?: string;
-  verified?: boolean;
-  rating?: number;
-  totalOrders?: number;
-  completedDeliveries?: number;
-  totalRevenue?: number;
-  joinedDate?: string;
-  lastActive?: string;
-  preferences?: {
-    notifications?: boolean;
-    emailUpdates?: boolean;
-    smsAlerts?: boolean;
-    darkMode?: boolean;
-    language?: string;
-  };
+  location?: string;
+  bio?: string;
 }
 
 const profileFormSchema = z.object({
   username: z.string().min(2, "Name must be at least 2 characters").optional().or(z.literal("")),
+  shopName: z.string().min(2, "Shop name must be at least 2 characters").optional().or(z.literal("")),
+  ownerName: z.string().min(2, "Owner name must be at least 2 characters").optional().or(z.literal("")),
   branchName: z.string().min(2, "Branch name must be at least 2 characters").optional().or(z.literal("")),
-  phone: z.string().regex(/^[\+]?[1-9][\d]{0,15}$/, "Please enter a valid phone number").optional().or(z.literal("")),
-  photo: z.any().optional(),
   email: z.string().email("Please enter a valid email address").optional().or(z.literal("")),
-  location: z.string().optional(),
-  bio: z.string().max(500, "Bio must be less than 500 characters").optional().or(z.literal("")),
+  phone: z.string().regex(/^[\+]?[1-9][\d]{0,15}$/, "Please enter a valid phone number").optional().or(z.literal("")),
+  alternatePhone: z.string().regex(/^[\+]?[1-9][\d]{0,15}$/, "Please enter a valid phone number").optional().or(z.literal("")),
+  address: z.string().optional(),
+  city: z.string().optional(),
+  state: z.string().optional(),
+  pincode: z.string().regex(/^[1-9][0-9]{5}$/, "Please enter a valid pincode").optional().or(z.literal("")),
+  landmark: z.string().optional(),
+  gstNumber: z.string().optional(),
+  licenseNumber: z.string().optional(),
+  establishedYear: z.string().optional(),
+  businessHours: z.string().optional(),
   website: z.string().url("Please enter a valid website URL").optional().or(z.literal("")),
+  description: z.string().max(500, "Description must be less than 500 characters").optional().or(z.literal("")),
+  specialties: z.string().optional(),
+  deliveryRadius: z.string().optional(),
   company: z.string().optional(),
   role: z.string().optional(),
+  location: z.string().optional(),
+  bio: z.string().max(500, "Bio must be less than 500 characters").optional().or(z.literal("")),
 });
-
 
 export default function ProfilePage() {
   const { user, loading: authLoading } = useAuth();
   const [userProfile, setUserProfile] = useState<UserProfile | null>(null);
   const [profileLoading, setProfileLoading] = useState(true);
-  
-  // Debug user state
-  useEffect(() => {
-    console.log("User state:", { 
-      user: user?.uid, 
-      authLoading, 
-      userEmail: user?.email,
-      userObject: user 
-    });
-  }, [user, authLoading]);
   const [isEditDialogOpen, setIsEditDialogOpen] = useState(false);
   const [isUpdating, setIsUpdating] = useState(false);
   const { toast } = useToast();
-  const [uploadProgress, setUploadProgress] = useState<number | null>(null);
-  const [imagePreview, setImagePreview] = useState<string | null>(null);
-  const { t } = useLanguage();
-
-  const [hasUnsavedChanges, setHasUnsavedChanges] = useState(false);
-
-
 
   const form = useForm<z.infer<typeof profileFormSchema>>({
     resolver: zodResolver(profileFormSchema),
     defaultValues: {
       username: "",
+      shopName: "",
+      ownerName: "",
       branchName: "",
-      phone: "",
       email: "",
-      location: "",
-      bio: "",
+      phone: "",
+      alternatePhone: "",
+      address: "",
+      city: "",
+      state: "",
+      pincode: "",
+      landmark: "",
+      gstNumber: "",
+      licenseNumber: "",
+      establishedYear: "",
+      businessHours: "",
       website: "",
+      description: "",
+      specialties: "",
+      deliveryRadius: "",
       company: "",
       role: "",
+      location: "",
+      bio: "",
     },
   });
 
-  const getDefaultBio = (userType?: string) => {
+  const getDefaultData = (userType?: string, data?: any) => {
+    const baseData = {
+      email: data?.email || user?.email,
+      phone: data?.phone || "+91 98765 43210",
+      verified: true,
+      userType: data?.userType || userType || "retail",
+      createdAt: data?.createdAt,
+      lastActive: new Date().toISOString(),
+    };
+
     switch (userType) {
       case 'retail':
-        return "Passionate about bringing fresh, quality products to our community. Committed to supporting local farmers and sustainable practices.";
+        return {
+          ...baseData,
+          shopName: data?.shopName || "Fresh Mart Grocery Store",
+          shopType: data?.shopType || "Grocery & Fresh Produce",
+          ownerName: data?.ownerName || data?.username || "Rajesh Kumar",
+          alternatePhone: data?.alternatePhone || "+91 98765 43211",
+          address: data?.address || "123, Market Street, Commercial Complex",
+          city: data?.city || "Mumbai",
+          state: data?.state || "Maharashtra", 
+          pincode: data?.pincode || "400001",
+          landmark: data?.landmark || "Near City Mall",
+          gstNumber: data?.gstNumber || "27ABCDE1234F1Z5",
+          licenseNumber: data?.licenseNumber || "FL-2024-001234",
+          establishedYear: data?.establishedYear || "2018",
+          businessHours: data?.businessHours || "8:00 AM - 10:00 PM",
+          website: data?.website || "www.freshmart.com",
+          description: data?.description || "Your trusted neighborhood grocery store providing fresh produce, daily essentials, and quality products at competitive prices.",
+          specialties: data?.specialties || "Fresh Vegetables, Organic Products, Daily Essentials, Local Produce",
+          paymentMethods: data?.paymentMethods || ["Cash", "UPI", "Card", "Digital Wallet"],
+          deliveryRadius: data?.deliveryRadius || "5 km",
+        };
       case 'farmer':
-        return "Dedicated to sustainable farming practices and growing the finest organic produce. Proud to feed our community with healthy, fresh crops.";
+        return {
+          ...baseData,
+          username: data?.username || "Suresh Patel",
+          company: data?.company || "Green Valley Farm",
+          role: data?.role || "Organic Farmer",
+          location: data?.location || "Nashik, Maharashtra",
+          bio: data?.bio || "Dedicated to sustainable farming practices and growing the finest organic produce. Proud to feed our community with healthy, fresh crops.",
+          address: data?.address || "Plot 45, Green Valley, Nashik",
+          city: data?.city || "Nashik",
+          state: data?.state || "Maharashtra",
+          pincode: data?.pincode || "422001",
+          website: data?.website || "www.greenvalleyfarm.com",
+          specialties: data?.specialties || "Organic Vegetables, Fruits, Grains",
+        };
       case 'transport':
-        return "Reliable logistics partner ensuring fresh produce reaches its destination safely and on time. Excellence in every delivery.";
+        return {
+          ...baseData,
+          username: data?.username || "Amit Singh",
+          company: data?.company || "Swift Logistics",
+          role: data?.role || "Fleet Manager",
+          location: data?.location || "Pune, Maharashtra",
+          bio: data?.bio || "Reliable logistics partner ensuring fresh produce reaches its destination safely and on time. Excellence in every delivery.",
+          address: data?.address || "Transport Hub, Pune",
+          city: data?.city || "Pune",
+          state: data?.state || "Maharashtra",
+          pincode: data?.pincode || "411001",
+          website: data?.website || "www.swiftlogistics.com",
+          specialties: data?.specialties || "Cold Chain Transport, Express Delivery",
+        };
+      case 'hub':
+        return {
+          ...baseData,
+          branchName: data?.branchName || "Central Distribution Hub",
+          branchId: data?.branchId || "HUB-001",
+          username: data?.username || "Hub Manager",
+          company: data?.company || "AgriConnect Hub",
+          role: data?.role || "Hub Manager",
+          location: data?.location || "Mumbai, Maharashtra",
+          address: data?.address || "Central Hub Complex, Mumbai",
+          city: data?.city || "Mumbai",
+          state: data?.state || "Maharashtra",
+          pincode: data?.pincode || "400001",
+        };
       default:
-        return "Welcome to my profile! I'm excited to be part of this amazing agricultural community.";
+        return {
+          ...baseData,
+          username: data?.username || "User",
+          company: data?.company || "Not specified",
+          role: data?.role || "User",
+          location: data?.location || "Not specified",
+          bio: data?.bio || "Welcome to my profile!",
+        };
     }
   };
-
-
 
   const fetchUserProfile = async () => {
     if (user) {
@@ -189,42 +250,8 @@ export default function ProfilePage() {
           throw new Error("Failed to fetch user profile");
         }
         const data = await response.json();
-        // Enhanced profile data with mock statistics based on user type
-        const enhancedProfile = {
-          ...data,
-          photoURL: (user as any).photoURL || data.photoURL,
-          verified: true,
-          rating: 4.8,
-          location: data.location || "Mumbai, Maharashtra",
-          bio: data.bio || getDefaultBio(data.userType),
-          joinedDate: data.createdAt,
-          lastActive: new Date().toISOString(),
-          preferences: {
-            notifications: true,
-            emailUpdates: true,
-            smsAlerts: false,
-            darkMode: false,
-            language: "en",
-            ...data.preferences
-          },
-          // Add role-specific stats
-          ...(data.userType === 'retail' && {
-            totalOrders: 156,
-            totalRevenue: 245000,
-            role: "Store Manager"
-          }),
-          ...(data.userType === 'farmer' && {
-            totalOrders: 89,
-            totalRevenue: 180000,
-            role: "Organic Farmer"
-          }),
-          ...(data.userType === 'transport' && {
-            completedDeliveries: 342,
-            totalRevenue: 125000,
-            role: "Fleet Manager"
-          })
-        };
-        console.log("Enhanced profile data:", enhancedProfile);
+        
+        const enhancedProfile = getDefaultData(data.userType, data);
         setUserProfile(enhancedProfile);
       } catch (error) {
         console.error(error);
@@ -245,90 +272,41 @@ export default function ProfilePage() {
     if (user) {
       fetchUserProfile();
     }
-  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [user, authLoading]);
 
-  // Set form default values when profile data is loaded or dialog opens
   useEffect(() => {
     if (userProfile && isEditDialogOpen) {
-        form.reset({
-            username: userProfile.username || "",
-            branchName: userProfile.branchName || "",
-            phone: userProfile.phone || "",
-            email: userProfile.email || "",
-            location: userProfile.location || "",
-            bio: userProfile.bio || "",
-            website: userProfile.website || "",
-            company: userProfile.company || "",
-            role: userProfile.role || "",
-        });
-        setImagePreview(userProfile.photoURL || null);
-        setHasUnsavedChanges(false);
+      form.reset({
+        username: userProfile.username || "",
+        shopName: userProfile.shopName || "",
+        ownerName: userProfile.ownerName || "",
+        branchName: userProfile.branchName || "",
+        email: userProfile.email || "",
+        phone: userProfile.phone || "",
+        alternatePhone: userProfile.alternatePhone || "",
+        address: userProfile.address || "",
+        city: userProfile.city || "",
+        state: userProfile.state || "",
+        pincode: userProfile.pincode || "",
+        landmark: userProfile.landmark || "",
+        gstNumber: userProfile.gstNumber || "",
+        licenseNumber: userProfile.licenseNumber || "",
+        establishedYear: userProfile.establishedYear || "",
+        businessHours: userProfile.businessHours || "",
+        website: userProfile.website || "",
+        description: userProfile.description || "",
+        specialties: userProfile.specialties || "",
+        deliveryRadius: userProfile.deliveryRadius || "",
+        company: userProfile.company || "",
+        role: userProfile.role || "",
+        location: userProfile.location || "",
+        bio: userProfile.bio || "",
+      });
     }
   }, [userProfile, isEditDialogOpen, form]);
 
-  // Watch for form changes to detect unsaved changes
-  useEffect(() => {
-    const subscription = form.watch(() => {
-      setHasUnsavedChanges(true);
-    });
-    return () => subscription.unsubscribe();
-  }, [form]);
-
-  // Debug effect to track profile data changes
-  useEffect(() => {
-    console.log("Profile data changed:", {
-      userProfile,
-      loading: authLoading || profileLoading,
-      user: user?.uid
-    });
-  }, [userProfile, authLoading, profileLoading, user]);
-
-  const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const file = e.target.files?.[0];
-    if (file) {
-      const reader = new FileReader();
-      reader.onloadend = () => {
-        setImagePreview(reader.result as string);
-      };
-      reader.readAsDataURL(file);
-      form.setValue("photo", file);
-    }
-  };
-
-  async function uploadImage(file: File): Promise<string> {
-    return new Promise((resolve, reject) => {
-        if (!user) return reject("No user found");
-        
-        const storageRef = ref(storage, `profile-images/${user.uid}/${file.name}`);
-        const uploadTask = uploadBytesResumable(storageRef, file);
-
-        uploadTask.on('state_changed',
-            (snapshot) => {
-                const progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
-                setUploadProgress(progress);
-            },
-            (error) => {
-                console.error("Upload failed:", error);
-                reject(error);
-            },
-            () => {
-                getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
-                    resolve(downloadURL);
-                });
-            }
-        );
-    });
-}
-
   async function onSubmit(values: z.infer<typeof profileFormSchema>) {
-    console.log("=== PROFILE UPDATE START ===");
-    console.log("onSubmit called with values:", values);
-    console.log("User object:", user);
-    console.log("User UID:", user?.uid);
-    
     if (!user || !user.uid) {
-      console.error("No user or user.uid found, aborting submit");
       toast({
         variant: "destructive",
         title: "Authentication Error",
@@ -338,68 +316,90 @@ export default function ProfilePage() {
     }
     
     setIsUpdating(true);
-    setUploadProgress(null);
 
     try {
-        console.log("Profile update - Form values:", values);
-        
-        let photoURL = userProfile?.photoURL;
-        
-        // Skip photo upload for now to simplify debugging
-        if (values.photo instanceof File) {
-            console.log("Photo upload detected, uploading...");
-            try {
-              photoURL = await uploadImage(values.photo);
-              console.log("Photo uploaded successfully:", photoURL);
-              if ((user as any).photoURL !== photoURL) {
-                await updateProfile(user as any, { photoURL });
-              }
-            } catch (photoError) {
-              console.error("Photo upload failed:", photoError);
-              // Continue without photo update
-            }
-        }
-        
-        const { photo, ...profileData } = values;
-        const updateData = { ...profileData, photoURL };
-        
-        console.log("Profile update - Sending data:", updateData);
-        console.log("API URL:", `/api/users/${user.uid}`);
+      const response = await fetch(`/api/users/${user.uid}`, {
+        method: "PATCH",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(values),
+      });
 
-        const response = await fetch(`/api/users/${user.uid}`, {
-            method: "PATCH",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify(updateData),
-        });
-
-        console.log("Profile update - Response status:", response.status);
-        console.log("Profile update - Response headers:", response.headers);
-        
+      if (!response.ok) {
         const responseData = await response.json();
-        console.log("Profile update - Response data:", responseData);
-        
-        if (!response.ok) {
-            console.error("Profile update - Error response:", responseData);
-            throw new Error(responseData.message || `HTTP ${response.status}: Failed to update profile`);
-        }
+        throw new Error(responseData.message || `Failed to update profile`);
+      }
 
-        console.log("Profile update successful!");
-        
-        // Update local state immediately for better UX
-        setUserProfile(prev => prev ? { ...prev, ...updateData } : null);
-        
-        toast({
-            title: "✅ Profile Updated Successfully",
-            description: "Your profile information has been saved and updated.",
-            duration: 3000,
-        });
-        
-        // Skip user reload for demo mode
-        if (typeof (user as any).reload === 'function') {
-          await (user as any).reload();
-        }
-        
-        // Refresh profile data from server
+      setUserProfile(prev => prev ? { ...prev, ...values } : null);
+      
+      toast({
+        title: "Profile Updated",
+        description: "Your information has been saved successfully.",
+        duration: 3000,
+      });
+      
+      await fetchUserProfile();
+      setIsEditDialogOpen(false);
+      
+    } catch (error: any) {
+      console.error("Profile update error:", error);
+      toast({
+        variant: "destructive",
+        title: "Update Failed",
+        description: error.message || "An unknown error occurred",
+      });
+    } finally {
+      setIsUpdating(false);
+    }
+  }
+
+  const loading = authLoading || profileLoading;
+
+  const renderProfileDetails = () => {
+    const profileData = userProfile || {
+      username: "Loading...",
+      email: user?.email || "Loading...",
+      phone: "Loading...",
+      userType: "retail",
+      verified: false
+    };
+
+    const isRetail = profileData.userType === 'retail';
+    const isHub = profileData.userType === 'hub';
+
+    return (
+      <div className="space-y-6">
+        {/* Basic Information */}
+        <div>
+          <h3 className="text-lg font-semibold mb-4 border-b pb-2">Basic Information</h3>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            {isRetail ? (
+              <>
+                <div className="space-y-1">
+                  <label className="text-sm font-medium text-gray-600">Shop Name</label>
+                  <p className="text-base">{profileData.shopName || "Not provided"}</p>
+                </div>
+                <div className="space-y-1">
+                  <label className="text-sm font-medium text-gray-600">Owner Name</label>
+                  <p className="text-base">{profileData.ownerName || "Not provided"}</p>
+                </div>
+                <div className="space-y-1">
+                  <label className="text-sm font-medium text-gray-600">Shop Type</label>
+                  <p className="text-base">{profileData.shopType || "Retail Store"}</p>
+                </div>
+                <div className="space-y-1">
+                  <label className="text-sm font-medium text-gray-600">Established Year</label>
+                  <p className="text-base">{profileData.establishedYear || "Not specified"}</p>
+                </div>
+              </>
+            ) : isHub ? (
+              <>
+                <div className="space-y-1">
+                  <label className="text-sm font-medium text-gray-600">Branch Name</label>
+                  <p className="text-base">{profileData.branchName || "Not provided"}</p>
+                </div>
+                <div className="space-y-1">
+                  <label className="text-sm font-medium text-gray-600">Branch ID</label>
+                  <p className="text-basver
         await fetchUserProfile();
         setIsEditDialogOpen(false);
         
