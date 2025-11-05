@@ -10,18 +10,9 @@ import {
 import { useAuth } from "@/hooks/use-auth";
 import { 
   Loader2, 
-  User, 
-  Mail, 
-  Phone, 
-  Building, 
-  MapPin,
   Edit3,
   Save,
   Store,
-  Clock,
-  Globe,
-  CreditCard,
-  Calendar,
   CheckCircle
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
@@ -52,35 +43,26 @@ import * as z from "zod";
 import { useToast } from "@/hooks/use-toast";
 
 interface RetailShopProfile {
-  // Shop Details
   shopName?: string;
   shopType?: string;
   ownerName?: string;
   email?: string;
   phone?: string;
   alternatePhone?: string;
-  
-  // Address & Location
   address?: string;
   city?: string;
   state?: string;
   pincode?: string;
   landmark?: string;
-  
-  // Business Details
   gstNumber?: string;
   licenseNumber?: string;
   establishedYear?: string;
   businessHours?: string;
   website?: string;
-  
-  // Additional Info
   description?: string;
   specialties?: string;
   paymentMethods?: string[];
   deliveryRadius?: string;
-  
-  // System Info
   userType?: string;
   createdAt?: string;
   verified?: boolean;
@@ -151,7 +133,6 @@ export default function RetailProfilePage() {
         }
         const data = await response.json();
         
-        // Enhanced retail shop profile with mock data
         const enhancedProfile: RetailShopProfile = {
           ...data,
           shopName: data.shopName || "Fresh Mart Grocery Store",
@@ -160,24 +141,20 @@ export default function RetailProfilePage() {
           email: data.email || user.email,
           phone: data.phone || "+91 98765 43210",
           alternatePhone: data.alternatePhone || "+91 98765 43211",
-          
           address: data.address || "123, Market Street, Commercial Complex",
           city: data.city || "Mumbai",
           state: data.state || "Maharashtra", 
           pincode: data.pincode || "400001",
           landmark: data.landmark || "Near City Mall",
-          
           gstNumber: data.gstNumber || "27ABCDE1234F1Z5",
           licenseNumber: data.licenseNumber || "FL-2024-001234",
           establishedYear: data.establishedYear || "2018",
           businessHours: data.businessHours || "8:00 AM - 10:00 PM",
           website: data.website || "www.freshmart.com",
-          
-          description: data.description || "Your trusted neighborhood grocery store providing fresh produce, daily essentials, and quality products at competitive prices. We pride ourselves on excellent customer service and supporting local farmers.",
+          description: data.description || "Your trusted neighborhood grocery store providing fresh produce, daily essentials, and quality products at competitive prices.",
           specialties: data.specialties || "Fresh Vegetables, Organic Products, Daily Essentials, Local Produce",
           paymentMethods: data.paymentMethods || ["Cash", "UPI", "Card", "Digital Wallet"],
           deliveryRadius: data.deliveryRadius || "5 km",
-          
           userType: data.userType || "retail",
           createdAt: data.createdAt,
           verified: true,
@@ -207,7 +184,6 @@ export default function RetailProfilePage() {
     }
   }, [user, authLoading]);
 
-  // Set form default values when profile data is loaded
   useEffect(() => {
     if (shopProfile && isEditDialogOpen) {
       form.reset({
@@ -257,11 +233,10 @@ export default function RetailProfilePage() {
         throw new Error(responseData.message || `Failed to update shop profile`);
       }
 
-      // Update local state
       setShopProfile(prev => prev ? { ...prev, ...values } : null);
       
       toast({
-        title: "✅ Shop Profile Updated",
+        title: "Profile Updated",
         description: "Your shop information has been saved successfully.",
         duration: 3000,
       });
@@ -454,315 +429,314 @@ export default function RetailProfilePage() {
               Edit Profile
             </Button>
           </DialogTrigger>
-              <DialogContent className="max-w-4xl max-h-[90vh] overflow-y-auto">
-                <DialogHeader>
-                  <DialogTitle>Edit Shop Profile</DialogTitle>
-                  <DialogDescription>
-                    Update your shop information and business details
-                  </DialogDescription>
-                </DialogHeader>
-                <Form {...form}>
-                  <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
-                    {/* Shop Information */}
-                    <div className="space-y-4">
-                      <h3 className="text-lg font-semibold">Shop Information</h3>
-                      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                        <FormField
-                          control={form.control}
-                          name="shopName"
-                          render={({ field }) => (
-                            <FormItem>
-                              <FormLabel>Shop Name</FormLabel>
-                              <FormControl>
-                                <Input placeholder="Fresh Mart Grocery Store" {...field} />
-                              </FormControl>
-                              <FormMessage />
-                            </FormItem>
-                          )}
-                        />
-                        <FormField
-                          control={form.control}
-                          name="ownerName"
-                          render={({ field }) => (
-                            <FormItem>
-                              <FormLabel>Owner Name</FormLabel>
-                              <FormControl>
-                                <Input placeholder="Rajesh Kumar" {...field} />
-                              </FormControl>
-                              <FormMessage />
-                            </FormItem>
-                          )}
-                        />
-                        <FormField
-                          control={form.control}
-                          name="establishedYear"
-                          render={({ field }) => (
-                            <FormItem>
-                              <FormLabel>Established Year</FormLabel>
-                              <FormControl>
-                                <Input placeholder="2018" {...field} />
-                              </FormControl>
-                              <FormMessage />
-                            </FormItem>
-                          )}
-                        />
-                        <FormField
-                          control={form.control}
-                          name="businessHours"
-                          render={({ field }) => (
-                            <FormItem>
-                              <FormLabel>Business Hours</FormLabel>
-                              <FormControl>
-                                <Input placeholder="8:00 AM - 10:00 PM" {...field} />
-                              </FormControl>
-                              <FormMessage />
-                            </FormItem>
-                          )}
-                        />
-                      </div>
-                    </div>
+          <DialogContent className="max-w-4xl max-h-[90vh] overflow-y-auto">
+            <DialogHeader>
+              <DialogTitle>Edit Shop Profile</DialogTitle>
+              <DialogDescription>
+                Update your shop information and business details
+              </DialogDescription>
+            </DialogHeader>
+            <Form {...form}>
+              <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
+                {/* Shop Information */}
+                <div className="space-y-4">
+                  <h3 className="text-lg font-semibold">Shop Information</h3>
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <FormField
+                      control={form.control}
+                      name="shopName"
+                      render={({ field }) => (
+                        <FormItem>
+                          <FormLabel>Shop Name</FormLabel>
+                          <FormControl>
+                            <Input placeholder="Fresh Mart Grocery Store" {...field} />
+                          </FormControl>
+                          <FormMessage />
+                        </FormItem>
+                      )}
+                    />
+                    <FormField
+                      control={form.control}
+                      name="ownerName"
+                      render={({ field }) => (
+                        <FormItem>
+                          <FormLabel>Owner Name</FormLabel>
+                          <FormControl>
+                            <Input placeholder="Rajesh Kumar" {...field} />
+                          </FormControl>
+                          <FormMessage />
+                        </FormItem>
+                      )}
+                    />
+                    <FormField
+                      control={form.control}
+                      name="establishedYear"
+                      render={({ field }) => (
+                        <FormItem>
+                          <FormLabel>Established Year</FormLabel>
+                          <FormControl>
+                            <Input placeholder="2018" {...field} />
+                          </FormControl>
+                          <FormMessage />
+                        </FormItem>
+                      )}
+                    />
+                    <FormField
+                      control={form.control}
+                      name="businessHours"
+                      render={({ field }) => (
+                        <FormItem>
+                          <FormLabel>Business Hours</FormLabel>
+                          <FormControl>
+                            <Input placeholder="8:00 AM - 10:00 PM" {...field} />
+                          </FormControl>
+                          <FormMessage />
+                        </FormItem>
+                      )}
+                    />
+                  </div>
+                </div>
 
-                    {/* Contact Details */}
-                    <div className="space-y-4">
-                      <h3 className="text-lg font-semibold">Contact Details</h3>
-                      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                        <FormField
-                          control={form.control}
-                          name="email"
-                          render={({ field }) => (
-                            <FormItem>
-                              <FormLabel>Email</FormLabel>
-                              <FormControl>
-                                <Input type="email" placeholder="shop@example.com" {...field} />
-                              </FormControl>
-                              <FormMessage />
-                            </FormItem>
-                          )}
-                        />
-                        <FormField
-                          control={form.control}
-                          name="phone"
-                          render={({ field }) => (
-                            <FormItem>
-                              <FormLabel>Primary Phone</FormLabel>
-                              <FormControl>
-                                <Input type="tel" placeholder="+91 98765 43210" {...field} />
-                              </FormControl>
-                              <FormMessage />
-                            </FormItem>
-                          )}
-                        />
-                        <FormField
-                          control={form.control}
-                          name="alternatePhone"
-                          render={({ field }) => (
-                            <FormItem>
-                              <FormLabel>Alternate Phone</FormLabel>
-                              <FormControl>
-                                <Input type="tel" placeholder="+91 98765 43211" {...field} />
-                              </FormControl>
-                              <FormMessage />
-                            </FormItem>
-                          )}
-                        />
-                        <FormField
-                          control={form.control}
-                          name="website"
-                          render={({ field }) => (
-                            <FormItem>
-                              <FormLabel>Website</FormLabel>
-                              <FormControl>
-                                <Input placeholder="www.yourshop.com" {...field} />
-                              </FormControl>
-                              <FormMessage />
-                            </FormItem>
-                          )}
-                        />
-                      </div>
-                    </div>
+                {/* Contact Details */}
+                <div className="space-y-4">
+                  <h3 className="text-lg font-semibold">Contact Details</h3>
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <FormField
+                      control={form.control}
+                      name="email"
+                      render={({ field }) => (
+                        <FormItem>
+                          <FormLabel>Email</FormLabel>
+                          <FormControl>
+                            <Input type="email" placeholder="shop@example.com" {...field} />
+                          </FormControl>
+                          <FormMessage />
+                        </FormItem>
+                      )}
+                    />
+                    <FormField
+                      control={form.control}
+                      name="phone"
+                      render={({ field }) => (
+                        <FormItem>
+                          <FormLabel>Primary Phone</FormLabel>
+                          <FormControl>
+                            <Input type="tel" placeholder="+91 98765 43210" {...field} />
+                          </FormControl>
+                          <FormMessage />
+                        </FormItem>
+                      )}
+                    />
+                    <FormField
+                      control={form.control}
+                      name="alternatePhone"
+                      render={({ field }) => (
+                        <FormItem>
+                          <FormLabel>Alternate Phone</FormLabel>
+                          <FormControl>
+                            <Input type="tel" placeholder="+91 98765 43211" {...field} />
+                          </FormControl>
+                          <FormMessage />
+                        </FormItem>
+                      )}
+                    />
+                    <FormField
+                      control={form.control}
+                      name="website"
+                      render={({ field }) => (
+                        <FormItem>
+                          <FormLabel>Website</FormLabel>
+                          <FormControl>
+                            <Input placeholder="www.yourshop.com" {...field} />
+                          </FormControl>
+                          <FormMessage />
+                        </FormItem>
+                      )}
+                    />
+                  </div>
+                </div>
 
-                    {/* Address */}
-                    <div className="space-y-4">
-                      <h3 className="text-lg font-semibold">Address & Location</h3>
-                      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                        <FormField
-                          control={form.control}
-                          name="address"
-                          render={({ field }) => (
-                            <FormItem className="md:col-span-2">
-                              <FormLabel>Address</FormLabel>
-                              <FormControl>
-                                <Textarea placeholder="123, Market Street, Commercial Complex" {...field} />
-                              </FormControl>
-                              <FormMessage />
-                            </FormItem>
-                          )}
-                        />
-                        <FormField
-                          control={form.control}
-                          name="city"
-                          render={({ field }) => (
-                            <FormItem>
-                              <FormLabel>City</FormLabel>
-                              <FormControl>
-                                <Input placeholder="Mumbai" {...field} />
-                              </FormControl>
-                              <FormMessage />
-                            </FormItem>
-                          )}
-                        />
-                        <FormField
-                          control={form.control}
-                          name="state"
-                          render={({ field }) => (
-                            <FormItem>
-                              <FormLabel>State</FormLabel>
-                              <FormControl>
-                                <Input placeholder="Maharashtra" {...field} />
-                              </FormControl>
-                              <FormMessage />
-                            </FormItem>
-                          )}
-                        />
-                        <FormField
-                          control={form.control}
-                          name="pincode"
-                          render={({ field }) => (
-                            <FormItem>
-                              <FormLabel>Pincode</FormLabel>
-                              <FormControl>
-                                <Input placeholder="400001" {...field} />
-                              </FormControl>
-                              <FormMessage />
-                            </FormItem>
-                          )}
-                        />
-                        <FormField
-                          control={form.control}
-                          name="landmark"
-                          render={({ field }) => (
-                            <FormItem>
-                              <FormLabel>Landmark</FormLabel>
-                              <FormControl>
-                                <Input placeholder="Near City Mall" {...field} />
-                              </FormControl>
-                              <FormMessage />
-                            </FormItem>
-                          )}
-                        />
-                      </div>
-                    </div>
+                {/* Address */}
+                <div className="space-y-4">
+                  <h3 className="text-lg font-semibold">Address & Location</h3>
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <FormField
+                      control={form.control}
+                      name="address"
+                      render={({ field }) => (
+                        <FormItem className="md:col-span-2">
+                          <FormLabel>Address</FormLabel>
+                          <FormControl>
+                            <Textarea placeholder="123, Market Street, Commercial Complex" {...field} />
+                          </FormControl>
+                          <FormMessage />
+                        </FormItem>
+                      )}
+                    />
+                    <FormField
+                      control={form.control}
+                      name="city"
+                      render={({ field }) => (
+                        <FormItem>
+                          <FormLabel>City</FormLabel>
+                          <FormControl>
+                            <Input placeholder="Mumbai" {...field} />
+                          </FormControl>
+                          <FormMessage />
+                        </FormItem>
+                      )}
+                    />
+                    <FormField
+                      control={form.control}
+                      name="state"
+                      render={({ field }) => (
+                        <FormItem>
+                          <FormLabel>State</FormLabel>
+                          <FormControl>
+                            <Input placeholder="Maharashtra" {...field} />
+                          </FormControl>
+                          <FormMessage />
+                        </FormItem>
+                      )}
+                    />
+                    <FormField
+                      control={form.control}
+                      name="pincode"
+                      render={({ field }) => (
+                        <FormItem>
+                          <FormLabel>Pincode</FormLabel>
+                          <FormControl>
+                            <Input placeholder="400001" {...field} />
+                          </FormControl>
+                          <FormMessage />
+                        </FormItem>
+                      )}
+                    />
+                    <FormField
+                      control={form.control}
+                      name="landmark"
+                      render={({ field }) => (
+                        <FormItem>
+                          <FormLabel>Landmark</FormLabel>
+                          <FormControl>
+                            <Input placeholder="Near City Mall" {...field} />
+                          </FormControl>
+                          <FormMessage />
+                        </FormItem>
+                      )}
+                    />
+                  </div>
+                </div>
 
-                    {/* Business Details */}
-                    <div className="space-y-4">
-                      <h3 className="text-lg font-semibold">Business Details</h3>
-                      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                        <FormField
-                          control={form.control}
-                          name="gstNumber"
-                          render={({ field }) => (
-                            <FormItem>
-                              <FormLabel>GST Number</FormLabel>
-                              <FormControl>
-                                <Input placeholder="27ABCDE1234F1Z5" {...field} />
-                              </FormControl>
-                              <FormMessage />
-                            </FormItem>
-                          )}
-                        />
-                        <FormField
-                          control={form.control}
-                          name="licenseNumber"
-                          render={({ field }) => (
-                            <FormItem>
-                              <FormLabel>License Number</FormLabel>
-                              <FormControl>
-                                <Input placeholder="FL-2024-001234" {...field} />
-                              </FormControl>
-                              <FormMessage />
-                            </FormItem>
-                          )}
-                        />
-                        <FormField
-                          control={form.control}
-                          name="deliveryRadius"
-                          render={({ field }) => (
-                            <FormItem>
-                              <FormLabel>Delivery Radius</FormLabel>
-                              <FormControl>
-                                <Input placeholder="5 km" {...field} />
-                              </FormControl>
-                              <FormMessage />
-                            </FormItem>
-                          )}
-                        />
-                      </div>
-                    </div>
+                {/* Business Details */}
+                <div className="space-y-4">
+                  <h3 className="text-lg font-semibold">Business Details</h3>
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <FormField
+                      control={form.control}
+                      name="gstNumber"
+                      render={({ field }) => (
+                        <FormItem>
+                          <FormLabel>GST Number</FormLabel>
+                          <FormControl>
+                            <Input placeholder="27ABCDE1234F1Z5" {...field} />
+                          </FormControl>
+                          <FormMessage />
+                        </FormItem>
+                      )}
+                    />
+                    <FormField
+                      control={form.control}
+                      name="licenseNumber"
+                      render={({ field }) => (
+                        <FormItem>
+                          <FormLabel>License Number</FormLabel>
+                          <FormControl>
+                            <Input placeholder="FL-2024-001234" {...field} />
+                          </FormControl>
+                          <FormMessage />
+                        </FormItem>
+                      )}
+                    />
+                    <FormField
+                      control={form.control}
+                      name="deliveryRadius"
+                      render={({ field }) => (
+                        <FormItem>
+                          <FormLabel>Delivery Radius</FormLabel>
+                          <FormControl>
+                            <Input placeholder="5 km" {...field} />
+                          </FormControl>
+                          <FormMessage />
+                        </FormItem>
+                      )}
+                    />
+                  </div>
+                </div>
 
-                    {/* Additional Information */}
-                    <div className="space-y-4">
-                      <h3 className="text-lg font-semibold">Additional Information</h3>
-                      <FormField
-                        control={form.control}
-                        name="description"
-                        render={({ field }) => (
-                          <FormItem>
-                            <FormLabel>Shop Description</FormLabel>
-                            <FormControl>
-                              <Textarea 
-                                placeholder="Describe your shop, services, and what makes you special..."
-                                className="min-h-[100px]"
-                                {...field} 
-                              />
-                            </FormControl>
-                            <FormMessage />
-                          </FormItem>
-                        )}
-                      />
-                      <FormField
-                        control={form.control}
-                        name="specialties"
-                        render={({ field }) => (
-                          <FormItem>
-                            <FormLabel>Specialties</FormLabel>
-                            <FormControl>
-                              <Input placeholder="Fresh Vegetables, Organic Products, Daily Essentials" {...field} />
-                            </FormControl>
-                            <FormMessage />
-                          </FormItem>
-                        )}
-                      />
-                    </div>
+                {/* Additional Information */}
+                <div className="space-y-4">
+                  <h3 className="text-lg font-semibold">Additional Information</h3>
+                  <FormField
+                    control={form.control}
+                    name="description"
+                    render={({ field }) => (
+                      <FormItem>
+                        <FormLabel>Shop Description</FormLabel>
+                        <FormControl>
+                          <Textarea 
+                            placeholder="Describe your shop, services, and what makes you special..."
+                            className="min-h-[100px]"
+                            {...field} 
+                          />
+                        </FormControl>
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
+                  <FormField
+                    control={form.control}
+                    name="specialties"
+                    render={({ field }) => (
+                      <FormItem>
+                        <FormLabel>Specialties</FormLabel>
+                        <FormControl>
+                          <Input placeholder="Fresh Vegetables, Organic Products, Daily Essentials" {...field} />
+                        </FormControl>
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
+                </div>
 
-                    <DialogFooter className="gap-2">
-                      <DialogClose asChild>
-                        <Button type="button" variant="outline" disabled={isUpdating}>
-                          Cancel
-                        </Button>
-                      </DialogClose>
-                      <Button 
-                        type="submit" 
-                        disabled={isUpdating}
-                        className="bg-gradient-to-r from-green-600 to-emerald-600 hover:from-green-700 hover:to-emerald-700"
-                      >
-                        {isUpdating ? (
-                          <>
-                            <Loader2 className="mr-2 h-4 w-4 animate-spin" />
-                            Saving...
-                          </>
-                        ) : (
-                          <>
-                            <Save className="mr-2 h-4 w-4" />
-                            Save Changes
-                          </>
-                        )}
-                      </Button>
-                    </DialogFooter>
-                  </form>
-                </Form>
-              </DialogContent>
-            </Dialog>
+                <DialogFooter className="gap-2">
+                  <DialogClose asChild>
+                    <Button type="button" variant="outline" disabled={isUpdating}>
+                      Cancel
+                    </Button>
+                  </DialogClose>
+                  <Button 
+                    type="submit" 
+                    disabled={isUpdating}
+                  >
+                    {isUpdating ? (
+                      <>
+                        <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                        Saving...
+                      </>
+                    ) : (
+                      <>
+                        <Save className="mr-2 h-4 w-4" />
+                        Save Changes
+                      </>
+                    )}
+                  </Button>
+                </DialogFooter>
+              </form>
+            </Form>
+          </DialogContent>
         </Dialog>
+      </div>
 
       {/* Shop Profile Card */}
       <Card>
