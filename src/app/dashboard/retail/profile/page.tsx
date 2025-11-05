@@ -6,10 +6,8 @@ import {
   CardHeader,
   CardTitle,
   CardContent,
-  CardDescription,
 } from "@/components/ui/card";
 import { useAuth } from "@/hooks/use-auth";
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { 
   Loader2, 
   User, 
@@ -17,18 +15,14 @@ import {
   Phone, 
   Building, 
   MapPin,
-  Shield,
   Edit3,
   Save,
   Store,
   Clock,
   Globe,
   CreditCard,
-  Package,
-  Users,
   Calendar,
-  CheckCircle,
-  AlertCircle
+  CheckCircle
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import {
