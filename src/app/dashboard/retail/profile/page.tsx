@@ -431,9 +431,9 @@ export default function RetailProfilePage() {
           </DialogTrigger>
           <DialogContent className="max-w-4xl max-h-[90vh] overflow-y-auto">
             <DialogHeader>
-              <DialogTitle>Edit Shop Profile</DialogTitle>
+              <DialogTitle>Update Shop Profile</DialogTitle>
               <DialogDescription>
-                Update your shop information and business details
+                Modify your shop information and business details
               </DialogDescription>
             </DialogHeader>
             <Form {...form}>
