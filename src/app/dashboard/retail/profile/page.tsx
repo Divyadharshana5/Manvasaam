@@ -426,7 +426,7 @@ export default function RetailProfilePage() {
           <DialogTrigger asChild>
             <Button>
               <Edit3 className="mr-2 h-4 w-4" />
-              Edit Profile
+              Update Profile
             </Button>
           </DialogTrigger>
           <DialogContent className="max-w-4xl max-h-[90vh] overflow-y-auto">
