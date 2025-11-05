@@ -399,376 +399,612 @@ export default function ProfilePage() {
                 </div>
                 <div className="space-y-1">
                   <label className="text-sm font-medium text-gray-600">Branch ID</label>
-                  <p className="text-basver
-        await fetchUserProfile();
-        setIsEditDialogOpen(false);
-        
-        // Reset form state
-        form.reset();
-        setImagePreview(null);
-        
-        console.log("=== PROFILE UPDATE SUCCESS ===");
-
-    } catch (error: any) {
-      console.error("=== PROFILE UPDATE ERROR ===");
-      console.error("Profile update - Error:", error);
-      console.error("Error stack:", error.stack);
-      toast({
-        variant: "destructive",
-        title: "Update Failed",
-        description: error.message || "An unknown error occurred",
-      });
-    } finally {
-      setIsUpdating(false);
-      setUploadProgress(null);
-      console.log("=== PROFILE UPDATE END ===");
-    }
-  }
-
-  const loading = authLoading || profileLoading;
-
-  const renderProfileDetails = () => {
-    console.log("renderProfileDetails called, userProfile:", userProfile);
-    
-    // Always show profile details with fallback data to ensure visibility
-    const profileData = userProfile || {
-      email: user?.email || "demo@example.com",
-      phone: "Not provided",
-      location: "Not specified", 
-      company: "Not specified",
-      role: "User",
-      userType: "retail",
-      createdAt: new Date().toISOString(),
-      lastActive: new Date().toISOString(),
-      verified: false
-    };
-
-    const details = [
-      { label: "Email", value: profileData.email || "Not provided", icon: Mail },
-      { label: "Phone", value: profileData.phone || "Not provided", icon: Phone },
-      { label: "Location", value: profileData.location || "Not specified", icon: MapPin },
-      { label: "Company", value: profileData.company || "Not specified", icon: Building },
-      { label: "Role", value: profileData.role || profileData.userType || "Not specified", icon: User },
-      { label: profileData.userType === 'hub' ? "Branch ID" : "User Type", value: profileData.userType === 'hub' ? (profileData.branchId || "Not specified") : (profileData.userType || "Not specified"), icon: Building },
-      { label: "Member Since", value: profileData.createdAt ? new Date(profileData.createdAt).toLocaleDateString() : 'N/A', icon: Calendar },
-      { label: "Last Active", value: profileData.lastActive ? "Active now" : "Recently", icon: Activity },
-      { label: "Verification Status", value: profileData.verified ? "Verified" : "Pending", icon: Shield },
-    ];
-
-    console.log("Profile details to render:", details);
-
-    return (
-        <div className="space-y-4">
-          {!userProfile && (
-            <div className="mb-4 p-4 bg-yellow-50 rounded-lg border border-yellow-200">
-              <p className="text-sm text-yellow-700">
-                ⚠️ Showing fallback data. Profile not fully loaded yet.
-                <Button 
-                  onClick={() => fetchUserProfile()} 
-                  variant="outline" 
-                  size="sm" 
-                  className="ml-2"
-                >
-                  Retry Loading
-                </Button>
-              </p>
-            </div>
-          )}
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-            {details.map((item, index) => (
-                <div key={`${item.label}-${index}`} className="flex items-center gap-4 p-4 bg-gradient-to-r from-gray-50 to-gray-100 rounded-lg hover:from-green-50 hover:to-emerald-50 transition-all duration-200 border border-gray-200">
-                    <div className="p-3 rounded-lg bg-white shadow-md border">
-                        <item.icon className="h-5 w-5 text-green-600" />
-                    </div>
-                    <div className="flex-1 min-w-0">
-                        <p className="text-sm font-medium text-gray-600 mb-1">{item.label}</p>
-                        <p className="text-base font-semibold text-gray-900 truncate">{item.value}</p>
-                    </div>
+                  <p className="text-base">{profileData.branchId || "Not provided"}</p>
                 </div>
-            ))}
-          </div>
-          <div className="mt-6 p-4 bg-green-50 rounded-lg border border-green-200">
-            <p className="text-sm text-green-700">
-              ✅ Profile details {userProfile ? 'loaded successfully' : 'showing with fallback data'}. Last updated: {new Date().toLocaleString()}
-            </p>
+                <div className="space-y-1">
+                  <label className="text-sm font-medium text-gray-600">Manager Name</label>
+                  <p className="text-base">{profileData.username || "Not provided"}</p>
+                </div>
+                <div className="space-y-1">
+                  <label className="text-sm font-medium text-gray-600">User Type</label>
+                  <p className="text-base">{profileData.userType || "Not specified"}</p>
+                </div>
+              </>
+            ) : (
+              <>
+                <div className="space-y-1">
+                  <label className="text-sm font-medium text-gray-600">Full Name</label>
+                  <p className="text-base">{profileData.username || "Not provided"}</p>
+                </div>
+                <div className="space-y-1">
+                  <label className="text-sm font-medium text-gray-600">User Type</label>
+                  <p className="text-base">{profileData.userType || "Not specified"}</p>
+                </div>
+                <div className="space-y-1">
+                  <label className="text-sm font-medium text-gray-600">Company</label>
+                  <p className="text-base">{profileData.company || "Not specified"}</p>
+                </div>
+                <div className="space-y-1">
+                  <label className="text-sm font-medium text-gray-600">Role</label>
+                  <p className="text-base">{profileData.role || "Not specified"}</p>
+                </div>
+              </>
+            )}
           </div>
         </div>
+
+        {/* Contact Information */}
+        <div>
+          <h3 className="text-lg font-semibold mb-4 border-b pb-2">Contact Information</h3>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <div className="space-y-1">
+              <label className="text-sm font-medium text-gray-600">Email</label>
+              <p className="text-base">{profileData.email || "Not provided"}</p>
+            </div>
+            <div className="space-y-1">
+              <label className="text-sm font-medium text-gray-600">Primary Phone</label>
+              <p className="text-base">{profileData.phone || "Not provided"}</p>
+            </div>
+            {isRetail && (
+              <div className="space-y-1">
+                <label className="text-sm font-medium text-gray-600">Alternate Phone</label>
+                <p className="text-base">{profileData.alternatePhone || "Not provided"}</p>
+              </div>
+            )}
+            <div className="space-y-1">
+              <label className="text-sm font-medium text-gray-600">Website</label>
+              <p className="text-base">{profileData.website || "Not provided"}</p>
+            </div>
+          </div>
+        </div>
+
+        {/* Address */}
+        <div>
+          <h3 className="text-lg font-semibold mb-4 border-b pb-2">Address</h3>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <div className="space-y-1 md:col-span-2">
+              <label className="text-sm font-medium text-gray-600">Address</label>
+              <p className="text-base">{profileData.address || profileData.location || "Not provided"}</p>
+            </div>
+            <div className="space-y-1">
+              <label className="text-sm font-medium text-gray-600">City</label>
+              <p className="text-base">{profileData.city || "Not specified"}</p>
+            </div>
+            <div className="space-y-1">
+              <label className="text-sm font-medium text-gray-600">State</label>
+              <p className="text-base">{profileData.state || "Not specified"}</p>
+            </div>
+            <div className="space-y-1">
+              <label className="text-sm font-medium text-gray-600">Pincode</label>
+              <p className="text-base">{profileData.pincode || "Not specified"}</p>
+            </div>
+            {isRetail && (
+              <div className="space-y-1">
+                <label className="text-sm font-medium text-gray-600">Landmark</label>
+                <p className="text-base">{profileData.landmark || "Not specified"}</p>
+              </div>
+            )}
+          </div>
+        </div>
+
+        {/* Business Details (for retail) */}
+        {isRetail && (
+          <div>
+            <h3 className="text-lg font-semibold mb-4 border-b pb-2">Business Details</h3>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+              <div className="space-y-1">
+                <label className="text-sm font-medium text-gray-600">GST Number</label>
+                <p className="text-base">{profileData.gstNumber || "Not provided"}</p>
+              </div>
+              <div className="space-y-1">
+                <label className="text-sm font-medium text-gray-600">License Number</label>
+                <p className="text-base">{profileData.licenseNumber || "Not provided"}</p>
+              </div>
+              <div className="space-y-1">
+                <label className="text-sm font-medium text-gray-600">Business Hours</label>
+                <p className="text-base">{profileData.businessHours || "Not specified"}</p>
+              </div>
+              <div className="space-y-1">
+                <label className="text-sm font-medium text-gray-600">Delivery Radius</label>
+                <p className="text-base">{profileData.deliveryRadius || "Not specified"}</p>
+              </div>
+            </div>
+          </div>
+        )}
+
+        {/* Additional Information */}
+        {(profileData.description || profileData.bio || profileData.specialties) && (
+          <div>
+            <h3 className="text-lg font-semibold mb-4 border-b pb-2">Additional Information</h3>
+            <div className="space-y-4">
+              {(profileData.description || profileData.bio) && (
+                <div className="space-y-1">
+                  <label className="text-sm font-medium text-gray-600">
+                    {isRetail ? "Description" : "Bio"}
+                  </label>
+                  <p className="text-base text-gray-700">{profileData.description || profileData.bio}</p>
+                </div>
+              )}
+              {profileData.specialties && (
+                <div className="space-y-1">
+                  <label className="text-sm font-medium text-gray-600">Specialties</label>
+                  <p className="text-base text-gray-700">{profileData.specialties}</p>
+                </div>
+              )}
+              {profileData.paymentMethods && profileData.paymentMethods.length > 0 && (
+                <div className="space-y-1">
+                  <label className="text-sm font-medium text-gray-600">Payment Methods</label>
+                  <div className="flex flex-wrap gap-2">
+                    {profileData.paymentMethods.map((method, index) => (
+                      <Badge key={index} variant="outline">
+                        {method}
+                      </Badge>
+                    ))}
+                  </div>
+                </div>
+              )}
+            </div>
+          </div>
+        )}
+
+        {/* Verification Status */}
+        <div className="pt-4 border-t">
+          <div className="flex items-center gap-2">
+            <CheckCircle className="h-4 w-4 text-green-600" />
+            <span className="text-sm text-gray-600">
+              Status: {profileData.verified ? 'Verified' : 'Pending Verification'}
+            </span>
+          </div>
+        </div>
+      </div>
     );
   };
 
+  const renderEditForm = () => {
+    const isRetail = userProfile?.userType === 'retail';
+    const isHub = userProfile?.userType === 'hub';
 
-
-  return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-50 via-green-50 to-emerald-50">
-      <div className="container mx-auto space-y-6 p-4 md:p-8 pt-6">
-        {/* Header */}
-        <div className="flex items-center justify-between">
-          <div>
-            <h1 className="text-4xl font-bold bg-gradient-to-r from-green-600 to-emerald-600 bg-clip-text text-transparent">
-              Profile Details
-            </h1>
-            <p className="text-muted-foreground text-lg mt-2">
-              View and manage your profile information
-            </p>
-          </div>
-          <div className="flex gap-2">
-            <Button 
-              onClick={() => {
-                console.log("Force refresh profile data");
-                fetchUserProfile();
-              }}
-              variant="outline"
-            >
-              Refresh Profile
-            </Button>
-            <Dialog open={isEditDialogOpen} onOpenChange={setIsEditDialogOpen}>
-              <DialogTrigger asChild>
-                <Button className="bg-gradient-to-r from-green-600 to-emerald-600 hover:from-green-700 hover:to-emerald-700">
-                  <Edit3 className="mr-2 h-4 w-4" />
-                  Edit Profile
-                </Button>
-              </DialogTrigger>
-            <DialogContent className="max-w-2xl max-h-[90vh] overflow-y-auto">
-              <DialogHeader>
-                <DialogTitle className="flex items-center gap-2">
-                  Edit Profile
-                  {hasUnsavedChanges && (
-                    <Badge variant="secondary" className="bg-yellow-100 text-yellow-800">
-                      Unsaved Changes
-                    </Badge>
+    return (
+      <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
+        {/* Basic Information */}
+        <div className="space-y-4">
+          <h3 className="text-lg font-semibold">Basic Information</h3>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+            {isRetail ? (
+              <>
+                <FormField
+                  control={form.control}
+                  name="shopName"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel>Shop Name</FormLabel>
+                      <FormControl>
+                        <Input placeholder="Fresh Mart Grocery Store" {...field} />
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
                   )}
-                </DialogTitle>
-                <DialogDescription>
-                  Update your profile information and preferences
-                </DialogDescription>
-              </DialogHeader>
-              <Form {...form}>
-                <form onSubmit={form.handleSubmit(
-                  (values) => {
-                    console.log("Form submitted successfully with values:", values);
-                    onSubmit(values);
-                  }, 
-                  (errors) => {
-                    console.log("Form validation errors:", errors);
-                    toast({
-                      variant: "destructive",
-                      title: "Validation Error",
-                      description: "Please check the form for errors.",
-                    });
-                  }
-                )} className="space-y-6">
-                  {/* Profile Picture */}
-                  <FormField
-                    control={form.control}
-                    name="photo"
-                    render={({ field }) => (
-                      <FormItem>
-                        <FormLabel>Profile Picture</FormLabel>
-                        <div className="flex items-center gap-6">
-                          <div className="relative">
-                            <Avatar className="h-24 w-24 border-4 border-primary/20">
-                              <AvatarImage src={imagePreview || undefined} />
-                              <AvatarFallback><User className="h-12 w-12" /></AvatarFallback>
-                            </Avatar>
-                            <Button
-                              type="button"
-                              size="sm"
-                              className="absolute -bottom-2 -right-2 rounded-full h-8 w-8 p-0"
-                              onClick={() => document.getElementById('photo-upload')?.click()}
-                            >
-                              <Camera className="h-4 w-4" />
-                            </Button>
-                          </div>
-                          <FormControl>
-                            <Input 
-                              id="photo-upload"
-                              type="file" 
-                              accept="image/*" 
-                              onChange={handleImageChange} 
-                              className="hidden"
-                            />
-                          </FormControl>
-                        </div>
-                        <FormMessage />
-                      </FormItem>
-                    )}
-                  />
-
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                    {/* Basic Info */}
-                    {userProfile?.userType === 'hub' ? (
-                      <FormField
-                        control={form.control}
-                        name="branchName"
-                        render={({ field }) => (
-                          <FormItem>
-                            <FormLabel>Branch Name</FormLabel>
-                            <FormControl>
-                              <Input placeholder="Central Hub" {...field} />
-                            </FormControl>
-                            <FormMessage />
-                          </FormItem>
-                        )}
-                      />
-                    ) : (
-                      <FormField
-                        control={form.control}
-                        name="username"
-                        render={({ field }) => (
-                          <FormItem>
-                            <FormLabel>Full Name</FormLabel>
-                            <FormControl>
-                              <Input placeholder="John Doe" {...field} />
-                            </FormControl>
-                            <FormMessage />
-                          </FormItem>
-                        )}
-                      />
-                    )}
-
-                    <FormField
-                      control={form.control}
-                      name="email"
-                      render={({ field }) => (
-                        <FormItem>
-                          <FormLabel>Email</FormLabel>
-                          <FormControl>
-                            <Input type="email" placeholder="john@example.com" {...field} />
-                          </FormControl>
-                          <FormMessage />
-                        </FormItem>
-                      )}
-                    />
-
-                    <FormField
-                      control={form.control}
-                      name="phone"
-                      render={({ field }) => (
-                        <FormItem>
-                          <FormLabel>Phone</FormLabel>
-                          <FormControl>
-                            <Input type="tel" placeholder="+91 98765 43210" {...field} />
-                          </FormControl>
-                          <FormMessage />
-                        </FormItem>
-                      )}
-                    />
-
-                    <FormField
-                      control={form.control}
-                      name="location"
-                      render={({ field }) => (
-                        <FormItem>
-                          <FormLabel>Location</FormLabel>
-                          <FormControl>
-                            <Input placeholder="Mumbai, Maharashtra" {...field} />
-                          </FormControl>
-                          <FormMessage />
-                        </FormItem>
-                      )}
-                    />
-
-                    <FormField
-                      control={form.control}
-                      name="company"
-                      render={({ field }) => (
-                        <FormItem>
-                          <FormLabel>Company</FormLabel>
-                          <FormControl>
-                            <Input placeholder="Your Company Name" {...field} />
-                          </FormControl>
-                          <FormMessage />
-                        </FormItem>
-                      )}
-                    />
-
-                    <FormField
-                      control={form.control}
-                      name="role"
-                      render={({ field }) => (
-                        <FormItem>
-                          <FormLabel>Role</FormLabel>
-                          <FormControl>
-                            <Input placeholder="Your Role/Position" {...field} />
-                          </FormControl>
-                          <FormMessage />
-                        </FormItem>
-                      )}
-                    />
-                  </div>
-
-                  {uploadProgress !== null && (
-                    <div className="space-y-2">
-                      <div className="flex justify-between text-sm">
-                        <span>Uploading...</span>
-                        <span>{Math.round(uploadProgress)}%</span>
-                      </div>
-                      <Progress value={uploadProgress} />
-                    </div>
+                />
+                <FormField
+                  control={form.control}
+                  name="ownerName"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel>Owner Name</FormLabel>
+                      <FormControl>
+                        <Input placeholder="Rajesh Kumar" {...field} />
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
                   )}
-
-                  <DialogFooter className="gap-2">
-                    <DialogClose asChild>
-                      <Button type="button" variant="outline" disabled={isUpdating}>
-                        Cancel
-                      </Button>
-                    </DialogClose>
-                    <Button 
-                      type="submit" 
-                      disabled={isUpdating || uploadProgress !== null}
-                      className="bg-gradient-to-r from-green-600 to-emerald-600 hover:from-green-700 hover:to-emerald-700"
-                    >
-                      {isUpdating ? (
-                        <>
-                          <Loader2 className="mr-2 h-4 w-4 animate-spin" />
-                          {uploadProgress !== null ? `Uploading... ${Math.round(uploadProgress)}%` : 'Saving...'}
-                        </>
-                      ) : (
-                        <>
-                          <Save className="mr-2 h-4 w-4" />
-                          Save Changes
-                        </>
-                      )}
-                    </Button>
-                  </DialogFooter>
-                </form>
-              </Form>
-            </DialogContent>
-          </Dialog>
+                />
+                <FormField
+                  control={form.control}
+                  name="establishedYear"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel>Established Year</FormLabel>
+                      <FormControl>
+                        <Input placeholder="2018" {...field} />
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+                <FormField
+                  control={form.control}
+                  name="businessHours"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel>Business Hours</FormLabel>
+                      <FormControl>
+                        <Input placeholder="8:00 AM - 10:00 PM" {...field} />
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+              </>
+            ) : isHub ? (
+              <>
+                <FormField
+                  control={form.control}
+                  name="branchName"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel>Branch Name</FormLabel>
+                      <FormControl>
+                        <Input placeholder="Central Hub" {...field} />
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+                <FormField
+                  control={form.control}
+                  name="username"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel>Manager Name</FormLabel>
+                      <FormControl>
+                        <Input placeholder="Hub Manager" {...field} />
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+              </>
+            ) : (
+              <>
+                <FormField
+                  control={form.control}
+                  name="username"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel>Full Name</FormLabel>
+                      <FormControl>
+                        <Input placeholder="John Doe" {...field} />
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+                <FormField
+                  control={form.control}
+                  name="company"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel>Company</FormLabel>
+                      <FormControl>
+                        <Input placeholder="Your Company Name" {...field} />
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+                <FormField
+                  control={form.control}
+                  name="role"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel>Role</FormLabel>
+                      <FormControl>
+                        <Input placeholder="Your Role/Position" {...field} />
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+              </>
+            )}
           </div>
         </div>
 
-        {/* Always show Profile Details - even during loading */}
-        <Card className="border-2 border-green-200 shadow-xl bg-white mb-6">
-          <CardHeader className="bg-gradient-to-r from-green-50 to-emerald-50 border-b border-green-200">
-            <CardTitle className="flex items-center gap-2 text-green-800 text-xl">
-              <User className="h-6 w-6" />
-              Profile Details
-            </CardTitle>
-            <CardDescription className="text-green-600 text-base">
-              Your complete profile information and account details
-            </CardDescription>
-          </CardHeader>
-          <CardContent className="p-6 bg-white">
-            <div className="mb-4 p-3 bg-blue-50 rounded-lg border border-blue-200">
-              <p className="text-sm text-blue-700 mb-2">
-                Debug: Profile loaded = {userProfile ? 'Yes' : 'No'}, 
-                Loading = {loading ? 'Yes' : 'No'}, 
-                User = {user?.uid || 'None'}
-              </p>
-              <p className="text-xs text-blue-600">
-                API Response: {userProfile ? 'Data received' : 'No data'} | 
-                Auth State: {user ? 'Authenticated' : 'Not authenticated'} | 
-                Component State: {profileLoading ? 'Loading' : 'Ready'}
-              </p>
+        {/* Contact Details */}
+        <div className="space-y-4">
+          <h3 className="text-lg font-semibold">Contact Details</h3>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <FormField
+              control={form.control}
+              name="email"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>Email</FormLabel>
+                  <FormControl>
+                    <Input type="email" placeholder="email@example.com" {...field} />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+            <FormField
+              control={form.control}
+              name="phone"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>Primary Phone</FormLabel>
+                  <FormControl>
+                    <Input type="tel" placeholder="+91 98765 43210" {...field} />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+            {isRetail && (
+              <FormField
+                control={form.control}
+                name="alternatePhone"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>Alternate Phone</FormLabel>
+                    <FormControl>
+                      <Input type="tel" placeholder="+91 98765 43211" {...field} />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+            )}
+            <FormField
+              control={form.control}
+              name="website"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>Website</FormLabel>
+                  <FormControl>
+                    <Input placeholder="www.yourwebsite.com" {...field} />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+          </div>
+        </div>
+
+        {/* Address */}
+        <div className="space-y-4">
+          <h3 className="text-lg font-semibold">Address & Location</h3>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <FormField
+              control={form.control}
+              name={isRetail ? "address" : "location"}
+              render={({ field }) => (
+                <FormItem className="md:col-span-2">
+                  <FormLabel>Address</FormLabel>
+                  <FormControl>
+                    <Textarea placeholder="Complete address..." {...field} />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+            <FormField
+              control={form.control}
+              name="city"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>City</FormLabel>
+                  <FormControl>
+                    <Input placeholder="Mumbai" {...field} />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+            <FormField
+              control={form.control}
+              name="state"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>State</FormLabel>
+                  <FormControl>
+                    <Input placeholder="Maharashtra" {...field} />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+            <FormField
+              control={form.control}
+              name="pincode"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>Pincode</FormLabel>
+                  <FormControl>
+                    <Input placeholder="400001" {...field} />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+            {isRetail && (
+              <FormField
+                control={form.control}
+                name="landmark"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>Landmark</FormLabel>
+                    <FormControl>
+                      <Input placeholder="Near City Mall" {...field} />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+            )}
+          </div>
+        </div>
+
+        {/* Business Details (for retail) */}
+        {isRetail && (
+          <div className="space-y-4">
+            <h3 className="text-lg font-semibold">Business Details</h3>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+              <FormField
+                control={form.control}
+                name="gstNumber"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>GST Number</FormLabel>
+                    <FormControl>
+                      <Input placeholder="27ABCDE1234F1Z5" {...field} />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+              <FormField
+                control={form.control}
+                name="licenseNumber"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>License Number</FormLabel>
+                    <FormControl>
+                      <Input placeholder="FL-2024-001234" {...field} />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+              <FormField
+                control={form.control}
+                name="deliveryRadius"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>Delivery Radius</FormLabel>
+                    <FormControl>
+                      <Input placeholder="5 km" {...field} />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
             </div>
-            {renderProfileDetails()}
-          </CardContent>
-        </Card>
+          </div>
+        )}
 
+        {/* Additional Information */}
+        <div className="space-y-4">
+          <h3 className="text-lg font-semibold">Additional Information</h3>
+          <FormField
+            control={form.control}
+            name={isRetail ? "description" : "bio"}
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel>{isRetail ? "Shop Description" : "Bio"}</FormLabel>
+                <FormControl>
+                  <Textarea 
+                    placeholder={isRetail ? "Describe your shop and services..." : "Tell us about yourself..."}
+                    className="min-h-[100px]"
+                    {...field} 
+                  />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+          <FormField
+            control={form.control}
+            name="specialties"
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel>Specialties</FormLabel>
+                <FormControl>
+                  <Input placeholder="Your specialties or areas of expertise" {...field} />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+        </div>
 
+        <DialogFooter className="gap-2">
+          <DialogClose asChild>
+            <Button type="button" variant="outline" disabled={isUpdating}>
+              Cancel
+            </Button>
+          </DialogClose>
+          <Button 
+            type="submit" 
+            disabled={isUpdating}
+          >
+            {isUpdating ? (
+              <>
+                <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                Saving...
+              </>
+            ) : (
+              <>
+                <Save className="mr-2 h-4 w-4" />
+                Update Profile
+              </>
+            )}
+          </Button>
+        </DialogFooter>
+      </form>
+    );
+  };
 
+  return (
+    <div className="space-y-6">
+      {/* Header */}
+      <div className="flex items-center justify-between">
+        <div>
+          <h1 className="text-2xl font-bold text-gray-900">Profile</h1>
+          <p className="text-gray-600 mt-1">
+            View and manage your profile information
+          </p>
+        </div>
+        <Dialog open={isEditDialogOpen} onOpenChange={setIsEditDialogOpen}>
+          <DialogTrigger asChild>
+            <Button>
+              <Edit3 className="mr-2 h-4 w-4" />
+              Update Profile
+            </Button>
+          </DialogTrigger>
+          <DialogContent className="max-w-4xl max-h-[90vh] overflow-y-auto">
+            <DialogHeader>
+              <DialogTitle>Update Profile</DialogTitle>
+              <DialogDescription>
+                Modify your profile information and details
+              </DialogDescription>
+            </DialogHeader>
+            <Form {...form}>
+              {renderEditForm()}
+            </Form>
+          </DialogContent>
+        </Dialog>
       </div>
+
+      {/* Profile Card */}
+      <Card>
+        <CardHeader>
+          <CardTitle className="flex items-center gap-2">
+            {userProfile?.userType === 'retail' ? (
+              <Store className="h-5 w-5" />
+            ) : (
+              <User className="h-5 w-5" />
+            )}
+            {userProfile?.shopName || userProfile?.branchName || userProfile?.username || "Profile Information"}
+            {userProfile?.verified && (
+              <Badge variant="secondary">
+                <CheckCircle className="h-3 w-3 mr-1" />
+                Verified
+              </Badge>
+            )}
+          </CardTitle>
+        </CardHeader>
+        <CardContent>
+          {loading ? (
+            <div className="flex items-center justify-center py-12">
+              <Loader2 className="h-6 w-6 animate-spin" />
+              <span className="ml-2 text-gray-600">Loading profile details...</span>
+            </div>
+          ) : (
+            renderProfileDetails()
+          )}
+        </CardContent>
+      </Card>
     </div>
   );
 }
