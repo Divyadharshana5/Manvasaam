@@ -8,13 +8,25 @@ import {
   CardContent,
 } from "@/components/ui/card";
 import { useAuth } from "@/hooks/use-auth";
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { 
   Loader2, 
   Edit3,
   Save,
   User,
   Store,
-  CheckCircle
+  CheckCircle,
+  Mail,
+  Phone,
+  MapPin,
+  Building,
+  Calendar,
+  Globe,
+  CreditCard,
+  Clock,
+  Shield,
+  Award,
+  Briefcase
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import {
@@ -354,189 +366,168 @@ export default function ProfilePage() {
 
   const loading = authLoading || profileLoading;
 
-  const renderProfileDetails = () => {
-    const profileData = userProfile || {
-      username: "Loading...",
-      email: user?.email || "Loading...",
-      phone: "Loading...",
-      userType: "retail",
-      verified: false
-    };
+  const getProfileIcon = (userType?: string) => {
+    switch (userType) {
+      case 'retail': return Store;
+      case 'farmer': return Award;
+      case 'transport': return Building;
+      case 'hub': return Building;
+      default: return User;
+    }
+  };
 
-    const isRetail = profileData.userType === 'retail';
-    const isHub = profileData.userType === 'hub';
+  const getProfileTitle = (profile: UserProfile) => {
+    if (profile.userType === 'retail') return profile.shopName;
+    if (profile.userType === 'hub') return profile.branchName;
+    return profile.username;
+  };
+
+  const getProfileSubtitle = (profile: UserProfile) => {
+    if (profile.userType === 'retail') return `${profile.shopType} • ${profile.city}`;
+    if (profile.userType === 'hub') return `Hub ID: ${profile.branchId} • ${profile.city}`;
+    return `${profile.role} • ${profile.company}`;
+  };
+
+  const renderInfoCard = (icon: any, label: string, value: string, className?: string) => {
+    const Icon = icon;
+    return (
+      <div className={`bg-white rounded-xl border border-gray-200 p-4 hover:shadow-md transition-shadow ${className}`}>
+        <div className="flex items-start gap-3">
+          <div className="p-2 bg-blue-50 rounded-lg">
+            <Icon className="h-5 w-5 text-blue-600" />
+          </div>
+          <div className="flex-1 min-w-0">
+            <p className="text-sm font-medium text-gray-500 mb-1">{label}</p>
+            <p className="text-base font-semibold text-gray-900 break-words">{value}</p>
+          </div>
+        </div>
+      </div>
+    );
+  };
+
+  const renderProfileDetails = () => {
+    if (!userProfile) return null;
+
+    const isRetail = userProfile.userType === 'retail';
+    const isHub = userProfile.userType === 'hub';
 
     return (
-      <div className="space-y-6">
-        {/* Basic Information */}
-        <div>
-          <h3 className="text-lg font-semibold mb-4 border-b pb-2">Basic Information</h3>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-            {isRetail ? (
-              <>
-                <div className="space-y-1">
-                  <label className="text-sm font-medium text-gray-600">Shop Name</label>
-                  <p className="text-base">{profileData.shopName || "Not provided"}</p>
-                </div>
-                <div className="space-y-1">
-                  <label className="text-sm font-medium text-gray-600">Owner Name</label>
-                  <p className="text-base">{profileData.ownerName || "Not provided"}</p>
-                </div>
-                <div className="space-y-1">
-                  <label className="text-sm font-medium text-gray-600">Shop Type</label>
-                  <p className="text-base">{profileData.shopType || "Retail Store"}</p>
-                </div>
-                <div className="space-y-1">
-                  <label className="text-sm font-medium text-gray-600">Established Year</label>
-                  <p className="text-base">{profileData.establishedYear || "Not specified"}</p>
-                </div>
-              </>
-            ) : isHub ? (
-              <>
-                <div className="space-y-1">
-                  <label className="text-sm font-medium text-gray-600">Branch Name</label>
-                  <p className="text-base">{profileData.branchName || "Not provided"}</p>
-                </div>
-                <div className="space-y-1">
-                  <label className="text-sm font-medium text-gray-600">Branch ID</label>
-                  <p className="text-base">{profileData.branchId || "Not provided"}</p>
-                </div>
-                <div className="space-y-1">
-                  <label className="text-sm font-medium text-gray-600">Manager Name</label>
-                  <p className="text-base">{profileData.username || "Not provided"}</p>
-                </div>
-                <div className="space-y-1">
-                  <label className="text-sm font-medium text-gray-600">User Type</label>
-                  <p className="text-base">{profileData.userType || "Not specified"}</p>
-                </div>
-              </>
-            ) : (
-              <>
-                <div className="space-y-1">
-                  <label className="text-sm font-medium text-gray-600">Full Name</label>
-                  <p className="text-base">{profileData.username || "Not provided"}</p>
-                </div>
-                <div className="space-y-1">
-                  <label className="text-sm font-medium text-gray-600">User Type</label>
-                  <p className="text-base">{profileData.userType || "Not specified"}</p>
-                </div>
-                <div className="space-y-1">
-                  <label className="text-sm font-medium text-gray-600">Company</label>
-                  <p className="text-base">{profileData.company || "Not specified"}</p>
-                </div>
-                <div className="space-y-1">
-                  <label className="text-sm font-medium text-gray-600">Role</label>
-                  <p className="text-base">{profileData.role || "Not specified"}</p>
-                </div>
-              </>
-            )}
+      <div className="space-y-8">
+        {/* Profile Header */}
+        <div className="bg-gradient-to-r from-blue-50 to-indigo-50 rounded-2xl p-6 border border-blue-100">
+          <div className="flex items-center gap-6">
+            <Avatar className="h-20 w-20 border-4 border-white shadow-lg">
+              <AvatarImage src={userProfile.photoURL || undefined} />
+              <AvatarFallback className="bg-blue-100 text-blue-700 text-2xl font-bold">
+                {getProfileTitle(userProfile)?.charAt(0) || 'U'}
+              </AvatarFallback>
+            </Avatar>
+            <div className="flex-1">
+              <div className="flex items-center gap-3 mb-2">
+                <h2 className="text-2xl font-bold text-gray-900">
+                  {getProfileTitle(userProfile) || "Profile"}
+                </h2>
+                {userProfile.verified && (
+                  <Badge className="bg-green-100 text-green-800 border-green-200">
+                    <CheckCircle className="h-3 w-3 mr-1" />
+                    Verified
+                  </Badge>
+                )}
+              </div>
+              <p className="text-gray-600 text-lg">
+                {getProfileSubtitle(userProfile)}
+              </p>
+              {(userProfile.description || userProfile.bio) && (
+                <p className="text-gray-700 mt-3 leading-relaxed">
+                  {userProfile.description || userProfile.bio}
+                </p>
+              )}
+            </div>
           </div>
         </div>
 
         {/* Contact Information */}
         <div>
-          <h3 className="text-lg font-semibold mb-4 border-b pb-2">Contact Information</h3>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-            <div className="space-y-1">
-              <label className="text-sm font-medium text-gray-600">Email</label>
-              <p className="text-base">{profileData.email || "Not provided"}</p>
-            </div>
-            <div className="space-y-1">
-              <label className="text-sm font-medium text-gray-600">Primary Phone</label>
-              <p className="text-base">{profileData.phone || "Not provided"}</p>
-            </div>
-            {isRetail && (
-              <div className="space-y-1">
-                <label className="text-sm font-medium text-gray-600">Alternate Phone</label>
-                <p className="text-base">{profileData.alternatePhone || "Not provided"}</p>
-              </div>
-            )}
-            <div className="space-y-1">
-              <label className="text-sm font-medium text-gray-600">Website</label>
-              <p className="text-base">{profileData.website || "Not provided"}</p>
-            </div>
+          <h3 className="text-xl font-semibold text-gray-900 mb-4 flex items-center gap-2">
+            <Mail className="h-5 w-5 text-blue-600" />
+            Contact Information
+          </h3>
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+            {renderInfoCard(Mail, "Email Address", userProfile.email || "Not provided")}
+            {renderInfoCard(Phone, "Primary Phone", userProfile.phone || "Not provided")}
+            {isRetail && userProfile.alternatePhone && 
+              renderInfoCard(Phone, "Alternate Phone", userProfile.alternatePhone)
+            }
+            {userProfile.website && 
+              renderInfoCard(Globe, "Website", userProfile.website)
+            }
           </div>
         </div>
 
-        {/* Address */}
+        {/* Location Information */}
         <div>
-          <h3 className="text-lg font-semibold mb-4 border-b pb-2">Address</h3>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-            <div className="space-y-1 md:col-span-2">
-              <label className="text-sm font-medium text-gray-600">Address</label>
-              <p className="text-base">{profileData.address || profileData.location || "Not provided"}</p>
-            </div>
-            <div className="space-y-1">
-              <label className="text-sm font-medium text-gray-600">City</label>
-              <p className="text-base">{profileData.city || "Not specified"}</p>
-            </div>
-            <div className="space-y-1">
-              <label className="text-sm font-medium text-gray-600">State</label>
-              <p className="text-base">{profileData.state || "Not specified"}</p>
-            </div>
-            <div className="space-y-1">
-              <label className="text-sm font-medium text-gray-600">Pincode</label>
-              <p className="text-base">{profileData.pincode || "Not specified"}</p>
-            </div>
-            {isRetail && (
-              <div className="space-y-1">
-                <label className="text-sm font-medium text-gray-600">Landmark</label>
-                <p className="text-base">{profileData.landmark || "Not specified"}</p>
-              </div>
-            )}
+          <h3 className="text-xl font-semibold text-gray-900 mb-4 flex items-center gap-2">
+            <MapPin className="h-5 w-5 text-blue-600" />
+            Location Details
+          </h3>
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+            {renderInfoCard(MapPin, "Address", userProfile.address || userProfile.location || "Not provided", "md:col-span-2")}
+            {renderInfoCard(Building, "City", userProfile.city || "Not specified")}
+            {renderInfoCard(Building, "State", userProfile.state || "Not specified")}
+            {renderInfoCard(MapPin, "Pincode", userProfile.pincode || "Not specified")}
+            {isRetail && userProfile.landmark && 
+              renderInfoCard(MapPin, "Landmark", userProfile.landmark)
+            }
           </div>
         </div>
 
-        {/* Business Details (for retail) */}
-        {isRetail && (
+        {/* Business Information */}
+        {(isRetail || userProfile.company) && (
           <div>
-            <h3 className="text-lg font-semibold mb-4 border-b pb-2">Business Details</h3>
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-              <div className="space-y-1">
-                <label className="text-sm font-medium text-gray-600">GST Number</label>
-                <p className="text-base">{profileData.gstNumber || "Not provided"}</p>
-              </div>
-              <div className="space-y-1">
-                <label className="text-sm font-medium text-gray-600">License Number</label>
-                <p className="text-base">{profileData.licenseNumber || "Not provided"}</p>
-              </div>
-              <div className="space-y-1">
-                <label className="text-sm font-medium text-gray-600">Business Hours</label>
-                <p className="text-base">{profileData.businessHours || "Not specified"}</p>
-              </div>
-              <div className="space-y-1">
-                <label className="text-sm font-medium text-gray-600">Delivery Radius</label>
-                <p className="text-base">{profileData.deliveryRadius || "Not specified"}</p>
-              </div>
+            <h3 className="text-xl font-semibold text-gray-900 mb-4 flex items-center gap-2">
+              <Briefcase className="h-5 w-5 text-blue-600" />
+              Business Information
+            </h3>
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+              {isRetail ? (
+                <>
+                  {userProfile.gstNumber && renderInfoCard(CreditCard, "GST Number", userProfile.gstNumber)}
+                  {userProfile.licenseNumber && renderInfoCard(Shield, "License Number", userProfile.licenseNumber)}
+                  {userProfile.businessHours && renderInfoCard(Clock, "Business Hours", userProfile.businessHours)}
+                  {userProfile.establishedYear && renderInfoCard(Calendar, "Established", userProfile.establishedYear)}
+                  {userProfile.deliveryRadius && renderInfoCard(MapPin, "Delivery Radius", userProfile.deliveryRadius)}
+                </>
+              ) : (
+                <>
+                  {userProfile.company && renderInfoCard(Building, "Company", userProfile.company)}
+                  {userProfile.role && renderInfoCard(Briefcase, "Role", userProfile.role)}
+                  {userProfile.userType && renderInfoCard(User, "User Type", userProfile.userType.charAt(0).toUpperCase() + userProfile.userType.slice(1))}
+                </>
+              )}
             </div>
           </div>
         )}
 
         {/* Additional Information */}
-        {(profileData.description || profileData.bio || profileData.specialties) && (
+        {(userProfile.specialties || userProfile.paymentMethods) && (
           <div>
-            <h3 className="text-lg font-semibold mb-4 border-b pb-2">Additional Information</h3>
+            <h3 className="text-xl font-semibold text-gray-900 mb-4 flex items-center gap-2">
+              <Award className="h-5 w-5 text-blue-600" />
+              Additional Information
+            </h3>
             <div className="space-y-4">
-              {(profileData.description || profileData.bio) && (
-                <div className="space-y-1">
-                  <label className="text-sm font-medium text-gray-600">
-                    {isRetail ? "Description" : "Bio"}
-                  </label>
-                  <p className="text-base text-gray-700">{profileData.description || profileData.bio}</p>
+              {userProfile.specialties && (
+                <div className="bg-white rounded-xl border border-gray-200 p-6">
+                  <h4 className="font-semibold text-gray-900 mb-3">Specialties</h4>
+                  <p className="text-gray-700 leading-relaxed">{userProfile.specialties}</p>
                 </div>
               )}
-              {profileData.specialties && (
-                <div className="space-y-1">
-                  <label className="text-sm font-medium text-gray-600">Specialties</label>
-                  <p className="text-base text-gray-700">{profileData.specialties}</p>
-                </div>
-              )}
-              {profileData.paymentMethods && profileData.paymentMethods.length > 0 && (
-                <div className="space-y-1">
-                  <label className="text-sm font-medium text-gray-600">Payment Methods</label>
+              {userProfile.paymentMethods && userProfile.paymentMethods.length > 0 && (
+                <div className="bg-white rounded-xl border border-gray-200 p-6">
+                  <h4 className="font-semibold text-gray-900 mb-3">Payment Methods</h4>
                   <div className="flex flex-wrap gap-2">
-                    {profileData.paymentMethods.map((method, index) => (
-                      <Badge key={index} variant="outline">
+                    {userProfile.paymentMethods.map((method, index) => (
+                      <Badge key={index} variant="outline" className="bg-blue-50 text-blue-700 border-blue-200">
                         {method}
                       </Badge>
                     ))}
@@ -547,13 +538,17 @@ export default function ProfilePage() {
           </div>
         )}
 
-        {/* Verification Status */}
-        <div className="pt-4 border-t">
-          <div className="flex items-center gap-2">
-            <CheckCircle className="h-4 w-4 text-green-600" />
-            <span className="text-sm text-gray-600">
-              Status: {profileData.verified ? 'Verified' : 'Pending Verification'}
-            </span>
+        {/* Account Status */}
+        <div className="bg-green-50 rounded-xl border border-green-200 p-6">
+          <div className="flex items-center gap-3">
+            <CheckCircle className="h-6 w-6 text-green-600" />
+            <div>
+              <h4 className="font-semibold text-green-900">Account Status</h4>
+              <p className="text-green-700">
+                {userProfile.verified ? 'Verified Account' : 'Pending Verification'} • 
+                Member since {userProfile.createdAt ? new Date(userProfile.createdAt).getFullYear() : 'Recently'}
+              </p>
+            </div>
           </div>
         </div>
       </div>
@@ -568,7 +563,7 @@ export default function ProfilePage() {
       <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
         {/* Basic Information */}
         <div className="space-y-4">
-          <h3 className="text-lg font-semibold">Basic Information</h3>
+          <h3 className="text-lg font-semibold border-b pb-2">Basic Information</h3>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             {isRetail ? (
               <>
@@ -702,7 +697,7 @@ export default function ProfilePage() {
 
         {/* Contact Details */}
         <div className="space-y-4">
-          <h3 className="text-lg font-semibold">Contact Details</h3>
+          <h3 className="text-lg font-semibold border-b pb-2">Contact Details</h3>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             <FormField
               control={form.control}
@@ -763,7 +758,7 @@ export default function ProfilePage() {
 
         {/* Address */}
         <div className="space-y-4">
-          <h3 className="text-lg font-semibold">Address & Location</h3>
+          <h3 className="text-lg font-semibold border-b pb-2">Address & Location</h3>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             <FormField
               control={form.control}
@@ -838,7 +833,7 @@ export default function ProfilePage() {
         {/* Business Details (for retail) */}
         {isRetail && (
           <div className="space-y-4">
-            <h3 className="text-lg font-semibold">Business Details</h3>
+            <h3 className="text-lg font-semibold border-b pb-2">Business Details</h3>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               <FormField
                 control={form.control}
@@ -885,7 +880,7 @@ export default function ProfilePage() {
 
         {/* Additional Information */}
         <div className="space-y-4">
-          <h3 className="text-lg font-semibold">Additional Information</h3>
+          <h3 className="text-lg font-semibold border-b pb-2">Additional Information</h3>
           <FormField
             control={form.control}
             name={isRetail ? "description" : "bio"}
@@ -927,6 +922,7 @@ export default function ProfilePage() {
           <Button 
             type="submit" 
             disabled={isUpdating}
+            className="bg-blue-600 hover:bg-blue-700"
           >
             {isUpdating ? (
               <>
@@ -946,65 +942,53 @@ export default function ProfilePage() {
   };
 
   return (
-    <div className="space-y-6">
-      {/* Header */}
-      <div className="flex items-center justify-between">
-        <div>
-          <h1 className="text-2xl font-bold text-gray-900">Profile</h1>
-          <p className="text-gray-600 mt-1">
-            View and manage your profile information
-          </p>
+    <div className="min-h-screen bg-gray-50">
+      <div className="max-w-7xl mx-auto p-6 space-y-8">
+        {/* Header */}
+        <div className="flex items-center justify-between">
+          <div>
+            <h1 className="text-3xl font-bold text-gray-900">Profile</h1>
+            <p className="text-gray-600 mt-2">
+              Manage your profile information and settings
+            </p>
+          </div>
+          <Dialog open={isEditDialogOpen} onOpenChange={setIsEditDialogOpen}>
+            <DialogTrigger asChild>
+              <Button className="bg-blue-600 hover:bg-blue-700">
+                <Edit3 className="mr-2 h-4 w-4" />
+                Update Profile
+              </Button>
+            </DialogTrigger>
+            <DialogContent className="max-w-4xl max-h-[90vh] overflow-y-auto">
+              <DialogHeader>
+                <DialogTitle>Update Profile</DialogTitle>
+                <DialogDescription>
+                  Modify your profile information and details
+                </DialogDescription>
+              </DialogHeader>
+              <Form {...form}>
+                {renderEditForm()}
+              </Form>
+            </DialogContent>
+          </Dialog>
         </div>
-        <Dialog open={isEditDialogOpen} onOpenChange={setIsEditDialogOpen}>
-          <DialogTrigger asChild>
-            <Button>
-              <Edit3 className="mr-2 h-4 w-4" />
-              Update Profile
-            </Button>
-          </DialogTrigger>
-          <DialogContent className="max-w-4xl max-h-[90vh] overflow-y-auto">
-            <DialogHeader>
-              <DialogTitle>Update Profile</DialogTitle>
-              <DialogDescription>
-                Modify your profile information and details
-              </DialogDescription>
-            </DialogHeader>
-            <Form {...form}>
-              {renderEditForm()}
-            </Form>
-          </DialogContent>
-        </Dialog>
-      </div>
 
-      {/* Profile Card */}
-      <Card>
-        <CardHeader>
-          <CardTitle className="flex items-center gap-2">
-            {userProfile?.userType === 'retail' ? (
-              <Store className="h-5 w-5" />
+        {/* Profile Content */}
+        <Card className="border-0 shadow-lg">
+          <CardContent className="p-8">
+            {loading ? (
+              <div className="flex items-center justify-center py-20">
+                <div className="text-center">
+                  <Loader2 className="h-8 w-8 animate-spin text-blue-600 mx-auto mb-4" />
+                  <p className="text-gray-600">Loading profile details...</p>
+                </div>
+              </div>
             ) : (
-              <User className="h-5 w-5" />
+              renderProfileDetails()
             )}
-            {userProfile?.shopName || userProfile?.branchName || userProfile?.username || "Profile Information"}
-            {userProfile?.verified && (
-              <Badge variant="secondary">
-                <CheckCircle className="h-3 w-3 mr-1" />
-                Verified
-              </Badge>
-            )}
-          </CardTitle>
-        </CardHeader>
-        <CardContent>
-          {loading ? (
-            <div className="flex items-center justify-center py-12">
-              <Loader2 className="h-6 w-6 animate-spin" />
-              <span className="ml-2 text-gray-600">Loading profile details...</span>
-            </div>
-          ) : (
-            renderProfileDetails()
-          )}
-        </CardContent>
-      </Card>
+          </CardContent>
+        </Card>
+      </div>
     </div>
   );
 }
