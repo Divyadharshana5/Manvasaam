@@ -766,31 +766,32 @@ export default function RetailProfilePage() {
         </Dialog>
       </div>
 
-      {/* Shop Profile Card */}
-      <Card>
-        <CardHeader>
-          <CardTitle className="flex items-center gap-2">
-            <Store className="h-5 w-5" />
-            {shopProfile?.shopName || "Shop Information"}
-            {shopProfile?.verified && (
-              <Badge variant="secondary">
-                <CheckCircle className="h-3 w-3 mr-1" />
-                Verified
-              </Badge>
+        {/* Shop Profile Card */}
+        <Card className="w-full">
+          <CardHeader>
+            <CardTitle className="flex items-center gap-2">
+              <Store className="h-5 w-5" />
+              {shopProfile?.shopName || "Shop Information"}
+              {shopProfile?.verified && (
+                <Badge variant="secondary">
+                  <CheckCircle className="h-3 w-3 mr-1" />
+                  Verified
+                </Badge>
+              )}
+            </CardTitle>
+          </CardHeader>
+          <CardContent className="p-6">
+            {loading ? (
+              <div className="flex items-center justify-center py-12">
+                <Loader2 className="h-6 w-6 animate-spin" />
+                <span className="ml-2 text-gray-600">Loading shop details...</span>
+              </div>
+            ) : (
+              renderShopDetails()
             )}
-          </CardTitle>
-        </CardHeader>
-        <CardContent>
-          {loading ? (
-            <div className="flex items-center justify-center py-12">
-              <Loader2 className="h-6 w-6 animate-spin" />
-              <span className="ml-2 text-gray-600">Loading shop details...</span>
-            </div>
-          ) : (
-            renderShopDetails()
-          )}
-        </CardContent>
-      </Card>
+          </CardContent>
+        </Card>
+      </div>
     </div>
   );
 }
