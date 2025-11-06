@@ -123,6 +123,20 @@ export async function PATCH(
     if (body.specialties !== undefined) allowedUpdates.specialties = body.specialties;
     if (body.deliveryRadius !== undefined) allowedUpdates.deliveryRadius = body.deliveryRadius;
     if (body.paymentMethods !== undefined) allowedUpdates.paymentMethods = body.paymentMethods;
+    
+    // Farmer profile fields
+    if (body.farmName !== undefined) allowedUpdates.farmName = body.farmName;
+    if (body.farmSize !== undefined) allowedUpdates.farmSize = body.farmSize;
+    if (body.farmingType !== undefined) allowedUpdates.farmingType = body.farmingType;
+    if (body.farmingMethods !== undefined) allowedUpdates.farmingMethods = body.farmingMethods;
+    if (body.certifications !== undefined) allowedUpdates.certifications = body.certifications;
+    
+    // Transport profile fields
+    if (body.companyName !== undefined) allowedUpdates.companyName = body.companyName;
+    if (body.fleetSize !== undefined) allowedUpdates.fleetSize = body.fleetSize;
+    if (body.vehicleTypes !== undefined) allowedUpdates.vehicleTypes = body.vehicleTypes;
+    if (body.serviceAreas !== undefined) allowedUpdates.serviceAreas = body.serviceAreas;
+    if (body.operatingHours !== undefined) allowedUpdates.operatingHours = body.operatingHours;
     if (body.photoURL !== undefined) {
         allowedUpdates.photoURL = body.photoURL;
         if (adminAuth) {
