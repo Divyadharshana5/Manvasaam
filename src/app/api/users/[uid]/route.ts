@@ -78,6 +78,25 @@ export async function PATCH(
     if (body.website !== undefined) allowedUpdates.website = body.website;
     if (body.company !== undefined) allowedUpdates.company = body.company;
     if (body.role !== undefined) allowedUpdates.role = body.role;
+    
+    // Retail shop profile fields
+    if (body.shopName !== undefined) allowedUpdates.shopName = body.shopName;
+    if (body.ownerName !== undefined) allowedUpdates.ownerName = body.ownerName;
+    if (body.shopType !== undefined) allowedUpdates.shopType = body.shopType;
+    if (body.alternatePhone !== undefined) allowedUpdates.alternatePhone = body.alternatePhone;
+    if (body.address !== undefined) allowedUpdates.address = body.address;
+    if (body.city !== undefined) allowedUpdates.city = body.city;
+    if (body.state !== undefined) allowedUpdates.state = body.state;
+    if (body.pincode !== undefined) allowedUpdates.pincode = body.pincode;
+    if (body.landmark !== undefined) allowedUpdates.landmark = body.landmark;
+    if (body.gstNumber !== undefined) allowedUpdates.gstNumber = body.gstNumber;
+    if (body.licenseNumber !== undefined) allowedUpdates.licenseNumber = body.licenseNumber;
+    if (body.establishedYear !== undefined) allowedUpdates.establishedYear = body.establishedYear;
+    if (body.businessHours !== undefined) allowedUpdates.businessHours = body.businessHours;
+    if (body.description !== undefined) allowedUpdates.description = body.description;
+    if (body.specialties !== undefined) allowedUpdates.specialties = body.specialties;
+    if (body.deliveryRadius !== undefined) allowedUpdates.deliveryRadius = body.deliveryRadius;
+    if (body.paymentMethods !== undefined) allowedUpdates.paymentMethods = body.paymentMethods;
     if (body.photoURL !== undefined) {
         allowedUpdates.photoURL = body.photoURL;
         if (adminAuth) {
