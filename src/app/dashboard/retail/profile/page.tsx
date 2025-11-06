@@ -127,11 +127,15 @@ export default function RetailProfilePage() {
     if (user) {
       try {
         setProfileLoading(true);
+        console.log("Fetching profile for user:", user.uid);
         const response = await fetch(`/api/users/${user.uid}`);
+        console.log("API Response status:", response.status);
+        
         if (!response.ok) {
           throw new Error("Failed to fetch shop profile");
         }
         const data = await response.json();
+        console.log("API Response data:", data);
         
         const enhancedProfile: RetailShopProfile = {
           ...data,
@@ -162,9 +166,10 @@ export default function RetailProfilePage() {
           lastActive: new Date().toISOString(),
         };
         
+        console.log("Enhanced profile:", enhancedProfile);
         setShopProfile(enhancedProfile);
       } catch (error) {
-        console.error(error);
+        console.error("Profile fetch error:", error);
         toast({
           variant: "destructive",
           title: "Error",
@@ -174,6 +179,7 @@ export default function RetailProfilePage() {
         setProfileLoading(false);
       }
     } else if (!authLoading) {
+      console.log("No user found, setting loading to false");
       setProfileLoading(false);
     }
   };
@@ -258,7 +264,15 @@ export default function RetailProfilePage() {
 
   const loading = authLoading || profileLoading;
 
+  console.log("Component render - loading:", loading, "authLoading:", authLoading, "profileLoading:", profileLoading);
+  console.log("User in component:", user);
+  console.log("ShopProfile in component:", shopProfile);
+
   const renderShopDetails = () => {
+    console.log("Rendering shop details, shopProfile:", shopProfile);
+    console.log("User:", user);
+    console.log("Loading states - auth:", authLoading, "profile:", profileLoading);
+    
     const profileData = shopProfile || {
       shopName: "Loading...",
       ownerName: "Loading...",
