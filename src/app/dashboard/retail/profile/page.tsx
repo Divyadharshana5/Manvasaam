@@ -209,10 +209,9 @@ export default function RetailProfilePage() {
   };
 
   useEffect(() => {
-    if (user) {
-      fetchShopProfile();
-    }
-  }, [user, authLoading]);
+    // Always fetch profile, using effective user
+    fetchShopProfile();
+  }, [effectiveUser.uid]);
 
   useEffect(() => {
     if (shopProfile && isEditDialogOpen) {
@@ -240,7 +239,7 @@ export default function RetailProfilePage() {
   }, [shopProfile, isEditDialogOpen, form]);
 
   async function onSubmit(values: z.infer<typeof profileFormSchema>) {
-    if (!user || !user.uid) {
+    if (!effectiveUser || !effectiveUser.uid) {
       toast({
         variant: "destructive",
         title: "Authentication Error",
@@ -252,7 +251,7 @@ export default function RetailProfilePage() {
     setIsUpdating(true);
 
     try {
-      const response = await fetch(`/api/users/${user.uid}`, {
+      const response = await fetch(`/api/users/${effectiveUser.uid}`, {
         method: "PATCH",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(values),
@@ -300,7 +299,7 @@ export default function RetailProfilePage() {
     const profileData = shopProfile || {
       shopName: "Loading...",
       ownerName: "Loading...",
-      email: user?.email || "Loading...",
+      email: effectiveUser?.email || "Loading...",
       phone: "Loading...",
       address: "Loading...",
       verified: false
