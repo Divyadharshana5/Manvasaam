@@ -15,13 +15,39 @@ export async function GET(
     // Check if Firebase is configured
     if (!adminDb) {
       // Return mock user data for demo mode
-      return NextResponse.json({
+      const mockData: any = {
         uid: uid,
-        userType: uid.includes('hub') ? 'hub' : 'customer',
-        username: uid.includes('hub') ? 'Hub Manager' : 'Customer',
-        email: uid.includes('hub') ? 'hub@demo.com' : 'customer@demo.com',
+        userType: uid.includes('hub') ? 'hub' : uid.includes('retail') ? 'retail' : 'customer',
+        username: uid.includes('hub') ? 'Hub Manager' : uid.includes('retail') ? 'Shop Owner' : 'Customer',
+        email: uid.includes('hub') ? 'hub@demo.com' : uid.includes('retail') ? 'shop@demo.com' : 'customer@demo.com',
         mockMode: true
-      }, { status: 200 });
+      };
+
+      // Add retail-specific mock data if it's a retail user
+      if (uid.includes('retail') || mockData.userType === 'retail') {
+        mockData.shopName = 'Fresh Mart Grocery Store';
+        mockData.shopType = 'Grocery & Fresh Produce';
+        mockData.ownerName = 'Rajesh Kumar';
+        mockData.phone = '+91 98765 43210';
+        mockData.alternatePhone = '+91 98765 43211';
+        mockData.address = '123, Market Street, Commercial Complex';
+        mockData.city = 'Mumbai';
+        mockData.state = 'Maharashtra';
+        mockData.pincode = '400001';
+        mockData.landmark = 'Near City Mall';
+        mockData.gstNumber = '27ABCDE1234F1Z5';
+        mockData.licenseNumber = 'FL-2024-001234';
+        mockData.establishedYear = '2018';
+        mockData.businessHours = '8:00 AM - 10:00 PM';
+        mockData.website = 'www.freshmart.com';
+        mockData.description = 'Your trusted neighborhood grocery store providing fresh produce, daily essentials, and quality products at competitive prices.';
+        mockData.specialties = 'Fresh Vegetables, Organic Products, Daily Essentials, Local Produce';
+        mockData.paymentMethods = ['Cash', 'UPI', 'Card', 'Digital Wallet'];
+        mockData.deliveryRadius = '5 km';
+        mockData.verified = true;
+      }
+
+      return NextResponse.json(mockData, { status: 200 });
     }
 
     const userDoc = await adminDb.collection("users").doc(uid).get();
