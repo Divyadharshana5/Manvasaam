@@ -131,62 +131,79 @@ export default function RetailProfilePage() {
   });
 
   const fetchShopProfile = async () => {
-    if (user) {
-      try {
-        setProfileLoading(true);
-        console.log("Fetching profile for user:", user.uid);
-        const response = await fetch(`/api/users/${user.uid}`);
-        console.log("API Response status:", response.status);
-        
-        if (!response.ok) {
-          throw new Error("Failed to fetch shop profile");
-        }
-        const data = await response.json();
-        console.log("API Response data:", data);
-        
-        const enhancedProfile: RetailShopProfile = {
-          ...data,
-          shopName: data.shopName || "Fresh Mart Grocery Store",
-          shopType: data.shopType || "Grocery & Fresh Produce",
-          ownerName: data.ownerName || data.username || "Rajesh Kumar",
-          email: data.email || user.email,
-          phone: data.phone || "+91 98765 43210",
-          alternatePhone: data.alternatePhone || "+91 98765 43211",
-          address: data.address || "123, Market Street, Commercial Complex",
-          city: data.city || "Mumbai",
-          state: data.state || "Maharashtra", 
-          pincode: data.pincode || "400001",
-          landmark: data.landmark || "Near City Mall",
-          gstNumber: data.gstNumber || "27ABCDE1234F1Z5",
-          licenseNumber: data.licenseNumber || "FL-2024-001234",
-          establishedYear: data.establishedYear || "2018",
-          businessHours: data.businessHours || "8:00 AM - 10:00 PM",
-          website: data.website || "www.freshmart.com",
-          description: data.description || "Your trusted neighborhood grocery store providing fresh produce, daily essentials, and quality products at competitive prices.",
-          specialties: data.specialties || "Fresh Vegetables, Organic Products, Daily Essentials, Local Produce",
-          paymentMethods: data.paymentMethods || ["Cash", "UPI", "Card", "Digital Wallet"],
-          deliveryRadius: data.deliveryRadius || "5 km",
-          userType: data.userType || "retail",
-          createdAt: data.createdAt,
-          verified: true,
-          photoURL: data.photoURL,
-          lastActive: new Date().toISOString(),
-        };
-        
-        console.log("Enhanced profile:", enhancedProfile);
-        setShopProfile(enhancedProfile);
-      } catch (error) {
-        console.error("Profile fetch error:", error);
-        toast({
-          variant: "destructive",
-          title: "Error",
-          description: "Failed to load shop profile data",
-        });
-      } finally {
-        setProfileLoading(false);
+    try {
+      setProfileLoading(true);
+      console.log("Fetching profile for user:", effectiveUser.uid);
+      const response = await fetch(`/api/users/${effectiveUser.uid}`);
+      console.log("API Response status:", response.status);
+      
+      if (!response.ok) {
+        throw new Error("Failed to fetch shop profile");
       }
-    } else if (!authLoading) {
-      console.log("No user found, setting loading to false");
+      const data = await response.json();
+      console.log("API Response data:", data);
+      
+      const enhancedProfile: RetailShopProfile = {
+        ...data,
+        shopName: data.shopName || "Fresh Mart Grocery Store",
+        shopType: data.shopType || "Grocery & Fresh Produce",
+        ownerName: data.ownerName || data.username || "Rajesh Kumar",
+        email: data.email || effectiveUser.email,
+        phone: data.phone || "+91 98765 43210",
+        alternatePhone: data.alternatePhone || "+91 98765 43211",
+        address: data.address || "123, Market Street, Commercial Complex",
+        city: data.city || "Mumbai",
+        state: data.state || "Maharashtra", 
+        pincode: data.pincode || "400001",
+        landmark: data.landmark || "Near City Mall",
+        gstNumber: data.gstNumber || "27ABCDE1234F1Z5",
+        licenseNumber: data.licenseNumber || "FL-2024-001234",
+        establishedYear: data.establishedYear || "2018",
+        businessHours: data.businessHours || "8:00 AM - 10:00 PM",
+        website: data.website || "www.freshmart.com",
+        description: data.description || "Your trusted neighborhood grocery store providing fresh produce, daily essentials, and quality products at competitive prices.",
+        specialties: data.specialties || "Fresh Vegetables, Organic Products, Daily Essentials, Local Produce",
+        paymentMethods: data.paymentMethods || ["Cash", "UPI", "Card", "Digital Wallet"],
+        deliveryRadius: data.deliveryRadius || "5 km",
+        userType: data.userType || "retail",
+        createdAt: data.createdAt,
+        verified: true,
+        photoURL: data.photoURL,
+        lastActive: new Date().toISOString(),
+      };
+      
+      console.log("Enhanced profile:", enhancedProfile);
+      setShopProfile(enhancedProfile);
+    } catch (error) {
+      console.error("Profile fetch error:", error);
+      // Even if API fails, show demo data
+      const demoProfile: RetailShopProfile = {
+        shopName: "Fresh Mart Grocery Store",
+        shopType: "Grocery & Fresh Produce",
+        ownerName: "Rajesh Kumar",
+        email: effectiveUser.email || "retail@demo.com",
+        phone: "+91 98765 43210",
+        alternatePhone: "+91 98765 43211",
+        address: "123, Market Street, Commercial Complex",
+        city: "Mumbai",
+        state: "Maharashtra", 
+        pincode: "400001",
+        landmark: "Near City Mall",
+        gstNumber: "27ABCDE1234F1Z5",
+        licenseNumber: "FL-2024-001234",
+        establishedYear: "2018",
+        businessHours: "8:00 AM - 10:00 PM",
+        website: "www.freshmart.com",
+        description: "Your trusted neighborhood grocery store providing fresh produce, daily essentials, and quality products at competitive prices.",
+        specialties: "Fresh Vegetables, Organic Products, Daily Essentials, Local Produce",
+        paymentMethods: ["Cash", "UPI", "Card", "Digital Wallet"],
+        deliveryRadius: "5 km",
+        userType: "retail",
+        verified: true,
+        lastActive: new Date().toISOString(),
+      };
+      setShopProfile(demoProfile);
+    } finally {
       setProfileLoading(false);
     }
   };
