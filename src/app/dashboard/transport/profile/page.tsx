@@ -789,7 +789,8 @@ export default function TransportProfilePage() {
             renderTransportDetails()
           )}
         </CardContent>
-      </Card>
+        </Card>
+      </div>
     </div>
   );
 }
