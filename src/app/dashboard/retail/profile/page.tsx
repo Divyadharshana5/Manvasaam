@@ -321,8 +321,8 @@ export default function RetailProfilePage() {
         </div>
 
         {/* Contact Information */}
-        <div>
-          <h3 className="text-lg font-semibold mb-4 border-b pb-2">Contact Information</h3>
+        <div className="bg-white rounded-lg border p-6">
+          <h3 className="text-lg font-semibold mb-4 border-b pb-2 text-gray-900">Contact Information</h3>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             <div className="space-y-1">
               <label className="text-sm font-medium text-gray-600">Email</label>
