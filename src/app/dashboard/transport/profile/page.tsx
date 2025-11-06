@@ -560,4 +560,235 @@ export default function TransportProfilePage() {
                         <FormItem>
                           <FormLabel>Alternate Phone</FormLabel>
                           <FormControl>
-                            <Input type="tel" placeholder="+91 98765 43211" {...fie
+                            <Input type="tel" placeholder="+91 98765 43211" {...field} />
+                          </FormControl>
+                          <FormMessage />
+                        </FormItem>
+                      )}
+                    />
+                    <FormField
+                      control={form.control}
+                      name="website"
+                      render={({ field }) => (
+                        <FormItem>
+                          <FormLabel>Website</FormLabel>
+                          <FormControl>
+                            <Input placeholder="www.yourcompany.com" {...field} />
+                          </FormControl>
+                          <FormMessage />
+                        </FormItem>
+                      )}
+                    />
+                  </div>
+                </div>
+
+                {/* Address */}
+                <div className="space-y-4">
+                  <h3 className="text-lg font-semibold">Office Location</h3>
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <FormField
+                      control={form.control}
+                      name="address"
+                      render={({ field }) => (
+                        <FormItem className="md:col-span-2">
+                          <FormLabel>Address</FormLabel>
+                          <FormControl>
+                            <Textarea placeholder="Transport Hub, Pune-Mumbai Highway" {...field} />
+                          </FormControl>
+                          <FormMessage />
+                        </FormItem>
+                      )}
+                    />
+                    <FormField
+                      control={form.control}
+                      name="city"
+                      render={({ field }) => (
+                        <FormItem>
+                          <FormLabel>City</FormLabel>
+                          <FormControl>
+                            <Input placeholder="Pune" {...field} />
+                          </FormControl>
+                          <FormMessage />
+                        </FormItem>
+                      )}
+                    />
+                    <FormField
+                      control={form.control}
+                      name="state"
+                      render={({ field }) => (
+                        <FormItem>
+                          <FormLabel>State</FormLabel>
+                          <FormControl>
+                            <Input placeholder="Maharashtra" {...field} />
+                          </FormControl>
+                          <FormMessage />
+                        </FormItem>
+                      )}
+                    />
+                    <FormField
+                      control={form.control}
+                      name="pincode"
+                      render={({ field }) => (
+                        <FormItem>
+                          <FormLabel>Pincode</FormLabel>
+                          <FormControl>
+                            <Input placeholder="411001" {...field} />
+                          </FormControl>
+                          <FormMessage />
+                        </FormItem>
+                      )}
+                    />
+                    <FormField
+                      control={form.control}
+                      name="landmark"
+                      render={({ field }) => (
+                        <FormItem>
+                          <FormLabel>Landmark</FormLabel>
+                          <FormControl>
+                            <Input placeholder="Near Industrial Area" {...field} />
+                          </FormControl>
+                          <FormMessage />
+                        </FormItem>
+                      )}
+                    />
+                  </div>
+                </div>
+
+                {/* Transport Details */}
+                <div className="space-y-4">
+                  <h3 className="text-lg font-semibold">Transport Details</h3>
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <FormField
+                      control={form.control}
+                      name="vehicleTypes"
+                      render={({ field }) => (
+                        <FormItem>
+                          <FormLabel>Vehicle Types</FormLabel>
+                          <FormControl>
+                            <Input placeholder="Refrigerated Trucks, Mini Trucks, Tempo" {...field} />
+                          </FormControl>
+                          <FormMessage />
+                        </FormItem>
+                      )}
+                    />
+                    <FormField
+                      control={form.control}
+                      name="licenseNumber"
+                      render={({ field }) => (
+                        <FormItem>
+                          <FormLabel>License Number</FormLabel>
+                          <FormControl>
+                            <Input placeholder="TL-2024-001234" {...field} />
+                          </FormControl>
+                          <FormMessage />
+                        </FormItem>
+                      )}
+                    />
+                    <FormField
+                      control={form.control}
+                      name="operatingHours"
+                      render={({ field }) => (
+                        <FormItem>
+                          <FormLabel>Operating Hours</FormLabel>
+                          <FormControl>
+                            <Input placeholder="24/7 Service Available" {...field} />
+                          </FormControl>
+                          <FormMessage />
+                        </FormItem>
+                      )}
+                    />
+                  </div>
+                </div>
+
+                {/* Additional Information */}
+                <div className="space-y-4">
+                  <h3 className="text-lg font-semibold">Additional Information</h3>
+                  <FormField
+                    control={form.control}
+                    name="description"
+                    render={({ field }) => (
+                      <FormItem>
+                        <FormLabel>About Your Company</FormLabel>
+                        <FormControl>
+                          <Textarea 
+                            placeholder="Describe your transport services, capabilities, and what makes you special..."
+                            className="min-h-[100px]"
+                            {...field} 
+                          />
+                        </FormControl>
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
+                  <FormField
+                    control={form.control}
+                    name="specialties"
+                    render={({ field }) => (
+                      <FormItem>
+                        <FormLabel>Services & Specialties</FormLabel>
+                        <FormControl>
+                          <Input placeholder="Cold Chain Transport, Express Delivery, Fresh Produce Logistics" {...field} />
+                        </FormControl>
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
+                </div>
+
+                <DialogFooter className="gap-2">
+                  <DialogClose asChild>
+                    <Button type="button" variant="outline" disabled={isUpdating}>
+                      Cancel
+                    </Button>
+                  </DialogClose>
+                  <Button 
+                    type="submit" 
+                    disabled={isUpdating}
+                  >
+                    {isUpdating ? (
+                      <>
+                        <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                        Saving...
+                      </>
+                    ) : (
+                      <>
+                        <Save className="mr-2 h-4 w-4" />
+                        Update Profile
+                      </>
+                    )}
+                  </Button>
+                </DialogFooter>
+              </form>
+            </Form>
+          </DialogContent>
+        </Dialog>
+      </div>
+
+      {/* Transport Profile Card */}
+      <Card>
+        <CardHeader>
+          <CardTitle className="flex items-center gap-2">
+            <Truck className="h-5 w-5" />
+            {transportProfile?.companyName || "Transport Information"}
+            {transportProfile?.verified && (
+              <Badge variant="secondary">
+                <CheckCircle className="h-3 w-3 mr-1" />
+                Verified
+              </Badge>
+            )}
+          </CardTitle>
+        </CardHeader>
+        <CardContent>
+          {loading ? (
+            <div className="flex items-center justify-center py-12">
+              <Loader2 className="h-6 w-6 animate-spin" />
+              <span className="ml-2 text-gray-600">Loading transport details...</span>
+            </div>
+          ) : (
+            renderTransportDetails()
+          )}
+        </CardContent>
+      </Card>
+    </div>
+  );
+}

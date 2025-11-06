@@ -140,7 +140,7 @@ const sidebarItems = [
   },
   {
     title: "Profile",
-    href: "/dashboard/profile",
+    href: "/dashboard/farmer/profile",
     icon: Settings,
   },
   {
