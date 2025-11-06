@@ -169,10 +169,8 @@ export default function RetailProfilePage() {
         lastActive: new Date().toISOString(),
       };
       
-      console.log("Enhanced profile:", enhancedProfile);
       setShopProfile(enhancedProfile);
     } catch (error) {
-      console.error("Profile fetch error:", error);
       // Even if API fails, show demo data
       const demoProfile: RetailShopProfile = {
         shopName: "Fresh Mart Grocery Store",
