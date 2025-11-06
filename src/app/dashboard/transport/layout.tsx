@@ -144,7 +144,7 @@ const sidebarItems = [
   },
   {
     title: "Profile",
-    href: "/dashboard/profile",
+    href: "/dashboard/transport/profile",
     icon: Settings,
   },
   {
