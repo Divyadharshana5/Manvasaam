@@ -429,16 +429,17 @@ export default function FarmerProfilePage() {
   };
 
   return (
-    <div className="space-y-6">
-      {/* Header */}
-      <div className="flex items-center justify-between">
-        <div>
-          <h1 className="text-2xl font-bold text-gray-900">Farmer Profile</h1>
-          <p className="text-gray-600 mt-1">
-            View and manage your farm information
-          </p>
-        </div>
-        <Dialog open={isEditDialogOpen} onOpenChange={setIsEditDialogOpen}>
+    <div className="min-h-screen w-full">
+      <div className="max-w-7xl mx-auto space-y-6 p-4">
+        {/* Header */}
+        <div className="flex items-center justify-between">
+          <div>
+            <h1 className="text-2xl font-bold text-gray-900">Farmer Profile</h1>
+            <p className="text-gray-600 mt-1">
+              View and manage your farm information
+            </p>
+          </div>
+          <Dialog open={isEditDialogOpen} onOpenChange={setIsEditDialogOpen}>
           <DialogTrigger asChild>
             <Button>
               <Edit3 className="mr-2 h-4 w-4" />
