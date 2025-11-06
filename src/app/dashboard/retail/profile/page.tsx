@@ -789,8 +789,15 @@ export default function RetailProfilePage() {
                 <Loader2 className="h-6 w-6 animate-spin" />
                 <span className="ml-2 text-gray-600">Loading shop details...</span>
               </div>
-            ) : (
+            ) : shopProfile ? (
               renderShopDetails()
+            ) : (
+              <div className="text-center py-12">
+                <p className="text-gray-600 mb-4">No profile data available</p>
+                <Button onClick={fetchShopProfile} variant="outline">
+                  Retry Loading
+                </Button>
+              </div>
             )}
           </CardContent>
         </Card>
