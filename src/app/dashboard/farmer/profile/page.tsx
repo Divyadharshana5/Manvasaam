@@ -766,7 +766,8 @@ export default function FarmerProfilePage() {
             renderFarmerDetails()
           )}
         </CardContent>
-      </Card>
+        </Card>
+      </div>
     </div>
   );
 }
