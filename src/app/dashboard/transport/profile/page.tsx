@@ -426,10 +426,10 @@ export default function TransportProfilePage() {
         )}
 
         {/* Verification Status */}
-        <div className="pt-4 border-t">
+        <div className="bg-green-50 rounded-lg border border-green-200 p-6">
           <div className="flex items-center gap-2">
-            <CheckCircle className="h-4 w-4 text-green-600" />
-            <span className="text-sm text-gray-600">
+            <CheckCircle className="h-5 w-5 text-green-600" />
+            <span className="text-sm font-medium text-green-800">
               Status: {profileData.verified ? 'Verified Transport Partner' : 'Pending Verification'}
             </span>
           </div>
