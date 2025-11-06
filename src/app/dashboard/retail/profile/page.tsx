@@ -295,6 +295,9 @@ export default function RetailProfilePage() {
       verified: false
     };
 
+    // Debug log to check if profile data is loaded
+    console.log("Rendering shop details with data:", profileData);
+
     return (
       <div className="space-y-8 w-full">
         {/* Basic Information */}
