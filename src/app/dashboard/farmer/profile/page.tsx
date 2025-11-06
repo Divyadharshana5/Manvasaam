@@ -739,11 +739,11 @@ export default function FarmerProfilePage() {
               </form>
             </Form>
           </DialogContent>
-        </Dialog>
-      </div>
+          </Dialog>
+        </div>
 
-      {/* Farmer Profile Card */}
-      <Card>
+        {/* Farmer Profile Card */}
+        <Card className="w-full">
         <CardHeader>
           <CardTitle className="flex items-center gap-2">
             <Sprout className="h-5 w-5" />
