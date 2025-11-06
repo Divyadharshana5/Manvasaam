@@ -762,11 +762,11 @@ export default function TransportProfilePage() {
               </form>
             </Form>
           </DialogContent>
-        </Dialog>
-      </div>
+          </Dialog>
+        </div>
 
-      {/* Transport Profile Card */}
-      <Card>
+        {/* Transport Profile Card */}
+        <Card className="w-full">
         <CardHeader>
           <CardTitle className="flex items-center gap-2">
             <Truck className="h-5 w-5" />
