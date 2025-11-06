@@ -5,7 +5,7 @@ export interface DemoUser {
   uid: string;
   email: string;
   displayName: string;
-  userType: 'farmer' | 'retail' | 'transport';
+  userType: 'farmer' | 'retail' | 'transport' | 'restaurant';
 }
 
 const DEMO_USERS: DemoUser[] = [
