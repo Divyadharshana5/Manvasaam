@@ -23,7 +23,7 @@ export async function GET(
         mockMode: true
       };
 
-      // Add retail-specific mock data if it's a retail user
+      // Add user-type specific mock data
       if (uid.includes('retail') || mockData.userType === 'retail') {
         mockData.shopName = 'Fresh Mart Grocery Store';
         mockData.shopType = 'Grocery & Fresh Produce';
@@ -44,6 +44,47 @@ export async function GET(
         mockData.specialties = 'Fresh Vegetables, Organic Products, Daily Essentials, Local Produce';
         mockData.paymentMethods = ['Cash', 'UPI', 'Card', 'Digital Wallet'];
         mockData.deliveryRadius = '5 km';
+        mockData.verified = true;
+      } else if (uid.includes('farmer') || mockData.userType === 'farmer') {
+        mockData.username = 'Suresh Patel';
+        mockData.farmName = 'Green Valley Organic Farm';
+        mockData.ownerName = 'Suresh Patel';
+        mockData.phone = '+91 98765 43210';
+        mockData.alternatePhone = '+91 98765 43211';
+        mockData.address = 'Plot 45, Green Valley, Nashik Road';
+        mockData.city = 'Nashik';
+        mockData.state = 'Maharashtra';
+        mockData.pincode = '422001';
+        mockData.landmark = 'Near Highway Junction';
+        mockData.farmSize = '25 Acres';
+        mockData.farmingType = 'Organic Farming';
+        mockData.establishedYear = '2015';
+        mockData.website = 'www.greenvalleyfarm.com';
+        mockData.description = 'Dedicated to sustainable and organic farming practices. We grow premium quality vegetables, fruits, and grains using traditional methods combined with modern techniques.';
+        mockData.specialties = 'Organic Vegetables, Seasonal Fruits, Wheat, Rice, Pulses';
+        mockData.certifications = ['Organic Certified', 'FSSAI Licensed', 'Sustainable Farming'];
+        mockData.farmingMethods = 'Drip Irrigation, Crop Rotation, Natural Pest Control';
+        mockData.verified = true;
+      } else if (uid.includes('transport') || mockData.userType === 'transport') {
+        mockData.username = 'Amit Singh';
+        mockData.companyName = 'Swift Logistics & Transport';
+        mockData.ownerName = 'Amit Singh';
+        mockData.phone = '+91 98765 43210';
+        mockData.alternatePhone = '+91 98765 43211';
+        mockData.address = 'Transport Hub, Pune-Mumbai Highway';
+        mockData.city = 'Pune';
+        mockData.state = 'Maharashtra';
+        mockData.pincode = '411001';
+        mockData.landmark = 'Near Industrial Area';
+        mockData.fleetSize = '25 Vehicles';
+        mockData.vehicleTypes = 'Refrigerated Trucks, Mini Trucks, Tempo';
+        mockData.establishedYear = '2012';
+        mockData.licenseNumber = 'TL-2024-001234';
+        mockData.website = 'www.swiftlogistics.com';
+        mockData.description = 'Reliable logistics partner ensuring fresh produce reaches its destination safely and on time. Specializing in cold chain transport and express delivery services.';
+        mockData.specialties = 'Cold Chain Transport, Express Delivery, Fresh Produce Logistics';
+        mockData.serviceAreas = ['Mumbai', 'Pune', 'Nashik', 'Aurangabad', 'Kolhapur'];
+        mockData.operatingHours = '24/7 Service Available';
         mockData.verified = true;
       }
 
