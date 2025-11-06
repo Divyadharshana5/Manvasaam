@@ -133,15 +133,12 @@ export default function RetailProfilePage() {
   const fetchShopProfile = async () => {
     try {
       setProfileLoading(true);
-      console.log("Fetching profile for user:", effectiveUser.uid);
       const response = await fetch(`/api/users/${effectiveUser.uid}`);
-      console.log("API Response status:", response.status);
       
       if (!response.ok) {
         throw new Error("Failed to fetch shop profile");
       }
       const data = await response.json();
-      console.log("API Response data:", data);
       
       const enhancedProfile: RetailShopProfile = {
         ...data,
@@ -285,17 +282,9 @@ export default function RetailProfilePage() {
     }
   }
 
-  const loading = authLoading || profileLoading;
-
-  console.log("Component render - loading:", loading, "authLoading:", authLoading, "profileLoading:", profileLoading);
-  console.log("User in component:", user);
-  console.log("ShopProfile in component:", shopProfile);
+  const loading = profileLoading;
 
   const renderShopDetails = () => {
-    console.log("Rendering shop details, shopProfile:", shopProfile);
-    console.log("User:", user);
-    console.log("Loading states - auth:", authLoading, "profile:", profileLoading);
-    
     const profileData = shopProfile || {
       shopName: "Loading...",
       ownerName: "Loading...",
