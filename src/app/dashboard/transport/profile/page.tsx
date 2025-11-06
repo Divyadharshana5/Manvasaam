@@ -394,8 +394,8 @@ export default function TransportProfilePage() {
 
         {/* Additional Information */}
         {(profileData.description || profileData.specialties) && (
-          <div>
-            <h3 className="text-lg font-semibold mb-4 border-b pb-2">Additional Information</h3>
+          <div className="bg-white rounded-lg border p-6">
+            <h3 className="text-lg font-semibold mb-4 border-b pb-2 text-gray-900">Additional Information</h3>
             <div className="space-y-4">
               {profileData.description && (
                 <div className="space-y-1">
