@@ -452,7 +452,7 @@ export default function RetailProfilePage() {
               View and manage your shop information
             </p>
           </div>
-        <Dialog open={isEditDialogOpen} onOpenChange={setIsEditDialogOpen}>
+          <Dialog open={isEditDialogOpen} onOpenChange={setIsEditDialogOpen}>
           <DialogTrigger asChild>
             <Button>
               <Edit3 className="mr-2 h-4 w-4" />
