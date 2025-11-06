@@ -92,12 +92,19 @@ const profileFormSchema = z.object({
 });
 
 export default function RetailProfilePage() {
-  const { user, loading: authLoading } = useAuth();
+  const { user, loading: authLoading, isDemoMode } = useAuth();
   const [shopProfile, setShopProfile] = useState<RetailShopProfile | null>(null);
   const [profileLoading, setProfileLoading] = useState(true);
   const [isEditDialogOpen, setIsEditDialogOpen] = useState(false);
   const [isUpdating, setIsUpdating] = useState(false);
   const { toast } = useToast();
+
+  // Force demo user if no user is found
+  const effectiveUser = user || {
+    uid: 'demo-retail-1',
+    email: 'retail@demo.com',
+    displayName: 'Demo Retail User'
+  };
 
   const form = useForm<z.infer<typeof profileFormSchema>>({
     resolver: zodResolver(profileFormSchema),
