@@ -131,10 +131,38 @@ export default function RetailProfilePage() {
   });
 
   const fetchShopProfile = async () => {
+    // Show demo data immediately for fast response
+    const demoProfile: RetailShopProfile = {
+      shopName: "Fresh Mart Grocery Store",
+      shopType: "Grocery & Fresh Produce",
+      ownerName: "Rajesh Kumar",
+      email: effectiveUser.email || "retail@demo.com",
+      phone: "+91 98765 43210",
+      alternatePhone: "+91 98765 43211",
+      address: "123, Market Street, Commercial Complex",
+      city: "Mumbai",
+      state: "Maharashtra", 
+      pincode: "400001",
+      landmark: "Near City Mall",
+      gstNumber: "27ABCDE1234F1Z5",
+      licenseNumber: "FL-2024-001234",
+      establishedYear: "2018",
+      businessHours: "8:00 AM - 10:00 PM",
+      website: "www.freshmart.com",
+      description: "Your trusted neighborhood grocery store providing fresh produce, daily essentials, and quality products at competitive prices.",
+      specialties: "Fresh Vegetables, Organic Products, Daily Essentials, Local Produce",
+      paymentMethods: ["Cash", "UPI", "Card", "Digital Wallet"],
+      deliveryRadius: "5 km",
+      userType: "retail",
+      verified: true,
+      lastActive: new Date().toISOString(),
+    };
+    
+    setShopProfile(demoProfile);
+    setProfileLoading(false);
+    
+    // Fetch from API in background
     try {
-      setProfileLoading(true);
-      
-      // Try to fetch from API first
       const response = await fetch(`/api/users/${effectiveUser.uid}`);
       
       if (response.ok) {
@@ -170,44 +198,14 @@ export default function RetailProfilePage() {
         };
         
         setShopProfile(enhancedProfile);
-      } else {
-        throw new Error("API not available");
       }
     } catch (error) {
-      // Always show demo data if API fails
-      const demoProfile: RetailShopProfile = {
-        shopName: "Fresh Mart Grocery Store",
-        shopType: "Grocery & Fresh Produce",
-        ownerName: "Rajesh Kumar",
-        email: effectiveUser.email || "retail@demo.com",
-        phone: "+91 98765 43210",
-        alternatePhone: "+91 98765 43211",
-        address: "123, Market Street, Commercial Complex",
-        city: "Mumbai",
-        state: "Maharashtra", 
-        pincode: "400001",
-        landmark: "Near City Mall",
-        gstNumber: "27ABCDE1234F1Z5",
-        licenseNumber: "FL-2024-001234",
-        establishedYear: "2018",
-        businessHours: "8:00 AM - 10:00 PM",
-        website: "www.freshmart.com",
-        description: "Your trusted neighborhood grocery store providing fresh produce, daily essentials, and quality products at competitive prices.",
-        specialties: "Fresh Vegetables, Organic Products, Daily Essentials, Local Produce",
-        paymentMethods: ["Cash", "UPI", "Card", "Digital Wallet"],
-        deliveryRadius: "5 km",
-        userType: "retail",
-        verified: true,
-        lastActive: new Date().toISOString(),
-      };
-      setShopProfile(demoProfile);
-    } finally {
-      setProfileLoading(false);
+      // Keep demo data if API fails
+      console.log("Using demo data - API unavailable");
     }
   };
 
   useEffect(() => {
-    // Always fetch profile, using effective user
     fetchShopProfile();
   }, [effectiveUser.uid]);
 
