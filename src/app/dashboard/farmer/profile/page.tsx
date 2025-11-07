@@ -130,10 +130,37 @@ export default function FarmerProfilePage() {
   });
 
   const fetchFarmerProfile = async () => {
+    // Show demo data immediately for fast response
+    const demoProfile: FarmerProfile = {
+      username: "Suresh Patel",
+      farmName: "Green Valley Organic Farm",
+      ownerName: "Suresh Patel",
+      email: effectiveUser.email || "farmer@demo.com",
+      phone: "+91 98765 43210",
+      alternatePhone: "+91 98765 43211",
+      address: "Plot 45, Green Valley, Nashik Road",
+      city: "Nashik",
+      state: "Maharashtra",
+      pincode: "422001",
+      landmark: "Near Highway Junction",
+      farmSize: "25 Acres",
+      farmingType: "Organic Farming",
+      establishedYear: "2015",
+      website: "www.greenvalleyfarm.com",
+      description: "Dedicated to sustainable and organic farming practices. We grow premium quality vegetables, fruits, and grains using traditional methods combined with modern techniques.",
+      specialties: "Organic Vegetables, Seasonal Fruits, Wheat, Rice, Pulses",
+      certifications: ["Organic Certified", "FSSAI Licensed", "Sustainable Farming"],
+      farmingMethods: "Drip Irrigation, Crop Rotation, Natural Pest Control",
+      userType: "farmer",
+      verified: true,
+      lastActive: new Date().toISOString(),
+    };
+    
+    setFarmerProfile(demoProfile);
+    setProfileLoading(false);
+    
+    // Fetch from API in background
     try {
-      setProfileLoading(true);
-      
-      // Try to fetch from API first
       const response = await fetch(`/api/users/${effectiveUser.uid}`);
       
       if (response.ok) {
@@ -168,43 +195,14 @@ export default function FarmerProfilePage() {
         };
         
         setFarmerProfile(enhancedProfile);
-      } else {
-        throw new Error("API not available");
       }
     } catch (error) {
-      // Always show demo data if API fails
-      const demoProfile: FarmerProfile = {
-        username: "Suresh Patel",
-        farmName: "Green Valley Organic Farm",
-        ownerName: "Suresh Patel",
-        email: effectiveUser.email || "farmer@demo.com",
-        phone: "+91 98765 43210",
-        alternatePhone: "+91 98765 43211",
-        address: "Plot 45, Green Valley, Nashik Road",
-        city: "Nashik",
-        state: "Maharashtra",
-        pincode: "422001",
-        landmark: "Near Highway Junction",
-        farmSize: "25 Acres",
-        farmingType: "Organic Farming",
-        establishedYear: "2015",
-        website: "www.greenvalleyfarm.com",
-        description: "Dedicated to sustainable and organic farming practices. We grow premium quality vegetables, fruits, and grains using traditional methods combined with modern techniques.",
-        specialties: "Organic Vegetables, Seasonal Fruits, Wheat, Rice, Pulses",
-        certifications: ["Organic Certified", "FSSAI Licensed", "Sustainable Farming"],
-        farmingMethods: "Drip Irrigation, Crop Rotation, Natural Pest Control",
-        userType: "farmer",
-        verified: true,
-        lastActive: new Date().toISOString(),
-      };
-      setFarmerProfile(demoProfile);
-    } finally {
-      setProfileLoading(false);
+      // Keep demo data if API fails
+      console.log("Using demo data - API unavailable");
     }
   };
 
   useEffect(() => {
-    // Always fetch profile, using effective user
     fetchFarmerProfile();
   }, [effectiveUser.uid]);
 
