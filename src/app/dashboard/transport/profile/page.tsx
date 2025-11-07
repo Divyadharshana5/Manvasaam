@@ -454,15 +454,16 @@ export default function TransportProfilePage() {
               Update Profile
             </Button>
           </DialogTrigger>
-          <DialogContent className="max-w-4xl max-h-[90vh] overflow-hidden flex flex-col">
+          <DialogContent className="max-w-4xl max-h-[85vh]">
             <DialogHeader>
               <DialogTitle>Update Transport Profile</DialogTitle>
               <DialogDescription>
                 Modify your transport company information and details
               </DialogDescription>
             </DialogHeader>
+            <div className="max-h-[calc(85vh-180px)] overflow-y-auto pr-2">
             <Form {...form}>
-              <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6 overflow-y-auto flex-1 pr-2">
+              <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
                 {/* Company Information */}
                 <div className="space-y-4">
                   <h3 className="text-lg font-semibold">Company Information</h3>
