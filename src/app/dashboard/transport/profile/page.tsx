@@ -761,8 +761,6 @@ export default function TransportProfilePage() {
                 )}
               </Button>
             </DialogFooter>
-              </form>
-            </Form>
           </DialogContent>
           </Dialog>
         </div>
