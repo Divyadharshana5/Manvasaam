@@ -133,10 +133,38 @@ export default function TransportProfilePage() {
   });
 
   const fetchTransportProfile = async () => {
+    // Show demo data immediately for fast response
+    const demoProfile: TransportProfile = {
+      username: "Amit Singh",
+      companyName: "Swift Logistics & Transport",
+      ownerName: "Amit Singh",
+      email: effectiveUser.email || "transport@demo.com",
+      phone: "+91 98765 43210",
+      alternatePhone: "+91 98765 43211",
+      address: "Transport Hub, Pune-Mumbai Highway",
+      city: "Pune",
+      state: "Maharashtra",
+      pincode: "411001",
+      landmark: "Near Industrial Area",
+      fleetSize: "25 Vehicles",
+      vehicleTypes: "Refrigerated Trucks, Mini Trucks, Tempo",
+      establishedYear: "2012",
+      licenseNumber: "TL-2024-001234",
+      website: "www.swiftlogistics.com",
+      description: "Reliable logistics partner ensuring fresh produce reaches its destination safely and on time. Specializing in cold chain transport and express delivery services.",
+      specialties: "Cold Chain Transport, Express Delivery, Fresh Produce Logistics",
+      serviceAreas: ["Mumbai", "Pune", "Nashik", "Aurangabad", "Kolhapur"],
+      operatingHours: "24/7 Service Available",
+      userType: "transport",
+      verified: true,
+      lastActive: new Date().toISOString(),
+    };
+    
+    setTransportProfile(demoProfile);
+    setProfileLoading(false);
+    
+    // Fetch from API in background
     try {
-      setProfileLoading(true);
-      
-      // Try to fetch from API first
       const response = await fetch(`/api/users/${effectiveUser.uid}`);
       
       if (response.ok) {
@@ -172,44 +200,14 @@ export default function TransportProfilePage() {
         };
         
         setTransportProfile(enhancedProfile);
-      } else {
-        throw new Error("API not available");
       }
     } catch (error) {
-      // Always show demo data if API fails
-      const demoProfile: TransportProfile = {
-        username: "Amit Singh",
-        companyName: "Swift Logistics & Transport",
-        ownerName: "Amit Singh",
-        email: effectiveUser.email || "transport@demo.com",
-        phone: "+91 98765 43210",
-        alternatePhone: "+91 98765 43211",
-        address: "Transport Hub, Pune-Mumbai Highway",
-        city: "Pune",
-        state: "Maharashtra",
-        pincode: "411001",
-        landmark: "Near Industrial Area",
-        fleetSize: "25 Vehicles",
-        vehicleTypes: "Refrigerated Trucks, Mini Trucks, Tempo",
-        establishedYear: "2012",
-        licenseNumber: "TL-2024-001234",
-        website: "www.swiftlogistics.com",
-        description: "Reliable logistics partner ensuring fresh produce reaches its destination safely and on time. Specializing in cold chain transport and express delivery services.",
-        specialties: "Cold Chain Transport, Express Delivery, Fresh Produce Logistics",
-        serviceAreas: ["Mumbai", "Pune", "Nashik", "Aurangabad", "Kolhapur"],
-        operatingHours: "24/7 Service Available",
-        userType: "transport",
-        verified: true,
-        lastActive: new Date().toISOString(),
-      };
-      setTransportProfile(demoProfile);
-    } finally {
-      setProfileLoading(false);
+      // Keep demo data if API fails
+      console.log("Using demo data - API unavailable");
     }
   };
 
   useEffect(() => {
-    // Always fetch profile, using effective user
     fetchTransportProfile();
   }, [effectiveUser.uid]);
 
