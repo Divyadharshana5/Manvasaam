@@ -457,7 +457,7 @@ export default function RetailProfilePage() {
               Update Profile
             </Button>
           </DialogTrigger>
-          <DialogContent className="max-w-4xl max-h-[90vh] overflow-y-auto">
+          <DialogContent className="max-w-4xl max-h-[90vh] overflow-hidden flex flex-col">
             <DialogHeader>
               <DialogTitle>Update Shop Profile</DialogTitle>
               <DialogDescription>
@@ -465,7 +465,7 @@ export default function RetailProfilePage() {
               </DialogDescription>
             </DialogHeader>
             <Form {...form}>
-              <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
+              <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6 overflow-y-auto flex-1 pr-2">
                 {/* Shop Information */}
                 <div className="space-y-4">
                   <h3 className="text-lg font-semibold">Shop Information</h3>
