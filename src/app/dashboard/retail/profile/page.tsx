@@ -43,6 +43,7 @@ import * as z from "zod";
 import { useToast } from "@/hooks/use-toast";
 
 interface RetailShopProfile {
+  username?: string;
   shopName?: string;
   shopType?: string;
   ownerName?: string;
