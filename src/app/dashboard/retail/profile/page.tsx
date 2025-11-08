@@ -311,20 +311,28 @@ export default function RetailProfilePage() {
           <h3 className="text-lg font-semibold mb-4 border-b pb-2 text-gray-900">Basic Information</h3>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             <div className="space-y-1">
-              <label className="text-sm font-medium text-gray-600">Shop Name</label>
-              <p className="text-base">{profileData.shopName || "Not provided"}</p>
+              <label className="text-sm font-medium text-gray-600">Username</label>
+              <p className="text-base">{profileData.username || "Not provided"}</p>
             </div>
             <div className="space-y-1">
-              <label className="text-sm font-medium text-gray-600">Owner Name</label>
-              <p className="text-base">{profileData.ownerName || "Not provided"}</p>
+              <label className="text-sm font-medium text-gray-600">Shop Name</label>
+              <p className="text-base">{profileData.shopName || "Not provided"}</p>
             </div>
             <div className="space-y-1">
               <label className="text-sm font-medium text-gray-600">Shop Type</label>
               <p className="text-base">{profileData.shopType || "Retail Store"}</p>
             </div>
             <div className="space-y-1">
+              <label className="text-sm font-medium text-gray-600">Owner Name</label>
+              <p className="text-base">{profileData.ownerName || "Not provided"}</p>
+            </div>
+            <div className="space-y-1">
               <label className="text-sm font-medium text-gray-600">Established Year</label>
               <p className="text-base">{profileData.establishedYear || "Not specified"}</p>
+            </div>
+            <div className="space-y-1">
+              <label className="text-sm font-medium text-gray-600">Business Hours</label>
+              <p className="text-base">{profileData.businessHours || "Not specified"}</p>
             </div>
           </div>
         </div>
