@@ -72,6 +72,7 @@ interface RetailShopProfile {
 }
 
 const profileFormSchema = z.object({
+  username: z.string().min(2, "Name must be at least 2 characters").optional().or(z.literal("")),
   shopName: z.string().min(2, "Shop name must be at least 2 characters").optional().or(z.literal("")),
   shopType: z.string().optional(),
   ownerName: z.string().min(2, "Owner name must be at least 2 characters").optional().or(z.literal("")),
@@ -111,6 +112,7 @@ export default function RetailProfilePage() {
   const form = useForm<z.infer<typeof profileFormSchema>>({
     resolver: zodResolver(profileFormSchema),
     defaultValues: {
+      username: "",
       shopName: "",
       shopType: "",
       ownerName: "",
@@ -136,6 +138,7 @@ export default function RetailProfilePage() {
   const fetchShopProfile = async () => {
     // Show demo data immediately for fast response
     const demoProfile: RetailShopProfile = {
+      username: "Rajesh Kumar",
       shopName: "Fresh Mart Grocery Store",
       shopType: "Grocery & Fresh Produce",
       ownerName: "Rajesh Kumar",
