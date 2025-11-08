@@ -176,6 +176,7 @@ export default function RetailProfilePage() {
         
         const enhancedProfile: RetailShopProfile = {
           ...data,
+          username: data.username || "Rajesh Kumar",
           shopName: data.shopName || "Fresh Mart Grocery Store",
           shopType: data.shopType || "Grocery & Fresh Produce",
           ownerName: data.ownerName || data.username || "Rajesh Kumar",
@@ -218,6 +219,7 @@ export default function RetailProfilePage() {
   useEffect(() => {
     if (shopProfile && isEditDialogOpen) {
       form.reset({
+        username: shopProfile.username || "",
         shopName: shopProfile.shopName || "",
         shopType: shopProfile.shopType || "",
         ownerName: shopProfile.ownerName || "",
