@@ -470,14 +470,14 @@ export default function RetailProfilePage() {
               Update Profile
             </Button>
           </DialogTrigger>
-          <DialogContent className="max-w-4xl max-h-[85vh]">
+          <DialogContent className="max-w-4xl max-h-[90vh] overflow-hidden">
             <DialogHeader>
               <DialogTitle>Update Shop Profile</DialogTitle>
               <DialogDescription>
                 Modify your shop information and business details
               </DialogDescription>
             </DialogHeader>
-            <div className="max-h-[calc(85vh-180px)] overflow-y-auto pr-2">
+            <div className="max-h-[calc(90vh-200px)] overflow-y-auto pr-2">
             <Form {...form}>
               <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
                 {/* Shop Information */}
