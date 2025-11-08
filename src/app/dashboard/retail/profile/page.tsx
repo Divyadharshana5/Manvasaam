@@ -400,10 +400,6 @@ export default function RetailProfilePage() {
               <p className="text-base">{profileData.licenseNumber || "Not provided"}</p>
             </div>
             <div className="space-y-1">
-              <label className="text-sm font-medium text-gray-600">Business Hours</label>
-              <p className="text-base">{profileData.businessHours || "Not specified"}</p>
-            </div>
-            <div className="space-y-1">
               <label className="text-sm font-medium text-gray-600">Delivery Radius</label>
               <p className="text-base">{profileData.deliveryRadius || "Not specified"}</p>
             </div>
