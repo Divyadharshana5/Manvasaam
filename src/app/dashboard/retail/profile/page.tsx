@@ -241,7 +241,7 @@ export default function RetailProfilePage() {
         deliveryRadius: shopProfile.deliveryRadius || "",
       });
     }
-  }, [shopProfile, isEditDialogOpen, form]);
+  }, [shopProfile, isEditDialogOpen]);
 
   async function onSubmit(values: z.infer<typeof profileFormSchema>) {
     if (!effectiveUser || !effectiveUser.uid) {
