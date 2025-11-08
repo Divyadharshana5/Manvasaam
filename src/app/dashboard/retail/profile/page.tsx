@@ -72,6 +72,7 @@ interface RetailShopProfile {
 
 const profileFormSchema = z.object({
   shopName: z.string().min(2, "Shop name must be at least 2 characters").optional().or(z.literal("")),
+  shopType: z.string().optional(),
   ownerName: z.string().min(2, "Owner name must be at least 2 characters").optional().or(z.literal("")),
   email: z.string().email("Please enter a valid email address").optional().or(z.literal("")),
   phone: z.string().regex(/^[\+]?[1-9][\d]{0,15}$/, "Please enter a valid phone number").optional().or(z.literal("")),
@@ -110,6 +111,7 @@ export default function RetailProfilePage() {
     resolver: zodResolver(profileFormSchema),
     defaultValues: {
       shopName: "",
+      shopType: "",
       ownerName: "",
       email: "",
       phone: "",
@@ -213,6 +215,7 @@ export default function RetailProfilePage() {
     if (shopProfile && isEditDialogOpen) {
       form.reset({
         shopName: shopProfile.shopName || "",
+        shopType: shopProfile.shopType || "",
         ownerName: shopProfile.ownerName || "",
         email: shopProfile.email || "",
         phone: shopProfile.phone || "",
@@ -479,6 +482,19 @@ export default function RetailProfilePage() {
                           <FormLabel>Shop Name</FormLabel>
                           <FormControl>
                             <Input placeholder="Fresh Mart Grocery Store" {...field} />
+                          </FormControl>
+                          <FormMessage />
+                        </FormItem>
+                      )}
+                    />
+                    <FormField
+                      control={form.control}
+                      name="shopType"
+                      render={({ field }) => (
+                        <FormItem>
+                          <FormLabel>Shop Type</FormLabel>
+                          <FormControl>
+                            <Input placeholder="Grocery & Fresh Produce" {...field} />
                           </FormControl>
                           <FormMessage />
                         </FormItem>
