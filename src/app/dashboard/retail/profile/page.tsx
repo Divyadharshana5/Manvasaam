@@ -804,7 +804,8 @@ export default function RetailProfilePage() {
               </Button>
             </DialogFooter>
           </DialogContent>
-        </Dialog>
+          </Dialog>
+        </div>
 
         {/* Shop Profile Card */}
         <Card className="w-full">
