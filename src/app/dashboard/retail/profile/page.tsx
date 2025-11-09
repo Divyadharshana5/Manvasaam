@@ -102,6 +102,11 @@ export default function RetailProfilePage() {
   const [isUpdating, setIsUpdating] = useState(false);
   const { toast } = useToast();
 
+  // Debug: Log when dialog state changes
+  useEffect(() => {
+    console.log("Dialog state changed:", isEditDialogOpen);
+  }, [isEditDialogOpen]);
+
   // Force demo user if no user is found
   const effectiveUser = user || {
     uid: 'demo-retail-1',
