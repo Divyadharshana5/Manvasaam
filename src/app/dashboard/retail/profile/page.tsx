@@ -3,18 +3,9 @@
 import { useEffect, useState } from "react";
 import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card";
 import { useAuth } from "@/hooks/use-auth";
-import { Loader2, Edit3, Save, Store, CheckCircle } from "lucide-react";
+import { Loader2, Edit3, Save, Store, CheckCircle, X } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import {
-  Dialog,
-  DialogContent,
-  DialogHeader,
-  DialogTitle,
-  DialogDescription,
-  DialogFooter,
-  DialogClose,
-  DialogTrigger,
-} from "@/components/ui/dialog";
+// Removed shadcn Dialog in favor of a custom modal for this page to resolve stacking issues
 import { Badge } from "@/components/ui/badge";
 import {
   Form,
