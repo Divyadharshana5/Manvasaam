@@ -475,10 +475,10 @@ export default function RetailProfilePage() {
                 Update Profile
               </Button>
             </DialogTrigger>
-            <DialogContent className="max-w-4xl max-h-[85vh]">
+            <DialogContent className="max-w-4xl max-h-[85vh] bg-white">
             <DialogHeader>
-              <DialogTitle>Update Shop Profile</DialogTitle>
-              <DialogDescription>
+              <DialogTitle className="text-2xl font-bold">Update Shop Profile</DialogTitle>
+              <DialogDescription className="text-lg">
                 Modify your shop information and business details
               </DialogDescription>
             </DialogHeader>
