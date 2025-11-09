@@ -578,33 +578,55 @@ export default function RetailProfilePage() {
               View and manage your shop information
             </p>
           </div>
-          <Dialog
-            open={isEditDialogOpen}
-            onOpenChange={(open) => {
-              console.log("Retail profile dialog state =>", open);
-              setIsEditDialogOpen(open);
-            }}
-          >
-            <DialogTrigger asChild>
-              <Button type="button" onClick={() => setIsEditDialogOpen(true)}>
-                <Edit3 className="mr-2 h-4 w-4" />
-                Update Profile
-              </Button>
-            </DialogTrigger>
-            <DialogContent className="max-w-4xl max-h-[90vh] overflow-y-auto bg-white shadow-2xl ring-2 ring-emerald-500/30">
-              <DialogHeader>
-                <DialogTitle className="text-2xl font-bold">
-                  Update Shop Profile
-                </DialogTitle>
-                <DialogDescription className="text-lg">
-                  Modify your shop information and business details
-                </DialogDescription>
-              </DialogHeader>
-              <Form {...form}>
-                <form
-                  onSubmit={form.handleSubmit(onSubmit)}
-                  className="space-y-6"
-                >
+          {/* Custom Modal (replaces Radix Dialog to avoid stacking/portal conflicts) */}
+          <div>
+            <Button
+              type="button"
+              onClick={() => {
+                console.log('[RetailProfile] Open modal');
+                setIsEditDialogOpen(true);
+              }}
+              className="relative z-auto"
+            >
+              <Edit3 className="mr-2 h-4 w-4" />
+              Update Profile
+            </Button>
+            {isEditDialogOpen && (
+              <div className="fixed inset-0 z-[2147483600]">
+                {/* Backdrop */}
+                <div
+                  className="absolute inset-0 bg-black/70 backdrop-blur-sm animate-in fade-in-0"
+                  onClick={() => {
+                    console.log('[RetailProfile] Backdrop click close');
+                    setIsEditDialogOpen(false);
+                  }}
+                />
+                {/* Modal Panel */}
+                <div className="absolute inset-0 flex items-start md:items-center justify-center p-2 md:p-6 overflow-y-auto">
+                  <div className="relative w-full max-w-4xl bg-white rounded-lg shadow-2xl ring-2 ring-emerald-500/40 border border-emerald-200 animate-in zoom-in-95 data-[state=open]:fade-in-0">
+                    <div className="sticky top-0 z-10 flex items-start justify-between p-4 border-b bg-white/90 backdrop-blur">
+                      <div>
+                        <h2 className="text-2xl font-bold">Update Shop Profile</h2>
+                        <p className="text-sm text-gray-600">Modify your shop information and business details</p>
+                      </div>
+                      <button
+                        type="button"
+                        onClick={() => {
+                          console.log('[RetailProfile] Close via X button');
+                          setIsEditDialogOpen(false);
+                        }}
+                        className="p-2 rounded-md hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-emerald-500"
+                        aria-label="Close"
+                      >
+                        <X className="h-5 w-5" />
+                      </button>
+                    </div>
+                    <div className="p-4 md:p-6 space-y-6">
+                      <Form {...form}>
+                        <form
+                          onSubmit={form.handleSubmit(onSubmit)}
+                          className="space-y-6"
+                        >
                   {/* Shop Information */}
                   <div className="space-y-4">
                     <h3 className="text-lg font-semibold">Shop Information</h3>
@@ -936,16 +958,18 @@ export default function RetailProfilePage() {
                     />
                   </div>
 
-                  <DialogFooter className="gap-2 mt-4">
-                    <DialogClose asChild>
-                      <Button
-                        type="button"
-                        variant="outline"
-                        disabled={isUpdating}
-                      >
-                        Cancel
-                      </Button>
-                    </DialogClose>
+                  <div className="flex justify-end gap-3 pt-2 border-t">
+                    <Button
+                      type="button"
+                      variant="outline"
+                      disabled={isUpdating}
+                      onClick={() => {
+                        console.log('[RetailProfile] Cancel button close');
+                        setIsEditDialogOpen(false);
+                      }}
+                    >
+                      Cancel
+                    </Button>
                     <Button type="submit" disabled={isUpdating}>
                       {isUpdating ? (
                         <>
@@ -959,11 +983,16 @@ export default function RetailProfilePage() {
                         </>
                       )}
                     </Button>
-                  </DialogFooter>
+                  </div>
                 </form>
               </Form>
-            </DialogContent>
-          </Dialog>
+            </div>
+          </div>
+        </div>
+      )}
+    </div>
+  </div>
+          )}
         </div>
 
         {/* Shop Profile Card */}
