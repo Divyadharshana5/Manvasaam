@@ -589,7 +589,7 @@ export default function RetailProfilePage() {
           </div>
           <Dialog open={isEditDialogOpen} onOpenChange={setIsEditDialogOpen}>
             <DialogTrigger asChild>
-              <Button>
+              <Button type="button">
                 <Edit3 className="mr-2 h-4 w-4" />
                 Update Profile
               </Button>
