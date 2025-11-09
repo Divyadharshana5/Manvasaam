@@ -472,7 +472,6 @@ export default function RetailProfilePage() {
         {/* Update Profile Dialog */}
         <Dialog open={isEditDialogOpen} onOpenChange={setIsEditDialogOpen}>
           <DialogContent className="max-w-4xl max-h-[85vh]">
-          <DialogContent className="max-w-4xl max-h-[85vh]">
             <DialogHeader>
               <DialogTitle>Update Shop Profile</DialogTitle>
               <DialogDescription>
