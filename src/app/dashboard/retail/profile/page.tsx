@@ -589,12 +589,12 @@ export default function RetailProfilePage() {
           </div>
           <Dialog open={isEditDialogOpen} onOpenChange={setIsEditDialogOpen}>
             <DialogTrigger asChild>
-              <Button type="button">
+              <Button type="button" onClick={() => setIsEditDialogOpen(true)}>
                 <Edit3 className="mr-2 h-4 w-4" />
                 Update Profile
               </Button>
             </DialogTrigger>
-            <DialogContent className="max-w-4xl max-h-[90vh] overflow-y-auto bg-white">
+            <DialogContent className="max-w-4xl max-h-[90vh] overflow-y-auto bg-white" style={{ zIndex: 10002 }}>
               <DialogHeader>
                 <DialogTitle className="text-2xl font-bold">
                   Update Shop Profile
