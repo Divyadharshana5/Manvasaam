@@ -600,10 +600,7 @@ export default function RetailProfilePage() {
                 Update Profile
               </Button>
             </DialogTrigger>
-            <DialogContent
-              className="max-w-4xl max-h-[90vh] overflow-y-auto bg-white"
-              style={{ zIndex: 10002 }}
-            >
+            <DialogContent className="max-w-4xl max-h-[90vh] overflow-y-auto bg-white shadow-2xl ring-2 ring-emerald-500/30">
               <DialogHeader>
                 <DialogTitle className="text-2xl font-bold">
                   Update Shop Profile
