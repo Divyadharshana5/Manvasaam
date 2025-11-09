@@ -988,11 +988,8 @@ export default function RetailProfilePage() {
               </Form>
             </div>
           </div>
-        </div>
-      )}
-    </div>
-  </div>
-          )}
+            )}
+          </div>
         </div>
 
         {/* Shop Profile Card */}
