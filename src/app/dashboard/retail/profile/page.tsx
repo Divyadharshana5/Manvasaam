@@ -587,7 +587,10 @@ export default function RetailProfilePage() {
               View and manage your shop information
             </p>
           </div>
-          <Dialog open={isEditDialogOpen} onOpenChange={setIsEditDialogOpen}>
+          <Dialog open={isEditDialogOpen} onOpenChange={(open) => { 
+            console.log('Retail profile dialog state =>', open); 
+            setIsEditDialogOpen(open); 
+          }}>
             <DialogTrigger asChild>
               <Button type="button" onClick={() => setIsEditDialogOpen(true)}>
                 <Edit3 className="mr-2 h-4 w-4" />
