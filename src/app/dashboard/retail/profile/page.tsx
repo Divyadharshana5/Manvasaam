@@ -463,13 +463,15 @@ export default function RetailProfilePage() {
               View and manage your shop information
             </p>
           </div>
-          <Dialog open={isEditDialogOpen} onOpenChange={setIsEditDialogOpen}>
-          <DialogTrigger asChild>
-            <Button>
-              <Edit3 className="mr-2 h-4 w-4" />
-              Update Profile
-            </Button>
-          </DialogTrigger>
+          <Button onClick={() => setIsEditDialogOpen(true)}>
+            <Edit3 className="mr-2 h-4 w-4" />
+            Update Profile
+          </Button>
+        </div>
+
+        {/* Update Profile Dialog */}
+        <Dialog open={isEditDialogOpen} onOpenChange={setIsEditDialogOpen}>
+          <DialogContent className="max-w-4xl max-h-[85vh]">
           <DialogContent className="max-w-4xl max-h-[85vh]">
             <DialogHeader>
               <DialogTitle>Update Shop Profile</DialogTitle>
