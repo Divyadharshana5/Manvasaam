@@ -587,17 +587,23 @@ export default function RetailProfilePage() {
               View and manage your shop information
             </p>
           </div>
-          <Dialog open={isEditDialogOpen} onOpenChange={(open) => { 
-            console.log('Retail profile dialog state =>', open); 
-            setIsEditDialogOpen(open); 
-          }}>
+          <Dialog
+            open={isEditDialogOpen}
+            onOpenChange={(open) => {
+              console.log("Retail profile dialog state =>", open);
+              setIsEditDialogOpen(open);
+            }}
+          >
             <DialogTrigger asChild>
               <Button type="button" onClick={() => setIsEditDialogOpen(true)}>
                 <Edit3 className="mr-2 h-4 w-4" />
                 Update Profile
               </Button>
             </DialogTrigger>
-            <DialogContent className="max-w-4xl max-h-[90vh] overflow-y-auto bg-white" style={{ zIndex: 10002 }}>
+            <DialogContent
+              className="max-w-4xl max-h-[90vh] overflow-y-auto bg-white"
+              style={{ zIndex: 10002 }}
+            >
               <DialogHeader>
                 <DialogTitle className="text-2xl font-bold">
                   Update Shop Profile
