@@ -60,7 +60,8 @@ export default function FarmerNotifications() {
     dailyDigest: true,
     weeklyReport: false,
   });
-  const notifications = [
+
+  const [notifications, setNotifications] = useState([
     {
       id: "1",
       type: "urgent",
