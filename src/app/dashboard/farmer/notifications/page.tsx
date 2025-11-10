@@ -373,7 +373,194 @@ export default function FarmerNotifications() {
             </div>
           </div>
         </div>
-      )}{" "}
+      )}
+
+      {/* Settings Dialog */}
+      {isSettingsOpen && (
+        <div className="fixed inset-0 z-[2147483600]">
+          <div 
+            className="absolute inset-0 bg-black/70 backdrop-blur-sm animate-in fade-in-0" 
+            onClick={() => setIsSettingsOpen(false)} 
+          />
+          <div className="absolute inset-0 flex items-start md:items-center justify-center p-4 overflow-y-auto">
+            <div className="relative w-full max-w-lg bg-white rounded-lg shadow-2xl ring-2 ring-green-500/40 border border-green-200 animate-in zoom-in-95">
+              <div className="sticky top-0 z-10 flex items-start justify-between p-4 border-b bg-white/90 backdrop-blur">
+                <div>
+                  <h2 className="text-lg font-semibold">Notification Settings</h2>
+                  <p className="text-sm text-muted-foreground">Manage your notification preferences</p>
+                </div>
+                <button 
+                  onClick={() => setIsSettingsOpen(false)}
+                  className="rounded-sm opacity-70 ring-offset-background transition-opacity hover:opacity-100 focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2"
+                >
+                  <X className="h-5 w-5" />
+                  <span className="sr-only">Close</span>
+                </button>
+              </div>
+              
+              <div className="p-6 space-y-6">
+                {/* Notification Channels */}
+                <div className="space-y-4">
+                  <div>
+                    <h3 className="text-sm font-semibold mb-3">Notification Channels</h3>
+                    <p className="text-xs text-muted-foreground mb-4">Choose how you want to receive notifications</p>
+                  </div>
+                  
+                  <div className="flex items-center justify-between">
+                    <div className="flex items-center space-x-2">
+                      <Bell className="h-4 w-4 text-green-600" />
+                      <Label 
+                        htmlFor="emailNotifications"
+                        className="text-sm font-medium"
+                      >
+                        Email Notifications
+                      </Label>
+                    </div>
+                    <Checkbox
+                      id="emailNotifications"
+                      checked={settings.emailNotifications}
+                      onCheckedChange={(checked) => 
+                        setSettings(prev => ({ ...prev, emailNotifications: checked as boolean }))
+                      }
+                    />
+                  </div>
+
+                  <div className="flex items-center justify-between">
+                    <div className="flex items-center space-x-2">
+                      <Bell className="h-4 w-4 text-blue-600" />
+                      <Label 
+                        htmlFor="pushNotifications"
+                        className="text-sm font-medium"
+                      >
+                        Push Notifications
+                      </Label>
+                    </div>
+                    <Checkbox
+                      id="pushNotifications"
+                      checked={settings.pushNotifications}
+                      onCheckedChange={(checked) => 
+                        setSettings(prev => ({ ...prev, pushNotifications: checked as boolean }))
+                      }
+                    />
+                  </div>
+
+                  <div className="flex items-center justify-between">
+                    <div className="flex items-center space-x-2">
+                      <Bell className="h-4 w-4 text-purple-600" />
+                      <Label 
+                        htmlFor="smsNotifications"
+                        className="text-sm font-medium"
+                      >
+                        SMS Notifications
+                      </Label>
+                    </div>
+                    <Checkbox
+                      id="smsNotifications"
+                      checked={settings.smsNotifications}
+                      onCheckedChange={(checked) => 
+                        setSettings(prev => ({ ...prev, smsNotifications: checked as boolean }))
+                      }
+                    />
+                  </div>
+                </div>
+
+                <div className="border-t pt-4" />
+
+                {/* Notification Preferences */}
+                <div className="space-y-4">
+                  <div>
+                    <h3 className="text-sm font-semibold mb-3">Notification Preferences</h3>
+                    <p className="text-xs text-muted-foreground mb-4">Customize what notifications you receive</p>
+                  </div>
+
+                  <div className="flex items-center justify-between">
+                    <div className="flex items-center space-x-2">
+                      <AlertTriangle className="h-4 w-4 text-red-600" />
+                      <Label 
+                        htmlFor="urgentAlertsOnly"
+                        className="text-sm font-medium"
+                      >
+                        Urgent Alerts Only
+                      </Label>
+                    </div>
+                    <Checkbox
+                      id="urgentAlertsOnly"
+                      checked={settings.urgentAlertsOnly}
+                      onCheckedChange={(checked) => 
+                        setSettings(prev => ({ ...prev, urgentAlertsOnly: checked as boolean }))
+                      }
+                    />
+                  </div>
+
+                  <div className="flex items-center justify-between">
+                    <div className="flex items-center space-x-2">
+                      <Calendar className="h-4 w-4 text-green-600" />
+                      <Label 
+                        htmlFor="dailyDigest"
+                        className="text-sm font-medium"
+                      >
+                        Daily Digest
+                      </Label>
+                    </div>
+                    <Checkbox
+                      id="dailyDigest"
+                      checked={settings.dailyDigest}
+                      onCheckedChange={(checked) => 
+                        setSettings(prev => ({ ...prev, dailyDigest: checked as boolean }))
+                      }
+                    />
+                  </div>
+
+                  <div className="flex items-center justify-between">
+                    <div className="flex items-center space-x-2">
+                      <Calendar className="h-4 w-4 text-blue-600" />
+                      <Label 
+                        htmlFor="weeklyReport"
+                        className="text-sm font-medium"
+                      >
+                        Weekly Report
+                      </Label>
+                    </div>
+                    <Checkbox
+                      id="weeklyReport"
+                      checked={settings.weeklyReport}
+                      onCheckedChange={(checked) => 
+                        setSettings(prev => ({ ...prev, weeklyReport: checked as boolean }))
+                      }
+                    />
+                  </div>
+                </div>
+              </div>
+
+              <div className="flex justify-between gap-3 p-4 border-t bg-gray-50">
+                <Button
+                  type="button"
+                  variant="outline"
+                  onClick={() => {
+                    setSettings({ 
+                      emailNotifications: true, 
+                      pushNotifications: true, 
+                      smsNotifications: false,
+                      urgentAlertsOnly: false,
+                      dailyDigest: true,
+                      weeklyReport: false
+                    });
+                  }}
+                >
+                  Reset to Default
+                </Button>
+                <Button
+                  onClick={() => setIsSettingsOpen(false)}
+                  className="bg-green-600 hover:bg-green-700"
+                >
+                  Save Settings
+                </Button>
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
+
       <Tabs
         value={activeTab}
         onValueChange={setActiveTab}
