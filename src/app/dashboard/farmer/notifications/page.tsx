@@ -42,15 +42,16 @@ import Link from "next/link";
 import { useState } from "react";
 
 export default function FarmerNotifications() {
-    const [searchQuery, setSearchQuery] = useState("");
-    const [activeTab, setActiveTab] = useState("all");
-    const [isFilterOpen, setIsFilterOpen] = useState(false);
-    const [filters, setFilters] = useState({
-        unreadOnly: false,
-        showUrgent: true,
-        showInfo: true,
-        showSuccess: true,
-    });  const notifications = [
+  const [searchQuery, setSearchQuery] = useState("");
+  const [activeTab, setActiveTab] = useState("all");
+  const [isFilterOpen, setIsFilterOpen] = useState(false);
+  const [filters, setFilters] = useState({
+    unreadOnly: false,
+    showUrgent: true,
+    showInfo: true,
+    showSuccess: true,
+  });
+  const notifications = [
     {
       id: "1",
       type: "urgent",
