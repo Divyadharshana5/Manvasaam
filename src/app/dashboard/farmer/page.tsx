@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from "react";
 import { useAuth } from "@/hooks/use-auth";
+import { useToast } from "@/hooks/use-toast";
 import {
   Card,
   CardContent,
@@ -48,9 +49,11 @@ interface Product {
 
 export default function FarmerDashboard() {
   const { user } = useAuth();
+  const { toast } = useToast();
   const [products, setProducts] = useState<Product[]>([]);
   const [isLoading, setIsLoading] = useState(true);
   const [searchQuery, setSearchQuery] = useState("");
+  const [notificationCount, setNotificationCount] = useState(3); // Mock notification count
   const [stats, setStats] = useState({
     activeProducts: 0,
     totalOrders: 24,
