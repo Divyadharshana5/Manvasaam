@@ -549,7 +549,7 @@ export default function FarmerProfilePage() {
             <Button
               type="button"
               onClick={() => {
-                console.log('[FarmerProfile] Open modal');
+                console.log("[FarmerProfile] Open modal");
                 setIsEditDialogOpen(true);
               }}
               className="relative z-auto"
@@ -567,7 +567,7 @@ export default function FarmerProfilePage() {
             <div
               className="absolute inset-0 bg-black/70 backdrop-blur-sm animate-in fade-in-0"
               onClick={() => {
-                console.log('[FarmerProfile] Backdrop click close');
+                console.log("[FarmerProfile] Backdrop click close");
                 setIsEditDialogOpen(false);
               }}
             />
@@ -576,13 +576,17 @@ export default function FarmerProfilePage() {
               <div className="relative w-full max-w-4xl bg-white rounded-lg shadow-2xl ring-2 ring-green-500/40 border border-green-200 animate-in zoom-in-95">
                 <div className="sticky top-0 z-10 flex items-start justify-between p-4 border-b bg-white/90 backdrop-blur">
                   <div>
-                    <h2 className="text-2xl font-bold">Update Farmer Profile</h2>
-                    <p className="text-sm text-gray-600">Modify your farm information and details</p>
+                    <h2 className="text-2xl font-bold">
+                      Update Farmer Profile
+                    </h2>
+                    <p className="text-sm text-gray-600">
+                      Modify your farm information and details
+                    </p>
                   </div>
                   <button
                     type="button"
                     onClick={() => {
-                      console.log('[FarmerProfile] Close via X button');
+                      console.log("[FarmerProfile] Close via X button");
                       setIsEditDialogOpen(false);
                     }}
                     className="p-2 rounded-md hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-green-500"
@@ -592,162 +596,288 @@ export default function FarmerProfilePage() {
                   </button>
                 </div>
                 <div className="p-4 md:p-6 space-y-6">
-                <Form {...form}>
-                  <form
-                    onSubmit={form.handleSubmit(onSubmit)}
-                    className="space-y-6"
-                  >
-                    {/* Farm Information */}
-                    <div className="space-y-4">
-                      <h3 className="text-lg font-semibold">
-                        Farm Information
-                      </h3>
-                      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                        <FormField
-                          control={form.control}
-                          name="farmName"
-                          render={({ field }) => (
-                            <FormItem>
-                              <FormLabel>Farm Name</FormLabel>
-                              <FormControl>
-                                <Input
-                                  placeholder="Green Valley Organic Farm"
-                                  {...field}
-                                />
-                              </FormControl>
-                              <FormMessage />
-                            </FormItem>
-                          )}
-                        />
-                        <FormField
-                          control={form.control}
-                          name="ownerName"
-                          render={({ field }) => (
-                            <FormItem>
-                              <FormLabel>Owner Name</FormLabel>
-                              <FormControl>
-                                <Input placeholder="Suresh Patel" {...field} />
-                              </FormControl>
-                              <FormMessage />
-                            </FormItem>
-                          )}
-                        />
-                        <FormField
-                          control={form.control}
-                          name="farmSize"
-                          render={({ field }) => (
-                            <FormItem>
-                              <FormLabel>Farm Size</FormLabel>
-                              <FormControl>
-                                <Input placeholder="25 Acres" {...field} />
-                              </FormControl>
-                              <FormMessage />
-                            </FormItem>
-                          )}
-                        />
-                        <FormField
-                          control={form.control}
-                          name="establishedYear"
-                          render={({ field }) => (
-                            <FormItem>
-                              <FormLabel>Established Year</FormLabel>
-                              <FormControl>
-                                <Input placeholder="2015" {...field} />
-                              </FormControl>
-                              <FormMessage />
-                            </FormItem>
-                          )}
-                        />
+                  <Form {...form}>
+                    <form
+                      onSubmit={form.handleSubmit(onSubmit)}
+                      className="space-y-6"
+                    >
+                      {/* Farm Information */}
+                      <div className="space-y-4">
+                        <h3 className="text-lg font-semibold">
+                          Farm Information
+                        </h3>
+                        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                          <FormField
+                            control={form.control}
+                            name="farmName"
+                            render={({ field }) => (
+                              <FormItem>
+                                <FormLabel>Farm Name</FormLabel>
+                                <FormControl>
+                                  <Input
+                                    placeholder="Green Valley Organic Farm"
+                                    {...field}
+                                  />
+                                </FormControl>
+                                <FormMessage />
+                              </FormItem>
+                            )}
+                          />
+                          <FormField
+                            control={form.control}
+                            name="ownerName"
+                            render={({ field }) => (
+                              <FormItem>
+                                <FormLabel>Owner Name</FormLabel>
+                                <FormControl>
+                                  <Input
+                                    placeholder="Suresh Patel"
+                                    {...field}
+                                  />
+                                </FormControl>
+                                <FormMessage />
+                              </FormItem>
+                            )}
+                          />
+                          <FormField
+                            control={form.control}
+                            name="farmSize"
+                            render={({ field }) => (
+                              <FormItem>
+                                <FormLabel>Farm Size</FormLabel>
+                                <FormControl>
+                                  <Input placeholder="25 Acres" {...field} />
+                                </FormControl>
+                                <FormMessage />
+                              </FormItem>
+                            )}
+                          />
+                          <FormField
+                            control={form.control}
+                            name="establishedYear"
+                            render={({ field }) => (
+                              <FormItem>
+                                <FormLabel>Established Year</FormLabel>
+                                <FormControl>
+                                  <Input placeholder="2015" {...field} />
+                                </FormControl>
+                                <FormMessage />
+                              </FormItem>
+                            )}
+                          />
+                        </div>
                       </div>
-                    </div>
 
-                    {/* Contact Details */}
-                    <div className="space-y-4">
-                      <h3 className="text-lg font-semibold">Contact Details</h3>
-                      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                        <FormField
-                          control={form.control}
-                          name="email"
-                          render={({ field }) => (
-                            <FormItem>
-                              <FormLabel>Email</FormLabel>
-                              <FormControl>
-                                <Input
-                                  type="email"
-                                  placeholder="farmer@example.com"
-                                  {...field}
-                                />
-                              </FormControl>
-                              <FormMessage />
-                            </FormItem>
-                          )}
-                        />
-                        <FormField
-                          control={form.control}
-                          name="phone"
-                          render={({ field }) => (
-                            <FormItem>
-                              <FormLabel>Primary Phone</FormLabel>
-                              <FormControl>
-                                <Input
-                                  type="tel"
-                                  placeholder="+91 98765 43210"
-                                  {...field}
-                                />
-                              </FormControl>
-                              <FormMessage />
-                            </FormItem>
-                          )}
-                        />
-                        <FormField
-                          control={form.control}
-                          name="alternatePhone"
-                          render={({ field }) => (
-                            <FormItem>
-                              <FormLabel>Alternate Phone</FormLabel>
-                              <FormControl>
-                                <Input
-                                  type="tel"
-                                  placeholder="+91 98765 43211"
-                                  {...field}
-                                />
-                              </FormControl>
-                              <FormMessage />
-                            </FormItem>
-                          )}
-                        />
-                        <FormField
-                          control={form.control}
-                          name="website"
-                          render={({ field }) => (
-                            <FormItem>
-                              <FormLabel>Website</FormLabel>
-                              <FormControl>
-                                <Input
-                                  placeholder="www.yourfarm.com"
-                                  {...field}
-                                />
-                              </FormControl>
-                              <FormMessage />
-                            </FormItem>
-                          )}
-                        />
+                      {/* Contact Details */}
+                      <div className="space-y-4">
+                        <h3 className="text-lg font-semibold">
+                          Contact Details
+                        </h3>
+                        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                          <FormField
+                            control={form.control}
+                            name="email"
+                            render={({ field }) => (
+                              <FormItem>
+                                <FormLabel>Email</FormLabel>
+                                <FormControl>
+                                  <Input
+                                    type="email"
+                                    placeholder="farmer@example.com"
+                                    {...field}
+                                  />
+                                </FormControl>
+                                <FormMessage />
+                              </FormItem>
+                            )}
+                          />
+                          <FormField
+                            control={form.control}
+                            name="phone"
+                            render={({ field }) => (
+                              <FormItem>
+                                <FormLabel>Primary Phone</FormLabel>
+                                <FormControl>
+                                  <Input
+                                    type="tel"
+                                    placeholder="+91 98765 43210"
+                                    {...field}
+                                  />
+                                </FormControl>
+                                <FormMessage />
+                              </FormItem>
+                            )}
+                          />
+                          <FormField
+                            control={form.control}
+                            name="alternatePhone"
+                            render={({ field }) => (
+                              <FormItem>
+                                <FormLabel>Alternate Phone</FormLabel>
+                                <FormControl>
+                                  <Input
+                                    type="tel"
+                                    placeholder="+91 98765 43211"
+                                    {...field}
+                                  />
+                                </FormControl>
+                                <FormMessage />
+                              </FormItem>
+                            )}
+                          />
+                          <FormField
+                            control={form.control}
+                            name="website"
+                            render={({ field }) => (
+                              <FormItem>
+                                <FormLabel>Website</FormLabel>
+                                <FormControl>
+                                  <Input
+                                    placeholder="www.yourfarm.com"
+                                    {...field}
+                                  />
+                                </FormControl>
+                                <FormMessage />
+                              </FormItem>
+                            )}
+                          />
+                        </div>
                       </div>
-                    </div>
 
-                    {/* Address */}
-                    <div className="space-y-4">
-                      <h3 className="text-lg font-semibold">Farm Location</h3>
-                      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                      {/* Address */}
+                      <div className="space-y-4">
+                        <h3 className="text-lg font-semibold">Farm Location</h3>
+                        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                          <FormField
+                            control={form.control}
+                            name="address"
+                            render={({ field }) => (
+                              <FormItem className="md:col-span-2">
+                                <FormLabel>Address</FormLabel>
+                                <FormControl>
+                                  <Textarea
+                                    placeholder="Plot 45, Green Valley, Nashik Road"
+                                    {...field}
+                                  />
+                                </FormControl>
+                                <FormMessage />
+                              </FormItem>
+                            )}
+                          />
+                          <FormField
+                            control={form.control}
+                            name="city"
+                            render={({ field }) => (
+                              <FormItem>
+                                <FormLabel>City</FormLabel>
+                                <FormControl>
+                                  <Input placeholder="Nashik" {...field} />
+                                </FormControl>
+                                <FormMessage />
+                              </FormItem>
+                            )}
+                          />
+                          <FormField
+                            control={form.control}
+                            name="state"
+                            render={({ field }) => (
+                              <FormItem>
+                                <FormLabel>State</FormLabel>
+                                <FormControl>
+                                  <Input placeholder="Maharashtra" {...field} />
+                                </FormControl>
+                                <FormMessage />
+                              </FormItem>
+                            )}
+                          />
+                          <FormField
+                            control={form.control}
+                            name="pincode"
+                            render={({ field }) => (
+                              <FormItem>
+                                <FormLabel>Pincode</FormLabel>
+                                <FormControl>
+                                  <Input placeholder="422001" {...field} />
+                                </FormControl>
+                                <FormMessage />
+                              </FormItem>
+                            )}
+                          />
+                          <FormField
+                            control={form.control}
+                            name="landmark"
+                            render={({ field }) => (
+                              <FormItem>
+                                <FormLabel>Landmark</FormLabel>
+                                <FormControl>
+                                  <Input
+                                    placeholder="Near Highway Junction"
+                                    {...field}
+                                  />
+                                </FormControl>
+                                <FormMessage />
+                              </FormItem>
+                            )}
+                          />
+                        </div>
+                      </div>
+
+                      {/* Farming Details */}
+                      <div className="space-y-4">
+                        <h3 className="text-lg font-semibold">
+                          Farming Details
+                        </h3>
+                        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                          <FormField
+                            control={form.control}
+                            name="farmingType"
+                            render={({ field }) => (
+                              <FormItem>
+                                <FormLabel>Farming Type</FormLabel>
+                                <FormControl>
+                                  <Input
+                                    placeholder="Organic Farming"
+                                    {...field}
+                                  />
+                                </FormControl>
+                                <FormMessage />
+                              </FormItem>
+                            )}
+                          />
+                          <FormField
+                            control={form.control}
+                            name="farmingMethods"
+                            render={({ field }) => (
+                              <FormItem>
+                                <FormLabel>Farming Methods</FormLabel>
+                                <FormControl>
+                                  <Input
+                                    placeholder="Drip Irrigation, Crop Rotation"
+                                    {...field}
+                                  />
+                                </FormControl>
+                                <FormMessage />
+                              </FormItem>
+                            )}
+                          />
+                        </div>
+                      </div>
+
+                      {/* Additional Information */}
+                      <div className="space-y-4">
+                        <h3 className="text-lg font-semibold">
+                          Additional Information
+                        </h3>
                         <FormField
                           control={form.control}
-                          name="address"
+                          name="description"
                           render={({ field }) => (
-                            <FormItem className="md:col-span-2">
-                              <FormLabel>Address</FormLabel>
+                            <FormItem>
+                              <FormLabel>About Your Farm</FormLabel>
                               <FormControl>
                                 <Textarea
-                                  placeholder="Plot 45, Green Valley, Nashik Road"
+                                  placeholder="Describe your farm, farming practices, and what makes you special..."
+                                  className="min-h-[100px]"
                                   {...field}
                                 />
                               </FormControl>
@@ -757,52 +887,13 @@ export default function FarmerProfilePage() {
                         />
                         <FormField
                           control={form.control}
-                          name="city"
+                          name="specialties"
                           render={({ field }) => (
                             <FormItem>
-                              <FormLabel>City</FormLabel>
-                              <FormControl>
-                                <Input placeholder="Nashik" {...field} />
-                              </FormControl>
-                              <FormMessage />
-                            </FormItem>
-                          )}
-                        />
-                        <FormField
-                          control={form.control}
-                          name="state"
-                          render={({ field }) => (
-                            <FormItem>
-                              <FormLabel>State</FormLabel>
-                              <FormControl>
-                                <Input placeholder="Maharashtra" {...field} />
-                              </FormControl>
-                              <FormMessage />
-                            </FormItem>
-                          )}
-                        />
-                        <FormField
-                          control={form.control}
-                          name="pincode"
-                          render={({ field }) => (
-                            <FormItem>
-                              <FormLabel>Pincode</FormLabel>
-                              <FormControl>
-                                <Input placeholder="422001" {...field} />
-                              </FormControl>
-                              <FormMessage />
-                            </FormItem>
-                          )}
-                        />
-                        <FormField
-                          control={form.control}
-                          name="landmark"
-                          render={({ field }) => (
-                            <FormItem>
-                              <FormLabel>Landmark</FormLabel>
+                              <FormLabel>Crops & Specialties</FormLabel>
                               <FormControl>
                                 <Input
-                                  placeholder="Near Highway Junction"
+                                  placeholder="Organic Vegetables, Seasonal Fruits, Wheat, Rice"
                                   {...field}
                                 />
                               </FormControl>
@@ -811,120 +902,39 @@ export default function FarmerProfilePage() {
                           )}
                         />
                       </div>
-                    </div>
-
-                    {/* Farming Details */}
-                    <div className="space-y-4">
-                      <h3 className="text-lg font-semibold">Farming Details</h3>
-                      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                        <FormField
-                          control={form.control}
-                          name="farmingType"
-                          render={({ field }) => (
-                            <FormItem>
-                              <FormLabel>Farming Type</FormLabel>
-                              <FormControl>
-                                <Input
-                                  placeholder="Organic Farming"
-                                  {...field}
-                                />
-                              </FormControl>
-                              <FormMessage />
-                            </FormItem>
-                          )}
-                        />
-                        <FormField
-                          control={form.control}
-                          name="farmingMethods"
-                          render={({ field }) => (
-                            <FormItem>
-                              <FormLabel>Farming Methods</FormLabel>
-                              <FormControl>
-                                <Input
-                                  placeholder="Drip Irrigation, Crop Rotation"
-                                  {...field}
-                                />
-                              </FormControl>
-                              <FormMessage />
-                            </FormItem>
-                          )}
-                        />
-                      </div>
-                    </div>
-
-                    {/* Additional Information */}
-                    <div className="space-y-4">
-                      <h3 className="text-lg font-semibold">
-                        Additional Information
-                      </h3>
-                      <FormField
-                        control={form.control}
-                        name="description"
-                        render={({ field }) => (
-                          <FormItem>
-                            <FormLabel>About Your Farm</FormLabel>
-                            <FormControl>
-                              <Textarea
-                                placeholder="Describe your farm, farming practices, and what makes you special..."
-                                className="min-h-[100px]"
-                                {...field}
-                              />
-                            </FormControl>
-                            <FormMessage />
-                          </FormItem>
-                        )}
-                      />
-                      <FormField
-                        control={form.control}
-                        name="specialties"
-                        render={({ field }) => (
-                          <FormItem>
-                            <FormLabel>Crops & Specialties</FormLabel>
-                            <FormControl>
-                              <Input
-                                placeholder="Organic Vegetables, Seasonal Fruits, Wheat, Rice"
-                                {...field}
-                              />
-                            </FormControl>
-                            <FormMessage />
-                          </FormItem>
-                        )}
-                      />
-                    </div>
-                  </form>
-                </Form>
+                    </form>
+                  </Form>
                 </div>
-                      <div className="flex justify-end gap-3 pt-2 border-t">
-                        <Button
-                          type="button"
-                          variant="outline"
-                          disabled={isUpdating}
-                          onClick={() => {
-                            console.log('[FarmerProfile] Cancel button close');
-                            setIsEditDialogOpen(false);
-                          }}
-                        >
-                          Cancel
-                        </Button>
-                        <Button type="submit" disabled={isUpdating}>
-                          {isUpdating ? (
-                            <>
-                              <Loader2 className="mr-2 h-4 w-4 animate-spin" />
-                              Saving...
-                            </>
-                          ) : (
-                            <>
-                              <Save className="mr-2 h-4 w-4" />
-                              Update Profile
-                            </>
-                          )}
-                        </Button>
-                      </div>
+                <div className="flex justify-end gap-3 pt-2 border-t">
+                  <Button
+                    type="button"
+                    variant="outline"
+                    disabled={isUpdating}
+                    onClick={() => {
+                      console.log("[FarmerProfile] Cancel button close");
+                      setIsEditDialogOpen(false);
+                    }}
+                  >
+                    Cancel
+                  </Button>
+                  <Button type="submit" disabled={isUpdating}>
+                    {isUpdating ? (
+                      <>
+                        <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                        Saving...
+                      </>
+                    ) : (
+                      <>
+                        <Save className="mr-2 h-4 w-4" />
+                        Update Profile
+                      </>
+                    )}
+                  </Button>
+                </div>
               </div>
             </div>
           </div>
         )}
-
 
         {/* Farmer Profile Card */}
         <Card className="w-full">
