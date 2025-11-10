@@ -105,7 +105,7 @@ export default function FarmerDashboard() {
           grains: categoryCounts.grains || 0,
           herbs: categoryCounts.herbs || 0,
         }));
-        
+
         toast({
           title: "Refreshed successfully",
           description: "Dashboard data has been updated.",
@@ -162,9 +162,19 @@ export default function FarmerDashboard() {
               </button>
             )}
           </div>
-          <Button variant="outline" size="icon" asChild>
+          <Button 
+            variant="outline" 
+            size="icon" 
+            className="relative"
+            asChild
+          >
             <Link href="/dashboard/farmer/notifications">
               <Bell className="h-4 w-4" />
+              {notificationCount > 0 && (
+                <span className="absolute -top-1 -right-1 h-5 w-5 rounded-full bg-red-500 text-white text-xs flex items-center justify-center font-medium">
+                  {notificationCount > 9 ? '9+' : notificationCount}
+                </span>
+              )}
             </Link>
           </Button>
           <Button
@@ -172,6 +182,7 @@ export default function FarmerDashboard() {
             size="icon"
             onClick={fetchFarmerProducts}
             disabled={isLoading}
+            title="Refresh dashboard data"
           >
             <RefreshCw
               className={`h-4 w-4 ${isLoading ? "animate-spin" : ""}`}
