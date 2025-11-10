@@ -1,7 +1,13 @@
 "use client";
 
 import { useState } from "react";
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -145,13 +151,22 @@ export default function FarmerMatchmakingPage() {
       {/* Search */}
       <div className="flex items-center gap-4">
         <div className="relative flex-1 max-w-md">
-          <Search className="absolute left-2 top-2.5 h-4 w-4 text-muted-foreground" />
+          <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
           <Input
             placeholder="Search by name, location, or requirements..."
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}
-            className="pl-8"
+            className="pl-10 pr-10"
           />
+          {searchTerm && (
+            <button
+              onClick={() => setSearchTerm("")}
+              className="absolute right-3 top-1/2 -translate-y-1/2 text-muted-foreground hover:text-foreground transition-colors"
+              aria-label="Clear search"
+            >
+              <X className="h-4 w-4" />
+            </button>
+          )}
         </div>
         <Button variant="outline" size="icon">
           <Filter className="h-4 w-4" />
@@ -174,7 +189,6 @@ export default function FarmerMatchmakingPage() {
             Hubs ({hubs.length})
           </TabsTrigger>
         </TabsList>
-
         {/* Customers Tab */}
         <TabsContent value="customers" className="space-y-4">
           <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
@@ -185,15 +199,24 @@ export default function FarmerMatchmakingPage() {
                     <div className="flex items-center gap-3">
                       <Avatar>
                         <AvatarImage src={customer.avatar} />
-                        <AvatarFallback>{customer.name.split(' ').map(n => n[0]).join('')}</AvatarFallback>
+                        <AvatarFallback>
+                          {customer.name
+                            .split(" ")
+                            .map((n) => n[0])
+                            .join("")}
+                        </AvatarFallback>
                       </Avatar>
                       <div>
-                        <CardTitle className="text-lg">{customer.name}</CardTitle>
+                        <CardTitle className="text-lg">
+                          {customer.name}
+                        </CardTitle>
                         <CardDescription>{customer.type}</CardDescription>
                       </div>
                     </div>
                     {customer.verified && (
-                      <Badge className="bg-green-100 text-green-800">Verified</Badge>
+                      <Badge className="bg-green-100 text-green-800">
+                        Verified
+                      </Badge>
                     )}
                   </div>
                 </CardHeader>
@@ -202,7 +225,7 @@ export default function FarmerMatchmakingPage() {
                     <MapPin className="h-4 w-4" />
                     {customer.location}
                   </div>
-                  
+
                   <div className="flex items-center gap-4 text-sm">
                     <div className="flex items-center gap-1">
                       <Star className="h-4 w-4 fill-yellow-400 text-yellow-400" />
@@ -215,7 +238,11 @@ export default function FarmerMatchmakingPage() {
                     <p className="text-sm font-medium">Preferences:</p>
                     <div className="flex flex-wrap gap-1">
                       {customer.preferences.map((pref) => (
-                        <Badge key={pref} variant="secondary" className="text-xs">
+                        <Badge
+                          key={pref}
+                          variant="secondary"
+                          className="text-xs"
+                        >
                           {pref}
                         </Badge>
                       ))}
@@ -234,7 +261,8 @@ export default function FarmerMatchmakingPage() {
                         <DialogHeader>
                           <DialogTitle>Chat with {customer.name}</DialogTitle>
                           <DialogDescription>
-                            Start a conversation to discuss your products and availability.
+                            Start a conversation to discuss your products and
+                            availability.
                           </DialogDescription>
                         </DialogHeader>
                         <div className="space-y-4">
@@ -244,7 +272,10 @@ export default function FarmerMatchmakingPage() {
                             </p>
                           </div>
                           <div className="flex gap-2">
-                            <Input placeholder="Type your message..." className="flex-1" />
+                            <Input
+                              placeholder="Type your message..."
+                              className="flex-1"
+                            />
                             <Button size="icon">
                               <Send className="h-4 w-4" />
                             </Button>
@@ -261,7 +292,8 @@ export default function FarmerMatchmakingPage() {
               </Card>
             ))}
           </div>
-        </TabsContent>        {/*
+        </TabsContent>{" "}
+        {/*
  Restaurants Tab */}
         <TabsContent value="restaurants" className="space-y-4">
           <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
@@ -272,15 +304,24 @@ export default function FarmerMatchmakingPage() {
                     <div className="flex items-center gap-3">
                       <Avatar>
                         <AvatarImage src={restaurant.avatar} />
-                        <AvatarFallback>{restaurant.name.split(' ').map(n => n[0]).join('')}</AvatarFallback>
+                        <AvatarFallback>
+                          {restaurant.name
+                            .split(" ")
+                            .map((n) => n[0])
+                            .join("")}
+                        </AvatarFallback>
                       </Avatar>
                       <div>
-                        <CardTitle className="text-lg">{restaurant.name}</CardTitle>
+                        <CardTitle className="text-lg">
+                          {restaurant.name}
+                        </CardTitle>
                         <CardDescription>{restaurant.cuisine}</CardDescription>
                       </div>
                     </div>
                     {restaurant.verified && (
-                      <Badge className="bg-green-100 text-green-800">Verified</Badge>
+                      <Badge className="bg-green-100 text-green-800">
+                        Verified
+                      </Badge>
                     )}
                   </div>
                 </CardHeader>
@@ -289,7 +330,7 @@ export default function FarmerMatchmakingPage() {
                     <MapPin className="h-4 w-4" />
                     {restaurant.location}
                   </div>
-                  
+
                   <div className="flex items-center gap-4 text-sm">
                     <div className="flex items-center gap-1">
                       <Star className="h-4 w-4 fill-yellow-400 text-yellow-400" />
@@ -303,7 +344,11 @@ export default function FarmerMatchmakingPage() {
                     <p className="text-sm font-medium">Requirements:</p>
                     <div className="flex flex-wrap gap-1">
                       {restaurant.requirements.map((req) => (
-                        <Badge key={req} variant="secondary" className="text-xs">
+                        <Badge
+                          key={req}
+                          variant="secondary"
+                          className="text-xs"
+                        >
                           {req}
                         </Badge>
                       ))}
@@ -332,7 +377,10 @@ export default function FarmerMatchmakingPage() {
                             </p>
                           </div>
                           <div className="flex gap-2">
-                            <Input placeholder="Type your message..." className="flex-1" />
+                            <Input
+                              placeholder="Type your message..."
+                              className="flex-1"
+                            />
                             <Button size="icon">
                               <Send className="h-4 w-4" />
                             </Button>
@@ -350,7 +398,6 @@ export default function FarmerMatchmakingPage() {
             ))}
           </div>
         </TabsContent>
-
         {/* Hubs Tab */}
         <TabsContent value="hubs" className="space-y-4">
           <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
@@ -361,7 +408,12 @@ export default function FarmerMatchmakingPage() {
                     <div className="flex items-center gap-3">
                       <Avatar>
                         <AvatarImage src={hub.avatar} />
-                        <AvatarFallback>{hub.name.split(' ').map(n => n[0]).join('')}</AvatarFallback>
+                        <AvatarFallback>
+                          {hub.name
+                            .split(" ")
+                            .map((n) => n[0])
+                            .join("")}
+                        </AvatarFallback>
                       </Avatar>
                       <div>
                         <CardTitle className="text-lg">{hub.name}</CardTitle>
@@ -369,7 +421,9 @@ export default function FarmerMatchmakingPage() {
                       </div>
                     </div>
                     {hub.verified && (
-                      <Badge className="bg-green-100 text-green-800">Verified</Badge>
+                      <Badge className="bg-green-100 text-green-800">
+                        Verified
+                      </Badge>
                     )}
                   </div>
                 </CardHeader>
@@ -378,7 +432,7 @@ export default function FarmerMatchmakingPage() {
                     <MapPin className="h-4 w-4" />
                     {hub.location}
                   </div>
-                  
+
                   <div className="flex items-center gap-4 text-sm">
                     <div className="flex items-center gap-1">
                       <Star className="h-4 w-4 fill-yellow-400 text-yellow-400" />
@@ -392,7 +446,11 @@ export default function FarmerMatchmakingPage() {
                     <p className="text-sm font-medium">Services:</p>
                     <div className="flex flex-wrap gap-1">
                       {hub.services.map((service) => (
-                        <Badge key={service} variant="secondary" className="text-xs">
+                        <Badge
+                          key={service}
+                          variant="secondary"
+                          className="text-xs"
+                        >
                           {service}
                         </Badge>
                       ))}
@@ -432,7 +490,10 @@ export default function FarmerMatchmakingPage() {
                             </p>
                           </div>
                           <div className="flex gap-2">
-                            <Input placeholder="Type your message..." className="flex-1" />
+                            <Input
+                              placeholder="Type your message..."
+                              className="flex-1"
+                            />
                             <Button size="icon">
                               <Send className="h-4 w-4" />
                             </Button>
