@@ -131,8 +131,8 @@ export default function FarmerNotifications() {
 
   // Function to mark notification as read
   const markAsRead = (notificationId: string) => {
-    setNotifications(prevNotifications =>
-      prevNotifications.map(notification =>
+    setNotifications((prevNotifications) =>
+      prevNotifications.map((notification) =>
         notification.id === notificationId
           ? { ...notification, read: true }
           : notification
@@ -142,8 +142,10 @@ export default function FarmerNotifications() {
 
   // Function to delete notification
   const deleteNotification = (notificationId: string) => {
-    setNotifications(prevNotifications =>
-      prevNotifications.filter(notification => notification.id !== notificationId)
+    setNotifications((prevNotifications) =>
+      prevNotifications.filter(
+        (notification) => notification.id !== notificationId
+      )
     );
   };
 
@@ -678,11 +680,22 @@ export default function FarmerNotifications() {
                           </div>
                           <div className="flex gap-1">
                             {!notification.read && (
-                              <Button variant="ghost" size="sm">
+                              <Button 
+                                variant="ghost" 
+                                size="sm"
+                                onClick={() => markAsRead(notification.id)}
+                                title="Mark as read"
+                              >
                                 <Check className="h-4 w-4" />
                               </Button>
                             )}
-                            <Button variant="ghost" size="sm">
+                            <Button 
+                              variant="ghost" 
+                              size="sm"
+                              onClick={() => deleteNotification(notification.id)}
+                              title="Delete notification"
+                              className="text-red-600 hover:text-red-700 hover:bg-red-50"
+                            >
                               <Trash2 className="h-4 w-4" />
                             </Button>
                           </div>
