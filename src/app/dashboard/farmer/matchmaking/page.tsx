@@ -176,11 +176,15 @@ export default function FarmerMatchmakingPage() {
             </button>
           )}
         </div>
-        <Button 
-          variant="outline" 
+        <Button
+          variant="outline"
           size="icon"
           onClick={() => setIsFilterOpen(true)}
-          className={filters.verified || filters.minRating > 0 || filters.location ? "border-green-500 bg-green-50" : ""}
+          className={
+            filters.verified || filters.minRating > 0 || filters.location
+              ? "border-green-500 bg-green-50"
+              : ""
+          }
         >
           <Filter className="h-4 w-4" />
         </Button>
@@ -189,18 +193,20 @@ export default function FarmerMatchmakingPage() {
       {/* Filter Dialog */}
       {isFilterOpen && (
         <div className="fixed inset-0 z-[2147483600]">
-          <div 
-            className="absolute inset-0 bg-black/70 backdrop-blur-sm animate-in fade-in-0" 
-            onClick={() => setIsFilterOpen(false)} 
+          <div
+            className="absolute inset-0 bg-black/70 backdrop-blur-sm animate-in fade-in-0"
+            onClick={() => setIsFilterOpen(false)}
           />
           <div className="absolute inset-0 flex items-start md:items-center justify-center p-4 overflow-y-auto">
             <div className="relative w-full max-w-md bg-white rounded-lg shadow-2xl ring-2 ring-green-500/40 border border-green-200 animate-in zoom-in-95">
               <div className="sticky top-0 z-10 flex items-start justify-between p-4 border-b bg-white/90 backdrop-blur">
                 <div>
                   <h2 className="text-lg font-semibold">Filter Results</h2>
-                  <p className="text-sm text-muted-foreground">Refine your search</p>
+                  <p className="text-sm text-muted-foreground">
+                    Refine your search
+                  </p>
                 </div>
-                <button 
+                <button
                   onClick={() => setIsFilterOpen(false)}
                   className="rounded-sm opacity-70 ring-offset-background transition-opacity hover:opacity-100 focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2"
                 >
@@ -208,18 +214,21 @@ export default function FarmerMatchmakingPage() {
                   <span className="sr-only">Close</span>
                 </button>
               </div>
-              
+
               <div className="p-6 space-y-6">
                 {/* Verified Only */}
                 <div className="flex items-center space-x-2">
                   <Checkbox
                     id="verified"
                     checked={filters.verified}
-                    onCheckedChange={(checked) => 
-                      setFilters(prev => ({ ...prev, verified: checked as boolean }))
+                    onCheckedChange={(checked) =>
+                      setFilters((prev) => ({
+                        ...prev,
+                        verified: checked as boolean,
+                      }))
                     }
                   />
-                  <Label 
+                  <Label
                     htmlFor="verified"
                     className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
                   >
@@ -238,8 +247,11 @@ export default function FarmerMatchmakingPage() {
                       max="5"
                       step="0.1"
                       value={filters.minRating}
-                      onChange={(e) => 
-                        setFilters(prev => ({ ...prev, minRating: parseFloat(e.target.value) || 0 }))
+                      onChange={(e) =>
+                        setFilters((prev) => ({
+                          ...prev,
+                          minRating: parseFloat(e.target.value) || 0,
+                        }))
                       }
                       className="focus:ring-green-500"
                     />
@@ -254,8 +266,11 @@ export default function FarmerMatchmakingPage() {
                     id="location"
                     placeholder="e.g., Maharashtra, Mumbai..."
                     value={filters.location}
-                    onChange={(e) => 
-                      setFilters(prev => ({ ...prev, location: e.target.value }))
+                    onChange={(e) =>
+                      setFilters((prev) => ({
+                        ...prev,
+                        location: e.target.value,
+                      }))
                     }
                     className="focus:ring-green-500"
                   />
