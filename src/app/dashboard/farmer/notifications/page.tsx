@@ -127,7 +127,25 @@ export default function FarmerNotifications() {
       icon: Info,
       category: "weather",
     },
-  ];
+  ]);
+
+  // Function to mark notification as read
+  const markAsRead = (notificationId: string) => {
+    setNotifications(prevNotifications =>
+      prevNotifications.map(notification =>
+        notification.id === notificationId
+          ? { ...notification, read: true }
+          : notification
+      )
+    );
+  };
+
+  // Function to delete notification
+  const deleteNotification = (notificationId: string) => {
+    setNotifications(prevNotifications =>
+      prevNotifications.filter(notification => notification.id !== notificationId)
+    );
+  };
 
   const getTypeColor = (type: string) => {
     switch (type) {
