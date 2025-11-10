@@ -2,7 +2,13 @@
 
 import { useState, useEffect } from "react";
 import { useAuth } from "@/hooks/use-auth";
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import {
@@ -64,29 +70,30 @@ export default function FarmerDashboard() {
 
   useEffect(() => {
     const handleMessage = (event: MessageEvent) => {
-      if (event.data.type === 'PRODUCT_ADDED') {
+      if (event.data.type === "PRODUCT_ADDED") {
         fetchFarmerProducts();
       }
     };
 
-    window.addEventListener('message', handleMessage);
-    return () => window.removeEventListener('message', handleMessage);
+    window.addEventListener("message", handleMessage);
+    return () => window.removeEventListener("message", handleMessage);
   }, []);
 
   const fetchFarmerProducts = async () => {
     try {
-      const response = await fetch('/api/farmer/products');
+      const response = await fetch("/api/farmer/products");
       if (response.ok) {
         const data = await response.json();
         setProducts(data.products || []);
-        
-        const categoryCounts = data.products?.reduce((acc: any, product: Product) => {
-          const category = product.category.toLowerCase();
-          acc[category] = (acc[category] || 0) + 1;
-          return acc;
-        }, {}) || {};
-        
-        setStats(prev => ({
+
+        const categoryCounts =
+          data.products?.reduce((acc: any, product: Product) => {
+            const category = product.category.toLowerCase();
+            acc[category] = (acc[category] || 0) + 1;
+            return acc;
+          }, {}) || {};
+
+        setStats((prev) => ({
           ...prev,
           activeProducts: data.products?.length || 0,
           vegetables: categoryCounts.vegetables || 0,
@@ -96,15 +103,15 @@ export default function FarmerDashboard() {
         }));
       }
     } catch (error) {
-      console.error('Error fetching products:', error);
+      console.error("Error fetching products:", error);
     } finally {
       setIsLoading(false);
     }
   };
 
   const getProductsByCategory = (category: string) => {
-    return products.filter(product => 
-      product.category.toLowerCase() === category.toLowerCase()
+    return products.filter(
+      (product) => product.category.toLowerCase() === category.toLowerCase()
     );
   };
 
@@ -124,28 +131,46 @@ export default function FarmerDashboard() {
         </div>
         <div className="flex items-center gap-2">
           <div className="relative">
-            <Search className="absolute left-2 top-2.5 h-4 w-4 text-muted-foreground" />
+            <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground pointer-events-none z-10" />
             <Input
               placeholder="Search products, orders..."
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
-              className="pl-8 w-64"
+              className="pl-10 pr-10 w-64"
             />
+            {searchQuery && (
+              <button
+                onClick={() => setSearchQuery("")}
+                className="absolute right-3 top-1/2 -translate-y-1/2 text-muted-foreground hover:text-foreground transition-colors z-10"
+                aria-label="Clear search"
+              >
+                <X className="h-4 w-4" />
+              </button>
+            )}
           </div>
           <Button variant="outline" size="icon" asChild>
             <Link href="/dashboard/farmer/notifications">
               <Bell className="h-4 w-4" />
             </Link>
           </Button>
-          <Button variant="outline" size="icon" onClick={fetchFarmerProducts} disabled={isLoading}>
-            <RefreshCw className={`h-4 w-4 ${isLoading ? 'animate-spin' : ''}`} />
+          <Button
+            variant="outline"
+            size="icon"
+            onClick={fetchFarmerProducts}
+            disabled={isLoading}
+          >
+            <RefreshCw
+              className={`h-4 w-4 ${isLoading ? "animate-spin" : ""}`}
+            />
           </Button>
         </div>
       </div>
 
       <div className="flex items-center justify-between">
         <div>
-          <h1 className="text-3xl font-bold tracking-tight">Farmer Dashboard</h1>
+          <h1 className="text-3xl font-bold tracking-tight">
+            Farmer Dashboard
+          </h1>
           <p className="text-muted-foreground">
             Manage your crops and connect with buyers
           </p>
@@ -163,15 +188,23 @@ export default function FarmerDashboard() {
       <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
         <Card>
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-            <CardTitle className="text-sm font-medium">Active Products</CardTitle>
+            <CardTitle className="text-sm font-medium">
+              Active Products
+            </CardTitle>
             <Package className="h-4 w-4 text-muted-foreground" />
           </CardHeader>
           <CardContent>
             <div className="text-2xl font-bold">
-              {isLoading ? <Loader2 className="h-6 w-6 animate-spin" /> : stats.activeProducts}
+              {isLoading ? (
+                <Loader2 className="h-6 w-6 animate-spin" />
+              ) : (
+                stats.activeProducts
+              )}
             </div>
             <p className="text-xs text-muted-foreground">
-              {stats.activeProducts > 0 ? 'In your inventory' : 'No products yet'}
+              {stats.activeProducts > 0
+                ? "In your inventory"
+                : "No products yet"}
             </p>
           </CardContent>
         </Card>
@@ -182,14 +215,14 @@ export default function FarmerDashboard() {
           </CardHeader>
           <CardContent>
             <div className="text-2xl font-bold">{stats.totalOrders}</div>
-            <p className="text-xs text-muted-foreground">
-              +5 from last week
-            </p>
+            <p className="text-xs text-muted-foreground">+5 from last week</p>
           </CardContent>
         </Card>
         <Card>
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-            <CardTitle className="text-sm font-medium">Connected Buyers</CardTitle>
+            <CardTitle className="text-sm font-medium">
+              Connected Buyers
+            </CardTitle>
             <Users className="h-4 w-4 text-muted-foreground" />
           </CardHeader>
           <CardContent>
@@ -201,11 +234,15 @@ export default function FarmerDashboard() {
         </Card>
         <Card>
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-            <CardTitle className="text-sm font-medium">Monthly Revenue</CardTitle>
+            <CardTitle className="text-sm font-medium">
+              Monthly Revenue
+            </CardTitle>
             <TrendingUp className="h-4 w-4 text-muted-foreground" />
           </CardHeader>
           <CardContent>
-            <div className="text-2xl font-bold">₹{stats.monthlyRevenue.toLocaleString()}</div>
+            <div className="text-2xl font-bold">
+              ₹{stats.monthlyRevenue.toLocaleString()}
+            </div>
             <p className="text-xs text-muted-foreground">
               +15% from last month
             </p>
@@ -223,19 +260,31 @@ export default function FarmerDashboard() {
           </CardHeader>
           <CardContent>
             <div className="text-2xl font-bold text-green-600">
-              {isLoading ? <Loader2 className="h-6 w-6 animate-spin" /> : stats.vegetables}
+              {isLoading ? (
+                <Loader2 className="h-6 w-6 animate-spin" />
+              ) : (
+                stats.vegetables
+              )}
             </div>
             <p className="text-sm text-muted-foreground">
-              {stats.vegetables > 0 ? 'Active crops' : 'No vegetables yet'}
+              {stats.vegetables > 0 ? "Active crops" : "No vegetables yet"}
             </p>
             <div className="mt-2 space-y-1">
-              {getProductsByCategory('vegetables').slice(0, 2).map((product) => (
-                <div key={product.id} className="text-xs text-gray-600 bg-green-50 px-2 py-1 rounded">
-                  {product.productName} - {product.quantity}{product.unit}
+              {getProductsByCategory("vegetables")
+                .slice(0, 2)
+                .map((product) => (
+                  <div
+                    key={product.id}
+                    className="text-xs text-gray-600 bg-green-50 px-2 py-1 rounded"
+                  >
+                    {product.productName} - {product.quantity}
+                    {product.unit}
+                  </div>
+                ))}
+              {getProductsByCategory("vegetables").length > 2 && (
+                <div className="text-xs text-gray-500">
+                  +{getProductsByCategory("vegetables").length - 2} more
                 </div>
-              ))}
-              {getProductsByCategory('vegetables').length > 2 && (
-                <div className="text-xs text-gray-500">+{getProductsByCategory('vegetables').length - 2} more</div>
               )}
             </div>
             <Button variant="outline" size="sm" className="mt-2 w-full" asChild>
@@ -254,19 +303,31 @@ export default function FarmerDashboard() {
           </CardHeader>
           <CardContent>
             <div className="text-2xl font-bold text-orange-600">
-              {isLoading ? <Loader2 className="h-6 w-6 animate-spin" /> : stats.fruits}
+              {isLoading ? (
+                <Loader2 className="h-6 w-6 animate-spin" />
+              ) : (
+                stats.fruits
+              )}
             </div>
             <p className="text-sm text-muted-foreground">
-              {stats.fruits > 0 ? 'Seasonal harvest' : 'No fruits yet'}
+              {stats.fruits > 0 ? "Seasonal harvest" : "No fruits yet"}
             </p>
             <div className="mt-2 space-y-1">
-              {getProductsByCategory('fruits').slice(0, 2).map((product) => (
-                <div key={product.id} className="text-xs text-gray-600 bg-orange-50 px-2 py-1 rounded">
-                  {product.productName} - {product.quantity}{product.unit}
+              {getProductsByCategory("fruits")
+                .slice(0, 2)
+                .map((product) => (
+                  <div
+                    key={product.id}
+                    className="text-xs text-gray-600 bg-orange-50 px-2 py-1 rounded"
+                  >
+                    {product.productName} - {product.quantity}
+                    {product.unit}
+                  </div>
+                ))}
+              {getProductsByCategory("fruits").length > 2 && (
+                <div className="text-xs text-gray-500">
+                  +{getProductsByCategory("fruits").length - 2} more
                 </div>
-              ))}
-              {getProductsByCategory('fruits').length > 2 && (
-                <div className="text-xs text-gray-500">+{getProductsByCategory('fruits').length - 2} more</div>
               )}
             </div>
             <Button variant="outline" size="sm" className="mt-2 w-full" asChild>
@@ -285,19 +346,31 @@ export default function FarmerDashboard() {
           </CardHeader>
           <CardContent>
             <div className="text-2xl font-bold text-amber-600">
-              {isLoading ? <Loader2 className="h-6 w-6 animate-spin" /> : stats.grains}
+              {isLoading ? (
+                <Loader2 className="h-6 w-6 animate-spin" />
+              ) : (
+                stats.grains
+              )}
             </div>
             <p className="text-sm text-muted-foreground">
-              {stats.grains > 0 ? 'Ready to harvest' : 'No grains yet'}
+              {stats.grains > 0 ? "Ready to harvest" : "No grains yet"}
             </p>
             <div className="mt-2 space-y-1">
-              {getProductsByCategory('grains').slice(0, 2).map((product) => (
-                <div key={product.id} className="text-xs text-gray-600 bg-amber-50 px-2 py-1 rounded">
-                  {product.productName} - {product.quantity}{product.unit}
+              {getProductsByCategory("grains")
+                .slice(0, 2)
+                .map((product) => (
+                  <div
+                    key={product.id}
+                    className="text-xs text-gray-600 bg-amber-50 px-2 py-1 rounded"
+                  >
+                    {product.productName} - {product.quantity}
+                    {product.unit}
+                  </div>
+                ))}
+              {getProductsByCategory("grains").length > 2 && (
+                <div className="text-xs text-gray-500">
+                  +{getProductsByCategory("grains").length - 2} more
                 </div>
-              ))}
-              {getProductsByCategory('grains').length > 2 && (
-                <div className="text-xs text-gray-500">+{getProductsByCategory('grains').length - 2} more</div>
               )}
             </div>
             <Button variant="outline" size="sm" className="mt-2 w-full" asChild>
@@ -316,19 +389,31 @@ export default function FarmerDashboard() {
           </CardHeader>
           <CardContent>
             <div className="text-2xl font-bold text-emerald-600">
-              {isLoading ? <Loader2 className="h-6 w-6 animate-spin" /> : stats.herbs}
+              {isLoading ? (
+                <Loader2 className="h-6 w-6 animate-spin" />
+              ) : (
+                stats.herbs
+              )}
             </div>
             <p className="text-sm text-muted-foreground">
-              {stats.herbs > 0 ? 'Organic varieties' : 'No herbs yet'}
+              {stats.herbs > 0 ? "Organic varieties" : "No herbs yet"}
             </p>
             <div className="mt-2 space-y-1">
-              {getProductsByCategory('herbs').slice(0, 2).map((product) => (
-                <div key={product.id} className="text-xs text-gray-600 bg-emerald-50 px-2 py-1 rounded">
-                  {product.productName} - {product.quantity}{product.unit}
+              {getProductsByCategory("herbs")
+                .slice(0, 2)
+                .map((product) => (
+                  <div
+                    key={product.id}
+                    className="text-xs text-gray-600 bg-emerald-50 px-2 py-1 rounded"
+                  >
+                    {product.productName} - {product.quantity}
+                    {product.unit}
+                  </div>
+                ))}
+              {getProductsByCategory("herbs").length > 2 && (
+                <div className="text-xs text-gray-500">
+                  +{getProductsByCategory("herbs").length - 2} more
                 </div>
-              ))}
-              {getProductsByCategory('herbs').length > 2 && (
-                <div className="text-xs text-gray-500">+{getProductsByCategory('herbs').length - 2} more</div>
               )}
             </div>
             <Button variant="outline" size="sm" className="mt-2 w-full" asChild>
@@ -344,9 +429,7 @@ export default function FarmerDashboard() {
         <Card>
           <CardHeader>
             <CardTitle>Recent Orders</CardTitle>
-            <CardDescription>
-              Latest orders from buyers
-            </CardDescription>
+            <CardDescription>Latest orders from buyers</CardDescription>
           </CardHeader>
           <CardContent>
             <div className="space-y-4">
@@ -355,7 +438,9 @@ export default function FarmerDashboard() {
                   <CheckCircle className="h-4 w-4 text-green-600" />
                   <div>
                     <p className="font-medium">Organic Tomatoes - 25kg</p>
-                    <p className="text-sm text-muted-foreground">Green Valley Restaurant</p>
+                    <p className="text-sm text-muted-foreground">
+                      Green Valley Restaurant
+                    </p>
                   </div>
                 </div>
                 <Badge variant="secondary">Delivered</Badge>
@@ -375,7 +460,9 @@ export default function FarmerDashboard() {
                   <AlertCircle className="h-4 w-4 text-blue-600" />
                   <div>
                     <p className="font-medium">Organic Carrots - 20kg</p>
-                    <p className="text-sm text-muted-foreground">Fresh Market</p>
+                    <p className="text-sm text-muted-foreground">
+                      Fresh Market
+                    </p>
                   </div>
                 </div>
                 <Badge>New Order</Badge>
@@ -390,9 +477,7 @@ export default function FarmerDashboard() {
         <Card>
           <CardHeader>
             <CardTitle>Quick Actions</CardTitle>
-            <CardDescription>
-              Frequently used farmer operations
-            </CardDescription>
+            <CardDescription>Frequently used farmer operations</CardDescription>
           </CardHeader>
           <CardContent>
             <div className="grid gap-3">
