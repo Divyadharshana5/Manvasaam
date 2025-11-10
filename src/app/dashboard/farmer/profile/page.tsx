@@ -893,34 +893,38 @@ export default function FarmerProfilePage() {
                     </div>
                   </form>
                 </Form>
+                </div>
+                      <div className="flex justify-end gap-3 pt-2 border-t">
+                        <Button
+                          type="button"
+                          variant="outline"
+                          disabled={isUpdating}
+                          onClick={() => {
+                            console.log('[FarmerProfile] Cancel button close');
+                            setIsEditDialogOpen(false);
+                          }}
+                        >
+                          Cancel
+                        </Button>
+                        <Button type="submit" disabled={isUpdating}>
+                          {isUpdating ? (
+                            <>
+                              <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                              Saving...
+                            </>
+                          ) : (
+                            <>
+                              <Save className="mr-2 h-4 w-4" />
+                              Update Profile
+                            </>
+                          )}
+                        </Button>
+                      </div>
               </div>
-              <DialogFooter className="gap-2 mt-4">
-                <DialogClose asChild>
-                  <Button type="button" variant="outline" disabled={isUpdating}>
-                    Cancel
-                  </Button>
-                </DialogClose>
-                <Button
-                  type="submit"
-                  disabled={isUpdating}
-                  onClick={form.handleSubmit(onSubmit)}
-                >
-                  {isUpdating ? (
-                    <>
-                      <Loader2 className="mr-2 h-4 w-4 animate-spin" />
-                      Saving...
-                    </>
-                  ) : (
-                    <>
-                      <Save className="mr-2 h-4 w-4" />
-                      Update Profile
-                    </>
-                  )}
-                </Button>
-              </DialogFooter>
-            </DialogContent>
-          </Dialog>
-        </div>
+            </div>
+          </div>
+        )}
+
 
         {/* Farmer Profile Card */}
         <Card className="w-full">
