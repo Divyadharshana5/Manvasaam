@@ -83,6 +83,7 @@ export default function FarmerDashboard() {
   }, []);
 
   const fetchFarmerProducts = async () => {
+    setIsLoading(true);
     try {
       const response = await fetch("/api/farmer/products");
       if (response.ok) {
@@ -104,9 +105,19 @@ export default function FarmerDashboard() {
           grains: categoryCounts.grains || 0,
           herbs: categoryCounts.herbs || 0,
         }));
+        
+        toast({
+          title: "Refreshed successfully",
+          description: "Dashboard data has been updated.",
+        });
       }
     } catch (error) {
       console.error("Error fetching products:", error);
+      toast({
+        title: "Refresh failed",
+        description: "Could not fetch the latest data. Please try again.",
+        variant: "destructive",
+      });
     } finally {
       setIsLoading(false);
     }
