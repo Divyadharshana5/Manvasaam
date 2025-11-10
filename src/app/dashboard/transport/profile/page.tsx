@@ -8,6 +8,16 @@ import { Button } from "@/components/ui/button";
 // Removed shadcn Dialog in favor of a custom modal for this page to resolve stacking issues
 import { Badge } from "@/components/ui/badge";
 import {
+  Dialog,
+  DialogTrigger,
+  DialogContent,
+  DialogHeader,
+  DialogTitle,
+  DialogDescription,
+  DialogFooter,
+  DialogClose,
+} from "@/components/ui/dialog";
+import {
   Form,
   FormControl,
   FormField,
@@ -558,21 +568,53 @@ export default function TransportProfilePage() {
               View and manage your transport company information
             </p>
           </div>
-          <Dialog open={isEditDialogOpen} onOpenChange={setIsEditDialogOpen}>
-            <DialogTrigger asChild>
-              <Button>
-                <Edit3 className="mr-2 h-4 w-4" />
-                Update Profile
-              </Button>
-            </DialogTrigger>
-            <DialogContent className="max-w-4xl max-h-[85vh]">
-              <DialogHeader>
-                <DialogTitle>Update Transport Profile</DialogTitle>
-                <DialogDescription>
-                  Modify your transport company information and details
-                </DialogDescription>
-              </DialogHeader>
-              <div className="max-h-[calc(85vh-180px)] overflow-y-auto pr-2">
+          <div>
+            <Button
+              type="button"
+              onClick={() => {
+                console.log('[TransportProfile] Open modal');
+                setIsEditDialogOpen(true);
+              }}
+              className="relative z-auto"
+            >
+              <Edit3 className="mr-2 h-4 w-4" />
+              Update Profile
+            </Button>
+          </div>
+        </div>
+
+        {/* Modal Overlay: Rendered at page level for maximum stacking reliability */}
+        {isEditDialogOpen && (
+          <div className="fixed inset-0 z-[2147483600]">
+            {/* Backdrop */}
+            <div
+              className="absolute inset-0 bg-black/70 backdrop-blur-sm animate-in fade-in-0"
+              onClick={() => {
+                console.log('[TransportProfile] Backdrop click close');
+                setIsEditDialogOpen(false);
+              }}
+            />
+            {/* Modal Panel */}
+            <div className="absolute inset-0 flex items-start md:items-center justify-center p-2 md:p-6 overflow-y-auto">
+              <div className="relative w-full max-w-4xl bg-white rounded-lg shadow-2xl ring-2 ring-blue-500/40 border border-blue-200 animate-in zoom-in-95">
+                <div className="sticky top-0 z-10 flex items-start justify-between p-4 border-b bg-white/90 backdrop-blur">
+                  <div>
+                    <h2 className="text-2xl font-bold">Update Transport Profile</h2>
+                    <p className="text-sm text-gray-600">Modify your transport company information and details</p>
+                  </div>
+                  <button
+                    type="button"
+                    onClick={() => {
+                      console.log('[TransportProfile] Close via X button');
+                      setIsEditDialogOpen(false);
+                    }}
+                    className="p-2 rounded-md hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                    aria-label="Close"
+                  >
+                    <X className="h-5 w-5" />
+                  </button>
+                </div>
+                <div className="p-4 md:p-6 space-y-6">
                 <Form {...form}>
                   <form
                     onSubmit={form.handleSubmit(onSubmit)}
