@@ -27,7 +27,8 @@ import {
     DollarSign,
     Calendar,
     Leaf,
-    Apple
+    Apple,
+    X,
 } from "lucide-react";
 import Link from "next/link";
 import { useState } from "react";
