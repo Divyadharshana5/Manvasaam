@@ -142,15 +142,17 @@ export default function FarmerNotifications() {
       activeTab === "all" ||
       (activeTab === "unread" && !notification.read) ||
       (activeTab === "read" && notification.read);
-    
+
     // Apply filters
     const matchesReadFilter = !filters.unreadOnly || !notification.read;
-    const matchesTypeFilter = 
+    const matchesTypeFilter =
       (notification.type === "urgent" && filters.showUrgent) ||
       (notification.type === "info" && filters.showInfo) ||
       (notification.type === "success" && filters.showSuccess);
-    
-    return matchesSearch && matchesTab && matchesReadFilter && matchesTypeFilter;
+
+    return (
+      matchesSearch && matchesTab && matchesReadFilter && matchesTypeFilter
+    );
   });
 
   const unreadCount = notifications.filter((n) => !n.read).length;
