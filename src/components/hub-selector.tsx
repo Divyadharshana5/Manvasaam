@@ -1,10 +1,23 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
-import { Building2, MapPin, Phone, Mail, CheckCircle2, Loader2 } from "lucide-react";
+import {
+  Building2,
+  MapPin,
+  Phone,
+  Mail,
+  CheckCircle2,
+  Loader2,
+} from "lucide-react";
 import { Hub } from "@/types/hub";
 
 interface HubSelectorProps {
@@ -12,7 +25,10 @@ interface HubSelectorProps {
   onHubSelected: (hub: Hub | null) => void;
 }
 
-export default function HubSelector({ farmerId, onHubSelected }: HubSelectorProps) {
+export default function HubSelector({
+  farmerId,
+  onHubSelected,
+}: HubSelectorProps) {
   const [hubs, setHubs] = useState<Hub[]>([]);
   const [selectedHub, setSelectedHub] = useState<Hub | null>(null);
   const [isLoading, setIsLoading] = useState(true);
@@ -63,7 +79,7 @@ export default function HubSelector({ farmerId, onHubSelected }: HubSelectorProp
           status: "active",
         },
       ];
-      
+
       setHubs(mockHubs);
       setIsLoading(false);
     } catch (error) {
@@ -102,7 +118,9 @@ export default function HubSelector({ farmerId, onHubSelected }: HubSelectorProp
           <div className="text-center py-8 text-muted-foreground">
             <Building2 className="h-12 w-12 mx-auto mb-4 opacity-50" />
             <p>No distribution hubs found in your area.</p>
-            <p className="text-sm mt-2">Please contact support for assistance.</p>
+            <p className="text-sm mt-2">
+              Please contact support for assistance.
+            </p>
           </div>
         </CardContent>
       </Card>
@@ -114,8 +132,8 @@ export default function HubSelector({ farmerId, onHubSelected }: HubSelectorProp
       <CardHeader>
         <CardTitle>Select Distribution Hub</CardTitle>
         <CardDescription>
-          {selectedHub 
-            ? `Connected to ${selectedHub.branchName}` 
+          {selectedHub
+            ? `Connected to ${selectedHub.branchName}`
             : "Choose a hub to manage your products"}
         </CardDescription>
       </CardHeader>
@@ -136,31 +154,37 @@ export default function HubSelector({ farmerId, onHubSelected }: HubSelectorProp
                   <CheckCircle2 className="h-5 w-5 text-green-600" />
                 </div>
               )}
-              
+
               <div className="flex items-start gap-3">
                 <div className="rounded-full bg-green-100 p-2">
                   <Building2 className="h-5 w-5 text-green-600" />
                 </div>
-                
+
                 <div className="flex-1 space-y-2">
                   <div>
-                    <h3 className="font-semibold text-base">{hub.branchName}</h3>
+                    <h3 className="font-semibold text-base">
+                      {hub.branchName}
+                    </h3>
                     <div className="flex items-center gap-1 text-sm text-muted-foreground mt-1">
                       <MapPin className="h-3 w-3" />
                       <span>{hub.location}</span>
                     </div>
                   </div>
-                  
+
                   {hub.services && hub.services.length > 0 && (
                     <div className="flex flex-wrap gap-1">
                       {hub.services.map((service, index) => (
-                        <Badge key={index} variant="secondary" className="text-xs">
+                        <Badge
+                          key={index}
+                          variant="secondary"
+                          className="text-xs"
+                        >
                           {service}
                         </Badge>
                       ))}
                     </div>
                   )}
-                  
+
                   <div className="grid grid-cols-2 gap-2 text-xs text-muted-foreground pt-2">
                     {hub.contactPhone && (
                       <div className="flex items-center gap-1">
@@ -180,7 +204,7 @@ export default function HubSelector({ farmerId, onHubSelected }: HubSelectorProp
             </div>
           ))}
         </div>
-        
+
         {selectedHub && (
           <Button
             variant="outline"
