@@ -680,8 +680,8 @@ export default function FarmerNotifications() {
                           </div>
                           <div className="flex gap-1">
                             {!notification.read && (
-                              <Button 
-                                variant="ghost" 
+                              <Button
+                                variant="ghost"
                                 size="sm"
                                 onClick={() => markAsRead(notification.id)}
                                 title="Mark as read"
@@ -689,10 +689,12 @@ export default function FarmerNotifications() {
                                 <Check className="h-4 w-4" />
                               </Button>
                             )}
-                            <Button 
-                              variant="ghost" 
+                            <Button
+                              variant="ghost"
                               size="sm"
-                              onClick={() => deleteNotification(notification.id)}
+                              onClick={() =>
+                                deleteNotification(notification.id)
+                              }
                               title="Delete notification"
                               className="text-red-600 hover:text-red-700 hover:bg-red-50"
                             >
