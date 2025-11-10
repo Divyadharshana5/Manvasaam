@@ -171,158 +171,187 @@ export default function FarmerNotifications() {
           </Button>
         </div>
       </div>
-
-            <div className="flex flex-col sm:flex-row gap-4">
-                <div className="flex-1">
-                    <div className="relative">
-                        <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground pointer-events-none z-10" />
-                        <Input
-                            placeholder="Search notifications..."
-                            value={searchQuery}
-                            onChange={(e) => setSearchQuery(e.target.value)}
-                            className="pl-10 pr-10"
-                        />
-                        {searchQuery && (
-                            <button
-                                onClick={() => setSearchQuery("")}
-                                className="absolute right-3 top-1/2 -translate-y-1/2 text-muted-foreground hover:text-foreground transition-colors z-10"
-                                aria-label="Clear search"
-                            >
-                                <X className="h-4 w-4" />
-                            </button>
-                        )}
-                    </div>
+      <div className="flex flex-col sm:flex-row gap-4">
+        <div className="flex-1">
+          <div className="relative">
+            <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground pointer-events-none z-10" />
+            <Input
+              placeholder="Search notifications..."
+              value={searchQuery}
+              onChange={(e) => setSearchQuery(e.target.value)}
+              className="pl-10 pr-10"
+            />
+            {searchQuery && (
+              <button
+                onClick={() => setSearchQuery("")}
+                className="absolute right-3 top-1/2 -translate-y-1/2 text-muted-foreground hover:text-foreground transition-colors z-10"
+                aria-label="Clear search"
+              >
+                <X className="h-4 w-4" />
+              </button>
+            )}
+          </div>
+        </div>
+        <Button
+          variant="outline"
+          size="sm"
+          onClick={() => setIsFilterOpen(true)}
+          className={
+            filters.unreadOnly ||
+            !filters.showUrgent ||
+            !filters.showInfo ||
+            !filters.showSuccess
+              ? "border-green-500 bg-green-50"
+              : ""
+          }
+        >
+          <Filter className="h-4 w-4 mr-2" />
+          Filter
+        </Button>
+      </div>
+      {/* Filter Dialog */}
+      {isFilterOpen && (
+        <div className="fixed inset-0 z-[2147483600]">
+          <div
+            className="absolute inset-0 bg-black/70 backdrop-blur-sm animate-in fade-in-0"
+            onClick={() => setIsFilterOpen(false)}
+          />
+          <div className="absolute inset-0 flex items-start md:items-center justify-center p-4 overflow-y-auto">
+            <div className="relative w-full max-w-md bg-white rounded-lg shadow-2xl ring-2 ring-green-500/40 border border-green-200 animate-in zoom-in-95">
+              <div className="sticky top-0 z-10 flex items-start justify-between p-4 border-b bg-white/90 backdrop-blur">
+                <div>
+                  <h2 className="text-lg font-semibold">
+                    Filter Notifications
+                  </h2>
+                  <p className="text-sm text-muted-foreground">
+                    Customize your view
+                  </p>
                 </div>
-                <Button 
-                    variant="outline" 
-                    size="sm"
-                    onClick={() => setIsFilterOpen(true)}
-                    className={filters.unreadOnly || !filters.showUrgent || !filters.showInfo || !filters.showSuccess ? "border-green-500 bg-green-50" : ""}
+                <button
+                  onClick={() => setIsFilterOpen(false)}
+                  className="rounded-sm opacity-70 ring-offset-background transition-opacity hover:opacity-100 focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2"
                 >
-                    <Filter className="h-4 w-4 mr-2" />
-                    Filter
-                </Button>
-            </div>
+                  <X className="h-5 w-5" />
+                  <span className="sr-only">Close</span>
+                </button>
+              </div>
 
-            {/* Filter Dialog */}
-            {isFilterOpen && (
-                <div className="fixed inset-0 z-[2147483600]">
-                    <div 
-                        className="absolute inset-0 bg-black/70 backdrop-blur-sm animate-in fade-in-0" 
-                        onClick={() => setIsFilterOpen(false)} 
-                    />
-                    <div className="absolute inset-0 flex items-start md:items-center justify-center p-4 overflow-y-auto">
-                        <div className="relative w-full max-w-md bg-white rounded-lg shadow-2xl ring-2 ring-green-500/40 border border-green-200 animate-in zoom-in-95">
-                            <div className="sticky top-0 z-10 flex items-start justify-between p-4 border-b bg-white/90 backdrop-blur">
-                                <div>
-                                    <h2 className="text-lg font-semibold">Filter Notifications</h2>
-                                    <p className="text-sm text-muted-foreground">Customize your view</p>
-                                </div>
-                                <button 
-                                    onClick={() => setIsFilterOpen(false)}
-                                    className="rounded-sm opacity-70 ring-offset-background transition-opacity hover:opacity-100 focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2"
-                                >
-                                    <X className="h-5 w-5" />
-                                    <span className="sr-only">Close</span>
-                                </button>
-                            </div>
-                            
-                            <div className="p-6 space-y-6">
-                                {/* Unread Only */}
-                                <div className="flex items-center space-x-2">
-                                    <Checkbox
-                                        id="unreadOnly"
-                                        checked={filters.unreadOnly}
-                                        onCheckedChange={(checked) => 
-                                            setFilters(prev => ({ ...prev, unreadOnly: checked as boolean }))
-                                        }
-                                    />
-                                    <Label 
-                                        htmlFor="unreadOnly"
-                                        className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
-                                    >
-                                        Show unread only
-                                    </Label>
-                                </div>
-
-                                {/* Notification Types */}
-                                <div className="space-y-3">
-                                    <Label className="text-sm font-medium">Notification Types</Label>
-                                    
-                                    <div className="flex items-center space-x-2">
-                                        <Checkbox
-                                            id="showUrgent"
-                                            checked={filters.showUrgent}
-                                            onCheckedChange={(checked) => 
-                                                setFilters(prev => ({ ...prev, showUrgent: checked as boolean }))
-                                            }
-                                        />
-                                        <Label 
-                                            htmlFor="showUrgent"
-                                            className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70 flex items-center gap-2"
-                                        >
-                                            <AlertTriangle className="h-4 w-4 text-red-500" />
-                                            Urgent Alerts
-                                        </Label>
-                                    </div>
-
-                                    <div className="flex items-center space-x-2">
-                                        <Checkbox
-                                            id="showInfo"
-                                            checked={filters.showInfo}
-                                            onCheckedChange={(checked) => 
-                                                setFilters(prev => ({ ...prev, showInfo: checked as boolean }))
-                                            }
-                                        />
-                                        <Label 
-                                            htmlFor="showInfo"
-                                            className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70 flex items-center gap-2"
-                                        >
-                                            <Info className="h-4 w-4 text-blue-500" />
-                                            Information
-                                        </Label>
-                                    </div>
-
-                                    <div className="flex items-center space-x-2">
-                                        <Checkbox
-                                            id="showSuccess"
-                                            checked={filters.showSuccess}
-                                            onCheckedChange={(checked) => 
-                                                setFilters(prev => ({ ...prev, showSuccess: checked as boolean }))
-                                            }
-                                        />
-                                        <Label 
-                                            htmlFor="showSuccess"
-                                            className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70 flex items-center gap-2"
-                                        >
-                                            <CheckCircle className="h-4 w-4 text-green-500" />
-                                            Success Updates
-                                        </Label>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div className="flex justify-between gap-3 p-4 border-t bg-gray-50">
-                                <Button
-                                    type="button"
-                                    variant="outline"
-                                    onClick={() => {
-                                        setFilters({ unreadOnly: false, showUrgent: true, showInfo: true, showSuccess: true });
-                                    }}
-                                >
-                                    Clear All
-                                </Button>
-                                <Button
-                                    onClick={() => setIsFilterOpen(false)}
-                                    className="bg-green-600 hover:bg-green-700"
-                                >
-                                    Apply Filters
-                                </Button>
-                            </div>
-                        </div>
-                    </div>
+              <div className="p-6 space-y-6">
+                {/* Unread Only */}
+                <div className="flex items-center space-x-2">
+                  <Checkbox
+                    id="unreadOnly"
+                    checked={filters.unreadOnly}
+                    onCheckedChange={(checked) =>
+                      setFilters((prev) => ({
+                        ...prev,
+                        unreadOnly: checked as boolean,
+                      }))
+                    }
+                  />
+                  <Label
+                    htmlFor="unreadOnly"
+                    className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
+                  >
+                    Show unread only
+                  </Label>
                 </div>
-            )}      <Tabs
+
+                {/* Notification Types */}
+                <div className="space-y-3">
+                  <Label className="text-sm font-medium">
+                    Notification Types
+                  </Label>
+
+                  <div className="flex items-center space-x-2">
+                    <Checkbox
+                      id="showUrgent"
+                      checked={filters.showUrgent}
+                      onCheckedChange={(checked) =>
+                        setFilters((prev) => ({
+                          ...prev,
+                          showUrgent: checked as boolean,
+                        }))
+                      }
+                    />
+                    <Label
+                      htmlFor="showUrgent"
+                      className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70 flex items-center gap-2"
+                    >
+                      <AlertTriangle className="h-4 w-4 text-red-500" />
+                      Urgent Alerts
+                    </Label>
+                  </div>
+
+                  <div className="flex items-center space-x-2">
+                    <Checkbox
+                      id="showInfo"
+                      checked={filters.showInfo}
+                      onCheckedChange={(checked) =>
+                        setFilters((prev) => ({
+                          ...prev,
+                          showInfo: checked as boolean,
+                        }))
+                      }
+                    />
+                    <Label
+                      htmlFor="showInfo"
+                      className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70 flex items-center gap-2"
+                    >
+                      <Info className="h-4 w-4 text-blue-500" />
+                      Information
+                    </Label>
+                  </div>
+
+                  <div className="flex items-center space-x-2">
+                    <Checkbox
+                      id="showSuccess"
+                      checked={filters.showSuccess}
+                      onCheckedChange={(checked) =>
+                        setFilters((prev) => ({
+                          ...prev,
+                          showSuccess: checked as boolean,
+                        }))
+                      }
+                    />
+                    <Label
+                      htmlFor="showSuccess"
+                      className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70 flex items-center gap-2"
+                    >
+                      <CheckCircle className="h-4 w-4 text-green-500" />
+                      Success Updates
+                    </Label>
+                  </div>
+                </div>
+              </div>
+
+              <div className="flex justify-between gap-3 p-4 border-t bg-gray-50">
+                <Button
+                  type="button"
+                  variant="outline"
+                  onClick={() => {
+                    setFilters({
+                      unreadOnly: false,
+                      showUrgent: true,
+                      showInfo: true,
+                      showSuccess: true,
+                    });
+                  }}
+                >
+                  Clear All
+                </Button>
+                <Button
+                  onClick={() => setIsFilterOpen(false)}
+                  className="bg-green-600 hover:bg-green-700"
+                >
+                  Apply Filters
+                </Button>
+              </div>
+            </div>
+          </div>
+        </div>
+      )}{" "}
+      <Tabs
         value={activeTab}
         onValueChange={setActiveTab}
         className="space-y-4"
@@ -408,7 +437,6 @@ export default function FarmerNotifications() {
           )}
         </TabsContent>
       </Tabs>
-
       {/* Notification Stats */}
       <div className="grid gap-4 md:grid-cols-4">
         <Card>
