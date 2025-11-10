@@ -13,19 +13,11 @@ import {
   Edit3,
   Save,
   Sprout,
-  CheckCircle
+  CheckCircle,
+  X
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import {
-  Dialog,
-  DialogContent,
-  DialogHeader,
-  DialogTitle,
-  DialogDescription,
-  DialogFooter,
-  DialogClose,
-  DialogTrigger,
-} from "@/components/ui/dialog";
+// Removed shadcn Dialog in favor of a custom modal for this page to resolve stacking issues
 import { Badge } from "@/components/ui/badge";
 import {
   Form,
