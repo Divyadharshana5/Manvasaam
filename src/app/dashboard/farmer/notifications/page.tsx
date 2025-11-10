@@ -10,6 +10,8 @@ import {
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+import { Checkbox } from "@/components/ui/checkbox";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import {
   Bell,
@@ -40,10 +42,15 @@ import Link from "next/link";
 import { useState } from "react";
 
 export default function FarmerNotifications() {
-  const [searchQuery, setSearchQuery] = useState("");
-  const [activeTab, setActiveTab] = useState("all");
-
-  const notifications = [
+    const [searchQuery, setSearchQuery] = useState("");
+    const [activeTab, setActiveTab] = useState("all");
+    const [isFilterOpen, setIsFilterOpen] = useState(false);
+    const [filters, setFilters] = useState({
+        unreadOnly: false,
+        showUrgent: true,
+        showInfo: true,
+        showSuccess: true,
+    });  const notifications = [
     {
       id: "1",
       type: "urgent",
