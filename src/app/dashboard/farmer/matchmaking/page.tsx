@@ -28,6 +28,7 @@ import {
   Truck,
   Filter,
   Send,
+  X,
 } from "lucide-react";
 
 const customers = [
