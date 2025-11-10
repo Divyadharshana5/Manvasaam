@@ -8,16 +8,6 @@ import { Button } from "@/components/ui/button";
 // Removed shadcn Dialog in favor of a custom modal for this page to resolve stacking issues
 import { Badge } from "@/components/ui/badge";
 import {
-  Dialog,
-  DialogTrigger,
-  DialogContent,
-  DialogHeader,
-  DialogTitle,
-  DialogDescription,
-  DialogFooter,
-  DialogClose,
-} from "@/components/ui/dialog";
-import {
   Form,
   FormControl,
   FormField,
