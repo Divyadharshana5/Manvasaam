@@ -45,11 +45,20 @@ export default function FarmerNotifications() {
   const [searchQuery, setSearchQuery] = useState("");
   const [activeTab, setActiveTab] = useState("all");
   const [isFilterOpen, setIsFilterOpen] = useState(false);
+  const [isSettingsOpen, setIsSettingsOpen] = useState(false);
   const [filters, setFilters] = useState({
     unreadOnly: false,
     showUrgent: true,
     showInfo: true,
     showSuccess: true,
+  });
+  const [settings, setSettings] = useState({
+    emailNotifications: true,
+    pushNotifications: true,
+    smsNotifications: false,
+    urgentAlertsOnly: false,
+    dailyDigest: true,
+    weeklyReport: false,
   });
   const notifications = [
     {
@@ -175,7 +184,11 @@ export default function FarmerNotifications() {
         </div>
         <div className="flex items-center gap-2">
           <Badge variant="secondary">{unreadCount} unread</Badge>
-          <Button variant="outline" size="sm">
+          <Button 
+            variant="outline" 
+            size="sm"
+            onClick={() => setIsSettingsOpen(true)}
+          >
             <Settings className="h-4 w-4 mr-2" />
             Settings
           </Button>
