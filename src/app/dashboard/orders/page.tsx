@@ -320,7 +320,7 @@ export default function OrdersPage() {
                     </TableBody>
                   </Table>
                 </div>
-                <div className="grid grid-cols-1 gap-4 md:hidden">
+                <div className="grid grid-cols-1 gap-5 md:hidden">
                   {filteredOrders.map((order) => (
                     <Card
                       key={order.id}
@@ -332,13 +332,13 @@ export default function OrdersPage() {
                         "transition-transform duration-300"
                       )}
                     >
-                      <CardHeader>
-                        <div className="flex justify-between items-start">
-                          <div>
-                            <CardTitle className="text-base">
+                      <CardHeader className="pb-3">
+                        <div className="flex justify-between items-start gap-3">
+                          <div className="space-y-1">
+                            <CardTitle className="text-base font-semibold">
                               {order.id}
                             </CardTitle>
-                            <CardDescription>
+                            <CardDescription className="text-sm">
                               {(order as any).customer?.name ??
                                 (order as any).customerName ??
                                 "Unknown"}
@@ -347,7 +347,7 @@ export default function OrdersPage() {
                           <Badge
                             variant="outline"
                             className={cn(
-                              "text-xs",
+                              "text-xs shrink-0",
                               getStatusBadgeClass(order.status)
                             )}
                           >
@@ -355,9 +355,9 @@ export default function OrdersPage() {
                           </Badge>
                         </div>
                       </CardHeader>
-                      <CardContent className="flex justify-between items-center text-sm">
-                        <p>{new Date(order.date).toLocaleDateString()}</p>
-                        <p className="font-semibold">
+                      <CardContent className="flex justify-between items-center text-sm pt-0 pb-3">
+                        <p className="text-muted-foreground">{new Date(order.date).toLocaleDateString()}</p>
+                        <p className="font-semibold text-base">
                           {order.total.toLocaleString("en-US", {
                             style: "currency",
                             currency: "INR",
