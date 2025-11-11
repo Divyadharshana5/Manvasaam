@@ -27,6 +27,7 @@ import {
   User as UserIcon,
   HelpCircle,
   Map,
+  ArrowLeft,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
