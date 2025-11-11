@@ -185,7 +185,7 @@ export default function OrdersPage() {
 
   return (
     <AppLayout>
-      <div className="w-full space-y-6 p-6 md:p-10 pt-8 overflow-x-hidden">
+      <div className="w-full space-y-6 py-6 md:py-10 overflow-x-hidden">
         <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4 mb-2">
           <div className="space-y-1">
             <h2 className="text-3xl md:text-4xl font-bold tracking-tight">
