@@ -296,7 +296,9 @@ export function AppLayout({ children }: { children: React.ReactNode }) {
             <div className="flex items-center gap-2">
               <span className="text-sm font-medium">{user?.email}</span>
               <Avatar>
-                <AvatarImage src={user?.photoURL || undefined} />
+                <AvatarImage
+                  src={user && "photoURL" in user ? user.photoURL : undefined}
+                />
                 <AvatarFallback>
                   <UserIcon />
                 </AvatarFallback>
