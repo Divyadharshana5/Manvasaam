@@ -256,7 +256,7 @@ export function AppLayout({ children }: { children: React.ReactNode }) {
 
   return (
     <SidebarProvider>
-      <Sidebar>
+      <Sidebar className="overflow-y-auto">
         <SidebarHeader>
           <div
             className={cn(
