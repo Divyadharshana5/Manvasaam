@@ -284,16 +284,6 @@ export function AppLayout({ children }: { children: React.ReactNode }) {
             </SidebarMenu>
           </SidebarGroup>
         </SidebarContent>
-        <SidebarFooter>
-          <div className="p-2">
-            <Button className="w-full" onClick={handleSignOut}>
-              <LogOut />
-              <span className="group-data-[collapsible=icon]:hidden">
-                {t.signOut.button}
-              </span>
-            </Button>
-          </div>
-        </SidebarFooter>
       </Sidebar>
       <SidebarInset>
         <header className="flex h-14 items-center gap-4 border-b bg-background/30 backdrop-blur-sm px-6 sticky top-0 z-40">
