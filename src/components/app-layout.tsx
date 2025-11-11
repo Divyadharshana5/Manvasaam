@@ -255,7 +255,7 @@ export function AppLayout({ children }: { children: React.ReactNode }) {
 
   return (
     <SidebarProvider>
-      <Sidebar className="hidden">
+      <Sidebar className="hidden pointer-events-none w-0">
         <SidebarHeader>
           <div
             className={cn(
