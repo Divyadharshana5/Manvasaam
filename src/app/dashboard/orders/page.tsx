@@ -280,7 +280,7 @@ export default function OrdersPage() {
                               (order as any).customerName ??
                               "Unknown"}
                           </TableCell>
-                          <TableCell>
+                          <TableCell className="py-4">
                             <Badge
                               variant="outline"
                               className={getStatusBadgeClass(order.status)}
@@ -288,16 +288,16 @@ export default function OrdersPage() {
                               {order.status}
                             </Badge>
                           </TableCell>
-                          <TableCell>
+                          <TableCell className="py-4">
                             {new Date(order.date).toLocaleDateString()}
                           </TableCell>
-                          <TableCell className="text-right">
+                          <TableCell className="text-right py-4 font-medium">
                             {order.total.toLocaleString("en-US", {
                               style: "currency",
                               currency: "INR",
                             })}
                           </TableCell>
-                          <TableCell className="text-center">
+                          <TableCell className="text-center py-4">
                             {(order.status === "Shipped" ||
                               order.status === "Processing") && (
                               <Button
