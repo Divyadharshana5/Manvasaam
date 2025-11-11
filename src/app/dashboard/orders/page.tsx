@@ -269,13 +269,13 @@ export default function OrdersPage() {
                             order.status !== "Cancelled"
                               ? "cursor-pointer hover:shadow-md"
                               : "opacity-60",
-                            "transition-shadow duration-300"
+                            "transition-shadow duration-300 h-16"
                           )}
                         >
-                          <TableCell className="font-medium">
+                          <TableCell className="font-medium py-4">
                             {order.id}
                           </TableCell>
-                          <TableCell>
+                          <TableCell className="py-4">
                             {(order as any).customer?.name ??
                               (order as any).customerName ??
                               "Unknown"}
