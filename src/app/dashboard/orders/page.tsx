@@ -196,7 +196,7 @@ export default function OrdersPage() {
             </p>
           </div>
         </div>
-        <Card className="shadow-lg border-2 border-primary/10">
+        <Card className="shadow-lg border-2 border-primary/10 overflow-hidden">
           <CardHeader className="pb-4 px-6 pt-6">
             <div className="flex flex-col md:flex-row md:items-start md:justify-between gap-4">
               <div className="flex-1 space-y-1.5">
@@ -240,86 +240,87 @@ export default function OrdersPage() {
                   <div className="overflow-x-auto">
                     <Table>
                       <TableHeader>
-                      <TableRow>
-                        <TableHead className="font-semibold">
-                          {t.orders.orderId}
-                        </TableHead>
-                        <TableHead className="font-semibold">
-                          {t.orders.customer}
-                        </TableHead>
-                        <TableHead className="font-semibold">
-                          {t.orders.status}
-                        </TableHead>
-                        <TableHead className="font-semibold">
-                          {t.orders.date}
-                        </TableHead>
-                        <TableHead className="text-right font-semibold">
-                          {t.orders.total}
-                        </TableHead>
-                        <TableHead className="text-center font-semibold">
-                          {t.orders.actions}
-                        </TableHead>
-                      </TableRow>
-                    </TableHeader>
-                    <TableBody>
-                      {filteredOrders.map((order) => (
-                        <TableRow
-                          key={order.id}
-                          onClick={() => handleRowClick(order)}
-                          className={cn(
-                            order.status !== "Cancelled"
-                              ? "cursor-pointer hover:shadow-md"
-                              : "opacity-60",
-                            "transition-shadow duration-300 h-16"
-                          )}
-                        >
-                          <TableCell className="font-medium py-4">
-                            {order.id}
-                          </TableCell>
-                          <TableCell className="py-4">
-                            {(order as any).customer?.name ??
-                              (order as any).customerName ??
-                              "Unknown"}
-                          </TableCell>
-                          <TableCell className="py-4">
-                            <Badge
-                              variant="outline"
-                              className={getStatusBadgeClass(order.status)}
-                            >
-                              {order.status}
-                            </Badge>
-                          </TableCell>
-                          <TableCell className="py-4">
-                            {new Date(order.date).toLocaleDateString()}
-                          </TableCell>
-                          <TableCell className="text-right py-4 font-medium">
-                            {order.total.toLocaleString("en-US", {
-                              style: "currency",
-                              currency: "INR",
-                            })}
-                          </TableCell>
-                          <TableCell className="text-center py-4">
-                            {(order.status === "Shipped" ||
-                              order.status === "Processing") && (
-                              <Button
-                                asChild
-                                variant="outline"
-                                size="sm"
-                                onClick={(e) => e.stopPropagation()}
-                              >
-                                <Link
-                                  href={`/dashboard/track?orderId=${order.id}`}
-                                >
-                                  <LocateFixed className="mr-2 h-4 w-4" />
-                                  {t.orders.trackLive}
-                                </Link>
-                              </Button>
-                            )}
-                          </TableCell>
+                        <TableRow>
+                          <TableHead className="font-semibold">
+                            {t.orders.orderId}
+                          </TableHead>
+                          <TableHead className="font-semibold">
+                            {t.orders.customer}
+                          </TableHead>
+                          <TableHead className="font-semibold">
+                            {t.orders.status}
+                          </TableHead>
+                          <TableHead className="font-semibold">
+                            {t.orders.date}
+                          </TableHead>
+                          <TableHead className="text-right font-semibold">
+                            {t.orders.total}
+                          </TableHead>
+                          <TableHead className="text-center font-semibold">
+                            {t.orders.actions}
+                          </TableHead>
                         </TableRow>
-                      ))}
-                    </TableBody>
-                  </Table>
+                      </TableHeader>
+                      <TableBody>
+                        {filteredOrders.map((order) => (
+                          <TableRow
+                            key={order.id}
+                            onClick={() => handleRowClick(order)}
+                            className={cn(
+                              order.status !== "Cancelled"
+                                ? "cursor-pointer hover:shadow-md"
+                                : "opacity-60",
+                              "transition-shadow duration-300 h-16"
+                            )}
+                          >
+                            <TableCell className="font-medium py-4">
+                              {order.id}
+                            </TableCell>
+                            <TableCell className="py-4">
+                              {(order as any).customer?.name ??
+                                (order as any).customerName ??
+                                "Unknown"}
+                            </TableCell>
+                            <TableCell className="py-4">
+                              <Badge
+                                variant="outline"
+                                className={getStatusBadgeClass(order.status)}
+                              >
+                                {order.status}
+                              </Badge>
+                            </TableCell>
+                            <TableCell className="py-4">
+                              {new Date(order.date).toLocaleDateString()}
+                            </TableCell>
+                            <TableCell className="text-right py-4 font-medium">
+                              {order.total.toLocaleString("en-US", {
+                                style: "currency",
+                                currency: "INR",
+                              })}
+                            </TableCell>
+                            <TableCell className="text-center py-4">
+                              {(order.status === "Shipped" ||
+                                order.status === "Processing") && (
+                                <Button
+                                  asChild
+                                  variant="outline"
+                                  size="sm"
+                                  onClick={(e) => e.stopPropagation()}
+                                >
+                                  <Link
+                                    href={`/dashboard/track?orderId=${order.id}`}
+                                  >
+                                    <LocateFixed className="mr-2 h-4 w-4" />
+                                    {t.orders.trackLive}
+                                  </Link>
+                                </Button>
+                              )}
+                            </TableCell>
+                          </TableRow>
+                        ))}
+                      </TableBody>
+                    </Table>
+                  </div>
                 </div>
                 <div className="grid grid-cols-1 gap-5 md:hidden">
                   {filteredOrders.map((order) => (
