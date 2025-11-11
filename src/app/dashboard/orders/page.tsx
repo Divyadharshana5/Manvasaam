@@ -393,63 +393,69 @@ export default function OrdersPage() {
       </div>
 
       <Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
-        <DialogContent className="sm:max-w-md">
-          <DialogHeader>
-            <DialogTitle>
+        <DialogContent className="sm:max-w-lg max-h-[85vh] overflow-y-auto">
+          <DialogHeader className="pb-4">
+            <DialogTitle className="text-xl">
               {t.orders.dialogTitle}: {selectedOrder?.id}
             </DialogTitle>
-            <DialogDescription>{t.orders.dialogDescription}</DialogDescription>
+            <DialogDescription className="text-sm pt-1">
+              {t.orders.dialogDescription}
+            </DialogDescription>
           </DialogHeader>
           {shippingInfo ? (
-            <div className="space-y-6 pt-4">
-              <div className="flex items-center gap-4">
-                <MapPin className="h-6 w-6 text-primary" />
-                <div>
+            <div className="space-y-5 pt-2">
+              <div className="flex items-start gap-4 p-3 rounded-lg border">
+                <MapPin className="h-5 w-5 text-primary mt-0.5 shrink-0" />
+                <div className="space-y-1">
                   <p className="text-sm text-muted-foreground">
                     {t.orders.currentLocation}
                   </p>
-                  <p className="font-semibold">
+                  <p className="font-semibold text-base">
                     {shippingInfo.currentLocation}
                   </p>
                 </div>
               </div>
-              <div className="flex items-center gap-4">
-                <PackageCheck className="h-6 w-6 text-primary" />
-                <div>
+              <div className="flex items-start gap-4 p-3 rounded-lg border">
+                <PackageCheck className="h-5 w-5 text-primary mt-0.5 shrink-0" />
+                <div className="space-y-1">
                   <p className="text-sm text-muted-foreground">
                     {t.orders.reachedState}
                   </p>
-                  <p className="font-semibold">
+                  <p className="font-semibold text-base">
                     {shippingInfo.hasReachedState ? "Yes" : "Not Yet"}
                   </p>
                 </div>
               </div>
-              <div className="flex items-center gap-4">
-                <CalendarClock className="h-6 w-6 text-primary" />
-                <div>
+              <div className="flex items-start gap-4 p-3 rounded-lg border">
+                <CalendarClock className="h-5 w-5 text-primary mt-0.5 shrink-0" />
+                <div className="space-y-1">
                   <p className="text-sm text-muted-foreground">
                     {t.orders.estimatedDelivery}
                   </p>
-                  <p className="font-semibold">
+                  <p className="font-semibold text-base">
                     {new Date(shippingInfo.estimatedDelivery).toDateString()}
                   </p>
                 </div>
               </div>
 
-              <div className="space-y-4">
-                <h4 className="font-semibold">{t.orders.shipmentHistory}</h4>
-                <div className="relative pl-6">
-                  <div className="absolute left-[11px] top-1 h-full w-0.5 bg-border"></div>
+              <div className="space-y-4 pt-2">
+                <h4 className="font-semibold text-base">
+                  {t.orders.shipmentHistory}
+                </h4>
+                <div className="relative pl-8">
+                  <div className="absolute left-[15px] top-2 h-[calc(100%-16px)] w-0.5 bg-border"></div>
                   {shippingInfo.path.map((stop, index) => (
                     <div
                       key={index}
-                      className="relative flex items-start gap-4 mb-4"
+                      className="relative flex items-start gap-4 mb-5 last:mb-0"
                     >
-                      <div className="z-10 flex h-6 w-6 items-center justify-center rounded-full bg-primary text-primary-foreground">
+                      <div className="z-10 flex h-8 w-8 items-center justify-center rounded-full bg-primary text-primary-foreground shrink-0">
                         <Truck className="h-4 w-4" />
                       </div>
-                      <div className="flex-1 pt-0.5">
-                        <p className="font-semibold">{stop.location}</p>
+                      <div className="flex-1 pt-1 pb-2">
+                        <p className="font-semibold text-sm mb-1">
+                          {stop.location}
+                        </p>
                         <p className="text-xs text-muted-foreground">
                           {stop.time}
                         </p>
@@ -460,7 +466,9 @@ export default function OrdersPage() {
               </div>
             </div>
           ) : (
-            <p className="py-4">{t.orders.noDetails}</p>
+            <p className="py-8 text-center text-muted-foreground">
+              {t.orders.noDetails}
+            </p>
           )}
         </DialogContent>
       </Dialog>
