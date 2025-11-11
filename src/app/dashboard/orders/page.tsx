@@ -356,7 +356,9 @@ export default function OrdersPage() {
                         </div>
                       </CardHeader>
                       <CardContent className="flex justify-between items-center text-sm pt-0 pb-3">
-                        <p className="text-muted-foreground">{new Date(order.date).toLocaleDateString()}</p>
+                        <p className="text-muted-foreground">
+                          {new Date(order.date).toLocaleDateString()}
+                        </p>
                         <p className="font-semibold text-base">
                           {order.total.toLocaleString("en-US", {
                             style: "currency",
@@ -366,12 +368,12 @@ export default function OrdersPage() {
                       </CardContent>
                       {(order.status === "Shipped" ||
                         order.status === "Processing") && (
-                        <CardFooter>
+                        <CardFooter className="pt-0 pb-4">
                           <Button
                             asChild
                             variant="outline"
                             size="sm"
-                            className="w-full"
+                            className="w-full h-9"
                             onClick={(e) => e.stopPropagation()}
                           >
                             <Link href={`/dashboard/track?orderId=${order.id}`}>
