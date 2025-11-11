@@ -255,7 +255,7 @@ export function AppLayout({ children }: { children: React.ReactNode }) {
 
   return (
     <SidebarProvider>
-      <Sidebar className="overflow-y-auto">
+      <Sidebar className="hidden">
         <SidebarHeader>
           <div
             className={cn(
@@ -302,7 +302,6 @@ export function AppLayout({ children }: { children: React.ReactNode }) {
       </Sidebar>
       <SidebarInset className="overflow-x-hidden">
         <header className="flex h-14 items-center gap-4 border-b bg-background/30 backdrop-blur-sm px-6 sticky top-0 z-40">
-          <SidebarTrigger />
           <div className="flex-1">
             <h1 className="text-xl font-semibold">{getPageTitle()}</h1>
           </div>
