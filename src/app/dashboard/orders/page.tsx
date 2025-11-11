@@ -240,10 +240,18 @@ export default function OrdersPage() {
                   <Table>
                     <TableHeader>
                       <TableRow>
-                        <TableHead className="font-semibold">{t.orders.orderId}</TableHead>
-                        <TableHead className="font-semibold">{t.orders.customer}</TableHead>
-                        <TableHead className="font-semibold">{t.orders.status}</TableHead>
-                        <TableHead className="font-semibold">{t.orders.date}</TableHead>
+                        <TableHead className="font-semibold">
+                          {t.orders.orderId}
+                        </TableHead>
+                        <TableHead className="font-semibold">
+                          {t.orders.customer}
+                        </TableHead>
+                        <TableHead className="font-semibold">
+                          {t.orders.status}
+                        </TableHead>
+                        <TableHead className="font-semibold">
+                          {t.orders.date}
+                        </TableHead>
                         <TableHead className="text-right font-semibold">
                           {t.orders.total}
                         </TableHead>
