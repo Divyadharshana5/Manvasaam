@@ -185,43 +185,45 @@ export default function OrdersPage() {
 
   return (
     <AppLayout>
-      <div className="flex-1 space-y-4 p-4 md:p-8 pt-6">
-        <div className="flex items-center justify-between space-y-2">
-          <div>
-            <h2 className="text-3xl font-bold tracking-tight">
+      <div className="flex-1 space-y-6 p-6 md:p-10 pt-8 max-w-[1400px] mx-auto">
+        <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4 mb-2">
+          <div className="space-y-1">
+            <h2 className="text-3xl md:text-4xl font-bold tracking-tight">
               {t.orders.title}
             </h2>
-            <p className="text-muted-foreground">{t.orders.description}</p>
+            <p className="text-muted-foreground text-base">{t.orders.description}</p>
           </div>
         </div>
         <Card className="shadow-lg border-2 border-primary/10">
-          <CardHeader className="flex flex-col md:flex-row justify-between md:items-center gap-2">
-            <div className="flex-1">
-              <CardTitle>{t.orders.cardTitle}</CardTitle>
-              <CardDescription>{t.orders.cardDescription}</CardDescription>
-            </div>
-            <div className="w-full md:w-auto">
-              <div className="relative flex items-center">
-                <Search className="absolute left-3 h-4 w-4 text-muted-foreground pointer-events-none z-10" />
-                <Input
-                  placeholder={t.orders.searchPlaceholder}
-                  value={searchTerm}
-                  onChange={(e) => setSearchTerm(e.target.value)}
-                  className="max-w-sm pl-10 pr-10"
-                />
-                {searchTerm && (
-                  <button
-                    onClick={() => setSearchTerm("")}
-                    className="absolute right-3 text-muted-foreground hover:text-foreground transition-colors z-10"
-                    aria-label="Clear search"
-                  >
-                    <X className="h-4 w-4" />
-                  </button>
-                )}
+          <CardHeader className="pb-4 px-6 pt-6">
+            <div className="flex flex-col md:flex-row md:items-start md:justify-between gap-4">
+              <div className="flex-1 space-y-1.5">
+                <CardTitle className="text-xl">{t.orders.cardTitle}</CardTitle>
+                <CardDescription className="text-sm">{t.orders.cardDescription}</CardDescription>
+              </div>
+              <div className="w-full md:w-auto md:min-w-[300px]">
+                <div className="relative flex items-center">
+                  <Search className="absolute left-3 h-4 w-4 text-muted-foreground pointer-events-none z-10" />
+                  <Input
+                    placeholder={t.orders.searchPlaceholder}
+                    value={searchTerm}
+                    onChange={(e) => setSearchTerm(e.target.value)}
+                    className="w-full pl-10 pr-10 h-10"
+                  />
+                  {searchTerm && (
+                    <button
+                      onClick={() => setSearchTerm("")}
+                      className="absolute right-3 text-muted-foreground hover:text-foreground transition-colors z-10"
+                      aria-label="Clear search"
+                    >
+                      <X className="h-4 w-4" />
+                    </button>
+                  )}
+                </div>
               </div>
             </div>
           </CardHeader>
-          <CardContent>
+          <CardContent className="px-6 pb-6">
             {loading ? (
               <div className="space-y-4">
                 {[...Array(5)].map((_, i) => (
