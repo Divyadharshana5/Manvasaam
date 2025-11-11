@@ -191,7 +191,9 @@ export default function OrdersPage() {
             <h2 className="text-3xl md:text-4xl font-bold tracking-tight">
               {t.orders.title}
             </h2>
-            <p className="text-muted-foreground text-base">{t.orders.description}</p>
+            <p className="text-muted-foreground text-base">
+              {t.orders.description}
+            </p>
           </div>
         </div>
         <Card className="shadow-lg border-2 border-primary/10">
@@ -199,7 +201,9 @@ export default function OrdersPage() {
             <div className="flex flex-col md:flex-row md:items-start md:justify-between gap-4">
               <div className="flex-1 space-y-1.5">
                 <CardTitle className="text-xl">{t.orders.cardTitle}</CardTitle>
-                <CardDescription className="text-sm">{t.orders.cardDescription}</CardDescription>
+                <CardDescription className="text-sm">
+                  {t.orders.cardDescription}
+                </CardDescription>
               </div>
               <div className="w-full md:w-auto md:min-w-[300px]">
                 <div className="relative flex items-center">
@@ -225,25 +229,25 @@ export default function OrdersPage() {
           </CardHeader>
           <CardContent className="px-6 pb-6">
             {loading ? (
-              <div className="space-y-4">
+              <div className="space-y-3">
                 {[...Array(5)].map((_, i) => (
-                  <Skeleton key={i} className="h-20 w-full" />
+                  <Skeleton key={i} className="h-16 w-full" />
                 ))}
               </div>
             ) : (
               <>
-                <div className="hidden md:block">
+                <div className="hidden md:block overflow-x-auto">
                   <Table>
                     <TableHeader>
                       <TableRow>
-                        <TableHead>{t.orders.orderId}</TableHead>
-                        <TableHead>{t.orders.customer}</TableHead>
-                        <TableHead>{t.orders.status}</TableHead>
-                        <TableHead>{t.orders.date}</TableHead>
-                        <TableHead className="text-right">
+                        <TableHead className="font-semibold">{t.orders.orderId}</TableHead>
+                        <TableHead className="font-semibold">{t.orders.customer}</TableHead>
+                        <TableHead className="font-semibold">{t.orders.status}</TableHead>
+                        <TableHead className="font-semibold">{t.orders.date}</TableHead>
+                        <TableHead className="text-right font-semibold">
                           {t.orders.total}
                         </TableHead>
-                        <TableHead className="text-center">
+                        <TableHead className="text-center font-semibold">
                           {t.orders.actions}
                         </TableHead>
                       </TableRow>
