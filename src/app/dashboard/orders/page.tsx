@@ -197,18 +197,19 @@ export default function OrdersPage() {
               <CardDescription>{t.orders.cardDescription}</CardDescription>
             </div>
             <div className="w-full md:w-auto">
-              <div className="relative">
-                <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-muted-foreground" />
+              <div className="relative flex items-center">
+                <Search className="absolute left-3 h-4 w-4 text-muted-foreground pointer-events-none z-10" />
                 <Input
                   placeholder={t.orders.searchPlaceholder}
                   value={searchTerm}
                   onChange={(e) => setSearchTerm(e.target.value)}
-                  className="max-w-sm pl-9 pr-9"
+                  className="max-w-sm pl-10 pr-10"
                 />
                 {searchTerm && (
                   <button
                     onClick={() => setSearchTerm("")}
-                    className="absolute right-3 top-1/2 transform -translate-y-1/2 text-muted-foreground hover:text-foreground transition-colors"
+                    className="absolute right-3 text-muted-foreground hover:text-foreground transition-colors z-10"
+                    aria-label="Clear search"
                   >
                     <X className="h-4 w-4" />
                   </button>
