@@ -365,7 +365,9 @@ export function AppLayout({ children }: { children: React.ReactNode }) {
             </DropdownMenu>
           </div>
         </header>
-        <main className="flex-1 overflow-auto">{children}</main>
+        <main className="flex-1 overflow-auto flex items-start justify-center">
+          <div className="w-full max-w-screen-2xl">{children}</div>
+        </main>
       </SidebarInset>
     </SidebarProvider>
   );
