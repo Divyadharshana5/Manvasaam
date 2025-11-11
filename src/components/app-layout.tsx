@@ -210,6 +210,14 @@ export function AppLayout({ children }: { children: React.ReactNode }) {
 
   const handleSignOut = async () => {
     try {
+      if (!auth) {
+        toast({
+          variant: "destructive",
+          title: t.signOut.errorTitle,
+          description: "Authentication not initialized.",
+        });
+        return;
+      }
       await signOut(auth);
       toast({ title: t.signOut.title, description: t.signOut.description });
       router.push("/");
