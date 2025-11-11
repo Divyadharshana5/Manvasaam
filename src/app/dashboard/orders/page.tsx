@@ -236,9 +236,10 @@ export default function OrdersPage() {
               </div>
             ) : (
               <>
-                <div className="hidden md:block overflow-x-auto">
-                  <Table>
-                    <TableHeader>
+                <div className="hidden md:block rounded-md border overflow-hidden">
+                  <div className="overflow-x-auto">
+                    <Table>
+                      <TableHeader>
                       <TableRow>
                         <TableHead className="font-semibold">
                           {t.orders.orderId}
