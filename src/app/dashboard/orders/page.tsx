@@ -154,11 +154,15 @@ export default function OrdersPage() {
     }
   };
 
-  const filteredOrders = orders.filter(
-    (order) =>
-      order.customer.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
-      order.id.toLowerCase().includes(searchTerm.toLowerCase())
-  );
+  const filteredOrders = orders.filter((order) => {
+    const customerName = (
+      (order as any).customer?.name ??
+      (order as any).customerName ??
+      ""
+    ).toLowerCase();
+    const term = searchTerm.toLowerCase();
+    return customerName.includes(term) || order.id.toLowerCase().includes(term);
+  });
 
   const getStatusBadgeClass = (status: Order["status"]) => {
     switch (status) {
@@ -257,7 +261,11 @@ export default function OrdersPage() {
                           <TableCell className="font-medium">
                             {order.id}
                           </TableCell>
-                          <TableCell>{order.customer.name}</TableCell>
+                          <TableCell>
+                            {(order as any).customer?.name ??
+                              (order as any).customerName ??
+                              "Unknown"}
+                          </TableCell>
                           <TableCell>
                             <Badge
                               variant="outline"
@@ -317,7 +325,9 @@ export default function OrdersPage() {
                               {order.id}
                             </CardTitle>
                             <CardDescription>
-                              {order.customer.name}
+                              {(order as any).customer?.name ??
+                                (order as any).customerName ??
+                                "Unknown"}
                             </CardDescription>
                           </div>
                           <Badge
