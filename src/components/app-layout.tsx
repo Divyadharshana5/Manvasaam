@@ -256,7 +256,7 @@ export function AppLayout({ children }: { children: React.ReactNode }) {
 
   return (
     <SidebarProvider>
-      <Sidebar className="hidden pointer-events-none w-0">
+      <Sidebar className="hidden pointer-events-none w-0 opacity-0">
         <SidebarHeader>
           <div
             className={cn(
@@ -372,8 +372,8 @@ export function AppLayout({ children }: { children: React.ReactNode }) {
             </DropdownMenu>
           </div>
         </header>
-        <main className="flex-1 overflow-auto flex justify-center">
-          <div className="w-full max-w-[1600px] px-6">{children}</div>
+        <main className="flex-1 overflow-auto flex justify-center bg-background">
+          <div className="w-full max-w-[1400px] mx-auto px-6">{children}</div>
         </main>
       </SidebarInset>
     </SidebarProvider>
