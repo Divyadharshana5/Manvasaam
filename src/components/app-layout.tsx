@@ -303,10 +303,17 @@ export function AppLayout({ children }: { children: React.ReactNode }) {
             <VoiceAssistant />
             <DropdownMenu>
               <DropdownMenuTrigger asChild>
-                <Button variant="ghost" className="relative h-10 w-10 rounded-full">
+                <Button
+                  variant="ghost"
+                  className="relative h-10 w-10 rounded-full"
+                >
                   <Avatar>
                     <AvatarImage
-                      src={user && "photoURL" in user ? user.photoURL || undefined : undefined}
+                      src={
+                        user && "photoURL" in user
+                          ? user.photoURL || undefined
+                          : undefined
+                      }
                     />
                     <AvatarFallback>
                       <UserIcon />
@@ -339,7 +346,10 @@ export function AppLayout({ children }: { children: React.ReactNode }) {
                   </Link>
                 </DropdownMenuItem>
                 <DropdownMenuSeparator />
-                <DropdownMenuItem onClick={handleSignOut} className="cursor-pointer">
+                <DropdownMenuItem
+                  onClick={handleSignOut}
+                  className="cursor-pointer"
+                >
                   <LogOut className="mr-2 h-4 w-4" />
                   <span>{t.signOut.button}</span>
                 </DropdownMenuItem>
