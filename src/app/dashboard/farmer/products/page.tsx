@@ -260,10 +260,21 @@ function FarmerProductsContent() {
               Manage your harvest and deliveries to hubs
             </p>
           </div>
-          <Button onClick={() => setShowAddForm(true)} disabled={!selectedHub}>
-            <Plus className="mr-2 h-4 w-4" />
-            Add Product
-          </Button>
+          <div className="flex flex-col items-end gap-2">
+            <Button 
+              onClick={() => setShowAddForm(true)} 
+              disabled={!selectedHub}
+              title={!selectedHub ? "Please select a hub first" : "Add a new product"}
+            >
+              <Plus className="mr-2 h-4 w-4" />
+              Add Product
+            </Button>
+            {!selectedHub && (
+              <p className="text-xs text-muted-foreground">
+                Select a hub to add products
+              </p>
+            )}
+          </div>
         </div>
 
         {/* Hub Selection */}
