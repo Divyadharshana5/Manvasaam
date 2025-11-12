@@ -84,7 +84,7 @@ export default function FarmerProductsPage() {
   // Update form category when URL parameter changes
   useEffect(() => {
     if (categoryFilter) {
-      setFormData(prev => ({ ...prev, category: categoryFilter }));
+      setFormData((prev) => ({ ...prev, category: categoryFilter }));
     }
   }, [categoryFilter]);
 
