@@ -58,11 +58,12 @@ function FarmerProductsContent() {
   const { toast } = useToast();
   const searchParams = useSearchParams();
   const categoryFilter = searchParams.get("category");
+  const action = searchParams.get("action");
 
   const [selectedHub, setSelectedHub] = useState<Hub | null>(null);
   const [products, setProducts] = useState<Product[]>([]);
   const [isLoading, setIsLoading] = useState(false);
-  const [showAddForm, setShowAddForm] = useState(false);
+  const [showAddForm, setShowAddForm] = useState(action === "add");
 
   const [formData, setFormData] = useState({
     name: "",
