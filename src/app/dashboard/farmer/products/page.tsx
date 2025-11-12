@@ -261,10 +261,12 @@ function FarmerProductsContent() {
             </p>
           </div>
           <div className="flex flex-col items-end gap-2">
-            <Button 
-              onClick={() => setShowAddForm(true)} 
+            <Button
+              onClick={() => setShowAddForm(true)}
               disabled={!selectedHub}
-              title={!selectedHub ? "Please select a hub first" : "Add a new product"}
+              title={
+                !selectedHub ? "Please select a hub first" : "Add a new product"
+              }
             >
               <Plus className="mr-2 h-4 w-4" />
               Add Product
