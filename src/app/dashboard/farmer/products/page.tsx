@@ -513,11 +513,7 @@ function FarmerProductsContent() {
                 </div>
 
                 <div className="flex gap-4 pt-4">
-                  <Button 
-                    type="submit" 
-                    disabled={isLoading} 
-                    className="flex-1"
-                  >
+                  <Button type="submit" disabled={isLoading} className="flex-1">
                     {isLoading ? (
                       <>
                         <Loader2 className="mr-2 h-4 w-4 animate-spin" />
