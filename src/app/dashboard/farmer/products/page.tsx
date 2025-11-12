@@ -57,7 +57,7 @@ export default function FarmerProductsPage() {
   const { toast } = useToast();
   const searchParams = useSearchParams();
   const categoryFilter = searchParams.get("category");
-  
+
   const [selectedHub, setSelectedHub] = useState<Hub | null>(null);
   const [products, setProducts] = useState<Product[]>([]);
   const [isLoading, setIsLoading] = useState(false);
@@ -80,6 +80,13 @@ export default function FarmerProductsPage() {
       fetchProducts();
     }
   }, [user]);
+
+  // Update form category when URL parameter changes
+  useEffect(() => {
+    if (categoryFilter) {
+      setFormData(prev => ({ ...prev, category: categoryFilter }));
+    }
+  }, [categoryFilter]);
 
   const fetchProducts = async () => {
     try {
