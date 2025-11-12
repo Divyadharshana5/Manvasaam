@@ -95,7 +95,7 @@ export default function FarmerProductsPage() {
       if (response.ok) {
         const data = await response.json();
         const fetchedProducts = data.products || [];
-        
+
         // Transform the products to match the expected format
         const transformedProducts = fetchedProducts.map((p: any) => ({
           id: p.id,
@@ -112,7 +112,7 @@ export default function FarmerProductsPage() {
           status: p.status || "available",
           createdAt: p.createdAt || new Date().toISOString(),
         }));
-        
+
         setProducts(transformedProducts);
       } else {
         console.error("Failed to fetch products");
