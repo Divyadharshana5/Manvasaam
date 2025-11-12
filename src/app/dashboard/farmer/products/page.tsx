@@ -216,7 +216,7 @@ function FarmerProductsContent() {
         description: "",
       });
       setShowAddForm(false);
-      
+
       // Refresh products list
       await fetchProducts();
 
@@ -231,7 +231,8 @@ function FarmerProductsContent() {
       console.error("Product submission error:", error);
       toast({
         title: "Error",
-        description: error.message || "Failed to add product. Please try again.",
+        description:
+          error.message || "Failed to add product. Please try again.",
         variant: "destructive",
       });
     } finally {
