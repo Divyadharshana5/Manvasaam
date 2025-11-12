@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, Suspense } from "react";
 import { useAuth } from "@/hooks/use-auth";
 import { useSearchParams } from "next/navigation";
 import AppLayout from "@/components/app-layout";
@@ -33,6 +33,7 @@ import {
   Weight,
   Building2,
   AlertCircle,
+  Loader2,
 } from "lucide-react";
 import { Hub } from "@/types/hub";
 
@@ -52,7 +53,7 @@ interface Product {
   createdAt: string;
 }
 
-export default function FarmerProductsPage() {
+function FarmerProductsContent() {
   const { user } = useAuth();
   const { toast } = useToast();
   const searchParams = useSearchParams();
