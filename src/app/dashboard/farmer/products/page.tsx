@@ -89,12 +89,40 @@ export default function FarmerProductsPage() {
   }, [categoryFilter]);
 
   const fetchProducts = async () => {
+    setIsLoading(true);
     try {
-      // This would fetch farmer's products from the API
-      // For now, using mock data
-      setProducts([]);
+      const response = await fetch("/api/farmer/products");
+      if (response.ok) {
+        const data = await response.json();
+        const fetchedProducts = data.products || [];
+        
+        // Transform the products to match the expected format
+        const transformedProducts = fetchedProducts.map((p: any) => ({
+          id: p.id,
+          name: p.productName || p.name,
+          category: p.category,
+          quantity: p.quantity,
+          unit: p.unit,
+          pricePerUnit: p.pricePerUnit,
+          harvestDate: p.harvestDate || "",
+          expiryDate: p.expiryDate || "",
+          quality: p.quality || "standard",
+          hubId: p.hubId,
+          hubName: data.hub?.branchName || "Unknown Hub",
+          status: p.status || "available",
+          createdAt: p.createdAt || new Date().toISOString(),
+        }));
+        
+        setProducts(transformedProducts);
+      } else {
+        console.error("Failed to fetch products");
+        setProducts([]);
+      }
     } catch (error) {
       console.error("Error fetching products:", error);
+      setProducts([]);
+    } finally {
+      setIsLoading(false);
     }
   };
 
