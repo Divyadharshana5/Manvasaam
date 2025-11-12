@@ -2,24 +2,37 @@
 
 import { useState, useEffect } from "react";
 import { useAuth } from "@/hooks/use-auth";
+import { useSearchParams } from "next/navigation";
 import AppLayout from "@/components/app-layout";
 import HubSelector from "@/components/hub-selector";
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
 import { useToast } from "@/hooks/use-toast";
-import { 
-  Plus, 
-  Package, 
-  Truck, 
+import {
+  Plus,
+  Package,
+  Truck,
   Calendar,
   DollarSign,
   Weight,
   Building2,
-  AlertCircle
+  AlertCircle,
 } from "lucide-react";
 import { Hub } from "@/types/hub";
 
@@ -42,6 +55,9 @@ interface Product {
 export default function FarmerProductsPage() {
   const { user } = useAuth();
   const { toast } = useToast();
+  const searchParams = useSearchParams();
+  const categoryFilter = searchParams.get("category");
+  
   const [selectedHub, setSelectedHub] = useState<Hub | null>(null);
   const [products, setProducts] = useState<Product[]>([]);
   const [isLoading, setIsLoading] = useState(false);
@@ -49,7 +65,7 @@ export default function FarmerProductsPage() {
 
   const [formData, setFormData] = useState({
     name: "",
-    category: "",
+    category: categoryFilter || "",
     quantity: "",
     unit: "kg",
     pricePerUnit: "",
@@ -76,12 +92,12 @@ export default function FarmerProductsPage() {
   };
 
   const handleInputChange = (field: string, value: string) => {
-    setFormData(prev => ({ ...prev, [field]: value }));
+    setFormData((prev) => ({ ...prev, [field]: value }));
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    
+
     if (!selectedHub) {
       toast({
         title: "Hub Required",
@@ -141,10 +157,13 @@ export default function FarmerProductsPage() {
       });
       setShowAddForm(false);
       fetchProducts();
-      
+
       // Refresh the parent dashboard if we're in an iframe or similar context
       if (window.parent && window.parent !== window) {
-        window.parent.postMessage({ type: 'PRODUCT_ADDED', product: formData }, '*');
+        window.parent.postMessage(
+          { type: "PRODUCT_ADDED", product: formData },
+          "*"
+        );
       }
     } catch (error: any) {
       toast({
@@ -178,10 +197,7 @@ export default function FarmerProductsPage() {
               Manage your harvest and deliveries to hubs
             </p>
           </div>
-          <Button 
-            onClick={() => setShowAddForm(true)}
-            disabled={!selectedHub}
-          >
+          <Button onClick={() => setShowAddForm(true)} disabled={!selectedHub}>
             <Plus className="mr-2 h-4 w-4" />
             Add Product
           </Button>
@@ -190,39 +206,36 @@ export default function FarmerProductsPage() {
         {/* Hub Selection */}
         <div className="grid gap-4 md:grid-cols-3">
           <div className="md:col-span-2">
-            <HubSelector 
-              farmerId={user.uid} 
-              onHubSelected={setSelectedHub}
-            />
+            <HubSelector farmerId={user.uid} onHubSelected={setSelectedHub} />
           </div>
-          
+
           {/* Quick Stats */}
           <div className="space-y-4">
             <Card>
               <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-                <CardTitle className="text-sm font-medium">Total Products</CardTitle>
+                <CardTitle className="text-sm font-medium">
+                  Total Products
+                </CardTitle>
                 <Package className="h-4 w-4 text-muted-foreground" />
               </CardHeader>
               <CardContent>
                 <div className="text-2xl font-bold">{products.length}</div>
-                <p className="text-xs text-muted-foreground">
-                  In inventory
-                </p>
+                <p className="text-xs text-muted-foreground">In inventory</p>
               </CardContent>
             </Card>
 
             <Card>
               <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-                <CardTitle className="text-sm font-medium">Pending Deliveries</CardTitle>
+                <CardTitle className="text-sm font-medium">
+                  Pending Deliveries
+                </CardTitle>
                 <Truck className="h-4 w-4 text-muted-foreground" />
               </CardHeader>
               <CardContent>
                 <div className="text-2xl font-bold">
-                  {products.filter(p => p.status === "pending").length}
+                  {products.filter((p) => p.status === "pending").length}
                 </div>
-                <p className="text-xs text-muted-foreground">
-                  Awaiting pickup
-                </p>
+                <p className="text-xs text-muted-foreground">Awaiting pickup</p>
               </CardContent>
             </Card>
           </div>
@@ -234,7 +247,8 @@ export default function FarmerProductsPage() {
             <CardHeader>
               <CardTitle>Add New Product</CardTitle>
               <CardDescription>
-                Add your harvest to {selectedHub?.branchName || "the selected hub"}
+                Add your harvest to{" "}
+                {selectedHub?.branchName || "the selected hub"}
               </CardDescription>
             </CardHeader>
             <CardContent>
@@ -245,7 +259,9 @@ export default function FarmerProductsPage() {
                     <Input
                       id="name"
                       value={formData.name}
-                      onChange={(e) => handleInputChange("name", e.target.value)}
+                      onChange={(e) =>
+                        handleInputChange("name", e.target.value)
+                      }
                       placeholder="e.g., Tomatoes"
                       required
                     />
@@ -253,13 +269,16 @@ export default function FarmerProductsPage() {
 
                   <div className="space-y-2">
                     <Label htmlFor="category">Category</Label>
-                    <Select value={formData.category} onValueChange={(value) => {
-                      handleInputChange("category", value);
-                      setTimeout(() => {
-                        const element = document.activeElement as HTMLElement;
-                        if (element) element.blur();
-                      }, 0);
-                    }}>
+                    <Select
+                      value={formData.category}
+                      onValueChange={(value) => {
+                        handleInputChange("category", value);
+                        setTimeout(() => {
+                          const element = document.activeElement as HTMLElement;
+                          if (element) element.blur();
+                        }, 0);
+                      }}
+                    >
                       <SelectTrigger>
                         <SelectValue placeholder="Select category" />
                       </SelectTrigger>
@@ -281,7 +300,9 @@ export default function FarmerProductsPage() {
                       id="quantity"
                       type="number"
                       value={formData.quantity}
-                      onChange={(e) => handleInputChange("quantity", e.target.value)}
+                      onChange={(e) =>
+                        handleInputChange("quantity", e.target.value)
+                      }
                       placeholder="100"
                       required
                     />
@@ -289,13 +310,16 @@ export default function FarmerProductsPage() {
 
                   <div className="space-y-2">
                     <Label htmlFor="unit">Unit</Label>
-                    <Select value={formData.unit} onValueChange={(value) => {
-                      handleInputChange("unit", value);
-                      setTimeout(() => {
-                        const element = document.activeElement as HTMLElement;
-                        if (element) element.blur();
-                      }, 0);
-                    }}>
+                    <Select
+                      value={formData.unit}
+                      onValueChange={(value) => {
+                        handleInputChange("unit", value);
+                        setTimeout(() => {
+                          const element = document.activeElement as HTMLElement;
+                          if (element) element.blur();
+                        }, 0);
+                      }}
+                    >
                       <SelectTrigger>
                         <SelectValue />
                       </SelectTrigger>
@@ -308,13 +332,17 @@ export default function FarmerProductsPage() {
                   </div>
 
                   <div className="space-y-2">
-                    <Label htmlFor="pricePerUnit">Price per {formData.unit} *</Label>
+                    <Label htmlFor="pricePerUnit">
+                      Price per {formData.unit} *
+                    </Label>
                     <Input
                       id="pricePerUnit"
                       type="number"
                       step="0.01"
                       value={formData.pricePerUnit}
-                      onChange={(e) => handleInputChange("pricePerUnit", e.target.value)}
+                      onChange={(e) =>
+                        handleInputChange("pricePerUnit", e.target.value)
+                      }
                       placeholder="50.00"
                       required
                     />
@@ -328,7 +356,9 @@ export default function FarmerProductsPage() {
                       id="harvestDate"
                       type="date"
                       value={formData.harvestDate}
-                      onChange={(e) => handleInputChange("harvestDate", e.target.value)}
+                      onChange={(e) =>
+                        handleInputChange("harvestDate", e.target.value)
+                      }
                     />
                   </div>
 
@@ -338,19 +368,24 @@ export default function FarmerProductsPage() {
                       id="expiryDate"
                       type="date"
                       value={formData.expiryDate}
-                      onChange={(e) => handleInputChange("expiryDate", e.target.value)}
+                      onChange={(e) =>
+                        handleInputChange("expiryDate", e.target.value)
+                      }
                     />
                   </div>
 
                   <div className="space-y-2">
                     <Label htmlFor="quality">Quality</Label>
-                    <Select value={formData.quality} onValueChange={(value) => {
-                      handleInputChange("quality", value);
-                      setTimeout(() => {
-                        const element = document.activeElement as HTMLElement;
-                        if (element) element.blur();
-                      }, 0);
-                    }}>
+                    <Select
+                      value={formData.quality}
+                      onValueChange={(value) => {
+                        handleInputChange("quality", value);
+                        setTimeout(() => {
+                          const element = document.activeElement as HTMLElement;
+                          if (element) element.blur();
+                        }, 0);
+                      }}
+                    >
                       <SelectTrigger>
                         <SelectValue />
                       </SelectTrigger>
@@ -368,7 +403,9 @@ export default function FarmerProductsPage() {
                   <Textarea
                     id="description"
                     value={formData.description}
-                    onChange={(e) => handleInputChange("description", e.target.value)}
+                    onChange={(e) =>
+                      handleInputChange("description", e.target.value)
+                    }
                     placeholder="Additional details about the product..."
                   />
                 </div>
@@ -377,9 +414,9 @@ export default function FarmerProductsPage() {
                   <Button type="submit" disabled={isLoading} className="flex-1">
                     {isLoading ? "Adding..." : "Add Product"}
                   </Button>
-                  <Button 
-                    type="button" 
-                    variant="outline" 
+                  <Button
+                    type="button"
+                    variant="outline"
                     onClick={() => setShowAddForm(false)}
                     className="flex-1"
                   >
@@ -395,20 +432,19 @@ export default function FarmerProductsPage() {
         <Card>
           <CardHeader>
             <CardTitle>Your Products</CardTitle>
-            <CardDescription>
-              Products you've added to hubs
-            </CardDescription>
+            <CardDescription>Products you've added to hubs</CardDescription>
           </CardHeader>
           <CardContent>
             {products.length === 0 ? (
               <div className="text-center py-8">
                 <Package className="mx-auto h-12 w-12 text-gray-400" />
-                <h3 className="mt-2 text-sm font-medium text-gray-900">No products yet</h3>
+                <h3 className="mt-2 text-sm font-medium text-gray-900">
+                  No products yet
+                </h3>
                 <p className="mt-1 text-sm text-gray-500">
-                  {selectedHub 
+                  {selectedHub
                     ? "Start by adding your first product to the hub."
-                    : "Please select a hub first, then add your products."
-                  }
+                    : "Please select a hub first, then add your products."}
                 </p>
                 {selectedHub && (
                   <div className="mt-6">
@@ -426,14 +462,22 @@ export default function FarmerProductsPage() {
                     <div className="flex items-start justify-between">
                       <div>
                         <h3 className="font-semibold">{product.name}</h3>
-                        <p className="text-sm text-gray-600">{product.category}</p>
                         <p className="text-sm text-gray-600">
-                          {product.quantity} {product.unit} @ ₹{product.pricePerUnit}/{product.unit}
+                          {product.category}
+                        </p>
+                        <p className="text-sm text-gray-600">
+                          {product.quantity} {product.unit} @ ₹
+                          {product.pricePerUnit}/{product.unit}
                         </p>
                       </div>
                       <div className="text-right">
-                        <p className="font-semibold">₹{(product.quantity * product.pricePerUnit).toFixed(2)}</p>
-                        <p className="text-sm text-gray-600">{product.hubName}</p>
+                        <p className="font-semibold">
+                          ₹
+                          {(product.quantity * product.pricePerUnit).toFixed(2)}
+                        </p>
+                        <p className="text-sm text-gray-600">
+                          {product.hubName}
+                        </p>
                       </div>
                     </div>
                   </div>
