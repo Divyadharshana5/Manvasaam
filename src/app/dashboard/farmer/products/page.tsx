@@ -89,6 +89,18 @@ function FarmerProductsContent() {
     }
   }, [categoryFilter]);
 
+  // Scroll to form when it opens
+  useEffect(() => {
+    if (showAddForm) {
+      setTimeout(() => {
+        const formElement = document.getElementById("add-product-form");
+        if (formElement) {
+          formElement.scrollIntoView({ behavior: "smooth", block: "start" });
+        }
+      }, 100);
+    }
+  }, [showAddForm]);
+
   const fetchProducts = async () => {
     setIsLoading(true);
     try {
@@ -204,19 +216,22 @@ function FarmerProductsContent() {
         description: "",
       });
       setShowAddForm(false);
-      fetchProducts();
+      
+      // Refresh products list
+      await fetchProducts();
 
       // Refresh the parent dashboard if we're in an iframe or similar context
       if (window.parent && window.parent !== window) {
         window.parent.postMessage(
-          { type: "PRODUCT_ADDED", product: formData },
+          { type: "PRODUCT_ADDED", product: result },
           "*"
         );
       }
     } catch (error: any) {
+      console.error("Product submission error:", error);
       toast({
         title: "Error",
-        description: error.message || "Failed to add product",
+        description: error.message || "Failed to add product. Please try again.",
         variant: "destructive",
       });
     } finally {
@@ -328,7 +343,7 @@ function FarmerProductsContent() {
 
         {/* Add Product Form */}
         {showAddForm && (
-          <Card>
+          <Card id="add-product-form" className="border-primary">
             <CardHeader>
               <CardTitle>Add New Product</CardTitle>
               <CardDescription>
