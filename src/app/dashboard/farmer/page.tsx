@@ -502,7 +502,7 @@ export default function FarmerDashboard() {
           <CardContent>
             <div className="grid gap-3">
               <Button asChild className="justify-start">
-                <Link href="/dashboard/farmer/products">
+                <Link href="/dashboard/farmer/products?action=add">
                   <Package className="mr-2 h-4 w-4" />
                   Add New Product
                 </Link>
