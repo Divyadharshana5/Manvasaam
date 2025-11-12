@@ -438,8 +438,19 @@ export default function FarmerProductsPage() {
         {/* Products List */}
         <Card>
           <CardHeader>
-            <CardTitle>Your Products</CardTitle>
-            <CardDescription>Products you've added to hubs</CardDescription>
+            <CardTitle>
+              Your Products
+              {categoryFilter && (
+                <span className="ml-2 text-sm font-normal text-muted-foreground capitalize">
+                  - {categoryFilter}
+                </span>
+              )}
+            </CardTitle>
+            <CardDescription>
+              {categoryFilter
+                ? `Showing ${categoryFilter} products you've added to hubs`
+                : "Products you've added to hubs"}
+            </CardDescription>
           </CardHeader>
           <CardContent>
             {products.length === 0 ? (
@@ -464,31 +475,65 @@ export default function FarmerProductsPage() {
               </div>
             ) : (
               <div className="space-y-4">
-                {products.map((product) => (
-                  <div key={product.id} className="border rounded-lg p-4">
-                    <div className="flex items-start justify-between">
-                      <div>
-                        <h3 className="font-semibold">{product.name}</h3>
-                        <p className="text-sm text-gray-600">
-                          {product.category}
-                        </p>
-                        <p className="text-sm text-gray-600">
-                          {product.quantity} {product.unit} @ ₹
-                          {product.pricePerUnit}/{product.unit}
-                        </p>
-                      </div>
-                      <div className="text-right">
-                        <p className="font-semibold">
-                          ₹
-                          {(product.quantity * product.pricePerUnit).toFixed(2)}
-                        </p>
-                        <p className="text-sm text-gray-600">
-                          {product.hubName}
-                        </p>
+                {products
+                  .filter((product) =>
+                    categoryFilter
+                      ? product.category.toLowerCase() ===
+                        categoryFilter.toLowerCase()
+                      : true
+                  )
+                  .map((product) => (
+                    <div key={product.id} className="border rounded-lg p-4">
+                      <div className="flex items-start justify-between">
+                        <div>
+                          <h3 className="font-semibold">{product.name}</h3>
+                          <p className="text-sm text-gray-600">
+                            {product.category}
+                          </p>
+                          <p className="text-sm text-gray-600">
+                            {product.quantity} {product.unit} @ ₹
+                            {product.pricePerUnit}/{product.unit}
+                          </p>
+                        </div>
+                        <div className="text-right">
+                          <p className="font-semibold">
+                            ₹
+                            {(product.quantity * product.pricePerUnit).toFixed(
+                              2
+                            )}
+                          </p>
+                          <p className="text-sm text-gray-600">
+                            {product.hubName}
+                          </p>
+                        </div>
                       </div>
                     </div>
-                  </div>
-                ))}
+                  ))}
+                {products.filter((product) =>
+                  categoryFilter
+                    ? product.category.toLowerCase() ===
+                      categoryFilter.toLowerCase()
+                    : true
+                ).length === 0 &&
+                  products.length > 0 && (
+                    <div className="text-center py-8">
+                      <AlertCircle className="mx-auto h-12 w-12 text-gray-400" />
+                      <h3 className="mt-2 text-sm font-medium text-gray-900">
+                        No {categoryFilter} products found
+                      </h3>
+                      <p className="mt-1 text-sm text-gray-500">
+                        You haven't added any {categoryFilter} products yet.
+                      </p>
+                      {selectedHub && (
+                        <div className="mt-6">
+                          <Button onClick={() => setShowAddForm(true)}>
+                            <Plus className="mr-2 h-4 w-4" />
+                            Add {categoryFilter} Product
+                          </Button>
+                        </div>
+                      )}
+                    </div>
+                  )}
               </div>
             )}
           </CardContent>
