@@ -193,13 +193,28 @@ export default function FarmerProductsPage() {
     );
   }
 
+  // Filter products based on category
+  const filteredProducts = categoryFilter
+    ? products.filter(
+        (product) =>
+          product.category.toLowerCase() === categoryFilter.toLowerCase()
+      )
+    : products;
+
   return (
     <AppLayout>
       <div className="flex-1 space-y-4 p-4 md:p-8 pt-6">
         {/* Header */}
         <div className="flex items-center justify-between space-y-2">
           <div>
-            <h2 className="text-3xl font-bold tracking-tight">My Products</h2>
+            <h2 className="text-3xl font-bold tracking-tight">
+              My Products
+              {categoryFilter && (
+                <span className="text-2xl font-normal text-muted-foreground ml-2 capitalize">
+                  - {categoryFilter}
+                </span>
+              )}
+            </h2>
             <p className="text-muted-foreground">
               Manage your harvest and deliveries to hubs
             </p>
@@ -221,13 +236,15 @@ export default function FarmerProductsPage() {
             <Card>
               <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
                 <CardTitle className="text-sm font-medium">
-                  Total Products
+                  {categoryFilter ? `${categoryFilter} Products` : "Total Products"}
                 </CardTitle>
                 <Package className="h-4 w-4 text-muted-foreground" />
               </CardHeader>
               <CardContent>
-                <div className="text-2xl font-bold">{products.length}</div>
-                <p className="text-xs text-muted-foreground">In inventory</p>
+                <div className="text-2xl font-bold">{filteredProducts.length}</div>
+                <p className="text-xs text-muted-foreground">
+                  {categoryFilter ? `In ${categoryFilter}` : "In inventory"}
+                </p>
               </CardContent>
             </Card>
 
@@ -240,7 +257,7 @@ export default function FarmerProductsPage() {
               </CardHeader>
               <CardContent>
                 <div className="text-2xl font-bold">
-                  {products.filter((p) => p.status === "pending").length}
+                  {filteredProducts.filter((p) => p.status === "pending").length}
                 </div>
                 <p className="text-xs text-muted-foreground">Awaiting pickup</p>
               </CardContent>
