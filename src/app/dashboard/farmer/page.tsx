@@ -197,7 +197,7 @@ export default function FarmerDashboard() {
         </div>
         <div className="flex gap-2">
           <Button asChild>
-            <Link href="/dashboard/farmer/products">
+            <Link href="/dashboard/farmer/products?action=add">
               <Plus className="mr-2 h-4 w-4" />
               Add Product
             </Link>
