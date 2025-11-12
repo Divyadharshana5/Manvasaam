@@ -178,10 +178,10 @@ export default function FarmerProductsPage() {
         description: `${formData.name} has been added to ${selectedHub.branchName}`,
       });
 
-      // Reset form
+      // Reset form but preserve category filter
       setFormData({
         name: "",
-        category: "",
+        category: categoryFilter || "",
         quantity: "",
         unit: "kg",
         pricePerUnit: "",
