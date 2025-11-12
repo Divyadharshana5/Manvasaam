@@ -142,10 +142,16 @@ export default function FarmerProductsPage() {
       return;
     }
 
-    if (!formData.name || !formData.category || !formData.quantity || !formData.pricePerUnit) {
+    if (
+      !formData.name ||
+      !formData.category ||
+      !formData.quantity ||
+      !formData.pricePerUnit
+    ) {
       toast({
         title: "Missing Information",
-        description: "Please fill in all required fields (name, category, quantity, and price)",
+        description:
+          "Please fill in all required fields (name, category, quantity, and price)",
         variant: "destructive",
       });
       return;
