@@ -513,14 +513,29 @@ function FarmerProductsContent() {
                 </div>
 
                 <div className="flex gap-4 pt-4">
-                  <Button type="submit" disabled={isLoading} className="flex-1">
-                    {isLoading ? "Adding..." : "Add Product"}
+                  <Button 
+                    type="submit" 
+                    disabled={isLoading} 
+                    className="flex-1"
+                  >
+                    {isLoading ? (
+                      <>
+                        <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                        Adding Product...
+                      </>
+                    ) : (
+                      <>
+                        <Plus className="mr-2 h-4 w-4" />
+                        Add Product
+                      </>
+                    )}
                   </Button>
                   <Button
                     type="button"
                     variant="outline"
                     onClick={() => setShowAddForm(false)}
                     className="flex-1"
+                    disabled={isLoading}
                   >
                     Cancel
                   </Button>
