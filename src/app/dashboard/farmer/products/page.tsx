@@ -142,10 +142,10 @@ export default function FarmerProductsPage() {
       return;
     }
 
-    if (!formData.name || !formData.quantity || !formData.pricePerUnit) {
+    if (!formData.name || !formData.category || !formData.quantity || !formData.pricePerUnit) {
       toast({
         title: "Missing Information",
-        description: "Please fill in all required fields",
+        description: "Please fill in all required fields (name, category, quantity, and price)",
         variant: "destructive",
       });
       return;
@@ -159,11 +159,17 @@ export default function FarmerProductsPage() {
           "Content-Type": "application/json",
         },
         body: JSON.stringify({
-          ...formData,
+          name: formData.name,
+          category: formData.category,
+          quantity: parseFloat(formData.quantity),
+          unit: formData.unit,
+          pricePerUnit: parseFloat(formData.pricePerUnit),
+          harvestDate: formData.harvestDate,
+          expiryDate: formData.expiryDate,
+          quality: formData.quality,
+          description: formData.description,
           hubId: selectedHub.id,
           farmerId: user?.uid,
-          quantity: parseFloat(formData.quantity),
-          pricePerUnit: parseFloat(formData.pricePerUnit),
         }),
       });
 
@@ -327,7 +333,7 @@ export default function FarmerProductsPage() {
                   </div>
 
                   <div className="space-y-2">
-                    <Label htmlFor="category">Category</Label>
+                    <Label htmlFor="category">Category *</Label>
                     <Select
                       value={formData.category}
                       onValueChange={(value) => {
@@ -337,6 +343,7 @@ export default function FarmerProductsPage() {
                           if (element) element.blur();
                         }, 0);
                       }}
+                      required
                     >
                       <SelectTrigger>
                         <SelectValue placeholder="Select category" />
