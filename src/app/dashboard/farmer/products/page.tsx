@@ -59,6 +59,7 @@ function FarmerProductsContent() {
   const searchParams = useSearchParams();
   const categoryFilter = searchParams.get("category");
   const action = searchParams.get("action");
+  const hubIdParam = searchParams.get("hubId");
 
   const [selectedHub, setSelectedHub] = useState<Hub | null>(null);
   const [products, setProducts] = useState<Product[]>([]);
@@ -299,7 +300,7 @@ function FarmerProductsContent() {
         {/* Hub Selection */}
         <div className="grid gap-4 md:grid-cols-3">
           <div className="md:col-span-2">
-            <HubSelector farmerId={user.uid} onHubSelected={setSelectedHub} />
+            <HubSelector farmerId={user.uid} onHubSelected={setSelectedHub} preselectedHubId={hubIdParam} />
           </div>
 
           {/* Quick Stats */}
