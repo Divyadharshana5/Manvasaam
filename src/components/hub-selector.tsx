@@ -23,11 +23,13 @@ import { Hub } from "@/types/hub";
 interface HubSelectorProps {
   farmerId: string;
   onHubSelected: (hub: Hub | null) => void;
+  preselectedHubId?: string | null;
 }
 
 export default function HubSelector({
   farmerId,
   onHubSelected,
+  preselectedHubId,
 }: HubSelectorProps) {
   const [hubs, setHubs] = useState<Hub[]>([]);
   const [selectedHub, setSelectedHub] = useState<Hub | null>(null);
@@ -87,6 +89,17 @@ export default function HubSelector({
       setIsLoading(false);
     }
   };
+
+  // If a preselected hub id is provided, select it after hubs load
+  useEffect(() => {
+    if (!isLoading && preselectedHubId && hubs.length > 0) {
+      const match = hubs.find((h) => h.id === preselectedHubId) || null;
+      if (match) {
+        setSelectedHub(match);
+        onHubSelected(match);
+      }
+    }
+  }, [isLoading, preselectedHubId, hubs]);
 
   const handleSelectHub = (hub: Hub) => {
     setSelectedHub(hub);
