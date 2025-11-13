@@ -1,7 +1,13 @@
 "use client";
 
 import { useState } from "react";
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import {
@@ -21,20 +27,28 @@ export default function FarmerAnalytics() {
     <div className="flex flex-1 flex-col gap-4 p-4 md:gap-8 md:p-8">
       <div className="flex items-center justify-between">
         <div>
-          <h1 className="text-3xl font-bold tracking-tight">Analytics Dashboard</h1>
+          <h1 className="text-3xl font-bold tracking-tight">
+            Analytics Dashboard
+          </h1>
           <p className="text-muted-foreground">
             Track your farm performance and sales insights
           </p>
         </div>
         <div className="flex gap-2">
           {/* simple range selector - activate Last 30 Days */}
-          <Button variant={"outline"} className={selectedRange === "30" ? "ring-2 ring-primary" : ""} onClick={() => setSelectedRange("30")}>
+          <Button
+            variant={"outline"}
+            className={selectedRange === "30" ? "ring-2 ring-primary" : ""}
+            onClick={() => setSelectedRange("30")}
+          >
             <Calendar className="mr-2 h-4 w-4" />
             Last 30 Days
           </Button>
           {/* Export goes to an export page which will provide downloads */}
           <Button asChild variant="outline">
-            <a href={`/dashboard/farmer/analytics/export?range=${selectedRange}`}>
+            <a
+              href={`/dashboard/farmer/analytics/export?range=${selectedRange}`}
+            >
               <BarChart3 className="mr-2 h-4 w-4" />
               Export Report
             </a>
@@ -84,7 +98,9 @@ export default function FarmerAnalytics() {
         </Card>
         <Card>
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-            <CardTitle className="text-sm font-medium">Avg. Order Value</CardTitle>
+            <CardTitle className="text-sm font-medium">
+              Avg. Order Value
+            </CardTitle>
             <PieChart className="h-4 w-4 text-muted-foreground" />
           </CardHeader>
           <CardContent>
@@ -107,7 +123,9 @@ export default function FarmerAnalytics() {
             <div className="h-[300px] flex items-center justify-center border-2 border-dashed border-gray-200 rounded-lg">
               <div className="text-center">
                 <BarChart3 className="h-12 w-12 text-gray-400 mx-auto mb-2" />
-                <p className="text-gray-500">Sales chart will be displayed here</p>
+                <p className="text-gray-500">
+                  Sales chart will be displayed here
+                </p>
               </div>
             </div>
           </CardContent>
