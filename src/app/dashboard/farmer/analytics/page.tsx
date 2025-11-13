@@ -37,9 +37,10 @@ export default function FarmerAnalytics() {
         <div className="flex gap-2">
           {/* simple range selector - activate Last 30 Days */}
           <Button
-            variant={"outline"}
+            variant={selectedRange === "30" ? "default" : "outline"}
             className={selectedRange === "30" ? "ring-2 ring-primary" : ""}
             onClick={() => setSelectedRange("30")}
+            aria-pressed={selectedRange === "30"}
           >
             <Calendar className="mr-2 h-4 w-4" />
             Last 30 Days
