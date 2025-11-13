@@ -1,5 +1,6 @@
 "use client";
 
+import { useState } from "react";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
@@ -25,13 +26,17 @@ export default function FarmerAnalytics() {
           </p>
         </div>
         <div className="flex gap-2">
-          <Button variant="outline">
+          {/* simple range selector - activate Last 30 Days */}
+          <Button variant={"outline"} className={selectedRange === "30" ? "ring-2 ring-primary" : ""} onClick={() => setSelectedRange("30")}>
             <Calendar className="mr-2 h-4 w-4" />
             Last 30 Days
           </Button>
-          <Button variant="outline">
-            <BarChart3 className="mr-2 h-4 w-4" />
-            Export Report
+          {/* Export goes to an export page which will provide downloads */}
+          <Button asChild variant="outline">
+            <a href={`/dashboard/farmer/analytics/export?range=${selectedRange}`}>
+              <BarChart3 className="mr-2 h-4 w-4" />
+              Export Report
+            </a>
           </Button>
         </div>
       </div>
