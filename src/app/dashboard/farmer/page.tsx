@@ -34,8 +34,9 @@ import {
 } from "lucide-react";
 import { Input } from "@/components/ui/input";
 import Link from "next/link";
-import { buttonVariants } from "@/components/ui/button";
+import { buttonVariants, Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
+import { useRouter } from "next/navigation";
 
 interface Product {
   id: string;
@@ -47,6 +48,33 @@ interface Product {
   status: string;
   hubId: string;
   createdAt: string;
+}
+
+function AddProductButton({
+  products,
+  className,
+}: {
+  products: Product[];
+  className?: string;
+}) {
+  const router = useRouter();
+
+  // try to pick a hubId from existing products (most recent with a hub)
+  const defaultHubId = products?.find((p) => p.hubId)?.hubId || null;
+
+  const handleClick = () => {
+    const url = `/dashboard/farmer/products?action=add${
+      defaultHubId ? `&hubId=${encodeURIComponent(defaultHubId)}` : ""
+    }`;
+    router.push(url);
+  };
+
+  return (
+    <Button onClick={handleClick} className={className}>
+      <Plus className="mr-2 h-4 w-4" />
+      Add Product
+    </Button>
+  );
 }
 
 export default function FarmerDashboard() {
@@ -202,13 +230,7 @@ export default function FarmerDashboard() {
           </p>
         </div>
         <div className="flex gap-2">
-          <Link
-            href="/dashboard/farmer/products?action=add"
-            className={buttonVariants()}
-          >
-            <Plus className="mr-2 h-4 w-4" />
-            Add Product
-          </Link>
+          <AddProductButton products={products} />
         </div>
       </div>
 
@@ -530,13 +552,7 @@ export default function FarmerDashboard() {
           </CardHeader>
           <CardContent>
             <div className="grid gap-3">
-              <Link
-                href="/dashboard/farmer/products?action=add"
-                className={cn(buttonVariants(), "justify-start")}
-              >
-                <Package className="mr-2 h-4 w-4" />
-                Add New Product
-              </Link>
+              <AddProductButton products={products} className="justify-start" />
               <Link
                 href="/dashboard/orders"
                 className={cn(
