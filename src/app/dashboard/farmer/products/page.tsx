@@ -300,7 +300,11 @@ function FarmerProductsContent() {
         {/* Hub Selection */}
         <div className="grid gap-4 md:grid-cols-3">
           <div className="md:col-span-2">
-            <HubSelector farmerId={user.uid} onHubSelected={setSelectedHub} preselectedHubId={hubIdParam} />
+            <HubSelector
+              farmerId={user.uid}
+              onHubSelected={setSelectedHub}
+              preselectedHubId={hubIdParam}
+            />
           </div>
 
           {/* Quick Stats */}
