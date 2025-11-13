@@ -49,7 +49,13 @@ interface Product {
   createdAt: string;
 }
 
-function AddProductButton({ products, className }: { products: Product[]; className?: string; }) {
+function AddProductButton({
+  products,
+  className,
+}: {
+  products: Product[];
+  className?: string;
+}) {
   // try to pick a hubId from existing products (most recent with a hub)
   const defaultHubId = products?.find((p) => p.hubId)?.hubId || null;
 
