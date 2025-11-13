@@ -33,9 +33,9 @@ import {
 } from "lucide-react";
 import { Input } from "@/components/ui/input";
 import Link from "next/link";
-import { buttonVariants, Button } from "@/components/ui/button";
+import { buttonVariants } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
-import { useRouter } from "next/navigation";
+import Link from "next/link";
 
 interface Product {
   id: string;
@@ -49,30 +49,19 @@ interface Product {
   createdAt: string;
 }
 
-function AddProductButton({
-  products,
-  className,
-}: {
-  products: Product[];
-  className?: string;
-}) {
-  const router = useRouter();
-
+function AddProductButton({ products, className }: { products: Product[]; className?: string; }) {
   // try to pick a hubId from existing products (most recent with a hub)
   const defaultHubId = products?.find((p) => p.hubId)?.hubId || null;
 
-  const handleClick = () => {
-    const url = `/dashboard/farmer/products?action=add${
-      defaultHubId ? `&hubId=${encodeURIComponent(defaultHubId)}` : ""
-    }`;
-    router.push(url);
-  };
+  const href = `/dashboard/farmer/products?action=add${
+    defaultHubId ? `&hubId=${encodeURIComponent(defaultHubId)}` : ""
+  }`;
 
   return (
-    <Button onClick={handleClick} className={className}>
+    <Link href={href} className={cn(buttonVariants(), className)}>
       <Plus className="mr-2 h-4 w-4" />
       Add Product
-    </Button>
+    </Link>
   );
 }
 
