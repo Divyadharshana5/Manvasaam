@@ -34,6 +34,8 @@ import {
 } from "lucide-react";
 import { Input } from "@/components/ui/input";
 import Link from "next/link";
+import { buttonVariants } from "@/components/ui/button";
+import { cn } from "@/lib/utils";
 
 interface Product {
   id: string;
@@ -162,16 +164,20 @@ export default function FarmerDashboard() {
               </button>
             )}
           </div>
-          <Button variant="outline" size="icon" className="relative" asChild>
-            <Link href="/dashboard/farmer/notifications">
-              <Bell className="h-4 w-4" />
-              {notificationCount > 0 && (
-                <span className="absolute -top-1 -right-1 h-5 w-5 rounded-full bg-red-500 text-white text-xs flex items-center justify-center font-medium">
-                  {notificationCount > 9 ? "9+" : notificationCount}
-                </span>
-              )}
-            </Link>
-          </Button>
+          <Link
+            href="/dashboard/farmer/notifications"
+            className={cn(
+              buttonVariants({ variant: "outline", size: "icon" }),
+              "relative"
+            )}
+          >
+            <Bell className="h-4 w-4" />
+            {notificationCount > 0 && (
+              <span className="absolute -top-1 -right-1 h-5 w-5 rounded-full bg-red-500 text-white text-xs flex items-center justify-center font-medium">
+                {notificationCount > 9 ? "9+" : notificationCount}
+              </span>
+            )}
+          </Link>
           <Button
             variant="outline"
             size="icon"
@@ -196,12 +202,13 @@ export default function FarmerDashboard() {
           </p>
         </div>
         <div className="flex gap-2">
-          <Button asChild>
-            <Link href="/dashboard/farmer/products?action=add">
-              <Plus className="mr-2 h-4 w-4" />
-              Add Product
-            </Link>
-          </Button>
+          <Link
+            href="/dashboard/farmer/products?action=add"
+            className={buttonVariants()}
+          >
+            <Plus className="mr-2 h-4 w-4" />
+            Add Product
+          </Link>
         </div>
       </div>
 
@@ -307,11 +314,15 @@ export default function FarmerDashboard() {
                 </div>
               )}
             </div>
-            <Button variant="outline" size="sm" className="mt-2 w-full" asChild>
-              <Link href="/dashboard/farmer/products?category=vegetables">
-                Manage
-              </Link>
-            </Button>
+            <Link
+              href="/dashboard/farmer/products?category=vegetables"
+              className={cn(
+                buttonVariants({ variant: "outline", size: "sm" }),
+                "mt-2 w-full"
+              )}
+            >
+              Manage
+            </Link>
           </CardContent>
         </Card>
         <Card className="border-orange-200">
@@ -350,11 +361,15 @@ export default function FarmerDashboard() {
                 </div>
               )}
             </div>
-            <Button variant="outline" size="sm" className="mt-2 w-full" asChild>
-              <Link href="/dashboard/farmer/products?category=fruits">
-                Manage
-              </Link>
-            </Button>
+            <Link
+              href="/dashboard/farmer/products?category=fruits"
+              className={cn(
+                buttonVariants({ variant: "outline", size: "sm" }),
+                "mt-2 w-full"
+              )}
+            >
+              Manage
+            </Link>
           </CardContent>
         </Card>
         <Card className="border-amber-200">
@@ -393,11 +408,15 @@ export default function FarmerDashboard() {
                 </div>
               )}
             </div>
-            <Button variant="outline" size="sm" className="mt-2 w-full" asChild>
-              <Link href="/dashboard/farmer/products?category=grains">
-                Manage
-              </Link>
-            </Button>
+            <Link
+              href="/dashboard/farmer/products?category=grains"
+              className={cn(
+                buttonVariants({ variant: "outline", size: "sm" }),
+                "mt-2 w-full"
+              )}
+            >
+              Manage
+            </Link>
           </CardContent>
         </Card>
         <Card className="border-emerald-200">
@@ -436,11 +455,15 @@ export default function FarmerDashboard() {
                 </div>
               )}
             </div>
-            <Button variant="outline" size="sm" className="mt-2 w-full" asChild>
-              <Link href="/dashboard/farmer/products?category=herbs">
-                Manage
-              </Link>
-            </Button>
+            <Link
+              href="/dashboard/farmer/products?category=herbs"
+              className={cn(
+                buttonVariants({ variant: "outline", size: "sm" }),
+                "mt-2 w-full"
+              )}
+            >
+              Manage
+            </Link>
           </CardContent>
         </Card>
       </div>
@@ -488,9 +511,15 @@ export default function FarmerDashboard() {
                 <Badge>New Order</Badge>
               </div>
             </div>
-            <Button variant="outline" className="w-full mt-4" asChild>
-              <Link href="/dashboard/orders">View All Orders</Link>
-            </Button>
+            <Link
+              href="/dashboard/orders"
+              className={cn(
+                buttonVariants({ variant: "outline" }),
+                "w-full mt-4"
+              )}
+            >
+              View All Orders
+            </Link>
           </CardContent>
         </Card>
 
@@ -501,30 +530,43 @@ export default function FarmerDashboard() {
           </CardHeader>
           <CardContent>
             <div className="grid gap-3">
-              <Button asChild className="justify-start">
-                <Link href="/dashboard/farmer/products?action=add">
-                  <Package className="mr-2 h-4 w-4" />
-                  Add New Product
-                </Link>
-              </Button>
-              <Button variant="outline" asChild className="justify-start">
-                <Link href="/dashboard/orders">
-                  <ShoppingCart className="mr-2 h-4 w-4" />
-                  View Orders
-                </Link>
-              </Button>
-              <Button variant="outline" asChild className="justify-start">
-                <Link href="/dashboard/farmer/matchmaking">
-                  <Users className="mr-2 h-4 w-4" />
-                  Find Buyers
-                </Link>
-              </Button>
-              <Button variant="outline" asChild className="justify-start">
-                <Link href="/dashboard/farmer/analytics">
-                  <BarChart3 className="mr-2 h-4 w-4" />
-                  View Analytics
-                </Link>
-              </Button>
+              <Link
+                href="/dashboard/farmer/products?action=add"
+                className={cn(buttonVariants(), "justify-start")}
+              >
+                <Package className="mr-2 h-4 w-4" />
+                Add New Product
+              </Link>
+              <Link
+                href="/dashboard/orders"
+                className={cn(
+                  buttonVariants({ variant: "outline" }),
+                  "justify-start"
+                )}
+              >
+                <ShoppingCart className="mr-2 h-4 w-4" />
+                View Orders
+              </Link>
+              <Link
+                href="/dashboard/farmer/matchmaking"
+                className={cn(
+                  buttonVariants({ variant: "outline" }),
+                  "justify-start"
+                )}
+              >
+                <Users className="mr-2 h-4 w-4" />
+                Find Buyers
+              </Link>
+              <Link
+                href="/dashboard/farmer/analytics"
+                className={cn(
+                  buttonVariants({ variant: "outline" }),
+                  "justify-start"
+                )}
+              >
+                <BarChart3 className="mr-2 h-4 w-4" />
+                View Analytics
+              </Link>
             </div>
           </CardContent>
         </Card>
