@@ -258,13 +258,13 @@ export default function TransportNotifications() {
             </Button>
 
             {showFilter && (
-              <div className="absolute right-0 mt-2 w-64 rounded-md border bg-white p-3 shadow-lg z-20">
+              <div className="absolute right-0 mt-2 w-64 rounded-md border border-gray-200 bg-white/95 p-3 shadow-lg z-50">
                 <div className="mb-2">
                   <p className="text-sm font-medium mb-1">Category</p>
                   <div className="flex flex-col gap-1">
                     <button
-                      className={`text-left text-sm p-1 rounded ${
-                        filterCategory === "all" ? "bg-muted" : ""
+                      className={`text-left text-sm p-1 rounded hover:bg-gray-100 ${
+                        filterCategory === "all" ? "bg-gray-100 font-medium" : ""
                       }`}
                       onClick={() => setFilterCategory("all")}
                     >
@@ -273,8 +273,8 @@ export default function TransportNotifications() {
                     {categories.map((c) => (
                       <button
                         key={c}
-                        className={`text-left text-sm p-1 rounded ${
-                          filterCategory === c ? "bg-muted" : ""
+                        className={`text-left text-sm p-1 rounded hover:bg-gray-100 ${
+                          filterCategory === c ? "bg-gray-100 font-medium" : ""
                         }`}
                         onClick={() => setFilterCategory(c)}
                       >
