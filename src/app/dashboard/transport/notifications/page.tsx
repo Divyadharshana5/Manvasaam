@@ -36,7 +36,8 @@ import {
   X,
 } from "lucide-react";
 import Link from "next/link";
-import { useState } from "react";
+import { useState, useRef, useEffect } from "react";
+import { createPortal } from "react-dom";
 
 export default function TransportNotifications() {
   const [searchQuery, setSearchQuery] = useState("");
@@ -44,6 +45,8 @@ export default function TransportNotifications() {
   const [showFilter, setShowFilter] = useState(false);
   const [filterCategory, setFilterCategory] = useState<string | "all">("all");
   const [filterUnread, setFilterUnread] = useState(false);
+  const filterBtnRef = useRef<HTMLDivElement | null>(null);
+  const [dropdownPos, setDropdownPos] = useState<{ top: number; right: number } | null>(null);
 
   const initialNotifications = [
     {
@@ -190,6 +193,25 @@ export default function TransportNotifications() {
   const handleMarkAllRead = () => {
     setNotifications((prev) => prev.map((n) => ({ ...n, read: true })));
   };
+
+  useEffect(() => {
+    if (!showFilter) return;
+    const updatePos = () => {
+      const el = filterBtnRef.current;
+      if (!el) return setDropdownPos(null);
+      const rect = el.getBoundingClientRect();
+      const top = Math.round(rect.bottom + 8 + window.scrollY);
+      const right = Math.round(window.innerWidth - rect.right + 8);
+      setDropdownPos({ top, right });
+    };
+    updatePos();
+    window.addEventListener("resize", updatePos);
+    window.addEventListener("scroll", updatePos);
+    return () => {
+      window.removeEventListener("resize", updatePos);
+      window.removeEventListener("scroll", updatePos);
+    };
+  }, [showFilter]);
 
   return (
     <div className="min-h-screen w-full overflow-auto">
