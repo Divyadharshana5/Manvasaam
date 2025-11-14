@@ -3,7 +3,17 @@
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
-import { Route, MapPin, Clock, Zap, Navigation, TrendingUp, Loader2, CheckCircle, Plus } from "lucide-react";
+import {
+  Route,
+  MapPin,
+  Clock,
+  Zap,
+  Navigation,
+  TrendingUp,
+  Loader2,
+  CheckCircle,
+  Plus,
+} from "lucide-react";
 import { useState } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
@@ -17,25 +27,26 @@ export default function RoutesPage() {
   const handleOptimizeAll = async () => {
     setIsOptimizing(true);
     setOptimizationComplete(false);
-    
+
     try {
       // Simulate AI optimization process
-      await new Promise(resolve => setTimeout(resolve, 3000));
-      
-      console.log('Optimizing all routes with AI algorithms...');
-      
+      await new Promise((resolve) => setTimeout(resolve, 3000));
+
+      console.log("Optimizing all routes with AI algorithms...");
+
       // Show completion
       setOptimizationComplete(true);
-      
+
       // Show success message
       setTimeout(() => {
-        alert('Route optimization completed! All routes have been optimized for maximum efficiency.');
+        alert(
+          "Route optimization completed! All routes have been optimized for maximum efficiency."
+        );
         setOptimizationComplete(false);
       }, 1000);
-      
     } catch (error) {
-      console.error('Error optimizing routes:', error);
-      alert('Failed to optimize routes. Please try again.');
+      console.error("Error optimizing routes:", error);
+      alert("Failed to optimize routes. Please try again.");
     } finally {
       setTimeout(() => {
         setIsOptimizing(false);
@@ -46,19 +57,20 @@ export default function RoutesPage() {
   // Handler for running single optimization
   const handleRunOptimization = async () => {
     setIsRunningOptimization(true);
-    
+
     try {
       // Simulate optimization process
-      await new Promise(resolve => setTimeout(resolve, 2500));
-      
-      console.log('Running route optimization with current settings...');
-      
+      await new Promise((resolve) => setTimeout(resolve, 2500));
+
+      console.log("Running route optimization with current settings...");
+
       // Show success message
-      alert('Route optimization completed successfully! Efficiency improved by 8.5%');
-      
+      alert(
+        "Route optimization completed successfully! Efficiency improved by 8.5%"
+      );
     } catch (error) {
-      console.error('Error running optimization:', error);
-      alert('Failed to run optimization. Please try again.');
+      console.error("Error running optimization:", error);
+      alert("Failed to run optimization. Please try again.");
     } finally {
       setIsRunningOptimization(false);
     }
@@ -73,17 +85,17 @@ export default function RoutesPage() {
       stops: 8,
       status: "Active",
       efficiency: "92%",
-      assignedVehicle: "TRK-001"
+      assignedVehicle: "TRK-001",
     },
     {
       id: "RT-002",
       name: "Industrial Zone",
-      distance: "38.7 km", 
+      distance: "38.7 km",
       estimatedTime: "1h 15min",
       stops: 12,
       status: "Optimized",
       efficiency: "88%",
-      assignedVehicle: "TRK-003"
+      assignedVehicle: "TRK-003",
     },
     {
       id: "RT-003",
@@ -93,7 +105,7 @@ export default function RoutesPage() {
       stops: 15,
       status: "Planning",
       efficiency: "85%",
-      assignedVehicle: "TRK-005"
+      assignedVehicle: "TRK-005",
     },
     {
       id: "RT-004",
@@ -103,16 +115,20 @@ export default function RoutesPage() {
       stops: 4,
       status: "Active",
       efficiency: "95%",
-      assignedVehicle: "TRK-002"
-    }
+      assignedVehicle: "TRK-002",
+    },
   ];
 
   const getStatusColor = (status: string) => {
     switch (status) {
-      case "Active": return "bg-green-100 text-green-800";
-      case "Optimized": return "bg-blue-100 text-blue-800";
-      case "Planning": return "bg-yellow-100 text-yellow-800";
-      default: return "bg-gray-100 text-gray-800";
+      case "Active":
+        return "bg-green-100 text-green-800";
+      case "Optimized":
+        return "bg-blue-100 text-blue-800";
+      case "Planning":
+        return "bg-yellow-100 text-yellow-800";
+      default:
+        return "bg-gray-100 text-gray-800";
     }
   };
 
@@ -128,8 +144,8 @@ export default function RoutesPage() {
       <div className="flex items-center justify-between">
         <h1 className="text-3xl font-bold">Route Management</h1>
         <div className="flex space-x-2">
-          <Button 
-            variant="outline" 
+          <Button
+            variant="outline"
             onClick={handleOptimizeAll}
             disabled={isOptimizing}
           >
@@ -170,7 +186,9 @@ export default function RoutesPage() {
 
         <Card>
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-            <CardTitle className="text-sm font-medium">Avg Efficiency</CardTitle>
+            <CardTitle className="text-sm font-medium">
+              Avg Efficiency
+            </CardTitle>
             <TrendingUp className="h-4 w-4 text-muted-foreground" />
           </CardHeader>
           <CardContent>
@@ -181,7 +199,9 @@ export default function RoutesPage() {
 
         <Card>
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-            <CardTitle className="text-sm font-medium">Total Distance</CardTitle>
+            <CardTitle className="text-sm font-medium">
+              Total Distance
+            </CardTitle>
             <Navigation className="h-4 w-4 text-muted-foreground" />
           </CardHeader>
           <CardContent>
@@ -197,7 +217,9 @@ export default function RoutesPage() {
           </CardHeader>
           <CardContent>
             <div className="text-2xl font-bold">127L</div>
-            <p className="text-xs text-muted-foreground">Through optimization</p>
+            <p className="text-xs text-muted-foreground">
+              Through optimization
+            </p>
           </CardContent>
         </Card>
       </div>
@@ -209,7 +231,10 @@ export default function RoutesPage() {
         <CardContent>
           <div className="space-y-4">
             {routes.map((route) => (
-              <div key={route.id} className="flex items-center justify-between p-4 border rounded-lg">
+              <div
+                key={route.id}
+                className="flex items-center justify-between p-4 border rounded-lg"
+              >
                 <div className="flex items-center space-x-4">
                   <div className="flex flex-col">
                     <span className="font-semibold">{route.name}</span>
@@ -230,14 +255,24 @@ export default function RoutesPage() {
                 </div>
                 <div className="flex items-center space-x-4">
                   <div className="flex flex-col items-end">
-                    <span className={`text-sm font-medium ${getEfficiencyColor(route.efficiency)}`}>
+                    <span
+                      className={`text-sm font-medium ${getEfficiencyColor(
+                        route.efficiency
+                      )}`}
+                    >
                       Efficiency: {route.efficiency}
                     </span>
                   </div>
                   <Badge className={getStatusColor(route.status)}>
                     {route.status}
                   </Badge>
-                  <Button variant="outline" size="sm" onClick={() => router.push(`/dashboard/transport/routes/${route.id}`)}>
+                  <Button
+                    variant="outline"
+                    size="sm"
+                    onClick={() =>
+                      router.push(`/dashboard/transport/routes/${route.id}`)
+                    }
+                  >
                     View Details
                   </Button>
                 </div>
@@ -266,8 +301,8 @@ export default function RoutesPage() {
                 <span className="text-sm">Weather Integration</span>
                 <Badge className="bg-green-100 text-green-800">Enabled</Badge>
               </div>
-              <Button 
-                className="w-full mt-4" 
+              <Button
+                className="w-full mt-4"
                 onClick={handleRunOptimization}
                 disabled={isRunningOptimization}
               >
@@ -295,7 +330,9 @@ export default function RoutesPage() {
             <div className="space-y-4">
               <div className="flex justify-between">
                 <span className="text-sm">On-time Delivery Rate</span>
-                <span className="text-sm font-medium text-green-600">94.2%</span>
+                <span className="text-sm font-medium text-green-600">
+                  94.2%
+                </span>
               </div>
               <div className="flex justify-between">
                 <span className="text-sm">Average Delay</span>
@@ -303,11 +340,15 @@ export default function RoutesPage() {
               </div>
               <div className="flex justify-between">
                 <span className="text-sm">Fuel Efficiency Gain</span>
-                <span className="text-sm font-medium text-green-600">+12.3%</span>
+                <span className="text-sm font-medium text-green-600">
+                  +12.3%
+                </span>
               </div>
               <div className="flex justify-between">
                 <span className="text-sm">Customer Satisfaction</span>
-                <span className="text-sm font-medium text-green-600">4.7/5</span>
+                <span className="text-sm font-medium text-green-600">
+                  4.7/5
+                </span>
               </div>
             </div>
           </CardContent>
