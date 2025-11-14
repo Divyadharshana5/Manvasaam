@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { useRouter } from "next/navigation";
 import {
   Card,
   CardContent,
@@ -23,6 +24,7 @@ import {
 
 export default function FarmerAnalytics() {
   const [selectedRange, setSelectedRange] = useState("30");
+  const router = useRouter();
   return (
     <div className="flex flex-1 flex-col gap-4 p-4 md:gap-8 md:p-8">
       <div className="flex items-center justify-between">
@@ -39,7 +41,10 @@ export default function FarmerAnalytics() {
           <Button
             variant={selectedRange === "30" ? "default" : "outline"}
             className={selectedRange === "30" ? "ring-2 ring-primary" : ""}
-            onClick={() => setSelectedRange("30")}
+            onClick={() => {
+              setSelectedRange("30");
+              router.push(`/dashboard/farmer/analytics?range=30`);
+            }}
             aria-pressed={selectedRange === "30"}
           >
             <Calendar className="mr-2 h-4 w-4" />
