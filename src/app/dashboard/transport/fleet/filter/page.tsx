@@ -27,8 +27,10 @@ import {
 } from "lucide-react";
 import Link from "next/link";
 import { useState } from "react";
+import { useRouter } from "next/navigation";
 
 export default function FleetFilter() {
+    const router = useRouter();
     const [filters, setFilters] = useState({
         search: "",
         status: "all",
@@ -89,10 +91,27 @@ export default function FleetFilter() {
     };
 
     const handleApplyFilters = () => {
-        // In a real app, this would apply the filters and navigate back
-        console.log("Applying filters:", filters);
-        // Navigate back to fleet page with filters applied
-        window.history.back();
+        // Build a simple query string from some filter fields
+        const params = new URLSearchParams();
+        if (filters.search) params.set("search", filters.search);
+        if (filters.status && filters.status !== "all") params.set("status", filters.status);
+        if (filters.location && filters.location !== "all") params.set("location", filters.location);
+        if (filters.driver && filters.driver !== "all") params.set("driver", filters.driver);
+        if (filters.serviceStatus && filters.serviceStatus.length)
+            params.set("serviceStatus", filters.serviceStatus.join(","));
+        // Ranges: include when different from defaults
+        if (!(filters.fuelRange[0] === 0 && filters.fuelRange[1] === 100))
+            params.set("fuelMin", String(filters.fuelRange[0]));
+        if (!(filters.batteryRange[0] === 0 && filters.batteryRange[1] === 100))
+            params.set("batteryMin", String(filters.batteryRange[0]));
+
+        const url = `/dashboard/transport?tab=fleet${params.toString() ? `&${params.toString()}` : ""}`;
+        router.push(url);
+    };
+
+    const handleCancel = () => {
+        // Discard changes and navigate back to transport fleet view
+        router.push("/dashboard/transport?tab=fleet");
     };
 
     return (
