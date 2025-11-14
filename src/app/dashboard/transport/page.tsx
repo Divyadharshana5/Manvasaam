@@ -48,6 +48,7 @@ import {
     Star,
     ThermometerSun,
     Battery,
+    X,
 } from "lucide-react";
 import Link from "next/link";
 import { useState } from "react";
@@ -220,8 +221,17 @@ export default function TransportDashboard() {
                             placeholder="Search deliveries, vehicles..."
                             value={searchQuery}
                             onChange={(e) => setSearchQuery(e.target.value)}
-                            className="pl-8 w-64"
+                            className="pl-8 pr-8 w-64"
                         />
+                        {searchQuery && (
+                            <button
+                                onClick={() => setSearchQuery("")}
+                                aria-label="Clear search"
+                                className="absolute right-2 top-2.5 h-4 w-4 text-muted-foreground hover:text-foreground"
+                            >
+                                <X className="h-4 w-4" />
+                            </button>
+                        )}
                     </div>
                     <Button variant="outline" size="icon" asChild>
                         <Link href="/dashboard/transport/notifications">
