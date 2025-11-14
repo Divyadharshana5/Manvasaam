@@ -35,7 +35,7 @@ export default function TransportNotifications() {
     const [searchQuery, setSearchQuery] = useState("");
     const [activeTab, setActiveTab] = useState("all");
 
-    const notifications = [
+    const initialNotifications = [
         {
             id: "1",
             type: "urgent",
@@ -118,6 +118,8 @@ export default function TransportNotifications() {
         }
     ];
 
+    const [notifications, setNotifications] = useState(initialNotifications);
+
     const getNotificationColor = (type: string) => {
         switch (type) {
             case "urgent": return "border-red-200 bg-red-50";
@@ -148,6 +150,10 @@ export default function TransportNotifications() {
 
     const unreadCount = notifications.filter(n => !n.read).length;
 
+    const handleMarkAllRead = () => {
+        setNotifications(prev => prev.map(n => ({ ...n, read: true })));
+    };
+
     return (
         <div className="min-h-screen w-full overflow-auto">
             <div className="flex flex-col gap-4 p-4 md:gap-6 md:p-6 max-w-7xl mx-auto">
@@ -170,13 +176,17 @@ export default function TransportNotifications() {
                         <Badge variant="secondary">
                             {unreadCount} unread
                         </Badge>
-                        <Button variant="outline" size="sm">
+                        <Button variant="outline" size="sm" onClick={handleMarkAllRead}>
                             <Check className="h-4 w-4 mr-2" />
                             Mark All Read
                         </Button>
-                        <Button variant="outline" size="sm">
-                            <Settings className="h-4 w-4 mr-2" />
-                            Settings
+                        <Button variant="outline" size="sm" asChild>
+                            <Link href="/dashboard/transport/settings">
+                                <>
+                                    <Settings className="h-4 w-4 mr-2" />
+                                    Settings
+                                </>
+                            </Link>
                         </Button>
                     </div>
                 </div>
