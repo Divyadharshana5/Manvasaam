@@ -197,6 +197,14 @@ export default function TransportNotifications() {
     setNotifications((prev) => prev.map((n) => ({ ...n, read: true })));
   };
 
+  const handleMarkRead = (id: string) => {
+    setNotifications((prev) => prev.map((n) => (n.id === id ? { ...n, read: true } : n)));
+  };
+
+  const handleDeleteNotification = (id: string) => {
+    setNotifications((prev) => prev.filter((n) => n.id !== id));
+  };
+
   useEffect(() => {
     if (!showFilter) return;
     const updatePos = () => {
@@ -411,6 +419,9 @@ export default function TransportNotifications() {
                                 variant="ghost"
                                 size="sm"
                                 className="h-8 w-8 p-0"
+                                onClick={() => handleMarkRead(notification.id)}
+                                aria-label="Mark as read"
+                                title="Mark as read"
                               >
                                 <Check className="h-3 w-3" />
                               </Button>
@@ -418,6 +429,9 @@ export default function TransportNotifications() {
                                 variant="ghost"
                                 size="sm"
                                 className="h-8 w-8 p-0"
+                                onClick={() => handleDeleteNotification(notification.id)}
+                                aria-label="Delete notification"
+                                title="Delete"
                               >
                                 <Trash2 className="h-3 w-3" />
                               </Button>
