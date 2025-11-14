@@ -264,7 +264,9 @@ export default function TransportNotifications() {
                   <div className="flex flex-col gap-1">
                     <button
                       className={`text-left text-sm p-1 rounded hover:bg-gray-100 ${
-                        filterCategory === "all" ? "bg-gray-100 font-medium" : ""
+                        filterCategory === "all"
+                          ? "bg-gray-100 font-medium"
+                          : ""
                       }`}
                       onClick={() => setFilterCategory("all")}
                     >
