@@ -30,8 +30,10 @@ import {
 } from "lucide-react";
 import Link from "next/link";
 import { useState } from "react";
+import { useRouter } from "next/navigation";
 
 export default function FleetExport() {
+    const router = useRouter();
     const [exportSettings, setExportSettings] = useState({
         format: "csv",
         dateRange: "all",
@@ -156,6 +158,8 @@ export default function FleetExport() {
 
         // Show success message or redirect
         alert(`Export started! File: ${fileName}`);
+        // After export, navigate back to fleet tab
+        router.push('/dashboard/transport?tab=fleet');
     };
 
     const fieldsByCategory = availableFields.reduce((acc, field) => {
