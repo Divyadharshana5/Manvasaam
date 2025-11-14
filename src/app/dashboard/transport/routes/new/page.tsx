@@ -389,13 +389,7 @@ export default function NewRoutePage() {
                                 </CardTitle>
                             </CardHeader>
                             <CardContent className="space-y-4">
-                                <div className="text-center p-8 border-2 border-dashed border-gray-200 rounded-lg">
-                                    <MapPin className="h-12 w-12 text-gray-400 mx-auto mb-4" />
-                                    <h3 className="font-semibold mb-2">Route Visualization</h3>
-                                    <p className="text-sm text-muted-foreground">
-                                        Interactive map will appear here showing your route
-                                    </p>
-                                </div>
+                                {/* Route visualization removed (was a placeholder box) */}
 
                                 {routeData.estimatedDistance && routeData.estimatedTime && (
                                     <div className="space-y-2 text-sm">
