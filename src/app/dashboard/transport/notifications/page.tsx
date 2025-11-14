@@ -33,6 +33,7 @@ import {
   Wrench,
   DollarSign,
   Calendar,
+  X,
 } from "lucide-react";
 import Link from "next/link";
 import { useState } from "react";
@@ -40,6 +41,9 @@ import { useState } from "react";
 export default function TransportNotifications() {
   const [searchQuery, setSearchQuery] = useState("");
   const [activeTab, setActiveTab] = useState("all");
+  const [showFilter, setShowFilter] = useState(false);
+  const [filterCategory, setFilterCategory] = useState<string | "all">("all");
+  const [filterUnread, setFilterUnread] = useState(false);
 
   const initialNotifications = [
     {
@@ -134,6 +138,10 @@ export default function TransportNotifications() {
 
   const [notifications, setNotifications] = useState(initialNotifications);
 
+  const categories = Array.from(
+    new Set(initialNotifications.map((n) => n.category))
+  );
+
   const getNotificationColor = (type: string) => {
     switch (type) {
       case "urgent":
@@ -169,7 +177,10 @@ export default function TransportNotifications() {
       (activeTab === "unread" && !notification.read) ||
       (activeTab === "urgent" && notification.type === "urgent") ||
       notification.category === activeTab;
-    return matchesSearch && matchesTab;
+    const matchesCategory =
+      filterCategory === "all" || notification.category === filterCategory;
+    const matchesUnreadFilter = !filterUnread || !notification.read;
+    return matchesSearch && matchesTab && matchesCategory && matchesUnreadFilter;
   });
 
   const unreadCount = notifications.filter((n) => !n.read).length;
