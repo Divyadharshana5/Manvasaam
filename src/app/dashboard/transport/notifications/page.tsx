@@ -234,13 +234,64 @@ export default function TransportNotifications() {
               placeholder="Search notifications..."
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
-              className="pl-8"
+              className="pl-8 pr-8"
             />
+            {searchQuery && (
+              <button
+                onClick={() => setSearchQuery("")}
+                aria-label="Clear search"
+                className="absolute right-2 top-2.5 h-4 w-4 text-muted-foreground hover:text-foreground"
+              >
+                <X className="h-4 w-4" />
+              </button>
+            )}
           </div>
-          <Button variant="outline" className="w-fit">
-            <Filter className="h-4 w-4 mr-2" />
-            Filter
-          </Button>
+
+          <div className="relative">
+            <Button
+              variant="outline"
+              className="w-fit"
+              onClick={() => setShowFilter((s) => !s)}
+            >
+              <Filter className="h-4 w-4 mr-2" />
+              Filter
+            </Button>
+
+            {showFilter && (
+              <div className="absolute right-0 mt-2 w-64 rounded-md border bg-white p-3 shadow-lg z-20">
+                <div className="mb-2">
+                  <p className="text-sm font-medium mb-1">Category</p>
+                  <div className="flex flex-col gap-1">
+                    <button
+                      className={`text-left text-sm p-1 rounded ${filterCategory === 'all' ? 'bg-muted' : ''}`}
+                      onClick={() => setFilterCategory('all')}
+                    >
+                      All
+                    </button>
+                    {categories.map((c) => (
+                      <button
+                        key={c}
+                        className={`text-left text-sm p-1 rounded ${filterCategory === c ? 'bg-muted' : ''}`}
+                        onClick={() => setFilterCategory(c)}
+                      >
+                        {c}
+                      </button>
+                    ))}
+                  </div>
+                </div>
+                <div className="border-t pt-2">
+                  <label className="flex items-center gap-2 text-sm">
+                    <input
+                      type="checkbox"
+                      checked={filterUnread}
+                      onChange={(e) => setFilterUnread(e.target.checked)}
+                    />
+                    Unread only
+                  </label>
+                </div>
+              </div>
+            )}
+          </div>
         </div>
 
         {/* Notification Tabs */}
