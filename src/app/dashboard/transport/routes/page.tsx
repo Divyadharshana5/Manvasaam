@@ -6,6 +6,7 @@ import { Button } from "@/components/ui/button";
 import { Route, MapPin, Clock, Zap, Navigation, TrendingUp, Loader2, CheckCircle, Plus } from "lucide-react";
 import { useState } from "react";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 
 export default function RoutesPage() {
   const [isOptimizing, setIsOptimizing] = useState(false);
@@ -146,8 +147,10 @@ export default function RoutesPage() {
           </Button>
           <Button className="bg-emerald-600 hover:bg-emerald-700" asChild>
             <Link href="/dashboard/transport/routes/new">
-              <Route className="mr-2 h-4 w-4" />
-              New Route
+              <span className="flex items-center">
+                <Route className="mr-2 h-4 w-4" />
+                New Route
+              </span>
             </Link>
           </Button>
         </div>
@@ -234,7 +237,7 @@ export default function RoutesPage() {
                   <Badge className={getStatusColor(route.status)}>
                     {route.status}
                   </Badge>
-                  <Button variant="outline" size="sm">
+                  <Button variant="outline" size="sm" onClick={() => router.push(`/dashboard/transport/routes/${route.id}`)}>
                     View Details
                   </Button>
                 </div>
