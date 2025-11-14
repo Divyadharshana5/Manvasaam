@@ -63,10 +63,12 @@ function AddProductButton({
   }`;
 
   return (
-    <Link href={href} className={cn(buttonVariants(), className)}>
-      <Plus className="mr-2 h-4 w-4" />
-      Add Product
-    </Link>
+    <Button asChild className={className}>
+      <Link href={href}>
+        <Plus className="mr-2 h-4 w-4" />
+        Add Product
+      </Link>
+    </Button>
   );
 }
 
@@ -329,15 +331,11 @@ export default function FarmerDashboard() {
                 </div>
               )}
             </div>
-            <Link
-              href="/dashboard/farmer/products?category=vegetables"
-              className={cn(
-                buttonVariants({ variant: "outline", size: "sm" }),
-                "mt-2 w-full"
-              )}
-            >
-              Manage
-            </Link>
+            <Button asChild variant="outline" size="sm" className="mt-2 w-full">
+              <Link href="/dashboard/farmer/products?category=vegetables">
+                Manage
+              </Link>
+            </Button>
           </CardContent>
         </Card>
         <Card className="border-orange-200">
@@ -376,15 +374,11 @@ export default function FarmerDashboard() {
                 </div>
               )}
             </div>
-            <Link
-              href="/dashboard/farmer/products?category=fruits"
-              className={cn(
-                buttonVariants({ variant: "outline", size: "sm" }),
-                "mt-2 w-full"
-              )}
-            >
-              Manage
-            </Link>
+            <Button asChild variant="outline" size="sm" className="mt-2 w-full">
+              <Link href="/dashboard/farmer/products?category=fruits">
+                Manage
+              </Link>
+            </Button>
           </CardContent>
         </Card>
         <Card className="border-amber-200">
@@ -423,15 +417,11 @@ export default function FarmerDashboard() {
                 </div>
               )}
             </div>
-            <Link
-              href="/dashboard/farmer/products?category=grains"
-              className={cn(
-                buttonVariants({ variant: "outline", size: "sm" }),
-                "mt-2 w-full"
-              )}
-            >
-              Manage
-            </Link>
+            <Button asChild variant="outline" size="sm" className="mt-2 w-full">
+              <Link href="/dashboard/farmer/products?category=grains">
+                Manage
+              </Link>
+            </Button>
           </CardContent>
         </Card>
         <Card className="border-emerald-200">
@@ -470,15 +460,11 @@ export default function FarmerDashboard() {
                 </div>
               )}
             </div>
-            <Link
-              href="/dashboard/farmer/products?category=herbs"
-              className={cn(
-                buttonVariants({ variant: "outline", size: "sm" }),
-                "mt-2 w-full"
-              )}
-            >
-              Manage
-            </Link>
+            <Button asChild variant="outline" size="sm" className="mt-2 w-full">
+              <Link href="/dashboard/farmer/products?category=herbs">
+                Manage
+              </Link>
+            </Button>
           </CardContent>
         </Card>
       </div>
