@@ -340,7 +340,9 @@ export default function FarmerDashboard() {
               variant="outline"
               size="sm"
               className="mt-2 w-full"
-              onClick={() => router.push("/dashboard/farmer/products?category=vegetables")}
+              onClick={() =>
+                router.push("/dashboard/farmer/products?category=vegetables")
+              }
             >
               Manage
             </Button>
@@ -386,7 +388,9 @@ export default function FarmerDashboard() {
               variant="outline"
               size="sm"
               className="mt-2 w-full"
-              onClick={() => router.push("/dashboard/farmer/products?category=fruits")}
+              onClick={() =>
+                router.push("/dashboard/farmer/products?category=fruits")
+              }
             >
               Manage
             </Button>
@@ -432,7 +436,9 @@ export default function FarmerDashboard() {
               variant="outline"
               size="sm"
               className="mt-2 w-full"
-              onClick={() => router.push("/dashboard/farmer/products?category=grains")}
+              onClick={() =>
+                router.push("/dashboard/farmer/products?category=grains")
+              }
             >
               Manage
             </Button>
@@ -478,7 +484,9 @@ export default function FarmerDashboard() {
               variant="outline"
               size="sm"
               className="mt-2 w-full"
-              onClick={() => router.push("/dashboard/farmer/products?category=herbs")}
+              onClick={() =>
+                router.push("/dashboard/farmer/products?category=herbs")
+              }
             >
               Manage
             </Button>
