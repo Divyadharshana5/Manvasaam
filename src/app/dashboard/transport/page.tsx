@@ -310,18 +310,18 @@ export default function TransportDashboard() {
         </div>
         <div className="flex items-center gap-2">
           <div className="relative">
-            <Search className="absolute left-2 top-2.5 h-4 w-4 text-muted-foreground" />
+            <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground pointer-events-none z-10" />
             <Input
               placeholder="Search deliveries, vehicles..."
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
-              className="pl-8 pr-8 w-64"
+              className="pl-10 pr-10 w-64"
             />
             {searchQuery && (
               <button
                 onClick={() => setSearchQuery("")}
                 aria-label="Clear search"
-                className="absolute right-2 top-2.5 h-4 w-4 text-muted-foreground hover:text-foreground"
+                className="absolute right-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground hover:text-foreground z-10"
               >
                 <X className="h-4 w-4" />
               </button>
