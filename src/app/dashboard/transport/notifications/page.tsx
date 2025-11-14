@@ -263,15 +263,19 @@ export default function TransportNotifications() {
                   <p className="text-sm font-medium mb-1">Category</p>
                   <div className="flex flex-col gap-1">
                     <button
-                      className={`text-left text-sm p-1 rounded ${filterCategory === 'all' ? 'bg-muted' : ''}`}
-                      onClick={() => setFilterCategory('all')}
+                      className={`text-left text-sm p-1 rounded ${
+                        filterCategory === "all" ? "bg-muted" : ""
+                      }`}
+                      onClick={() => setFilterCategory("all")}
                     >
                       All
                     </button>
                     {categories.map((c) => (
                       <button
                         key={c}
-                        className={`text-left text-sm p-1 rounded ${filterCategory === c ? 'bg-muted' : ''}`}
+                        className={`text-left text-sm p-1 rounded ${
+                          filterCategory === c ? "bg-muted" : ""
+                        }`}
                         onClick={() => setFilterCategory(c)}
                       >
                         {c}
