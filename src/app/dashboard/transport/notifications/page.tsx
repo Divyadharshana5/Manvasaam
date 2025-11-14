@@ -46,7 +46,10 @@ export default function TransportNotifications() {
   const [filterCategory, setFilterCategory] = useState<string | "all">("all");
   const [filterUnread, setFilterUnread] = useState(false);
   const filterBtnRef = useRef<HTMLDivElement | null>(null);
-  const [dropdownPos, setDropdownPos] = useState<{ top: number; right: number } | null>(null);
+  const [dropdownPos, setDropdownPos] = useState<{
+    top: number;
+    right: number;
+  } | null>(null);
 
   const initialNotifications = [
     {
