@@ -32,7 +32,9 @@ export default function TransportSettingsPage() {
             </Button>
             <div>
               <h1 className="text-2xl font-bold">Transport Settings</h1>
-              <p className="text-muted-foreground">Configure transport preferences</p>
+              <p className="text-muted-foreground">
+                Configure transport preferences
+              </p>
             </div>
           </div>
         </div>
@@ -41,36 +43,56 @@ export default function TransportSettingsPage() {
           <Card>
             <CardHeader>
               <CardTitle className="flex items-center gap-2">General</CardTitle>
-              <CardDescription>Core settings for your transport hub</CardDescription>
+              <CardDescription>
+                Core settings for your transport hub
+              </CardDescription>
             </CardHeader>
             <CardContent>
               <div className="flex items-center justify-between mb-3">
                 <div>
                   <p className="font-medium">Notifications</p>
-                  <p className="text-sm text-muted-foreground">Receive transport alerts</p>
+                  <p className="text-sm text-muted-foreground">
+                    Receive transport alerts
+                  </p>
                 </div>
-                <Switch checked={notificationsEnabled} onCheckedChange={(v) => setNotificationsEnabled(Boolean(v))} />
+                <Switch
+                  checked={notificationsEnabled}
+                  onCheckedChange={(v) => setNotificationsEnabled(Boolean(v))}
+                />
               </div>
 
               <div className="flex items-center justify-between mb-3">
                 <div>
                   <p className="font-medium">Auto-assign drivers</p>
-                  <p className="text-sm text-muted-foreground">Automatically assign drivers to new deliveries</p>
+                  <p className="text-sm text-muted-foreground">
+                    Automatically assign drivers to new deliveries
+                  </p>
                 </div>
-                <Switch checked={autoAssignDrivers} onCheckedChange={(v) => setAutoAssignDrivers(Boolean(v))} />
+                <Switch
+                  checked={autoAssignDrivers}
+                  onCheckedChange={(v) => setAutoAssignDrivers(Boolean(v))}
+                />
               </div>
 
               <div className="mb-3">
                 <p className="font-medium">Default Hub</p>
-                <Input placeholder="Enter hub name or ID" value={defaultHub} onChange={(e) => setDefaultHub(e.target.value)} />
+                <Input
+                  placeholder="Enter hub name or ID"
+                  value={defaultHub}
+                  onChange={(e) => setDefaultHub(e.target.value)}
+                />
               </div>
             </CardContent>
           </Card>
 
           <Card>
             <CardHeader>
-              <CardTitle className="flex items-center gap-2">Integrations</CardTitle>
-              <CardDescription>Connect GPS and third-party services</CardDescription>
+              <CardTitle className="flex items-center gap-2">
+                Integrations
+              </CardTitle>
+              <CardDescription>
+                Connect GPS and third-party services
+              </CardDescription>
             </CardHeader>
             <CardContent>
               <div className="flex items-center justify-between mb-3">
@@ -78,10 +100,15 @@ export default function TransportSettingsPage() {
                   <MapPin className="h-4 w-4 text-muted-foreground" />
                   <div>
                     <p className="font-medium">GPS Integration</p>
-                    <p className="text-sm text-muted-foreground">Enable vehicle tracking</p>
+                    <p className="text-sm text-muted-foreground">
+                      Enable vehicle tracking
+                    </p>
                   </div>
                 </div>
-                <Switch checked={gpsEnabled} onCheckedChange={(v) => setGpsEnabled(Boolean(v))} />
+                <Switch
+                  checked={gpsEnabled}
+                  onCheckedChange={(v) => setGpsEnabled(Boolean(v))}
+                />
               </div>
 
               <div className="flex items-center justify-between">
@@ -89,7 +116,9 @@ export default function TransportSettingsPage() {
                   <Wifi className="h-4 w-4 text-muted-foreground" />
                   <div>
                     <p className="font-medium">Telematics API</p>
-                    <p className="text-sm text-muted-foreground">Connect to your telematics provider</p>
+                    <p className="text-sm text-muted-foreground">
+                      Connect to your telematics provider
+                    </p>
                   </div>
                 </div>
                 <Button variant="outline">Connect</Button>
@@ -101,10 +130,15 @@ export default function TransportSettingsPage() {
         <Card>
           <CardHeader>
             <CardTitle>Advanced</CardTitle>
-            <CardDescription>Advanced transport settings and maintenance thresholds</CardDescription>
+            <CardDescription>
+              Advanced transport settings and maintenance thresholds
+            </CardDescription>
           </CardHeader>
           <CardContent>
-            <p className="text-sm text-muted-foreground mb-2">Manage advanced preferences like driver allocation and service reminders.</p>
+            <p className="text-sm text-muted-foreground mb-2">
+              Manage advanced preferences like driver allocation and service
+              reminders.
+            </p>
             <div className="flex gap-2">
               <Button>Save Changes</Button>
               <Button variant="ghost">Reset to Defaults</Button>
