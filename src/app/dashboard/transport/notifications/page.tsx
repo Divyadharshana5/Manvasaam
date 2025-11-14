@@ -180,7 +180,9 @@ export default function TransportNotifications() {
     const matchesCategory =
       filterCategory === "all" || notification.category === filterCategory;
     const matchesUnreadFilter = !filterUnread || !notification.read;
-    return matchesSearch && matchesTab && matchesCategory && matchesUnreadFilter;
+    return (
+      matchesSearch && matchesTab && matchesCategory && matchesUnreadFilter
+    );
   });
 
   const unreadCount = notifications.filter((n) => !n.read).length;
