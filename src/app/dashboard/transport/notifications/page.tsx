@@ -198,7 +198,9 @@ export default function TransportNotifications() {
   };
 
   const handleMarkRead = (id: string) => {
-    setNotifications((prev) => prev.map((n) => (n.id === id ? { ...n, read: true } : n)));
+    setNotifications((prev) =>
+      prev.map((n) => (n.id === id ? { ...n, read: true } : n))
+    );
   };
 
   const handleDeleteNotification = (id: string) => {
@@ -429,7 +431,9 @@ export default function TransportNotifications() {
                                 variant="ghost"
                                 size="sm"
                                 className="h-8 w-8 p-0"
-                                onClick={() => handleDeleteNotification(notification.id)}
+                                onClick={() =>
+                                  handleDeleteNotification(notification.id)
+                                }
                                 aria-label="Delete notification"
                                 title="Delete"
                               >
