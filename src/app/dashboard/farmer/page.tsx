@@ -33,6 +33,7 @@ import {
 } from "lucide-react";
 import { Input } from "@/components/ui/input";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 import { buttonVariants, Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 
@@ -62,18 +63,22 @@ function AddProductButton({
     defaultHubId ? `&hubId=${encodeURIComponent(defaultHubId)}` : ""
   }`;
 
+  const router = useRouter();
+
   return (
-    <Button asChild className={className}>
-      <Link href={href}>
-        <Plus className="mr-2 h-4 w-4" />
-        Add Product
-      </Link>
+    <Button
+      onClick={() => router.push(href)}
+      className={cn(buttonVariants(), className)}
+    >
+      <Plus className="mr-2 h-4 w-4" />
+      Add Product
     </Button>
   );
 }
 
 export default function FarmerDashboard() {
   const { user } = useAuth();
+  const router = useRouter();
   const { toast } = useToast();
   const [products, setProducts] = useState<Product[]>([]);
   const [isLoading, setIsLoading] = useState(true);
@@ -331,10 +336,13 @@ export default function FarmerDashboard() {
                 </div>
               )}
             </div>
-            <Button asChild variant="outline" size="sm" className="mt-2 w-full">
-              <Link href="/dashboard/farmer/products?category=vegetables">
-                Manage
-              </Link>
+            <Button
+              variant="outline"
+              size="sm"
+              className="mt-2 w-full"
+              onClick={() => router.push("/dashboard/farmer/products?category=vegetables")}
+            >
+              Manage
             </Button>
           </CardContent>
         </Card>
@@ -374,10 +382,13 @@ export default function FarmerDashboard() {
                 </div>
               )}
             </div>
-            <Button asChild variant="outline" size="sm" className="mt-2 w-full">
-              <Link href="/dashboard/farmer/products?category=fruits">
-                Manage
-              </Link>
+            <Button
+              variant="outline"
+              size="sm"
+              className="mt-2 w-full"
+              onClick={() => router.push("/dashboard/farmer/products?category=fruits")}
+            >
+              Manage
             </Button>
           </CardContent>
         </Card>
@@ -417,10 +428,13 @@ export default function FarmerDashboard() {
                 </div>
               )}
             </div>
-            <Button asChild variant="outline" size="sm" className="mt-2 w-full">
-              <Link href="/dashboard/farmer/products?category=grains">
-                Manage
-              </Link>
+            <Button
+              variant="outline"
+              size="sm"
+              className="mt-2 w-full"
+              onClick={() => router.push("/dashboard/farmer/products?category=grains")}
+            >
+              Manage
             </Button>
           </CardContent>
         </Card>
@@ -460,10 +474,13 @@ export default function FarmerDashboard() {
                 </div>
               )}
             </div>
-            <Button asChild variant="outline" size="sm" className="mt-2 w-full">
-              <Link href="/dashboard/farmer/products?category=herbs">
-                Manage
-              </Link>
+            <Button
+              variant="outline"
+              size="sm"
+              className="mt-2 w-full"
+              onClick={() => router.push("/dashboard/farmer/products?category=herbs")}
+            >
+              Manage
             </Button>
           </CardContent>
         </Card>
