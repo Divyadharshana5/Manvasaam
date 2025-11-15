@@ -75,6 +75,7 @@ export default function TransportSettingsPage() {
       autoAssignDrivers,
       gpsEnabled,
       defaultHub,
+      telematicsConnected,
     };
     try {
       localStorage.setItem(
@@ -85,6 +86,58 @@ export default function TransportSettingsPage() {
     } catch (e) {
       console.error("Failed to save settings", e);
       alert("Failed to save settings");
+    }
+  };
+
+  const handleToggleConnect = async () => {
+    setIsConnecting(true);
+    try {
+      if (telematicsConnected) {
+        // simulate disconnect
+        await new Promise((r) => setTimeout(r, 600));
+        setTelematicsConnected(false);
+        const payload = {
+          notificationsEnabled,
+          autoAssignDrivers,
+          gpsEnabled,
+          defaultHub,
+          telematicsConnected: false,
+        };
+        try {
+          localStorage.setItem(
+            "manvaasam_transport_settings",
+            JSON.stringify(payload)
+          );
+        } catch (e) {
+          /* ignore */
+        }
+        alert("Disconnected from telematics provider");
+      } else {
+        // simulate connect
+        await new Promise((r) => setTimeout(r, 1400));
+        setTelematicsConnected(true);
+        const payload = {
+          notificationsEnabled,
+          autoAssignDrivers,
+          gpsEnabled,
+          defaultHub,
+          telematicsConnected: true,
+        };
+        try {
+          localStorage.setItem(
+            "manvaasam_transport_settings",
+            JSON.stringify(payload)
+          );
+        } catch (e) {
+          /* ignore */
+        }
+        alert("Connected to telematics provider");
+      }
+    } catch (e) {
+      console.error("Telematics connect error", e);
+      alert("Failed to (dis)connect telematics provider");
+    } finally {
+      setIsConnecting(false);
     }
   };
 
