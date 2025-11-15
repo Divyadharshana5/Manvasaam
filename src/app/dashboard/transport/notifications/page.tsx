@@ -312,7 +312,10 @@ export default function TransportNotifications() {
                           ? "bg-gray-100 font-medium"
                           : ""
                       }`}
-                      onClick={() => setFilterCategory("all")}
+                      onClick={() => {
+                        setFilterCategory("all");
+                        setShowFilter(false);
+                      }}
                     >
                       All
                     </button>
@@ -322,7 +325,10 @@ export default function TransportNotifications() {
                         className={`text-left text-sm p-1 rounded hover:bg-gray-100 ${
                           filterCategory === c ? "bg-gray-100 font-medium" : ""
                         }`}
-                        onClick={() => setFilterCategory(c)}
+                        onClick={() => {
+                          setFilterCategory(c);
+                          setShowFilter(false);
+                        }}
                       >
                         {c}
                       </button>
@@ -334,7 +340,10 @@ export default function TransportNotifications() {
                     <input
                       type="checkbox"
                       checked={filterUnread}
-                      onChange={(e) => setFilterUnread(e.target.checked)}
+                      onChange={(e) => {
+                        setFilterUnread(e.target.checked);
+                        setShowFilter(false);
+                      }}
                     />
                     Unread only
                   </label>
