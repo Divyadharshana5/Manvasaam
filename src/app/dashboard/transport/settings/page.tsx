@@ -47,6 +47,7 @@ export default function TransportSettingsPage() {
         setAutoAssignDrivers(Boolean(saved.autoAssignDrivers));
         setGpsEnabled(Boolean(saved.gpsEnabled));
         setDefaultHub(saved.defaultHub || "");
+        setTelematicsConnected(Boolean(saved.telematicsConnected));
       }
     } catch (e) {
       // ignore parse errors
