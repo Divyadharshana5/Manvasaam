@@ -60,6 +60,7 @@ export default function TransportSettingsPage() {
     setAutoAssignDrivers(defaults.autoAssignDrivers);
     setGpsEnabled(defaults.gpsEnabled);
     setDefaultHub(defaults.defaultHub);
+    setTelematicsConnected(defaults.telematicsConnected);
     try {
       localStorage.removeItem("manvaasam_transport_settings");
     } catch (e) {
