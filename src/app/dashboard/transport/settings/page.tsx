@@ -34,6 +34,7 @@ export default function TransportSettingsPage() {
     autoAssignDrivers: false,
     gpsEnabled: true,
     defaultHub: "",
+    telematicsConnected: false,
   };
 
   // Load saved settings from localStorage on mount (non-breaking, client-only)
