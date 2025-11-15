@@ -9,7 +9,13 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { ArrowLeft, MapPin, Wifi, Settings as Cog, Loader2 } from "lucide-react";
+import {
+  ArrowLeft,
+  MapPin,
+  Wifi,
+  Settings as Cog,
+  Loader2,
+} from "lucide-react";
 import Link from "next/link";
 import { Switch } from "@/components/ui/switch";
 import { Input } from "@/components/ui/input";
@@ -19,6 +25,8 @@ export default function TransportSettingsPage() {
   const [autoAssignDrivers, setAutoAssignDrivers] = useState(false);
   const [gpsEnabled, setGpsEnabled] = useState(true);
   const [defaultHub, setDefaultHub] = useState("");
+  const [telematicsConnected, setTelematicsConnected] = useState(false);
+  const [isConnecting, setIsConnecting] = useState(false);
 
   // Defaults used for reset
   const defaults = {
