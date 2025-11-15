@@ -9,7 +9,7 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { ArrowLeft, MapPin, Wifi, Settings as Cog } from "lucide-react";
+import { ArrowLeft, MapPin, Wifi, Settings as Cog, Loader2 } from "lucide-react";
 import Link from "next/link";
 import { Switch } from "@/components/ui/switch";
 import { Input } from "@/components/ui/input";
