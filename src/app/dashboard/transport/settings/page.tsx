@@ -242,7 +242,22 @@ export default function TransportSettingsPage() {
                     </p>
                   </div>
                 </div>
-                <Button variant="outline">Connect</Button>
+                <Button
+                  variant="outline"
+                  onClick={handleToggleConnect}
+                  disabled={isConnecting}
+                >
+                  {isConnecting ? (
+                    <>
+                      <Loader2 className="h-4 w-4 mr-2 animate-spin" />
+                      {telematicsConnected ? "Disconnecting..." : "Connecting..."}
+                    </>
+                  ) : telematicsConnected ? (
+                    "Disconnect"
+                  ) : (
+                    "Connect"
+                  )}
+                </Button>
               </div>
             </CardContent>
           </Card>
