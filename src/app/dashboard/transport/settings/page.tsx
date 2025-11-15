@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import {
   Card,
   CardContent,
@@ -19,6 +19,63 @@ export default function TransportSettingsPage() {
   const [autoAssignDrivers, setAutoAssignDrivers] = useState(false);
   const [gpsEnabled, setGpsEnabled] = useState(true);
   const [defaultHub, setDefaultHub] = useState("");
+
+  // Defaults used for reset
+  const defaults = {
+    notificationsEnabled: true,
+    autoAssignDrivers: false,
+    gpsEnabled: true,
+    defaultHub: "",
+  };
+
+  // Load saved settings from localStorage on mount (non-breaking, client-only)
+  useEffect(() => {
+    try {
+      const raw = localStorage.getItem("manvaasam_transport_settings");
+      if (raw) {
+        const saved = JSON.parse(raw);
+        setNotificationsEnabled(Boolean(saved.notificationsEnabled));
+        setAutoAssignDrivers(Boolean(saved.autoAssignDrivers));
+        setGpsEnabled(Boolean(saved.gpsEnabled));
+        setDefaultHub(saved.defaultHub || "");
+      }
+    } catch (e) {
+      // ignore parse errors
+      // console.warn("Failed to load transport settings", e);
+    }
+  }, []);
+
+  const handleResetToDefaults = () => {
+    setNotificationsEnabled(defaults.notificationsEnabled);
+    setAutoAssignDrivers(defaults.autoAssignDrivers);
+    setGpsEnabled(defaults.gpsEnabled);
+    setDefaultHub(defaults.defaultHub);
+    try {
+      localStorage.removeItem("manvaasam_transport_settings");
+    } catch (e) {
+      // ignore
+    }
+    alert("Settings reset to defaults");
+  };
+
+  const handleSaveChanges = () => {
+    const payload = {
+      notificationsEnabled,
+      autoAssignDrivers,
+      gpsEnabled,
+      defaultHub,
+    };
+    try {
+      localStorage.setItem(
+        "manvaasam_transport_settings",
+        JSON.stringify(payload)
+      );
+      alert("Settings saved successfully");
+    } catch (e) {
+      console.error("Failed to save settings", e);
+      alert("Failed to save settings");
+    }
+  };
 
   return (
     <div className="min-h-screen w-full overflow-auto">
@@ -140,8 +197,10 @@ export default function TransportSettingsPage() {
               reminders.
             </p>
             <div className="flex gap-2">
-              <Button>Save Changes</Button>
-              <Button variant="ghost">Reset to Defaults</Button>
+              <Button onClick={handleSaveChanges}>Save Changes</Button>
+              <Button variant="ghost" onClick={handleResetToDefaults}>
+                Reset to Defaults
+              </Button>
             </div>
           </CardContent>
         </Card>
