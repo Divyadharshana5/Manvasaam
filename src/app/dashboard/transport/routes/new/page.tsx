@@ -377,7 +377,7 @@ export default function NewRoutePage() {
                     <Label>Waypoints (Optional)</Label>
                     <Button
                       type="button"
-                      className="border border-input bg-background hover:bg-accent hover:text-accent-foreground h-9 rounded-md px-3 justify-start whitespace-normal"
+                      className="border border-input bg-background hover:bg-accent hover:text-accent-foreground h-auto py-2 rounded-md px-3 justify-start whitespace-normal"
                       onClick={addWaypoint}
                     >
                       <Plus className="h-4 w-4 mr-2" />
@@ -410,7 +410,7 @@ export default function NewRoutePage() {
                   <div className="mt-3">
                     <Button
                       type="button"
-                      className="w-full md:w-auto border border-input bg-background hover:bg-accent hover:text-accent-foreground h-9 rounded-md px-3 justify-start whitespace-normal"
+                      className="w-full md:w-auto border border-input bg-background hover:bg-accent hover:text-accent-foreground h-auto py-2 rounded-md px-3 justify-start whitespace-normal"
                       onClick={addWaypoint}
                     >
                       <Plus className="h-4 w-4 mr-2" />
@@ -627,7 +627,7 @@ export default function NewRoutePage() {
                 </Button>
 
                 <Button
-                  className="w-full border border-input bg-background hover:bg-accent hover:text-accent-foreground justify-start whitespace-normal"
+                  className="w-full border border-input bg-background hover:bg-accent hover:text-accent-foreground justify-start whitespace-normal h-auto py-2"
                   onClick={handleSaveAsDraft}
                   disabled={isSaving}
                 >
@@ -644,7 +644,7 @@ export default function NewRoutePage() {
                   )}
                 </Button>
 
-                <Button className="w-full border border-input bg-background hover:bg-accent hover:text-accent-foreground justify-start whitespace-normal">
+                <Button className="w-full border border-input bg-background hover:bg-accent hover:text-accent-foreground justify-start whitespace-normal h-auto py-2">
                   <Zap className="h-4 w-4 mr-2" />
                   <span>Auto-Optimize</span>
                 </Button>
