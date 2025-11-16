@@ -389,7 +389,7 @@ export default function NewDeliveryPage() {
                                 </Button>
                                 <Button 
                                     variant="outline" 
-                                    className="w-full"
+                                    className="w-full justify-start whitespace-normal"
                                     onClick={handleSaveAsDraft}
                                     disabled={isSaving}
                                 >
@@ -401,7 +401,7 @@ export default function NewDeliveryPage() {
                                     ) : (
                                         <>
                                             <Save className="h-4 w-4 mr-2" />
-                                            Save as Draft
+                                            <span>Save as Draft</span>
                                         </>
                                     )}
                                 </Button>
