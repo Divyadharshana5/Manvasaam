@@ -616,7 +616,7 @@ export default function NewRoutePage() {
                 </Button>
 
                 <Button
-                  className="w-full border border-input bg-background hover:bg-accent hover:text-accent-foreground"
+                  className="w-full border border-input bg-background hover:bg-accent hover:text-accent-foreground justify-start whitespace-normal"
                   onClick={handleSaveAsDraft}
                   disabled={isSaving}
                 >
@@ -628,14 +628,14 @@ export default function NewRoutePage() {
                   ) : (
                     <>
                       <Save className="h-4 w-4 mr-2" />
-                      Save as Draft
+                      <span>Save as Draft</span>
                     </>
                   )}
                 </Button>
 
-                <Button className="w-full border border-input bg-background hover:bg-accent hover:text-accent-foreground">
+                <Button className="w-full border border-input bg-background hover:bg-accent hover:text-accent-foreground justify-start whitespace-normal">
                   <Zap className="h-4 w-4 mr-2" />
-                  Auto-Optimize
+                  <span>Auto-Optimize</span>
                 </Button>
               </CardContent>
             </Card>
