@@ -406,11 +406,15 @@ export default function NewOrderPage() {
                                 </Button>
                                 <Button
                                     variant="outline"
-                                    className="w-full"
+                                    className="w-full justify-start whitespace-normal"
                                     onClick={handleSaveDraft}
                                     disabled={isSavingDraft}
                                 >
-                                    {isSavingDraft ? "Saving..." : "Save as Draft"}
+                                    {isSavingDraft ? (
+                                        "Saving..."
+                                    ) : (
+                                        <span>Save as Draft</span>
+                                    )}
                                 </Button>
                             </div>
                         </CardContent>
