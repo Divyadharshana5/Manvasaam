@@ -406,7 +406,6 @@ export default function NewRoutePage() {
                       </div>
                     ))}
                   </div>
-                  
                 </div>
               </CardContent>
             </Card>
