@@ -377,11 +377,11 @@ export default function NewRoutePage() {
                     <Label>Waypoints (Optional)</Label>
                     <Button
                       type="button"
-                      className="border border-input bg-background hover:bg-accent hover:text-accent-foreground h-9 rounded-md px-3"
+                      className="border border-input bg-background hover:bg-accent hover:text-accent-foreground h-9 rounded-md px-3 justify-start whitespace-normal"
                       onClick={addWaypoint}
                     >
                       <Plus className="h-4 w-4 mr-2" />
-                      Add Waypoint
+                      <span>Add Waypoint</span>
                     </Button>
                   </div>
                   <div className="space-y-2">
@@ -410,11 +410,11 @@ export default function NewRoutePage() {
                   <div className="mt-3">
                     <Button
                       type="button"
-                      className="w-full md:w-auto border border-input bg-background hover:bg-accent hover:text-accent-foreground h-9 rounded-md px-3"
+                      className="w-full md:w-auto border border-input bg-background hover:bg-accent hover:text-accent-foreground h-9 rounded-md px-3 justify-start whitespace-normal"
                       onClick={addWaypoint}
                     >
                       <Plus className="h-4 w-4 mr-2" />
-                      Add Waypoint
+                      <span>Add Waypoint</span>
                     </Button>
                   </div>
                 </div>
