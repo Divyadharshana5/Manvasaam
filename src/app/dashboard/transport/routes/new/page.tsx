@@ -406,6 +406,17 @@ export default function NewRoutePage() {
                       </div>
                     ))}
                   </div>
+                  {/* Secondary Add Waypoint button below the list for better visibility on narrow screens */}
+                  <div className="mt-3">
+                    <Button
+                      type="button"
+                      className="w-full md:w-auto border border-input bg-background hover:bg-accent hover:text-accent-foreground h-9 rounded-md px-3"
+                      onClick={addWaypoint}
+                    >
+                      <Plus className="h-4 w-4 mr-2" />
+                      Add Waypoint
+                    </Button>
+                  </div>
                 </div>
               </CardContent>
             </Card>
