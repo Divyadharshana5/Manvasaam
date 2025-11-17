@@ -459,14 +459,19 @@ export default function DeliveryDetails() {
                     >
                       <Phone className="h-4 w-4 mr-2" />
                       Call
-                        </Link>
-                      </Button>
-                      <Button size="sm" variant="outline" className="flex-1" asChild>
-                        <a href={`sms:${delivery.driver.phone}`}>
-                          <MessageCircle className="h-4 w-4 mr-2" />
-                          Message
-                        </a>
-                      </Button>
+                    </Link>
+                  </Button>
+                  <Button
+                    size="sm"
+                    variant="outline"
+                    className="flex-1"
+                    asChild
+                  >
+                    <a href={`sms:${delivery.driver.phone}`}>
+                      <MessageCircle className="h-4 w-4 mr-2" />
+                      Message
+                    </a>
+                  </Button>
                 </div>
               </CardContent>
             </Card>
