@@ -201,13 +201,27 @@ export default function NewDeliveryPage() {
 
   const toggleVehicleStatus = (id: string) => {
     setVehicles((prev) =>
-      prev.map((v) => (v.id === id ? { ...v, status: v.status === "available" ? "unavailable" : "available" } : v))
+      prev.map((v) =>
+        v.id === id
+          ? {
+              ...v,
+              status: v.status === "available" ? "unavailable" : "available",
+            }
+          : v
+      )
     );
   };
 
   const toggleDriverStatus = (id: string) => {
     setDrivers((prev) =>
-      prev.map((d) => (d.id === id ? { ...d, status: d.status === "available" ? "unavailable" : "available" } : d))
+      prev.map((d) =>
+        d.id === id
+          ? {
+              ...d,
+              status: d.status === "available" ? "unavailable" : "available",
+            }
+          : d
+      )
     );
   };
 
@@ -363,8 +377,17 @@ export default function NewDeliveryPage() {
                           </div>
                           <Badge
                             variant="outline"
-                            className={`text-xs ${mode === "edit" ? "cursor-pointer" : ""}`}
-                            onClick={mode === "edit" ? (e) => { e.stopPropagation(); toggleVehicleStatus(vehicle.id); } : undefined}
+                            className={`text-xs ${
+                              mode === "edit" ? "cursor-pointer" : ""
+                            }`}
+                            onClick={
+                              mode === "edit"
+                                ? (e) => {
+                                    e.stopPropagation();
+                                    toggleVehicleStatus(vehicle.id);
+                                  }
+                                : undefined
+                            }
                             role={mode === "edit" ? "button" : undefined}
                             tabIndex={mode === "edit" ? 0 : undefined}
                           >
