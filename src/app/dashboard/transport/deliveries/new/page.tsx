@@ -439,8 +439,17 @@ export default function NewDeliveryPage() {
                           </div>
                           <Badge
                             variant="outline"
-                            className={`text-xs ${mode === "edit" ? "cursor-pointer" : ""}`}
-                            onClick={mode === "edit" ? (e) => { e.stopPropagation(); toggleDriverStatus(driver.id); } : undefined}
+                            className={`text-xs ${
+                              mode === "edit" ? "cursor-pointer" : ""
+                            }`}
+                            onClick={
+                              mode === "edit"
+                                ? (e) => {
+                                    e.stopPropagation();
+                                    toggleDriverStatus(driver.id);
+                                  }
+                                : undefined
+                            }
                             role={mode === "edit" ? "button" : undefined}
                             tabIndex={mode === "edit" ? 0 : undefined}
                           >
