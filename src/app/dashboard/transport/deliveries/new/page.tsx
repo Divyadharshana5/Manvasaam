@@ -38,7 +38,8 @@ import {
   Loader2,
 } from "lucide-react";
 import Link from "next/link";
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import { useSearchParams } from "next/navigation";
 
 export default function NewDeliveryPage() {
   const [selectedVehicle, setSelectedVehicle] = useState("");
@@ -139,7 +140,7 @@ export default function NewDeliveryPage() {
     }
   };
 
-  const vehicles = [
+  const defaultVehicles = [
     {
       id: "TRK-001",
       model: "Tata Ace",
@@ -163,7 +164,7 @@ export default function NewDeliveryPage() {
     },
   ];
 
-  const drivers = [
+  const defaultDrivers = [
     {
       id: "DRV-001",
       name: "Raj Kumar",
@@ -186,6 +187,29 @@ export default function NewDeliveryPage() {
       status: "available",
     },
   ];
+
+  const [vehicles, setVehicles] = useState(defaultVehicles);
+  const [drivers, setDrivers] = useState(defaultDrivers);
+
+  const searchParams = useSearchParams();
+  const mode = searchParams ? searchParams.get("mode") : null;
+
+  useEffect(() => {
+    // If in edit mode and id is provided, we could pre-select vehicle/driver
+    // For now we just ensure status controls are active in edit mode
+  }, [mode]);
+
+  const toggleVehicleStatus = (id: string) => {
+    setVehicles((prev) =>
+      prev.map((v) => (v.id === id ? { ...v, status: v.status === "available" ? "unavailable" : "available" } : v))
+    );
+  };
+
+  const toggleDriverStatus = (id: string) => {
+    setDrivers((prev) =>
+      prev.map((d) => (d.id === id ? { ...d, status: d.status === "available" ? "unavailable" : "available" } : d))
+    );
+  };
 
   const routes = [
     { name: "City Route A", distance: "45 km", duration: "2.5 hrs", toll: 150 },
@@ -337,7 +361,13 @@ export default function NewDeliveryPage() {
                             <Fuel className="h-3 w-3" />
                             <span className="text-xs">{vehicle.fuel}%</span>
                           </div>
-                          <Badge variant="outline" className="text-xs">
+                          <Badge
+                            variant="outline"
+                            className={`text-xs ${mode === "edit" ? "cursor-pointer" : ""}`}
+                            onClick={mode === "edit" ? (e) => { e.stopPropagation(); toggleVehicleStatus(vehicle.id); } : undefined}
+                            role={mode === "edit" ? "button" : undefined}
+                            tabIndex={mode === "edit" ? 0 : undefined}
+                          >
                             {vehicle.status}
                           </Badge>
                         </div>
