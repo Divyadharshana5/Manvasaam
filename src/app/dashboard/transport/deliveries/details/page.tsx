@@ -221,11 +221,11 @@ export default function DeliveryDetails() {
             >
               {getStatusText(delivery.status)}
             </Badge>
-            <Button variant="outline" size="sm">
+            <Button variant="outline" size="sm" onClick={handleShare}>
               <Share2 className="h-4 w-4 mr-2" />
               Share
             </Button>
-            <Button variant="outline" size="sm">
+            <Button variant="outline" size="sm" onClick={handleExport}>
               <Download className="h-4 w-4 mr-2" />
               Export
             </Button>
@@ -459,12 +459,14 @@ export default function DeliveryDetails() {
                     >
                       <Phone className="h-4 w-4 mr-2" />
                       Call
-                    </Link>
-                  </Button>
-                  <Button size="sm" variant="outline" className="flex-1">
-                    <MessageCircle className="h-4 w-4 mr-2" />
-                    Message
-                  </Button>
+                        </Link>
+                      </Button>
+                      <Button size="sm" variant="outline" className="flex-1" asChild>
+                        <a href={`sms:${delivery.driver.phone}`}>
+                          <MessageCircle className="h-4 w-4 mr-2" />
+                          Message
+                        </a>
+                      </Button>
                 </div>
               </CardContent>
             </Card>
