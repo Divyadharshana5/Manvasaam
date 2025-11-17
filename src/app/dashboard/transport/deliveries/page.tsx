@@ -3,7 +3,15 @@
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
-import { Package, MapPin, Clock, CheckCircle, AlertCircle, Truck } from "lucide-react";
+import {
+  Package,
+  MapPin,
+  Clock,
+  CheckCircle,
+  AlertCircle,
+  Truck,
+} from "lucide-react";
+import Link from "next/link";
 
 export default function DeliveriesPage() {
   const deliveries = [
@@ -14,16 +22,16 @@ export default function DeliveriesPage() {
       driver: "John Smith",
       estimatedTime: "2:30 PM",
       items: 15,
-      priority: "High"
+      priority: "High",
     },
     {
-      id: "DEL-002", 
+      id: "DEL-002",
       destination: "Westside Store",
       status: "Delivered",
       driver: "Sarah Johnson",
       estimatedTime: "Completed",
       items: 8,
-      priority: "Medium"
+      priority: "Medium",
     },
     {
       id: "DEL-003",
@@ -32,25 +40,33 @@ export default function DeliveriesPage() {
       driver: "Mike Wilson",
       estimatedTime: "4:15 PM",
       items: 22,
-      priority: "Low"
-    }
+      priority: "Low",
+    },
   ];
 
   const getStatusColor = (status: string) => {
     switch (status) {
-      case "Delivered": return "bg-green-100 text-green-800";
-      case "In Transit": return "bg-blue-100 text-blue-800";
-      case "Pending": return "bg-yellow-100 text-yellow-800";
-      default: return "bg-gray-100 text-gray-800";
+      case "Delivered":
+        return "bg-green-100 text-green-800";
+      case "In Transit":
+        return "bg-blue-100 text-blue-800";
+      case "Pending":
+        return "bg-yellow-100 text-yellow-800";
+      default:
+        return "bg-gray-100 text-gray-800";
     }
   };
 
   const getPriorityColor = (priority: string) => {
     switch (priority) {
-      case "High": return "bg-red-100 text-red-800";
-      case "Medium": return "bg-orange-100 text-orange-800";
-      case "Low": return "bg-green-100 text-green-800";
-      default: return "bg-gray-100 text-gray-800";
+      case "High":
+        return "bg-red-100 text-red-800";
+      case "Medium":
+        return "bg-orange-100 text-orange-800";
+      case "Low":
+        return "bg-green-100 text-green-800";
+      default:
+        return "bg-gray-100 text-gray-800";
     }
   };
 
@@ -58,16 +74,20 @@ export default function DeliveriesPage() {
     <div className="space-y-6">
       <div className="flex items-center justify-between">
         <h1 className="text-3xl font-bold">Deliveries</h1>
-        <Button className="bg-emerald-600 hover:bg-emerald-700">
-          <Package className="mr-2 h-4 w-4" />
-          New Delivery
+        <Button asChild className="bg-emerald-600 hover:bg-emerald-700">
+          <Link href="/dashboard/transport/deliveries/new">
+            <Package className="mr-2 h-4 w-4" />
+            New Delivery
+          </Link>
         </Button>
       </div>
 
       <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
         <Card>
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-            <CardTitle className="text-sm font-medium">Total Deliveries</CardTitle>
+            <CardTitle className="text-sm font-medium">
+              Total Deliveries
+            </CardTitle>
             <Package className="h-4 w-4 text-muted-foreground" />
           </CardHeader>
           <CardContent>
@@ -117,7 +137,10 @@ export default function DeliveriesPage() {
         <CardContent>
           <div className="space-y-4">
             {deliveries.map((delivery) => (
-              <div key={delivery.id} className="flex items-center justify-between p-4 border rounded-lg">
+              <div
+                key={delivery.id}
+                className="flex items-center justify-between p-4 border rounded-lg"
+              >
                 <div className="flex items-center space-x-4">
                   <div className="flex flex-col">
                     <span className="font-semibold">{delivery.id}</span>
