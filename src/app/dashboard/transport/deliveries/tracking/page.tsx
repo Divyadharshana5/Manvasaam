@@ -26,11 +26,13 @@ import {
 } from "lucide-react";
 import Link from "next/link";
 import { useState, useEffect } from "react";
+import { Loader2 } from "lucide-react";
 
 export default function DeliveryTracking() {
     const [deliveryId, setDeliveryId] = useState("DEL-001");
     const [isLiveTracking, setIsLiveTracking] = useState(true);
     const [lastUpdate, setLastUpdate] = useState(new Date());
+    const [isRefreshing, setIsRefreshing] = useState(false);
 
     // Mock real-time tracking data
     const trackingData = {
@@ -123,11 +125,50 @@ export default function DeliveryTracking() {
                             <div className="w-2 h-2 bg-green-500 rounded-full mr-2"></div>
                             Live Tracking
                         </Badge>
-                        <Button variant="outline" size="sm" onClick={() => setLastUpdate(new Date())}>
-                            <RefreshCw className="h-4 w-4 mr-2" />
-                            Refresh
+                        <Button variant="outline" size="sm" onClick={async () => {
+                            try {
+                                setIsRefreshing(true);
+                                // simulate fetching latest tracking point
+                                await new Promise((r) => setTimeout(r, 800));
+                                setLastUpdate(new Date());
+                            } finally {
+                                setIsRefreshing(false);
+                            }
+                        }}>
+                            {isRefreshing ? (
+                                <>
+                                    <Loader2 className="h-4 w-4 mr-2 animate-spin" />
+                                    Refreshing
+                                </>
+                            ) : (
+                                <>
+                                    <RefreshCw className="h-4 w-4 mr-2" />
+                                    Refresh
+                                </>
+                            )}
                         </Button>
-                        <Button variant="outline" size="sm">
+                        <Button variant="outline" size="sm" onClick={async () => {
+                            try {
+                                const url = typeof window !== "undefined" ? window.location.href : "";
+                                const shareData = {
+                                    title: `Live tracking - ${trackingData.id}`,
+                                    text: `Live location for ${trackingData.id}`,
+                                    url,
+                                };
+
+                                if ((navigator as any).share) {
+                                    await (navigator as any).share(shareData);
+                                } else if (navigator.clipboard) {
+                                    await navigator.clipboard.writeText(url);
+                                    alert("Link copied to clipboard");
+                                } else {
+                                    prompt("Copy this link:", url);
+                                }
+                            } catch (err) {
+                                console.error("Share failed", err);
+                                alert("Unable to share this tracking link");
+                            }
+                        }}>
                             <Share2 className="h-4 w-4 mr-2" />
                             Share
                         </Button>
