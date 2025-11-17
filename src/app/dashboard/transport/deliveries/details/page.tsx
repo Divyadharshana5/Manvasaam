@@ -454,12 +454,10 @@ export default function DeliveryDetails() {
 
                 <div className="flex gap-2">
                   <Button size="sm" className="flex-1" asChild>
-                    <Link
-                      href={`/dashboard/transport/deliveries/contact?driver=${delivery.driver.name}&phone=${delivery.driver.phone}`}
-                    >
+                    <a href={`tel:${delivery.driver.phone}`}>
                       <Phone className="h-4 w-4 mr-2" />
                       Call
-                    </Link>
+                    </a>
                   </Button>
                   <Button
                     size="sm"
