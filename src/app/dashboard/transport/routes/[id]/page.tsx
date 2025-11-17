@@ -32,7 +32,9 @@ export default function RouteDetails({ params }: { params: { id: string } }) {
         </Link>
         <div>
           <h1 className="text-2xl font-bold">Route Details</h1>
-          <p className="text-muted-foreground">Overview for {route.name} ({route.id})</p>
+          <p className="text-muted-foreground">
+            Overview for {route.name} ({route.id})
+          </p>
         </div>
       </div>
 
@@ -67,11 +69,19 @@ export default function RouteDetails({ params }: { params: { id: string } }) {
             </div>
 
             <div className="pt-4 border-t flex gap-2">
-              <Link href={`/dashboard/transport/routes/${route.id}/edit`} className="flex-1">
+              <Link
+                href={`/dashboard/transport/routes/${route.id}/edit`}
+                className="flex-1"
+              >
                 <Button className="w-full">Edit Route</Button>
               </Link>
-              <Link href={`/dashboard/transport/deliveries/tracking?id=${route.assignedVehicle}`} className="flex-1">
-                <Button variant="outline" className="w-full">Track Vehicle</Button>
+              <Link
+                href={`/dashboard/transport/deliveries/tracking?id=${route.assignedVehicle}`}
+                className="flex-1"
+              >
+                <Button variant="outline" className="w-full">
+                  Track Vehicle
+                </Button>
               </Link>
             </div>
           </div>
