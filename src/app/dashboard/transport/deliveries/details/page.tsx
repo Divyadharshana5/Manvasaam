@@ -92,6 +92,48 @@ export default function DeliveryDetails() {
         estimatedDelivery: "2024-01-15T12:00:00Z"
     };
 
+    const handleShare = async () => {
+        try {
+            const url = typeof window !== "undefined" ? window.location.href : "";
+            const shareData = {
+                title: `Delivery ${delivery.id}`,
+                text: `Delivery details for ${delivery.id}`,
+                url,
+            };
+
+            if ((navigator as any).share) {
+                await (navigator as any).share(shareData);
+            } else if (navigator.clipboard) {
+                await navigator.clipboard.writeText(url);
+                alert("Link copied to clipboard");
+            } else {
+                // Fallback: open copy dialog
+                prompt("Copy this link:", url);
+            }
+        } catch (err) {
+            console.error("Share failed", err);
+            alert("Unable to share this delivery");
+        }
+    };
+
+    const handleExport = () => {
+        try {
+            const dataStr = JSON.stringify(delivery, null, 2);
+            const blob = new Blob([dataStr], { type: "application/json" });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement("a");
+            a.href = url;
+            a.download = `${delivery.id}.json`;
+            document.body.appendChild(a);
+            a.click();
+            a.remove();
+            URL.revokeObjectURL(url);
+        } catch (err) {
+            console.error("Export failed", err);
+            alert("Failed to export delivery details");
+        }
+    };
+
     const getStatusColor = (status: string) => {
         switch (status) {
             case "delivered": return "bg-green-500";
