@@ -437,7 +437,13 @@ export default function NewDeliveryPage() {
                           <div className="flex items-center gap-1">
                             <span className="text-xs">⭐ {driver.rating}</span>
                           </div>
-                          <Badge variant="outline" className="text-xs">
+                          <Badge
+                            variant="outline"
+                            className={`text-xs ${mode === "edit" ? "cursor-pointer" : ""}`}
+                            onClick={mode === "edit" ? (e) => { e.stopPropagation(); toggleDriverStatus(driver.id); } : undefined}
+                            role={mode === "edit" ? "button" : undefined}
+                            tabIndex={mode === "edit" ? 0 : undefined}
+                          >
                             {driver.status}
                           </Badge>
                         </div>
