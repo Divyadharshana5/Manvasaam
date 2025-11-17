@@ -22,6 +22,7 @@ export default function RoutesPage() {
   const [isOptimizing, setIsOptimizing] = useState(false);
   const [optimizationComplete, setOptimizationComplete] = useState(false);
   const [isRunningOptimization, setIsRunningOptimization] = useState(false);
+  const router = useRouter();
 
   // Handler for optimizing all routes
   const handleOptimizeAll = async () => {
