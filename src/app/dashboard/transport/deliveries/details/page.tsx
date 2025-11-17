@@ -538,33 +538,64 @@ export default function DeliveryDetails() {
                   variant="outline"
                   size="sm"
                   className="w-full justify-start"
+                  asChild
                 >
-                  <Edit className="h-4 w-4 mr-2" />
-                  Edit Delivery
+                  <Link
+                    href={`/dashboard/transport/deliveries/new?id=${delivery.id}&mode=edit`}
+                  >
+                    <>
+                      <Edit className="h-4 w-4 mr-2" />
+                      Edit Delivery
+                    </>
+                  </Link>
                 </Button>
+
                 <Button
                   variant="outline"
                   size="sm"
                   className="w-full justify-start"
+                  asChild
                 >
-                  <Calendar className="h-4 w-4 mr-2" />
-                  Reschedule
+                  <Link
+                    href={`/dashboard/transport/deliveries/new?id=${delivery.id}&mode=reschedule`}
+                  >
+                    <>
+                      <Calendar className="h-4 w-4 mr-2" />
+                      Reschedule
+                    </>
+                  </Link>
                 </Button>
+
                 <Button
                   variant="outline"
                   size="sm"
                   className="w-full justify-start"
+                  asChild
                 >
-                  <AlertTriangle className="h-4 w-4 mr-2" />
-                  Report Issue
+                  <Link
+                    href={`/dashboard/transport/deliveries/contact?delivery=${delivery.id}&driver=${delivery.driver.name}&phone=${delivery.driver.phone}&issue=true`}
+                  >
+                    <>
+                      <AlertTriangle className="h-4 w-4 mr-2" />
+                      Report Issue
+                    </>
+                  </Link>
                 </Button>
+
                 <Button
                   variant="outline"
                   size="sm"
                   className="w-full justify-start"
+                  asChild
                 >
-                  <MoreHorizontal className="h-4 w-4 mr-2" />
-                  More Options
+                  <Link
+                    href={`/dashboard/transport/deliveries/more?id=${delivery.id}`}
+                  >
+                    <>
+                      <MoreHorizontal className="h-4 w-4 mr-2" />
+                      More Options
+                    </>
+                  </Link>
                 </Button>
               </CardContent>
             </Card>
