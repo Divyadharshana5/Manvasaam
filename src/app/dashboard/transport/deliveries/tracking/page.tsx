@@ -566,17 +566,29 @@ export default function DeliveryTracking() {
                   variant="outline"
                   size="sm"
                   className="w-full justify-start"
+                  asChild
                 >
-                  <AlertTriangle className="h-4 w-4 mr-2" />
-                  Report Issue
+                  <Link
+                    href={`/dashboard/transport/deliveries/contact?delivery=${trackingData.id}&driver=${trackingData.driver.name}&phone=${trackingData.driver.phone}&issue=true`}
+                  >
+                    <>
+                      <AlertTriangle className="h-4 w-4 mr-2" />
+                      Report Issue
+                    </>
+                  </Link>
                 </Button>
                 <Button
                   variant="outline"
                   size="sm"
                   className="w-full justify-start"
+                  asChild
                 >
-                  <Settings className="h-4 w-4 mr-2" />
-                  Tracking Settings
+                  <Link href="/dashboard/transport/settings">
+                    <>
+                      <Settings className="h-4 w-4 mr-2" />
+                      Tracking Settings
+                    </>
+                  </Link>
                 </Button>
               </CardContent>
             </Card>
