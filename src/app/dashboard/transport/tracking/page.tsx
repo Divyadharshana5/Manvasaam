@@ -15,16 +15,16 @@ export default function FleetTrackingPage() {
       status: "Active",
       speed: "45 km/h",
       fuel: "75%",
-      lastUpdate: "2 min ago"
+      lastUpdate: "2 min ago",
     },
     {
       id: "TRK-002",
-      driver: "Sarah Johnson", 
+      driver: "Sarah Johnson",
       location: "Highway 101",
       status: "Active",
       speed: "80 km/h",
       fuel: "60%",
-      lastUpdate: "1 min ago"
+      lastUpdate: "1 min ago",
     },
     {
       id: "TRK-003",
@@ -33,7 +33,7 @@ export default function FleetTrackingPage() {
       status: "Idle",
       speed: "0 km/h",
       fuel: "90%",
-      lastUpdate: "5 min ago"
+      lastUpdate: "5 min ago",
     },
     {
       id: "TRK-004",
@@ -42,16 +42,20 @@ export default function FleetTrackingPage() {
       status: "Active",
       speed: "35 km/h",
       fuel: "40%",
-      lastUpdate: "3 min ago"
-    }
+      lastUpdate: "3 min ago",
+    },
   ];
 
   const getStatusColor = (status: string) => {
     switch (status) {
-      case "Active": return "bg-green-100 text-green-800";
-      case "Idle": return "bg-yellow-100 text-yellow-800";
-      case "Maintenance": return "bg-red-100 text-red-800";
-      default: return "bg-gray-100 text-gray-800";
+      case "Active":
+        return "bg-green-100 text-green-800";
+      case "Idle":
+        return "bg-yellow-100 text-yellow-800";
+      case "Maintenance":
+        return "bg-red-100 text-red-800";
+      default:
+        return "bg-gray-100 text-gray-800";
     }
   };
 
@@ -77,7 +81,9 @@ export default function FleetTrackingPage() {
       <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
         <Card>
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-            <CardTitle className="text-sm font-medium">Active Vehicles</CardTitle>
+            <CardTitle className="text-sm font-medium">
+              Active Vehicles
+            </CardTitle>
             <Truck className="h-4 w-4 text-muted-foreground" />
           </CardHeader>
           <CardContent>
@@ -99,7 +105,9 @@ export default function FleetTrackingPage() {
 
         <Card>
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-            <CardTitle className="text-sm font-medium">Fuel Efficiency</CardTitle>
+            <CardTitle className="text-sm font-medium">
+              Fuel Efficiency
+            </CardTitle>
             <Fuel className="h-4 w-4 text-muted-foreground" />
           </CardHeader>
           <CardContent>
@@ -110,7 +118,9 @@ export default function FleetTrackingPage() {
 
         <Card>
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-            <CardTitle className="text-sm font-medium">Total Distance</CardTitle>
+            <CardTitle className="text-sm font-medium">
+              Total Distance
+            </CardTitle>
             <MapPin className="h-4 w-4 text-muted-foreground" />
           </CardHeader>
           <CardContent>
@@ -127,7 +137,10 @@ export default function FleetTrackingPage() {
         <CardContent>
           <div className="space-y-4">
             {vehicles.map((vehicle) => (
-              <div key={vehicle.id} className="flex items-center justify-between p-4 border rounded-lg">
+              <div
+                key={vehicle.id}
+                className="flex items-center justify-between p-4 border rounded-lg"
+              >
                 <div className="flex items-center space-x-4">
                   <div className="flex flex-col">
                     <span className="font-semibold">{vehicle.id}</span>
@@ -147,7 +160,11 @@ export default function FleetTrackingPage() {
                 </div>
                 <div className="flex items-center space-x-4">
                   <div className="flex flex-col items-end">
-                    <span className={`text-sm font-medium ${getFuelColor(vehicle.fuel)}`}>
+                    <span
+                      className={`text-sm font-medium ${getFuelColor(
+                        vehicle.fuel
+                      )}`}
+                    >
                       Fuel: {vehicle.fuel}
                     </span>
                     <div className="flex items-center text-xs text-muted-foreground">
@@ -173,7 +190,9 @@ export default function FleetTrackingPage() {
           <div className="h-64 bg-gray-100 rounded-lg flex items-center justify-center">
             <div className="text-center">
               <MapPin className="h-12 w-12 text-gray-400 mx-auto mb-2" />
-              <p className="text-gray-500">Interactive map view would be displayed here</p>
+              <p className="text-gray-500">
+                Interactive map view would be displayed here
+              </p>
               <Button variant="outline" className="mt-2">
                 Load Map
               </Button>
