@@ -4,6 +4,7 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Navigation, MapPin, Fuel, Clock, Truck, Activity } from "lucide-react";
+import Link from "next/link";
 
 export default function FleetTrackingPage() {
   const vehicles = [
@@ -65,9 +66,11 @@ export default function FleetTrackingPage() {
     <div className="space-y-6">
       <div className="flex items-center justify-between">
         <h1 className="text-3xl font-bold">Fleet Tracking</h1>
-        <Button className="bg-emerald-600 hover:bg-emerald-700">
-          <Navigation className="mr-2 h-4 w-4" />
-          Live Map View
+        <Button asChild className="bg-emerald-600 hover:bg-emerald-700">
+          <Link href="/dashboard/transport/deliveries/tracking">
+            <Navigation className="mr-2 h-4 w-4" />
+            Live Map View
+          </Link>
         </Button>
       </div>
 
