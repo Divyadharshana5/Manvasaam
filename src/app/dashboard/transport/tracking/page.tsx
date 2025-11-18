@@ -69,7 +69,14 @@ export default function FleetTrackingPage() {
   return (
     <div className="space-y-6">
       <div className="flex items-center justify-between">
-        <h1 className="text-3xl font-bold">Fleet Tracking</h1>
+        <div className="flex items-center gap-4">
+          <Button variant="outline" size="icon" asChild>
+            <Link href="/dashboard/transport">
+              <ArrowLeft className="h-4 w-4" />
+            </Link>
+          </Button>
+          <h1 className="text-3xl font-bold">Fleet Tracking</h1>
+        </div>
         <Button asChild className="bg-emerald-600 hover:bg-emerald-700">
           <Link href="/dashboard/transport/deliveries/tracking">
             <Navigation className="mr-2 h-4 w-4" />
