@@ -3,7 +3,7 @@
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
-import { Navigation, MapPin, Fuel, Clock, Truck, Activity } from "lucide-react";
+import { Navigation, MapPin, Fuel, Clock, Truck, Activity, ArrowLeft } from "lucide-react";
 import Link from "next/link";
 
 export default function FleetTrackingPage() {
