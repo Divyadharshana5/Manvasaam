@@ -144,7 +144,14 @@ export default function RoutesPage() {
   return (
     <div className="space-y-6">
       <div className="flex items-center justify-between">
-        <h1 className="text-3xl font-bold">Route Management</h1>
+        <div className="flex items-center gap-4">
+          <Button variant="outline" size="icon" asChild>
+            <Link href="/dashboard/transport">
+              <ArrowLeft className="h-4 w-4" />
+            </Link>
+          </Button>
+          <h1 className="text-3xl font-bold">Route Management</h1>
+        </div>
         <div className="flex space-x-2">
           <Button
             variant="outline"
