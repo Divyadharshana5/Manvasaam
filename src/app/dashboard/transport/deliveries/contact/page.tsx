@@ -26,7 +26,8 @@ import {
     Paperclip
 } from "lucide-react";
 import Link from "next/link";
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import { useSearchParams } from "next/navigation";
 
 export default function ContactDriver() {
     const [activeTab, setActiveTab] = useState("call");
