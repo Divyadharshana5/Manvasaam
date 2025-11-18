@@ -120,6 +120,13 @@ export default function ContactDriver() {
         setMessage(quickMsg);
     };
 
+    const handleEmergencyCall = () => {
+        // Call emergency contact
+        window.open(`tel:${driver.emergencyContact}`);
+        console.log(`Emergency call initiated to ${driver.emergencyContact}`);
+        alert("Initiating emergency call...");
+    };
+
     return (
         <div className="min-h-screen w-full overflow-auto">
             <div className="flex flex-col gap-4 p-4 md:gap-6 md:p-6 max-w-5xl mx-auto">
@@ -463,7 +470,7 @@ export default function ContactDriver() {
                                 </CardTitle>
                             </CardHeader>
                             <CardContent className="space-y-2">
-                                <Button variant="destructive" size="sm" className="w-full">
+                                <Button variant="destructive" size="sm" className="w-full" onClick={handleEmergencyCall}>
                                     <Phone className="h-4 w-4 mr-2" />
                                     Emergency Call
                                 </Button>
