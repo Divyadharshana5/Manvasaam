@@ -448,15 +448,15 @@ COST ANALYSIS:
 
                                     {/* Action Buttons */}
                                     <div className="flex gap-2">
-                                        <Button size="sm" variant="outline">
+                                        <Button size="sm" variant="outline" onClick={() => handleServiceDetails(vehicle.id)}>
                                             <Settings className="h-4 w-4 mr-2" />
                                             Service Details
                                         </Button>
-                                        <Button size="sm" variant="outline">
+                                        <Button size="sm" variant="outline" onClick={() => handleScheduleService(vehicle.id)}>
                                             <Calendar className="h-4 w-4 mr-2" />
                                             Schedule Service
                                         </Button>
-                                        <Button size="sm" variant="outline">
+                                        <Button size="sm" variant="outline" onClick={() => handleHealthReport(vehicle.id)}>
                                             <Activity className="h-4 w-4 mr-2" />
                                             Health Report
                                         </Button>
