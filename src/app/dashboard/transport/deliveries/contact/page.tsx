@@ -297,13 +297,13 @@ export default function ContactDriver() {
                                                 <Send className="h-4 w-4 mr-2" />
                                                 Send Message
                                             </Button>
-                                            <Button variant="outline" size="icon">
+                                            <Button variant="outline" size="icon" onClick={handleVoiceMessage}>
                                                 <Mic className="h-4 w-4" />
                                             </Button>
-                                            <Button variant="outline" size="icon">
+                                            <Button variant="outline" size="icon" onClick={handleImageAttachment}>
                                                 <Image className="h-4 w-4" />
                                             </Button>
-                                            <Button variant="outline" size="icon">
+                                            <Button variant="outline" size="icon" onClick={handleFileAttachment}>
                                                 <Paperclip className="h-4 w-4" />
                                             </Button>
                                         </div>
