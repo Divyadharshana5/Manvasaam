@@ -133,8 +133,19 @@ export default function ContactDriver() {
             const smsLink = `sms:${driver.phone}?body=${encodeURIComponent(message)}`;
             window.open(smsLink);
             console.log("Sending message:", message);
+            
+            // Add to communication history
+            const newComm = {
+                type: "message",
+                time: new Date().toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'}),
+                content: message,
+                status: "sent"
+            };
+            
             setMessage("");
-            alert("Message sent successfully!");
+            alert(`Message sent to ${driver.name}!\n\nMessage: "${newComm.content}"\nPriority: ${urgencyLevel.toUpperCase()}`);
+        } else {
+            alert("Please enter a message before sending.");
         }
     };
 
