@@ -178,12 +178,16 @@ export default function ContactDriver() {
     const handleImageAttachment = () => {
         const input = document.createElement('input');
         input.type = 'file';
-        input.accept = 'image/*';
+        input.accept = 'image/*,video/*';
+        input.multiple = true;
         input.onchange = (e) => {
-            const file = (e.target as HTMLInputElement).files?.[0];
-            if (file) {
-                alert(`Image selected: ${file.name}`);
-                console.log("Image attachment:", file.name);
+            const files = (e.target as HTMLInputElement).files;
+            if (files && files.length > 0) {
+                const fileNames = Array.from(files).map(file => file.name).join(', ');
+                const fileTypes = Array.from(files).map(file => file.type.split('/')[0]).join(', ');
+                
+                alert(`📸 Media selected and sent to ${driver.name}!\n\nFiles: ${fileNames}\nTypes: ${fileTypes}\nDelivery: ${driver.currentDelivery}`);
+                console.log("Media attachments:", Array.from(files).map(f => f.name));
             }
         };
         input.click();
