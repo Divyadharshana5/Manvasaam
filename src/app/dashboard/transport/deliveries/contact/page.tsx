@@ -127,6 +127,38 @@ export default function ContactDriver() {
         alert("Initiating emergency call...");
     };
 
+    const handleVoiceMessage = () => {
+        alert("Voice message recording started...");
+        console.log("Voice message feature activated");
+    };
+
+    const handleImageAttachment = () => {
+        const input = document.createElement('input');
+        input.type = 'file';
+        input.accept = 'image/*';
+        input.onchange = (e) => {
+            const file = (e.target as HTMLInputElement).files?.[0];
+            if (file) {
+                alert(`Image selected: ${file.name}`);
+                console.log("Image attachment:", file.name);
+            }
+        };
+        input.click();
+    };
+
+    const handleFileAttachment = () => {
+        const input = document.createElement('input');
+        input.type = 'file';
+        input.onchange = (e) => {
+            const file = (e.target as HTMLInputElement).files?.[0];
+            if (file) {
+                alert(`File selected: ${file.name}`);
+                console.log("File attachment:", file.name);
+            }
+        };
+        input.click();
+    };
+
     return (
         <div className="min-h-screen w-full overflow-auto">
             <div className="flex flex-col gap-4 p-4 md:gap-6 md:p-6 max-w-5xl mx-auto">
