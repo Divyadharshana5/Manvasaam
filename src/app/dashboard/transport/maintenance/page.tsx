@@ -303,7 +303,7 @@ COST ANALYSIS:
                         <Download className="h-4 w-4 mr-2" />
                         Export Report
                     </Button>
-                    <Button>
+                    <Button onClick={handleNewScheduleService}>
                         <Plus className="h-4 w-4 mr-2" />
                         Schedule Service
                     </Button>
