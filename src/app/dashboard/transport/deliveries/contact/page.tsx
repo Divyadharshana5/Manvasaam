@@ -83,13 +83,33 @@ export default function ContactDriver() {
     ];
 
     const handleCall = () => {
-        // In real app, this would initiate a call
+        // Initiate phone call
         window.open(`tel:${driver.phone}`);
+        // Log the call attempt
+        console.log(`Initiating call to ${driver.name} at ${driver.phone}`);
+    };
+
+    const handleVideoCall = () => {
+        // In a real app, this would integrate with video calling service
+        alert(`Initiating video call with ${driver.name}...`);
+        console.log(`Video call initiated with ${driver.name}`);
+    };
+
+    const handleSendEmail = () => {
+        const subject = (document.getElementById('subject') as HTMLInputElement)?.value || `Delivery Update - ${driver.currentDelivery}`;
+        const body = (document.getElementById('emailBody') as HTMLTextAreaElement)?.value || '';
+        
+        // Open default email client
+        const mailtoLink = `mailto:${driver.email}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+        window.open(mailtoLink);
+        console.log(`Email initiated to ${driver.email}`);
     };
 
     const handleSendMessage = () => {
         if (message.trim()) {
-            // In real app, this would send the message
+            // In real app, this would send via SMS/messaging service
+            const smsLink = `sms:${driver.phone}?body=${encodeURIComponent(message)}`;
+            window.open(smsLink);
             console.log("Sending message:", message);
             setMessage("");
             alert("Message sent successfully!");
