@@ -354,7 +354,7 @@ export default function ContactDriver() {
                                                 <Mail className="h-4 w-4 mr-2" />
                                                 Send Email
                                             </Button>
-                                            <Button variant="outline">
+                                            <Button variant="outline" onClick={handleFileAttachment}>
                                                 <Paperclip className="h-4 w-4 mr-2" />
                                                 Attach File
                                             </Button>
