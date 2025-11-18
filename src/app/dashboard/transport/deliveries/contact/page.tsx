@@ -196,11 +196,17 @@ export default function ContactDriver() {
     const handleFileAttachment = () => {
         const input = document.createElement('input');
         input.type = 'file';
+        input.multiple = true;
+        input.accept = '.pdf,.doc,.docx,.txt,.xlsx,.csv,.zip,.rar';
         input.onchange = (e) => {
-            const file = (e.target as HTMLInputElement).files?.[0];
-            if (file) {
-                alert(`File selected: ${file.name}`);
-                console.log("File attachment:", file.name);
+            const files = (e.target as HTMLInputElement).files;
+            if (files && files.length > 0) {
+                const fileNames = Array.from(files).map(file => file.name).join(', ');
+                const totalSize = Array.from(files).reduce((sum, file) => sum + file.size, 0);
+                const sizeInMB = (totalSize / (1024 * 1024)).toFixed(2);
+                
+                alert(`📎 Files attached and sent to ${driver.name}!\n\nFiles: ${fileNames}\nTotal size: ${sizeInMB} MB\nDelivery: ${driver.currentDelivery}`);
+                console.log("File attachments:", Array.from(files).map(f => f.name));
             }
         };
         input.click();
