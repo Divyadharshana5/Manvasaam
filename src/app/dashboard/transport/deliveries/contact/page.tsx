@@ -161,8 +161,18 @@ export default function ContactDriver() {
     };
 
     const handleVoiceMessage = () => {
-        alert("Voice message recording started...");
-        console.log("Voice message feature activated");
+        // Simulate voice recording functionality
+        if (navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
+            alert("🎤 Voice recording started...\n\nClick OK to stop recording and send voice message.");
+            console.log("Voice message recording initiated");
+            
+            // Simulate recording completion
+            setTimeout(() => {
+                alert(`Voice message recorded and sent to ${driver.name}!\n\nDuration: 15 seconds\nDelivery: ${driver.currentDelivery}`);
+            }, 1000);
+        } else {
+            alert("Voice recording not supported on this device.\n\nPlease use the text message option instead.");
+        }
     };
 
     const handleImageAttachment = () => {
