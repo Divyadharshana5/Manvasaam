@@ -204,7 +204,7 @@ export default function ContactDriver() {
                                                     <PhoneCall className="h-4 w-4 mr-2" />
                                                     Call Now
                                                 </Button>
-                                                <Button variant="outline">
+                                                <Button variant="outline" onClick={handleVideoCall}>
                                                     <Video className="h-4 w-4 mr-2" />
                                                     Video Call
                                                 </Button>
@@ -311,7 +311,7 @@ export default function ContactDriver() {
                                         </div>
 
                                         <div className="flex gap-2">
-                                            <Button className="flex-1">
+                                            <Button className="flex-1" onClick={handleSendEmail}>
                                                 <Mail className="h-4 w-4 mr-2" />
                                                 Send Email
                                             </Button>
