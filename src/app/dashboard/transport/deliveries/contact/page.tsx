@@ -159,6 +159,30 @@ export default function ContactDriver() {
         input.click();
     };
 
+    const handleTrackLive = () => {
+        // Navigate to live tracking page
+        window.open(`/dashboard/transport/deliveries/tracking?id=${driver.currentDelivery}`, '_blank');
+        console.log(`Opening live tracking for delivery ${driver.currentDelivery}`);
+    };
+
+    const handleViewDeliveryDetails = () => {
+        // Navigate to delivery details page
+        window.open(`/dashboard/transport/deliveries/details?id=${driver.currentDelivery}`, '_blank');
+        console.log(`Opening delivery details for ${driver.currentDelivery}`);
+    };
+
+    const handleReportIssue = () => {
+        // In a real app, this would open an issue reporting form
+        const issueTypes = ['Vehicle breakdown', 'Route blocked', 'Customer unavailable', 'Package damaged', 'Weather conditions', 'Other'];
+        const selectedIssue = prompt(`Report an issue:\n\nSelect issue type:\n${issueTypes.map((issue, index) => `${index + 1}. ${issue}`).join('\n')}\n\nEnter issue number (1-${issueTypes.length}):`);
+        
+        if (selectedIssue && parseInt(selectedIssue) >= 1 && parseInt(selectedIssue) <= issueTypes.length) {
+            const issueType = issueTypes[parseInt(selectedIssue) - 1];
+            alert(`Issue reported: ${issueType}\nDelivery: ${driver.currentDelivery}\nDriver: ${driver.name}\n\nSupport team has been notified.`);
+            console.log(`Issue reported: ${issueType} for delivery ${driver.currentDelivery}`);
+        }
+    };
+
     return (
         <div className="min-h-screen w-full overflow-auto">
             <div className="flex flex-col gap-4 p-4 md:gap-6 md:p-6 max-w-5xl mx-auto">
