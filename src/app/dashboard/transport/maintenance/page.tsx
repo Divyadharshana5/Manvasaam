@@ -31,6 +31,76 @@ export default function MaintenancePage() {
     const [searchQuery, setSearchQuery] = useState("");
     const [activeTab, setActiveTab] = useState("overview");
 
+    // Handler functions for the action buttons
+    const handleServiceDetails = (vehicleId: string) => {
+        const vehicle = vehicles.find(v => v.id === vehicleId);
+        if (vehicle) {
+            alert(`Service Details for ${vehicleId}\n\n` +
+                `Model: ${vehicle.model}\n` +
+                `Last Service: ${vehicle.lastService}\n` +
+                `Next Service: ${vehicle.nextService}\n` +
+                `Service Type: ${vehicle.serviceType}\n` +
+                `Mileage: ${vehicle.mileage.toLocaleString()} km\n` +
+                `Health Score: ${vehicle.healthScore}%\n` +
+                `Maintenance Cost: ₹${vehicle.maintenanceCost.toLocaleString()}\n` +
+                `Downtime: ${vehicle.downtime} days`);
+        }
+        console.log(`Opening service details for ${vehicleId}`);
+    };
+
+    const handleScheduleService = (vehicleId: string) => {
+        const vehicle = vehicles.find(v => v.id === vehicleId);
+        if (vehicle) {
+            const serviceDate = prompt(`Schedule Service for ${vehicleId}\n\nEnter service date (YYYY-MM-DD):`);
+            if (serviceDate) {
+                alert(`Service Scheduled Successfully!\n\n` +
+                    `Vehicle: ${vehicleId} (${vehicle.model})\n` +
+                    `Scheduled Date: ${serviceDate}\n` +
+                    `Service Type: ${vehicle.serviceType}\n` +
+                    `Estimated Cost: ₹${vehicle.maintenanceCost.toLocaleString()}\n\n` +
+                    `A confirmation will be sent to the service center.`);
+                console.log(`Service scheduled for ${vehicleId} on ${serviceDate}`);
+            }
+        }
+    };
+
+    const handleHealthReport = (vehicleId: string) => {
+        const vehicle = vehicles.find(v => v.id === vehicleId);
+        if (vehicle) {
+            const reportData = `
+VEHICLE HEALTH REPORT
+=====================
+Vehicle ID: ${vehicleId}
+Model: ${vehicle.model}
+Overall Health Score: ${vehicle.healthScore}%
+
+PERFORMANCE METRICS:
+• Mileage: ${vehicle.mileage.toLocaleString()} km
+• Fuel Efficiency: ${vehicle.fuelEfficiency} km/L
+• Downtime: ${vehicle.downtime} days
+• Status: ${vehicle.status.toUpperCase()}
+
+MAINTENANCE STATUS:
+• Last Service: ${vehicle.lastService}
+• Next Service: ${vehicle.nextService}
+• Service Type: ${vehicle.serviceType}
+
+CURRENT ISSUES:
+${vehicle.issues.length > 0 ? vehicle.issues.map(issue => `• ${issue}`).join('\n') : '• No issues reported'}
+
+UPCOMING MAINTENANCE:
+${vehicle.upcomingMaintenance.map(maintenance => `• ${maintenance}`).join('\n')}
+
+COST ANALYSIS:
+• Maintenance Cost: ₹${vehicle.maintenanceCost.toLocaleString()}
+• Health Score Trend: ${vehicle.healthScore >= 80 ? 'Excellent' : vehicle.healthScore >= 60 ? 'Good' : 'Needs Attention'}
+            `;
+            
+            alert(reportData);
+            console.log(`Health report generated for ${vehicleId}:`, reportData);
+        }
+    };
+
     const vehicles = [
         {
             id: "TRK-001",
