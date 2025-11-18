@@ -526,7 +526,7 @@ export default function ContactDriver() {
                                     <Phone className="h-4 w-4 mr-2" />
                                     Emergency Call
                                 </Button>
-                                <Button variant="outline" size="sm" className="w-full">
+                                <Button variant="outline" size="sm" className="w-full" onClick={handleReportIssue}>
                                     <AlertTriangle className="h-4 w-4 mr-2" />
                                     Report Issue
                                 </Button>
