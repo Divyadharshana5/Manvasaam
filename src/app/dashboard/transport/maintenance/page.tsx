@@ -101,6 +101,33 @@ COST ANALYSIS:
         }
     };
 
+    const handleNewScheduleService = () => {
+        const availableVehicles = vehicles.map(v => `${v.id} (${v.model})`).join('\n');
+        const selectedVehicle = prompt(`Schedule New Service\n\nAvailable Vehicles:\n${availableVehicles}\n\nEnter Vehicle ID:`);
+        
+        if (selectedVehicle) {
+            const vehicle = vehicles.find(v => v.id === selectedVehicle.toUpperCase());
+            if (vehicle) {
+                const serviceDate = prompt(`Schedule Service for ${vehicle.id}\n\nEnter service date (YYYY-MM-DD):`);
+                if (serviceDate) {
+                    const serviceType = prompt(`Select Service Type:\n1. Regular Service\n2. Major Service\n3. Emergency Repair\n4. Preventive Maintenance\n\nEnter option (1-4):`);
+                    const serviceTypes = ['Regular Service', 'Major Service', 'Emergency Repair', 'Preventive Maintenance'];
+                    const selectedType = serviceTypes[parseInt(serviceType || '1') - 1] || 'Regular Service';
+                    
+                    alert(`Service Scheduled Successfully!\n\n` +
+                        `Vehicle: ${vehicle.id} (${vehicle.model})\n` +
+                        `Service Type: ${selectedType}\n` +
+                        `Scheduled Date: ${serviceDate}\n` +
+                        `Estimated Cost: ₹${vehicle.maintenanceCost.toLocaleString()}\n\n` +
+                        `Service center has been notified and will contact you for confirmation.`);
+                    console.log(`New service scheduled: ${vehicle.id} - ${selectedType} on ${serviceDate}`);
+                }
+            } else {
+                alert('Vehicle not found. Please enter a valid Vehicle ID.');
+            }
+        }
+    };
+
     const vehicles = [
         {
             id: "TRK-001",
