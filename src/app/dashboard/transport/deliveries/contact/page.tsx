@@ -507,10 +507,8 @@ export default function ContactDriver() {
                                     <Label className="text-sm font-medium">Status</Label>
                                     <Badge variant="secondary" className="ml-2">In Transit</Badge>
                                 </div>
-                                <Button size="sm" className="w-full" asChild>
-                                    <Link href={`/dashboard/transport/deliveries/details?id=${driver.currentDelivery}`}>
-                                        View Delivery Details
-                                    </Link>
+                                <Button size="sm" className="w-full" onClick={handleViewDeliveryDetails}>
+                                    View Delivery Details
                                 </Button>
                             </CardContent>
                         </Card>
