@@ -30,12 +30,11 @@ import { useState, useEffect } from "react";
 import { useSearchParams } from "next/navigation";
 
 export default function ContactDriver() {
+    const searchParams = useSearchParams();
     const [activeTab, setActiveTab] = useState("call");
     const [message, setMessage] = useState("");
     const [urgencyLevel, setUrgencyLevel] = useState("normal");
-
-    // Mock driver data - in real app, this would come from URL params
-    const driver = {
+    const [driver, setDriver] = useState({
         name: "Raj Kumar",
         phone: "+91 98765 12345",
         email: "raj.kumar@swiftlogistics.com",
@@ -47,7 +46,31 @@ export default function ContactDriver() {
         photo: "/api/placeholder/60/60",
         languages: ["Hindi", "English", "Tamil"],
         emergencyContact: "+91 98765 54321"
-    };
+    });
+
+    // Update driver data from URL parameters
+    useEffect(() => {
+        const delivery = searchParams.get('delivery');
+        const driverName = searchParams.get('driver');
+        const phone = searchParams.get('phone');
+        const hasIssue = searchParams.get('issue') === 'true';
+
+        if (delivery || driverName || phone) {
+            setDriver(prev => ({
+                ...prev,
+                ...(delivery && { currentDelivery: delivery }),
+                ...(driverName && { name: driverName }),
+                ...(phone && { phone: phone })
+            }));
+        }
+
+        // If there's an issue, show urgent priority and switch to message tab
+        if (hasIssue) {
+            setUrgencyLevel("urgent");
+            setActiveTab("message");
+            setMessage("There seems to be an issue with the delivery. Please provide an update on the current status.");
+        }
+    }, [searchParams]);
 
     const recentCommunications = [
         {
