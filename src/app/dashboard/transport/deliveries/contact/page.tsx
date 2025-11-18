@@ -162,7 +162,7 @@ export default function ContactDriver() {
 
     const handleVoiceMessage = () => {
         // Simulate voice recording functionality
-        if (navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
+        if (typeof navigator !== 'undefined' && navigator.mediaDevices) {
             alert("🎤 Voice recording started...\n\nClick OK to stop recording and send voice message.");
             console.log("Voice message recording initiated");
             
