@@ -483,11 +483,9 @@ export default function ContactDriver() {
                             </CardHeader>
                             <CardContent>
                                 <p className="text-sm">{driver.location}</p>
-                                <Button size="sm" className="w-full mt-3" asChild>
-                                    <Link href={`/dashboard/transport/deliveries/tracking?id=${driver.currentDelivery}`}>
-                                        <MapPin className="h-4 w-4 mr-2" />
-                                        Track Live
-                                    </Link>
+                                <Button size="sm" className="w-full mt-3" onClick={handleTrackLive}>
+                                    <MapPin className="h-4 w-4 mr-2" />
+                                    Track Live
                                 </Button>
                             </CardContent>
                         </Card>
