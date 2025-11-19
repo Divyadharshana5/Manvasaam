@@ -431,18 +431,19 @@ COST ANALYSIS:
                     {/* Search */}
                     <Card>
                         <CardContent className="p-4">
-                            <div className="relative">
-                                <Search className="absolute left-3 top-2.5 h-4 w-4 text-muted-foreground" />
+                            <div className="relative flex items-center">
+                                <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground pointer-events-none z-10" />
                                 <Input
                                     placeholder="Search vehicles by ID or model..."
                                     value={searchQuery}
                                     onChange={(e) => setSearchQuery(e.target.value)}
-                                    className="pl-9 pr-9"
+                                    className="pl-10 pr-10"
                                 />
                                 {searchQuery && (
                                     <button
+                                        type="button"
                                         onClick={() => setSearchQuery("")}
-                                        className="absolute right-3 top-2.5 h-4 w-4 text-muted-foreground hover:text-foreground transition-colors"
+                                        className="absolute right-3 top-1/2 -translate-y-1/2 text-muted-foreground hover:text-foreground transition-colors z-10"
                                         aria-label="Clear search"
                                     >
                                         <X className="h-4 w-4" />
