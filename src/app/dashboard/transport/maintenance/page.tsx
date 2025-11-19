@@ -358,7 +358,7 @@ COST ANALYSIS:
                     <p className="text-muted-foreground">Monitor and manage vehicle maintenance schedules and health</p>
                 </div>
                 <div className="flex items-center gap-2">
-                    <Button variant="outline">
+                    <Button variant="outline" onClick={handleExportReport}>
                         <Download className="h-4 w-4 mr-2" />
                         Export Report
                     </Button>
