@@ -128,6 +128,65 @@ COST ANALYSIS:
         }
     };
 
+    const handleExportReport = () => {
+        // Generate comprehensive maintenance report
+        const reportDate = new Date().toLocaleDateString('en-IN');
+        const reportTime = new Date().toLocaleTimeString('en-IN');
+        
+        // CSV Header
+        let csvContent = "Fleet Maintenance Report\n";
+        csvContent += `Generated on: ${reportDate} at ${reportTime}\n\n`;
+        
+        // Fleet Summary
+        csvContent += "FLEET SUMMARY\n";
+        csvContent += "Metric,Value\n";
+        csvContent += `Total Vehicles,${totalVehicles}\n`;
+        csvContent += `Active Vehicles,${activeVehicles}\n`;
+        csvContent += `In Maintenance,${inMaintenance}\n`;
+        csvContent += `Average Health Score,${avgHealthScore}%\n\n`;
+        
+        // Vehicle Details
+        csvContent += "VEHICLE DETAILS\n";
+        csvContent += "Vehicle ID,Model,Status,Health Score,Mileage (km),Fuel Efficiency (km/L),Last Service,Next Service,Service Type,Maintenance Cost (₹),Downtime (days),Issues,Upcoming Maintenance\n";
+        vehicles.forEach(vehicle => {
+            csvContent += `${vehicle.id},${vehicle.model},${vehicle.status},${vehicle.healthScore}%,${vehicle.mileage},${vehicle.fuelEfficiency},${vehicle.lastService},${vehicle.nextService},${vehicle.serviceType},${vehicle.maintenanceCost},${vehicle.downtime},"${vehicle.issues.join('; ')}","${vehicle.upcomingMaintenance.join('; ')}"\n`;
+        });
+        
+        csvContent += "\n";
+        
+        // Maintenance Schedule
+        csvContent += "UPCOMING MAINTENANCE SCHEDULE\n";
+        csvContent += "Vehicle ID,Service Type,Date,Estimated Cost (₹),Duration,Priority,Description\n";
+        maintenanceSchedule.forEach(schedule => {
+            csvContent += `${schedule.vehicleId},${schedule.type},${schedule.date},${schedule.estimatedCost},${schedule.duration},${schedule.priority},"${schedule.description}"\n`;
+        });
+        
+        csvContent += "\n";
+        
+        // Maintenance History
+        csvContent += "MAINTENANCE HISTORY\n";
+        csvContent += "Vehicle ID,Service Type,Date,Cost (₹),Duration,Status,Description\n";
+        maintenanceHistory.forEach(history => {
+            csvContent += `${history.vehicleId},${history.type},${history.date},${history.cost},${history.duration},${history.status},"${history.description}"\n`;
+        });
+        
+        // Create and download the file
+        const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
+        const link = document.createElement('a');
+        const url = URL.createObjectURL(blob);
+        
+        link.setAttribute('href', url);
+        link.setAttribute('download', `Fleet_Maintenance_Report_${new Date().toISOString().split('T')[0]}.csv`);
+        link.style.visibility = 'hidden';
+        
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+        
+        console.log('Maintenance report exported successfully');
+        alert(`Maintenance Report Exported!\n\nFile: Fleet_Maintenance_Report_${new Date().toISOString().split('T')[0]}.csv\n\nThe report includes:\n• Fleet Summary\n• Vehicle Details\n• Maintenance Schedule\n• Maintenance History`);
+    };
+
     const vehicles = [
         {
             id: "TRK-001",
