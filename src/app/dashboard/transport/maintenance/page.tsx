@@ -23,6 +23,7 @@ import {
     Gauge,
     Settings,
     Activity,
+    X,
 } from "lucide-react";
 import Link from "next/link";
 import { useState } from "react";
@@ -431,13 +432,22 @@ COST ANALYSIS:
                     <Card>
                         <CardContent className="p-4">
                             <div className="relative">
-                                <Search className="absolute left-2 top-2.5 h-4 w-4 text-muted-foreground" />
+                                <Search className="absolute left-3 top-2.5 h-4 w-4 text-muted-foreground" />
                                 <Input
                                     placeholder="Search vehicles by ID or model..."
                                     value={searchQuery}
                                     onChange={(e) => setSearchQuery(e.target.value)}
-                                    className="pl-8"
+                                    className="pl-9 pr-9"
                                 />
+                                {searchQuery && (
+                                    <button
+                                        onClick={() => setSearchQuery("")}
+                                        className="absolute right-3 top-2.5 h-4 w-4 text-muted-foreground hover:text-foreground transition-colors"
+                                        aria-label="Clear search"
+                                    >
+                                        <X className="h-4 w-4" />
+                                    </button>
+                                )}
                             </div>
                         </CardContent>
                     </Card>
