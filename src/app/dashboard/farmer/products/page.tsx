@@ -29,7 +29,7 @@ import {
   Package,
   Truck,
   Calendar,
-  DollarSign,
+  IndianRupee,
   Weight,
   Building2,
   AlertCircle,
