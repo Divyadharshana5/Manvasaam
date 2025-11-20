@@ -13,7 +13,7 @@ export default function AnalyticsPage() {
       value: "₹45,231",
       change: "+12.5%",
       trend: "up",
-      icon: DollarSign
+      icon: IndianRupee
     },
     {
       title: "Deliveries Completed",
