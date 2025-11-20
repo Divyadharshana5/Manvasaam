@@ -31,7 +31,7 @@ import {
   Activity,
   Route,
   Wrench,
-  DollarSign,
+  IndianRupee,
   Calendar,
   X,
 } from "lucide-react";
