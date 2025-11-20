@@ -9,7 +9,7 @@ import {
     BarChart3,
     TrendingUp,
     TrendingDown,
-    DollarSign,
+    IndianRupee,
     Package,
     Users,
     ArrowLeft,
