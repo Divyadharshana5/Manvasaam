@@ -370,7 +370,7 @@ export default function TransportDashboard() {
                   ₹{todayStats.revenueToday.toLocaleString()}
                 </p>
               </div>
-              <DollarSign className="h-8 w-8 text-blue-500" />
+              <IndianRupee className="h-8 w-8 text-blue-500" />
             </div>
           </CardContent>
         </Card>
