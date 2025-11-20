@@ -22,8 +22,7 @@ import {
     IndianRupee,
     Users,
     Clock,
-    Mail,
-    Share2
+    Mail
 } from "lucide-react";
 import Link from "next/link";
 import { useState } from "react";
