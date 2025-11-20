@@ -10,7 +10,7 @@ export default function AnalyticsPage() {
   const metrics = [
     {
       title: "Total Revenue",
-      value: "$45,231",
+      value: "₹45,231",
       change: "+12.5%",
       trend: "up",
       icon: DollarSign
@@ -111,7 +111,7 @@ export default function AnalyticsPage() {
                     </span>
                   </div>
                   <div className="flex flex-col items-end">
-                    <span className="font-medium">${data.revenue.toLocaleString()}</span>
+                    <span className="font-medium">₹{data.revenue.toLocaleString()}</span>
                     <Badge className="bg-green-100 text-green-800">
                       {data.efficiency}% efficiency
                     </Badge>
