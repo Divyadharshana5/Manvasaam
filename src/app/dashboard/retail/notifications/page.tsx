@@ -74,7 +74,7 @@ export default function RetailNotifications() {
             message: "Payment of ₹8,500 received from customer for today's sales.",
             time: "1 hour ago",
             read: true,
-            icon: DollarSign,
+            icon: IndianRupee,
             category: "payment"
         },
         {
