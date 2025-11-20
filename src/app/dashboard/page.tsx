@@ -187,7 +187,7 @@ export default async function DashboardPage() {
           <CardTitle className="text-sm font-medium">
             {t.dashboard.totalRevenue}
           </CardTitle>
-          <DollarSign className="h-4 w-4 text-muted-foreground" />
+          <IndianRupee className="h-4 w-4 text-muted-foreground" />
         </CardHeader>
         <CardContent>
           <div className="text-2xl font-bold">₹45,231.89</div>
