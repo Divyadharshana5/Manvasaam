@@ -102,7 +102,7 @@ export default function FarmerNotifications() {
       message: "Payment of ₹2,500 received from City Hub for spinach delivery.",
       time: "1 hour ago",
       read: true,
-      icon: DollarSign,
+      icon: IndianRupee,
       category: "payment",
     },
     {
