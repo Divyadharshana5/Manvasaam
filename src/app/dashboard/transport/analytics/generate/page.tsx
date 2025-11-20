@@ -78,7 +78,7 @@ export default function GenerateReport() {
     const focusAreaOptions = [
         { id: "performance", label: "Performance Metrics", icon: TrendingUp },
         { id: "efficiency", label: "Efficiency Analysis", icon: Zap },
-        { id: "financial", label: "Financial Analysis", icon: DollarSign },
+        { id: "financial", label: "Financial Analysis", icon: IndianRupee },
         { id: "operations", label: "Operational Insights", icon: Activity },
         { id: "drivers", label: "Driver Performance", icon: Users },
         { id: "fleet", label: "Fleet Utilization", icon: Activity },
