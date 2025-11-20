@@ -10,7 +10,7 @@ import {
     ArrowLeft,
     Save,
     Package,
-    DollarSign,
+    IndianRupee,
     Warehouse,
     Tag,
 } from "lucide-react";
