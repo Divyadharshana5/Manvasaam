@@ -8,7 +8,7 @@ import {
   CardFooter,
 } from "@/components/ui/card";
 import {
-  DollarSign,
+  IndianRupee,
   Package,
   Users,
   Activity,
