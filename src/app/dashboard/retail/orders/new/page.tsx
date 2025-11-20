@@ -28,7 +28,7 @@ import {
   Search,
   Calendar,
   Truck,
-  DollarSign,
+  IndianRupee,
   CheckCircle,
   Building,
   Apple,
