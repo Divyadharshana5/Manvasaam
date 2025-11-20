@@ -64,7 +64,7 @@ export default function AnalyticsExport() {
     ];
 
     const availableMetrics = [
-        { id: "revenue", label: "Revenue Analytics", icon: DollarSign, category: "financial" },
+        { id: "revenue", label: "Revenue Analytics", icon: IndianRupee, category: "financial" },
         { id: "deliveries", label: "Delivery Performance", icon: Activity, category: "operations" },
         { id: "fuel", label: "Fuel Consumption", icon: Fuel, category: "operations" },
         { id: "efficiency", label: "Route Efficiency", icon: TrendingUp, category: "performance" },
