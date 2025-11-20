@@ -86,21 +86,93 @@ export default function AnalyticsExport() {
         }));
     };
 
-    const handleExport = () => {
-        console.log("Exporting analytics with settings:", exportSettings);
-        
-        const fileName = `${exportSettings.reportName}_${new Date().toISOString().split('T')[0]}.${exportSettings.format}`;
-        
-        // Create mock download
-        const element = document.createElement('a');
-        element.setAttribute('href', 'data:text/plain;charset=utf-8,' + encodeURIComponent('Mock analytics export data'));
-        element.setAttribute('download', fileName);
-        element.style.display = 'none';
-        document.body.appendChild(element);
-        element.click();
-        document.body.removeChild(element);
+    const handleCancel = () => {
+        if (confirm("Are you sure you want to cancel? Any unsaved changes will be lost.")) {
+            router.push("/dashboard/transport/analytics");
+        }
+    };
 
-        alert(`Analytics report exported! File: ${fileName}`);
+    const handleExport = async () => {
+        // Validate settings
+        if (exportSettings.includeMetrics.length === 0) {
+            alert("Please select at least one metric to include in the report.");
+            return;
+        }
+
+        if (exportSettings.dateRange === "custom" && (!exportSettings.customStartDate || !exportSettings.customEndDate)) {
+            alert("Please select both start and end dates for custom date range.");
+            return;
+        }
+
+        if (exportSettings.emailReport && !exportSettings.emailAddress) {
+            alert("Please enter an email address to receive the report.");
+            return;
+        }
+
+        setIsExporting(true);
+        
+        try {
+            console.log("Exporting analytics with settings:", exportSettings);
+            
+            // Simulate export process
+            await new Promise(resolve => setTimeout(resolve, 2000));
+            
+            const fileName = `${exportSettings.reportName}_${new Date().toISOString().split('T')[0]}.${exportSettings.format}`;
+            
+            // Create comprehensive mock data based on selected metrics
+            let reportContent = `TRANSPORT ANALYTICS REPORT\n`;
+            reportContent += `Generated: ${new Date().toLocaleString()}\n`;
+            reportContent += `Format: ${exportSettings.format.toUpperCase()}\n`;
+            reportContent += `Date Range: ${dateRangeOptions.find(d => d.value === exportSettings.dateRange)?.label}\n\n`;
+            
+            reportContent += `INCLUDED METRICS:\n`;
+            exportSettings.includeMetrics.forEach(metricId => {
+                const metric = availableMetrics.find(m => m.id === metricId);
+                if (metric) {
+                    reportContent += `- ${metric.label}\n`;
+                }
+            });
+            
+            reportContent += `\nREPORT OPTIONS:\n`;
+            reportContent += `- Charts: ${exportSettings.includeCharts ? 'Yes' : 'No'}\n`;
+            reportContent += `- Driver Data: ${exportSettings.includeDriverData ? 'Yes' : 'No'}\n`;
+            reportContent += `- Vehicle Data: ${exportSettings.includeVehicleData ? 'Yes' : 'No'}\n`;
+            
+            if (exportSettings.emailReport) {
+                reportContent += `\nEmail Delivery: ${exportSettings.emailAddress}\n`;
+            }
+            
+            // Create mock download
+            const element = document.createElement('a');
+            element.setAttribute('href', 'data:text/plain;charset=utf-8,' + encodeURIComponent(reportContent));
+            element.setAttribute('download', fileName);
+            element.style.display = 'none';
+            document.body.appendChild(element);
+            element.click();
+            document.body.removeChild(element);
+
+            // Show success message
+            let successMessage = `✅ Analytics report exported successfully!\n\n`;
+            successMessage += `File: ${fileName}\n`;
+            successMessage += `Metrics: ${exportSettings.includeMetrics.length} included\n`;
+            
+            if (exportSettings.emailReport) {
+                successMessage += `\n📧 Report will be sent to: ${exportSettings.emailAddress}`;
+            }
+            
+            alert(successMessage);
+            
+            // Redirect back to analytics page after successful export
+            setTimeout(() => {
+                router.push("/dashboard/transport/analytics");
+            }, 1000);
+            
+        } catch (error) {
+            console.error("Export failed:", error);
+            alert("❌ Failed to export report. Please try again.");
+        } finally {
+            setIsExporting(false);
+        }
     };
 
     const metricsByCategory = availableMetrics.reduce((acc, metric) => {
