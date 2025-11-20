@@ -32,7 +32,7 @@ import {
   Activity,
   ShoppingCart,
   TrendingUp,
-  DollarSign,
+  IndianRupee,
   Calendar,
   Leaf,
   Apple,
