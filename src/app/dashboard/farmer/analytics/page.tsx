@@ -13,7 +13,7 @@ import { Button } from "@/components/ui/button";
 import {
   TrendingUp,
   TrendingDown,
-  DollarSign,
+  IndianRupee,
   Package,
   Users,
   Calendar,
