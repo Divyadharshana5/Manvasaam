@@ -11,7 +11,7 @@ import {
   MapPin,
   Calendar,
   Truck,
-  DollarSign,
+  IndianRupee,
   CheckCircle,
   Clock,
   Download,
