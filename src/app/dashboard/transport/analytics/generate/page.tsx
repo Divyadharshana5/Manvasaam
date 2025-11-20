@@ -16,7 +16,7 @@ import {
     TrendingUp,
     Activity,
     Fuel,
-    DollarSign,
+    IndianRupee,
     Users,
     Clock,
     Target,
