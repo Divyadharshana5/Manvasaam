@@ -24,7 +24,7 @@ import {
     Activity,
     Truck,
     TrendingUp,
-    DollarSign,
+    IndianRupee,
     Calendar,
     Building,
     Phone
