@@ -176,7 +176,50 @@ export default function GenerateReport() {
 
         try {
             // Simulate report generation with progress steps
-            for (let i = 0; i < generationSteps.length; i++
+            for (let i = 0; i < generationSteps.length; i++) {
+                setGenerationStep(i);
+                await new Promise(resolve => setTimeout(resolve, 1000));
+            }
+
+            console.log('Generating report with settings:', reportSettings);
+            
+            // Create report summary
+            const reportSummary = `
+✅ REPORT GENERATED SUCCESSFULLY!
+
+Report Details:
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+📊 Type: ${reportTypes.find(t => t.value === reportSettings.reportType)?.label}
+${reportSettings.title ? `📝 Title: ${reportSettings.title}` : ''}
+📅 Date Range: ${reportSettings.dateRange}
+🎯 Focus Areas: ${reportSettings.focusAreas.length} selected
+⚙️ Options: ${[
+    reportSettings.includeExecutiveSummary && 'Executive Summary',
+    reportSettings.includeRecommendations && 'AI Recommendations',
+    reportSettings.includeComparisons && 'Comparisons'
+].filter(Boolean).join(', ')}
+
+Your comprehensive analytics report is ready!
+            `.trim();
+            
+            // Show success message
+            alert(reportSummary);
+            
+            // Redirect to analytics page after a short delay
+            setTimeout(() => {
+                router.push('/dashboard/transport/analytics');
+            }, 1000);
+
+        } catch (error) {
+            console.error('Error generating report:', error);
+            alert('❌ Failed to generate report. Please try again.');
+        } finally {
+            setTimeout(() => {
+                setIsGenerating(false);
+                setGenerationStep(0);
+            }, 2000);
+        }
+    };
 
     return (
         <div className="min-h-screen w-full overflow-auto">
