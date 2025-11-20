@@ -443,12 +443,20 @@ export default function AnalyticsExport() {
 
                 {/* Action Buttons */}
                 <div className="flex justify-end gap-2">
-                    <Button variant="outline" asChild>
-                        <Link href="/dashboard/transport/analytics">Cancel</Link>
+                    <Button 
+                        variant="outline" 
+                        onClick={handleCancel}
+                        disabled={isExporting}
+                    >
+                        Cancel
                     </Button>
-                    <Button onClick={handleExport} className="min-w-32">
+                    <Button 
+                        onClick={handleExport} 
+                        className="min-w-32"
+                        disabled={isExporting}
+                    >
                         <Download className="h-4 w-4 mr-2" />
-                        Export Report
+                        {isExporting ? "Exporting..." : "Export Report"}
                     </Button>
                 </div>
             </div>
