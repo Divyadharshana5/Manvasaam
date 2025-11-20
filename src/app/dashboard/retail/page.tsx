@@ -18,7 +18,7 @@ import {
     Clock,
     CheckCircle,
     AlertCircle,
-    DollarSign,
+    IndianRupee,
     Truck,
     Search,
     Plus,
