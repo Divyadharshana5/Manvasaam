@@ -551,13 +551,21 @@ Your comprehensive analytics report is ready!
                                     <CardTitle>Quick Actions</CardTitle>
                                 </CardHeader>
                                 <CardContent className="space-y-2">
-                                    <Button variant="outline" size="sm" className="w-full justify-start" asChild>
-                                        <Link href="/dashboard/transport/analytics/export">
-                                            <Download className="h-4 w-4 mr-2" />
-                                            Export Existing Data
-                                        </Link>
+                                    <Button 
+                                        variant="outline" 
+                                        size="sm" 
+                                        className="w-full justify-start"
+                                        onClick={handleExportExistingData}
+                                    >
+                                        <Download className="h-4 w-4 mr-2" />
+                                        Export Existing Data
                                     </Button>
-                                    <Button variant="outline" size="sm" className="w-full justify-start">
+                                    <Button 
+                                        variant="outline" 
+                                        size="sm" 
+                                        className="w-full justify-start"
+                                        onClick={handleShareTemplate}
+                                    >
                                         <Share2 className="h-4 w-4 mr-2" />
                                         Share Template
                                     </Button>
