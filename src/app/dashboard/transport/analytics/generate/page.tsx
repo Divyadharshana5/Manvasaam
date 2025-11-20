@@ -29,8 +29,10 @@ import {
 } from "lucide-react";
 import Link from "next/link";
 import { useState } from "react";
+import { useRouter } from "next/navigation";
 
 export default function GenerateReport() {
+    const router = useRouter();
     const [reportSettings, setReportSettings] = useState({
         reportType: "comprehensive",
         title: "",
