@@ -115,7 +115,7 @@ export default function TransportNotifications() {
         "Payment of ₹12,500 received from Green Valley Farm for delivery DEL-002.",
       time: "3 hours ago",
       read: true,
-      icon: DollarSign,
+      icon: IndianRupee,
       category: "payment",
     },
     {

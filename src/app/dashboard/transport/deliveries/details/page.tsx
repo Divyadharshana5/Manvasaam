@@ -24,7 +24,7 @@ import {
   CheckCircle,
   AlertTriangle,
   Calendar,
-  DollarSign,
+  IndianRupee,
   Star,
   Route,
   Fuel,
