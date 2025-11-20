@@ -21,7 +21,7 @@ import {
   Clock,
   CheckCircle,
   AlertCircle,
-  DollarSign,
+  IndianRupee,
   Route,
   Search,
   Plus,
