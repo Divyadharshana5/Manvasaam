@@ -108,7 +108,7 @@ export default function RetailDashboard() {
         { type: "order", message: "New order from Green Valley Farm", time: "2 hours ago", icon: ShoppingCart },
         { type: "delivery", message: "Delivery completed for ORD-001", time: "4 hours ago", icon: Truck },
         { type: "stock", message: "Low stock alert: Organic Milk", time: "6 hours ago", icon: AlertCircle },
-        { type: "payment", message: "Payment received ₹8,500", time: "8 hours ago", icon: DollarSign }
+        { type: "payment", message: "Payment received ₹8,500", time: "8 hours ago", icon: IndianRupee }
     ];
 
     const quickActions = [
@@ -175,7 +175,7 @@ export default function RetailDashboard() {
                                 <p className="text-sm font-medium text-muted-foreground">Today's Revenue</p>
                                 <p className="text-2xl font-bold text-blue-600">₹{todayStats.revenueToday.toLocaleString()}</p>
                             </div>
-                            <DollarSign className="h-8 w-8 text-blue-500" />
+                            <IndianRupee className="h-8 w-8 text-blue-500" />
                         </div>
                     </CardContent>
                 </Card>
