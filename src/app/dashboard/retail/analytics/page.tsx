@@ -209,7 +209,7 @@ export default function AnalyticsPage() {
                                     <span className="text-xs text-green-600">+{salesData.revenueGrowth}%</span>
                                 </div>
                             </div>
-                            <DollarSign className="h-8 w-8 text-green-500" />
+                            <IndianRupee className="h-8 w-8 text-green-500" />
                         </div>
                     </CardContent>
                 </Card>
