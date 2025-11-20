@@ -27,8 +27,11 @@ import {
 } from "lucide-react";
 import Link from "next/link";
 import { useState } from "react";
+import { useRouter } from "next/navigation";
 
 export default function AnalyticsExport() {
+    const router = useRouter();
+    const [isExporting, setIsExporting] = useState(false);
     const [exportSettings, setExportSettings] = useState({
         format: "pdf",
         dateRange: "month",
