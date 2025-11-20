@@ -107,36 +107,76 @@ export default function GenerateReport() {
         }));
     };
 
+    const handleShareTemplate = async () => {
+        try {
+            const templateData = {
+                reportType: reportSettings.reportType,
+                focusAreas: reportSettings.focusAreas,
+                includeExecutiveSummary: reportSettings.includeExecutiveSummary,
+                includeRecommendations: reportSettings.includeRecommendations,
+                includeComparisons: reportSettings.includeComparisons,
+                reportFrequency: reportSettings.reportFrequency
+            };
+
+            const templateText = `Transport Analytics Report Template\n\n` +
+                `Report Type: ${reportSettings.reportType}\n` +
+                `Focus Areas: ${reportSettings.focusAreas.join(', ')}\n` +
+                `Frequency: ${reportSettings.reportFrequency}\n` +
+                `Options: ${[
+                    reportSettings.includeExecutiveSummary && 'Executive Summary',
+                    reportSettings.includeRecommendations && 'AI Recommendations',
+                    reportSettings.includeComparisons && 'Period Comparisons'
+                ].filter(Boolean).join(', ')}`;
+
+            // Try to use Web Share API if available
+            if (navigator.share) {
+                await navigator.share({
+                    title: 'Analytics Report Template',
+                    text: templateText,
+                });
+                alert('✅ Template shared successfully!');
+            } else if (navigator.clipboard) {
+                // Fallback to clipboard
+                await navigator.clipboard.writeText(templateText);
+                alert('✅ Template copied to clipboard!\n\nYou can now paste and share it.');
+            } else {
+                // Final fallback - show in alert
+                alert(`📋 Report Template:\n\n${templateText}\n\nCopy this template to share with others.`);
+            }
+        } catch (error) {
+            console.error('Share failed:', error);
+            alert('❌ Failed to share template. Please try again.');
+        }
+    };
+
+    const handleExportExistingData = () => {
+        // Navigate to export page
+        router.push('/dashboard/transport/analytics/export');
+    };
+
     const handleGenerateReport = async () => {
+        // Validate settings
+        if (!reportSettings.reportType) {
+            alert('⚠️ Please select a report type before generating.');
+            return;
+        }
+
+        if (reportSettings.focusAreas.length === 0) {
+            alert('⚠️ Please select at least one focus area for your report.');
+            return;
+        }
+
+        if (reportSettings.dateRange === 'custom' && (!reportSettings.customStartDate || !reportSettings.customEndDate)) {
+            alert('⚠️ Please select both start and end dates for custom date range.');
+            return;
+        }
+
         setIsGenerating(true);
         setGenerationStep(0);
 
         try {
             // Simulate report generation with progress steps
-            for (let i = 0; i < generationSteps.length; i++) {
-                setGenerationStep(i);
-                await new Promise(resolve => setTimeout(resolve, 1000));
-            }
-
-            console.log('Generating report with settings:', reportSettings);
-            
-            // Show success and redirect
-            setTimeout(() => {
-                alert('Report generated successfully! You can now view, download, or share your report.');
-                // In a real app, this would redirect to the generated report view
-                window.location.href = '/dashboard/transport/analytics';
-            }, 1000);
-
-        } catch (error) {
-            console.error('Error generating report:', error);
-            alert('Failed to generate report. Please try again.');
-        } finally {
-            setTimeout(() => {
-                setIsGenerating(false);
-                setGenerationStep(0);
-            }, 2000);
-        }
-    };
+            for (let i = 0; i < generationSteps.length; i++
 
     return (
         <div className="min-h-screen w-full overflow-auto">
