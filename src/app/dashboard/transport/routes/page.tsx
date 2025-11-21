@@ -39,16 +39,11 @@ export default function RoutesPage() {
       // Show completion
       setOptimizationComplete(true);
 
-      // Show success message
       setTimeout(() => {
-        alert(
-          "Route optimization completed! All routes have been optimized for maximum efficiency."
-        );
         setOptimizationComplete(false);
       }, 1000);
     } catch (error) {
       console.error("Error optimizing routes:", error);
-      alert("Failed to optimize routes. Please try again.");
     } finally {
       setTimeout(() => {
         setIsOptimizing(false);
@@ -65,14 +60,8 @@ export default function RoutesPage() {
       await new Promise((resolve) => setTimeout(resolve, 2500));
 
       console.log("Running route optimization with current settings...");
-
-      // Show success message
-      alert(
-        "Route optimization completed successfully! Efficiency improved by 8.5%"
-      );
     } catch (error) {
       console.error("Error running optimization:", error);
-      alert("Failed to run optimization. Please try again.");
     } finally {
       setIsRunningOptimization(false);
     }
