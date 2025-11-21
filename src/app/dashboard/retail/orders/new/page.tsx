@@ -120,7 +120,6 @@ export default function NewOrderPage() {
 
   const validateOrder = () => {
     if (!selectedSupplier) {
-      alert("Please select a supplier");
       return false;
     }
 
@@ -128,7 +127,6 @@ export default function NewOrderPage() {
       (item) => item.product && item.quantity > 0 && item.price > 0
     );
     if (validItems.length === 0) {
-      alert("Please add at least one valid item to your order");
       return false;
     }
 
@@ -154,13 +152,11 @@ export default function NewOrderPage() {
       };
 
       console.log("Order placed:", orderData);
-      alert("Order placed successfully!");
 
       // Redirect to orders page
       router.push("/dashboard/retail/orders");
     } catch (error) {
       console.error("Error placing order:", error);
-      alert("Failed to place order. Please try again.");
     } finally {
       setIsPlacingOrder(false);
     }
@@ -183,10 +179,8 @@ export default function NewOrderPage() {
       };
 
       console.log("Draft saved:", draftData);
-      alert("Order saved as draft!");
     } catch (error) {
       console.error("Error saving draft:", error);
-      alert("Failed to save draft. Please try again.");
     } finally {
       setIsSavingDraft(false);
     }
