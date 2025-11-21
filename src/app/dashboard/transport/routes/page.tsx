@@ -24,6 +24,9 @@ export default function RoutesPage() {
   const [isOptimizing, setIsOptimizing] = useState(false);
   const [optimizationComplete, setOptimizationComplete] = useState(false);
   const [isRunningOptimization, setIsRunningOptimization] = useState(false);
+  const [aiOptimizationEnabled, setAiOptimizationEnabled] = useState(true);
+  const [trafficUpdatesEnabled, setTrafficUpdatesEnabled] = useState(true);
+  const [weatherIntegrationEnabled, setWeatherIntegrationEnabled] = useState(true);
   const router = useRouter();
   const { toast } = useToast();
 
@@ -321,15 +324,66 @@ export default function RoutesPage() {
             <div className="space-y-4">
               <div className="flex items-center justify-between">
                 <span className="text-sm">AI-Powered Optimization</span>
-                <Badge className="bg-green-100 text-green-800">Active</Badge>
+                <Badge 
+                  className={`cursor-pointer transition-colors ${
+                    aiOptimizationEnabled 
+                      ? "bg-green-100 text-green-800 hover:bg-green-200" 
+                      : "bg-gray-100 text-gray-800 hover:bg-gray-200"
+                  }`}
+                  onClick={() => {
+                    setAiOptimizationEnabled(!aiOptimizationEnabled);
+                    toast({
+                      title: aiOptimizationEnabled ? "AI Optimization Disabled" : "AI Optimization Enabled",
+                      description: aiOptimizationEnabled 
+                        ? "AI-powered route optimization has been turned off" 
+                        : "AI-powered route optimization is now active",
+                    });
+                  }}
+                >
+                  {aiOptimizationEnabled ? "Active" : "Inactive"}
+                </Badge>
               </div>
               <div className="flex items-center justify-between">
                 <span className="text-sm">Real-time Traffic Updates</span>
-                <Badge className="bg-green-100 text-green-800">Enabled</Badge>
+                <Badge 
+                  className={`cursor-pointer transition-colors ${
+                    trafficUpdatesEnabled 
+                      ? "bg-green-100 text-green-800 hover:bg-green-200" 
+                      : "bg-gray-100 text-gray-800 hover:bg-gray-200"
+                  }`}
+                  onClick={() => {
+                    setTrafficUpdatesEnabled(!trafficUpdatesEnabled);
+                    toast({
+                      title: trafficUpdatesEnabled ? "Traffic Updates Disabled" : "Traffic Updates Enabled",
+                      description: trafficUpdatesEnabled 
+                        ? "Real-time traffic updates have been turned off" 
+                        : "Real-time traffic updates are now enabled",
+                    });
+                  }}
+                >
+                  {trafficUpdatesEnabled ? "Enabled" : "Disabled"}
+                </Badge>
               </div>
               <div className="flex items-center justify-between">
                 <span className="text-sm">Weather Integration</span>
-                <Badge className="bg-green-100 text-green-800">Enabled</Badge>
+                <Badge 
+                  className={`cursor-pointer transition-colors ${
+                    weatherIntegrationEnabled 
+                      ? "bg-green-100 text-green-800 hover:bg-green-200" 
+                      : "bg-gray-100 text-gray-800 hover:bg-gray-200"
+                  }`}
+                  onClick={() => {
+                    setWeatherIntegrationEnabled(!weatherIntegrationEnabled);
+                    toast({
+                      title: weatherIntegrationEnabled ? "Weather Integration Disabled" : "Weather Integration Enabled",
+                      description: weatherIntegrationEnabled 
+                        ? "Weather integration has been turned off" 
+                        : "Weather integration is now enabled",
+                    });
+                  }}
+                >
+                  {weatherIntegrationEnabled ? "Enabled" : "Disabled"}
+                </Badge>
               </div>
               <Button
                 className="w-full mt-4"
