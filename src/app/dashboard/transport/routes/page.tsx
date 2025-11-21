@@ -18,17 +18,24 @@ import {
 import { useState } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
+import { useToast } from "@/hooks/use-toast";
 
 export default function RoutesPage() {
   const [isOptimizing, setIsOptimizing] = useState(false);
   const [optimizationComplete, setOptimizationComplete] = useState(false);
   const [isRunningOptimization, setIsRunningOptimization] = useState(false);
   const router = useRouter();
+  const { toast } = useToast();
 
   // Handler for optimizing all routes
   const handleOptimizeAll = async () => {
     setIsOptimizing(true);
     setOptimizationComplete(false);
+
+    toast({
+      title: "Starting Optimization",
+      description: "Analyzing all routes with AI algorithms...",
+    });
 
     try {
       // Simulate AI optimization process
@@ -39,11 +46,21 @@ export default function RoutesPage() {
       // Show completion
       setOptimizationComplete(true);
 
+      toast({
+        title: "Optimization Complete!",
+        description: "All routes have been optimized for maximum efficiency.",
+      });
+
       setTimeout(() => {
         setOptimizationComplete(false);
       }, 1000);
     } catch (error) {
       console.error("Error optimizing routes:", error);
+      toast({
+        variant: "destructive",
+        title: "Optimization Failed",
+        description: "Failed to optimize routes. Please try again.",
+      });
     } finally {
       setTimeout(() => {
         setIsOptimizing(false);
@@ -55,13 +72,28 @@ export default function RoutesPage() {
   const handleRunOptimization = async () => {
     setIsRunningOptimization(true);
 
+    toast({
+      title: "Running Optimization",
+      description: "Analyzing routes with current settings...",
+    });
+
     try {
       // Simulate optimization process
       await new Promise((resolve) => setTimeout(resolve, 2500));
 
       console.log("Running route optimization with current settings...");
+
+      toast({
+        title: "Optimization Successful!",
+        description: "Route efficiency improved by 8.5%",
+      });
     } catch (error) {
       console.error("Error running optimization:", error);
+      toast({
+        variant: "destructive",
+        title: "Optimization Failed",
+        description: "Failed to run optimization. Please try again.",
+      });
     } finally {
       setIsRunningOptimization(false);
     }
