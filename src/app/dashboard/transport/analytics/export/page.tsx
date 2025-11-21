@@ -86,25 +86,20 @@ export default function AnalyticsExport() {
     };
 
     const handleCancel = () => {
-        if (confirm("Are you sure you want to cancel? Any unsaved changes will be lost.")) {
-            router.push("/dashboard/transport/analytics");
-        }
+        router.push("/dashboard/transport/analytics");
     };
 
     const handleExport = async () => {
         // Validate settings
         if (exportSettings.includeMetrics.length === 0) {
-            alert("Please select at least one metric to include in the report.");
             return;
         }
 
         if (exportSettings.dateRange === "custom" && (!exportSettings.customStartDate || !exportSettings.customEndDate)) {
-            alert("Please select both start and end dates for custom date range.");
             return;
         }
 
         if (exportSettings.emailReport && !exportSettings.emailAddress) {
-            alert("Please enter an email address to receive the report.");
             return;
         }
 
@@ -150,16 +145,7 @@ export default function AnalyticsExport() {
             element.click();
             document.body.removeChild(element);
 
-            // Show success message
-            let successMessage = `✅ Analytics report exported successfully!\n\n`;
-            successMessage += `File: ${fileName}\n`;
-            successMessage += `Metrics: ${exportSettings.includeMetrics.length} included\n`;
-            
-            if (exportSettings.emailReport) {
-                successMessage += `\n📧 Report will be sent to: ${exportSettings.emailAddress}`;
-            }
-            
-            alert(successMessage);
+            console.log(`Analytics report exported: ${fileName}`);
             
             // Redirect back to analytics page after successful export
             setTimeout(() => {
@@ -168,7 +154,6 @@ export default function AnalyticsExport() {
             
         } catch (error) {
             console.error("Export failed:", error);
-            alert("❌ Failed to export report. Please try again.");
         } finally {
             setIsExporting(false);
         }
