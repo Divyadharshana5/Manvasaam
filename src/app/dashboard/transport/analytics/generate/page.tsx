@@ -134,18 +134,12 @@ export default function GenerateReport() {
                     title: 'Analytics Report Template',
                     text: templateText,
                 });
-                alert('✅ Template shared successfully!');
             } else if (navigator.clipboard) {
                 // Fallback to clipboard
                 await navigator.clipboard.writeText(templateText);
-                alert('✅ Template copied to clipboard!\n\nYou can now paste and share it.');
-            } else {
-                // Final fallback - show in alert
-                alert(`📋 Report Template:\n\n${templateText}\n\nCopy this template to share with others.`);
             }
         } catch (error) {
             console.error('Share failed:', error);
-            alert('❌ Failed to share template. Please try again.');
         }
     };
 
@@ -157,17 +151,14 @@ export default function GenerateReport() {
     const handleGenerateReport = async () => {
         // Validate settings
         if (!reportSettings.reportType) {
-            alert('⚠️ Please select a report type before generating.');
             return;
         }
 
         if (reportSettings.focusAreas.length === 0) {
-            alert('⚠️ Please select at least one focus area for your report.');
             return;
         }
 
         if (reportSettings.dateRange === 'custom' && (!reportSettings.customStartDate || !reportSettings.customEndDate)) {
-            alert('⚠️ Please select both start and end dates for custom date range.');
             return;
         }
 
@@ -183,28 +174,6 @@ export default function GenerateReport() {
 
             console.log('Generating report with settings:', reportSettings);
             
-            // Create report summary
-            const reportSummary = `
-✅ REPORT GENERATED SUCCESSFULLY!
-
-Report Details:
-━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-📊 Type: ${reportTypes.find(t => t.value === reportSettings.reportType)?.label}
-${reportSettings.title ? `📝 Title: ${reportSettings.title}` : ''}
-📅 Date Range: ${reportSettings.dateRange}
-🎯 Focus Areas: ${reportSettings.focusAreas.length} selected
-⚙️ Options: ${[
-    reportSettings.includeExecutiveSummary && 'Executive Summary',
-    reportSettings.includeRecommendations && 'AI Recommendations',
-    reportSettings.includeComparisons && 'Comparisons'
-].filter(Boolean).join(', ')}
-
-Your comprehensive analytics report is ready!
-            `.trim();
-            
-            // Show success message
-            alert(reportSummary);
-            
             // Redirect to analytics page after a short delay
             setTimeout(() => {
                 router.push('/dashboard/transport/analytics');
@@ -212,7 +181,6 @@ Your comprehensive analytics report is ready!
 
         } catch (error) {
             console.error('Error generating report:', error);
-            alert('❌ Failed to generate report. Please try again.');
         } finally {
             setTimeout(() => {
                 setIsGenerating(false);
