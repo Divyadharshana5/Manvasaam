@@ -113,7 +113,6 @@ export default function ContactDriver() {
 
     const handleVideoCall = () => {
         // In a real app, this would integrate with video calling service
-        alert(`Initiating video call with ${driver.name}...`);
         console.log(`Video call initiated with ${driver.name}`);
     };
 
@@ -143,9 +142,6 @@ export default function ContactDriver() {
             };
             
             setMessage("");
-            alert(`Message sent to ${driver.name}!\n\nMessage: "${newComm.content}"\nPriority: ${urgencyLevel.toUpperCase()}`);
-        } else {
-            alert("Please enter a message before sending.");
         }
     };
 
@@ -157,21 +153,15 @@ export default function ContactDriver() {
         // Call emergency contact
         window.open(`tel:${driver.emergencyContact}`);
         console.log(`Emergency call initiated to ${driver.emergencyContact}`);
-        alert("Initiating emergency call...");
     };
 
     const handleVoiceMessage = () => {
         // Simulate voice recording functionality
         if (typeof navigator !== 'undefined' && navigator.mediaDevices) {
-            alert("🎤 Voice recording started...\n\nClick OK to stop recording and send voice message.");
             console.log("Voice message recording initiated");
-            
-            // Simulate recording completion
-            setTimeout(() => {
-                alert(`Voice message recorded and sent to ${driver.name}!\n\nDuration: 15 seconds\nDelivery: ${driver.currentDelivery}`);
-            }, 1000);
+            // In a real app, this would start actual voice recording
         } else {
-            alert("Voice recording not supported on this device.\n\nPlease use the text message option instead.");
+            console.log("Voice recording not supported on this device");
         }
     };
 
@@ -183,10 +173,6 @@ export default function ContactDriver() {
         input.onchange = (e) => {
             const files = (e.target as HTMLInputElement).files;
             if (files && files.length > 0) {
-                const fileNames = Array.from(files).map(file => file.name).join(', ');
-                const fileTypes = Array.from(files).map(file => file.type.split('/')[0]).join(', ');
-                
-                alert(`📸 Media selected and sent to ${driver.name}!\n\nFiles: ${fileNames}\nTypes: ${fileTypes}\nDelivery: ${driver.currentDelivery}`);
                 console.log("Media attachments:", Array.from(files).map(f => f.name));
             }
         };
@@ -202,10 +188,6 @@ export default function ContactDriver() {
             const files = (e.target as HTMLInputElement).files;
             if (files && files.length > 0) {
                 const fileNames = Array.from(files).map(file => file.name).join(', ');
-                const totalSize = Array.from(files).reduce((sum, file) => sum + file.size, 0);
-                const sizeInMB = (totalSize / (1024 * 1024)).toFixed(2);
-                
-                alert(`📎 Files attached and sent to ${driver.name}!\n\nFiles: ${fileNames}\nTotal size: ${sizeInMB} MB\nDelivery: ${driver.currentDelivery}`);
                 console.log("File attachments:", Array.from(files).map(f => f.name));
             }
         };
@@ -231,7 +213,6 @@ export default function ContactDriver() {
         
         if (selectedIssue && parseInt(selectedIssue) >= 1 && parseInt(selectedIssue) <= issueTypes.length) {
             const issueType = issueTypes[parseInt(selectedIssue) - 1];
-            alert(`Issue reported: ${issueType}\nDelivery: ${driver.currentDelivery}\nDriver: ${driver.name}\n\nSupport team has been notified.`);
             console.log(`Issue reported: ${issueType} for delivery ${driver.currentDelivery}`);
         }
     };
