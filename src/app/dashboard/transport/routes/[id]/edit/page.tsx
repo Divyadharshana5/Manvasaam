@@ -7,6 +7,7 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Button } from "@/components/ui/button";
+import { ArrowLeft } from "lucide-react";
 
 export default function EditRoutePage({ params }: { params: { id: string } }) {
   const router = useRouter();
@@ -65,14 +66,11 @@ export default function EditRoutePage({ params }: { params: { id: string } }) {
   return (
     <div className="min-h-screen w-full overflow-auto p-4 md:p-6 max-w-4xl mx-auto">
       <div className="flex items-center gap-4 mb-6">
-        <Link
-          href={`/dashboard/transport/routes/${id}`}
-          className="inline-flex"
-        >
-          <Button variant="outline" size="icon">
-            ←
-          </Button>
-        </Link>
+        <Button variant="outline" size="icon" asChild>
+          <Link href={`/dashboard/transport/routes/${id}`}>
+            <ArrowLeft className="h-4 w-4" />
+          </Link>
+        </Button>
         <div>
           <h1 className="text-2xl font-bold">Edit Route</h1>
           <p className="text-muted-foreground">Modify route {id}</p>
