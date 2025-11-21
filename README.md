@@ -82,11 +82,14 @@ Manvaasam is a comprehensive digital platform that connects farmers, transport s
 ### 🏪 **Retail Shops**
 - **Product Discovery**: Browse fresh produce by category/location
 - **Order Placement**: Easy ordering with delivery options
+- **Quick-Add Products**: Fast product addition with pre-filled details
 - **Inventory Management**: Real-time stock tracking with low-stock alerts
 - **Quality Assurance**: Product reviews and ratings
 - **Nutritional Information**: Detailed product information
 - **Order Tracking**: Real-time delivery updates
 - **Analytics Dashboard**: Performance metrics and revenue tracking
+- **Draft Orders**: Save incomplete orders for later completion
+- **Supplier Management**: Multi-supplier ordering with ratings
 
 ### 🚚 **Transport Services**
 - **Logistics Coordination**: Delivery scheduling and real-time tracking
@@ -95,6 +98,10 @@ Manvaasam is a comprehensive digital platform that connects farmers, transport s
 - **Quality Control**: Product inspection and grading systems
 - **Performance Tracking**: Delivery metrics and analytics
 - **Fleet Management**: Vehicle and driver coordination
+- **Driver Communication**: Multi-channel contact system (call, SMS, email, video)
+- **Analytics Export**: Export reports in PDF, CSV, Excel, and JSON formats
+- **AI Report Generation**: Automated comprehensive analytics reports
+- **Real-time Tracking**: Live driver location and delivery status monitoring
 
 ## 🎯 Key Functionalities
 
@@ -114,6 +121,12 @@ Manvaasam is a comprehensive digital platform that connects farmers, transport s
 - Inventory management
 - Market trend analysis
 - Revenue optimization insights
+- AI-powered report generation with customizable focus areas
+- Multi-format export (PDF, CSV, Excel, JSON)
+- Executive summaries and operational reports
+- Period-over-period comparisons
+- Driver and fleet performance metrics
+- Fuel consumption and efficiency analysis
 
 ### **Order Management**
 - End-to-end order tracking
@@ -240,8 +253,11 @@ Home Page → Role Selection → Login/Register → Dashboard
 1. Register as transport service
 2. Access logistics management interface
 3. Manage delivery routes and schedules
-4. Coordinate with farmers and retail shops
-5. Track delivery performance
+4. Contact drivers via call, SMS, email, or video
+5. Track deliveries in real-time with live location
+6. Generate and export analytics reports
+7. Monitor driver and fleet performance
+8. Optimize routes and fuel consumption
 
 ### **Demo Mode Features**
 - **Mock Authentication**: Test all user flows without Firebase
@@ -328,12 +344,18 @@ We welcome contributions from the community! Please read our contributing guidel
 
 ## 🎯 Roadmap
 
-### **Recent Updates (v0.1.2)**
+### **Recent Updates (v0.2.0)**
 - [x] Updated transport login page to use farmer's emerald/green color scheme
 - [x] Standardized all login pages with identical structure and features
 - [x] Enhanced voice assistant with transport and retail navigation support
 - [x] Updated homepage icons: Truck for transport, Building for retail
 - [x] Unified authentication experience across all user types
+- [x] Advanced driver communication system with call, message, and email capabilities
+- [x] Comprehensive analytics export functionality with multiple format support
+- [x] AI-powered analytics report generation with customizable focus areas
+- [x] Enhanced retail order management with quick-add product features
+- [x] Real-time delivery tracking and driver contact system
+- [x] Multi-channel communication (voice, text, email, file attachments)
 
 ### **Upcoming Features**
 - [ ] Production Firebase integration
@@ -348,10 +370,34 @@ We welcome contributions from the community! Please read our contributing guidel
 - [ ] Carbon footprint tracking
 - [ ] Farmer education platform
 
-### **Current Version**: 0.1.2
-### **Last Updated**: January 2025
+### **Current Version**: 0.2.0
+### **Last Updated**: November 2025
 
 ## 🔧 Recent Bug Fixes & Improvements
+
+### **Transport Communication System (v0.2.0)**
+- **Multi-Channel Communication**: Integrated call, SMS, email, and video call capabilities
+- **Voice Messages**: Added voice recording and playback for driver communication
+- **File Attachments**: Support for images, videos, and documents in messages
+- **Communication History**: Track all interactions with drivers
+- **Quick Messages**: Pre-defined message templates for common scenarios
+- **Emergency Contacts**: Quick access to emergency driver contacts
+
+### **Analytics & Reporting (v0.2.0)**
+- **AI-Powered Generation**: Automated report creation with customizable focus areas
+- **Multi-Format Export**: Support for PDF, CSV, Excel, and JSON formats
+- **Custom Date Ranges**: Flexible date selection for report generation
+- **Progress Tracking**: Real-time progress indicators during report generation
+- **Email Delivery**: Optional email delivery of generated reports
+- **Template Sharing**: Share report templates with team members
+
+### **Retail Order Management (v0.2.0)**
+- **Quick-Add Products**: Fast product addition with supplier auto-selection
+- **Draft Orders**: Save incomplete orders for later completion
+- **Dynamic Quantity Controls**: Increment/decrement buttons for easy quantity adjustment
+- **Real-time Total Calculation**: Automatic order total updates
+- **Supplier Ratings**: Display supplier ratings during selection
+- **Validation**: Comprehensive order validation before submission
 
 ### **EmailJS Integration (v0.1.1)**
 - **Enhanced Error Handling**: Fixed empty error object issues with comprehensive try-catch blocks
