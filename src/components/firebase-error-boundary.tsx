@@ -39,36 +39,10 @@ export class FirebaseErrorBoundary extends React.Component<Props, State> {
 
   render() {
     if (this.state.hasError) {
-      return (
-        <div className="min-h-screen flex items-center justify-center p-4">
-          <Alert className="max-w-md border-amber-200 bg-amber-50 text-amber-800">
-            <AlertTriangle className="h-4 w-4" />
-            <AlertTitle>Connection Issue</AlertTitle>
-            <AlertDescription className="mt-2">
-              Firebase connection failed. The app is now running in demo mode with full functionality.
-              <div className="mt-4 space-y-2">
-                <Button
-                  variant="outline"
-                  size="sm"
-                  onClick={() => window.location.reload()}
-                  className="w-full"
-                >
-                  <RefreshCw className="h-4 w-4 mr-2" />
-                  Retry Connection
-                </Button>
-                <Button
-                  variant="default"
-                  size="sm"
-                  onClick={() => this.setState({ hasError: false })}
-                  className="w-full"
-                >
-                  Continue in Demo Mode
-                </Button>
-              </div>
-            </AlertDescription>
-          </Alert>
-        </div>
-      );
+      // Silently handle Firebase errors and continue in demo mode
+      console.log('Running in demo mode due to Firebase connection issue');
+      // Reset error state and continue rendering
+      this.setState({ hasError: false });
     }
 
     return this.props.children;
