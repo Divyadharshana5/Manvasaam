@@ -157,6 +157,31 @@
     min-width: 44px;
   }
 
+  /* Fast responsive utilities */
+  .responsive-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 300px), 1fr));
+    gap: 1rem;
+  }
+
+  .responsive-flex {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+  }
+
+  .responsive-padding {
+    padding: clamp(0.5rem, 2vw, 2rem);
+  }
+
+  .responsive-text {
+    font-size: clamp(0.875rem, 2vw, 1rem);
+  }
+
+  .responsive-heading {
+    font-size: clamp(1.5rem, 4vw, 2.5rem);
+  }
+
   /* Smooth scrolling for mobile */
   @media (max-width: 768px) {
     html {
@@ -168,7 +193,7 @@
     input,
     select,
     textarea {
-      font-size: 16px;
+      font-size: 16px !important;
     }
 
     /* Better button spacing on mobile */
@@ -194,6 +219,73 @@
     /* Prevent horizontal overflow */
     body {
       overflow-x: hidden;
+      width: 100%;
+    }
+
+    /* Responsive containers */
+    .container,
+    [class*="container"] {
+      max-width: 100%;
+      padding-left: 1rem;
+      padding-right: 1rem;
+    }
+
+    /* Responsive cards */
+    .card,
+    [class*="card"] {
+      margin-left: 0;
+      margin-right: 0;
+    }
+
+    /* Stack flex items on mobile */
+    .flex-stack-mobile {
+      flex-direction: column !important;
+    }
+
+    /* Full width buttons on mobile */
+    .btn-mobile-full {
+      width: 100% !important;
+    }
+
+    /* Responsive tables */
+    table {
+      display: block;
+      overflow-x: auto;
+      white-space: nowrap;
+      -webkit-overflow-scrolling: touch;
+    }
+
+    /* Hide on mobile */
+    .hide-mobile {
+      display: none !important;
+    }
+
+    /* Show only on mobile */
+    .show-mobile {
+      display: block !important;
+    }
+  }
+
+  /* Tablet optimizations */
+  @media (min-width: 769px) and (max-width: 1024px) {
+    .responsive-grid {
+      grid-template-columns: repeat(auto-fit, minmax(min(100%, 250px), 1fr));
+    }
+
+    /* Hide on tablet */
+    .hide-tablet {
+      display: none !important;
+    }
+  }
+
+  /* Desktop optimizations */
+  @media (min-width: 1025px) {
+    .hide-desktop {
+      display: none !important;
+    }
+
+    .show-mobile {
+      display: none !important;
     }
   }
 
@@ -203,6 +295,34 @@
       padding-top: 8px;
       padding-bottom: 8px;
     }
+
+    /* Reduce vertical spacing in landscape */
+    .space-y-6 {
+      gap: 1rem;
+    }
+  }
+
+  /* High DPI screens */
+  @media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) {
+    img {
+      image-rendering: -webkit-optimize-contrast;
+      image-rendering: crisp-edges;
+    }
+  }
+
+  /* Performance optimizations for all screens */
+  .will-change-transform {
+    will-change: transform;
+  }
+
+  .will-change-opacity {
+    will-change: opacity;
+  }
+
+  .gpu-layer {
+    transform: translateZ(0);
+    backface-visibility: hidden;
+    perspective: 1000px;
   }
 }
 
