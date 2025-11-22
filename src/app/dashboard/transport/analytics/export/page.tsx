@@ -166,8 +166,8 @@ export default function AnalyticsExport() {
     }, {} as Record<string, typeof availableMetrics>);
 
     return (
-        <div className="min-h-screen w-full overflow-auto">
-            <div className="flex flex-col gap-4 p-4 md:gap-6 md:p-6 max-w-5xl mx-auto">
+        <div className="min-h-screen w-full overflow-x-hidden">
+            <div className="flex flex-col gap-4 p-4 md:gap-6 md:p-6 lg:p-8 max-w-7xl mx-auto w-full">
                 {/* Header */}
                 <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 sm:gap-4">
                     <div className="flex items-center gap-2 sm:gap-4 w-full sm:w-auto">
@@ -333,8 +333,8 @@ export default function AnalyticsExport() {
                         <div className="space-y-6">
                             {Object.entries(metricsByCategory).map(([category, metrics]) => (
                                 <div key={category}>
-                                    <h4 className="font-medium capitalize mb-3">{category} Metrics</h4>
-                                    <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
+                                    <h4 className="font-medium capitalize mb-2 sm:mb-3 text-sm sm:text-base">{category} Metrics</h4>
+                                    <div className="grid grid-cols-1 xs:grid-cols-2 lg:grid-cols-4 gap-2 sm:gap-3">
                                         {metrics.map((metric) => (
                                             <div key={metric.id} className="flex items-center space-x-2">
                                                 <Checkbox
@@ -342,9 +342,9 @@ export default function AnalyticsExport() {
                                                     checked={exportSettings.includeMetrics.includes(metric.id)}
                                                     onCheckedChange={() => handleMetricToggle(metric.id)}
                                                 />
-                                                <Label htmlFor={metric.id} className="flex items-center gap-2 cursor-pointer text-sm">
-                                                    <metric.icon className="h-3 w-3" />
-                                                    {metric.label}
+                                                <Label htmlFor={metric.id} className="flex items-center gap-2 cursor-pointer text-xs sm:text-sm">
+                                                    <metric.icon className="h-3 w-3 shrink-0" />
+                                                    <span className="truncate">{metric.label}</span>
                                                 </Label>
                                             </div>
                                         ))}
@@ -396,28 +396,28 @@ export default function AnalyticsExport() {
                         <CardDescription>Review your export settings</CardDescription>
                     </CardHeader>
                     <CardContent>
-                        <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
+                        <div className="grid gap-3 sm:gap-4 grid-cols-2 lg:grid-cols-4">
                             <div>
-                                <Label className="text-sm font-medium">Format</Label>
-                                <p className="text-sm text-muted-foreground">
+                                <Label className="text-xs sm:text-sm font-medium">Format</Label>
+                                <p className="text-xs sm:text-sm text-muted-foreground truncate">
                                     {formatOptions.find(f => f.value === exportSettings.format)?.label}
                                 </p>
                             </div>
                             <div>
-                                <Label className="text-sm font-medium">Date Range</Label>
-                                <p className="text-sm text-muted-foreground">
+                                <Label className="text-xs sm:text-sm font-medium">Date Range</Label>
+                                <p className="text-xs sm:text-sm text-muted-foreground truncate">
                                     {dateRangeOptions.find(d => d.value === exportSettings.dateRange)?.label}
                                 </p>
                             </div>
                             <div>
-                                <Label className="text-sm font-medium">Metrics</Label>
-                                <p className="text-sm text-muted-foreground">
+                                <Label className="text-xs sm:text-sm font-medium">Metrics</Label>
+                                <p className="text-xs sm:text-sm text-muted-foreground">
                                     {exportSettings.includeMetrics.length} selected
                                 </p>
                             </div>
                             <div>
-                                <Label className="text-sm font-medium">Options</Label>
-                                <p className="text-sm text-muted-foreground">
+                                <Label className="text-xs sm:text-sm font-medium">Options</Label>
+                                <p className="text-xs sm:text-sm text-muted-foreground truncate">
                                     {[exportSettings.includeCharts && "Charts", exportSettings.includeDriverData && "Drivers", exportSettings.includeVehicleData && "Vehicles"].filter(Boolean).join(", ") || "Basic"}
                                 </p>
                             </div>
@@ -426,17 +426,18 @@ export default function AnalyticsExport() {
                 </Card>
 
                 {/* Action Buttons */}
-                <div className="flex justify-end gap-2">
+                <div className="flex flex-col sm:flex-row justify-end gap-2">
                     <Button 
                         variant="outline" 
                         onClick={handleCancel}
                         disabled={isExporting}
+                        className="w-full sm:w-auto"
                     >
                         Cancel
                     </Button>
                     <Button 
                         onClick={handleExport} 
-                        className="min-w-32"
+                        className="w-full sm:w-auto sm:min-w-32"
                         disabled={isExporting}
                     >
                         <Download className="h-4 w-4 mr-2" />
