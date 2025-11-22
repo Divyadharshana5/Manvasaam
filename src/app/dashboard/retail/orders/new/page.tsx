@@ -237,25 +237,25 @@ export default function NewOrderPage() {
   };
 
   return (
-    <div className="flex flex-1 flex-col gap-4 p-4 md:gap-8 md:p-8">
+    <div className="flex flex-1 flex-col gap-4 p-4 md:gap-6 md:p-6 lg:gap-8 lg:p-8 max-w-7xl mx-auto w-full">
       {/* Header */}
-      <div className="flex items-center gap-4">
-        <Button variant="outline" size="icon" asChild>
+      <div className="flex flex-col sm:flex-row items-start sm:items-center gap-3 sm:gap-4">
+        <Button variant="outline" size="icon" asChild className="shrink-0">
           <Link href="/dashboard/retail">
             <ArrowLeft className="h-4 w-4" />
           </Link>
         </Button>
-        <div>
-          <h1 className="text-3xl font-bold tracking-tight">Place New Order</h1>
-          <p className="text-muted-foreground">
+        <div className="min-w-0">
+          <h1 className="text-2xl sm:text-3xl font-bold tracking-tight">Place New Order</h1>
+          <p className="text-sm text-muted-foreground">
             Create a new purchase order from suppliers
           </p>
         </div>
       </div>
 
-      <div className="grid gap-6 md:grid-cols-3">
+      <div className="grid gap-4 md:gap-6 grid-cols-1 md:grid-cols-3">
         {/* Order Form */}
-        <div className="md:col-span-2 space-y-6">
+        <div className="md:col-span-2 space-y-4 md:space-y-6">
           <Card>
             <CardHeader>
               <CardTitle className="flex items-center gap-2">
