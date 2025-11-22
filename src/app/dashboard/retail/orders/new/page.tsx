@@ -519,16 +519,16 @@ export default function NewOrderPage() {
               <CardTitle>Quick Add Products</CardTitle>
             </CardHeader>
             <CardContent>
-              <div className="space-y-3">
+              <div className="space-y-2 sm:space-y-3">
                 {products.slice(0, 4).map((product, index) => (
                   <div
                     key={index}
                     className="flex items-center justify-between p-2 border rounded hover:bg-gray-50 transition-colors"
                   >
-                    <div className="flex items-center gap-2">
-                      <product.icon className="h-4 w-4 text-green-600" />
-                      <div>
-                        <p className="text-sm font-medium">{product.name}</p>
+                    <div className="flex items-center gap-2 min-w-0 flex-1">
+                      <product.icon className="h-4 w-4 text-green-600 shrink-0" />
+                      <div className="min-w-0 flex-1">
+                        <p className="text-xs sm:text-sm font-medium truncate">{product.name}</p>
                         <p className="text-xs text-muted-foreground">
                           ₹{product.price}/
                           {product.category === "Dairy" ? "L" : "kg"}
@@ -539,7 +539,7 @@ export default function NewOrderPage() {
                       size="sm"
                       variant="outline"
                       onClick={() => handleQuickAddProduct(product)}
-                      className="hover:bg-green-50 hover:border-green-300"
+                      className="hover:bg-green-50 hover:border-green-300 shrink-0"
                     >
                       <Plus className="h-3 w-3" />
                     </Button>
