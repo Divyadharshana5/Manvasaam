@@ -112,45 +112,59 @@ const RoleCard = ({
     router.prefetch(role.href);
   }, [router, role.href]);
 
+  const handleClick = useCallback(() => {
+    onContinueClick(role.href);
+  }, [onContinueClick, role.href]);
+
   return (
     <motion.div
-      className="group"
+      className="group w-full"
       initial={{ opacity: 0, y: 50 }}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true }}
       transition={{
-        duration: 0.4,
-        delay: index * 0.1,
-        ease: "easeOut",
+        duration: 0.3,
+        delay: index * 0.08,
+        ease: [0.25, 0.1, 0.25, 1],
       }}
-      whileHover={{ y: -4 }}
+      whileHover={{ y: -6, scale: 1.02 }}
+      whileTap={{ scale: 0.98 }}
       onMouseEnter={handleHover}
+      onTouchStart={handleHover}
     >
-      <Card className="bg-card/80 backdrop-blur-xl border-2 border-primary/20 rounded-2xl shadow-lg hover:shadow-2xl hover:scale-105 transition-all duration-300 p-4 sm:p-6 flex flex-col h-full min-h-[280px] sm:min-h-[320px]">
+      <Card className="bg-card/90 backdrop-blur-xl border-2 border-primary/20 rounded-2xl shadow-lg hover:shadow-2xl transition-all duration-200 p-4 sm:p-6 flex flex-col h-full min-h-[260px] sm:min-h-[300px] cursor-pointer will-change-transform">
         <CardHeader className="items-center flex-shrink-0 pb-2 sm:pb-4">
-          <div className="group-hover:animate-shake text-4xl sm:text-5xl">
+          <motion.div 
+            className="text-4xl sm:text-5xl"
+            whileHover={{ rotate: [0, -10, 10, -10, 0], scale: 1.1 }}
+            transition={{ duration: 0.5 }}
+          >
             {role.icon}
-          </div>
+          </motion.div>
         </CardHeader>
         <CardContent className="text-center flex-grow flex flex-col justify-between p-0">
-          <div>
-            <CardTitle className="mt-2 sm:mt-4 text-lg sm:text-xl lg:text-2xl transition-all duration-300 group-hover:text-primary group-hover:scale-105">
+          <div className="flex-grow">
+            <CardTitle className="mt-2 sm:mt-4 text-lg sm:text-xl lg:text-2xl transition-all duration-200 group-hover:text-primary">
               {role.name}
             </CardTitle>
-            <p className="text-muted-foreground my-3 sm:my-4 text-sm sm:text-base leading-relaxed">
+            <p className="text-muted-foreground my-3 sm:my-4 text-sm sm:text-base leading-relaxed line-clamp-3">
               {role.description}
             </p>
           </div>
           <Button
-            className="w-full mt-auto transition-all duration-200 hover:scale-105 active:scale-95"
-            onClick={() => onContinueClick(role.href)}
+            className="w-full mt-auto transition-all duration-150 hover:scale-[1.02] active:scale-95 touch-target"
+            onClick={handleClick}
             disabled={loadingRoleHref === role.href}
+            size="lg"
           >
             {loadingRoleHref === role.href ? (
-              <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+              <>
+                <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                <span className="text-sm sm:text-base">Loading...</span>
+              </>
             ) : (
               <>
-                {t.continue}{" "}
+                <span className="text-sm sm:text-base">{t.continue}</span>
                 <ArrowRight className="ml-2 h-4 w-4 transition-transform group-hover:translate-x-1" />
               </>
             )}
