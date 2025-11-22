@@ -399,7 +399,7 @@ export default function HomePage() {
               {t.joinCommunity}
             </h2>
 
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8 md:gap-10 px-4 sm:px-6 md:px-8">
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 md:gap-8 px-2 sm:px-4 md:px-6 max-w-7xl mx-auto">
               {userRoles.map((role, index) => (
                 <RoleCard
                   key={role.name}
