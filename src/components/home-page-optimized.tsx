@@ -272,11 +272,14 @@ export default function HomePage() {
 
   const handleContinueClick = useCallback(
     (href: string) => {
+      // Set loading state immediately for instant feedback
       setLoadingRoleHref(href);
 
-      // Fast navigation with prefetch
-      router.prefetch(href);
-      router.push(href);
+      // Use requestAnimationFrame for smoother transition
+      requestAnimationFrame(() => {
+        // Instant navigation - page is already prefetched
+        router.push(href);
+      });
     },
     [router]
   );
