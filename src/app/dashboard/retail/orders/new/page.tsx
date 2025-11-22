@@ -322,16 +322,16 @@ export default function NewOrderPage() {
               {orderItems.map((item, index) => (
                 <div
                   key={item.id}
-                  className="flex items-center gap-4 p-4 border rounded-lg"
+                  className="flex flex-col sm:flex-row items-stretch sm:items-center gap-3 sm:gap-4 p-3 sm:p-4 border rounded-lg"
                 >
-                  <div className="flex-1 grid grid-cols-4 gap-4">
+                  <div className="flex-1 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4">
                     <Select
                       value={item.product}
                       onValueChange={(value) =>
                         updateOrderItem(item.id, "product", value)
                       }
                     >
-                      <SelectTrigger>
+                      <SelectTrigger className="text-sm">
                         <SelectValue placeholder="Select product" />
                       </SelectTrigger>
                       <SelectContent>
@@ -354,6 +354,7 @@ export default function NewOrderPage() {
                             Math.max(1, item.quantity - 1)
                           )
                         }
+                        className="shrink-0"
                       >
                         <Minus className="h-4 w-4" />
                       </Button>
@@ -367,7 +368,7 @@ export default function NewOrderPage() {
                             parseInt(e.target.value) || 1
                           )
                         }
-                        className="w-20 text-center"
+                        className="w-16 sm:w-20 text-center text-sm"
                       />
                       <Button
                         variant="outline"
@@ -379,6 +380,7 @@ export default function NewOrderPage() {
                             item.quantity + 1
                           )
                         }
+                        className="shrink-0"
                       >
                         <Plus className="h-4 w-4" />
                       </Button>
@@ -390,7 +392,7 @@ export default function NewOrderPage() {
                         updateOrderItem(item.id, "unit", value)
                       }
                     >
-                      <SelectTrigger>
+                      <SelectTrigger className="text-sm">
                         <SelectValue />
                       </SelectTrigger>
                       <SelectContent>
@@ -412,6 +414,7 @@ export default function NewOrderPage() {
                           parseFloat(e.target.value) || 0
                         )
                       }
+                      className="text-sm"
                     />
                   </div>
 
@@ -420,6 +423,7 @@ export default function NewOrderPage() {
                       variant="outline"
                       size="icon"
                       onClick={() => removeOrderItem(item.id)}
+                      className="shrink-0 w-full sm:w-auto"
                     >
                       <Minus className="h-4 w-4" />
                     </Button>
@@ -456,7 +460,7 @@ export default function NewOrderPage() {
         </div>
 
         {/* Order Summary */}
-        <div className="space-y-6">
+        <div className="space-y-4 md:space-y-6">
           <Card>
             <CardHeader>
               <CardTitle className="flex items-center gap-2">
@@ -491,7 +495,7 @@ export default function NewOrderPage() {
 
               <div className="space-y-2 pt-4">
                 <Button
-                  className="w-full"
+                  className="w-full text-sm sm:text-base"
                   onClick={handlePlaceOrder}
                   disabled={isPlacingOrder || calculateTotal() === 0}
                 >
@@ -500,11 +504,11 @@ export default function NewOrderPage() {
                 </Button>
                 <Button
                   variant="outline"
-                  className="w-full justify-start whitespace-normal"
+                  className="w-full justify-center text-sm sm:text-base"
                   onClick={handleSaveDraft}
                   disabled={isSavingDraft}
                 >
-                  {isSavingDraft ? "Saving..." : <span>Save as Draft</span>}
+                  {isSavingDraft ? "Saving..." : "Save as Draft"}
                 </Button>
               </div>
             </CardContent>
