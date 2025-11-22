@@ -169,26 +169,26 @@ export default function AnalyticsExport() {
         <div className="min-h-screen w-full overflow-auto">
             <div className="flex flex-col gap-4 p-4 md:gap-6 md:p-6 max-w-5xl mx-auto">
                 {/* Header */}
-                <div className="flex items-center justify-between">
-                    <div className="flex items-center gap-4">
-                        <Button variant="outline" size="icon" asChild>
+                <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 sm:gap-4">
+                    <div className="flex items-center gap-2 sm:gap-4 w-full sm:w-auto">
+                        <Button variant="outline" size="icon" asChild className="shrink-0">
                             <Link href="/dashboard/transport/analytics">
                                 <ArrowLeft className="h-4 w-4" />
                             </Link>
                         </Button>
-                        <div>
-                            <h1 className="text-2xl font-bold">Export Analytics Report</h1>
-                            <p className="text-muted-foreground">
+                        <div className="min-w-0 flex-1">
+                            <h1 className="text-xl sm:text-2xl font-bold truncate">Export Analytics Report</h1>
+                            <p className="text-sm text-muted-foreground line-clamp-2">
                                 Generate and download comprehensive analytics reports
                             </p>
                         </div>
                     </div>
-                    <Badge variant="secondary" className="text-sm">
+                    <Badge variant="secondary" className="text-xs sm:text-sm shrink-0">
                         Analytics Export
                     </Badge>
                 </div>
 
-                <div className="grid gap-6 lg:grid-cols-3">
+                <div className="grid gap-4 md:gap-6 grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
                     {/* Export Format */}
                     <Card>
                         <CardHeader>
