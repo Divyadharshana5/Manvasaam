@@ -95,8 +95,11 @@ export const metadata: Metadata = {
 export const viewport: Viewport = {
   width: "device-width",
   initialScale: 1,
-  maximumScale: 1,
-  userScalable: false,
+  maximumScale: 5,
+  minimumScale: 1,
+  userScalable: true,
+  viewportFit: "cover",
+  themeColor: "#22c55e",
 };
 
 export default function RootLayout({
@@ -118,11 +121,23 @@ export default function RootLayout({
         <style
           dangerouslySetInnerHTML={{
             __html: `
+            * {
+              box-sizing: border-box;
+              -webkit-tap-highlight-color: transparent;
+            }
+            html {
+              font-size: 16px;
+              -webkit-text-size-adjust: 100%;
+              text-size-adjust: 100%;
+            }
             body { 
               font-family: ${fontFamily};
               margin: 0;
               padding: 0;
               overflow-x: hidden;
+              width: 100%;
+              min-height: 100vh;
+              position: relative;
             }
             .mobile-container { 
               width: 100%; 
@@ -137,6 +152,14 @@ export default function RootLayout({
             .page-transitioning * {
               pointer-events: none;
               user-select: none;
+            }
+            /* Responsive utilities */
+            @media (max-width: 768px) {
+              .space-y-6 > * + * { margin-top: 1rem !important; }
+              .gap-6 { gap: 1rem !important; }
+              .p-8 { padding: 1rem !important; }
+              .px-8 { padding-left: 1rem !important; padding-right: 1rem !important; }
+              .py-8 { padding-top: 1rem !important; padding-bottom: 1rem !important; }
             }
           `,
           }}
