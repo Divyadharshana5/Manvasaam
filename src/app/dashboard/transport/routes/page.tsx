@@ -266,41 +266,41 @@ export default function RoutesPage() {
           <CardTitle>Route Overview</CardTitle>
         </CardHeader>
         <CardContent>
-          <div className="space-y-4">
+          <div className="space-y-3 sm:space-y-4">
             {routes.map((route) => (
               <div
                 key={route.id}
-                className="flex items-center justify-between p-4 border rounded-lg"
+                className="flex flex-col sm:flex-row items-start sm:items-center justify-between p-3 sm:p-4 border rounded-lg gap-3 sm:gap-4"
               >
-                <div className="flex items-center space-x-4">
-                  <div className="flex flex-col">
-                    <span className="font-semibold">{route.name}</span>
-                    <span className="text-sm text-muted-foreground">
+                <div className="flex flex-col sm:flex-row items-start sm:items-center gap-3 sm:gap-4 w-full sm:w-auto">
+                  <div className="flex flex-col min-w-0 flex-1">
+                    <span className="font-semibold text-sm sm:text-base truncate">{route.name}</span>
+                    <span className="text-xs sm:text-sm text-muted-foreground truncate">
                       {route.id} • Vehicle: {route.assignedVehicle}
                     </span>
                   </div>
-                  <div className="flex flex-col">
-                    <div className="flex items-center text-sm">
-                      <MapPin className="mr-1 h-3 w-3" />
-                      {route.distance} • {route.stops} stops
+                  <div className="flex flex-col gap-1">
+                    <div className="flex items-center text-xs sm:text-sm">
+                      <MapPin className="mr-1 h-3 w-3 shrink-0" />
+                      <span className="whitespace-nowrap">{route.distance} • {route.stops} stops</span>
                     </div>
-                    <div className="flex items-center text-sm text-muted-foreground">
-                      <Clock className="mr-1 h-3 w-3" />
-                      Est. time: {route.estimatedTime}
+                    <div className="flex items-center text-xs sm:text-sm text-muted-foreground">
+                      <Clock className="mr-1 h-3 w-3 shrink-0" />
+                      <span className="whitespace-nowrap">Est. time: {route.estimatedTime}</span>
                     </div>
                   </div>
                 </div>
-                <div className="flex items-center space-x-4">
-                  <div className="flex flex-col items-end">
+                <div className="flex flex-wrap items-center gap-2 w-full sm:w-auto">
+                  <div className="flex flex-col items-start sm:items-end flex-1 sm:flex-none">
                     <span
-                      className={`text-sm font-medium ${getEfficiencyColor(
+                      className={`text-xs sm:text-sm font-medium ${getEfficiencyColor(
                         route.efficiency
                       )}`}
                     >
                       Efficiency: {route.efficiency}
                     </span>
                   </div>
-                  <Badge className={getStatusColor(route.status)}>
+                  <Badge className={`${getStatusColor(route.status)} text-xs`}>
                     {route.status}
                   </Badge>
                   <Button
@@ -309,6 +309,7 @@ export default function RoutesPage() {
                     onClick={() =>
                       router.push(`/dashboard/transport/routes/${route.id}`)
                     }
+                    className="w-full sm:w-auto text-xs sm:text-sm"
                   >
                     View Details
                   </Button>
@@ -319,7 +320,7 @@ export default function RoutesPage() {
         </CardContent>
       </Card>
 
-      <div className="grid gap-6 md:grid-cols-2">
+      <div className="grid gap-4 md:gap-6 grid-cols-1 md:grid-cols-2">
         <Card>
           <CardHeader>
             <CardTitle>Route Optimization</CardTitle>
