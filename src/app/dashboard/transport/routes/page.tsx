@@ -166,46 +166,50 @@ export default function RoutesPage() {
   };
 
   return (
-    <div className="space-y-6">
-      <div className="flex items-center justify-between">
-        <div className="flex items-center gap-4">
-          <Button variant="outline" size="icon" asChild>
+    <div className="space-y-4 md:space-y-6 p-4 md:p-6 lg:p-8">
+      <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
+        <div className="flex items-center gap-2 sm:gap-4 w-full sm:w-auto">
+          <Button variant="outline" size="icon" asChild className="shrink-0">
             <Link href="/dashboard/transport">
               <ArrowLeft className="h-4 w-4" />
             </Link>
           </Button>
-          <h1 className="text-3xl font-bold">Route Management</h1>
+          <h1 className="text-2xl sm:text-3xl font-bold truncate">Route Management</h1>
         </div>
-        <div className="flex space-x-2">
+        <div className="flex flex-wrap gap-2 w-full sm:w-auto">
           <Button
             variant="outline"
             onClick={handleOptimizeAll}
             disabled={isOptimizing}
+            className="flex-1 sm:flex-none"
           >
             {isOptimizing ? (
               <>
                 <Loader2 className="mr-2 h-4 w-4 animate-spin" />
-                {optimizationComplete ? "Completing..." : "Optimizing..."}
+                <span className="hidden xs:inline">{optimizationComplete ? "Completing..." : "Optimizing..."}</span>
+                <span className="xs:hidden">...</span>
               </>
             ) : (
               <>
                 <Zap className="mr-2 h-4 w-4" />
-                Optimize All
+                <span className="hidden xs:inline">Optimize All</span>
+                <span className="xs:hidden">Optimize</span>
               </>
             )}
           </Button>
-          <Button className="bg-emerald-600 hover:bg-emerald-700" asChild>
+          <Button className="bg-emerald-600 hover:bg-emerald-700 flex-1 sm:flex-none" asChild>
             <Link href="/dashboard/transport/routes/new">
               <span className="flex items-center">
                 <Route className="mr-2 h-4 w-4" />
-                New Route
+                <span className="hidden xs:inline">New Route</span>
+                <span className="xs:hidden">New</span>
               </span>
             </Link>
           </Button>
         </div>
       </div>
 
-      <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
+      <div className="grid gap-3 sm:gap-4 grid-cols-1 xs:grid-cols-2 lg:grid-cols-4">
         <Card>
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
             <CardTitle className="text-sm font-medium">Total Routes</CardTitle>
