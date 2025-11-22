@@ -218,31 +218,31 @@ export default function ContactDriver() {
     };
 
     return (
-        <div className="min-h-screen w-full overflow-auto">
-            <div className="flex flex-col gap-4 p-4 md:gap-6 md:p-6 max-w-5xl mx-auto">
+        <div className="min-h-screen w-full overflow-x-hidden">
+            <div className="flex flex-col gap-4 p-4 md:gap-6 md:p-6 lg:p-8 max-w-7xl mx-auto w-full">
                 {/* Header */}
-                <div className="flex items-center justify-between">
-                    <div className="flex items-center gap-4">
-                        <Button variant="outline" size="icon" asChild>
+                <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
+                    <div className="flex items-center gap-2 sm:gap-4 w-full sm:w-auto">
+                        <Button variant="outline" size="icon" asChild className="shrink-0">
                             <Link href="/dashboard/transport">
                                 <ArrowLeft className="h-4 w-4" />
                             </Link>
                         </Button>
-                        <div>
-                            <h1 className="text-2xl font-bold">Contact Driver</h1>
-                            <p className="text-muted-foreground">
+                        <div className="min-w-0 flex-1">
+                            <h1 className="text-xl sm:text-2xl font-bold truncate">Contact Driver</h1>
+                            <p className="text-sm text-muted-foreground line-clamp-2">
                                 Communicate with {driver.name} for delivery {driver.currentDelivery}
                             </p>
                         </div>
                     </div>
-                    <Badge variant={driver.status === "active" ? "default" : "secondary"}>
+                    <Badge variant={driver.status === "active" ? "default" : "secondary"} className="shrink-0">
                         {driver.status === "active" ? "Online" : "Offline"}
                     </Badge>
                 </div>
 
-                <div className="grid gap-6 lg:grid-cols-3">
+                <div className="grid gap-4 md:gap-6 lg:grid-cols-3">
                     {/* Main Communication Panel */}
-                    <div className="lg:col-span-2 space-y-6">
+                    <div className="lg:col-span-2 space-y-4 md:space-y-6">
                         {/* Communication Tabs */}
                         <Card>
                             <CardHeader>
@@ -260,62 +260,65 @@ export default function ContactDriver() {
                             </CardHeader>
                             <CardContent>
                                 {/* Tab Navigation */}
-                                <div className="flex gap-2 mb-6">
+                                <div className="flex flex-wrap gap-2 mb-4 md:mb-6">
                                     <Button
                                         variant={activeTab === "call" ? "default" : "outline"}
                                         size="sm"
                                         onClick={() => setActiveTab("call")}
+                                        className="flex-1 sm:flex-none min-w-[80px]"
                                     >
-                                        <Phone className="h-4 w-4 mr-2" />
-                                        Call
+                                        <Phone className="h-4 w-4 sm:mr-2" />
+                                        <span className="hidden sm:inline">Call</span>
                                     </Button>
                                     <Button
                                         variant={activeTab === "message" ? "default" : "outline"}
                                         size="sm"
                                         onClick={() => setActiveTab("message")}
+                                        className="flex-1 sm:flex-none min-w-[80px]"
                                     >
-                                        <MessageCircle className="h-4 w-4 mr-2" />
-                                        Message
+                                        <MessageCircle className="h-4 w-4 sm:mr-2" />
+                                        <span className="hidden sm:inline">Message</span>
                                     </Button>
                                     <Button
                                         variant={activeTab === "email" ? "default" : "outline"}
                                         size="sm"
                                         onClick={() => setActiveTab("email")}
+                                        className="flex-1 sm:flex-none min-w-[80px]"
                                     >
-                                        <Mail className="h-4 w-4 mr-2" />
-                                        Email
+                                        <Mail className="h-4 w-4 sm:mr-2" />
+                                        <span className="hidden sm:inline">Email</span>
                                     </Button>
                                 </div>
 
                                 {/* Call Tab */}
                                 {activeTab === "call" && (
                                     <div className="space-y-4">
-                                        <div className="text-center p-8 border-2 border-dashed border-gray-200 rounded-lg">
-                                            <Phone className="h-12 w-12 text-blue-500 mx-auto mb-4" />
-                                            <h3 className="text-lg font-semibold mb-2">Make a Call</h3>
-                                            <p className="text-muted-foreground mb-4">
+                                        <div className="text-center p-4 sm:p-8 border-2 border-dashed border-gray-200 rounded-lg">
+                                            <Phone className="h-10 w-10 sm:h-12 sm:w-12 text-blue-500 mx-auto mb-3 sm:mb-4" />
+                                            <h3 className="text-base sm:text-lg font-semibold mb-2">Make a Call</h3>
+                                            <p className="text-sm text-muted-foreground mb-4">
                                                 Connect directly with {driver.name}
                                             </p>
-                                            <div className="flex justify-center gap-3">
-                                                <Button onClick={handleCall} className="min-w-32">
+                                            <div className="flex flex-col sm:flex-row justify-center gap-2 sm:gap-3">
+                                                <Button onClick={handleCall} className="w-full sm:w-auto sm:min-w-32">
                                                     <PhoneCall className="h-4 w-4 mr-2" />
                                                     Call Now
                                                 </Button>
-                                                <Button variant="outline" onClick={handleVideoCall}>
+                                                <Button variant="outline" onClick={handleVideoCall} className="w-full sm:w-auto">
                                                     <Video className="h-4 w-4 mr-2" />
                                                     Video Call
                                                 </Button>
                                             </div>
                                         </div>
                                         
-                                        <div className="grid grid-cols-2 gap-4 text-sm">
+                                        <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4 text-sm">
                                             <div>
-                                                <Label className="font-medium">Primary Phone</Label>
-                                                <p className="text-muted-foreground">{driver.phone}</p>
+                                                <Label className="font-medium text-xs sm:text-sm">Primary Phone</Label>
+                                                <p className="text-muted-foreground text-xs sm:text-sm break-all">{driver.phone}</p>
                                             </div>
                                             <div>
-                                                <Label className="font-medium">Emergency Contact</Label>
-                                                <p className="text-muted-foreground">{driver.emergencyContact}</p>
+                                                <Label className="font-medium text-xs sm:text-sm">Emergency Contact</Label>
+                                                <p className="text-muted-foreground text-xs sm:text-sm break-all">{driver.emergencyContact}</p>
                                             </div>
                                         </div>
                                     </div>
@@ -350,32 +353,33 @@ export default function ContactDriver() {
                                             />
                                         </div>
 
-                                        <div className="flex gap-2">
-                                            <Button onClick={handleSendMessage} className="flex-1">
+                                        <div className="flex flex-wrap gap-2">
+                                            <Button onClick={handleSendMessage} className="flex-1 min-w-[120px]">
                                                 <Send className="h-4 w-4 mr-2" />
-                                                Send Message
+                                                <span className="hidden xs:inline">Send Message</span>
+                                                <span className="xs:hidden">Send</span>
                                             </Button>
-                                            <Button variant="outline" size="icon" onClick={handleVoiceMessage}>
+                                            <Button variant="outline" size="icon" onClick={handleVoiceMessage} className="shrink-0">
                                                 <Mic className="h-4 w-4" />
                                             </Button>
-                                            <Button variant="outline" size="icon" onClick={handleImageAttachment}>
+                                            <Button variant="outline" size="icon" onClick={handleImageAttachment} className="shrink-0">
                                                 <Image className="h-4 w-4" />
                                             </Button>
-                                            <Button variant="outline" size="icon" onClick={handleFileAttachment}>
+                                            <Button variant="outline" size="icon" onClick={handleFileAttachment} className="shrink-0">
                                                 <Paperclip className="h-4 w-4" />
                                             </Button>
                                         </div>
 
                                         {/* Quick Messages */}
                                         <div>
-                                            <Label className="text-sm font-medium">Quick Messages</Label>
+                                            <Label className="text-xs sm:text-sm font-medium">Quick Messages</Label>
                                             <div className="grid grid-cols-1 gap-2 mt-2">
                                                 {quickMessages.map((quickMsg, index) => (
                                                     <Button
                                                         key={index}
                                                         variant="outline"
                                                         size="sm"
-                                                        className="justify-start text-left h-auto p-3"
+                                                        className="justify-start text-left h-auto p-2 sm:p-3 text-xs sm:text-sm"
                                                         onClick={() => handleQuickMessage(quickMsg)}
                                                     >
                                                         {quickMsg}
