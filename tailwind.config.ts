@@ -10,6 +10,14 @@ export default {
     './src/app/**/*.{js,ts,jsx,tsx,mdx}',
   ],
   theme: {
+    screens: {
+      'xs': '475px',
+      'sm': '640px',
+      'md': '768px',
+      'lg': '1024px',
+      'xl': '1280px',
+      '2xl': '1536px',
+    },
     extend: {
       fontFamily: {
         sans: [...fontFamily.sans],
@@ -143,9 +151,26 @@ export default {
         'shake': 'shake 0.3s ease-in-out',
         'blink': 'blink 2.5s ease-in-out infinite',
       },
+      spacing: {
+        'safe-top': 'env(safe-area-inset-top)',
+        'safe-bottom': 'env(safe-area-inset-bottom)',
+        'safe-left': 'env(safe-area-inset-left)',
+        'safe-right': 'env(safe-area-inset-right)',
+      },
+      maxWidth: {
+        'screen-xs': '475px',
+        'screen-sm': '640px',
+        'screen-md': '768px',
+        'screen-lg': '1024px',
+        'screen-xl': '1280px',
+        'screen-2xl': '1536px',
+      },
     },
   },
   plugins: [require('tailwindcss-animate')],
+  future: {
+    hoverOnlyWhenSupported: true,
+  },
 } satisfies Config;
 
     
