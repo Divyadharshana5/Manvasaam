@@ -411,12 +411,12 @@ export default function ContactDriver() {
                                             />
                                         </div>
 
-                                        <div className="flex gap-2">
+                                        <div className="flex flex-col sm:flex-row gap-2">
                                             <Button className="flex-1" onClick={handleSendEmail}>
                                                 <Mail className="h-4 w-4 mr-2" />
                                                 Send Email
                                             </Button>
-                                            <Button variant="outline" onClick={handleFileAttachment}>
+                                            <Button variant="outline" onClick={handleFileAttachment} className="w-full sm:w-auto">
                                                 <Paperclip className="h-4 w-4 mr-2" />
                                                 Attach File
                                             </Button>
@@ -474,7 +474,7 @@ export default function ContactDriver() {
                     </div>
 
                     {/* Sidebar */}
-                    <div className="space-y-6">
+                    <div className="space-y-4 md:space-y-6">
                         {/* Driver Info */}
                         <Card>
                             <CardHeader>
