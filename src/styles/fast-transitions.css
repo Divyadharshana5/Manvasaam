@@ -75,9 +75,8 @@
   100% { transform: translateX(100%); }
 }
 
-/* GPU acceleration */
-* {
+/* GPU acceleration - only for interactive elements */
+button, a, [role="button"] {
   transform: translateZ(0);
   backface-visibility: hidden;
-  perspective: 1000px;
 }
