@@ -60,6 +60,7 @@ const RoleCard = ({
   const router = useRouter();
 
   const handleHover = useCallback(() => {
+    // Prefetch on hover for instant navigation
     router.prefetch(role.href);
   }, [router, role.href]);
 
@@ -68,28 +69,42 @@ const RoleCard = ({
   }, [onContinueClick, role.href]);
 
   return (
-    <div
+    <motion.div
       className="group w-full"
+      initial={{ opacity: 0, y: 50 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true }}
+      transition={{
+        duration: 0.3,
+        delay: index * 0.08,
+        ease: [0.25, 0.1, 0.25, 1],
+      }}
+      whileHover={{ y: -6, scale: 1.02 }}
+      whileTap={{ scale: 0.98 }}
       onMouseEnter={handleHover}
       onTouchStart={handleHover}
     >
-      <Card className="bg-card/90 backdrop-blur-sm border-2 border-primary/20 rounded-xl shadow-md hover:shadow-xl transition-shadow duration-150 p-3 sm:p-5 flex flex-col h-full min-h-[240px] sm:min-h-[280px] cursor-pointer hover:-translate-y-1 active:scale-[0.99] transition-transform">
-        <CardHeader className="items-center flex-shrink-0 pb-2 sm:pb-3">
-          <div className="text-3xl sm:text-4xl">
+      <Card className="bg-card/90 backdrop-blur-xl border-2 border-primary/20 rounded-2xl shadow-lg hover:shadow-2xl transition-all duration-200 p-4 sm:p-6 flex flex-col h-full min-h-[260px] sm:min-h-[300px] cursor-pointer will-change-transform">
+        <CardHeader className="items-center flex-shrink-0 pb-2 sm:pb-4">
+          <motion.div 
+            className="text-4xl sm:text-5xl"
+            whileHover={{ rotate: [0, -10, 10, -10, 0], scale: 1.1 }}
+            transition={{ duration: 0.5 }}
+          >
             {role.icon}
-          </div>
+          </motion.div>
         </CardHeader>
         <CardContent className="text-center flex-grow flex flex-col justify-between p-0">
           <div className="flex-grow">
-            <CardTitle className="mt-2 sm:mt-3 text-base sm:text-lg lg:text-xl transition-colors duration-150 group-hover:text-primary">
+            <CardTitle className="mt-2 sm:mt-4 text-lg sm:text-xl lg:text-2xl transition-all duration-200 group-hover:text-primary">
               {role.name}
             </CardTitle>
-            <p className="text-muted-foreground my-2 sm:my-3 text-xs sm:text-sm leading-relaxed line-clamp-3">
+            <p className="text-muted-foreground my-3 sm:my-4 text-sm sm:text-base leading-relaxed line-clamp-3">
               {role.description}
             </p>
           </div>
           <Button
-            className="w-full mt-auto transition-all duration-100 active:scale-95 touch-target"
+            className="w-full mt-auto transition-all duration-150 hover:scale-[1.02] active:scale-95 touch-target"
             onClick={handleClick}
             disabled={loadingRoleHref === role.href}
             size="lg"
@@ -97,18 +112,18 @@ const RoleCard = ({
             {loadingRoleHref === role.href ? (
               <>
                 <Loader2 className="mr-2 h-4 w-4 animate-spin" />
-                <span className="text-xs sm:text-sm">Loading...</span>
+                <span className="text-sm sm:text-base">Loading...</span>
               </>
             ) : (
               <>
-                <span className="text-xs sm:text-sm">{t.continue}</span>
-                <ArrowRight className="ml-2 h-3 w-3 sm:h-4 sm:w-4 transition-transform group-hover:translate-x-1" />
+                <span className="text-sm sm:text-base">{t.continue}</span>
+                <ArrowRight className="ml-2 h-4 w-4 transition-transform group-hover:translate-x-1" />
               </>
             )}
           </Button>
         </CardContent>
       </Card>
-    </div>
+    </motion.div>
   );
 };
 
@@ -117,6 +132,15 @@ export default function HomePage() {
   const router = useRouter();
 
   const [loadingRoleHref, setLoadingRoleHref] = useState<string | null>(null);
+
+  // Memoize expensive calculations for better performance
+  const taglineWords = useMemo(() => t.tagline.split(" "), [t.tagline]);
+
+  // Check for reduced motion preference for better performance
+  const prefersReducedMotion = useMemo(() => {
+    if (typeof window === "undefined") return false;
+    return window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  }, []);
 
   const userRoles = useMemo(
     () => [
@@ -200,34 +224,84 @@ export default function HomePage() {
 
   const handleContinueClick = useCallback(
     (href: string) => {
+      // Set loading state immediately for instant feedback
       setLoadingRoleHref(href);
-      router.push(href);
+
+      // Use requestAnimationFrame for smoother transition
+      requestAnimationFrame(() => {
+        // Instant navigation - page is already prefetched
+        router.push(href);
+      });
     },
     [router]
   );
 
+
+
+
+
+  // Optimized animation variants with reduced motion support
+  const sentence = useMemo(
+    () => ({
+      hidden: { opacity: 1 },
+      visible: {
+        opacity: 1,
+        transition: prefersReducedMotion
+          ? { duration: 0.1 }
+          : { delay: 0.2, staggerChildren: 0.08 },
+      },
+    }),
+    [prefersReducedMotion]
+  );
+
+  const letter = useMemo(
+    () => ({
+      hidden: { opacity: 0, y: prefersReducedMotion ? 0 : 50 },
+      visible: {
+        opacity: 1,
+        y: 0,
+        transition: prefersReducedMotion ? { duration: 0.1 } : undefined,
+      },
+    }),
+    [prefersReducedMotion]
+  );
+
   return (
-      <div className="relative mobile-container bg-gradient-to-br from-green-50 via-blue-50 to-purple-50 min-h-screen">
-        <header className="sticky top-0 left-0 right-0 z-50 flex items-center justify-between p-2 sm:p-3 bg-white/90 backdrop-blur-sm border-b border-primary/20 shadow-sm">
-          <Link href="/" className="flex items-center gap-1 sm:gap-2 hover:opacity-80 transition-opacity">
-            <ManvaasamLogo width={24} height={24} className="sm:w-7 sm:h-7" />
-            <span className="text-base sm:text-lg font-bold text-primary">
-              Manvaasam
-            </span>
-          </Link>
-          <div className="flex items-center gap-2 sm:gap-3">
-            <VoiceAssistantGlobal />
+    <LazyMotion features={domAnimation}>
+      <div className="relative mobile-container bg-gradient-to-br from-green-50 via-blue-50 to-purple-50">
+        {/* Optimized Animated Background Elements */}
+        <AnimatedBackground />
+
+        <header className="fixed top-0 left-0 right-0 z-50 flex items-center justify-between p-3 sm:p-4 bg-white/80 backdrop-blur-md border-b border-primary/20 shadow-sm">
+          <m.div
+            whileHover={{
+              rotate: [0, -3, 3, -3, 3, 0],
+              transition: { duration: 0.5 },
+            }}
+          >
+            <Link href="/" className="flex items-center gap-1 sm:gap-2">
+              <ManvaasamLogo width={28} height={28} className="sm:w-8 sm:h-8" />
+              <span className="text-lg sm:text-xl font-bold text-primary">
+                Manvaasam
+              </span>
+            </Link>
+          </m.div>
+          <div className="flex items-center gap-2 sm:gap-4">
+            <m.div whileHover={{ scale: 1.1 }}>
+              <VoiceAssistantGlobal />
+            </m.div>
 
             <DropdownMenu>
               <DropdownMenuTrigger asChild>
-                <Button
-                  variant="outline"
-                  size="sm"
-                  className="border border-input bg-background text-foreground hover:bg-primary hover:text-primary-foreground hover:border-primary shadow-sm text-xs sm:text-sm"
-                >
-                  <Languages className="mr-1 h-3 w-3 sm:h-4 sm:w-4" />
-                  <span className="font-medium">{selectedLanguage}</span>
-                </Button>
+                <motion.div whileHover={{ scale: 1.1 }}>
+                  <Button
+                    variant="outline"
+                    className="border border-input bg-background text-foreground hover:bg-primary hover:text-primary-foreground hover:border-primary shadow-sm"
+                  >
+                    <Languages className="mr-2 h-4 w-4" />
+                    <span className="font-medium">{selectedLanguage}</span>
+                  </Button>
+                </motion.div>
               </DropdownMenuTrigger>
               <DropdownMenuContent>
                 {languages.map((lang) => (
@@ -245,24 +319,39 @@ export default function HomePage() {
           </div>
         </header>
 
-        <main className="flex flex-col items-center pt-14 sm:pt-16 px-3 sm:px-4 pb-6">
+        <main className="flex flex-col items-center pt-16 sm:pt-20 md:pt-24 px-4 sm:px-6 md:px-8 pb-8">
           <div
-            className="fixed inset-0 z-0 bg-cover bg-center bg-no-repeat opacity-20"
+            className="absolute inset-0 z-0 bg-cover bg-center bg-no-repeat bg-fixed bg-ken-burns"
             style={{
               backgroundImage: "url('/bg-agri.png')",
+              willChange: "transform",
             }}
           ></div>
+          <div className="absolute inset-0 bg-background/30 z-0"></div>
 
-          <section className="text-center w-full max-w-6xl mx-auto z-10 px-2 sm:px-3">
-            <h1 className="text-xl sm:text-2xl md:text-3xl lg:text-4xl font-bold text-foreground tracking-tight text-center mb-4 sm:mb-6 [text-shadow:0_1px_2px_rgb(0_0_0/_20%)] px-2">
-              {t.tagline}
-            </h1>
+          <section className="text-center w-full max-w-7xl mx-auto z-10 px-2 sm:px-4">
+            <motion.h1
+              className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl font-bold text-foreground tracking-tight text-center mb-8 sm:mb-10 md:mb-12 [text-shadow:0_2px_4px_rgb(0_0_0/_30%)] px-2"
+              variants={sentence}
+              initial="hidden"
+              animate="visible"
+            >
+              {taglineWords.map((word, index) => (
+                <motion.span
+                  key={word + "-" + index}
+                  variants={letter}
+                  className="inline-block"
+                >
+                  {word}&nbsp;
+                </motion.span>
+              ))}
+            </motion.h1>
 
-            <h2 className="text-lg sm:text-xl md:text-2xl font-bold mb-5 sm:mb-7 text-black [text-shadow:0_0_6px_rgb(255_255_255/_70%)] tracking-wide px-3">
+            <h2 className="text-xl sm:text-2xl md:text-3xl lg:text-4xl font-bold mb-6 sm:mb-8 md:mb-10 text-black [text-shadow:0_0_8px_rgb(255_255_255/_80%)] tracking-wide px-4">
               {t.joinCommunity}
             </h2>
 
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 sm:gap-4 md:gap-5 px-1 sm:px-2 max-w-6xl mx-auto">
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 md:gap-8 px-2 sm:px-4 md:px-6 max-w-7xl mx-auto">
               {userRoles.map((role, index) => (
                 <RoleCard
                   key={role.name}
@@ -276,31 +365,44 @@ export default function HomePage() {
             </div>
           </section>
 
-          <section className="w-full max-w-5xl mx-auto mt-8 sm:mt-12 text-center z-10 px-3 sm:px-4">
-            <h2 className="text-lg sm:text-xl md:text-2xl font-bold mb-3 sm:mb-4 text-black [text-shadow:0_0_8px_rgb(255_255_255/_85%)] tracking-wide">
+          <section className="w-full max-w-6xl mx-auto mt-16 sm:mt-20 md:mt-24 text-center z-10 px-4 sm:px-6">
+            <motion.h2
+              className="text-xl sm:text-2xl md:text-3xl lg:text-4xl font-black mb-4 sm:mb-6 text-black [text-shadow:0_0_10px_rgb(255_255_255/_90%),0_0_20px_rgb(255_255_255/_60%)] tracking-wide"
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.6, ease: "easeOut" }}
+            >
               {t.ourMission}
-            </h2>
+            </motion.h2>
 
-            <p className="text-sm sm:text-base md:text-lg font-semibold leading-relaxed max-w-4xl mx-auto mb-4 sm:mb-6 text-white [text-shadow:0_1px_6px_rgb(0_0_0/_75%)] py-2 sm:py-3 px-2 sm:px-3">
+            <motion.p
+              className="text-base sm:text-lg md:text-xl lg:text-2xl font-bold leading-relaxed max-w-5xl mx-auto mb-6 sm:mb-8 text-white [text-shadow:0_2px_8px_rgb(0_0_0/_80%)] py-3 sm:py-4 px-2 sm:px-4"
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.6, delay: 0.2, ease: "easeOut" }}
+            >
               {t.missionStatement}
-            </p>
+            </motion.p>
 
-            <Card className="bg-card/75 backdrop-blur-sm border border-primary/20 rounded-xl shadow-md p-3 sm:p-4 mx-2 sm:mx-0">
-              <CardContent className="p-0 sm:p-2">
-                <div className="flex flex-col sm:flex-row items-center justify-center gap-2 sm:gap-3 text-xs sm:text-sm font-semibold text-foreground">
+            <Card className="bg-card/80 backdrop-blur-xl border border-primary/20 rounded-2xl shadow-lg p-4 sm:p-6 mx-2 sm:mx-0">
+              <CardContent className="p-0 sm:p-4">
+                <div className="flex flex-col sm:flex-row items-center justify-center gap-3 sm:gap-4 text-base sm:text-lg font-semibold text-foreground">
                   <span className="text-center px-2 py-1 rounded-lg bg-primary/10">
                     Farmers
                   </span>
                   <ArrowRight
-                    size={16}
-                    className="text-primary sm:rotate-0 rotate-90 flex-shrink-0"
+                    size={20}
+                    className="text-primary animate-arrow-flow sm:rotate-0 rotate-90 flex-shrink-0"
                   />
                   <span className="text-center px-2 py-1 rounded-lg bg-primary/10">
                     Transport
                   </span>
                   <ArrowRight
-                    size={16}
-                    className="text-primary sm:rotate-0 rotate-90 flex-shrink-0"
+                    size={20}
+                    className="text-primary animate-arrow-flow sm:rotate-0 rotate-90 flex-shrink-0"
+                    style={{ animationDelay: "0.5s" }}
                   />
                   <span className="text-center px-2 py-1 rounded-lg bg-primary/10">
                     Retail Shops
@@ -311,12 +413,12 @@ export default function HomePage() {
           </section>
 
           {/* Product Showcase Section */}
-          <section className="w-full max-w-6xl mx-auto mt-8 sm:mt-12 z-10 px-3 sm:px-4">
+          <section className="w-full max-w-7xl mx-auto mt-16 sm:mt-20 md:mt-24 z-10 px-4 sm:px-6">
             <Suspense
               fallback={
-                <div className="flex justify-center py-6">
-                  <Loader2 className="h-6 w-6 animate-spin" />
-                  <span className="ml-2 text-sm">Loading products...</span>
+                <div className="flex justify-center py-8">
+                  <Loader2 className="h-8 w-8 animate-spin" />
+                  <span className="ml-2">Loading products...</span>
                 </div>
               }
             >
@@ -327,85 +429,123 @@ export default function HomePage() {
 
 
 
-        {/* Footer */}
-        <footer className="relative w-full bg-white/40 backdrop-blur-sm border-t border-white/40 shadow-lg mt-8 sm:mt-12 z-30">
-          <div className="absolute top-0 left-0 right-0 h-0.5 bg-gradient-to-r from-primary via-green-500 to-primary"></div>
-          <div className="max-w-5xl mx-auto px-3 sm:px-4 py-3 sm:py-4">
-            <div className="flex flex-col lg:flex-row items-center justify-between gap-3 lg:gap-6">
-              <div className="flex items-center gap-2">
-                <div className="bg-white p-1 rounded-full shadow-sm">
-                  <ManvaasamLogo width={20} height={20} />
+        {/* Optimized Footer */}
+        <motion.footer
+          className="relative w-full bg-white/30 bg-gradient-to-r from-white/30 via-white/60 to-white/30 backdrop-blur-xl border-t border-white/40 shadow-2xl mt-12 sm:mt-16 z-30 ring-1 ring-white/40"
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.4, ease: "easeOut" }}
+        >
+          <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-primary via-green-500 to-primary"></div>
+          <div className="max-w-6xl mx-auto px-4 sm:px-6 py-4 sm:py-5">
+            <div className="flex flex-col lg:flex-row items-center justify-between gap-4 lg:gap-8">
+              <motion.div
+                className="flex items-center gap-3"
+                whileHover={{ scale: 1.02 }}
+                transition={{ duration: 0.2 }}
+              >
+                <div className="relative">
+                  <div className="absolute inset-0 bg-primary/20 rounded-full blur-sm"></div>
+                  <div className="relative bg-white p-1.5 rounded-full shadow-md">
+                    <ManvaasamLogo width={28} height={28} />
+                  </div>
                 </div>
                 <div>
-                  <span className="text-sm font-bold bg-gradient-to-r from-primary to-green-600 bg-clip-text text-transparent">
+                  <span className="text-lg font-bold bg-gradient-to-r from-primary to-green-600 bg-clip-text text-transparent">
                     Manvaasam
                   </span>
-                  <p className="text-[10px] text-muted-foreground">
+                  <p className="text-xs text-muted-foreground">
                     Agricultural Excellence
                   </p>
                 </div>
-              </div>
+              </motion.div>
 
-              <div className="flex items-center gap-2 lg:gap-3 flex-wrap justify-center">
-                {userRoles.map((role) => (
-                  <Link
+              <div className="flex items-center gap-3 lg:gap-4">
+                {userRoles.map((role, index) => (
+                  <motion.div
                     key={role.name}
-                    href={role.href}
-                    className="flex items-center gap-1 px-2 py-1 rounded-full bg-gradient-to-r from-green-50 to-primary/5 hover:from-primary/10 hover:to-green-100 border border-primary/20 hover:border-primary/40 transition-all duration-150 text-[10px] sm:text-xs font-medium text-foreground hover:text-primary shadow-sm"
-                    onMouseEnter={() => router.prefetch(role.href)}
+                    whileHover={{ scale: 1.1, y: -2 }}
+                    transition={{ duration: 0.2 }}
                   >
-                    <span className="text-xs">
-                      {role.name === t.roles.farmer.name && "🌾"}
-                      {role.name.includes("Transport") && "🚚"}
-                      {role.name.includes("Retail") && "🏪"}
-                    </span>
-                    <span className="hidden sm:inline">{role.name}</span>
-                  </Link>
+                    <Link
+                      href={role.href}
+                      className="flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-gradient-to-r from-green-50 to-primary/5 hover:from-primary/10 hover:to-green-100 border border-primary/20 hover:border-primary/40 transition-all duration-200 text-xs font-medium text-foreground hover:text-primary shadow-sm hover:shadow-md"
+                      onMouseEnter={() => router.prefetch(role.href)}
+                    >
+                      <span className="text-sm">
+                        {role.name === t.roles.farmer.name && "🌾"}
+                        {role.name === "Transport Services" && "🚚"}
+                        {role.name === "Retail Shops" && "🏪"}
+                      </span>
+                      <span>{role.name}</span>
+                    </Link>
+                  </motion.div>
                 ))}
               </div>
 
-              <div className="flex flex-col sm:flex-row items-center gap-2 sm:gap-4 text-[10px] sm:text-xs text-muted-foreground">
-                <div className="flex items-center gap-1">
+              <div className="flex items-center gap-6 text-sm text-muted-foreground">
+                <div className="flex items-center gap-2">
                   <span>📧</span>
-                  <span className="hidden sm:inline">slytherinpsl7@gmail.com</span>
+                  <span>slytherinpsl7@gmail.com</span>
                 </div>
-                <div className="flex items-center gap-1">
+                <div className="flex items-center gap-2">
                   <span>📞</span>
                   <span>+91 9876543210</span>
                 </div>
               </div>
             </div>
 
-            <div className="flex flex-col sm:flex-row items-center justify-between gap-2 pt-2 border-t border-primary/10 mt-2">
-              <p className="text-[10px] font-medium text-foreground">
-                © {new Date().getFullYear()} Manvaasam. All rights reserved.
-              </p>
+            <div className="flex flex-col sm:flex-row items-center justify-between gap-4 pt-3 border-t border-primary/10">
+              <div className="flex items-center gap-2">
+                <span className="w-1 h-1 bg-primary rounded-full animate-pulse"></span>
+                <p className="text-xs font-medium text-foreground">
+                  © {new Date().getFullYear()} Manvaasam. All rights reserved.
+                </p>
+              </div>
 
-              <div className="flex items-center gap-3 text-[10px]">
-                <Link
-                  href="/privacy"
-                  className="text-muted-foreground hover:text-primary transition-colors duration-150 hover:underline"
+              {/* Legal and Support Links */}
+              <div className="flex items-center gap-4 text-xs">
+                <motion.div
+                  whileHover={{ scale: 1.05 }}
+                  transition={{ duration: 0.2 }}
                 >
-                  Privacy
-                </Link>
+                  <Link
+                    href="/privacy"
+                    className="text-muted-foreground hover:text-primary transition-colors duration-200 hover:underline"
+                  >
+                    Privacy Policy
+                  </Link>
+                </motion.div>
                 <span className="text-muted-foreground">•</span>
-                <Link
-                  href="/terms"
-                  className="text-muted-foreground hover:text-primary transition-colors duration-150 hover:underline"
+                <motion.div
+                  whileHover={{ scale: 1.05 }}
+                  transition={{ duration: 0.2 }}
                 >
-                  Terms
-                </Link>
+                  <Link
+                    href="/terms"
+                    className="text-muted-foreground hover:text-primary transition-colors duration-200 hover:underline"
+                  >
+                    Terms of Service
+                  </Link>
+                </motion.div>
                 <span className="text-muted-foreground">•</span>
-                <Link
-                  href="/support"
-                  className="text-muted-foreground hover:text-primary transition-colors duration-150 hover:underline"
+                <motion.div
+                  whileHover={{ scale: 1.05 }}
+                  transition={{ duration: 0.2 }}
                 >
-                  Support
-                </Link>
+                  <Link
+                    href="/support"
+                    className="text-muted-foreground hover:text-primary transition-colors duration-200 hover:underline"
+                  >
+                    Support
+                  </Link>
+                </motion.div>
               </div>
             </div>
           </div>
-        </footer>
+        </motion.footer>
       </div>
+    </LazyMotion>
   );
 }
