@@ -200,46 +200,10 @@ export default function HomePage() {
 
   const handleContinueClick = useCallback(
     (href: string) => {
-      // Set loading state immediately for instant feedback
       setLoadingRoleHref(href);
-
-      // Use requestAnimationFrame for smoother transition
-      requestAnimationFrame(() => {
-        // Instant navigation - page is already prefetched
-        router.push(href);
-      });
+      router.push(href);
     },
     [router]
-  );
-
-
-
-
-
-  // Optimized animation variants with reduced motion support
-  const sentence = useMemo(
-    () => ({
-      hidden: { opacity: 1 },
-      visible: {
-        opacity: 1,
-        transition: prefersReducedMotion
-          ? { duration: 0.1 }
-          : { delay: 0.2, staggerChildren: 0.08 },
-      },
-    }),
-    [prefersReducedMotion]
-  );
-
-  const letter = useMemo(
-    () => ({
-      hidden: { opacity: 0, y: prefersReducedMotion ? 0 : 50 },
-      visible: {
-        opacity: 1,
-        y: 0,
-        transition: prefersReducedMotion ? { duration: 0.1 } : undefined,
-      },
-    }),
-    [prefersReducedMotion]
   );
 
   return (
