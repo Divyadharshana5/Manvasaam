@@ -118,15 +118,6 @@ export default function HomePage() {
 
   const [loadingRoleHref, setLoadingRoleHref] = useState<string | null>(null);
 
-  // Memoize expensive calculations for better performance
-  const taglineWords = useMemo(() => t.tagline.split(" "), [t.tagline]);
-
-  // Check for reduced motion preference for better performance
-  const prefersReducedMotion = useMemo(() => {
-    if (typeof window === "undefined") return false;
-    return window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-  }, []);
-
   const userRoles = useMemo(
     () => [
       {
