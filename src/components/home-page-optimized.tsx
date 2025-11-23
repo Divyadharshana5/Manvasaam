@@ -290,39 +290,24 @@ export default function HomePage() {
           </div>
         </header>
 
-        <main className="flex flex-col items-center pt-16 sm:pt-20 md:pt-24 px-4 sm:px-6 md:px-8 pb-8">
+        <main className="flex flex-col items-center pt-14 sm:pt-16 px-3 sm:px-4 pb-6">
           <div
-            className="absolute inset-0 z-0 bg-cover bg-center bg-no-repeat bg-fixed bg-ken-burns"
+            className="fixed inset-0 z-0 bg-cover bg-center bg-no-repeat opacity-20"
             style={{
               backgroundImage: "url('/bg-agri.png')",
-              willChange: "transform",
             }}
           ></div>
-          <div className="absolute inset-0 bg-background/30 z-0"></div>
 
-          <section className="text-center w-full max-w-7xl mx-auto z-10 px-2 sm:px-4">
-            <motion.h1
-              className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl font-bold text-foreground tracking-tight text-center mb-8 sm:mb-10 md:mb-12 [text-shadow:0_2px_4px_rgb(0_0_0/_30%)] px-2"
-              variants={sentence}
-              initial="hidden"
-              animate="visible"
-            >
-              {taglineWords.map((word, index) => (
-                <motion.span
-                  key={word + "-" + index}
-                  variants={letter}
-                  className="inline-block"
-                >
-                  {word}&nbsp;
-                </motion.span>
-              ))}
-            </motion.h1>
+          <section className="text-center w-full max-w-6xl mx-auto z-10 px-2 sm:px-3">
+            <h1 className="text-xl sm:text-2xl md:text-3xl lg:text-4xl font-bold text-foreground tracking-tight text-center mb-4 sm:mb-6 [text-shadow:0_1px_2px_rgb(0_0_0/_20%)] px-2">
+              {t.tagline}
+            </h1>
 
-            <h2 className="text-xl sm:text-2xl md:text-3xl lg:text-4xl font-bold mb-6 sm:mb-8 md:mb-10 text-black [text-shadow:0_0_8px_rgb(255_255_255/_80%)] tracking-wide px-4">
+            <h2 className="text-lg sm:text-xl md:text-2xl font-bold mb-5 sm:mb-7 text-black [text-shadow:0_0_6px_rgb(255_255_255/_70%)] tracking-wide px-3">
               {t.joinCommunity}
             </h2>
 
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 md:gap-8 px-2 sm:px-4 md:px-6 max-w-7xl mx-auto">
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 sm:gap-4 md:gap-5 px-1 sm:px-2 max-w-6xl mx-auto">
               {userRoles.map((role, index) => (
                 <RoleCard
                   key={role.name}
