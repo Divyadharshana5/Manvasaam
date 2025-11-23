@@ -372,123 +372,85 @@ export default function HomePage() {
 
 
 
-        {/* Optimized Footer */}
-        <motion.footer
-          className="relative w-full bg-white/30 bg-gradient-to-r from-white/30 via-white/60 to-white/30 backdrop-blur-xl border-t border-white/40 shadow-2xl mt-12 sm:mt-16 z-30 ring-1 ring-white/40"
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.4, ease: "easeOut" }}
-        >
-          <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-primary via-green-500 to-primary"></div>
-          <div className="max-w-6xl mx-auto px-4 sm:px-6 py-4 sm:py-5">
-            <div className="flex flex-col lg:flex-row items-center justify-between gap-4 lg:gap-8">
-              <motion.div
-                className="flex items-center gap-3"
-                whileHover={{ scale: 1.02 }}
-                transition={{ duration: 0.2 }}
-              >
-                <div className="relative">
-                  <div className="absolute inset-0 bg-primary/20 rounded-full blur-sm"></div>
-                  <div className="relative bg-white p-1.5 rounded-full shadow-md">
-                    <ManvaasamLogo width={28} height={28} />
-                  </div>
+        {/* Footer */}
+        <footer className="relative w-full bg-white/40 backdrop-blur-sm border-t border-white/40 shadow-lg mt-8 sm:mt-12 z-30">
+          <div className="absolute top-0 left-0 right-0 h-0.5 bg-gradient-to-r from-primary via-green-500 to-primary"></div>
+          <div className="max-w-5xl mx-auto px-3 sm:px-4 py-3 sm:py-4">
+            <div className="flex flex-col lg:flex-row items-center justify-between gap-3 lg:gap-6">
+              <div className="flex items-center gap-2">
+                <div className="bg-white p-1 rounded-full shadow-sm">
+                  <ManvaasamLogo width={20} height={20} />
                 </div>
                 <div>
-                  <span className="text-lg font-bold bg-gradient-to-r from-primary to-green-600 bg-clip-text text-transparent">
+                  <span className="text-sm font-bold bg-gradient-to-r from-primary to-green-600 bg-clip-text text-transparent">
                     Manvaasam
                   </span>
-                  <p className="text-xs text-muted-foreground">
+                  <p className="text-[10px] text-muted-foreground">
                     Agricultural Excellence
                   </p>
                 </div>
-              </motion.div>
+              </div>
 
-              <div className="flex items-center gap-3 lg:gap-4">
-                {userRoles.map((role, index) => (
-                  <motion.div
+              <div className="flex items-center gap-2 lg:gap-3 flex-wrap justify-center">
+                {userRoles.map((role) => (
+                  <Link
                     key={role.name}
-                    whileHover={{ scale: 1.1, y: -2 }}
-                    transition={{ duration: 0.2 }}
+                    href={role.href}
+                    className="flex items-center gap-1 px-2 py-1 rounded-full bg-gradient-to-r from-green-50 to-primary/5 hover:from-primary/10 hover:to-green-100 border border-primary/20 hover:border-primary/40 transition-all duration-150 text-[10px] sm:text-xs font-medium text-foreground hover:text-primary shadow-sm"
+                    onMouseEnter={() => router.prefetch(role.href)}
                   >
-                    <Link
-                      href={role.href}
-                      className="flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-gradient-to-r from-green-50 to-primary/5 hover:from-primary/10 hover:to-green-100 border border-primary/20 hover:border-primary/40 transition-all duration-200 text-xs font-medium text-foreground hover:text-primary shadow-sm hover:shadow-md"
-                      onMouseEnter={() => router.prefetch(role.href)}
-                    >
-                      <span className="text-sm">
-                        {role.name === t.roles.farmer.name && "🌾"}
-                        {role.name === "Transport Services" && "🚚"}
-                        {role.name === "Retail Shops" && "🏪"}
-                      </span>
-                      <span>{role.name}</span>
-                    </Link>
-                  </motion.div>
+                    <span className="text-xs">
+                      {role.name === t.roles.farmer.name && "🌾"}
+                      {role.name.includes("Transport") && "🚚"}
+                      {role.name.includes("Retail") && "🏪"}
+                    </span>
+                    <span className="hidden sm:inline">{role.name}</span>
+                  </Link>
                 ))}
               </div>
 
-              <div className="flex items-center gap-6 text-sm text-muted-foreground">
-                <div className="flex items-center gap-2">
+              <div className="flex flex-col sm:flex-row items-center gap-2 sm:gap-4 text-[10px] sm:text-xs text-muted-foreground">
+                <div className="flex items-center gap-1">
                   <span>📧</span>
-                  <span>slytherinpsl7@gmail.com</span>
+                  <span className="hidden sm:inline">slytherinpsl7@gmail.com</span>
                 </div>
-                <div className="flex items-center gap-2">
+                <div className="flex items-center gap-1">
                   <span>📞</span>
                   <span>+91 9876543210</span>
                 </div>
               </div>
             </div>
 
-            <div className="flex flex-col sm:flex-row items-center justify-between gap-4 pt-3 border-t border-primary/10">
-              <div className="flex items-center gap-2">
-                <span className="w-1 h-1 bg-primary rounded-full animate-pulse"></span>
-                <p className="text-xs font-medium text-foreground">
-                  © {new Date().getFullYear()} Manvaasam. All rights reserved.
-                </p>
-              </div>
+            <div className="flex flex-col sm:flex-row items-center justify-between gap-2 pt-2 border-t border-primary/10 mt-2">
+              <p className="text-[10px] font-medium text-foreground">
+                © {new Date().getFullYear()} Manvaasam. All rights reserved.
+              </p>
 
-              {/* Legal and Support Links */}
-              <div className="flex items-center gap-4 text-xs">
-                <motion.div
-                  whileHover={{ scale: 1.05 }}
-                  transition={{ duration: 0.2 }}
+              <div className="flex items-center gap-3 text-[10px]">
+                <Link
+                  href="/privacy"
+                  className="text-muted-foreground hover:text-primary transition-colors duration-150 hover:underline"
                 >
-                  <Link
-                    href="/privacy"
-                    className="text-muted-foreground hover:text-primary transition-colors duration-200 hover:underline"
-                  >
-                    Privacy Policy
-                  </Link>
-                </motion.div>
+                  Privacy
+                </Link>
                 <span className="text-muted-foreground">•</span>
-                <motion.div
-                  whileHover={{ scale: 1.05 }}
-                  transition={{ duration: 0.2 }}
+                <Link
+                  href="/terms"
+                  className="text-muted-foreground hover:text-primary transition-colors duration-150 hover:underline"
                 >
-                  <Link
-                    href="/terms"
-                    className="text-muted-foreground hover:text-primary transition-colors duration-200 hover:underline"
-                  >
-                    Terms of Service
-                  </Link>
-                </motion.div>
+                  Terms
+                </Link>
                 <span className="text-muted-foreground">•</span>
-                <motion.div
-                  whileHover={{ scale: 1.05 }}
-                  transition={{ duration: 0.2 }}
+                <Link
+                  href="/support"
+                  className="text-muted-foreground hover:text-primary transition-colors duration-150 hover:underline"
                 >
-                  <Link
-                    href="/support"
-                    className="text-muted-foreground hover:text-primary transition-colors duration-200 hover:underline"
-                  >
-                    Support
-                  </Link>
-                </motion.div>
+                  Support
+                </Link>
               </div>
             </div>
           </div>
-        </motion.footer>
+        </footer>
       </div>
-    </LazyMotion>
   );
 }
