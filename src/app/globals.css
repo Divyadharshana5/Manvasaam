@@ -54,9 +54,10 @@
     loading: lazy;
   }
 
-  /* GPU acceleration for animations - use sparingly */
+  /* GPU acceleration for animations */
   .gpu-accelerated {
     transform: translateZ(0);
+    will-change: transform;
   }
 
   /* Custom loading animation */
