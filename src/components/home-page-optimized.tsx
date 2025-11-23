@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import { motion, LazyMotion, domAnimation, m } from "framer-motion";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { ManvaasamLogo } from "@/components/icons";
@@ -36,6 +37,53 @@ import { VoiceAssistantGlobal } from "@/components/VoiceAssistantGlobal";
 
 // Lazy load AI components for better initial load performance
 const ProductShowcase = lazy(() => import("@/components/product-showcase"));
+
+// Memoized components for better performance
+const AnimatedBackground = () => (
+  <div className="absolute inset-0 overflow-hidden pointer-events-none">
+    <motion.div
+      className="absolute top-20 left-10 w-32 h-32 bg-green-200/30 rounded-full blur-3xl"
+      animate={{
+        x: [0, 30, -20, 0],
+        y: [0, -20, 30, 0],
+        scale: [1, 1.2, 0.8, 1],
+      }}
+      transition={{
+        duration: 20,
+        repeat: Infinity,
+        ease: "easeInOut",
+      }}
+    />
+    <motion.div
+      className="absolute top-40 right-20 w-40 h-40 bg-blue-200/30 rounded-full blur-3xl"
+      animate={{
+        x: [0, -40, 25, 0],
+        y: [0, 25, -30, 0],
+        scale: [1, 0.9, 1.3, 1],
+      }}
+      transition={{
+        duration: 25,
+        repeat: Infinity,
+        ease: "easeInOut",
+        delay: 2,
+      }}
+    />
+    <motion.div
+      className="absolute bottom-20 left-1/3 w-36 h-36 bg-purple-200/30 rounded-full blur-3xl"
+      animate={{
+        x: [0, 20, -35, 0],
+        y: [0, -25, 20, 0],
+        scale: [1, 1.1, 0.9, 1],
+      }}
+      transition={{
+        duration: 18,
+        repeat: Infinity,
+        ease: "easeInOut",
+        delay: 4,
+      }}
+    />
+  </div>
+);
 
 interface RoleCardProps {
   role: {
