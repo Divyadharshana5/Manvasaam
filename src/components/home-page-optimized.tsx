@@ -252,41 +252,27 @@ export default function HomePage() {
   );
 
   return (
-    <LazyMotion features={domAnimation}>
-      <div className="relative mobile-container bg-gradient-to-br from-green-50 via-blue-50 to-purple-50">
-        {/* Optimized Animated Background Elements */}
-        <AnimatedBackground />
-
-        <header className="fixed top-0 left-0 right-0 z-50 flex items-center justify-between p-3 sm:p-4 bg-white/80 backdrop-blur-md border-b border-primary/20 shadow-sm">
-          <m.div
-            whileHover={{
-              rotate: [0, -3, 3, -3, 3, 0],
-              transition: { duration: 0.5 },
-            }}
-          >
-            <Link href="/" className="flex items-center gap-1 sm:gap-2">
-              <ManvaasamLogo width={28} height={28} className="sm:w-8 sm:h-8" />
-              <span className="text-lg sm:text-xl font-bold text-primary">
-                Manvaasam
-              </span>
-            </Link>
-          </m.div>
-          <div className="flex items-center gap-2 sm:gap-4">
-            <m.div whileHover={{ scale: 1.1 }}>
-              <VoiceAssistantGlobal />
-            </m.div>
+      <div className="relative mobile-container bg-gradient-to-br from-green-50 via-blue-50 to-purple-50 min-h-screen">
+        <header className="sticky top-0 left-0 right-0 z-50 flex items-center justify-between p-2 sm:p-3 bg-white/90 backdrop-blur-sm border-b border-primary/20 shadow-sm">
+          <Link href="/" className="flex items-center gap-1 sm:gap-2 hover:opacity-80 transition-opacity">
+            <ManvaasamLogo width={24} height={24} className="sm:w-7 sm:h-7" />
+            <span className="text-base sm:text-lg font-bold text-primary">
+              Manvaasam
+            </span>
+          </Link>
+          <div className="flex items-center gap-2 sm:gap-3">
+            <VoiceAssistantGlobal />
 
             <DropdownMenu>
               <DropdownMenuTrigger asChild>
-                <motion.div whileHover={{ scale: 1.1 }}>
-                  <Button
-                    variant="outline"
-                    className="border border-input bg-background text-foreground hover:bg-primary hover:text-primary-foreground hover:border-primary shadow-sm"
-                  >
-                    <Languages className="mr-2 h-4 w-4" />
-                    <span className="font-medium">{selectedLanguage}</span>
-                  </Button>
-                </motion.div>
+                <Button
+                  variant="outline"
+                  size="sm"
+                  className="border border-input bg-background text-foreground hover:bg-primary hover:text-primary-foreground hover:border-primary shadow-sm text-xs sm:text-sm"
+                >
+                  <Languages className="mr-1 h-3 w-3 sm:h-4 sm:w-4" />
+                  <span className="font-medium">{selectedLanguage}</span>
+                </Button>
               </DropdownMenuTrigger>
               <DropdownMenuContent>
                 {languages.map((lang) => (
