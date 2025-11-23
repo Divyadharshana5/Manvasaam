@@ -321,44 +321,31 @@ export default function HomePage() {
             </div>
           </section>
 
-          <section className="w-full max-w-6xl mx-auto mt-16 sm:mt-20 md:mt-24 text-center z-10 px-4 sm:px-6">
-            <motion.h2
-              className="text-xl sm:text-2xl md:text-3xl lg:text-4xl font-black mb-4 sm:mb-6 text-black [text-shadow:0_0_10px_rgb(255_255_255/_90%),0_0_20px_rgb(255_255_255/_60%)] tracking-wide"
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.6, ease: "easeOut" }}
-            >
+          <section className="w-full max-w-5xl mx-auto mt-8 sm:mt-12 text-center z-10 px-3 sm:px-4">
+            <h2 className="text-lg sm:text-xl md:text-2xl font-bold mb-3 sm:mb-4 text-black [text-shadow:0_0_8px_rgb(255_255_255/_85%)] tracking-wide">
               {t.ourMission}
-            </motion.h2>
+            </h2>
 
-            <motion.p
-              className="text-base sm:text-lg md:text-xl lg:text-2xl font-bold leading-relaxed max-w-5xl mx-auto mb-6 sm:mb-8 text-white [text-shadow:0_2px_8px_rgb(0_0_0/_80%)] py-3 sm:py-4 px-2 sm:px-4"
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.6, delay: 0.2, ease: "easeOut" }}
-            >
+            <p className="text-sm sm:text-base md:text-lg font-semibold leading-relaxed max-w-4xl mx-auto mb-4 sm:mb-6 text-white [text-shadow:0_1px_6px_rgb(0_0_0/_75%)] py-2 sm:py-3 px-2 sm:px-3">
               {t.missionStatement}
-            </motion.p>
+            </p>
 
-            <Card className="bg-card/80 backdrop-blur-xl border border-primary/20 rounded-2xl shadow-lg p-4 sm:p-6 mx-2 sm:mx-0">
-              <CardContent className="p-0 sm:p-4">
-                <div className="flex flex-col sm:flex-row items-center justify-center gap-3 sm:gap-4 text-base sm:text-lg font-semibold text-foreground">
+            <Card className="bg-card/75 backdrop-blur-sm border border-primary/20 rounded-xl shadow-md p-3 sm:p-4 mx-2 sm:mx-0">
+              <CardContent className="p-0 sm:p-2">
+                <div className="flex flex-col sm:flex-row items-center justify-center gap-2 sm:gap-3 text-xs sm:text-sm font-semibold text-foreground">
                   <span className="text-center px-2 py-1 rounded-lg bg-primary/10">
                     Farmers
                   </span>
                   <ArrowRight
-                    size={20}
-                    className="text-primary animate-arrow-flow sm:rotate-0 rotate-90 flex-shrink-0"
+                    size={16}
+                    className="text-primary sm:rotate-0 rotate-90 flex-shrink-0"
                   />
                   <span className="text-center px-2 py-1 rounded-lg bg-primary/10">
                     Transport
                   </span>
                   <ArrowRight
-                    size={20}
-                    className="text-primary animate-arrow-flow sm:rotate-0 rotate-90 flex-shrink-0"
-                    style={{ animationDelay: "0.5s" }}
+                    size={16}
+                    className="text-primary sm:rotate-0 rotate-90 flex-shrink-0"
                   />
                   <span className="text-center px-2 py-1 rounded-lg bg-primary/10">
                     Retail Shops
@@ -369,12 +356,12 @@ export default function HomePage() {
           </section>
 
           {/* Product Showcase Section */}
-          <section className="w-full max-w-7xl mx-auto mt-16 sm:mt-20 md:mt-24 z-10 px-4 sm:px-6">
+          <section className="w-full max-w-6xl mx-auto mt-8 sm:mt-12 z-10 px-3 sm:px-4">
             <Suspense
               fallback={
-                <div className="flex justify-center py-8">
-                  <Loader2 className="h-8 w-8 animate-spin" />
-                  <span className="ml-2">Loading products...</span>
+                <div className="flex justify-center py-6">
+                  <Loader2 className="h-6 w-6 animate-spin" />
+                  <span className="ml-2 text-sm">Loading products...</span>
                 </div>
               }
             >
