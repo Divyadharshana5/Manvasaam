@@ -106,45 +106,42 @@ const RoleCard = ({
   t,
 }: RoleCardProps) => {
   const router = useRouter();
+  const [isPrefetched, setIsPrefetched] = useState(false);
+
+  // Aggressive prefetching on mount
+  useEffect(() => {
+    if (!isPrefetched) {
+      router.prefetch(role.href);
+      setIsPrefetched(true);
+    }
+  }, [router, role.href, isPrefetched]);
 
   const handleHover = useCallback(() => {
-    // Prefetch on hover for instant navigation
     router.prefetch(role.href);
   }, [router, role.href]);
 
   const handleClick = useCallback(() => {
+    // Prefetch one more time right before navigation
+    router.prefetch(role.href);
     onContinueClick(role.href);
-  }, [onContinueClick, role.href]);
+  }, [onContinueClick, role.href, router]);
 
   return (
-    <motion.div
+    <div
       className="group w-full"
-      initial={{ opacity: 0, y: 50 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true }}
-      transition={{
-        duration: 0.3,
-        delay: index * 0.08,
-        ease: [0.25, 0.1, 0.25, 1],
-      }}
-      whileHover={{ y: -6, scale: 1.02 }}
-      whileTap={{ scale: 0.98 }}
       onMouseEnter={handleHover}
       onTouchStart={handleHover}
+      onFocus={handleHover}
     >
-      <Card className="bg-card/90 backdrop-blur-xl border-2 border-primary/20 rounded-2xl shadow-lg hover:shadow-2xl transition-all duration-200 p-4 sm:p-6 flex flex-col h-full min-h-[260px] sm:min-h-[300px] cursor-pointer will-change-transform">
+      <Card className="bg-card/90 backdrop-blur-sm border-2 border-primary/20 rounded-xl shadow-md hover:shadow-xl transition-all duration-150 p-4 sm:p-6 flex flex-col h-full min-h-[260px] sm:min-h-[300px] cursor-pointer hover:-translate-y-1 active:scale-[0.99]">
         <CardHeader className="items-center flex-shrink-0 pb-2 sm:pb-4">
-          <motion.div 
-            className="text-4xl sm:text-5xl"
-            whileHover={{ rotate: [0, -10, 10, -10, 0], scale: 1.1 }}
-            transition={{ duration: 0.5 }}
-          >
+          <div className="text-4xl sm:text-5xl">
             {role.icon}
-          </motion.div>
+          </div>
         </CardHeader>
         <CardContent className="text-center flex-grow flex flex-col justify-between p-0">
           <div className="flex-grow">
-            <CardTitle className="mt-2 sm:mt-4 text-lg sm:text-xl lg:text-2xl transition-all duration-200 group-hover:text-primary">
+            <CardTitle className="mt-2 sm:mt-4 text-lg sm:text-xl lg:text-2xl transition-colors duration-150 group-hover:text-primary">
               {role.name}
             </CardTitle>
             <p className="text-muted-foreground my-3 sm:my-4 text-sm sm:text-base leading-relaxed line-clamp-3">
@@ -152,7 +149,7 @@ const RoleCard = ({
             </p>
           </div>
           <Button
-            className="w-full mt-auto transition-all duration-150 hover:scale-[1.02] active:scale-95 touch-target"
+            className="w-full mt-auto transition-all duration-100 active:scale-95 touch-target"
             onClick={handleClick}
             disabled={loadingRoleHref === role.href}
             size="lg"
@@ -171,7 +168,7 @@ const RoleCard = ({
           </Button>
         </CardContent>
       </Card>
-    </motion.div>
+    </div>
   );
 };
 
