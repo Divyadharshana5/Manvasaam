@@ -73,7 +73,7 @@ export class NavigationOptimizer {
     const {
       showLoadingState = true,
       preloadNext = [],
-      optimisticUpdate = true,
+      optimisticUpdate = false,
     } = options || {};
 
     // Prevent multiple simultaneous navigations
@@ -85,71 +85,81 @@ export class NavigationOptimizer {
     this.isNavigating = true;
 
     try {
-      // 1. Instant preloading of target route
-      this.preloadRoute(route, "high");
-
-      // 2. Preload next likely routes
-      preloadNext.forEach((nextRoute) =>
-        this.preloadRoute(nextRoute, "normal")
-      );
-
-      // 3. Show instant loading state
+      // 1. Show instant loading state FIRST for immediate feedback
       if (showLoadingState) {
-        document.body.classList.add("page-transitioning");
         this.showNavigationProgress();
       }
 
-      // 4. Optimistic UI update if enabled
-      if (optimisticUpdate) {
-        this.performOptimisticUpdate(route);
+      // 2. Instant preloading of target route (non-blocking)
+      this.preloadRoute(route, "high");
+
+      // 3. Preload next likely routes (non-blocking)
+      if (preloadNext.length > 0) {
+        setTimeout(() => {
+          preloadNext.forEach((nextRoute) =>
+            this.preloadRoute(nextRoute, "normal")
+          );
+        }, 0);
       }
 
-      // 5. Perform navigation with timeout guarantee
-      const navigationPromise = this.router?.push(route);
+      // 4. Perform navigation immediately (don't wait)
+      this.router?.push(route);
 
-      // Set a 2-second timeout for navigation
-      const timeoutPromise = new Promise((_, reject) => {
-        setTimeout(() => reject(new Error("Navigation timeout")), 2000);
-      });
+      // 5. Clean up loading state after short delay
+      setTimeout(() => {
+        if (showLoadingState) {
+          this.hideNavigationProgress();
+        }
+      }, 300);
 
-      // Race between navigation and timeout
-      await Promise.race([navigationPromise, timeoutPromise]);
-
-      // 6. Clean up loading state
-      if (showLoadingState) {
-        this.hideNavigationProgress();
-        document.body.classList.remove("page-transitioning");
-      }
     } catch (error) {
       console.error("Navigation failed:", error);
-
-      // Fallback: force navigation even if timeout occurs
-      if (error instanceof Error && error.message === "Navigation timeout") {
-        console.warn("Navigation timeout, forcing navigation...");
-        this.router?.push(route);
-      }
+      // Force navigation on error
+      this.router?.push(route);
     } finally {
-      this.isNavigating = false;
+      // Reset navigation state quickly
+      setTimeout(() => {
+        this.isNavigating = false;
 
-      // Process queued navigations
-      if (this.navigationQueue.length > 0) {
-        const nextRoute = this.navigationQueue.shift();
-        if (nextRoute) {
-          setTimeout(
-            () => this.navigateWithOptimization(nextRoute, options),
-            100
-          );
+        // Process queued navigations
+        if (this.navigationQueue.length > 0) {
+          const nextRoute = this.navigationQueue.shift();
+          if (nextRoute) {
+            this.navigateWithOptimization(nextRoute, options);
+          }
         }
-      }
+      }, 50);
     }
   }
 
   // Show navigation progress indicator
   private showNavigationProgress() {
+    // Remove existing progress bar if any
+    const existing = document.getElementById("nav-progress");
+    if (existing) existing.remove();
+
     const progressBar = document.createElement("div");
     progressBar.id = "nav-progress";
-    progressBar.className =
-      "fixed top-0 left-0 w-full h-1 bg-gradient-to-r from-green-500 to-blue-500 z-[9999] animate-pulse";
+    progressBar.style.cssText = `
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 2px;
+      background: linear-gradient(90deg, #22c55e, #3b82f6);
+      z-index: 9999;
+      animation: progressSlide 0.3s ease-out;
+    `;
+    
+    // Add animation
+    const style = document.createElement("style");
+    style.textContent = `
+      @keyframes progressSlide {
+        from { transform: translateX(-100%); }
+        to { transform: translateX(0); }
+      }
+    `;
+    document.head.appendChild(style);
     document.body.appendChild(progressBar);
   }
 
