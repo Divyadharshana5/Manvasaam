@@ -4,6 +4,14 @@ import type { NextRequest } from 'next/server';
 export function middleware(request: NextRequest) {
   const { pathname } = request.nextUrl;
   
+  // Skip middleware for prefetch requests for faster navigation
+  const purpose = request.headers.get('purpose');
+  const isPrefetch = purpose === 'prefetch' || request.headers.get('x-middleware-prefetch');
+  
+  if (isPrefetch) {
+    return NextResponse.next();
+  }
+  
   // Get session cookie to check if user is authenticated
   const sessionCookie = request.cookies.get('session');
   const isAuthenticated = !!sessionCookie;
