@@ -252,7 +252,7 @@ export default function HomePage() {
 
 
 
-  // Prefetch all login pages for instant navigation
+  // Prefetch all login pages IMMEDIATELY for instant navigation
   useEffect(() => {
     const loginPages = [
       "/login/farmer",
@@ -260,26 +260,19 @@ export default function HomePage() {
       "/login/retail",
     ];
 
-    // Prefetch after a short delay to not block initial render
-    const prefetchTimer = setTimeout(() => {
-      loginPages.forEach((page) => {
-        router.prefetch(page);
-      });
-    }, 500);
-
-    return () => clearTimeout(prefetchTimer);
+    // Prefetch immediately - no delay
+    loginPages.forEach((page) => {
+      router.prefetch(page);
+    });
   }, [router]);
 
   const handleContinueClick = useCallback(
     (href: string) => {
       // Set loading state immediately for instant feedback
       setLoadingRoleHref(href);
-
-      // Use requestAnimationFrame for smoother transition
-      requestAnimationFrame(() => {
-        // Instant navigation - page is already prefetched
-        router.push(href);
-      });
+      
+      // Instant navigation - page is already prefetched
+      router.push(href);
     },
     [router]
   );
