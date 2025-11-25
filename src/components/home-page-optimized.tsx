@@ -136,9 +136,6 @@ const RoleCard = ({
 
 export default function HomePage() {
   const { selectedLanguage, setSelectedLanguage, t } = useLanguage();
-  const router = useRouter();
-
-  const [loadingRoleHref, setLoadingRoleHref] = useState<string | null>(null);
 
   // Memoize expensive calculations for better performance
   const taglineWords = useMemo(() => t.tagline.split(" "), [t.tagline]);
