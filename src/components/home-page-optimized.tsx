@@ -99,8 +99,6 @@ interface RoleCardProps {
 const RoleCard = ({
   role,
   index,
-  onContinueClick,
-  loadingRoleHref,
   t,
 }: RoleCardProps) => {
   return (
