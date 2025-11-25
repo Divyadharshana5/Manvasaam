@@ -438,8 +438,8 @@ export default function HomePage() {
                   >
                     <Link
                       href={role.href}
+                      prefetch={true}
                       className="flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-gradient-to-r from-green-50 to-primary/5 hover:from-primary/10 hover:to-green-100 border border-primary/20 hover:border-primary/40 transition-all duration-200 text-xs font-medium text-foreground hover:text-primary shadow-sm hover:shadow-md"
-                      onMouseEnter={() => router.prefetch(role.href)}
                     >
                       <span className="text-sm">
                         {role.name === t.roles.farmer.name && "🌾"}
