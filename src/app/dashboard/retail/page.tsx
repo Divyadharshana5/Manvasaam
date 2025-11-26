@@ -157,47 +157,47 @@ export default function RetailDashboard() {
 
             {/* Today's Quick Stats */}
             <div className="grid gap-4 md:grid-cols-4">
-                <Card className="border-l-4 border-l-green-500">
+                <Card className="border-l-4 border-l-green-500 stat-card card-glow">
                     <CardContent className="p-4">
                         <div className="flex items-center justify-between">
                             <div>
                                 <p className="text-sm font-medium text-muted-foreground">Today's Orders</p>
-                                <p className="text-2xl font-bold text-green-600">{todayStats.ordersToday}</p>
+                                <p className="text-2xl font-bold text-green-600 number-counter">{todayStats.ordersToday}</p>
                             </div>
-                            <ShoppingCart className="h-8 w-8 text-green-500" />
+                            <ShoppingCart className="h-8 w-8 text-green-500 icon-bounce" />
                         </div>
                     </CardContent>
                 </Card>
-                <Card className="border-l-4 border-l-blue-500">
+                <Card className="border-l-4 border-l-blue-500 stat-card card-glow">
                     <CardContent className="p-4">
                         <div className="flex items-center justify-between">
                             <div>
                                 <p className="text-sm font-medium text-muted-foreground">Today's Revenue</p>
-                                <p className="text-2xl font-bold text-blue-600">₹{todayStats.revenueToday.toLocaleString()}</p>
+                                <p className="text-2xl font-bold text-blue-600 number-counter">₹{todayStats.revenueToday.toLocaleString()}</p>
                             </div>
-                            <IndianRupee className="h-8 w-8 text-blue-500" />
+                            <IndianRupee className="h-8 w-8 text-blue-500 icon-bounce" />
                         </div>
                     </CardContent>
                 </Card>
-                <Card className="border-l-4 border-l-purple-500">
+                <Card className="border-l-4 border-l-purple-500 stat-card card-glow">
                     <CardContent className="p-4">
                         <div className="flex items-center justify-between">
                             <div>
                                 <p className="text-sm font-medium text-muted-foreground">New Customers</p>
-                                <p className="text-2xl font-bold text-purple-600">{todayStats.newCustomers}</p>
+                                <p className="text-2xl font-bold text-purple-600 number-counter">{todayStats.newCustomers}</p>
                             </div>
-                            <Users className="h-8 w-8 text-purple-500" />
+                            <Users className="h-8 w-8 text-purple-500 icon-bounce" />
                         </div>
                     </CardContent>
                 </Card>
-                <Card className="border-l-4 border-l-orange-500">
+                <Card className="border-l-4 border-l-orange-500 stat-card card-glow">
                     <CardContent className="p-4">
                         <div className="flex items-center justify-between">
                             <div>
                                 <p className="text-sm font-medium text-muted-foreground">Deliveries</p>
-                                <p className="text-2xl font-bold text-orange-600">{todayStats.deliveriesCompleted}</p>
+                                <p className="text-2xl font-bold text-orange-600 number-counter">{todayStats.deliveriesCompleted}</p>
                             </div>
-                            <Truck className="h-8 w-8 text-orange-500" />
+                            <Truck className="h-8 w-8 text-orange-500 icon-bounce" />
                         </div>
                     </CardContent>
                 </Card>
