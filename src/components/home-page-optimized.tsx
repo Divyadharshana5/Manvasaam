@@ -211,7 +211,35 @@ export default function HomePage() {
 
 
 
+  // Aggressive prefetching for instant navigation
+  useEffect(() => {
+    const loginPages = [
+      "/login/farmer",
+      "/login/transport",
+      "/login/retail",
+    ];
 
+    // Prefetch immediately with high priority
+    loginPages.forEach((page) => {
+      router.prefetch(page);
+      // Also prefetch using link rel for browser-level optimization
+      const link = document.createElement('link');
+      link.rel = 'prefetch';
+      link.href = page;
+      document.head.appendChild(link);
+    });
+  }, [router]);
+
+  const handleContinueClick = useCallback(
+    (href: string) => {
+      // Set loading state immediately
+      setLoadingRoleHref(href);
+      
+      // Navigate immediately - no delays
+      router.push(href);
+    },
+    [router]
+  );
 
 
 
