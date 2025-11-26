@@ -327,6 +327,8 @@ export default function HomePage() {
                   key={role.name}
                   role={role}
                   index={index}
+                  onContinueClick={handleContinueClick}
+                  loadingRoleHref={loadingRoleHref}
                   t={t}
                 />
               ))}
