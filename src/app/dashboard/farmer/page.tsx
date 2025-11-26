@@ -235,15 +235,15 @@ export default function FarmerDashboard() {
       </div>
 
       <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
-        <Card>
+        <Card className="stat-card card-glow">
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
             <CardTitle className="text-sm font-medium">
               Active Products
             </CardTitle>
-            <Package className="h-4 w-4 text-muted-foreground" />
+            <Package className="h-4 w-4 text-muted-foreground icon-bounce" />
           </CardHeader>
           <CardContent>
-            <div className="text-2xl font-bold">
+            <div className="text-2xl font-bold number-counter">
               {isLoading ? (
                 <Loader2 className="h-6 w-6 animate-spin" />
               ) : (
@@ -257,39 +257,39 @@ export default function FarmerDashboard() {
             </p>
           </CardContent>
         </Card>
-        <Card>
+        <Card className="stat-card card-glow">
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
             <CardTitle className="text-sm font-medium">Total Orders</CardTitle>
-            <ShoppingCart className="h-4 w-4 text-muted-foreground" />
+            <ShoppingCart className="h-4 w-4 text-muted-foreground icon-bounce" />
           </CardHeader>
           <CardContent>
-            <div className="text-2xl font-bold">{stats.totalOrders}</div>
+            <div className="text-2xl font-bold number-counter">{stats.totalOrders}</div>
             <p className="text-xs text-muted-foreground">+5 from last week</p>
           </CardContent>
         </Card>
-        <Card>
+        <Card className="stat-card card-glow">
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
             <CardTitle className="text-sm font-medium">
               Connected Buyers
             </CardTitle>
-            <Users className="h-4 w-4 text-muted-foreground" />
+            <Users className="h-4 w-4 text-muted-foreground icon-bounce" />
           </CardHeader>
           <CardContent>
-            <div className="text-2xl font-bold">{stats.connectedBuyers}</div>
+            <div className="text-2xl font-bold number-counter">{stats.connectedBuyers}</div>
             <p className="text-xs text-muted-foreground">
               Active relationships
             </p>
           </CardContent>
         </Card>
-        <Card>
+        <Card className="stat-card card-glow">
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
             <CardTitle className="text-sm font-medium">
               Monthly Revenue
             </CardTitle>
-            <TrendingUp className="h-4 w-4 text-muted-foreground" />
+            <TrendingUp className="h-4 w-4 text-muted-foreground icon-bounce" />
           </CardHeader>
           <CardContent>
-            <div className="text-2xl font-bold">
+            <div className="text-2xl font-bold number-counter">
               ₹{stats.monthlyRevenue.toLocaleString()}
             </div>
             <p className="text-xs text-muted-foreground">
