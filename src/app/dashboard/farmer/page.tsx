@@ -396,10 +396,10 @@ export default function FarmerDashboard() {
             </Button>
           </CardContent>
         </Card>
-        <Card className="border-amber-200">
+        <Card className="border-amber-200 dashboard-card card-glow">
           <CardHeader className="pb-3">
             <div className="flex items-center gap-2">
-              <Wheat className="h-5 w-5 text-amber-600" />
+              <Wheat className="h-5 w-5 text-amber-600 icon-bounce" />
               <CardTitle className="text-lg">Grains</CardTitle>
             </div>
           </CardHeader>
@@ -444,10 +444,10 @@ export default function FarmerDashboard() {
             </Button>
           </CardContent>
         </Card>
-        <Card className="border-emerald-200">
+        <Card className="border-emerald-200 dashboard-card card-glow">
           <CardHeader className="pb-3">
             <div className="flex items-center gap-2">
-              <Sprout className="h-5 w-5 text-emerald-600" />
+              <Sprout className="h-5 w-5 text-emerald-600 icon-bounce" />
               <CardTitle className="text-lg">Herbs</CardTitle>
             </div>
           </CardHeader>
