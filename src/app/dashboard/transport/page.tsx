@@ -344,63 +344,63 @@ export default function TransportDashboard() {
 
       {/* Today's Quick Stats */}
       <div className="grid gap-4 md:grid-cols-4">
-        <Card className="border-l-4 border-l-green-500">
+        <Card className="border-l-4 border-l-green-500 stat-card card-glow">
           <CardContent className="p-4">
             <div className="flex items-center justify-between">
               <div>
                 <p className="text-sm font-medium text-muted-foreground">
                   Today's Deliveries
                 </p>
-                <p className="text-2xl font-bold text-green-600">
+                <p className="text-2xl font-bold text-green-600 number-counter">
                   {todayStats.deliveriesToday}
                 </p>
               </div>
-              <Package className="h-8 w-8 text-green-500" />
+              <Package className="h-8 w-8 text-green-500 icon-bounce" />
             </div>
           </CardContent>
         </Card>
-        <Card className="border-l-4 border-l-blue-500">
+        <Card className="border-l-4 border-l-blue-500 stat-card card-glow">
           <CardContent className="p-4">
             <div className="flex items-center justify-between">
               <div>
                 <p className="text-sm font-medium text-muted-foreground">
                   Today's Revenue
                 </p>
-                <p className="text-2xl font-bold text-blue-600">
+                <p className="text-2xl font-bold text-blue-600 number-counter">
                   ₹{todayStats.revenueToday.toLocaleString()}
                 </p>
               </div>
-              <IndianRupee className="h-8 w-8 text-blue-500" />
+              <IndianRupee className="h-8 w-8 text-blue-500 icon-bounce" />
             </div>
           </CardContent>
         </Card>
-        <Card className="border-l-4 border-l-purple-500">
+        <Card className="border-l-4 border-l-purple-500 stat-card card-glow">
           <CardContent className="p-4">
             <div className="flex items-center justify-between">
               <div>
                 <p className="text-sm font-medium text-muted-foreground">
                   Distance Covered
                 </p>
-                <p className="text-2xl font-bold text-purple-600">
+                <p className="text-2xl font-bold text-purple-600 number-counter">
                   {todayStats.distanceCovered} km
                 </p>
               </div>
-              <Route className="h-8 w-8 text-purple-500" />
+              <Route className="h-8 w-8 text-purple-500 icon-bounce" />
             </div>
           </CardContent>
         </Card>
-        <Card className="border-l-4 border-l-orange-500">
+        <Card className="border-l-4 border-l-orange-500 stat-card card-glow">
           <CardContent className="p-4">
             <div className="flex items-center justify-between">
               <div>
                 <p className="text-sm font-medium text-muted-foreground">
                   Fuel Consumed
                 </p>
-                <p className="text-2xl font-bold text-orange-600">
+                <p className="text-2xl font-bold text-orange-600 number-counter">
                   {todayStats.fuelConsumed}L
                 </p>
               </div>
-              <Fuel className="h-8 w-8 text-orange-500" />
+              <Fuel className="h-8 w-8 text-orange-500 icon-bounce" />
             </div>
           </CardContent>
         </Card>
