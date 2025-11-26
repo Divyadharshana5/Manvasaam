@@ -300,10 +300,10 @@ export default function FarmerDashboard() {
       </div>
 
       <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
-        <Card className="border-green-200">
+        <Card className="border-green-200 dashboard-card card-glow">
           <CardHeader className="pb-3">
             <div className="flex items-center gap-2">
-              <Leaf className="h-5 w-5 text-green-600" />
+              <Leaf className="h-5 w-5 text-green-600 icon-bounce" />
               <CardTitle className="text-lg">Vegetables</CardTitle>
             </div>
           </CardHeader>
@@ -348,10 +348,10 @@ export default function FarmerDashboard() {
             </Button>
           </CardContent>
         </Card>
-        <Card className="border-orange-200">
+        <Card className="border-orange-200 dashboard-card card-glow">
           <CardHeader className="pb-3">
             <div className="flex items-center gap-2">
-              <Apple className="h-5 w-5 text-orange-600" />
+              <Apple className="h-5 w-5 text-orange-600 icon-bounce" />
               <CardTitle className="text-lg">Fruits</CardTitle>
             </div>
           </CardHeader>
