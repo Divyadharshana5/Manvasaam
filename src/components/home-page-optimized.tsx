@@ -105,8 +105,34 @@ const RoleCard = ({
   loadingRoleHref,
   t,
 }: RoleCardProps) => {
+  const router = useRouter();
+  const [isPrefetched, setIsPrefetched] = useState(false);
+
+  // Aggressive prefetching on mount
+  useEffect(() => {
+    if (!isPrefetched) {
+      router.prefetch(role.href);
+      setIsPrefetched(true);
+    }
+  }, [router, role.href, isPrefetched]);
+
+  const handleHover = useCallback(() => {
+    router.prefetch(role.href);
+  }, [router, role.href]);
+
+  const handleClick = useCallback(() => {
+    // Prefetch one more time right before navigation
+    router.prefetch(role.href);
+    onContinueClick(role.href);
+  }, [onContinueClick, role.href, router]);
+
   return (
-    <Link href={role.href} prefetch={true} className="group w-full block">
+    <div
+      className="group w-full"
+      onMouseEnter={handleHover}
+      onTouchStart={handleHover}
+      onFocus={handleHover}
+    >
       <Card className="bg-card/90 backdrop-blur-sm border-2 border-primary/20 rounded-xl shadow-md hover:shadow-xl transition-all duration-150 p-4 sm:p-6 flex flex-col h-full min-h-[260px] sm:min-h-[300px] cursor-pointer hover:-translate-y-1 active:scale-[0.99]">
         <CardHeader className="items-center flex-shrink-0 pb-2 sm:pb-4">
           <div className="text-4xl sm:text-5xl">
@@ -122,15 +148,27 @@ const RoleCard = ({
               {role.description}
             </p>
           </div>
-          <div className="w-full mt-auto">
-            <div className="w-full bg-primary text-primary-foreground hover:bg-primary/90 h-10 px-4 py-2 rounded-md text-sm sm:text-base font-medium inline-flex items-center justify-center whitespace-nowrap transition-all duration-100 active:scale-95 touch-target">
-              <span className="text-sm sm:text-base">{t.continue}</span>
-              <ArrowRight className="ml-2 h-4 w-4 transition-transform group-hover:translate-x-1" />
-            </div>
-          </div>
+          <Button
+            className="w-full mt-auto transition-all duration-100 active:scale-95 touch-target"
+            onClick={handleClick}
+            disabled={loadingRoleHref === role.href}
+            size="lg"
+          >
+            {loadingRoleHref === role.href ? (
+              <>
+                <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                <span className="text-sm sm:text-base">Loading...</span>
+              </>
+            ) : (
+              <>
+                <span className="text-sm sm:text-base">{t.continue}</span>
+                <ArrowRight className="ml-2 h-4 w-4 transition-transform group-hover:translate-x-1" />
+              </>
+            )}
+          </Button>
         </CardContent>
       </Card>
-    </Link>
+    </div>
   );
 };
 
