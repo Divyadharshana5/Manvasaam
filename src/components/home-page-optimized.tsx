@@ -93,6 +93,8 @@ interface RoleCardProps {
     icon: React.ReactNode;
   };
   index: number;
+  onContinueClick: (href: string) => void;
+  loadingRoleHref: string | null;
   t: any; // This comes from the language context
 }
 
