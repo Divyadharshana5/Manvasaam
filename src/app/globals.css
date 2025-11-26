@@ -324,6 +324,17 @@
     backface-visibility: hidden;
     perspective: 1000px;
   }
+
+  /* Icon shake animation on hover */
+  @keyframes shake-icon {
+    0%, 100% { transform: rotate(0deg); }
+    10%, 30%, 50%, 70%, 90% { transform: rotate(-8deg); }
+    20%, 40%, 60%, 80% { transform: rotate(8deg); }
+  }
+
+  .animate-shake-icon {
+    animation: shake-icon 0.6s ease-in-out;
+  }
 }
 
 @layer base {

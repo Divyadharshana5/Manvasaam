@@ -135,7 +135,7 @@ const RoleCard = ({
     >
       <Card className="bg-card/90 backdrop-blur-sm border-2 border-primary/20 rounded-xl shadow-md hover:shadow-xl transition-all duration-150 p-4 sm:p-6 flex flex-col h-full min-h-[260px] sm:min-h-[300px] cursor-pointer hover:-translate-y-1 active:scale-[0.99]">
         <CardHeader className="items-center flex-shrink-0 pb-2 sm:pb-4">
-          <div className="text-4xl sm:text-5xl">
+          <div className="text-4xl sm:text-5xl group-hover:animate-shake-icon transition-transform">
             {role.icon}
           </div>
         </CardHeader>
