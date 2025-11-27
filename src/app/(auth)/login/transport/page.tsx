@@ -87,7 +87,7 @@ export default function TransportAuthPage() {
   const { navigateFast } = useOptimizedNavigation();
   const [activeTab, setActiveTab] = useState("login");
 
-  const { t } = useLanguage();
+  const { t, selectedLanguage } = useLanguage();
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
   const [passkeyStatus, setPasskeyStatus] = useState<PasskeyStatus>({
