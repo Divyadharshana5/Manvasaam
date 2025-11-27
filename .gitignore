@@ -43,3 +43,12 @@ next-env.d.ts
 # firebase
 firebase-debug.log
 firestore-debug.log
+
+# IDE and tool folders
+.vscode/
+.qodo/
+.idea/
+
+# backup files
+*-backup.*
+*.backup.*
