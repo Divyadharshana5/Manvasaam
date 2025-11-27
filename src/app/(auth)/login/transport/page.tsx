@@ -41,6 +41,7 @@ import "@/styles/auth-animations.css";
 import { motion } from "framer-motion";
 import { registerPasskey, authenticatePasskey, getInitialPasskeyStatus, type PasskeyStatus } from "@/lib/passkey";
 import { FingerprintStatus } from "@/components/ui/fingerprint-status";
+import { Languages } from "lucide-react";
 
 const loginSchema = z.object({
   email: z.string().email({ message: "Invalid email address." }),
