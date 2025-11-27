@@ -448,6 +448,16 @@ export default function TransportAuthPage() {
 
   return (
     <div className="animate-in fade-in duration-1000 relative min-h-screen flex flex-col overflow-hidden">
+      {/* Language Display Badge */}
+      <div className="absolute top-4 right-4 z-50">
+        <div className="flex items-center gap-2 px-4 py-2 bg-white/95 dark:bg-gray-900/95 backdrop-blur-sm border border-emerald-200 dark:border-emerald-700 rounded-full shadow-lg">
+          <Languages className="h-4 w-4 text-emerald-600 dark:text-emerald-400" />
+          <span className="text-sm font-medium text-emerald-700 dark:text-emerald-300">
+            {selectedLanguage}
+          </span>
+        </div>
+      </div>
+
       {/* Main Content Area */}
       <div className="flex-1 flex items-center justify-center p-4">
         {/* Enhanced animated background with farm theme */}
