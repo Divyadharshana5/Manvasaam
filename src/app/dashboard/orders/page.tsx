@@ -185,34 +185,34 @@ export default function OrdersPage() {
 
   return (
     <AppLayout>
-      <div className="w-full space-y-6 py-6 md:py-10 overflow-x-hidden">
-        <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4 mb-2">
-          <div className="space-y-1">
-            <h2 className="text-3xl md:text-4xl font-bold tracking-tight">
-              {t.orders.title}
-            </h2>
-            <p className="text-muted-foreground text-base">
-              {t.orders.description}
-            </p>
-          </div>
+      <div className="w-full space-y-6 py-6 overflow-x-hidden">
+        <div className="flex flex-col gap-2">
+          <h2 className="text-2xl md:text-3xl font-bold tracking-tight">
+            {t.orders.title}
+          </h2>
+          <p className="text-muted-foreground text-sm md:text-base">
+            {t.orders.description}
+          </p>
         </div>
-        <Card className="shadow-lg border-2 border-primary/10 overflow-hidden">
-          <CardHeader className="pb-4 px-6 pt-6">
-            <div className="flex flex-col md:flex-row md:items-start md:justify-between gap-4">
-              <div className="flex-1 space-y-1.5">
-                <CardTitle className="text-xl">{t.orders.cardTitle}</CardTitle>
-                <CardDescription className="text-sm">
-                  {t.orders.cardDescription}
-                </CardDescription>
+        <Card className="shadow-sm border overflow-hidden">
+          <CardHeader className="pb-4 px-4 md:px-6 pt-4 md:pt-6">
+            <div className="flex flex-col gap-4">
+              <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
+                <div className="space-y-1">
+                  <CardTitle className="text-lg md:text-xl">{t.orders.cardTitle}</CardTitle>
+                  <CardDescription className="text-xs md:text-sm">
+                    {t.orders.cardDescription}
+                  </CardDescription>
+                </div>
               </div>
-              <div className="w-full md:w-auto md:min-w-[300px]">
+              <div className="w-full">
                 <div className="relative flex items-center">
                   <Search className="absolute left-3 h-4 w-4 text-muted-foreground pointer-events-none z-10" />
                   <Input
                     placeholder={t.orders.searchPlaceholder}
                     value={searchTerm}
                     onChange={(e) => setSearchTerm(e.target.value)}
-                    className="w-full pl-10 pr-10 h-10"
+                    className="w-full pl-10 pr-10 h-9 md:h-10"
                   />
                   {searchTerm && (
                     <button
@@ -227,7 +227,7 @@ export default function OrdersPage() {
               </div>
             </div>
           </CardHeader>
-          <CardContent className="px-6 pb-6">
+          <CardContent className="px-4 md:px-6 pb-4 md:pb-6">
             {loading ? (
               <div className="space-y-3">
                 {[...Array(5)].map((_, i) => (
@@ -241,22 +241,22 @@ export default function OrdersPage() {
                     <Table>
                       <TableHeader>
                         <TableRow>
-                          <TableHead className="font-semibold">
+                          <TableHead className="font-semibold text-xs">
                             {t.orders.orderId}
                           </TableHead>
-                          <TableHead className="font-semibold">
+                          <TableHead className="font-semibold text-xs">
                             {t.orders.customer}
                           </TableHead>
-                          <TableHead className="font-semibold">
+                          <TableHead className="font-semibold text-xs">
                             {t.orders.status}
                           </TableHead>
-                          <TableHead className="font-semibold">
+                          <TableHead className="font-semibold text-xs">
                             {t.orders.date}
                           </TableHead>
-                          <TableHead className="text-right font-semibold">
+                          <TableHead className="text-right font-semibold text-xs">
                             {t.orders.total}
                           </TableHead>
-                          <TableHead className="text-center font-semibold">
+                          <TableHead className="text-center font-semibold text-xs">
                             {t.orders.actions}
                           </TableHead>
                         </TableRow>
@@ -268,49 +268,50 @@ export default function OrdersPage() {
                             onClick={() => handleRowClick(order)}
                             className={cn(
                               order.status !== "Cancelled"
-                                ? "cursor-pointer hover:shadow-md"
+                                ? "cursor-pointer hover:bg-muted/50"
                                 : "opacity-60",
-                              "transition-shadow duration-300 h-16"
+                              "transition-colors duration-200"
                             )}
                           >
-                            <TableCell className="font-medium py-4">
+                            <TableCell className="font-medium py-3 text-sm">
                               {order.id}
                             </TableCell>
-                            <TableCell className="py-4">
+                            <TableCell className="py-3 text-sm">
                               {(order as any).customer?.name ??
                                 (order as any).customerName ??
                                 "Unknown"}
                             </TableCell>
-                            <TableCell className="py-4">
+                            <TableCell className="py-3">
                               <Badge
                                 variant="outline"
-                                className={getStatusBadgeClass(order.status)}
+                                className={cn("text-xs", getStatusBadgeClass(order.status))}
                               >
                                 {order.status}
                               </Badge>
                             </TableCell>
-                            <TableCell className="py-4">
+                            <TableCell className="py-3 text-sm">
                               {new Date(order.date).toLocaleDateString()}
                             </TableCell>
-                            <TableCell className="text-right py-4 font-medium">
+                            <TableCell className="text-right py-3 font-medium text-sm">
                               {order.total.toLocaleString("en-US", {
                                 style: "currency",
                                 currency: "INR",
                               })}
                             </TableCell>
-                            <TableCell className="text-center py-4">
+                            <TableCell className="text-center py-3">
                               {(order.status === "Shipped" ||
                                 order.status === "Processing") && (
                                 <Button
                                   asChild
                                   variant="outline"
                                   size="sm"
+                                  className="h-8 text-xs"
                                   onClick={(e) => e.stopPropagation()}
                                 >
                                   <Link
                                     href={`/dashboard/track?orderId=${order.id}`}
                                   >
-                                    <LocateFixed className="mr-2 h-4 w-4" />
+                                    <LocateFixed className="mr-1.5 h-3.5 w-3.5" />
                                     {t.orders.trackLive}
                                   </Link>
                                 </Button>
@@ -322,7 +323,7 @@ export default function OrdersPage() {
                     </Table>
                   </div>
                 </div>
-                <div className="grid grid-cols-1 gap-5 md:hidden">
+                <div className="grid grid-cols-1 gap-4 md:hidden">
                   {filteredOrders.map((order) => (
                     <Card
                       key={order.id}
@@ -331,16 +332,16 @@ export default function OrdersPage() {
                         order.status !== "Cancelled"
                           ? "cursor-pointer active:scale-[0.98]"
                           : "opacity-70",
-                        "transition-transform duration-300"
+                        "transition-transform duration-200"
                       )}
                     >
-                      <CardHeader className="pb-3">
+                      <CardHeader className="pb-2 px-4 pt-4">
                         <div className="flex justify-between items-start gap-3">
-                          <div className="space-y-1">
-                            <CardTitle className="text-base font-semibold">
+                          <div className="space-y-0.5">
+                            <CardTitle className="text-sm font-semibold">
                               {order.id}
                             </CardTitle>
-                            <CardDescription className="text-sm">
+                            <CardDescription className="text-xs">
                               {(order as any).customer?.name ??
                                 (order as any).customerName ??
                                 "Unknown"}
@@ -357,11 +358,11 @@ export default function OrdersPage() {
                           </Badge>
                         </div>
                       </CardHeader>
-                      <CardContent className="flex justify-between items-center text-sm pt-0 pb-3">
+                      <CardContent className="flex justify-between items-center text-xs pt-2 pb-3 px-4">
                         <p className="text-muted-foreground">
                           {new Date(order.date).toLocaleDateString()}
                         </p>
-                        <p className="font-semibold text-base">
+                        <p className="font-semibold text-sm">
                           {order.total.toLocaleString("en-US", {
                             style: "currency",
                             currency: "INR",
@@ -370,16 +371,16 @@ export default function OrdersPage() {
                       </CardContent>
                       {(order.status === "Shipped" ||
                         order.status === "Processing") && (
-                        <CardFooter className="pt-0 pb-4">
+                        <CardFooter className="pt-0 pb-3 px-4">
                           <Button
                             asChild
                             variant="outline"
                             size="sm"
-                            className="w-full h-9"
+                            className="w-full h-8 text-xs"
                             onClick={(e) => e.stopPropagation()}
                           >
                             <Link href={`/dashboard/track?orderId=${order.id}`}>
-                              <LocateFixed className="mr-2 h-4 w-4" />
+                              <LocateFixed className="mr-1.5 h-3.5 w-3.5" />
                               {t.orders.trackLive}
                             </Link>
                           </Button>
