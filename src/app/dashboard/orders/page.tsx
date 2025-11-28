@@ -185,7 +185,7 @@ export default function OrdersPage() {
 
   return (
     <AppLayout>
-      <div className="w-full space-y-6 py-6 overflow-x-hidden">
+      <div className="w-full max-w-7xl mx-auto space-y-6 py-6">
         <div className="flex flex-col gap-2">
           <h2 className="text-2xl md:text-3xl font-bold tracking-tight">
             {t.orders.title}
