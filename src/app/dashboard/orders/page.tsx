@@ -396,67 +396,67 @@ export default function OrdersPage() {
       </div>
 
       <Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
-        <DialogContent className="sm:max-w-lg max-h-[85vh] overflow-y-auto">
-          <DialogHeader className="pb-4">
-            <DialogTitle className="text-xl">
+        <DialogContent className="sm:max-w-lg max-h-[90vh] overflow-y-auto">
+          <DialogHeader className="pb-3">
+            <DialogTitle className="text-lg md:text-xl">
               {t.orders.dialogTitle}: {selectedOrder?.id}
             </DialogTitle>
-            <DialogDescription className="text-sm pt-1">
+            <DialogDescription className="text-xs md:text-sm pt-1">
               {t.orders.dialogDescription}
             </DialogDescription>
           </DialogHeader>
           {shippingInfo ? (
-            <div className="space-y-5 pt-2">
-              <div className="flex items-start gap-4 p-3 rounded-lg border">
-                <MapPin className="h-5 w-5 text-primary mt-0.5 shrink-0" />
-                <div className="space-y-1">
-                  <p className="text-sm text-muted-foreground">
+            <div className="space-y-4 pt-1">
+              <div className="flex items-start gap-3 p-3 rounded-lg border bg-muted/30">
+                <MapPin className="h-4 w-4 md:h-5 md:w-5 text-primary mt-0.5 shrink-0" />
+                <div className="space-y-0.5">
+                  <p className="text-xs md:text-sm text-muted-foreground">
                     {t.orders.currentLocation}
                   </p>
-                  <p className="font-semibold text-base">
+                  <p className="font-semibold text-sm md:text-base">
                     {shippingInfo.currentLocation}
                   </p>
                 </div>
               </div>
-              <div className="flex items-start gap-4 p-3 rounded-lg border">
-                <PackageCheck className="h-5 w-5 text-primary mt-0.5 shrink-0" />
-                <div className="space-y-1">
-                  <p className="text-sm text-muted-foreground">
+              <div className="flex items-start gap-3 p-3 rounded-lg border bg-muted/30">
+                <PackageCheck className="h-4 w-4 md:h-5 md:w-5 text-primary mt-0.5 shrink-0" />
+                <div className="space-y-0.5">
+                  <p className="text-xs md:text-sm text-muted-foreground">
                     {t.orders.reachedState}
                   </p>
-                  <p className="font-semibold text-base">
+                  <p className="font-semibold text-sm md:text-base">
                     {shippingInfo.hasReachedState ? "Yes" : "Not Yet"}
                   </p>
                 </div>
               </div>
-              <div className="flex items-start gap-4 p-3 rounded-lg border">
-                <CalendarClock className="h-5 w-5 text-primary mt-0.5 shrink-0" />
-                <div className="space-y-1">
-                  <p className="text-sm text-muted-foreground">
+              <div className="flex items-start gap-3 p-3 rounded-lg border bg-muted/30">
+                <CalendarClock className="h-4 w-4 md:h-5 md:w-5 text-primary mt-0.5 shrink-0" />
+                <div className="space-y-0.5">
+                  <p className="text-xs md:text-sm text-muted-foreground">
                     {t.orders.estimatedDelivery}
                   </p>
-                  <p className="font-semibold text-base">
+                  <p className="font-semibold text-sm md:text-base">
                     {new Date(shippingInfo.estimatedDelivery).toDateString()}
                   </p>
                 </div>
               </div>
 
-              <div className="space-y-4 pt-2">
-                <h4 className="font-semibold text-base">
+              <div className="space-y-3 pt-2">
+                <h4 className="font-semibold text-sm md:text-base">
                   {t.orders.shipmentHistory}
                 </h4>
-                <div className="relative pl-8">
-                  <div className="absolute left-[15px] top-2 h-[calc(100%-16px)] w-0.5 bg-border"></div>
+                <div className="relative pl-7 md:pl-8">
+                  <div className="absolute left-[13px] md:left-[15px] top-2 h-[calc(100%-16px)] w-0.5 bg-border"></div>
                   {shippingInfo.path.map((stop, index) => (
                     <div
                       key={index}
-                      className="relative flex items-start gap-4 mb-5 last:mb-0"
+                      className="relative flex items-start gap-3 mb-4 last:mb-0"
                     >
-                      <div className="z-10 flex h-8 w-8 items-center justify-center rounded-full bg-primary text-primary-foreground shrink-0">
-                        <Truck className="h-4 w-4" />
+                      <div className="z-10 flex h-7 w-7 md:h-8 md:w-8 items-center justify-center rounded-full bg-primary text-primary-foreground shrink-0">
+                        <Truck className="h-3.5 w-3.5 md:h-4 md:w-4" />
                       </div>
-                      <div className="flex-1 pt-1 pb-2">
-                        <p className="font-semibold text-sm mb-1">
+                      <div className="flex-1 pt-0.5 pb-1">
+                        <p className="font-semibold text-xs md:text-sm mb-0.5">
                           {stop.location}
                         </p>
                         <p className="text-xs text-muted-foreground">
@@ -469,7 +469,7 @@ export default function OrdersPage() {
               </div>
             </div>
           ) : (
-            <p className="py-8 text-center text-muted-foreground">
+            <p className="py-6 text-center text-sm text-muted-foreground">
               {t.orders.noDetails}
             </p>
           )}
