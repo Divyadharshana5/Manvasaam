@@ -185,16 +185,17 @@ export default function OrdersPage() {
 
   return (
     <AppLayout>
-      <div className="space-y-4 md:space-y-6 py-4 md:py-6">
-        <div className="flex flex-col gap-1.5">
-          <h2 className="text-2xl md:text-3xl font-bold tracking-tight">
-            {t.orders.title}
-          </h2>
-          <p className="text-muted-foreground text-sm">
-            {t.orders.description}
-          </p>
-        </div>
-        <Card className="shadow-sm border">
+      <div className="flex justify-center w-full">
+        <div className="w-full max-w-6xl space-y-4 md:space-y-6 py-4 md:py-6">
+          <div className="flex flex-col gap-1.5">
+            <h2 className="text-2xl md:text-3xl font-bold tracking-tight">
+              {t.orders.title}
+            </h2>
+            <p className="text-muted-foreground text-sm">
+              {t.orders.description}
+            </p>
+          </div>
+          <Card className="shadow-sm border">
           <CardHeader className="pb-3 px-4 md:px-6 pt-4 md:pt-6">
             <div className="flex flex-col gap-4">
               <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
