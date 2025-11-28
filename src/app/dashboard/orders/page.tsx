@@ -394,9 +394,8 @@ export default function OrdersPage() {
             )}
           </CardContent>
         </Card>
-      </div>
 
-      <Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
+        <Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
         <DialogContent className="sm:max-w-lg max-h-[90vh] overflow-y-auto">
           <DialogHeader className="pb-3">
             <DialogTitle className="text-lg md:text-xl">
