@@ -256,7 +256,7 @@ export function AppLayout({ children }: { children: React.ReactNode }) {
 
   return (
     <SidebarProvider>
-      <Sidebar className="!hidden !w-0 !min-w-0">
+      <Sidebar className="hidden w-0 min-w-0" style={{ display: 'none' }}>
         <SidebarHeader>
           <div
             className={cn(
