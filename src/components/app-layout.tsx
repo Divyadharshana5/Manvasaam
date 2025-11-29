@@ -255,54 +255,8 @@ export function AppLayout({ children }: { children: React.ReactNode }) {
   };
 
   return (
-    <SidebarProvider>
-      <Sidebar className="hidden w-0 min-w-0" style={{ display: 'none' }}>
-        <SidebarHeader>
-          <div
-            className={cn(
-              "flex items-center gap-2 p-2 pl-3 transition-all duration-200",
-              "group-data-[collapsible=icon]:justify-center group-data-[collapsible=icon]:p-2"
-            )}
-          >
-            <ManvaasamLogo
-              width={28}
-              height={28}
-              className="shrink-0 text-primary"
-            />
-            <span
-              className={cn(
-                "text-lg font-bold text-primary",
-                "group-data-[collapsible=icon]:hidden"
-              )}
-            >
-              Manvaasam
-            </span>
-          </div>
-        </SidebarHeader>
-        <SidebarContent>
-          <SidebarGroup>
-            <SidebarGroupLabel>{getSidebarHeading()}</SidebarGroupLabel>
-            <SidebarMenu>
-              {menuItems.map((item) => (
-                <SidebarMenuItem key={item.href}>
-                  <SidebarMenuButton
-                    asChild
-                    isActive={pathname.startsWith(item.href)}
-                    tooltip={{ children: item.label }}
-                  >
-                    <Link href={item.href}>
-                      <item.icon />
-                      <span>{item.label}</span>
-                    </Link>
-                  </SidebarMenuButton>
-                </SidebarMenuItem>
-              ))}
-            </SidebarMenu>
-          </SidebarGroup>
-        </SidebarContent>
-      </Sidebar>
-      <SidebarInset className="w-screen" style={{ marginLeft: 0, left: 0 }}>
-        <header className="flex h-14 items-center gap-4 border-b bg-background/30 backdrop-blur-sm px-4 md:px-6 sticky top-0 z-40 w-full">
+    <div className="min-h-screen w-full flex flex-col">
+      <header className="flex h-14 items-center gap-4 border-b bg-background/30 backdrop-blur-sm px-4 md:px-6 sticky top-0 z-40 w-full">
           <Button
             variant="ghost"
             size="icon"
