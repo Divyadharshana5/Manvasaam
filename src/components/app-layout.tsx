@@ -325,12 +325,11 @@ export function AppLayout({ children }: { children: React.ReactNode }) {
               </DropdownMenuContent>
             </DropdownMenu>
           </div>
-        </header>
-        <main className="w-full min-h-screen overflow-auto bg-background flex justify-center">
-          <div className="w-full max-w-7xl px-4 md:px-6 lg:px-8">{children}</div>
-        </main>
-      </SidebarInset>
-    </SidebarProvider>
+      </header>
+      <main className="flex-1 w-full overflow-auto bg-background flex justify-center">
+        <div className="w-full max-w-7xl px-4 md:px-6 lg:px-8">{children}</div>
+      </main>
+    </div>
   );
 }
 
