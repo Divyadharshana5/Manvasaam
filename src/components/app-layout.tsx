@@ -301,8 +301,8 @@ export function AppLayout({ children }: { children: React.ReactNode }) {
           </SidebarGroup>
         </SidebarContent>
       </Sidebar>
-      <SidebarInset className="overflow-x-hidden w-full ml-0">
-        <header className="flex h-14 items-center gap-4 border-b bg-background/30 backdrop-blur-sm px-6 sticky top-0 z-40">
+      <SidebarInset className="overflow-x-hidden w-full !ml-0 flex-1">
+        <header className="flex h-14 items-center gap-4 border-b bg-background/30 backdrop-blur-sm px-4 md:px-6 sticky top-0 z-40">
           <Button
             variant="ghost"
             size="icon"
