@@ -473,8 +473,7 @@ export default function OrdersPage() {
             </p>
           )}
         </DialogContent>
-        </Dialog>
-      </div>
+      </Dialog>
       </div>
     </AppLayout>
   );
