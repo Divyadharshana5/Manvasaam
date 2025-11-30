@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import "@/styles/farmer-animations.css";
 import {
   Card,
   CardContent,
