@@ -2,6 +2,7 @@
 @import "../styles/navigation-transitions.css";
 @import "../styles/fast-transitions.css";
 @import "../styles/dashboard-animations.css";
+@import "../styles/farmer-animations.css";
 
 @tailwind base;
 @tailwind components;
