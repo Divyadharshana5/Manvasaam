@@ -328,7 +328,7 @@ export default function FarmerMatchmakingPage() {
       )}
 
       {/* Tabs */}
-      <Tabs value={activeTab} onValueChange={setActiveTab}>
+      <Tabs value={activeTab} onValueChange={setActiveTab} className="animate-fade-in-up stagger-2">
         <TabsList className="grid w-full grid-cols-2">
           <TabsTrigger value="transport" className="flex items-center gap-2">
             <Truck className="h-4 w-4" />
