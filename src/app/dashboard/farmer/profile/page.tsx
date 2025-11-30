@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import "@/styles/farmer-animations.css";
 import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card";
 import { useAuth } from "@/hooks/use-auth";
 import { Loader2, Edit3, Save, Sprout, CheckCircle, X } from "lucide-react";
