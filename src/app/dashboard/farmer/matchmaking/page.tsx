@@ -340,10 +340,10 @@ export default function FarmerMatchmakingPage() {
           </TabsTrigger>
         </TabsList>
         {/* Transport Companies Tab */}
-        <TabsContent value="transport" className="space-y-4">
+        <TabsContent value="transport" className="space-y-4 tab-content">
           <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
-            {transportServices.map((transport) => (
-              <Card key={transport.id} className="overflow-hidden">
+            {transportServices.map((transport, index) => (
+              <Card key={transport.id} className={`overflow-hidden product-card card-glow stagger-${Math.min(index + 1, 6)}`}>
                 <CardHeader className="pb-3">
                   <div className="flex items-start justify-between">
                     <div className="flex items-center gap-3">
