@@ -549,7 +549,7 @@ function FarmerProductsContent() {
         )}
 
         {/* Products List */}
-        <Card>
+        <Card className="animate-fade-in-up stagger-2 card-glow">
           <CardHeader>
             <CardTitle>
               Your Products
