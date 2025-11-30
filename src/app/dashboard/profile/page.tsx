@@ -922,7 +922,7 @@ export default function ProfilePage() {
           <Button 
             type="submit" 
             disabled={isUpdating}
-            className="bg-blue-600 hover:bg-blue-700"
+            className="bg-green-600 hover:bg-green-700"
           >
             {isUpdating ? (
               <>
@@ -954,7 +954,7 @@ export default function ProfilePage() {
           </div>
           <Dialog open={isEditDialogOpen} onOpenChange={setIsEditDialogOpen}>
             <DialogTrigger asChild>
-              <Button className="bg-blue-600 hover:bg-blue-700">
+              <Button className="bg-green-600 hover:bg-green-700">
                 <Edit3 className="mr-2 h-4 w-4" />
                 Update Profile
               </Button>
