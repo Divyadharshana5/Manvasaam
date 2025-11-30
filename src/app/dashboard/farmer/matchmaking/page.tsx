@@ -468,14 +468,14 @@ export default function FarmerMatchmakingPage() {
         <TabsContent value="drivers" className="space-y-4">
           <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
             {drivers.map((driver) => (
-              <Card key={restaurant.id} className="overflow-hidden">
+              <Card key={driver.id} className="overflow-hidden">
                 <CardHeader className="pb-3">
                   <div className="flex items-start justify-between">
                     <div className="flex items-center gap-3">
                       <Avatar>
-                        <AvatarImage src={restaurant.avatar} />
+                        <AvatarImage src={driver.avatar} />
                         <AvatarFallback>
-                          {restaurant.name
+                          {driver.name
                             .split(" ")
                             .map((n) => n[0])
                             .join("")}
@@ -483,12 +483,12 @@ export default function FarmerMatchmakingPage() {
                       </Avatar>
                       <div>
                         <CardTitle className="text-lg">
-                          {restaurant.name}
+                          {driver.name}
                         </CardTitle>
-                        <CardDescription>{restaurant.cuisine}</CardDescription>
+                        <CardDescription>{driver.type}</CardDescription>
                       </div>
                     </div>
-                    {restaurant.verified && (
+                    {driver.verified && (
                       <Badge className="bg-green-100 text-green-800">
                         Verified
                       </Badge>
@@ -498,30 +498,48 @@ export default function FarmerMatchmakingPage() {
                 <CardContent className="space-y-4">
                   <div className="flex items-center gap-2 text-sm text-muted-foreground">
                     <MapPin className="h-4 w-4" />
-                    {restaurant.location}
+                    {driver.location}
                   </div>
 
-                  <div className="flex items-center gap-4 text-sm">
+                  <div className="flex items-center gap-4 text-sm flex-wrap">
                     <div className="flex items-center gap-1">
                       <Star className="h-4 w-4 fill-yellow-400 text-yellow-400" />
-                      <span>{restaurant.rating}</span>
+                      <span>{driver.rating}</span>
                     </div>
-                    <span>{restaurant.orders} orders</span>
-                    <span>{restaurant.monthlyVolume}/month</span>
+                    <span>{driver.completedTrips} trips</span>
+                  </div>
+
+                  <div className="grid grid-cols-2 gap-2 text-sm">
+                    <div>
+                      <p className="text-muted-foreground">Capacity</p>
+                      <p className="font-semibold">{driver.capacity}</p>
+                    </div>
+                    <div>
+                      <p className="text-muted-foreground">Rate</p>
+                      <p className="font-semibold">{driver.pricePerKm}/km</p>
+                    </div>
                   </div>
 
                   <div className="space-y-2">
-                    <p className="text-sm font-medium">Requirements:</p>
-                    <div className="flex flex-wrap gap-1">
-                      {restaurant.requirements.map((req) => (
-                        <Badge
-                          key={req}
-                          variant="secondary"
-                          className="text-xs"
-                        >
-                          {req}
-                        </Badge>
-                      ))}
+                    <p className="text-sm font-medium">Vehicle Type:</p>
+                    <Badge variant="secondary" className="text-xs">
+                      {driver.vehicleType}
+                    </Badge>
+                  </div>
+
+                  <div className="grid grid-cols-2 gap-2 text-sm">
+                    <div>
+                      <p className="text-muted-foreground">Experience</p>
+                      <p className="font-semibold">{driver.experience}</p>
+                    </div>
+                    <div>
+                      <p className="text-muted-foreground">Status</p>
+                      <Badge 
+                        variant={driver.availability === "Available Now" ? "default" : "secondary"}
+                        className={driver.availability === "Available Now" ? "bg-green-600" : ""}
+                      >
+                        {driver.availability}
+                      </Badge>
                     </div>
                   </div>
 
@@ -535,122 +553,9 @@ export default function FarmerMatchmakingPage() {
                       </DialogTrigger>
                       <DialogContent>
                         <DialogHeader>
-                          <DialogTitle>Chat with {restaurant.name}</DialogTitle>
+                          <DialogTitle>Chat with {driver.name}</DialogTitle>
                           <DialogDescription>
-                            Discuss bulk orders and supply agreements.
-                          </DialogDescription>
-                        </DialogHeader>
-                        <div className="space-y-4">
-                          <div className="h-64 border rounded-lg p-4 bg-muted/20">
-                            <p className="text-sm text-muted-foreground text-center mt-20">
-                              Chat interface would be implemented here
-                            </p>
-                          </div>
-                          <div className="flex gap-2">
-                            <Input
-                              placeholder="Type your message..."
-                              className="flex-1"
-                            />
-                            <Button size="icon">
-                              <Send className="h-4 w-4" />
-                            </Button>
-                          </div>
-                        </div>
-                      </DialogContent>
-                    </Dialog>
-                    <Button size="sm" className="flex-1">
-                      <Video className="mr-2 h-4 w-4" />
-                      Video Call
-                    </Button>
-                  </div>
-                </CardContent>
-              </Card>
-            ))}
-          </div>
-        </TabsContent>
-        {/* Hubs Tab */}
-        <TabsContent value="hubs" className="space-y-4">
-          <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
-            {hubs.map((hub) => (
-              <Card key={hub.id} className="overflow-hidden">
-                <CardHeader className="pb-3">
-                  <div className="flex items-start justify-between">
-                    <div className="flex items-center gap-3">
-                      <Avatar>
-                        <AvatarImage src={hub.avatar} />
-                        <AvatarFallback>
-                          {hub.name
-                            .split(" ")
-                            .map((n) => n[0])
-                            .join("")}
-                        </AvatarFallback>
-                      </Avatar>
-                      <div>
-                        <CardTitle className="text-lg">{hub.name}</CardTitle>
-                        <CardDescription>{hub.type}</CardDescription>
-                      </div>
-                    </div>
-                    {hub.verified && (
-                      <Badge className="bg-green-100 text-green-800">
-                        Verified
-                      </Badge>
-                    )}
-                  </div>
-                </CardHeader>
-                <CardContent className="space-y-4">
-                  <div className="flex items-center gap-2 text-sm text-muted-foreground">
-                    <MapPin className="h-4 w-4" />
-                    {hub.location}
-                  </div>
-
-                  <div className="flex items-center gap-4 text-sm">
-                    <div className="flex items-center gap-1">
-                      <Star className="h-4 w-4 fill-yellow-400 text-yellow-400" />
-                      <span>{hub.rating}</span>
-                    </div>
-                    <span>{hub.farmers} farmers</span>
-                    <span>{hub.capacity}</span>
-                  </div>
-
-                  <div className="space-y-2">
-                    <p className="text-sm font-medium">Services:</p>
-                    <div className="flex flex-wrap gap-1">
-                      {hub.services.map((service) => (
-                        <Badge
-                          key={service}
-                          variant="secondary"
-                          className="text-xs"
-                        >
-                          {service}
-                        </Badge>
-                      ))}
-                    </div>
-                  </div>
-
-                  <div className="space-y-2">
-                    <p className="text-sm font-medium">Coverage Areas:</p>
-                    <div className="flex flex-wrap gap-1">
-                      {hub.coverage.map((area) => (
-                        <Badge key={area} variant="outline" className="text-xs">
-                          {area}
-                        </Badge>
-                      ))}
-                    </div>
-                  </div>
-
-                  <div className="flex gap-2">
-                    <Dialog>
-                      <DialogTrigger asChild>
-                        <Button variant="outline" size="sm" className="flex-1">
-                          <MessageCircle className="mr-2 h-4 w-4" />
-                          Chat
-                        </Button>
-                      </DialogTrigger>
-                      <DialogContent>
-                        <DialogHeader>
-                          <DialogTitle>Chat with {hub.name}</DialogTitle>
-                          <DialogDescription>
-                            Discuss partnership opportunities and logistics.
+                            Discuss transport requirements and schedule.
                           </DialogDescription>
                         </DialogHeader>
                         <div className="space-y-4">
