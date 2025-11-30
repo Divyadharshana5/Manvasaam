@@ -1,5 +1,6 @@
 "use client";
 
+import "@/styles/farmer-animations.css";
 import {
   Card,
   CardContent,
