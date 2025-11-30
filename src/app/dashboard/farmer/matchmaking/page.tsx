@@ -185,7 +185,7 @@ export default function FarmerMatchmakingPage() {
       </div>
 
       {/* Search */}
-      <div className="flex items-center gap-4">
+      <div className="flex items-center gap-4 animate-fade-in-up stagger-1">
         <div className="relative flex-1 max-w-md">
           <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground pointer-events-none z-10" />
           <Input
