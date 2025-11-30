@@ -3,6 +3,7 @@
 import { useState, useEffect, Suspense } from "react";
 import { useAuth } from "@/hooks/use-auth";
 import { useSearchParams } from "next/navigation";
+import "@/styles/farmer-animations.css";
 import AppLayout from "@/components/app-layout";
 import HubSelector from "@/components/hub-selector";
 import {
