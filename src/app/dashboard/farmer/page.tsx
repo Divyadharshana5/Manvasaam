@@ -550,7 +550,7 @@ export default function FarmerDashboard() {
           </CardContent>
         </Card>
 
-        <Card>
+        <Card className="card-glow">
           <CardHeader>
             <CardTitle>Quick Actions</CardTitle>
             <CardDescription>Frequently used farmer operations</CardDescription>
