@@ -463,12 +463,11 @@ export default function FarmerMatchmakingPage() {
               </Card>
             ))}
           </div>
-        </TabsContent>{" "}
-        {/*
- Restaurants Tab */}
-        <TabsContent value="restaurants" className="space-y-4">
+        </TabsContent>
+        {/* Independent Drivers Tab */}
+        <TabsContent value="drivers" className="space-y-4">
           <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
-            {restaurants.map((restaurant) => (
+            {drivers.map((driver) => (
               <Card key={restaurant.id} className="overflow-hidden">
                 <CardHeader className="pb-3">
                   <div className="flex items-start justify-between">
