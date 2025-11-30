@@ -594,8 +594,8 @@ function FarmerProductsContent() {
               </div>
             ) : (
               <div className="space-y-4">
-                {filteredProducts.map((product) => (
-                  <div key={product.id} className="border rounded-lg p-4">
+                {filteredProducts.map((product, index) => (
+                  <div key={product.id} className={`border rounded-lg p-4 list-item animate-fade-in-up stagger-${Math.min(index + 1, 6)}`}>
                     <div className="flex items-start justify-between">
                       <div>
                         <h3 className="font-semibold">{product.name}</h3>
