@@ -466,10 +466,10 @@ export default function FarmerMatchmakingPage() {
           </div>
         </TabsContent>
         {/* Independent Drivers Tab */}
-        <TabsContent value="drivers" className="space-y-4">
+        <TabsContent value="drivers" className="space-y-4 tab-content">
           <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
-            {drivers.map((driver) => (
-              <Card key={driver.id} className="overflow-hidden">
+            {drivers.map((driver, index) => (
+              <Card key={driver.id} className={`overflow-hidden product-card card-glow stagger-${Math.min(index + 1, 6)}`}>
                 <CardHeader className="pb-3">
                   <div className="flex items-start justify-between">
                     <div className="flex items-center gap-3">
