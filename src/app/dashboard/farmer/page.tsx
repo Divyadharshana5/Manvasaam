@@ -161,9 +161,9 @@ export default function FarmerDashboard() {
   };
 
   return (
-    <div className="flex flex-1 flex-col gap-4 p-4 md:gap-8 md:p-8">
+    <div className="flex flex-1 flex-col gap-4 p-4 md:gap-8 md:p-8 page-transition">
       {/* Status and Search */}
-      <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
+      <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 animate-fade-in-up">
         <div className="flex items-center gap-2">
           <Badge variant="outline" className="text-green-600">
             <CheckCircle className="h-3 w-3 mr-1" />
