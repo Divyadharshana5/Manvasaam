@@ -351,7 +351,7 @@ function FarmerProductsContent() {
 
         {/* Add Product Form */}
         {showAddForm && (
-          <Card id="add-product-form" className="border-primary">
+          <Card id="add-product-form" className="border-primary animate-scale-in">
             <CardHeader>
               <CardTitle>Add New Product</CardTitle>
               <CardDescription>
