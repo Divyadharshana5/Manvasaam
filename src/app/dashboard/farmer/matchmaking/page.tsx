@@ -176,9 +176,9 @@ export default function FarmerMatchmakingPage() {
       {/* Header */}
       <div className="flex items-center justify-between">
         <div>
-          <h1 className="text-3xl font-bold tracking-tight">Matchmaking</h1>
+          <h1 className="text-3xl font-bold tracking-tight">Find Transport Services</h1>
           <p className="text-muted-foreground">
-            Connect with customers, restaurants, and distribution hubs
+            Connect with transport companies and drivers for your produce delivery
           </p>
         </div>
       </div>
