@@ -300,7 +300,7 @@ export default function FarmerDashboard() {
         </Card>
       </div>
 
-      <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
+      <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4 animate-fade-in-up stagger-3">
         <Card className="border-green-200 dashboard-card card-glow">
           <CardHeader className="pb-3">
             <div className="flex items-center gap-2">
