@@ -495,8 +495,8 @@ export default function FarmerDashboard() {
         </Card>
       </div>
 
-      <div className="grid gap-4 md:grid-cols-2">
-        <Card>
+      <div className="grid gap-4 md:grid-cols-2 animate-fade-in-up stagger-4">
+        <Card className="card-glow">
           <CardHeader>
             <CardTitle>Recent Orders</CardTitle>
             <CardDescription>Latest orders from buyers</CardDescription>
