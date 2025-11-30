@@ -163,7 +163,7 @@ const drivers = [
 
 export default function FarmerMatchmakingPage() {
   const [searchTerm, setSearchTerm] = useState("");
-  const [activeTab, setActiveTab] = useState("customers");
+  const [activeTab, setActiveTab] = useState("transport");
   const [isFilterOpen, setIsFilterOpen] = useState(false);
   const [filters, setFilters] = useState({
     verified: false,
