@@ -328,18 +328,14 @@ export default function FarmerMatchmakingPage() {
 
       {/* Tabs */}
       <Tabs value={activeTab} onValueChange={setActiveTab}>
-        <TabsList className="grid w-full grid-cols-3">
-          <TabsTrigger value="customers" className="flex items-center gap-2">
+        <TabsList className="grid w-full grid-cols-2">
+          <TabsTrigger value="transport" className="flex items-center gap-2">
+            <Truck className="h-4 w-4" />
+            Transport Companies ({transportServices.length})
+          </TabsTrigger>
+          <TabsTrigger value="drivers" className="flex items-center gap-2">
             <Users className="h-4 w-4" />
-            Customers ({customers.length})
-          </TabsTrigger>
-          <TabsTrigger value="restaurants" className="flex items-center gap-2">
-            <ShoppingCart className="h-4 w-4" />
-            Restaurants ({restaurants.length})
-          </TabsTrigger>
-          <TabsTrigger value="hubs" className="flex items-center gap-2">
-            <Building2 className="h-4 w-4" />
-            Hubs ({hubs.length})
+            Independent Drivers ({drivers.length})
           </TabsTrigger>
         </TabsList>
         {/* Customers Tab */}
