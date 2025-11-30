@@ -269,7 +269,7 @@ export function AppLayout({ children }: { children: React.ReactNode }) {
             <h1 className="text-xl font-semibold">{getPageTitle()}</h1>
           </div>
           <div className="flex items-center gap-4">
-            <VoiceAssistant />
+            {!pathname.startsWith("/dashboard/farmer/products") && <VoiceAssistant />}
             <DropdownMenu>
               <DropdownMenuTrigger asChild>
                 <Button
