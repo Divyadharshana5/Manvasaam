@@ -299,7 +299,7 @@ function FarmerProductsContent() {
         </div>
 
         {/* Hub Selection */}
-        <div className="grid gap-4 md:grid-cols-3">
+        <div className="grid gap-4 md:grid-cols-3 animate-fade-in-up stagger-1">
           <div className="md:col-span-2">
             <HubSelector
               farmerId={user.uid}
