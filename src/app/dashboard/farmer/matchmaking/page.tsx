@@ -338,31 +338,28 @@ export default function FarmerMatchmakingPage() {
             Independent Drivers ({drivers.length})
           </TabsTrigger>
         </TabsList>
-        {/* Customers Tab */}
-        <TabsContent value="customers" className="space-y-4">
+        {/* Transport Companies Tab */}
+        <TabsContent value="transport" className="space-y-4">
           <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
-            {customers.map((customer) => (
-              <Card key={customer.id} className="overflow-hidden">
+            {transportServices.map((transport) => (
+              <Card key={transport.id} className="overflow-hidden">
                 <CardHeader className="pb-3">
                   <div className="flex items-start justify-between">
                     <div className="flex items-center gap-3">
                       <Avatar>
-                        <AvatarImage src={customer.avatar} />
+                        <AvatarImage src={transport.avatar} />
                         <AvatarFallback>
-                          {customer.name
-                            .split(" ")
-                            .map((n) => n[0])
-                            .join("")}
+                          <Truck className="h-5 w-5" />
                         </AvatarFallback>
                       </Avatar>
                       <div>
                         <CardTitle className="text-lg">
-                          {customer.name}
+                          {transport.name}
                         </CardTitle>
-                        <CardDescription>{customer.type}</CardDescription>
+                        <CardDescription>{transport.type}</CardDescription>
                       </div>
                     </div>
-                    {customer.verified && (
+                    {transport.verified && (
                       <Badge className="bg-green-100 text-green-800">
                         Verified
                       </Badge>
@@ -372,27 +369,53 @@ export default function FarmerMatchmakingPage() {
                 <CardContent className="space-y-4">
                   <div className="flex items-center gap-2 text-sm text-muted-foreground">
                     <MapPin className="h-4 w-4" />
-                    {customer.location}
+                    {transport.location}
                   </div>
 
-                  <div className="flex items-center gap-4 text-sm">
+                  <div className="flex items-center gap-4 text-sm flex-wrap">
                     <div className="flex items-center gap-1">
                       <Star className="h-4 w-4 fill-yellow-400 text-yellow-400" />
-                      <span>{customer.rating}</span>
+                      <span>{transport.rating}</span>
                     </div>
-                    <span>{customer.orders} orders</span>
+                    <span>{transport.completedTrips} trips</span>
+                  </div>
+
+                  <div className="grid grid-cols-2 gap-2 text-sm">
+                    <div>
+                      <p className="text-muted-foreground">Capacity</p>
+                      <p className="font-semibold">{transport.capacity}</p>
+                    </div>
+                    <div>
+                      <p className="text-muted-foreground">Rate</p>
+                      <p className="font-semibold">{transport.pricePerKm}/km</p>
+                    </div>
                   </div>
 
                   <div className="space-y-2">
-                    <p className="text-sm font-medium">Preferences:</p>
+                    <p className="text-sm font-medium">Vehicle Types:</p>
                     <div className="flex flex-wrap gap-1">
-                      {customer.preferences.map((pref) => (
+                      {transport.vehicleTypes.map((vehicle) => (
                         <Badge
-                          key={pref}
+                          key={vehicle}
                           variant="secondary"
                           className="text-xs"
                         >
-                          {pref}
+                          {vehicle}
+                        </Badge>
+                      ))}
+                    </div>
+                  </div>
+
+                  <div className="space-y-2">
+                    <p className="text-sm font-medium">Coverage:</p>
+                    <div className="flex flex-wrap gap-1">
+                      {transport.coverage.map((area) => (
+                        <Badge
+                          key={area}
+                          variant="outline"
+                          className="text-xs"
+                        >
+                          {area}
                         </Badge>
                       ))}
                     </div>
@@ -408,10 +431,9 @@ export default function FarmerMatchmakingPage() {
                       </DialogTrigger>
                       <DialogContent>
                         <DialogHeader>
-                          <DialogTitle>Chat with {customer.name}</DialogTitle>
+                          <DialogTitle>Chat with {transport.name}</DialogTitle>
                           <DialogDescription>
-                            Start a conversation to discuss your products and
-                            availability.
+                            Discuss transport requirements and pricing.
                           </DialogDescription>
                         </DialogHeader>
                         <div className="space-y-4">
