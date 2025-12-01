@@ -122,9 +122,9 @@ export default function RetailDashboard() {
 
 
     return (
-        <div className="flex flex-1 flex-col gap-4 p-4 md:gap-8 md:p-8">
+        <div className="flex flex-1 flex-col gap-4 p-4 md:gap-8 md:p-8 page-transition">
             {/* Status and Search */}
-            <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
+            <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 animate-fade-in-up">
                 <div className="flex items-center gap-2">
                     <Badge variant="outline" className="text-green-600">
                         <CheckCircle className="h-3 w-3 mr-1" />
@@ -158,7 +158,7 @@ export default function RetailDashboard() {
 
             {/* Today's Quick Stats */}
             <div className="grid gap-4 md:grid-cols-4">
-                <Card className="border-l-4 border-l-green-500 stat-card card-glow">
+                <Card className="border-l-4 border-l-green-500 stat-card card-glow animate-fade-in-up stagger-1">
                     <CardContent className="p-4">
                         <div className="flex items-center justify-between">
                             <div>
@@ -169,7 +169,7 @@ export default function RetailDashboard() {
                         </div>
                     </CardContent>
                 </Card>
-                <Card className="border-l-4 border-l-blue-500 stat-card card-glow">
+                <Card className="border-l-4 border-l-blue-500 stat-card card-glow animate-fade-in-up stagger-2">
                     <CardContent className="p-4">
                         <div className="flex items-center justify-between">
                             <div>
@@ -180,7 +180,7 @@ export default function RetailDashboard() {
                         </div>
                     </CardContent>
                 </Card>
-                <Card className="border-l-4 border-l-purple-500 stat-card card-glow">
+                <Card className="border-l-4 border-l-purple-500 stat-card card-glow animate-fade-in-up stagger-3">
                     <CardContent className="p-4">
                         <div className="flex items-center justify-between">
                             <div>
@@ -191,7 +191,7 @@ export default function RetailDashboard() {
                         </div>
                     </CardContent>
                 </Card>
-                <Card className="border-l-4 border-l-orange-500 stat-card card-glow">
+                <Card className="border-l-4 border-l-orange-500 stat-card card-glow animate-fade-in-up stagger-4">
                     <CardContent className="p-4">
                         <div className="flex items-center justify-between">
                             <div>
@@ -213,10 +213,10 @@ export default function RetailDashboard() {
                     <TabsTrigger value="analytics">Analytics</TabsTrigger>
                 </TabsList>
 
-                <TabsContent value="overview" className="space-y-4">
+                <TabsContent value="overview" className="space-y-4 tab-content">
                     {/* Monthly Stats Cards */}
                     <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
-                        <Card>
+                        <Card className="animate-scale-in stagger-1">
                             <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
                                 <CardTitle className="text-sm font-medium">Total Orders</CardTitle>
                                 <ShoppingCart className="h-4 w-4 text-muted-foreground" />
@@ -274,7 +274,7 @@ export default function RetailDashboard() {
                     </div>
 
                     {/* Quick Actions */}
-                    <Card>
+                    <Card className="animate-fade-in-up stagger-5">
                         <CardHeader>
                             <CardTitle className="flex items-center gap-2 text-lg">
                                 <Zap className="h-5 w-5" />
@@ -299,7 +299,7 @@ export default function RetailDashboard() {
                     </Card>
                 </TabsContent>
 
-                <TabsContent value="inventory" className="space-y-4">
+                <TabsContent value="inventory" className="space-y-4 tab-content">
                     <div className="flex items-center justify-between">
                         <h3 className="text-lg font-semibold">Inventory Management</h3>
                         <div className="flex gap-2">
@@ -354,7 +354,7 @@ export default function RetailDashboard() {
                     </div>
                 </TabsContent>
 
-                <TabsContent value="orders" className="space-y-4">
+                <TabsContent value="orders" className="space-y-4 tab-content">
                     <div className="flex items-center justify-between">
                         <h3 className="text-lg font-semibold">Recent Orders</h3>
                         <Button>
@@ -400,7 +400,7 @@ export default function RetailDashboard() {
                     </div>
                 </TabsContent>
 
-                <TabsContent value="analytics" className="space-y-4">
+                <TabsContent value="analytics" className="space-y-4 tab-content">
                     <div className="grid gap-4 md:grid-cols-2">
                         <Card>
                             <CardHeader>
