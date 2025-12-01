@@ -123,7 +123,7 @@ export default function AnalyticsPage() {
           </CardContent>
         </Card>
 
-        <Card>
+        <Card className="animate-slide-in-right stagger-2">
           <CardHeader>
             <CardTitle>Top Performing Drivers</CardTitle>
           </CardHeader>
@@ -159,7 +159,7 @@ export default function AnalyticsPage() {
 
       {/* Detailed Analytics */}
       <div className="grid gap-6 md:grid-cols-3">
-        <Card>
+        <Card className="animate-fade-in-up stagger-1">
           <CardHeader>
             <CardTitle>Delivery Status Breakdown</CardTitle>
           </CardHeader>
@@ -196,7 +196,7 @@ export default function AnalyticsPage() {
           </CardContent>
         </Card>
 
-        <Card>
+        <Card className="animate-fade-in-up stagger-2">
           <CardHeader>
             <CardTitle>Fleet Utilization</CardTitle>
           </CardHeader>
@@ -222,7 +222,7 @@ export default function AnalyticsPage() {
           </CardContent>
         </Card>
 
-        <Card>
+        <Card className="animate-fade-in-up stagger-3">
           <CardHeader>
             <CardTitle>Customer Satisfaction</CardTitle>
           </CardHeader>
