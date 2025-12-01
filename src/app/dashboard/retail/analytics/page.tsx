@@ -400,7 +400,7 @@ export default function AnalyticsPage() {
                     </Card>
                 </TabsContent>
 
-                <TabsContent value="suppliers" className="space-y-4">
+                <TabsContent value="suppliers" className="space-y-4 tab-content">
                     <Card>
                         <CardHeader>
                             <CardTitle>Supplier Performance Analysis</CardTitle>
@@ -445,7 +445,7 @@ export default function AnalyticsPage() {
                     </Card>
                 </TabsContent>
 
-                <TabsContent value="performance" className="space-y-4">
+                <TabsContent value="performance" className="space-y-4 tab-content">
                     <div className="grid gap-4 md:grid-cols-2">
                         <Card>
                             <CardHeader>
