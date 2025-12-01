@@ -316,7 +316,7 @@ export default function RetailDashboard() {
 
                     <div className="grid gap-4">
                         {inventory.map((item, index) => (
-                            <Card key={index} className={item.stock <= item.minStock ? "border-orange-200 bg-orange-50" : ""}>
+                            <Card key={index} className={`animate-slide-in-left list-item ${item.stock <= item.minStock ? "border-orange-200 bg-orange-50" : ""}`}>
                                 <CardContent className="p-4">
                                     <div className="flex items-center justify-between">
                                         <div className="flex items-center gap-4">
@@ -365,7 +365,7 @@ export default function RetailDashboard() {
 
                     <div className="space-y-4">
                         {orders.map((order) => (
-                            <Card key={order.id}>
+                            <Card key={order.id} className="animate-fade-in-up list-item">
                                 <CardContent className="p-4">
                                     <div className="flex items-center justify-between">
                                         <div className="flex-1">
@@ -402,7 +402,7 @@ export default function RetailDashboard() {
 
                 <TabsContent value="analytics" className="space-y-4 tab-content">
                     <div className="grid gap-4 md:grid-cols-2">
-                        <Card>
+                        <Card className="animate-fade-in-up stagger-1">
                             <CardHeader>
                                 <CardTitle className="flex items-center gap-2">
                                     <BarChart3 className="h-5 w-5" />
@@ -430,7 +430,7 @@ export default function RetailDashboard() {
                             </CardContent>
                         </Card>
 
-                        <Card>
+                        <Card className="animate-fade-in-up stagger-2">
                             <CardHeader>
                                 <CardTitle className="flex items-center gap-2">
                                     <Target className="h-5 w-5" />
@@ -459,7 +459,7 @@ export default function RetailDashboard() {
 
             {/* Bottom Section - Recent Activities and Suppliers */}
             <div className="grid gap-4 md:grid-cols-3">
-                <Card>
+                <Card className="animate-slide-in-left stagger-1">
                     <CardHeader>
                         <CardTitle className="flex items-center gap-2 text-lg">
                             <Clock className="h-5 w-5" />
