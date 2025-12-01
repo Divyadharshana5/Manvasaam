@@ -1,5 +1,6 @@
 "use client";
 
+import "@/styles/retail-animations.css";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
@@ -225,9 +226,9 @@ export default function InventoryPage() {
     };
 
     return (
-        <div className="flex flex-1 flex-col gap-4 p-4 md:gap-8 md:p-8">
+        <div className="flex flex-1 flex-col gap-4 p-4 md:gap-8 md:p-8 page-transition">
             {/* Header */}
-            <div className="flex items-center gap-4">
+            <div className="flex items-center gap-4 animate-fade-in-up">
                 <Button variant="outline" size="icon" asChild>
                     <Link href="/dashboard/retail">
                         <ArrowLeft className="h-4 w-4" />
@@ -255,7 +256,7 @@ export default function InventoryPage() {
 
             {/* Stats Cards */}
             <div className="grid gap-4 md:grid-cols-4">
-                <Card>
+                <Card className="animate-scale-in stat-card stagger-1">
                     <CardContent className="p-4">
                         <div className="flex items-center justify-between">
                             <div>
@@ -379,7 +380,7 @@ export default function InventoryPage() {
                             const stockPercentage = (item.stock / item.maxStock) * 100;
                             
                             return (
-                                <div key={item.id} className={`p-4 border rounded-lg ${getStockColor(status)}`}>
+                                <div key={item.id} className={`p-4 border rounded-lg ${getStockColor(status)} animate-slide-in-left list-item`}>
                                     <div className="flex items-center justify-between">
                                         <div className="flex items-center gap-4">
                                             <div className="p-2 bg-white rounded-lg">
