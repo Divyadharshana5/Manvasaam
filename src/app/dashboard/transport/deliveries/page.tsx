@@ -1,5 +1,6 @@
 "use client";
 
+import "@/styles/transport-animations.css";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
@@ -71,8 +72,8 @@ export default function DeliveriesPage() {
   };
 
   return (
-    <div className="space-y-6">
-      <div className="flex items-center justify-between">
+    <div className="space-y-6 page-transition">
+      <div className="flex items-center justify-between animate-fade-in-up">
         <h1 className="text-3xl font-bold">Deliveries</h1>
         <Button asChild className="bg-emerald-600 hover:bg-emerald-700">
           <Link href="/dashboard/transport/deliveries/new">
@@ -83,7 +84,7 @@ export default function DeliveriesPage() {
       </div>
 
       <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
-        <Card>
+        <Card className="animate-scale-in stat-card stagger-1">
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
             <CardTitle className="text-sm font-medium">
               Total Deliveries
