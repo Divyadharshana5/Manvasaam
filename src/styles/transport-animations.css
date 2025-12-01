@@ -1,0 +1,196 @@
+/* Transport Dashboard Animations */
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes slideInLeft {
+  from {
+    opacity: 0;
+    transform: translateX(-30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes slideInRight {
+  from {
+    opacity: 0;
+    transform: translateX(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes scaleIn {
+  from {
+    opacity: 0;
+    transform: scale(0.9);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@keyframes bounce {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-5px);
+  }
+}
+
+@keyframes pulse {
+  0%, 100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.7;
+  }
+}
+
+@keyframes shimmer {
+  0% {
+    background-position: -1000px 0;
+  }
+  100% {
+    background-position: 1000px 0;
+  }
+}
+
+/* Apply animations to elements */
+.animate-fade-in-up {
+  animation: fadeInUp 0.6s ease-out forwards;
+}
+
+.animate-fade-in {
+  animation: fadeIn 0.5s ease-out forwards;
+}
+
+.animate-slide-in-left {
+  animation: slideInLeft 0.6s ease-out forwards;
+}
+
+.animate-slide-in-right {
+  animation: slideInRight 0.6s ease-out forwards;
+}
+
+.animate-scale-in {
+  animation: scaleIn 0.5s ease-out forwards;
+}
+
+/* Staggered animations */
+.stagger-1 {
+  animation-delay: 0.1s;
+  opacity: 0;
+}
+
+.stagger-2 {
+  animation-delay: 0.2s;
+  opacity: 0;
+}
+
+.stagger-3 {
+  animation-delay: 0.3s;
+  opacity: 0;
+}
+
+.stagger-4 {
+  animation-delay: 0.4s;
+  opacity: 0;
+}
+
+.stagger-5 {
+  animation-delay: 0.5s;
+  opacity: 0;
+}
+
+.stagger-6 {
+  animation-delay: 0.6s;
+  opacity: 0;
+}
+
+/* Card animations */
+.card-glow {
+  transition: all 0.3s ease;
+}
+
+.card-glow:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+}
+
+.dashboard-card {
+  transition: all 0.3s ease;
+}
+
+.dashboard-card:hover {
+  transform: scale(1.02);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.12);
+}
+
+/* Icon animations */
+.icon-bounce {
+  animation: bounce 2s ease-in-out infinite;
+}
+
+.icon-pulse {
+  animation: pulse 2s ease-in-out infinite;
+}
+
+/* Number counter animation */
+.number-counter {
+  animation: scaleIn 0.5s ease-out;
+}
+
+/* Stat card animation */
+.stat-card {
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.stat-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 12px 24px rgba(0, 0, 0, 0.15);
+}
+
+/* List item animations */
+.list-item {
+  transition: all 0.3s ease;
+}
+
+.list-item:hover {
+  background-color: rgba(0, 0, 0, 0.02);
+  transform: translateX(5px);
+}
+
+/* Page transition */
+.page-transition {
+  animation: fadeIn 0.4s ease-out;
+}
+
+/* Tab animations */
+.tab-content {
+  animation: fadeIn 0.4s ease-out;
+}
