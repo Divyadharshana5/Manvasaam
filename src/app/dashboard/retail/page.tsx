@@ -230,7 +230,7 @@ export default function RetailDashboard() {
                             </CardContent>
                         </Card>
 
-                        <Card>
+                        <Card className="animate-scale-in stagger-2">
                             <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
                                 <CardTitle className="text-sm font-medium">Monthly Revenue</CardTitle>
                                 <IndianRupee className="h-4 w-4 text-muted-foreground" />
@@ -484,7 +484,7 @@ export default function RetailDashboard() {
                     </CardContent>
                 </Card>
 
-                <Card>
+                <Card className="animate-scale-in stagger-2">
                     <CardHeader>
                         <CardTitle className="flex items-center gap-2 text-lg">
                             <Building className="h-5 w-5" />
@@ -522,7 +522,7 @@ export default function RetailDashboard() {
                     </CardContent>
                 </Card>
 
-                <Card>
+                <Card className="animate-slide-in-right stagger-3">
                     <CardHeader>
                         <CardTitle className="flex items-center gap-2 text-lg">
                             <Leaf className="h-5 w-5" />
