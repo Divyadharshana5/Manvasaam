@@ -97,7 +97,7 @@ export default function DeliveriesPage() {
           </CardContent>
         </Card>
 
-        <Card>
+        <Card className="animate-scale-in stat-card stagger-2">
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
             <CardTitle className="text-sm font-medium">In Transit</CardTitle>
             <Truck className="h-4 w-4 text-muted-foreground" />
@@ -108,7 +108,7 @@ export default function DeliveriesPage() {
           </CardContent>
         </Card>
 
-        <Card>
+        <Card className="animate-scale-in stat-card stagger-3">
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
             <CardTitle className="text-sm font-medium">Completed</CardTitle>
             <CheckCircle className="h-4 w-4 text-muted-foreground" />
@@ -119,7 +119,7 @@ export default function DeliveriesPage() {
           </CardContent>
         </Card>
 
-        <Card>
+        <Card className="animate-scale-in stat-card stagger-4">
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
             <CardTitle className="text-sm font-medium">Delayed</CardTitle>
             <AlertCircle className="h-4 w-4 text-muted-foreground" />
@@ -131,7 +131,7 @@ export default function DeliveriesPage() {
         </Card>
       </div>
 
-      <Card>
+      <Card className="animate-fade-in-up stagger-5">
         <CardHeader>
           <CardTitle>Active Deliveries</CardTitle>
         </CardHeader>
@@ -140,7 +140,7 @@ export default function DeliveriesPage() {
             {deliveries.map((delivery) => (
               <div
                 key={delivery.id}
-                className="flex items-center justify-between p-4 border rounded-lg"
+                className="flex items-center justify-between p-4 border rounded-lg list-item"
               >
                 <div className="flex items-center space-x-4">
                   <div className="flex flex-col">
