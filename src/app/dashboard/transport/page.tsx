@@ -441,7 +441,7 @@ export default function TransportDashboard() {
               </CardContent>
             </Card>
 
-            <Card>
+            <Card className="animate-scale-in stagger-2">
               <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
                 <CardTitle className="text-sm font-medium">
                   Monthly Revenue
@@ -459,7 +459,7 @@ export default function TransportDashboard() {
               </CardContent>
             </Card>
 
-            <Card>
+            <Card className="animate-scale-in stagger-3">
               <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
                 <CardTitle className="text-sm font-medium">
                   Customer Rating
@@ -475,7 +475,7 @@ export default function TransportDashboard() {
               </CardContent>
             </Card>
 
-            <Card>
+            <Card className="animate-scale-in stagger-4">
               <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
                 <CardTitle className="text-sm font-medium">
                   On-Time Delivery
@@ -730,7 +730,7 @@ export default function TransportDashboard() {
 
         <TabsContent value="analytics" className="space-y-4 tab-content">
           <div className="grid gap-4 md:grid-cols-2">
-            <Card>
+            <Card className="animate-fade-in-up stagger-1">
               <CardHeader>
                 <CardTitle className="flex items-center gap-2">
                   <BarChart3 className="h-5 w-5" />
@@ -773,7 +773,7 @@ export default function TransportDashboard() {
               </CardContent>
             </Card>
 
-            <Card>
+            <Card className="animate-fade-in-up stagger-2">
               <CardHeader>
                 <CardTitle className="flex items-center gap-2">
                   <Target className="h-5 w-5" />
@@ -803,7 +803,7 @@ export default function TransportDashboard() {
           </div>
 
           {/* Route Efficiency */}
-          <Card>
+          <Card className="animate-scale-in stagger-3">
             <CardHeader>
               <CardTitle className="flex items-center gap-2">
                 <Route className="h-5 w-5" />
@@ -936,7 +936,7 @@ export default function TransportDashboard() {
           </CardContent>
         </Card>
 
-        <Card>
+        <Card className="animate-slide-in-right stagger-3">
           <CardHeader>
             <CardTitle className="flex items-center gap-2 text-lg">
               <Gauge className="h-5 w-5" />
