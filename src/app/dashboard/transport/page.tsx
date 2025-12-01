@@ -420,10 +420,10 @@ export default function TransportDashboard() {
           <TabsTrigger value="analytics">Analytics</TabsTrigger>
         </TabsList>
 
-        <TabsContent value="overview" className="space-y-4">
+        <TabsContent value="overview" className="space-y-4 tab-content">
           {/* Monthly Stats Cards */}
           <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
-            <Card>
+            <Card className="animate-scale-in stagger-1">
               <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
                 <CardTitle className="text-sm font-medium">
                   Active Deliveries
@@ -495,7 +495,7 @@ export default function TransportDashboard() {
           </div>
 
           {/* Quick Actions */}
-          <Card>
+          <Card className="animate-fade-in-up stagger-5">
             <CardHeader>
               <CardTitle className="flex items-center gap-2 text-lg">
                 <Zap className="h-5 w-5" />
@@ -529,7 +529,7 @@ export default function TransportDashboard() {
           </Card>
         </TabsContent>
 
-        <TabsContent value="fleet" className="space-y-4">
+        <TabsContent value="fleet" className="space-y-4 tab-content">
           <div className="flex items-center justify-between">
             <h3 className="text-lg font-semibold">Fleet Management</h3>
             <div className="flex gap-2">
@@ -648,7 +648,7 @@ export default function TransportDashboard() {
           </div>
         </TabsContent>
 
-        <TabsContent value="deliveries" className="space-y-4">
+        <TabsContent value="deliveries" className="space-y-4 tab-content">
           <div className="flex items-center justify-between">
             <h3 className="text-lg font-semibold">Active Deliveries</h3>
             <Button asChild>
@@ -728,7 +728,7 @@ export default function TransportDashboard() {
           </div>
         </TabsContent>
 
-        <TabsContent value="analytics" className="space-y-4">
+        <TabsContent value="analytics" className="space-y-4 tab-content">
           <div className="grid gap-4 md:grid-cols-2">
             <Card>
               <CardHeader>
