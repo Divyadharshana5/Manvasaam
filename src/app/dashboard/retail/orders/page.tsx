@@ -1,5 +1,6 @@
 "use client";
 
+import "@/styles/retail-animations.css";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
@@ -292,8 +293,8 @@ For real-time updates, contact supplier at ${order.supplierContact}
   const uniqueSuppliers = [...new Set(orders.map(order => order.supplier))];
 
   return (
-    <div className="space-y-6">
-      <div className="flex items-center justify-between">
+    <div className="space-y-6 page-transition">
+      <div className="flex items-center justify-between animate-fade-in-up">
         <div>
           <h1 className="text-3xl font-bold">Orders Management</h1>
           <p className="text-muted-foreground">Track and manage your supplier orders</p>
@@ -314,7 +315,7 @@ For real-time updates, contact supplier at ${order.supplierContact}
 
       {/* Stats Cards */}
       <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
-        <Card>
+        <Card className="animate-scale-in stat-card stagger-1">
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
             <CardTitle className="text-sm font-medium">Total Orders</CardTitle>
             <ShoppingCart className="h-4 w-4 text-muted-foreground" />
@@ -530,7 +531,7 @@ For real-time updates, contact supplier at ${order.supplierContact}
           <TabsTrigger value="cancelled">Cancelled</TabsTrigger>
         </TabsList>
 
-        <TabsContent value={activeTab} className="space-y-4">
+        <TabsContent value={activeTab} className="space-y-4 tab-content">
           {filteredOrders.length === 0 ? (
             <Card>
               <CardContent className="p-8 text-center">
@@ -552,7 +553,7 @@ For real-time updates, contact supplier at ${order.supplierContact}
           ) : (
             <div className="space-y-4">
               {filteredOrders.map((order) => (
-                <Card key={order.id} className="hover:shadow-md transition-shadow cursor-pointer" onClick={() => handleViewOrder(order)}>
+                <Card key={order.id} className="hover:shadow-md transition-shadow cursor-pointer animate-fade-in-up list-item" onClick={() => handleViewOrder(order)}>
                   <CardContent className="p-6">
                     <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-4">
                       {/* Order Info */}
