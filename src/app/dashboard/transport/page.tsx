@@ -345,7 +345,7 @@ export default function TransportDashboard() {
 
       {/* Today's Quick Stats */}
       <div className="grid gap-4 md:grid-cols-4">
-        <Card className="border-l-4 border-l-green-500 stat-card card-glow">
+        <Card className="border-l-4 border-l-green-500 stat-card card-glow animate-fade-in-up stagger-1">
           <CardContent className="p-4">
             <div className="flex items-center justify-between">
               <div>
@@ -360,7 +360,7 @@ export default function TransportDashboard() {
             </div>
           </CardContent>
         </Card>
-        <Card className="border-l-4 border-l-blue-500 stat-card card-glow">
+        <Card className="border-l-4 border-l-blue-500 stat-card card-glow animate-fade-in-up stagger-2">
           <CardContent className="p-4">
             <div className="flex items-center justify-between">
               <div>
@@ -375,7 +375,7 @@ export default function TransportDashboard() {
             </div>
           </CardContent>
         </Card>
-        <Card className="border-l-4 border-l-purple-500 stat-card card-glow">
+        <Card className="border-l-4 border-l-purple-500 stat-card card-glow animate-fade-in-up stagger-3">
           <CardContent className="p-4">
             <div className="flex items-center justify-between">
               <div>
@@ -390,7 +390,7 @@ export default function TransportDashboard() {
             </div>
           </CardContent>
         </Card>
-        <Card className="border-l-4 border-l-orange-500 stat-card card-glow">
+        <Card className="border-l-4 border-l-orange-500 stat-card card-glow animate-fade-in-up stagger-4">
           <CardContent className="p-4">
             <div className="flex items-center justify-between">
               <div>
