@@ -199,7 +199,7 @@ export default function AnalyticsPage() {
 
             {/* Key Metrics */}
             <div className="grid gap-4 md:grid-cols-4">
-                <Card>
+                <Card className="animate-scale-in stat-card stagger-1">
                     <CardContent className="p-4">
                         <div className="flex items-center justify-between">
                             <div>
@@ -273,7 +273,7 @@ export default function AnalyticsPage() {
                     <TabsTrigger value="performance">Performance</TabsTrigger>
                 </TabsList>
 
-                <TabsContent value="overview" className="space-y-4">
+                <TabsContent value="overview" className="space-y-4 tab-content">
                     <div className="grid gap-4 md:grid-cols-2">
                         {/* Category Breakdown */}
                         <Card>
@@ -361,7 +361,7 @@ export default function AnalyticsPage() {
                     </Card>
                 </TabsContent>
 
-                <TabsContent value="products" className="space-y-4">
+                <TabsContent value="products" className="space-y-4 tab-content">
                     <Card>
                         <CardHeader>
                             <CardTitle>Top Performing Products</CardTitle>
