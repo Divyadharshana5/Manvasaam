@@ -550,7 +550,7 @@ export default function TransportDashboard() {
 
           <div className="grid gap-4">
             {vehicles.map((vehicle, index) => (
-              <Card
+              <Card className="animate-slide-in-left list-item"
                 key={index}
                 className={
                   vehicle.status === "maintenance"
@@ -661,7 +661,7 @@ export default function TransportDashboard() {
 
           <div className="space-y-4">
             {deliveries.map((delivery) => (
-              <Card key={delivery.id}>
+              <Card key={delivery.id} className="animate-fade-in-up list-item">
                 <CardContent className="p-4">
                   <div className="flex items-center justify-between">
                     <div className="flex-1">
@@ -848,7 +848,7 @@ export default function TransportDashboard() {
 
       {/* Bottom Section - Recent Activities, Drivers, and Fleet Health */}
       <div className="grid gap-4 md:grid-cols-3">
-        <Card>
+        <Card className="animate-slide-in-left stagger-1">
           <CardHeader>
             <CardTitle className="flex items-center gap-2 text-lg">
               <Activity className="h-5 w-5" />
@@ -877,7 +877,7 @@ export default function TransportDashboard() {
           </CardContent>
         </Card>
 
-        <Card>
+        <Card className="animate-scale-in stagger-2">
           <CardHeader>
             <CardTitle className="flex items-center gap-2 text-lg">
               <Users className="h-5 w-5" />
