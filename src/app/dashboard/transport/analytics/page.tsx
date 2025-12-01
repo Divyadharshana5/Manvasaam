@@ -1,5 +1,6 @@
 "use client";
 
+import "@/styles/transport-animations.css";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
@@ -52,8 +53,8 @@ export default function AnalyticsPage() {
   ];
 
   return (
-    <div className="space-y-6">
-      <div className="flex items-center justify-between">
+    <div className="space-y-6 page-transition">
+      <div className="flex items-center justify-between animate-fade-in-up">
         <h1 className="text-3xl font-bold">Analytics Dashboard</h1>
         <div className="flex space-x-2">
           <Button variant="outline" asChild>
@@ -73,7 +74,7 @@ export default function AnalyticsPage() {
       {/* Key Metrics */}
       <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
         {metrics.map((metric) => (
-          <Card key={metric.title}>
+          <Card key={metric.title} className="animate-scale-in stat-card">
             <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
               <CardTitle className="text-sm font-medium">{metric.title}</CardTitle>
               <metric.icon className="h-4 w-4 text-muted-foreground" />
@@ -96,7 +97,7 @@ export default function AnalyticsPage() {
 
       {/* Performance Charts */}
       <div className="grid gap-6 md:grid-cols-2">
-        <Card>
+        <Card className="animate-slide-in-left stagger-1">
           <CardHeader>
             <CardTitle>Monthly Performance</CardTitle>
           </CardHeader>
