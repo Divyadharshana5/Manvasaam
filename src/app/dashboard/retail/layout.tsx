@@ -28,7 +28,7 @@ import {
 } from "lucide-react";
 
 // Sidebar component
-function Sidebar({ className, onSignOut }: { className?: string; onSignOut: () => void }) {
+function Sidebar({ className, onSignOut, preload }: { className?: string; onSignOut: () => void; preload: (route: string) => void }) {
   const pathname = usePathname();
   const [mounted, setMounted] = useState(false);
 
