@@ -155,6 +155,21 @@ export default function RetailLayout({ children }: { children: React.ReactNode }
   const router = useRouter();
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const { isListening, startListening } = useVoiceAssistant();
+  const { navigate, preload } = useFastNavigation();
+
+  // Preload all retail routes on mount for instant navigation
+  useEffect(() => {
+    const retailRoutes = [
+      "/dashboard/retail",
+      "/dashboard/retail/inventory",
+      "/dashboard/retail/orders",
+      "/dashboard/retail/suppliers",
+      "/dashboard/retail/analytics",
+      "/dashboard/retail/profile",
+      "/dashboard/faq"
+    ];
+    retailRoutes.forEach(route => preload(route));
+  }, [preload]);
 
   const handleSignOut = async () => {
     try {
