@@ -56,14 +56,32 @@ const nextConfig: NextConfig = {
             test: /[\\/]node_modules[\\/]/,
             name: 'vendors',
             chunks: 'all',
+            priority: 10,
           },
           framerMotion: {
             test: /[\\/]node_modules[\\/]framer-motion[\\/]/,
             name: 'framer-motion',
             chunks: 'all',
+            priority: 20,
+          },
+          ui: {
+            test: /[\\/]src[\\/]components[\\/]ui[\\/]/,
+            name: 'ui-components',
+            chunks: 'all',
+            priority: 30,
+          },
+          dashboard: {
+            test: /[\\/]src[\\/]app[\\/]dashboard[\\/]/,
+            name: 'dashboard',
+            chunks: 'async',
+            priority: 15,
           },
         },
       };
+      
+      // Minimize bundle size
+      config.optimization.minimize = true;
+      config.optimization.usedExports = true;
     }
 
     return config;
