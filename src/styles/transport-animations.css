@@ -132,22 +132,26 @@
   opacity: 0;
 }
 
-/* Card animations */
+/* Card animations - GPU Accelerated */
 .card-glow {
-  transition: all 0.3s ease;
+  transition: all 0.2s ease;
+  will-change: transform, box-shadow;
+  transform: translateZ(0);
 }
 
 .card-glow:hover {
-  transform: translateY(-5px);
+  transform: translateY(-5px) translateZ(0);
   box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
 }
 
 .dashboard-card {
-  transition: all 0.3s ease;
+  transition: all 0.2s ease;
+  will-change: transform, box-shadow;
+  transform: translateZ(0);
 }
 
 .dashboard-card:hover {
-  transform: scale(1.02);
+  transform: scale(1.02) translateZ(0);
   box-shadow: 0 8px 20px rgba(0, 0, 0, 0.12);
 }
 
@@ -165,24 +169,28 @@
   animation: scaleIn 0.5s ease-out;
 }
 
-/* Stat card animation */
+/* Stat card animation - Optimized */
 .stat-card {
-  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+  will-change: transform, box-shadow;
+  transform: translateZ(0);
 }
 
 .stat-card:hover {
-  transform: translateY(-4px);
+  transform: translateY(-4px) translateZ(0);
   box-shadow: 0 12px 24px rgba(0, 0, 0, 0.15);
 }
 
-/* List item animations */
+/* List item animations - Optimized */
 .list-item {
-  transition: all 0.3s ease;
+  transition: all 0.15s ease;
+  will-change: transform, background-color;
+  transform: translateZ(0);
 }
 
 .list-item:hover {
   background-color: rgba(0, 0, 0, 0.02);
-  transform: translateX(5px);
+  transform: translateX(5px) translateZ(0);
 }
 
 /* Page transition - Ultra fast */
@@ -197,4 +205,27 @@
   animation: fadeIn 0.15s ease-out;
   will-change: opacity;
   transform: translateZ(0);
+}
+
+
+/* Performance optimizations */
+.animate-fade-in-up,
+.animate-fade-in,
+.animate-slide-in-left,
+.animate-slide-in-right,
+.animate-scale-in {
+  will-change: opacity, transform;
+  backface-visibility: hidden;
+  perspective: 1000px;
+}
+
+/* Reduce motion for accessibility */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
 }
