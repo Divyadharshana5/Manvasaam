@@ -13,6 +13,12 @@ const nextConfig: NextConfig = {
   // Compression and caching
   compress: true,
   poweredByHeader: false,
+  
+  // Experimental features for faster navigation
+  experimental: {
+    optimizePackageImports: ['lucide-react', '@/components/ui'],
+    scrollRestoration: true,
+  },
   // Image optimization
   images: {
     formats: ['image/webp', 'image/avif'],
