@@ -4,6 +4,8 @@ import React, { useState, useEffect } from "react";
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
 import { cn } from "@/lib/utils";
+import { useFastNavigation } from "@/lib/fast-navigation";
+import "@/styles/fast-transitions.css";
 import { Button } from "@/components/ui/button";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
 import { useToast } from "@/hooks/use-toast";
@@ -159,6 +161,22 @@ export default function TransportLayout({ children }: { children: React.ReactNod
   const router = useRouter();
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const { isListening, startListening } = useVoiceAssistant();
+  const { navigate, preload } = useFastNavigation();
+
+  // Preload all transport routes on mount for instant navigation
+  useEffect(() => {
+    const transportRoutes = [
+      "/dashboard/transport",
+      "/dashboard/transport/deliveries",
+      "/dashboard/transport/tracking",
+      "/dashboard/transport/routes",
+      "/dashboard/transport/maintenance",
+      "/dashboard/transport/analytics",
+      "/dashboard/transport/profile",
+      "/dashboard/faq"
+    ];
+    transportRoutes.forEach(route => preload(route));
+  }, [preload]);
 
   const handleSignOut = async () => {
     try {
