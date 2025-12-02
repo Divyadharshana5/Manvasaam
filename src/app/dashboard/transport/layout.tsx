@@ -73,11 +73,16 @@ function Sidebar({ className, onSignOut }: { className?: string; onSignOut: () =
           </div>
           <div className="space-y-1">
             {sidebarItems.map((item) => (
-              <Link key={item.href} href={item.href}>
+              <Link 
+                key={item.href} 
+                href={item.href}
+                onMouseEnter={() => preload(item.href)}
+                className="fast-button"
+              >
                 <Button
                   variant={pathname === item.href ? "secondary" : "ghost"}
                   className={cn(
-                    "w-full justify-start hover:bg-emerald-100 dark:hover:bg-emerald-900",
+                    "w-full justify-start hover:bg-emerald-100 dark:hover:bg-emerald-900 transition-all duration-100",
                     pathname === item.href && "bg-gradient-to-r from-emerald-200 to-green-200 dark:from-emerald-800 dark:to-green-800 text-emerald-800 dark:text-emerald-200 border border-emerald-300 dark:border-emerald-600"
                   )}
                 >
