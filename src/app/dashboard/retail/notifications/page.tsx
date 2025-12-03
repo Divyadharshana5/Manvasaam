@@ -220,10 +220,118 @@ export default function RetailNotifications() {
                         )}
                     </div>
                 </div>
-                <Button variant="outline" size="sm">
-                    <Filter className="h-4 w-4 mr-2" />
-                    Filter
-                </Button>
+                <DropdownMenu>
+                    <DropdownMenuTrigger asChild>
+                        <Button variant="outline" size="sm">
+                            <Filter className="h-4 w-4 mr-2" />
+                            Filter
+                            {activeFiltersCount > 0 && (
+                                <Badge variant="secondary" className="ml-2 h-5 w-5 rounded-full p-0 flex items-center justify-center">
+                                    {activeFiltersCount}
+                                </Badge>
+                            )}
+                        </Button>
+                    </DropdownMenuTrigger>
+                    <DropdownMenuContent align="end" className="w-56">
+                        <DropdownMenuLabel>Filter by Type</DropdownMenuLabel>
+                        <DropdownMenuCheckboxItem
+                            checked={selectedTypes.includes("urgent")}
+                            onCheckedChange={() => toggleType("urgent")}
+                        >
+                            <span className="flex items-center gap-2">
+                                <span className="w-2 h-2 rounded-full bg-red-500"></span>
+                                Urgent
+                            </span>
+                        </DropdownMenuCheckboxItem>
+                        <DropdownMenuCheckboxItem
+                            checked={selectedTypes.includes("warning")}
+                            onCheckedChange={() => toggleType("warning")}
+                        >
+                            <span className="flex items-center gap-2">
+                                <span className="w-2 h-2 rounded-full bg-orange-500"></span>
+                                Warning
+                            </span>
+                        </DropdownMenuCheckboxItem>
+                        <DropdownMenuCheckboxItem
+                            checked={selectedTypes.includes("success")}
+                            onCheckedChange={() => toggleType("success")}
+                        >
+                            <span className="flex items-center gap-2">
+                                <span className="w-2 h-2 rounded-full bg-green-500"></span>
+                                Success
+                            </span>
+                        </DropdownMenuCheckboxItem>
+                        <DropdownMenuCheckboxItem
+                            checked={selectedTypes.includes("info")}
+                            onCheckedChange={() => toggleType("info")}
+                        >
+                            <span className="flex items-center gap-2">
+                                <span className="w-2 h-2 rounded-full bg-blue-500"></span>
+                                Info
+                            </span>
+                        </DropdownMenuCheckboxItem>
+                        
+                        <DropdownMenuSeparator />
+                        
+                        <DropdownMenuLabel>Filter by Category</DropdownMenuLabel>
+                        <DropdownMenuCheckboxItem
+                            checked={selectedCategories.includes("inventory")}
+                            onCheckedChange={() => toggleCategory("inventory")}
+                        >
+                            Inventory
+                        </DropdownMenuCheckboxItem>
+                        <DropdownMenuCheckboxItem
+                            checked={selectedCategories.includes("delivery")}
+                            onCheckedChange={() => toggleCategory("delivery")}
+                        >
+                            Delivery
+                        </DropdownMenuCheckboxItem>
+                        <DropdownMenuCheckboxItem
+                            checked={selectedCategories.includes("order")}
+                            onCheckedChange={() => toggleCategory("order")}
+                        >
+                            Order
+                        </DropdownMenuCheckboxItem>
+                        <DropdownMenuCheckboxItem
+                            checked={selectedCategories.includes("payment")}
+                            onCheckedChange={() => toggleCategory("payment")}
+                        >
+                            Payment
+                        </DropdownMenuCheckboxItem>
+                        <DropdownMenuCheckboxItem
+                            checked={selectedCategories.includes("supplier")}
+                            onCheckedChange={() => toggleCategory("supplier")}
+                        >
+                            Supplier
+                        </DropdownMenuCheckboxItem>
+                        <DropdownMenuCheckboxItem
+                            checked={selectedCategories.includes("feedback")}
+                            onCheckedChange={() => toggleCategory("feedback")}
+                        >
+                            Feedback
+                        </DropdownMenuCheckboxItem>
+                        <DropdownMenuCheckboxItem
+                            checked={selectedCategories.includes("pricing")}
+                            onCheckedChange={() => toggleCategory("pricing")}
+                        >
+                            Pricing
+                        </DropdownMenuCheckboxItem>
+                        
+                        {activeFiltersCount > 0 && (
+                            <>
+                                <DropdownMenuSeparator />
+                                <Button
+                                    variant="ghost"
+                                    size="sm"
+                                    className="w-full"
+                                    onClick={clearFilters}
+                                >
+                                    Clear Filters
+                                </Button>
+                            </>
+                        )}
+                    </DropdownMenuContent>
+                </DropdownMenu>
             </div>
 
             <Tabs value={activeTab} onValueChange={setActiveTab} className="space-y-4">
