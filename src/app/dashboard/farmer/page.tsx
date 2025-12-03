@@ -244,9 +244,9 @@ export default function FarmerDashboard() {
             <Package className="h-4 w-4 text-muted-foreground icon-bounce" />
           </CardHeader>
           <CardContent>
-            <div className="text-2xl font-bold number-counter flex items-center h-8">
+            <div className="text-2xl font-bold number-counter min-h-[2rem] flex items-center">
               {isLoading ? (
-                <Loader2 className="h-6 w-6 animate-spin text-muted-foreground" />
+                <Loader2 className="h-8 w-8 animate-spin text-muted-foreground" />
               ) : (
                 stats.activeProducts
               )}
@@ -309,9 +309,9 @@ export default function FarmerDashboard() {
             </div>
           </CardHeader>
           <CardContent>
-            <div className="text-2xl font-bold text-green-600 flex items-center h-8">
+            <div className="text-2xl font-bold text-green-600 min-h-[2rem] flex items-center">
               {isLoading ? (
-                <Loader2 className="h-6 w-6 animate-spin" />
+                <Loader2 className="h-8 w-8 animate-spin text-green-600" />
               ) : (
                 stats.vegetables
               )}
