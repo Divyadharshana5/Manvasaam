@@ -57,6 +57,19 @@ export default function RetailNotifications() {
     const [activeTab, setActiveTab] = useState("all");
     const [selectedTypes, setSelectedTypes] = useState<string[]>([]);
     const [selectedCategories, setSelectedCategories] = useState<string[]>([]);
+    const [settingsOpen, setSettingsOpen] = useState(false);
+    
+    // Notification settings state
+    const [emailNotifications, setEmailNotifications] = useState(true);
+    const [pushNotifications, setPushNotifications] = useState(true);
+    const [soundEnabled, setSoundEnabled] = useState(true);
+    const [notifyInventory, setNotifyInventory] = useState(true);
+    const [notifyDelivery, setNotifyDelivery] = useState(true);
+    const [notifyOrders, setNotifyOrders] = useState(true);
+    const [notifyPayments, setNotifyPayments] = useState(true);
+    const [notifySuppliers, setNotifySuppliers] = useState(false);
+    const [notifyFeedback, setNotifyFeedback] = useState(false);
+    const [notifyPricing, setNotifyPricing] = useState(true);
 
     const notifications = [
         {
