@@ -114,7 +114,6 @@ export default function FarmerDashboard() {
   }, []);
 
   const fetchFarmerProducts = async () => {
-    setIsLoading(true);
     try {
       const response = await fetch("/api/farmer/products");
       if (response.ok) {
@@ -136,19 +135,9 @@ export default function FarmerDashboard() {
           grains: categoryCounts.grains || 0,
           herbs: categoryCounts.herbs || 0,
         }));
-
-        toast({
-          title: "Refreshed successfully",
-          description: "Dashboard data has been updated.",
-        });
       }
     } catch (error) {
       console.error("Error fetching products:", error);
-      toast({
-        title: "Refresh failed",
-        description: "Could not fetch the latest data. Please try again.",
-        variant: "destructive",
-      });
     } finally {
       setIsLoading(false);
     }
@@ -211,12 +200,9 @@ export default function FarmerDashboard() {
             variant="outline"
             size="icon"
             onClick={fetchFarmerProducts}
-            disabled={isLoading}
             title="Refresh dashboard data"
           >
-            <RefreshCw
-              className={`h-4 w-4 ${isLoading ? "animate-spin" : ""}`}
-            />
+            <RefreshCw className="h-4 w-4" />
           </Button>
         </div>
       </div>
@@ -244,12 +230,8 @@ export default function FarmerDashboard() {
             <Package className="h-4 w-4 text-muted-foreground icon-bounce" />
           </CardHeader>
           <CardContent>
-            <div className="text-2xl font-bold number-counter min-h-[2rem] flex items-center">
-              {isLoading ? (
-                <Loader2 className="h-8 w-8 animate-spin text-muted-foreground" />
-              ) : (
-                stats.activeProducts
-              )}
+            <div className="text-2xl font-bold number-counter">
+              {stats.activeProducts}
             </div>
             <p className="text-xs text-muted-foreground">
               {stats.activeProducts > 0
@@ -309,12 +291,8 @@ export default function FarmerDashboard() {
             </div>
           </CardHeader>
           <CardContent>
-            <div className="text-2xl font-bold text-green-600 min-h-[2rem] flex items-center">
-              {isLoading ? (
-                <Loader2 className="h-8 w-8 animate-spin text-green-600" />
-              ) : (
-                stats.vegetables
-              )}
+            <div className="text-2xl font-bold text-green-600">
+              {stats.vegetables}
             </div>
             <p className="text-sm text-muted-foreground">
               {stats.vegetables > 0 ? "Active crops" : "No vegetables yet"}
@@ -357,12 +335,8 @@ export default function FarmerDashboard() {
             </div>
           </CardHeader>
           <CardContent>
-            <div className="text-2xl font-bold text-orange-600 min-h-[2rem] flex items-center">
-              {isLoading ? (
-                <Loader2 className="h-8 w-8 animate-spin text-orange-600" />
-              ) : (
-                stats.fruits
-              )}
+            <div className="text-2xl font-bold text-orange-600">
+              {stats.fruits}
             </div>
             <p className="text-sm text-muted-foreground">
               {stats.fruits > 0 ? "Seasonal harvest" : "No fruits yet"}
@@ -405,12 +379,8 @@ export default function FarmerDashboard() {
             </div>
           </CardHeader>
           <CardContent>
-            <div className="text-2xl font-bold text-amber-600 min-h-[2rem] flex items-center">
-              {isLoading ? (
-                <Loader2 className="h-8 w-8 animate-spin text-amber-600" />
-              ) : (
-                stats.grains
-              )}
+            <div className="text-2xl font-bold text-amber-600">
+              {stats.grains}
             </div>
             <p className="text-sm text-muted-foreground">
               {stats.grains > 0 ? "Ready to harvest" : "No grains yet"}
@@ -453,12 +423,8 @@ export default function FarmerDashboard() {
             </div>
           </CardHeader>
           <CardContent>
-            <div className="text-2xl font-bold text-emerald-600 min-h-[2rem] flex items-center">
-              {isLoading ? (
-                <Loader2 className="h-8 w-8 animate-spin text-emerald-600" />
-              ) : (
-                stats.herbs
-              )}
+            <div className="text-2xl font-bold text-emerald-600">
+              {stats.herbs}
             </div>
             <p className="text-sm text-muted-foreground">
               {stats.herbs > 0 ? "Organic varieties" : "No herbs yet"}
