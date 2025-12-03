@@ -309,7 +309,7 @@ export default function FarmerDashboard() {
             </div>
           </CardHeader>
           <CardContent>
-            <div className="text-2xl font-bold text-green-600">
+            <div className="text-2xl font-bold text-green-600 flex items-center h-8">
               {isLoading ? (
                 <Loader2 className="h-6 w-6 animate-spin" />
               ) : (
@@ -357,7 +357,7 @@ export default function FarmerDashboard() {
             </div>
           </CardHeader>
           <CardContent>
-            <div className="text-2xl font-bold text-orange-600">
+            <div className="text-2xl font-bold text-orange-600 flex items-center h-8">
               {isLoading ? (
                 <Loader2 className="h-6 w-6 animate-spin" />
               ) : (
@@ -405,7 +405,7 @@ export default function FarmerDashboard() {
             </div>
           </CardHeader>
           <CardContent>
-            <div className="text-2xl font-bold text-amber-600">
+            <div className="text-2xl font-bold text-amber-600 flex items-center h-8">
               {isLoading ? (
                 <Loader2 className="h-6 w-6 animate-spin" />
               ) : (
@@ -453,7 +453,7 @@ export default function FarmerDashboard() {
             </div>
           </CardHeader>
           <CardContent>
-            <div className="text-2xl font-bold text-emerald-600">
+            <div className="text-2xl font-bold text-emerald-600 flex items-center h-8">
               {isLoading ? (
                 <Loader2 className="h-6 w-6 animate-spin" />
               ) : (
