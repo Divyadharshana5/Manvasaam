@@ -216,10 +216,186 @@ export default function RetailNotifications() {
                     <Badge variant="secondary">
                         {unreadCount} unread
                     </Badge>
-                    <Button variant="outline" size="sm">
-                        <Settings className="h-4 w-4 mr-2" />
-                        Settings
-                    </Button>
+                    <Dialog open={settingsOpen} onOpenChange={setSettingsOpen}>
+                        <DialogTrigger asChild>
+                            <Button variant="outline" size="sm">
+                                <Settings className="h-4 w-4 mr-2" />
+                                Settings
+                            </Button>
+                        </DialogTrigger>
+                        <DialogContent className="max-w-2xl max-h-[80vh] overflow-y-auto">
+                            <DialogHeader>
+                                <DialogTitle>Notification Settings</DialogTitle>
+                                <DialogDescription>
+                                    Manage your notification preferences and customize how you receive alerts.
+                                </DialogDescription>
+                            </DialogHeader>
+                            
+                            <div className="space-y-6 py-4">
+                                {/* General Settings */}
+                                <div className="space-y-4">
+                                    <h3 className="text-sm font-semibold">General Preferences</h3>
+                                    
+                                    <div className="flex items-center justify-between">
+                                        <div className="space-y-0.5">
+                                            <Label htmlFor="email-notifications">Email Notifications</Label>
+                                            <p className="text-sm text-muted-foreground">
+                                                Receive notifications via email
+                                            </p>
+                                        </div>
+                                        <Switch
+                                            id="email-notifications"
+                                            checked={emailNotifications}
+                                            onCheckedChange={setEmailNotifications}
+                                        />
+                                    </div>
+                                    
+                                    <div className="flex items-center justify-between">
+                                        <div className="space-y-0.5">
+                                            <Label htmlFor="push-notifications">Push Notifications</Label>
+                                            <p className="text-sm text-muted-foreground">
+                                                Receive push notifications in browser
+                                            </p>
+                                        </div>
+                                        <Switch
+                                            id="push-notifications"
+                                            checked={pushNotifications}
+                                            onCheckedChange={setPushNotifications}
+                                        />
+                                    </div>
+                                    
+                                    <div className="flex items-center justify-between">
+                                        <div className="space-y-0.5">
+                                            <Label htmlFor="sound-enabled">Sound Alerts</Label>
+                                            <p className="text-sm text-muted-foreground">
+                                                Play sound for new notifications
+                                            </p>
+                                        </div>
+                                        <Switch
+                                            id="sound-enabled"
+                                            checked={soundEnabled}
+                                            onCheckedChange={setSoundEnabled}
+                                        />
+                                    </div>
+                                </div>
+                                
+                                {/* Category Settings */}
+                                <div className="space-y-4 pt-4 border-t">
+                                    <h3 className="text-sm font-semibold">Notification Categories</h3>
+                                    <p className="text-sm text-muted-foreground">
+                                        Choose which types of notifications you want to receive
+                                    </p>
+                                    
+                                    <div className="flex items-center justify-between">
+                                        <div className="space-y-0.5">
+                                            <Label htmlFor="notify-inventory">Inventory Alerts</Label>
+                                            <p className="text-sm text-muted-foreground">
+                                                Low stock and inventory updates
+                                            </p>
+                                        </div>
+                                        <Switch
+                                            id="notify-inventory"
+                                            checked={notifyInventory}
+                                            onCheckedChange={setNotifyInventory}
+                                        />
+                                    </div>
+                                    
+                                    <div className="flex items-center justify-between">
+                                        <div className="space-y-0.5">
+                                            <Label htmlFor="notify-delivery">Delivery Updates</Label>
+                                            <p className="text-sm text-muted-foreground">
+                                                Delivery status and tracking
+                                            </p>
+                                        </div>
+                                        <Switch
+                                            id="notify-delivery"
+                                            checked={notifyDelivery}
+                                            onCheckedChange={setNotifyDelivery}
+                                        />
+                                    </div>
+                                    
+                                    <div className="flex items-center justify-between">
+                                        <div className="space-y-0.5">
+                                            <Label htmlFor="notify-orders">Order Notifications</Label>
+                                            <p className="text-sm text-muted-foreground">
+                                                New orders and order updates
+                                            </p>
+                                        </div>
+                                        <Switch
+                                            id="notify-orders"
+                                            checked={notifyOrders}
+                                            onCheckedChange={setNotifyOrders}
+                                        />
+                                    </div>
+                                    
+                                    <div className="flex items-center justify-between">
+                                        <div className="space-y-0.5">
+                                            <Label htmlFor="notify-payments">Payment Alerts</Label>
+                                            <p className="text-sm text-muted-foreground">
+                                                Payment confirmations and receipts
+                                            </p>
+                                        </div>
+                                        <Switch
+                                            id="notify-payments"
+                                            checked={notifyPayments}
+                                            onCheckedChange={setNotifyPayments}
+                                        />
+                                    </div>
+                                    
+                                    <div className="flex items-center justify-between">
+                                        <div className="space-y-0.5">
+                                            <Label htmlFor="notify-suppliers">Supplier Updates</Label>
+                                            <p className="text-sm text-muted-foreground">
+                                                New products and supplier news
+                                            </p>
+                                        </div>
+                                        <Switch
+                                            id="notify-suppliers"
+                                            checked={notifySuppliers}
+                                            onCheckedChange={setNotifySuppliers}
+                                        />
+                                    </div>
+                                    
+                                    <div className="flex items-center justify-between">
+                                        <div className="space-y-0.5">
+                                            <Label htmlFor="notify-feedback">Customer Feedback</Label>
+                                            <p className="text-sm text-muted-foreground">
+                                                Reviews and ratings
+                                            </p>
+                                        </div>
+                                        <Switch
+                                            id="notify-feedback"
+                                            checked={notifyFeedback}
+                                            onCheckedChange={setNotifyFeedback}
+                                        />
+                                    </div>
+                                    
+                                    <div className="flex items-center justify-between">
+                                        <div className="space-y-0.5">
+                                            <Label htmlFor="notify-pricing">Price Changes</Label>
+                                            <p className="text-sm text-muted-foreground">
+                                                Product price updates
+                                            </p>
+                                        </div>
+                                        <Switch
+                                            id="notify-pricing"
+                                            checked={notifyPricing}
+                                            onCheckedChange={setNotifyPricing}
+                                        />
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <DialogFooter>
+                                <Button variant="outline" onClick={() => setSettingsOpen(false)}>
+                                    Cancel
+                                </Button>
+                                <Button onClick={() => setSettingsOpen(false)}>
+                                    Save Changes
+                                </Button>
+                            </DialogFooter>
+                        </DialogContent>
+                    </Dialog>
                 </div>
             </div>
 
