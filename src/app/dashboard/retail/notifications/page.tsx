@@ -6,6 +6,14 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import {
+    DropdownMenu,
+    DropdownMenuContent,
+    DropdownMenuCheckboxItem,
+    DropdownMenuLabel,
+    DropdownMenuSeparator,
+    DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
+import {
     Bell,
     AlertTriangle,
     CheckCircle,
@@ -36,6 +44,8 @@ import { useState } from "react";
 export default function RetailNotifications() {
     const [searchQuery, setSearchQuery] = useState("");
     const [activeTab, setActiveTab] = useState("all");
+    const [selectedTypes, setSelectedTypes] = useState<string[]>([]);
+    const [selectedCategories, setSelectedCategories] = useState<string[]>([]);
 
     const notifications = [
         {
@@ -136,8 +146,29 @@ export default function RetailNotifications() {
         const matchesTab = activeTab === "all" || 
             (activeTab === "unread" && !notification.read) ||
             (activeTab === "read" && notification.read);
-        return matchesSearch && matchesTab;
+        const matchesType = selectedTypes.length === 0 || selectedTypes.includes(notification.type);
+        const matchesCategory = selectedCategories.length === 0 || selectedCategories.includes(notification.category);
+        return matchesSearch && matchesTab && matchesType && matchesCategory;
     });
+
+    const toggleType = (type: string) => {
+        setSelectedTypes(prev =>
+            prev.includes(type) ? prev.filter(t => t !== type) : [...prev, type]
+        );
+    };
+
+    const toggleCategory = (category: string) => {
+        setSelectedCategories(prev =>
+            prev.includes(category) ? prev.filter(c => c !== category) : [...prev, category]
+        );
+    };
+
+    const clearFilters = () => {
+        setSelectedTypes([]);
+        setSelectedCategories([]);
+    };
+
+    const activeFiltersCount = selectedTypes.length + selectedCategories.length;
 
     const unreadCount = notifications.filter(n => !n.read).length;
 
