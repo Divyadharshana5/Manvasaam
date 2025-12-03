@@ -138,13 +138,22 @@ export default function RetailDashboard() {
                 </div>
                 <div className="flex items-center gap-2">
                     <div className="relative">
-                        <Search className="absolute left-2 top-2.5 h-4 w-4 text-muted-foreground" />
+                        <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground pointer-events-none z-10" />
                         <Input
                             placeholder="Search orders, products..."
                             value={searchQuery}
                             onChange={(e) => setSearchQuery(e.target.value)}
-                            className="pl-8 w-64"
+                            className="pl-10 pr-10 w-64"
                         />
+                        {searchQuery && (
+                            <button
+                                onClick={() => setSearchQuery("")}
+                                className="absolute right-3 top-1/2 -translate-y-1/2 text-muted-foreground hover:text-foreground transition-colors z-10"
+                                aria-label="Clear search"
+                            >
+                                <X className="h-4 w-4" />
+                            </button>
+                        )}
                     </div>
                     <Button variant="outline" size="icon" asChild>
                         <Link href="/dashboard/retail/notifications">
