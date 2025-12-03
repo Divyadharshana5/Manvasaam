@@ -357,9 +357,9 @@ export default function FarmerDashboard() {
             </div>
           </CardHeader>
           <CardContent>
-            <div className="text-2xl font-bold text-orange-600 flex items-center h-8">
+            <div className="text-2xl font-bold text-orange-600 min-h-[2rem] flex items-center">
               {isLoading ? (
-                <Loader2 className="h-6 w-6 animate-spin" />
+                <Loader2 className="h-8 w-8 animate-spin text-orange-600" />
               ) : (
                 stats.fruits
               )}
@@ -405,9 +405,9 @@ export default function FarmerDashboard() {
             </div>
           </CardHeader>
           <CardContent>
-            <div className="text-2xl font-bold text-amber-600 flex items-center h-8">
+            <div className="text-2xl font-bold text-amber-600 min-h-[2rem] flex items-center">
               {isLoading ? (
-                <Loader2 className="h-6 w-6 animate-spin" />
+                <Loader2 className="h-8 w-8 animate-spin text-amber-600" />
               ) : (
                 stats.grains
               )}
@@ -453,9 +453,9 @@ export default function FarmerDashboard() {
             </div>
           </CardHeader>
           <CardContent>
-            <div className="text-2xl font-bold text-emerald-600 flex items-center h-8">
+            <div className="text-2xl font-bold text-emerald-600 min-h-[2rem] flex items-center">
               {isLoading ? (
-                <Loader2 className="h-6 w-6 animate-spin" />
+                <Loader2 className="h-8 w-8 animate-spin text-emerald-600" />
               ) : (
                 stats.herbs
               )}
