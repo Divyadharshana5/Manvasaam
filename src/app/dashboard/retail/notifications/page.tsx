@@ -71,7 +71,7 @@ export default function RetailNotifications() {
     const [notifyFeedback, setNotifyFeedback] = useState(false);
     const [notifyPricing, setNotifyPricing] = useState(true);
 
-    const notifications = [
+    const [notifications, setNotifications] = useState([
         {
             id: "1",
             type: "urgent",
@@ -152,7 +152,19 @@ export default function RetailNotifications() {
             icon: Info,
             category: "pricing"
         }
-    ];
+    ]);
+
+    const markAsRead = (id: string) => {
+        setNotifications(prev =>
+            prev.map(notification =>
+                notification.id === id ? { ...notification, read: true } : notification
+            )
+        );
+    };
+
+    const deleteNotification = (id: string) => {
+        setNotifications(prev => prev.filter(notification => notification.id !== id));
+    };
 
     const getTypeColor = (type: string) => {
         switch (type) {
