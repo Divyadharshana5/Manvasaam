@@ -42,6 +42,8 @@ import { useState } from "react";
 export default function RetailDashboard() {
     const [searchQuery, setSearchQuery] = useState("");
     const [activeTab, setActiveTab] = useState("overview");
+    const [filterCategory, setFilterCategory] = useState<string>("all");
+    const [showLowStock, setShowLowStock] = useState(false);
 
     // Enhanced Mock data
     const stats = {
