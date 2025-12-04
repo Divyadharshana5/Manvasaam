@@ -181,6 +181,34 @@ export default function RetailDashboard() {
         });
     };
 
+    // Handle new order
+    const handleNewOrder = () => {
+        toast({
+            title: "Creating New Order",
+            description: "Redirecting to order creation page...",
+        });
+        // In a real app, this would navigate to the order creation page
+        setTimeout(() => {
+            window.location.href = "/dashboard/retail/orders/new";
+        }, 1000);
+    };
+
+    // Handle view order details
+    const handleViewOrder = (orderId: string) => {
+        toast({
+            title: "Order Details",
+            description: `Viewing details for ${orderId}`,
+        });
+    };
+
+    // Handle track order
+    const handleTrackOrder = (orderId: string, status: string) => {
+        toast({
+            title: "Track Order",
+            description: `Tracking ${orderId} - Status: ${status}`,
+        });
+    };
+
     return (
         <div className="flex flex-1 flex-col gap-4 p-4 md:gap-8 md:p-8 page-transition">
             {/* Status and Search */}
@@ -495,7 +523,7 @@ export default function RetailDashboard() {
                 <TabsContent value="orders" className="space-y-4 tab-content">
                     <div className="flex items-center justify-between">
                         <h3 className="text-lg font-semibold">Recent Orders</h3>
-                        <Button>
+                        <Button onClick={handleNewOrder}>
                             <Plus className="h-4 w-4 mr-2" />
                             New Order
                         </Button>
@@ -523,10 +551,20 @@ export default function RetailDashboard() {
                                             <p className="font-medium">₹{order.amount}</p>
                                             <p className="text-xs text-muted-foreground">{order.date}</p>
                                             <div className="flex gap-2 mt-2">
-                                                <Button size="sm" variant="outline">
+                                                <Button 
+                                                    size="sm" 
+                                                    variant="outline"
+                                                    onClick={() => handleViewOrder(order.id)}
+                                                    title="View order details"
+                                                >
                                                     <Eye className="h-4 w-4" />
                                                 </Button>
-                                                <Button size="sm" variant="outline">
+                                                <Button 
+                                                    size="sm" 
+                                                    variant="outline"
+                                                    onClick={() => handleTrackOrder(order.id, order.status)}
+                                                    title="Track order"
+                                                >
                                                     <Truck className="h-4 w-4" />
                                                 </Button>
                                             </div>
