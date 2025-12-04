@@ -136,7 +136,14 @@ export default function NewOrderPage() {
   };
 
   const handlePlaceOrder = async () => {
-    if (!validateOrder()) return;
+    if (!validateOrder()) {
+      toast({
+        title: "Invalid Order",
+        description: "Please select a supplier and add at least one product with valid details.",
+        variant: "destructive",
+      });
+      return;
+    }
 
     setIsPlacingOrder(true);
 
@@ -155,10 +162,22 @@ export default function NewOrderPage() {
 
       console.log("Order placed:", orderData);
 
+      toast({
+        title: "Order Placed Successfully",
+        description: `Order total: ₹${calculateTotal().toFixed(2)}`,
+      });
+
       // Redirect to orders page
-      router.push("/dashboard/retail/orders");
+      setTimeout(() => {
+        router.push("/dashboard/retail/orders");
+      }, 1000);
     } catch (error) {
       console.error("Error placing order:", error);
+      toast({
+        title: "Order Failed",
+        description: "Failed to place order. Please try again.",
+        variant: "destructive",
+      });
     } finally {
       setIsPlacingOrder(false);
     }
@@ -201,6 +220,11 @@ export default function NewOrderPage() {
         "quantity",
         orderItems[existingItemIndex].quantity + 1
       );
+      
+      toast({
+        title: "Quantity Updated",
+        description: `${product.name} quantity increased to ${orderItems[existingItemIndex].quantity + 1}`,
+      });
     } else {
       // Find first empty item or add new item
       const emptyItemIndex = orderItems.findIndex((item) => !item.product);
@@ -227,6 +251,11 @@ export default function NewOrderPage() {
         };
         setOrderItems([...orderItems, newItem]);
       }
+      
+      toast({
+        title: "Product Added",
+        description: `${product.name} added to order at ₹${product.price}/${product.category === "Dairy" ? "L" : "kg"}`,
+      });
     }
 
     // Auto-select supplier if not already selected
@@ -234,6 +263,11 @@ export default function NewOrderPage() {
       const supplierMatch = suppliers.find((s) => s.name === product.supplier);
       if (supplierMatch) {
         setSelectedSupplier(supplierMatch.id);
+        
+        toast({
+          title: "Supplier Selected",
+          description: `${supplierMatch.name} has been automatically selected`,
+        });
       }
     }
   };
