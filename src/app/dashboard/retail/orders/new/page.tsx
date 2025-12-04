@@ -200,8 +200,18 @@ export default function NewOrderPage() {
       };
 
       console.log("Draft saved:", draftData);
+      
+      toast({
+        title: "Draft Saved",
+        description: "Your order has been saved as a draft.",
+      });
     } catch (error) {
       console.error("Error saving draft:", error);
+      toast({
+        title: "Save Failed",
+        description: "Failed to save draft. Please try again.",
+        variant: "destructive",
+      });
     } finally {
       setIsSavingDraft(false);
     }
