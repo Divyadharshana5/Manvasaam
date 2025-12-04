@@ -602,11 +602,21 @@ export default function RetailNotifications() {
                                                     </div>
                                                     <div className="flex gap-1">
                                                         {!notification.read && (
-                                                            <Button variant="ghost" size="sm">
+                                                            <Button 
+                                                                variant="ghost" 
+                                                                size="sm"
+                                                                onClick={() => markAsRead(notification.id)}
+                                                                title="Mark as read"
+                                                            >
                                                                 <Check className="h-4 w-4" />
                                                             </Button>
                                                         )}
-                                                        <Button variant="ghost" size="sm">
+                                                        <Button 
+                                                            variant="ghost" 
+                                                            size="sm"
+                                                            onClick={() => deleteNotification(notification.id)}
+                                                            title="Delete notification"
+                                                        >
                                                             <Trash2 className="h-4 w-4" />
                                                         </Button>
                                                     </div>
