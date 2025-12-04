@@ -131,7 +131,55 @@ export default function RetailDashboard() {
         { name: "View Analytics", icon: BarChart3, href: "/dashboard/retail/analytics", color: "bg-orange-500" }
     ];
 
+    const { toast } = useToast();
 
+    // Filter inventory based on selected filters
+    const filteredInventory = inventory.filter(item => {
+        const matchesCategory = filterCategory === "all" || item.category === filterCategory;
+        const matchesLowStock = !showLowStock || item.stock <= item.minStock;
+        return matchesCategory && matchesLowStock;
+    });
+
+    // Export inventory to CSV
+    const exportInventory = () => {
+        const headers = ["Name", "Category", "Stock (kg)", "Min Stock", "Price (₹/kg)", "Supplier"];
+        const rows = inventory.map(item => [
+            item.name,
+            item.category,
+            item.stock,
+            item.minStock,
+            item.price,
+            item.supplier
+        ]);
+
+        const csvContent = [
+            headers.join(","),
+            ...rows.map(row => row.join(","))
+        ].join("\n");
+
+        const blob = new Blob([csvContent], { type: "text/csv;charset=utf-8;" });
+        const link = document.createElement("a");
+        const url = URL.createObjectURL(blob);
+        link.setAttribute("href", url);
+        link.setAttribute("download", `inventory_${new Date().toISOString().split('T')[0]}.csv`);
+        link.style.visibility = "hidden";
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+
+        toast({
+            title: "Export Successful",
+            description: "Inventory data has been exported to CSV.",
+        });
+    };
+
+    // Handle reorder
+    const handleReorder = (itemName: string) => {
+        toast({
+            title: "Reorder Initiated",
+            description: `Reorder request for ${itemName} has been created.`,
+        });
+    };
 
     return (
         <div className="flex flex-1 flex-col gap-4 p-4 md:gap-8 md:p-8 page-transition">
@@ -432,7 +480,7 @@ export default function RetailDashboard() {
                                                     <p className="text-xs text-orange-600 mt-1">Low Stock!</p>
                                                 )}
                                             </div>
-                                            <Button size="sm">
+                                            <Button size="sm" onClick={() => handleReorder(item.name)}>
                                                 <Plus className="h-4 w-4 mr-1" />
                                                 Reorder
                                             </Button>
