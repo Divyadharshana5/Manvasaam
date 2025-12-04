@@ -42,6 +42,7 @@ import { useToast } from "@/hooks/use-toast";
 
 export default function NewOrderPage() {
   const router = useRouter();
+  const { toast } = useToast();
   const [selectedSupplier, setSelectedSupplier] = useState("");
   const [orderItems, setOrderItems] = useState([
     { id: 1, product: "", quantity: 1, unit: "kg", price: 0 },
