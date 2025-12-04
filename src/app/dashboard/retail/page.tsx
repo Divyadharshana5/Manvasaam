@@ -324,11 +324,80 @@ export default function RetailDashboard() {
                     <div className="flex items-center justify-between">
                         <h3 className="text-lg font-semibold">Inventory Management</h3>
                         <div className="flex gap-2">
-                            <Button variant="outline" size="sm">
-                                <Filter className="h-4 w-4 mr-2" />
-                                Filter
-                            </Button>
-                            <Button variant="outline" size="sm">
+                            <DropdownMenu>
+                                <DropdownMenuTrigger asChild>
+                                    <Button variant="outline" size="sm">
+                                        <Filter className="h-4 w-4 mr-2" />
+                                        Filter
+                                        {(filterCategory !== "all" || showLowStock) && (
+                                            <Badge variant="secondary" className="ml-2 h-5 w-5 rounded-full p-0 flex items-center justify-center">
+                                                {(filterCategory !== "all" ? 1 : 0) + (showLowStock ? 1 : 0)}
+                                            </Badge>
+                                        )}
+                                    </Button>
+                                </DropdownMenuTrigger>
+                                <DropdownMenuContent align="end" className="w-56">
+                                    <DropdownMenuLabel>Filter by Category</DropdownMenuLabel>
+                                    <DropdownMenuCheckboxItem
+                                        checked={filterCategory === "all"}
+                                        onCheckedChange={() => setFilterCategory("all")}
+                                    >
+                                        All Categories
+                                    </DropdownMenuCheckboxItem>
+                                    <DropdownMenuCheckboxItem
+                                        checked={filterCategory === "Vegetables"}
+                                        onCheckedChange={() => setFilterCategory("Vegetables")}
+                                    >
+                                        Vegetables
+                                    </DropdownMenuCheckboxItem>
+                                    <DropdownMenuCheckboxItem
+                                        checked={filterCategory === "Dairy"}
+                                        onCheckedChange={() => setFilterCategory("Dairy")}
+                                    >
+                                        Dairy
+                                    </DropdownMenuCheckboxItem>
+                                    <DropdownMenuCheckboxItem
+                                        checked={filterCategory === "Grains"}
+                                        onCheckedChange={() => setFilterCategory("Grains")}
+                                    >
+                                        Grains
+                                    </DropdownMenuCheckboxItem>
+                                    <DropdownMenuCheckboxItem
+                                        checked={filterCategory === "Fruits"}
+                                        onCheckedChange={() => setFilterCategory("Fruits")}
+                                    >
+                                        Fruits
+                                    </DropdownMenuCheckboxItem>
+                                    
+                                    <DropdownMenuSeparator />
+                                    
+                                    <DropdownMenuLabel>Stock Status</DropdownMenuLabel>
+                                    <DropdownMenuCheckboxItem
+                                        checked={showLowStock}
+                                        onCheckedChange={setShowLowStock}
+                                    >
+                                        Low Stock Only
+                                    </DropdownMenuCheckboxItem>
+                                    
+                                    {(filterCategory !== "all" || showLowStock) && (
+                                        <>
+                                            <DropdownMenuSeparator />
+                                            <Button
+                                                variant="ghost"
+                                                size="sm"
+                                                className="w-full"
+                                                onClick={() => {
+                                                    setFilterCategory("all");
+                                                    setShowLowStock(false);
+                                                }}
+                                            >
+                                                Clear Filters
+                                            </Button>
+                                        </>
+                                    )}
+                                </DropdownMenuContent>
+                            </DropdownMenu>
+                            <Button variant="outline" size="sm" onClick={exportInventory}>
                                 <Download className="h-4 w-4 mr-2" />
                                 Export
                             </Button>
@@ -336,7 +405,7 @@ export default function RetailDashboard() {
                     </div>
 
                     <div className="grid gap-4">
-                        {inventory.map((item, index) => (
+                        {filteredInventory.map((item, index) => (
                             <Card key={index} className={`animate-slide-in-left list-item ${item.stock <= item.minStock ? "border-orange-200 bg-orange-50" : ""}`}>
                                 <CardContent className="p-4">
                                     <div className="flex items-center justify-between">
