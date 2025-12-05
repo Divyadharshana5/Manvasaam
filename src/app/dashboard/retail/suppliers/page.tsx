@@ -390,25 +390,25 @@ export default function SuppliersPage() {
 
             {/* Add Supplier Dialog */}
             <Dialog open={addSupplierDialog} onOpenChange={setAddSupplierDialog}>
-                <DialogContent className="sm:max-w-[600px] max-h-[90vh] overflow-hidden p-0 gap-0">
-                    <div className="flex flex-col max-h-[90vh]">
-                        <DialogHeader className="px-6 pt-6 pb-4 shrink-0">
+                <DialogContent className="sm:max-w-[600px] h-auto max-h-[80vh] overflow-hidden p-0 gap-0">
+                    <div className="flex flex-col h-full">
+                        <DialogHeader className="px-6 pt-6 pb-3 shrink-0">
                             <DialogTitle>Add New Supplier</DialogTitle>
                             <DialogDescription>
                                 Add a new supplier to your network. Fill in the details below.
                             </DialogDescription>
                         </DialogHeader>
                         
-                        <div className="px-6 overflow-y-auto" style={{ maxHeight: 'calc(90vh - 180px)' }}>
-                            <div className="space-y-4 pb-4">
-                                <div className="grid grid-cols-2 gap-4">
-                                    <div className="space-y-2">
+                        <div className="px-6 py-2 overflow-y-auto flex-1 min-h-0">
+                            <div className="space-y-3">
+                                <div className="grid grid-cols-2 gap-3">
+                                    <div className="space-y-1.5">
                                         <Label htmlFor="supplier-name">Supplier Name</Label>
                                         <Input id="supplier-name" placeholder="e.g., Fresh Farm Co." />
                                     </div>
-                                    <div className="space-y-2">
+                                    <div className="space-y-1.5">
                                         <Label htmlFor="category">Category</Label>
-                                        <select id="category" className="w-full p-2 border rounded-md">
+                                        <select id="category" className="w-full p-2 border rounded-md text-sm">
                                             <option value="">Select category</option>
                                             <option value="Vegetables">Vegetables</option>
                                             <option value="Fruits">Fruits</option>
@@ -419,44 +419,47 @@ export default function SuppliersPage() {
                                         </select>
                                     </div>
                                 </div>
-                                <div className="grid grid-cols-2 gap-4">
-                                    <div className="space-y-2">
+                                <div className="grid grid-cols-2 gap-3">
+                                    <div className="space-y-1.5">
                                         <Label htmlFor="phone">Phone Number</Label>
                                         <Input id="phone" placeholder="+91 98765 43210" />
                                     </div>
-                                    <div className="space-y-2">
+                                    <div className="space-y-1.5">
                                         <Label htmlFor="email">Email Address</Label>
                                         <Input id="email" type="email" placeholder="contact@supplier.com" />
                                     </div>
                                 </div>
-                                <div className="space-y-2">
+                                <div className="space-y-1.5">
                                     <Label htmlFor="address">Address</Label>
                                     <Textarea 
                                         id="address" 
                                         placeholder="Complete address with city, state, and postal code"
                                         rows={2}
+                                        className="resize-none"
                                     />
                                 </div>
-                                <div className="space-y-2">
+                                <div className="space-y-1.5">
                                     <Label htmlFor="products">Products/Services</Label>
                                     <Textarea 
                                         id="products" 
                                         placeholder="List the main products or services this supplier provides"
                                         rows={2}
+                                        className="resize-none"
                                     />
                                 </div>
-                                <div className="space-y-2">
+                                <div className="space-y-1.5">
                                     <Label htmlFor="notes">Additional Notes</Label>
                                     <Textarea 
                                         id="notes" 
                                         placeholder="Any additional information about this supplier"
                                         rows={2}
+                                        className="resize-none"
                                     />
                                 </div>
                             </div>
                         </div>
                         
-                        <div className="flex gap-2 px-6 py-4 border-t bg-white shrink-0">
+                        <div className="flex gap-2 px-6 py-3 border-t bg-white shrink-0">
                             <Button onClick={() => setAddSupplierDialog(false)} variant="outline" className="flex-1">
                                 Cancel
                             </Button>
