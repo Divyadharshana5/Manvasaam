@@ -390,22 +390,22 @@ export default function SuppliersPage() {
 
             {/* Add Supplier Dialog */}
             <Dialog open={addSupplierDialog} onOpenChange={setAddSupplierDialog}>
-                <DialogContent className="sm:max-w-[500px]">
-                    <DialogHeader>
-                        <DialogTitle>Add New Supplier</DialogTitle>
-                        <DialogDescription>
-                            Add a new supplier to your network.
+                <DialogContent className="sm:max-w-[450px] p-4">
+                    <DialogHeader className="pb-2">
+                        <DialogTitle className="text-lg">Add Supplier</DialogTitle>
+                        <DialogDescription className="text-xs">
+                            Enter supplier details below.
                         </DialogDescription>
                     </DialogHeader>
-                    <div className="grid gap-3 py-2">
-                        <div className="grid grid-cols-2 gap-3">
-                            <div className="space-y-1">
-                                <Label htmlFor="supplier-name" className="text-sm">Supplier Name *</Label>
-                                <Input id="supplier-name" placeholder="Fresh Farm Co." />
+                    <div className="grid gap-2.5">
+                        <div className="grid grid-cols-2 gap-2.5">
+                            <div>
+                                <Label htmlFor="supplier-name" className="text-xs">Name *</Label>
+                                <Input id="supplier-name" placeholder="Supplier name" className="h-9 mt-1" />
                             </div>
-                            <div className="space-y-1">
-                                <Label htmlFor="category" className="text-sm">Category *</Label>
-                                <select id="category" className="w-full h-10 px-3 border rounded-md text-sm">
+                            <div>
+                                <Label htmlFor="category" className="text-xs">Category *</Label>
+                                <select id="category" className="w-full h-9 px-2 border rounded-md text-xs mt-1">
                                     <option value="">Select</option>
                                     <option value="Vegetables">Vegetables</option>
                                     <option value="Fruits">Fruits</option>
@@ -416,38 +416,30 @@ export default function SuppliersPage() {
                                 </select>
                             </div>
                         </div>
-                        <div className="grid grid-cols-2 gap-3">
-                            <div className="space-y-1">
-                                <Label htmlFor="phone" className="text-sm">Phone *</Label>
-                                <Input id="phone" placeholder="+91 98765 43210" />
+                        <div className="grid grid-cols-2 gap-2.5">
+                            <div>
+                                <Label htmlFor="phone" className="text-xs">Phone *</Label>
+                                <Input id="phone" placeholder="+91 98765 43210" className="h-9 mt-1" />
                             </div>
-                            <div className="space-y-1">
-                                <Label htmlFor="email" className="text-sm">Email *</Label>
-                                <Input id="email" type="email" placeholder="contact@supplier.com" />
+                            <div>
+                                <Label htmlFor="email" className="text-xs">Email *</Label>
+                                <Input id="email" type="email" placeholder="email@example.com" className="h-9 mt-1" />
                             </div>
-                        </div>
-                        <div className="space-y-1">
-                            <Label htmlFor="address" className="text-sm">Address</Label>
-                            <Input id="address" placeholder="Complete address" />
-                        </div>
-                        <div className="space-y-1">
-                            <Label htmlFor="products" className="text-sm">Products</Label>
-                            <Input id="products" placeholder="e.g., Tomatoes, Onions" />
                         </div>
                     </div>
-                    <div className="flex gap-2 pt-2">
-                        <Button onClick={() => setAddSupplierDialog(false)} variant="outline" className="flex-1">
+                    <div className="flex gap-2 pt-3">
+                        <Button onClick={() => setAddSupplierDialog(false)} variant="outline" className="flex-1 h-9">
                             Cancel
                         </Button>
                         <Button 
-                            className="flex-1"
+                            className="flex-1 h-9"
                             onClick={() => {
                                 alert("Supplier added successfully!");
                                 setAddSupplierDialog(false);
                             }}
                         >
-                            <Plus className="h-4 w-4 mr-2" />
-                            Add Supplier
+                            <Plus className="h-3.5 w-3.5 mr-1.5" />
+                            Add
                         </Button>
                     </div>
                 </DialogContent>
