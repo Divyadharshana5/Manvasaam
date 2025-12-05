@@ -390,70 +390,57 @@ export default function SuppliersPage() {
 
             {/* Add Supplier Dialog */}
             <Dialog open={addSupplierDialog} onOpenChange={setAddSupplierDialog}>
-                <DialogContent className="sm:max-w-[550px] p-0 gap-0" style={{ maxHeight: '85vh' }}>
-                    <DialogHeader className="px-5 pt-5 pb-2">
-                        <DialogTitle className="text-lg">Add New Supplier</DialogTitle>
-                        <DialogDescription className="text-sm">
+                <DialogContent className="sm:max-w-[500px]">
+                    <DialogHeader>
+                        <DialogTitle>Add New Supplier</DialogTitle>
+                        <DialogDescription>
                             Add a new supplier to your network.
                         </DialogDescription>
                     </DialogHeader>
-                    
-                    <div className="px-5 py-3 overflow-y-auto" style={{ maxHeight: 'calc(85vh - 140px)' }}>
-                        <div className="space-y-3">
-                            <div className="grid grid-cols-2 gap-3">
-                                <div className="space-y-1">
-                                    <Label htmlFor="supplier-name" className="text-sm">Supplier Name *</Label>
-                                    <Input id="supplier-name" placeholder="Fresh Farm Co." className="h-9" />
-                                </div>
-                                <div className="space-y-1">
-                                    <Label htmlFor="category" className="text-sm">Category *</Label>
-                                    <select id="category" className="w-full h-9 px-3 border rounded-md text-sm">
-                                        <option value="">Select</option>
-                                        <option value="Vegetables">Vegetables</option>
-                                        <option value="Fruits">Fruits</option>
-                                        <option value="Dairy">Dairy</option>
-                                        <option value="Cereals">Cereals</option>
-                                        <option value="Meat">Meat</option>
-                                        <option value="Other">Other</option>
-                                    </select>
-                                </div>
-                            </div>
-                            <div className="grid grid-cols-2 gap-3">
-                                <div className="space-y-1">
-                                    <Label htmlFor="phone" className="text-sm">Phone *</Label>
-                                    <Input id="phone" placeholder="+91 98765 43210" className="h-9" />
-                                </div>
-                                <div className="space-y-1">
-                                    <Label htmlFor="email" className="text-sm">Email *</Label>
-                                    <Input id="email" type="email" placeholder="contact@supplier.com" className="h-9" />
-                                </div>
+                    <div className="grid gap-3 py-2">
+                        <div className="grid grid-cols-2 gap-3">
+                            <div className="space-y-1">
+                                <Label htmlFor="supplier-name" className="text-sm">Supplier Name *</Label>
+                                <Input id="supplier-name" placeholder="Fresh Farm Co." />
                             </div>
                             <div className="space-y-1">
-                                <Label htmlFor="address" className="text-sm">Address</Label>
-                                <Input id="address" placeholder="Complete address" className="h-9" />
-                            </div>
-                            <div className="space-y-1">
-                                <Label htmlFor="products" className="text-sm">Products/Services</Label>
-                                <Input id="products" placeholder="e.g., Tomatoes, Onions, Potatoes" className="h-9" />
-                            </div>
-                            <div className="space-y-1">
-                                <Label htmlFor="notes" className="text-sm">Notes (Optional)</Label>
-                                <Textarea 
-                                    id="notes" 
-                                    placeholder="Additional information"
-                                    rows={2}
-                                    className="resize-none text-sm"
-                                />
+                                <Label htmlFor="category" className="text-sm">Category *</Label>
+                                <select id="category" className="w-full h-10 px-3 border rounded-md text-sm">
+                                    <option value="">Select</option>
+                                    <option value="Vegetables">Vegetables</option>
+                                    <option value="Fruits">Fruits</option>
+                                    <option value="Dairy">Dairy</option>
+                                    <option value="Cereals">Cereals</option>
+                                    <option value="Meat">Meat</option>
+                                    <option value="Other">Other</option>
+                                </select>
                             </div>
                         </div>
+                        <div className="grid grid-cols-2 gap-3">
+                            <div className="space-y-1">
+                                <Label htmlFor="phone" className="text-sm">Phone *</Label>
+                                <Input id="phone" placeholder="+91 98765 43210" />
+                            </div>
+                            <div className="space-y-1">
+                                <Label htmlFor="email" className="text-sm">Email *</Label>
+                                <Input id="email" type="email" placeholder="contact@supplier.com" />
+                            </div>
+                        </div>
+                        <div className="space-y-1">
+                            <Label htmlFor="address" className="text-sm">Address</Label>
+                            <Input id="address" placeholder="Complete address" />
+                        </div>
+                        <div className="space-y-1">
+                            <Label htmlFor="products" className="text-sm">Products</Label>
+                            <Input id="products" placeholder="e.g., Tomatoes, Onions" />
+                        </div>
                     </div>
-                    
-                    <div className="flex gap-2 px-5 py-3 border-t bg-white">
-                        <Button onClick={() => setAddSupplierDialog(false)} variant="outline" className="flex-1 h-9">
+                    <div className="flex gap-2 pt-2">
+                        <Button onClick={() => setAddSupplierDialog(false)} variant="outline" className="flex-1">
                             Cancel
                         </Button>
                         <Button 
-                            className="flex-1 h-9"
+                            className="flex-1"
                             onClick={() => {
                                 alert("Supplier added successfully!");
                                 setAddSupplierDialog(false);
