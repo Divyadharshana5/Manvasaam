@@ -292,6 +292,53 @@ For real-time updates, contact supplier at ${order.supplierContact}
 
   const uniqueSuppliers = [...new Set(orders.map(order => order.supplier))];
 
+  const handleExport = () => {
+    try {
+      // Prepare CSV data
+      const csvHeaders = ['Order ID', 'Supplier', 'Contact', 'Items', 'Total Amount', 'Status', 'Order Date', 'Delivery Date', 'Payment Status', 'Priority'];
+      const csvRows = filteredOrders.map(order => [
+        order.id,
+        order.supplier,
+        order.supplierContact,
+        order.items.map(item => `${item.name} (${item.quantity})`).join('; '),
+        order.totalAmount,
+        order.status,
+        order.orderDate,
+        order.deliveryDate,
+        order.paymentStatus,
+        order.priority
+      ]);
+
+      // Create CSV content
+      const csvContent = [
+        csvHeaders.join(','),
+        ...csvRows.map(row => row.map(cell => `"${cell}"`).join(','))
+      ].join('\n');
+
+      // Create blob and download
+      const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
+      const link = document.createElement('a');
+      const url = URL.createObjectURL(blob);
+      
+      link.setAttribute('href', url);
+      link.setAttribute('download', `orders_export_${new Date().toISOString().split('T')[0]}.csv`);
+      link.style.visibility = 'hidden';
+      
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+
+      alert(`Successfully exported ${filteredOrders.length} orders to CSV!`);
+    } catch (error) {
+      console.error('Export failed:', error);
+      alert('Failed to export orders. Please try again.');
+    }
+  };
+
+  const handleNewOrder = () => {
+    router.push('/dashboard/retail/orders/new');
+  };
+
   return (
     <div className="space-y-6 page-transition">
       <div className="flex items-center justify-between animate-fade-in-up">
@@ -300,15 +347,20 @@ For real-time updates, contact supplier at ${order.supplierContact}
           <p className="text-muted-foreground">Track and manage your supplier orders</p>
         </div>
         <div className="flex space-x-2">
-          <Button variant="outline">
+          <Button 
+            variant="outline"
+            onClick={handleExport}
+            disabled={filteredOrders.length === 0}
+          >
             <Download className="mr-2 h-4 w-4" />
             Export
           </Button>
-          <Button className="bg-emerald-600 hover:bg-emerald-700" asChild>
-            <Link href="/dashboard/retail/orders/new">
-              <Plus className="mr-2 h-4 w-4" />
-              New Order
-            </Link>
+          <Button 
+            className="bg-emerald-600 hover:bg-emerald-700"
+            onClick={handleNewOrder}
+          >
+            <Plus className="mr-2 h-4 w-4" />
+            New Order
           </Button>
         </div>
       </div>
