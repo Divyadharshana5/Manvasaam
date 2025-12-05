@@ -390,55 +390,48 @@ export default function SuppliersPage() {
 
             {/* Add Supplier Dialog */}
             <Dialog open={addSupplierDialog} onOpenChange={setAddSupplierDialog}>
-                <DialogContent className="sm:max-w-[450px] p-4">
-                    <DialogHeader className="pb-2">
-                        <DialogTitle className="text-lg">Add Supplier</DialogTitle>
-                        <DialogDescription className="text-xs">
-                            Enter supplier details below.
-                        </DialogDescription>
+                <DialogContent className="w-[400px] p-4">
+                    <DialogHeader className="pb-1">
+                        <DialogTitle className="text-base">Add Supplier</DialogTitle>
                     </DialogHeader>
-                    <div className="grid gap-2.5">
-                        <div className="grid grid-cols-2 gap-2.5">
+                    <div className="space-y-2">
+                        <div className="grid grid-cols-2 gap-2">
                             <div>
-                                <Label htmlFor="supplier-name" className="text-xs">Name *</Label>
-                                <Input id="supplier-name" placeholder="Supplier name" className="h-9 mt-1" />
+                                <Label className="text-xs">Name</Label>
+                                <Input placeholder="Supplier name" className="h-8 text-sm mt-0.5" />
                             </div>
                             <div>
-                                <Label htmlFor="category" className="text-xs">Category *</Label>
-                                <select id="category" className="w-full h-9 px-2 border rounded-md text-xs mt-1">
-                                    <option value="">Select</option>
-                                    <option value="Vegetables">Vegetables</option>
-                                    <option value="Fruits">Fruits</option>
-                                    <option value="Dairy">Dairy</option>
-                                    <option value="Cereals">Cereals</option>
-                                    <option value="Meat">Meat</option>
-                                    <option value="Other">Other</option>
+                                <Label className="text-xs">Category</Label>
+                                <select className="w-full h-8 px-2 border rounded-md text-xs mt-0.5">
+                                    <option>Vegetables</option>
+                                    <option>Fruits</option>
+                                    <option>Dairy</option>
+                                    <option>Cereals</option>
                                 </select>
                             </div>
                         </div>
-                        <div className="grid grid-cols-2 gap-2.5">
+                        <div className="grid grid-cols-2 gap-2">
                             <div>
-                                <Label htmlFor="phone" className="text-xs">Phone *</Label>
-                                <Input id="phone" placeholder="+91 98765 43210" className="h-9 mt-1" />
+                                <Label className="text-xs">Phone</Label>
+                                <Input placeholder="+91 98765 43210" className="h-8 text-sm mt-0.5" />
                             </div>
                             <div>
-                                <Label htmlFor="email" className="text-xs">Email *</Label>
-                                <Input id="email" type="email" placeholder="email@example.com" className="h-9 mt-1" />
+                                <Label className="text-xs">Email</Label>
+                                <Input type="email" placeholder="email@example.com" className="h-8 text-sm mt-0.5" />
                             </div>
                         </div>
                     </div>
-                    <div className="flex gap-2 pt-3">
-                        <Button onClick={() => setAddSupplierDialog(false)} variant="outline" className="flex-1 h-9">
+                    <div className="flex gap-2 pt-2">
+                        <Button onClick={() => setAddSupplierDialog(false)} variant="outline" className="flex-1 h-8 text-sm">
                             Cancel
                         </Button>
                         <Button 
-                            className="flex-1 h-9"
+                            className="flex-1 h-8 text-sm"
                             onClick={() => {
-                                alert("Supplier added successfully!");
+                                alert("Supplier added!");
                                 setAddSupplierDialog(false);
                             }}
                         >
-                            <Plus className="h-3.5 w-3.5 mr-1.5" />
                             Add
                         </Button>
                     </div>
