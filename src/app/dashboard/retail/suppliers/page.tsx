@@ -390,7 +390,7 @@ export default function SuppliersPage() {
 
             {/* Add Supplier Dialog */}
             <Dialog open={addSupplierDialog} onOpenChange={setAddSupplierDialog}>
-                <DialogContent className="sm:max-w-[500px]">
+                <DialogContent className="sm:max-w-[500px] max-h-[90vh] overflow-y-auto">
                     <DialogHeader>
                         <DialogTitle>Add New Supplier</DialogTitle>
                         <DialogDescription>
@@ -451,7 +451,7 @@ export default function SuppliersPage() {
                             />
                         </div>
                     </div>
-                    <div className="flex gap-2">
+                    <div className="flex gap-2 sticky bottom-0 bg-white pt-4 pb-2">
                         <Button onClick={() => setAddSupplierDialog(false)} variant="outline" className="flex-1">
                             Cancel
                         </Button>
