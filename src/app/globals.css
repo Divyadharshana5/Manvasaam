@@ -421,6 +421,19 @@
   }
 }
 
+/* Dialog fixes for visibility */
+[data-radix-dialog-content] {
+  max-height: 85vh !important;
+  overflow-y: auto !important;
+  top: 50% !important;
+  transform: translate(-50%, -50%) !important;
+}
+
+[data-radix-dialog-overlay] {
+  position: fixed !important;
+  inset: 0 !important;
+}
+
 /* Custom Toast Animations */
 @layer components {
   /* Toast Animation Keyframes */
