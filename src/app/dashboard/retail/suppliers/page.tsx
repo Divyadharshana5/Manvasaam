@@ -390,14 +390,14 @@ export default function SuppliersPage() {
 
             {/* Add Supplier Dialog */}
             <Dialog open={addSupplierDialog} onOpenChange={setAddSupplierDialog}>
-                <DialogContent className="sm:max-w-[500px] max-h-[90vh] overflow-y-auto">
-                    <DialogHeader>
+                <DialogContent className="sm:max-w-[500px] max-h-[85vh] flex flex-col p-0">
+                    <DialogHeader className="px-6 pt-6 pb-4">
                         <DialogTitle>Add New Supplier</DialogTitle>
                         <DialogDescription>
                             Add a new supplier to your network. Fill in the details below.
                         </DialogDescription>
                     </DialogHeader>
-                    <div className="space-y-4 py-4">
+                    <div className="space-y-4 px-6 overflow-y-auto flex-1">
                         <div className="grid grid-cols-2 gap-4">
                             <div className="space-y-2">
                                 <Label htmlFor="supplier-name">Supplier Name</Label>
@@ -442,7 +442,7 @@ export default function SuppliersPage() {
                                 rows={2}
                             />
                         </div>
-                        <div className="space-y-2">
+                        <div className="space-y-2 pb-4">
                             <Label htmlFor="notes">Additional Notes</Label>
                             <Textarea 
                                 id="notes" 
@@ -451,7 +451,7 @@ export default function SuppliersPage() {
                             />
                         </div>
                     </div>
-                    <div className="flex gap-2 sticky bottom-0 bg-white pt-4 pb-2">
+                    <div className="flex gap-2 px-6 py-4 border-t bg-white">
                         <Button onClick={() => setAddSupplierDialog(false)} variant="outline" className="flex-1">
                             Cancel
                         </Button>
