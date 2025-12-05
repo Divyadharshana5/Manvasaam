@@ -390,22 +390,22 @@ export default function SuppliersPage() {
 
             {/* Add Supplier Dialog */}
             <Dialog open={addSupplierDialog} onOpenChange={setAddSupplierDialog}>
-                <DialogContent className="sm:max-w-[425px] max-h-[85vh] overflow-y-auto">
+                <DialogContent className="sm:max-w-[425px] max-h-[85vh] overflow-y-auto bg-white text-gray-900">
                     <DialogHeader>
-                        <DialogTitle>Add Supplier</DialogTitle>
-                        <DialogDescription>
+                        <DialogTitle className="text-gray-900">Add Supplier</DialogTitle>
+                        <DialogDescription className="text-gray-600">
                             Enter supplier information
                         </DialogDescription>
                     </DialogHeader>
                     <div className="grid gap-3 py-2">
                         <div className="grid grid-cols-2 gap-3">
                             <div className="space-y-1">
-                                <Label htmlFor="name">Name</Label>
-                                <Input id="name" placeholder="Supplier name" />
+                                <Label htmlFor="name" className="text-gray-700">Name</Label>
+                                <Input id="name" placeholder="Supplier name" className="bg-white border-gray-300" />
                             </div>
                             <div className="space-y-1">
-                                <Label htmlFor="category">Category</Label>
-                                <select id="category" className="w-full h-10 px-3 border rounded-md">
+                                <Label htmlFor="category" className="text-gray-700">Category</Label>
+                                <select id="category" className="w-full h-10 px-3 border border-gray-300 rounded-md bg-white text-gray-900">
                                     <option>Vegetables</option>
                                     <option>Fruits</option>
                                     <option>Dairy</option>
@@ -415,12 +415,12 @@ export default function SuppliersPage() {
                         </div>
                         <div className="grid grid-cols-2 gap-3">
                             <div className="space-y-1">
-                                <Label htmlFor="phone">Phone</Label>
-                                <Input id="phone" placeholder="+91 98765 43210" />
+                                <Label htmlFor="phone" className="text-gray-700">Phone</Label>
+                                <Input id="phone" placeholder="+91 98765 43210" className="bg-white border-gray-300" />
                             </div>
                             <div className="space-y-1">
-                                <Label htmlFor="email">Email</Label>
-                                <Input id="email" type="email" placeholder="email@example.com" />
+                                <Label htmlFor="email" className="text-gray-700">Email</Label>
+                                <Input id="email" type="email" placeholder="email@example.com" className="bg-white border-gray-300" />
                             </div>
                         </div>
                     </div>
@@ -429,7 +429,7 @@ export default function SuppliersPage() {
                             Cancel
                         </Button>
                         <Button 
-                            className="flex-1"
+                            className="flex-1 bg-emerald-600 hover:bg-emerald-700 text-white"
                             onClick={() => {
                                 alert("Supplier added successfully!");
                                 setAddSupplierDialog(false);
