@@ -31,6 +31,7 @@ import {
   MapPin,
   User,
   Phone,
+  X,
 } from "lucide-react";
 import Link from "next/link";
 import { useState } from "react";
@@ -421,8 +422,17 @@ For real-time updates, contact supplier at ${order.supplierContact}
               placeholder="Search orders..."
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
-              className="pl-8 w-64"
+              className="pl-8 pr-8 w-64"
             />
+            {searchQuery && (
+              <button
+                onClick={() => setSearchQuery("")}
+                className="absolute right-2 top-2.5 text-muted-foreground hover:text-foreground transition-colors"
+                aria-label="Clear search"
+              >
+                <X className="h-4 w-4" />
+              </button>
+            )}
           </div>
           <Select value={statusFilter} onValueChange={setStatusFilter}>
             <SelectTrigger className="w-40">
