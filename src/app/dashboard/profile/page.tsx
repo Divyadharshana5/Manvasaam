@@ -562,7 +562,7 @@ export default function ProfilePage() {
     return (
       <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
         {/* Basic Information */}
-        <div className="space-y-4">
+        <div className="space-y-4 animate-fade-in-up stagger-1">
           <h3 className="text-lg font-semibold border-b pb-2">Basic Information</h3>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             {isRetail ? (
@@ -696,7 +696,7 @@ export default function ProfilePage() {
         </div>
 
         {/* Contact Details */}
-        <div className="space-y-4">
+        <div className="space-y-4 animate-fade-in-up stagger-2">
           <h3 className="text-lg font-semibold border-b pb-2">Contact Details</h3>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             <FormField
@@ -757,7 +757,7 @@ export default function ProfilePage() {
         </div>
 
         {/* Address */}
-        <div className="space-y-4">
+        <div className="space-y-4 animate-fade-in-up stagger-3">
           <h3 className="text-lg font-semibold border-b pb-2">Address & Location</h3>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             <FormField
