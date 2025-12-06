@@ -603,7 +603,7 @@ export default function FarmerProfilePage() {
                       className="space-y-6"
                     >
                       {/* Farm Information */}
-                      <div className="space-y-4">
+                      <div className="space-y-4 animate-fade-in-up stagger-1">
                         <h3 className="text-lg font-semibold">
                           Farm Information
                         </h3>
@@ -670,7 +670,7 @@ export default function FarmerProfilePage() {
                       </div>
 
                       {/* Contact Details */}
-                      <div className="space-y-4">
+                      <div className="space-y-4 animate-fade-in-up stagger-2">
                         <h3 className="text-lg font-semibold">
                           Contact Details
                         </h3>
@@ -746,7 +746,7 @@ export default function FarmerProfilePage() {
                       </div>
 
                       {/* Address */}
-                      <div className="space-y-4">
+                      <div className="space-y-4 animate-fade-in-up stagger-3">
                         <h3 className="text-lg font-semibold">Farm Location</h3>
                         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                           <FormField
@@ -824,7 +824,7 @@ export default function FarmerProfilePage() {
                       </div>
 
                       {/* Farming Details */}
-                      <div className="space-y-4">
+                      <div className="space-y-4 animate-fade-in-up stagger-4">
                         <h3 className="text-lg font-semibold">
                           Farming Details
                         </h3>
