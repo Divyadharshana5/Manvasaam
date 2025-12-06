@@ -328,7 +328,7 @@ export default function FarmerProfilePage() {
     return (
       <div className="space-y-8 w-full">
         {/* Basic Information */}
-        <div className="bg-white rounded-lg border p-6">
+        <div className="bg-white rounded-lg border p-6 animate-fade-in-up stagger-1">
           <h3 className="text-lg font-semibold mb-4 border-b pb-2 text-gray-900">
             Basic Information
           </h3>
@@ -371,7 +371,7 @@ export default function FarmerProfilePage() {
         </div>
 
         {/* Contact Information */}
-        <div className="bg-white rounded-lg border p-6">
+        <div className="bg-white rounded-lg border p-6 animate-fade-in-up stagger-2">
           <h3 className="text-lg font-semibold mb-4 border-b pb-2 text-gray-900">
             Contact Information
           </h3>
@@ -406,7 +406,7 @@ export default function FarmerProfilePage() {
         </div>
 
         {/* Address */}
-        <div className="bg-white rounded-lg border p-6">
+        <div className="bg-white rounded-lg border p-6 animate-fade-in-up stagger-3">
           <h3 className="text-lg font-semibold mb-4 border-b pb-2 text-gray-900">
             Farm Location
           </h3>
@@ -449,7 +449,7 @@ export default function FarmerProfilePage() {
         </div>
 
         {/* Farming Details */}
-        <div className="bg-white rounded-lg border p-6">
+        <div className="bg-white rounded-lg border p-6 animate-fade-in-up stagger-4">
           <h3 className="text-lg font-semibold mb-4 border-b pb-2 text-gray-900">
             Farming Details
           </h3>
