@@ -17,12 +17,9 @@ import {
     Search,
     Plus,
     MessageCircle,
-    Calendar,
     Package,
-    TrendingUp,
     Clock,
     CheckCircle,
-    AlertCircle,
     X,
 } from "lucide-react";
 import Link from "next/link";
@@ -159,7 +156,7 @@ export default function SuppliersPage() {
 
             {/* Stats Cards */}
             <div className="grid gap-4 md:grid-cols-4">
-                <Card>
+                <Card className="border-l-4 border-l-blue-500 stat-card card-glow animate-fade-in-up stagger-1">
                     <CardContent className="p-4">
                         <div className="flex items-center justify-between">
                             <div>
@@ -170,7 +167,7 @@ export default function SuppliersPage() {
                         </div>
                     </CardContent>
                 </Card>
-                <Card>
+                <Card className="border-l-4 border-l-green-500 stat-card card-glow animate-fade-in-up stagger-2">
                     <CardContent className="p-4">
                         <div className="flex items-center justify-between">
                             <div>
@@ -181,7 +178,7 @@ export default function SuppliersPage() {
                         </div>
                     </CardContent>
                 </Card>
-                <Card>
+                <Card className="border-l-4 border-l-yellow-500 stat-card card-glow animate-fade-in-up stagger-3">
                     <CardContent className="p-4">
                         <div className="flex items-center justify-between">
                             <div>
@@ -192,7 +189,7 @@ export default function SuppliersPage() {
                         </div>
                     </CardContent>
                 </Card>
-                <Card>
+                <Card className="border-l-4 border-l-purple-500 stat-card card-glow animate-fade-in-up stagger-4">
                     <CardContent className="p-4">
                         <div className="flex items-center justify-between">
                             <div>
@@ -206,7 +203,7 @@ export default function SuppliersPage() {
             </div>
 
             {/* Search */}
-            <Card>
+            <Card className="animate-scale-in stagger-5">
                 <CardContent className="p-4">
                     <div className="relative">
                         <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-muted-foreground z-10" />
@@ -232,8 +229,8 @@ export default function SuppliersPage() {
 
             {/* Suppliers Grid */}
             <div className="grid gap-6 md:grid-cols-2">
-                {filteredSuppliers.map((supplier) => (
-                    <Card key={supplier.id} className="hover:shadow-lg transition-shadow">
+                {filteredSuppliers.map((supplier, index) => (
+                    <Card key={supplier.id} className={`hover:shadow-lg transition-shadow animate-fade-in-up list-item stagger-${(index % 4) + 1}`}>
                         <CardHeader>
                             <div className="flex items-start justify-between">
                                 <div>
