@@ -45,8 +45,8 @@ export default function FaqPage() {
   const { t } = useLanguage();
   return (
     <AppLayout>
-      <div className="flex-1 space-y-4 p-4 md:p-8 pt-6">
-        <div className="flex items-center justify-between space-y-2">
+      <div className="flex-1 space-y-4 p-4 md:p-8 pt-6 page-transition">
+        <div className="flex items-center justify-between space-y-2 animate-fade-in-up">
           <div>
             <h2 className="text-3xl font-bold tracking-tight">
               {t.faq.title}
@@ -56,7 +56,7 @@ export default function FaqPage() {
             </p>
           </div>
         </div>
-        <Card>
+        <Card className="animate-scale-in stagger-1">
             <CardHeader>
                 <CardTitle>{t.faq.cardTitle}</CardTitle>
                 <CardDescription>{t.faq.cardDescription}</CardDescription>
@@ -64,7 +64,7 @@ export default function FaqPage() {
             <CardContent>
                 <Accordion type="single" collapsible className="w-full">
                     {faqItems.map((item, index) => (
-                        <AccordionItem value={`item-${index}`} key={index}>
+                        <AccordionItem value={`item-${index}`} key={index} className="animate-fade-in-up list-item" style={{ animationDelay: `${index * 0.1}s` }}>
                             <AccordionTrigger>{item.question}</AccordionTrigger>
                             <AccordionContent>
                                 {item.answer}
