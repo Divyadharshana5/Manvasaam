@@ -414,7 +414,7 @@ export default function ProfilePage() {
     return (
       <div className="space-y-8">
         {/* Profile Header */}
-        <div className="bg-gradient-to-r from-blue-50 to-indigo-50 rounded-2xl p-6 border border-blue-100">
+        <div className="bg-gradient-to-r from-blue-50 to-indigo-50 rounded-2xl p-6 border border-blue-100 animate-scale-in stagger-1">
           <div className="flex items-center gap-6">
             <Avatar className="h-20 w-20 border-4 border-white shadow-lg">
               <AvatarImage src={userProfile.photoURL || undefined} />
