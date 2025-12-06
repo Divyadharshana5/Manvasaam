@@ -340,7 +340,7 @@ export default function RetailProfilePage() {
     return (
       <div className="space-y-8 w-full">
         {/* Basic Information */}
-        <div className="bg-white rounded-lg border p-6">
+        <div className="bg-white rounded-lg border p-6 animate-fade-in-up stagger-1">
           <h3 className="text-lg font-semibold mb-4 border-b pb-2 text-gray-900">
             Basic Information
           </h3>
@@ -397,7 +397,7 @@ export default function RetailProfilePage() {
         </div>
 
         {/* Contact Information */}
-        <div className="bg-white rounded-lg border p-6">
+        <div className="bg-white rounded-lg border p-6 animate-fade-in-up stagger-2">
           <h3 className="text-lg font-semibold mb-4 border-b pb-2 text-gray-900">
             Contact Information
           </h3>
@@ -432,7 +432,7 @@ export default function RetailProfilePage() {
         </div>
 
         {/* Address */}
-        <div className="bg-white rounded-lg border p-6">
+        <div className="bg-white rounded-lg border p-6 animate-fade-in-up stagger-3">
           <h3 className="text-lg font-semibold mb-4 border-b pb-2 text-gray-900">
             Address
           </h3>
@@ -475,7 +475,7 @@ export default function RetailProfilePage() {
         </div>
 
         {/* Business Details */}
-        <div className="bg-white rounded-lg border p-6">
+        <div className="bg-white rounded-lg border p-6 animate-fade-in-up stagger-4">
           <h3 className="text-lg font-semibold mb-4 border-b pb-2 text-gray-900">
             Business Details
           </h3>
@@ -568,10 +568,10 @@ export default function RetailProfilePage() {
   };
 
   return (
-    <div className="min-h-screen w-full">
+    <div className="min-h-screen w-full page-transition">
       <div className="max-w-7xl mx-auto space-y-6 p-4">
         {/* Header */}
-        <div className="flex items-center justify-between">
+        <div className="flex items-center justify-between animate-fade-in-up">
           <div>
             <h1 className="text-2xl font-bold text-gray-900">Shop Profile</h1>
             <p className="text-gray-600 mt-1">
