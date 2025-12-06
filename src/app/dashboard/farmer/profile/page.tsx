@@ -536,10 +536,10 @@ export default function FarmerProfilePage() {
   };
 
   return (
-    <div className="min-h-screen w-full">
+    <div className="min-h-screen w-full page-transition">
       <div className="max-w-7xl mx-auto space-y-6 p-4">
         {/* Header */}
-        <div className="flex items-center justify-between">
+        <div className="flex items-center justify-between animate-fade-in-up">
           <div>
             <h1 className="text-2xl font-bold text-gray-900">Farmer Profile</h1>
             <p className="text-gray-600 mt-1">
