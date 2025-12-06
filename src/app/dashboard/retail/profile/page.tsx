@@ -633,7 +633,7 @@ export default function RetailProfilePage() {
                       className="space-y-6"
                     >
                       {/* Shop Information */}
-                      <div className="space-y-4">
+                      <div className="space-y-4 animate-fade-in-up stagger-1">
                         <h3 className="text-lg font-semibold">
                           Shop Information
                         </h3>
@@ -735,7 +735,7 @@ export default function RetailProfilePage() {
                       </div>
 
                       {/* Contact Details */}
-                      <div className="space-y-4">
+                      <div className="space-y-4 animate-fade-in-up stagger-2">
                         <h3 className="text-lg font-semibold">
                           Contact Details
                         </h3>
@@ -811,7 +811,7 @@ export default function RetailProfilePage() {
                       </div>
 
                       {/* Address */}
-                      <div className="space-y-4">
+                      <div className="space-y-4 animate-fade-in-up stagger-3">
                         <h3 className="text-lg font-semibold">
                           Address & Location
                         </h3>
@@ -891,7 +891,7 @@ export default function RetailProfilePage() {
                       </div>
 
                       {/* Business Details */}
-                      <div className="space-y-4">
+                      <div className="space-y-4 animate-fade-in-up stagger-4">
                         <h3 className="text-lg font-semibold">
                           Business Details
                         </h3>
