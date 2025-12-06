@@ -368,7 +368,7 @@ For real-time updates, contact supplier at ${order.supplierContact}
 
       {/* Stats Cards */}
       <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
-        <Card className="animate-scale-in stat-card stagger-1">
+        <Card className="border-l-4 border-l-blue-500 stat-card card-glow animate-fade-in-up stagger-1">
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
             <CardTitle className="text-sm font-medium">Total Orders</CardTitle>
             <ShoppingCart className="h-4 w-4 text-muted-foreground" />
@@ -379,7 +379,7 @@ For real-time updates, contact supplier at ${order.supplierContact}
           </CardContent>
         </Card>
 
-        <Card>
+        <Card className="border-l-4 border-l-yellow-500 stat-card card-glow animate-fade-in-up stagger-2">
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
             <CardTitle className="text-sm font-medium">Pending Orders</CardTitle>
             <Clock className="h-4 w-4 text-muted-foreground" />
@@ -390,7 +390,7 @@ For real-time updates, contact supplier at ${order.supplierContact}
           </CardContent>
         </Card>
 
-        <Card>
+        <Card className="border-l-4 border-l-green-500 stat-card card-glow animate-fade-in-up stagger-3">
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
             <CardTitle className="text-sm font-medium">Delivered</CardTitle>
             <CheckCircle className="h-4 w-4 text-muted-foreground" />
@@ -401,7 +401,7 @@ For real-time updates, contact supplier at ${order.supplierContact}
           </CardContent>
         </Card>
 
-        <Card>
+        <Card className="border-l-4 border-l-purple-500 stat-card card-glow animate-fade-in-up stagger-4">
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
             <CardTitle className="text-sm font-medium">Total Value</CardTitle>
             <IndianRupee className="h-4 w-4 text-muted-foreground" />
