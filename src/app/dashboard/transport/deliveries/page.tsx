@@ -84,49 +84,55 @@ export default function DeliveriesPage() {
       </div>
 
       <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
-        <Card className="animate-scale-in stat-card stagger-1">
-          <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-            <CardTitle className="text-sm font-medium">
-              Total Deliveries
-            </CardTitle>
-            <Package className="h-4 w-4 text-muted-foreground" />
-          </CardHeader>
-          <CardContent>
-            <div className="text-2xl font-bold">45</div>
-            <p className="text-xs text-muted-foreground">+12% from yesterday</p>
+        <Card className="border-l-4 border-l-blue-500 animate-scale-in stat-card stagger-1">
+          <CardContent className="p-4">
+            <div className="flex items-center justify-between">
+              <div>
+                <p className="text-sm font-medium text-muted-foreground">Total Deliveries</p>
+                <p className="text-2xl font-bold">45</p>
+                <p className="text-xs text-muted-foreground">+12% from yesterday</p>
+              </div>
+              <Package className="h-8 w-8 text-blue-500 icon-bounce" />
+            </div>
           </CardContent>
         </Card>
 
-        <Card className="animate-scale-in stat-card stagger-2">
-          <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-            <CardTitle className="text-sm font-medium">In Transit</CardTitle>
-            <Truck className="h-4 w-4 text-muted-foreground" />
-          </CardHeader>
-          <CardContent>
-            <div className="text-2xl font-bold">8</div>
-            <p className="text-xs text-muted-foreground">Active deliveries</p>
+        <Card className="border-l-4 border-l-green-500 animate-scale-in stat-card stagger-2">
+          <CardContent className="p-4">
+            <div className="flex items-center justify-between">
+              <div>
+                <p className="text-sm font-medium text-muted-foreground">In Transit</p>
+                <p className="text-2xl font-bold">8</p>
+                <p className="text-xs text-muted-foreground">Active deliveries</p>
+              </div>
+              <Truck className="h-8 w-8 text-green-500 icon-bounce" />
+            </div>
           </CardContent>
         </Card>
 
-        <Card className="animate-scale-in stat-card stagger-3">
-          <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-            <CardTitle className="text-sm font-medium">Completed</CardTitle>
-            <CheckCircle className="h-4 w-4 text-muted-foreground" />
-          </CardHeader>
-          <CardContent>
-            <div className="text-2xl font-bold">32</div>
-            <p className="text-xs text-muted-foreground">Today's deliveries</p>
+        <Card className="border-l-4 border-l-purple-500 animate-scale-in stat-card stagger-3">
+          <CardContent className="p-4">
+            <div className="flex items-center justify-between">
+              <div>
+                <p className="text-sm font-medium text-muted-foreground">Completed</p>
+                <p className="text-2xl font-bold">32</p>
+                <p className="text-xs text-muted-foreground">Today's deliveries</p>
+              </div>
+              <CheckCircle className="h-8 w-8 text-purple-500 icon-bounce" />
+            </div>
           </CardContent>
         </Card>
 
-        <Card className="animate-scale-in stat-card stagger-4">
-          <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-            <CardTitle className="text-sm font-medium">Delayed</CardTitle>
-            <AlertCircle className="h-4 w-4 text-muted-foreground" />
-          </CardHeader>
-          <CardContent>
-            <div className="text-2xl font-bold">5</div>
-            <p className="text-xs text-muted-foreground">Needs attention</p>
+        <Card className="border-l-4 border-l-red-500 animate-scale-in stat-card stagger-4">
+          <CardContent className="p-4">
+            <div className="flex items-center justify-between">
+              <div>
+                <p className="text-sm font-medium text-muted-foreground">Delayed</p>
+                <p className="text-2xl font-bold">5</p>
+                <p className="text-xs text-muted-foreground">Needs attention</p>
+              </div>
+              <AlertCircle className="h-8 w-8 text-red-500 icon-bounce" />
+            </div>
           </CardContent>
         </Card>
       </div>
