@@ -641,7 +641,7 @@ export default function RetailNotifications() {
                                 <p className="text-sm font-medium text-muted-foreground">Total Notifications</p>
                                 <p className="text-2xl font-bold">{notifications.length}</p>
                             </div>
-                            <Bell className="h-8 w-8 text-blue-500" />
+                            <Bell className="h-8 w-8 text-blue-500 icon-bounce" />
                         </div>
                     </CardContent>
                 </Card>
@@ -652,7 +652,7 @@ export default function RetailNotifications() {
                                 <p className="text-sm font-medium text-muted-foreground">Unread</p>
                                 <p className="text-2xl font-bold text-orange-600">{unreadCount}</p>
                             </div>
-                            <Activity className="h-8 w-8 text-orange-500" />
+                            <Activity className="h-8 w-8 text-orange-500 icon-bounce" />
                         </div>
                     </CardContent>
                 </Card>
@@ -665,7 +665,7 @@ export default function RetailNotifications() {
                                     {notifications.filter(n => n.type === "urgent").length}
                                 </p>
                             </div>
-                            <AlertTriangle className="h-8 w-8 text-red-500" />
+                            <AlertTriangle className="h-8 w-8 text-red-500 icon-bounce" />
                         </div>
                     </CardContent>
                 </Card>
@@ -678,7 +678,7 @@ export default function RetailNotifications() {
                                     {notifications.filter(n => n.time.includes("hour") || n.time.includes("minute")).length}
                                 </p>
                             </div>
-                            <Calendar className="h-8 w-8 text-green-500" />
+                            <Calendar className="h-8 w-8 text-green-500 icon-bounce" />
                         </div>
                     </CardContent>
                 </Card>
