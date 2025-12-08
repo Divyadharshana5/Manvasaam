@@ -263,7 +263,7 @@ export default function InventoryPage() {
                                 <p className="text-sm font-medium text-muted-foreground">Total Items</p>
                                 <p className="text-2xl font-bold">{totalItems}</p>
                             </div>
-                            <Package className="h-8 w-8 text-blue-500" />
+                            <Package className="h-8 w-8 text-blue-500 icon-bounce" />
                         </div>
                     </CardContent>
                 </Card>
@@ -274,7 +274,7 @@ export default function InventoryPage() {
                                 <p className="text-sm font-medium text-muted-foreground">Total Value</p>
                                 <p className="text-2xl font-bold">₹{totalValue.toLocaleString()}</p>
                             </div>
-                            <TrendingUp className="h-8 w-8 text-green-500" />
+                            <TrendingUp className="h-8 w-8 text-green-500 icon-pulse" />
                         </div>
                     </CardContent>
                 </Card>
@@ -285,7 +285,7 @@ export default function InventoryPage() {
                                 <p className="text-sm font-medium text-muted-foreground">Low Stock Items</p>
                                 <p className="text-2xl font-bold text-red-600">{lowStockItems.length}</p>
                             </div>
-                            <AlertTriangle className="h-8 w-8 text-red-500" />
+                            <AlertTriangle className="h-8 w-8 text-red-500 icon-bounce" />
                         </div>
                     </CardContent>
                 </Card>
@@ -296,7 +296,7 @@ export default function InventoryPage() {
                                 <p className="text-sm font-medium text-muted-foreground">Categories</p>
                                 <p className="text-2xl font-bold">{categories.length - 1}</p>
                             </div>
-                            <Filter className="h-8 w-8 text-purple-500" />
+                            <Filter className="h-8 w-8 text-purple-500 icon-pulse" />
                         </div>
                     </CardContent>
                 </Card>
