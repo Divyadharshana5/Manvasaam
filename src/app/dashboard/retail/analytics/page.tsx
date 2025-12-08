@@ -210,7 +210,7 @@ export default function AnalyticsPage() {
                                     <span className="text-xs text-green-600">+{salesData.revenueGrowth}%</span>
                                 </div>
                             </div>
-                            <IndianRupee className="h-8 w-8 text-green-500 icon-pulse" />
+                            <IndianRupee className="h-8 w-8 text-green-500 icon-bounce" />
                         </div>
                     </CardContent>
                 </Card>
@@ -242,7 +242,7 @@ export default function AnalyticsPage() {
                                     <span className="text-xs text-green-600">+{salesData.avgOrderGrowth}%</span>
                                 </div>
                             </div>
-                            <Target className="h-8 w-8 text-purple-500 icon-pulse" />
+                            <Target className="h-8 w-8 text-purple-500 icon-bounce" />
                         </div>
                     </CardContent>
                 </Card>
