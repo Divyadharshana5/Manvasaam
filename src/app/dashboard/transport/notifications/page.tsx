@@ -472,7 +472,7 @@ export default function TransportNotifications() {
                   </p>
                   <p className="text-2xl font-bold">{notifications.length}</p>
                 </div>
-                <Bell className="h-8 w-8 text-blue-500" />
+                <Bell className="h-8 w-8 text-blue-500 icon-bounce" />
               </div>
             </CardContent>
           </Card>
@@ -487,7 +487,7 @@ export default function TransportNotifications() {
                     {unreadCount}
                   </p>
                 </div>
-                <Activity className="h-8 w-8 text-blue-500" />
+                <Activity className="h-8 w-8 text-blue-500 icon-bounce" />
               </div>
             </CardContent>
           </Card>
@@ -502,7 +502,7 @@ export default function TransportNotifications() {
                     {notifications.filter((n) => n.type === "urgent").length}
                   </p>
                 </div>
-                <AlertTriangle className="h-8 w-8 text-red-500" />
+                <AlertTriangle className="h-8 w-8 text-red-500 icon-bounce" />
               </div>
             </CardContent>
           </Card>
@@ -522,7 +522,7 @@ export default function TransportNotifications() {
                     }
                   </p>
                 </div>
-                <Calendar className="h-8 w-8 text-green-500" />
+                <Calendar className="h-8 w-8 text-green-500 icon-bounce" />
               </div>
             </CardContent>
           </Card>
