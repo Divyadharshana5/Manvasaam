@@ -274,7 +274,7 @@ export default function InventoryPage() {
                                 <p className="text-sm font-medium text-muted-foreground">Total Value</p>
                                 <p className="text-2xl font-bold">₹{totalValue.toLocaleString()}</p>
                             </div>
-                            <TrendingUp className="h-8 w-8 text-green-500 icon-pulse" />
+                            <TrendingUp className="h-8 w-8 text-green-500 icon-bounce" />
                         </div>
                     </CardContent>
                 </Card>
@@ -296,7 +296,7 @@ export default function InventoryPage() {
                                 <p className="text-sm font-medium text-muted-foreground">Categories</p>
                                 <p className="text-2xl font-bold">{categories.length - 1}</p>
                             </div>
-                            <Filter className="h-8 w-8 text-purple-500 icon-pulse" />
+                            <Filter className="h-8 w-8 text-purple-500 icon-bounce" />
                         </div>
                     </CardContent>
                 </Card>
