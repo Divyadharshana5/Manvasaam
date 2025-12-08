@@ -210,53 +210,55 @@ export default function RoutesPage() {
       </div>
 
       <div className="grid gap-3 sm:gap-4 grid-cols-1 xs:grid-cols-2 lg:grid-cols-4">
-        <Card>
-          <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-            <CardTitle className="text-sm font-medium">Total Routes</CardTitle>
-            <Route className="h-4 w-4 text-muted-foreground" />
-          </CardHeader>
-          <CardContent>
-            <div className="text-2xl font-bold">24</div>
-            <p className="text-xs text-muted-foreground">Active routes</p>
+        <Card className="border-l-4 border-l-blue-500">
+          <CardContent className="p-4">
+            <div className="flex items-center justify-between">
+              <div>
+                <p className="text-sm font-medium text-muted-foreground">Total Routes</p>
+                <p className="text-2xl font-bold">24</p>
+                <p className="text-xs text-muted-foreground">Active routes</p>
+              </div>
+              <Route className="h-8 w-8 text-blue-500 icon-bounce" />
+            </div>
           </CardContent>
         </Card>
 
-        <Card>
-          <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-            <CardTitle className="text-sm font-medium">
-              Avg Efficiency
-            </CardTitle>
-            <TrendingUp className="h-4 w-4 text-muted-foreground" />
-          </CardHeader>
-          <CardContent>
-            <div className="text-2xl font-bold">89%</div>
-            <p className="text-xs text-muted-foreground">+3% from last week</p>
+        <Card className="border-l-4 border-l-green-500">
+          <CardContent className="p-4">
+            <div className="flex items-center justify-between">
+              <div>
+                <p className="text-sm font-medium text-muted-foreground">Avg Efficiency</p>
+                <p className="text-2xl font-bold">89%</p>
+                <p className="text-xs text-muted-foreground">+3% from last week</p>
+              </div>
+              <TrendingUp className="h-8 w-8 text-green-500 icon-bounce" />
+            </div>
           </CardContent>
         </Card>
 
-        <Card>
-          <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-            <CardTitle className="text-sm font-medium">
-              Total Distance
-            </CardTitle>
-            <Navigation className="h-4 w-4 text-muted-foreground" />
-          </CardHeader>
-          <CardContent>
-            <div className="text-2xl font-bold">847 km</div>
-            <p className="text-xs text-muted-foreground">Daily coverage</p>
+        <Card className="border-l-4 border-l-purple-500">
+          <CardContent className="p-4">
+            <div className="flex items-center justify-between">
+              <div>
+                <p className="text-sm font-medium text-muted-foreground">Total Distance</p>
+                <p className="text-2xl font-bold">847 km</p>
+                <p className="text-xs text-muted-foreground">Daily coverage</p>
+              </div>
+              <Navigation className="h-8 w-8 text-purple-500 icon-bounce" />
+            </div>
           </CardContent>
         </Card>
 
-        <Card>
-          <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-            <CardTitle className="text-sm font-medium">Fuel Saved</CardTitle>
-            <Zap className="h-4 w-4 text-muted-foreground" />
-          </CardHeader>
-          <CardContent>
-            <div className="text-2xl font-bold">127L</div>
-            <p className="text-xs text-muted-foreground">
-              Through optimization
-            </p>
+        <Card className="border-l-4 border-l-orange-500">
+          <CardContent className="p-4">
+            <div className="flex items-center justify-between">
+              <div>
+                <p className="text-sm font-medium text-muted-foreground">Fuel Saved</p>
+                <p className="text-2xl font-bold">127L</p>
+                <p className="text-xs text-muted-foreground">Through optimization</p>
+              </div>
+              <Zap className="h-8 w-8 text-orange-500 icon-bounce" />
+            </div>
           </CardContent>
         </Card>
       </div>
