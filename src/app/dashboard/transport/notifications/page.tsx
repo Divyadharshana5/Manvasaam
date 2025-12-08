@@ -1,5 +1,6 @@
 "use client";
 
+import "@/styles/retail-animations.css";
 import {
   Card,
   CardContent,
