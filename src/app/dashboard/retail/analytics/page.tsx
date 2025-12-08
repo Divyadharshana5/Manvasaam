@@ -210,7 +210,7 @@ export default function AnalyticsPage() {
                                     <span className="text-xs text-green-600">+{salesData.revenueGrowth}%</span>
                                 </div>
                             </div>
-                            <IndianRupee className="h-8 w-8 text-green-500" />
+                            <IndianRupee className="h-8 w-8 text-green-500 icon-pulse" />
                         </div>
                     </CardContent>
                 </Card>
@@ -226,7 +226,7 @@ export default function AnalyticsPage() {
                                     <span className="text-xs text-green-600">+{salesData.ordersGrowth}%</span>
                                 </div>
                             </div>
-                            <ShoppingCart className="h-8 w-8 text-blue-500" />
+                            <ShoppingCart className="h-8 w-8 text-blue-500 icon-bounce" />
                         </div>
                     </CardContent>
                 </Card>
@@ -242,7 +242,7 @@ export default function AnalyticsPage() {
                                     <span className="text-xs text-green-600">+{salesData.avgOrderGrowth}%</span>
                                 </div>
                             </div>
-                            <Target className="h-8 w-8 text-purple-500" />
+                            <Target className="h-8 w-8 text-purple-500 icon-pulse" />
                         </div>
                     </CardContent>
                 </Card>
@@ -258,7 +258,7 @@ export default function AnalyticsPage() {
                                     <span className="text-xs text-green-600">+{salesData.customerGrowth}%</span>
                                 </div>
                             </div>
-                            <Users className="h-8 w-8 text-orange-500" />
+                            <Users className="h-8 w-8 text-orange-500 icon-bounce" />
                         </div>
                     </CardContent>
                 </Card>
