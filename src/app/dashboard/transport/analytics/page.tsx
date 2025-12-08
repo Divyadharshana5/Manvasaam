@@ -73,26 +73,38 @@ export default function AnalyticsPage() {
 
       {/* Key Metrics */}
       <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
-        {metrics.map((metric) => (
-          <Card key={metric.title} className="animate-scale-in stat-card">
-            <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-              <CardTitle className="text-sm font-medium">{metric.title}</CardTitle>
-              <metric.icon className="h-4 w-4 text-muted-foreground" />
-            </CardHeader>
-            <CardContent>
-              <div className="text-2xl font-bold">{metric.value}</div>
-              <div className="flex items-center text-xs">
-                {metric.trend === "up" ? (
-                  <TrendingUp className="mr-1 h-3 w-3 text-green-600" />
-                ) : (
-                  <TrendingDown className="mr-1 h-3 w-3 text-green-600" />
-                )}
-                <span className="text-green-600">{metric.change}</span>
-                <span className="text-muted-foreground ml-1">from last month</span>
-              </div>
-            </CardContent>
-          </Card>
-        ))}
+        {metrics.map((metric, index) => {
+          const colors = [
+            { border: "border-l-green-500", icon: "text-green-500" },
+            { border: "border-l-blue-500", icon: "text-blue-500" },
+            { border: "border-l-orange-500", icon: "text-orange-500" },
+            { border: "border-l-purple-500", icon: "text-purple-500" }
+          ];
+          const color = colors[index];
+          
+          return (
+            <Card key={metric.title} className={`border-l-4 ${color.border} animate-scale-in stat-card`}>
+              <CardContent className="p-4">
+                <div className="flex items-center justify-between">
+                  <div>
+                    <p className="text-sm font-medium text-muted-foreground">{metric.title}</p>
+                    <p className="text-2xl font-bold">{metric.value}</p>
+                    <div className="flex items-center text-xs mt-1">
+                      {metric.trend === "up" ? (
+                        <TrendingUp className="mr-1 h-3 w-3 text-green-600" />
+                      ) : (
+                        <TrendingDown className="mr-1 h-3 w-3 text-green-600" />
+                      )}
+                      <span className="text-green-600">{metric.change}</span>
+                      <span className="text-muted-foreground ml-1">from last month</span>
+                    </div>
+                  </div>
+                  <metric.icon className={`h-8 w-8 ${color.icon} icon-bounce`} />
+                </div>
+              </CardContent>
+            </Card>
+          );
+        })}
       </div>
 
       {/* Performance Charts */}
