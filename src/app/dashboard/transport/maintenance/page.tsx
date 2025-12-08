@@ -379,7 +379,7 @@ COST ANALYSIS:
                                 <p className="text-sm font-medium text-muted-foreground">Total Fleet</p>
                                 <p className="text-2xl font-bold">{totalVehicles}</p>
                             </div>
-                            <Truck className="h-8 w-8 text-blue-500" />
+                            <Truck className="h-8 w-8 text-blue-500 icon-bounce" />
                         </div>
                     </CardContent>
                 </Card>
@@ -390,7 +390,7 @@ COST ANALYSIS:
                                 <p className="text-sm font-medium text-muted-foreground">Active Vehicles</p>
                                 <p className="text-2xl font-bold text-green-600">{activeVehicles}</p>
                             </div>
-                            <CheckCircle className="h-8 w-8 text-green-500" />
+                            <CheckCircle className="h-8 w-8 text-green-500 icon-bounce" />
                         </div>
                     </CardContent>
                 </Card>
@@ -401,7 +401,7 @@ COST ANALYSIS:
                                 <p className="text-sm font-medium text-muted-foreground">In Maintenance</p>
                                 <p className="text-2xl font-bold text-red-600">{inMaintenance}</p>
                             </div>
-                            <Wrench className="h-8 w-8 text-red-500" />
+                            <Wrench className="h-8 w-8 text-red-500 icon-bounce" />
                         </div>
                     </CardContent>
                 </Card>
@@ -412,7 +412,7 @@ COST ANALYSIS:
                                 <p className="text-sm font-medium text-muted-foreground">Avg Health Score</p>
                                 <p className="text-2xl font-bold text-purple-600">{avgHealthScore}%</p>
                             </div>
-                            <Activity className="h-8 w-8 text-purple-500" />
+                            <Activity className="h-8 w-8 text-purple-500 icon-bounce" />
                         </div>
                     </CardContent>
                 </Card>
