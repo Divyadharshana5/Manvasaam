@@ -1,5 +1,6 @@
 "use client";
 
+import "@/styles/retail-animations.css";
 import { useEffect, useState } from "react";
 import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card";
 import { useAuth } from "@/hooks/use-auth";
@@ -967,10 +968,10 @@ export default function TransportProfilePage() {
         )}
 
         {/* Transport Profile Card */}
-        <Card className="w-full">
+        <Card className="w-full animate-fade-in-up">
           <CardHeader>
             <CardTitle className="flex items-center gap-2">
-              <Truck className="h-5 w-5" />
+              <Truck className="h-5 w-5 icon-bounce" />
               {transportProfile?.companyName || "Transport Information"}
               {transportProfile?.verified && (
                 <Badge variant="secondary">
