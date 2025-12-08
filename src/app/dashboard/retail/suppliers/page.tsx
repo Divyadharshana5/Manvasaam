@@ -163,7 +163,7 @@ export default function SuppliersPage() {
                                 <p className="text-sm font-medium text-muted-foreground">Total Suppliers</p>
                                 <p className="text-2xl font-bold">{suppliers.length}</p>
                             </div>
-                            <Building className="h-8 w-8 text-blue-500" />
+                            <Building className="h-8 w-8 text-blue-500 icon-bounce" />
                         </div>
                     </CardContent>
                 </Card>
@@ -174,7 +174,7 @@ export default function SuppliersPage() {
                                 <p className="text-sm font-medium text-muted-foreground">Active Suppliers</p>
                                 <p className="text-2xl font-bold">{suppliers.filter(s => s.status === 'active').length}</p>
                             </div>
-                            <CheckCircle className="h-8 w-8 text-green-500" />
+                            <CheckCircle className="h-8 w-8 text-green-500 icon-pulse" />
                         </div>
                     </CardContent>
                 </Card>
@@ -185,7 +185,7 @@ export default function SuppliersPage() {
                                 <p className="text-sm font-medium text-muted-foreground">Avg Rating</p>
                                 <p className="text-2xl font-bold">4.7</p>
                             </div>
-                            <Star className="h-8 w-8 text-yellow-500" />
+                            <Star className="h-8 w-8 text-yellow-500 icon-bounce" />
                         </div>
                     </CardContent>
                 </Card>
@@ -196,7 +196,7 @@ export default function SuppliersPage() {
                                 <p className="text-sm font-medium text-muted-foreground">Total Orders</p>
                                 <p className="text-2xl font-bold">{suppliers.reduce((sum, s) => sum + s.orders, 0)}</p>
                             </div>
-                            <Package className="h-8 w-8 text-purple-500" />
+                            <Package className="h-8 w-8 text-purple-500 icon-pulse" />
                         </div>
                     </CardContent>
                 </Card>
