@@ -86,53 +86,55 @@ export default function FleetTrackingPage() {
       </div>
 
       <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
-        <Card>
-          <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-            <CardTitle className="text-sm font-medium">
-              Active Vehicles
-            </CardTitle>
-            <Truck className="h-4 w-4 text-muted-foreground" />
-          </CardHeader>
-          <CardContent>
-            <div className="text-2xl font-bold">12</div>
-            <p className="text-xs text-muted-foreground">Out of 15 total</p>
+        <Card className="border-l-4 border-l-blue-500">
+          <CardContent className="p-4">
+            <div className="flex items-center justify-between">
+              <div>
+                <p className="text-sm font-medium text-muted-foreground">Active Vehicles</p>
+                <p className="text-2xl font-bold">12</p>
+                <p className="text-xs text-muted-foreground">Out of 15 total</p>
+              </div>
+              <Truck className="h-8 w-8 text-blue-500 icon-bounce" />
+            </div>
           </CardContent>
         </Card>
 
-        <Card>
-          <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-            <CardTitle className="text-sm font-medium">Average Speed</CardTitle>
-            <Activity className="h-4 w-4 text-muted-foreground" />
-          </CardHeader>
-          <CardContent>
-            <div className="text-2xl font-bold">52 km/h</div>
-            <p className="text-xs text-muted-foreground">Fleet average</p>
+        <Card className="border-l-4 border-l-green-500">
+          <CardContent className="p-4">
+            <div className="flex items-center justify-between">
+              <div>
+                <p className="text-sm font-medium text-muted-foreground">Average Speed</p>
+                <p className="text-2xl font-bold">52 km/h</p>
+                <p className="text-xs text-muted-foreground">Fleet average</p>
+              </div>
+              <Activity className="h-8 w-8 text-green-500 icon-bounce" />
+            </div>
           </CardContent>
         </Card>
 
-        <Card>
-          <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-            <CardTitle className="text-sm font-medium">
-              Fuel Efficiency
-            </CardTitle>
-            <Fuel className="h-4 w-4 text-muted-foreground" />
-          </CardHeader>
-          <CardContent>
-            <div className="text-2xl font-bold">8.5L</div>
-            <p className="text-xs text-muted-foreground">Per 100km average</p>
+        <Card className="border-l-4 border-l-orange-500">
+          <CardContent className="p-4">
+            <div className="flex items-center justify-between">
+              <div>
+                <p className="text-sm font-medium text-muted-foreground">Fuel Efficiency</p>
+                <p className="text-2xl font-bold">8.5L</p>
+                <p className="text-xs text-muted-foreground">Per 100km average</p>
+              </div>
+              <Fuel className="h-8 w-8 text-orange-500 icon-bounce" />
+            </div>
           </CardContent>
         </Card>
 
-        <Card>
-          <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-            <CardTitle className="text-sm font-medium">
-              Total Distance
-            </CardTitle>
-            <MapPin className="h-4 w-4 text-muted-foreground" />
-          </CardHeader>
-          <CardContent>
-            <div className="text-2xl font-bold">1,247 km</div>
-            <p className="text-xs text-muted-foreground">Today's total</p>
+        <Card className="border-l-4 border-l-purple-500">
+          <CardContent className="p-4">
+            <div className="flex items-center justify-between">
+              <div>
+                <p className="text-sm font-medium text-muted-foreground">Total Distance</p>
+                <p className="text-2xl font-bold">1,247 km</p>
+                <p className="text-xs text-muted-foreground">Today's total</p>
+              </div>
+              <MapPin className="h-8 w-8 text-purple-500 icon-bounce" />
+            </div>
           </CardContent>
         </Card>
       </div>
