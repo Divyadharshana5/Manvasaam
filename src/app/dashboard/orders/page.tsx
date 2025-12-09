@@ -397,8 +397,8 @@ export default function OrdersPage() {
         </Card>
 
         <Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
-        <DialogContent className="sm:max-w-lg max-h-[90vh] overflow-y-auto">
-          <DialogHeader className="pb-3">
+        <DialogContent className="sm:max-w-lg max-h-[90vh] overflow-y-auto modal-content">
+          <DialogHeader className="pb-3 animate-fade-in">
             <DialogTitle className="text-lg md:text-xl">
               {t.orders.dialogTitle}: {selectedOrder?.id}
             </DialogTitle>
@@ -407,7 +407,7 @@ export default function OrdersPage() {
             </DialogDescription>
           </DialogHeader>
           {shippingInfo ? (
-            <div className="space-y-4 pt-1">
+            <div className="space-y-4 pt-1 animate-fade-in-up">
               <div className="flex items-start gap-3 p-3 rounded-lg border bg-muted/30">
                 <MapPin className="h-4 w-4 md:h-5 md:w-5 text-primary mt-0.5 shrink-0" />
                 <div className="space-y-0.5">
