@@ -443,7 +443,7 @@ export default function OrdersPage() {
               </div>
 
               <div className="space-y-3 pt-2">
-                <h4 className="font-semibold text-sm md:text-base">
+                <h4 className="font-semibold text-sm md:text-base animate-fade-in">
                   {t.orders.shipmentHistory}
                 </h4>
                 <div className="relative pl-7 md:pl-8">
@@ -451,9 +451,10 @@ export default function OrdersPage() {
                   {shippingInfo.path.map((stop, index) => (
                     <div
                       key={index}
-                      className="relative flex items-start gap-3 mb-4 last:mb-0"
+                      className="relative flex items-start gap-3 mb-4 last:mb-0 animate-fade-in-up"
+                      style={{ animationDelay: `${index * 0.1}s` }}
                     >
-                      <div className="z-10 flex h-7 w-7 md:h-8 md:w-8 items-center justify-center rounded-full bg-primary text-primary-foreground shrink-0">
+                      <div className="z-10 flex h-7 w-7 md:h-8 md:w-8 items-center justify-center rounded-full bg-primary text-primary-foreground shrink-0 elastic-bounce">
                         <Truck className="h-3.5 w-3.5 md:h-4 md:w-4" />
                       </div>
                       <div className="flex-1 pt-0.5 pb-1">
