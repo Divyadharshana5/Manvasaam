@@ -149,32 +149,6 @@ export default function FarmerDashboard() {
     );
   };
 
-  if (isLoading) {
-    return (
-      <div className="flex flex-1 flex-col gap-4 p-4 md:gap-8 md:p-8 fade-in-blur">
-        <div className="flex items-center justify-between">
-          <div>
-            <div className="h-8 w-64 bg-gray-200 rounded skeleton mb-2"></div>
-            <div className="h-4 w-48 bg-gray-200 rounded skeleton"></div>
-          </div>
-        </div>
-        <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
-          {[1, 2, 3, 4].map((i) => (
-            <Card key={i} className="card-slide-up" style={{ animationDelay: `${i * 0.1}s` }}>
-              <CardHeader>
-                <div className="h-4 w-24 bg-gray-200 rounded skeleton"></div>
-              </CardHeader>
-              <CardContent>
-                <div className="h-8 w-16 bg-gray-200 rounded skeleton mb-2"></div>
-                <div className="h-3 w-32 bg-gray-200 rounded skeleton"></div>
-              </CardContent>
-            </Card>
-          ))}
-        </div>
-      </div>
-    );
-  }
-
   return (
     <div className="flex flex-1 flex-col gap-4 p-4 md:gap-8 md:p-8 page-transition">
       {/* Status and Search */}
@@ -489,16 +463,16 @@ export default function FarmerDashboard() {
       </div>
 
       <div className="grid gap-4 md:grid-cols-2 animate-fade-in-up stagger-4">
-        <Card className="card-glow card-slide-up">
+        <Card className="card-glow">
           <CardHeader>
             <CardTitle>Recent Orders</CardTitle>
             <CardDescription>Latest orders from buyers</CardDescription>
           </CardHeader>
           <CardContent>
-            <div className="space-y-4 list-stagger">
-              <div className="flex items-center justify-between list-item p-2 rounded-lg">
+            <div className="space-y-4">
+              <div className="flex items-center justify-between">
                 <div className="flex items-center gap-3">
-                  <CheckCircle className="h-4 w-4 text-green-600 checkmark-animate" />
+                  <CheckCircle className="h-4 w-4 text-green-600" />
                   <div>
                     <p className="font-medium">Organic Tomatoes - 25kg</p>
                     <p className="text-sm text-muted-foreground">
@@ -506,21 +480,21 @@ export default function FarmerDashboard() {
                     </p>
                   </div>
                 </div>
-                <Badge variant="secondary" className="badge-hover">Delivered</Badge>
+                <Badge variant="secondary">Delivered</Badge>
               </div>
-              <div className="flex items-center justify-between list-item p-2 rounded-lg">
+              <div className="flex items-center justify-between">
                 <div className="flex items-center gap-3">
-                  <Clock className="h-4 w-4 text-yellow-600 icon-pulse" />
+                  <Clock className="h-4 w-4 text-yellow-600" />
                   <div>
                     <p className="font-medium">Fresh Spinach - 15kg</p>
                     <p className="text-sm text-muted-foreground">City Hub</p>
                   </div>
                 </div>
-                <Badge variant="outline" className="badge-hover">Processing</Badge>
+                <Badge variant="outline">Processing</Badge>
               </div>
-              <div className="flex items-center justify-between list-item p-2 rounded-lg">
+              <div className="flex items-center justify-between">
                 <div className="flex items-center gap-3">
-                  <AlertCircle className="h-4 w-4 text-blue-600 icon-pulse" />
+                  <AlertCircle className="h-4 w-4 text-blue-600" />
                   <div>
                     <p className="font-medium">Organic Carrots - 20kg</p>
                     <p className="text-sm text-muted-foreground">
@@ -528,14 +502,14 @@ export default function FarmerDashboard() {
                     </p>
                   </div>
                 </div>
-                <Badge className="badge-hover elastic-bounce">New Order</Badge>
+                <Badge>New Order</Badge>
               </div>
             </div>
             <Link
               href="/dashboard/orders"
               className={cn(
                 buttonVariants({ variant: "outline" }),
-                "w-full mt-4 button-ripple color-transition"
+                "w-full mt-4"
               )}
             >
               View All Orders
@@ -543,19 +517,19 @@ export default function FarmerDashboard() {
           </CardContent>
         </Card>
 
-        <Card className="card-glow card-slide-up" style={{ animationDelay: '0.1s' }}>
+        <Card className="card-glow">
           <CardHeader>
             <CardTitle>Quick Actions</CardTitle>
             <CardDescription>Frequently used farmer operations</CardDescription>
           </CardHeader>
           <CardContent>
             <div className="grid gap-3">
-              <AddProductButton products={products} className="justify-start button-ripple" />
+              <AddProductButton products={products} className="justify-start" />
               <Link
                 href="/dashboard/orders"
                 className={cn(
                   buttonVariants({ variant: "outline" }),
-                  "justify-start quick-action"
+                  "justify-start"
                 )}
               >
                 <ShoppingCart className="mr-2 h-4 w-4" />
@@ -565,7 +539,7 @@ export default function FarmerDashboard() {
                 href="/dashboard/farmer/matchmaking"
                 className={cn(
                   buttonVariants({ variant: "outline" }),
-                  "justify-start quick-action"
+                  "justify-start"
                 )}
               >
                 <Users className="mr-2 h-4 w-4" />
@@ -575,7 +549,7 @@ export default function FarmerDashboard() {
                 href="/dashboard/farmer/analytics"
                 className={cn(
                   buttonVariants({ variant: "outline" }),
-                  "justify-start quick-action"
+                  "justify-start"
                 )}
               >
                 <BarChart3 className="mr-2 h-4 w-4" />
