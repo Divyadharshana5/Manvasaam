@@ -325,7 +325,7 @@ export default function OrdersPage() {
                   </div>
                 </div>
                 <div className="grid grid-cols-1 gap-4 md:hidden">
-                  {filteredOrders.map((order) => (
+                  {filteredOrders.map((order, index) => (
                     <Card
                       key={order.id}
                       onClick={() => handleRowClick(order)}
@@ -333,8 +333,9 @@ export default function OrdersPage() {
                         order.status !== "Cancelled"
                           ? "cursor-pointer active:scale-[0.98]"
                           : "opacity-70",
-                        "transition-transform duration-200"
+                        "transition-transform duration-200 card-slide-up"
                       )}
+                      style={{ animationDelay: `${index * 0.05}s` }}
                     >
                       <CardHeader className="pb-2 px-4 pt-4">
                         <div className="flex justify-between items-start gap-3">
