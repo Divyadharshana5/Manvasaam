@@ -378,11 +378,11 @@ export default function OrdersPage() {
                             asChild
                             variant="outline"
                             size="sm"
-                            className="w-full h-8 text-xs"
+                            className="w-full h-8 text-xs button-ripple color-transition"
                             onClick={(e) => e.stopPropagation()}
                           >
                             <Link href={`/dashboard/track?orderId=${order.id}`}>
-                              <LocateFixed className="mr-1.5 h-3.5 w-3.5" />
+                              <LocateFixed className="mr-1.5 h-3.5 w-3.5 icon-pulse" />
                               {t.orders.trackLive}
                             </Link>
                           </Button>
