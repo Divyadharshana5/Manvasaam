@@ -154,11 +154,11 @@ export default function FarmerDashboard() {
       {/* Status and Search */}
       <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 animate-fade-in-up">
         <div className="flex items-center gap-2">
-          <Badge variant="outline" className="text-green-600">
-            <CheckCircle className="h-3 w-3 mr-1" />
+          <Badge variant="outline" className="text-green-600 badge-hover">
+            <CheckCircle className="h-3 w-3 mr-1 checkmark-animate" />
             Farm Active
           </Badge>
-          <Badge variant="secondary">
+          <Badge variant="secondary" className="badge-hover">
             <Clock className="h-3 w-3 mr-1" />
             Last update: 1 min ago
           </Badge>
@@ -170,12 +170,12 @@ export default function FarmerDashboard() {
               placeholder="Search products, orders..."
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
-              className="pl-10 pr-10 w-64"
+              className="pl-10 pr-10 w-64 search-input"
             />
             {searchQuery && (
               <button
                 onClick={() => setSearchQuery("")}
-                className="absolute right-3 top-1/2 -translate-y-1/2 text-muted-foreground hover:text-foreground transition-colors z-10"
+                className="absolute right-3 top-1/2 -translate-y-1/2 text-muted-foreground hover:text-foreground transition-colors z-10 elastic-bounce"
                 aria-label="Clear search"
               >
                 <X className="h-4 w-4" />
@@ -186,12 +186,12 @@ export default function FarmerDashboard() {
             href="/dashboard/farmer/notifications"
             className={cn(
               buttonVariants({ variant: "outline", size: "icon" }),
-              "relative"
+              "relative bell-ring"
             )}
           >
             <Bell className="h-4 w-4" />
             {notificationCount > 0 && (
-              <span className="absolute -top-1 -right-1 h-5 w-5 rounded-full bg-red-500 text-white text-xs flex items-center justify-center font-medium">
+              <span className="absolute -top-1 -right-1 h-5 w-5 rounded-full bg-red-500 text-white text-xs flex items-center justify-center font-medium notification-badge">
                 {notificationCount > 9 ? "9+" : notificationCount}
               </span>
             )}
@@ -201,6 +201,7 @@ export default function FarmerDashboard() {
             size="icon"
             onClick={fetchFarmerProducts}
             title="Refresh dashboard data"
+            className="spin-on-hover"
           >
             <RefreshCw className="h-4 w-4" />
           </Button>
