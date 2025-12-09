@@ -284,15 +284,15 @@ export default function FarmerDashboard() {
       </div>
 
       <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4 animate-fade-in-up stagger-3">
-        <Card className="border-green-200 dashboard-card card-glow">
+        <Card className="border-green-200 category-card card-glow">
           <CardHeader className="pb-3">
             <div className="flex items-center gap-2">
-              <Leaf className="h-5 w-5 text-green-600 icon-bounce" />
+              <Leaf className="h-5 w-5 text-green-600 icon-float" />
               <CardTitle className="text-lg">Vegetables</CardTitle>
             </div>
           </CardHeader>
           <CardContent>
-            <div className="text-2xl font-bold text-green-600">
+            <div className="text-2xl font-bold text-green-600 count-up">
               {stats.vegetables}
             </div>
             <p className="text-sm text-muted-foreground">
@@ -304,7 +304,7 @@ export default function FarmerDashboard() {
                 .map((product) => (
                   <div
                     key={product.id}
-                    className="text-xs text-gray-600 bg-green-50 px-2 py-1 rounded"
+                    className="text-xs text-gray-600 bg-green-50 px-2 py-1 rounded product-item"
                   >
                     {product.productName} - {product.quantity}
                     {product.unit}
@@ -319,7 +319,7 @@ export default function FarmerDashboard() {
             <Button
               variant="outline"
               size="sm"
-              className="mt-2 w-full"
+              className="mt-2 w-full button-ripple color-transition"
               onClick={() =>
                 router.push("/dashboard/farmer/products?category=vegetables")
               }
@@ -328,15 +328,15 @@ export default function FarmerDashboard() {
             </Button>
           </CardContent>
         </Card>
-        <Card className="border-orange-200 dashboard-card card-glow">
+        <Card className="border-orange-200 category-card card-glow">
           <CardHeader className="pb-3">
             <div className="flex items-center gap-2">
-              <Apple className="h-5 w-5 text-orange-600 icon-bounce" />
+              <Apple className="h-5 w-5 text-orange-600 icon-float" style={{ animationDelay: '0.2s' }} />
               <CardTitle className="text-lg">Fruits</CardTitle>
             </div>
           </CardHeader>
           <CardContent>
-            <div className="text-2xl font-bold text-orange-600">
+            <div className="text-2xl font-bold text-orange-600 count-up">
               {stats.fruits}
             </div>
             <p className="text-sm text-muted-foreground">
@@ -348,7 +348,7 @@ export default function FarmerDashboard() {
                 .map((product) => (
                   <div
                     key={product.id}
-                    className="text-xs text-gray-600 bg-orange-50 px-2 py-1 rounded"
+                    className="text-xs text-gray-600 bg-orange-50 px-2 py-1 rounded product-item"
                   >
                     {product.productName} - {product.quantity}
                     {product.unit}
@@ -363,7 +363,7 @@ export default function FarmerDashboard() {
             <Button
               variant="outline"
               size="sm"
-              className="mt-2 w-full"
+              className="mt-2 w-full button-ripple color-transition"
               onClick={() =>
                 router.push("/dashboard/farmer/products?category=fruits")
               }
@@ -372,15 +372,15 @@ export default function FarmerDashboard() {
             </Button>
           </CardContent>
         </Card>
-        <Card className="border-amber-200 dashboard-card card-glow">
+        <Card className="border-amber-200 category-card card-glow">
           <CardHeader className="pb-3">
             <div className="flex items-center gap-2">
-              <Wheat className="h-5 w-5 text-amber-600 icon-bounce" />
+              <Wheat className="h-5 w-5 text-amber-600 icon-float" style={{ animationDelay: '0.4s' }} />
               <CardTitle className="text-lg">Grains</CardTitle>
             </div>
           </CardHeader>
           <CardContent>
-            <div className="text-2xl font-bold text-amber-600">
+            <div className="text-2xl font-bold text-amber-600 count-up">
               {stats.grains}
             </div>
             <p className="text-sm text-muted-foreground">
@@ -392,7 +392,7 @@ export default function FarmerDashboard() {
                 .map((product) => (
                   <div
                     key={product.id}
-                    className="text-xs text-gray-600 bg-amber-50 px-2 py-1 rounded"
+                    className="text-xs text-gray-600 bg-amber-50 px-2 py-1 rounded product-item"
                   >
                     {product.productName} - {product.quantity}
                     {product.unit}
@@ -407,7 +407,7 @@ export default function FarmerDashboard() {
             <Button
               variant="outline"
               size="sm"
-              className="mt-2 w-full"
+              className="mt-2 w-full button-ripple color-transition"
               onClick={() =>
                 router.push("/dashboard/farmer/products?category=grains")
               }
@@ -416,15 +416,15 @@ export default function FarmerDashboard() {
             </Button>
           </CardContent>
         </Card>
-        <Card className="border-emerald-200 dashboard-card card-glow">
+        <Card className="border-emerald-200 category-card card-glow">
           <CardHeader className="pb-3">
             <div className="flex items-center gap-2">
-              <Sprout className="h-5 w-5 text-emerald-600 icon-bounce" />
+              <Sprout className="h-5 w-5 text-emerald-600 icon-float" style={{ animationDelay: '0.6s' }} />
               <CardTitle className="text-lg">Herbs</CardTitle>
             </div>
           </CardHeader>
           <CardContent>
-            <div className="text-2xl font-bold text-emerald-600">
+            <div className="text-2xl font-bold text-emerald-600 count-up">
               {stats.herbs}
             </div>
             <p className="text-sm text-muted-foreground">
@@ -436,7 +436,7 @@ export default function FarmerDashboard() {
                 .map((product) => (
                   <div
                     key={product.id}
-                    className="text-xs text-gray-600 bg-emerald-50 px-2 py-1 rounded"
+                    className="text-xs text-gray-600 bg-emerald-50 px-2 py-1 rounded product-item"
                   >
                     {product.productName} - {product.quantity}
                     {product.unit}
@@ -451,7 +451,7 @@ export default function FarmerDashboard() {
             <Button
               variant="outline"
               size="sm"
-              className="mt-2 w-full"
+              className="mt-2 w-full button-ripple color-transition"
               onClick={() =>
                 router.push("/dashboard/farmer/products?category=herbs")
               }
