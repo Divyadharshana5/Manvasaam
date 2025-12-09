@@ -213,12 +213,12 @@ export default function OrdersPage() {
                     placeholder={t.orders.searchPlaceholder}
                     value={searchTerm}
                     onChange={(e) => setSearchTerm(e.target.value)}
-                    className="w-full pl-10 pr-10 h-9 md:h-10"
+                    className="w-full pl-10 pr-10 h-9 md:h-10 search-input"
                   />
                   {searchTerm && (
                     <button
                       onClick={() => setSearchTerm("")}
-                      className="absolute right-3 text-muted-foreground hover:text-foreground transition-colors z-10"
+                      className="absolute right-3 text-muted-foreground hover:text-foreground transition-colors z-10 elastic-bounce"
                       aria-label="Clear search"
                     >
                       <X className="h-4 w-4" />
