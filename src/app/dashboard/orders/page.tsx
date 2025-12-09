@@ -352,7 +352,7 @@ export default function OrdersPage() {
                           <Badge
                             variant="outline"
                             className={cn(
-                              "text-xs shrink-0",
+                              "text-xs shrink-0 badge-hover",
                               getStatusBadgeClass(order.status)
                             )}
                           >
