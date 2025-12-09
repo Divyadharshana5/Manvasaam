@@ -223,15 +223,15 @@ export default function FarmerDashboard() {
       </div>
 
       <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4 animate-fade-in-up stagger-2">
-        <Card className="stat-card card-glow">
+        <Card className="stat-card card-glow card-slide-up">
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
             <CardTitle className="text-sm font-medium">
               Active Products
             </CardTitle>
-            <Package className="h-4 w-4 text-muted-foreground icon-bounce" />
+            <Package className="h-4 w-4 text-muted-foreground icon-float" />
           </CardHeader>
           <CardContent>
-            <div className="text-2xl font-bold number-counter">
+            <div className="text-2xl font-bold count-up">
               {stats.activeProducts}
             </div>
             <p className="text-xs text-muted-foreground">
@@ -241,39 +241,39 @@ export default function FarmerDashboard() {
             </p>
           </CardContent>
         </Card>
-        <Card className="stat-card card-glow">
+        <Card className="stat-card card-glow card-slide-up" style={{ animationDelay: '0.1s' }}>
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
             <CardTitle className="text-sm font-medium">Total Orders</CardTitle>
-            <ShoppingCart className="h-4 w-4 text-muted-foreground icon-bounce" />
+            <ShoppingCart className="h-4 w-4 text-muted-foreground icon-float" style={{ animationDelay: '0.2s' }} />
           </CardHeader>
           <CardContent>
-            <div className="text-2xl font-bold number-counter">{stats.totalOrders}</div>
+            <div className="text-2xl font-bold count-up">{stats.totalOrders}</div>
             <p className="text-xs text-muted-foreground">+5 from last week</p>
           </CardContent>
         </Card>
-        <Card className="stat-card card-glow">
+        <Card className="stat-card card-glow card-slide-up" style={{ animationDelay: '0.2s' }}>
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
             <CardTitle className="text-sm font-medium">
               Connected Buyers
             </CardTitle>
-            <Users className="h-4 w-4 text-muted-foreground icon-bounce" />
+            <Users className="h-4 w-4 text-muted-foreground icon-float" style={{ animationDelay: '0.4s' }} />
           </CardHeader>
           <CardContent>
-            <div className="text-2xl font-bold number-counter">{stats.connectedBuyers}</div>
+            <div className="text-2xl font-bold count-up">{stats.connectedBuyers}</div>
             <p className="text-xs text-muted-foreground">
               Active relationships
             </p>
           </CardContent>
         </Card>
-        <Card className="stat-card card-glow">
+        <Card className="stat-card card-glow card-slide-up" style={{ animationDelay: '0.3s' }}>
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
             <CardTitle className="text-sm font-medium">
               Monthly Revenue
             </CardTitle>
-            <TrendingUp className="h-4 w-4 text-muted-foreground icon-bounce" />
+            <TrendingUp className="h-4 w-4 text-muted-foreground icon-float" style={{ animationDelay: '0.6s' }} />
           </CardHeader>
           <CardContent>
-            <div className="text-2xl font-bold number-counter">
+            <div className="text-2xl font-bold count-up">
               ₹{stats.monthlyRevenue.toLocaleString()}
             </div>
             <p className="text-xs text-muted-foreground">
