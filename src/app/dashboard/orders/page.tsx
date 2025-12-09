@@ -325,7 +325,7 @@ export default function OrdersPage() {
                   </div>
                 </div>
                 <div className="grid grid-cols-1 gap-4 md:hidden">
-                  {filteredOrders.map((order) => (
+                  {filteredOrders.map((order, index) => (
                     <Card
                       key={order.id}
                       onClick={() => handleRowClick(order)}
@@ -333,8 +333,9 @@ export default function OrdersPage() {
                         order.status !== "Cancelled"
                           ? "cursor-pointer active:scale-[0.98]"
                           : "opacity-70",
-                        "transition-transform duration-200"
+                        "transition-transform duration-200 card-slide-up"
                       )}
+                      style={{ animationDelay: `${index * 0.05}s` }}
                     >
                       <CardHeader className="pb-2 px-4 pt-4">
                         <div className="flex justify-between items-start gap-3">
@@ -351,7 +352,7 @@ export default function OrdersPage() {
                           <Badge
                             variant="outline"
                             className={cn(
-                              "text-xs shrink-0",
+                              "text-xs shrink-0 badge-hover",
                               getStatusBadgeClass(order.status)
                             )}
                           >
@@ -377,11 +378,11 @@ export default function OrdersPage() {
                             asChild
                             variant="outline"
                             size="sm"
-                            className="w-full h-8 text-xs"
+                            className="w-full h-8 text-xs button-ripple color-transition"
                             onClick={(e) => e.stopPropagation()}
                           >
                             <Link href={`/dashboard/track?orderId=${order.id}`}>
-                              <LocateFixed className="mr-1.5 h-3.5 w-3.5" />
+                              <LocateFixed className="mr-1.5 h-3.5 w-3.5 icon-pulse" />
                               {t.orders.trackLive}
                             </Link>
                           </Button>
@@ -396,8 +397,8 @@ export default function OrdersPage() {
         </Card>
 
         <Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
-        <DialogContent className="sm:max-w-lg max-h-[90vh] overflow-y-auto">
-          <DialogHeader className="pb-3">
+        <DialogContent className="sm:max-w-lg max-h-[90vh] overflow-y-auto modal-content">
+          <DialogHeader className="pb-3 animate-fade-in">
             <DialogTitle className="text-lg md:text-xl">
               {t.orders.dialogTitle}: {selectedOrder?.id}
             </DialogTitle>
@@ -406,9 +407,9 @@ export default function OrdersPage() {
             </DialogDescription>
           </DialogHeader>
           {shippingInfo ? (
-            <div className="space-y-4 pt-1">
-              <div className="flex items-start gap-3 p-3 rounded-lg border bg-muted/30">
-                <MapPin className="h-4 w-4 md:h-5 md:w-5 text-primary mt-0.5 shrink-0" />
+            <div className="space-y-4 pt-1 animate-fade-in-up">
+              <div className="flex items-start gap-3 p-3 rounded-lg border bg-muted/30 card-glow">
+                <MapPin className="h-4 w-4 md:h-5 md:w-5 text-primary mt-0.5 shrink-0 icon-pulse" />
                 <div className="space-y-0.5">
                   <p className="text-xs md:text-sm text-muted-foreground">
                     {t.orders.currentLocation}
@@ -418,8 +419,8 @@ export default function OrdersPage() {
                   </p>
                 </div>
               </div>
-              <div className="flex items-start gap-3 p-3 rounded-lg border bg-muted/30">
-                <PackageCheck className="h-4 w-4 md:h-5 md:w-5 text-primary mt-0.5 shrink-0" />
+              <div className="flex items-start gap-3 p-3 rounded-lg border bg-muted/30 card-glow">
+                <PackageCheck className="h-4 w-4 md:h-5 md:w-5 text-primary mt-0.5 shrink-0 icon-float" />
                 <div className="space-y-0.5">
                   <p className="text-xs md:text-sm text-muted-foreground">
                     {t.orders.reachedState}
@@ -429,8 +430,8 @@ export default function OrdersPage() {
                   </p>
                 </div>
               </div>
-              <div className="flex items-start gap-3 p-3 rounded-lg border bg-muted/30">
-                <CalendarClock className="h-4 w-4 md:h-5 md:w-5 text-primary mt-0.5 shrink-0" />
+              <div className="flex items-start gap-3 p-3 rounded-lg border bg-muted/30 card-glow">
+                <CalendarClock className="h-4 w-4 md:h-5 md:w-5 text-primary mt-0.5 shrink-0 icon-float" style={{ animationDelay: '0.2s' }} />
                 <div className="space-y-0.5">
                   <p className="text-xs md:text-sm text-muted-foreground">
                     {t.orders.estimatedDelivery}
