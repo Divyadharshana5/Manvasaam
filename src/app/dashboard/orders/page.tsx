@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from "react";
 import { AppLayout } from "@/components/app-layout";
+import "@/styles/farmer-animations.css";
 import {
   Card,
   CardHeader,
@@ -185,8 +186,8 @@ export default function OrdersPage() {
 
   return (
     <AppLayout>
-      <div className="space-y-4 md:space-y-6 py-4 md:py-6">
-        <div className="flex flex-col gap-1.5">
+      <div className="space-y-4 md:space-y-6 py-4 md:py-6 page-transition">
+        <div className="flex flex-col gap-1.5 animate-fade-in-up">
           <h2 className="text-2xl md:text-3xl font-bold tracking-tight">
             {t.orders.title}
           </h2>
@@ -194,7 +195,7 @@ export default function OrdersPage() {
             {t.orders.description}
           </p>
         </div>
-        <Card className="shadow-sm border">
+        <Card className="shadow-sm border card-glow animate-fade-in-up stagger-1">
           <CardHeader className="pb-3 px-4 md:px-6 pt-4 md:pt-6">
             <div className="flex flex-col gap-4">
               <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
