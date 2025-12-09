@@ -271,7 +271,7 @@ export default function OrdersPage() {
                               order.status !== "Cancelled"
                                 ? "cursor-pointer hover:bg-muted/50"
                                 : "opacity-60",
-                              "transition-colors duration-200"
+                              "transition-colors duration-200 list-item"
                             )}
                           >
                             <TableCell className="font-medium py-3 text-sm">
