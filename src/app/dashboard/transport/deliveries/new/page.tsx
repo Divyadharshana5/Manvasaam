@@ -330,38 +330,54 @@ export default function NewDeliveryPage() {
                   Delivery Information
                 </CardTitle>
               </CardHeader>
-            <CardContent className="space-y-4">
-              <div className="grid grid-cols-2 gap-4">
-                <div className="space-y-2">
-                  <Label htmlFor="pickup-location">Pickup Location</Label>
-                  <Input
-                    id="pickup-location"
-                    placeholder="e.g., Green Valley Farm"
-                  />
-                </div>
-                <div className="space-y-2">
-                  <Label htmlFor="delivery-location">Delivery Location</Label>
-                  <Input
-                    id="delivery-location"
-                    placeholder="e.g., Fresh Market Store"
-                  />
-                </div>
-              </div>
+              <CardContent className="space-y-4">
+                <motion.div 
+                  className="grid grid-cols-2 gap-4"
+                  variants={containerVariants}
+                >
+                  <motion.div 
+                    className="space-y-2"
+                    variants={itemVariants}
+                    whileFocus={{ scale: 1.02 }}
+                  >
+                    <Label htmlFor="pickup-location">Pickup Location</Label>
+                    <Input
+                      id="pickup-location"
+                      placeholder="e.g., Green Valley Farm"
+                      className="transition-all duration-300 focus:shadow-md"
+                    />
+                  </motion.div>
+                  <motion.div 
+                    className="space-y-2"
+                    variants={itemVariants}
+                    whileFocus={{ scale: 1.02 }}
+                  >
+                    <Label htmlFor="delivery-location">Delivery Location</Label>
+                    <Input
+                      id="delivery-location"
+                      placeholder="e.g., Fresh Market Store"
+                      className="transition-all duration-300 focus:shadow-md"
+                    />
+                  </motion.div>
+                </motion.div>
 
-              <div className="space-y-2">
-                <Label htmlFor="delivery-type">Delivery Type</Label>
-                <Select value={deliveryType} onValueChange={setDeliveryType}>
-                  <SelectTrigger>
-                    <SelectValue placeholder="Select delivery type" />
-                  </SelectTrigger>
-                  <SelectContent>
-                    <SelectItem value="fresh-produce">Fresh Produce</SelectItem>
-                    <SelectItem value="dairy">Dairy Products</SelectItem>
-                    <SelectItem value="grains">Grains & Cereals</SelectItem>
-                    <SelectItem value="mixed">Mixed Products</SelectItem>
-                  </SelectContent>
-                </Select>
-              </div>
+                <motion.div 
+                  className="space-y-2"
+                  variants={itemVariants}
+                >
+                  <Label htmlFor="delivery-type">Delivery Type</Label>
+                  <Select value={deliveryType} onValueChange={setDeliveryType}>
+                    <SelectTrigger className="transition-all duration-300 focus:shadow-md">
+                      <SelectValue placeholder="Select delivery type" />
+                    </SelectTrigger>
+                    <SelectContent>
+                      <SelectItem value="fresh-produce">Fresh Produce</SelectItem>
+                      <SelectItem value="dairy">Dairy Products</SelectItem>
+                      <SelectItem value="grains">Grains & Cereals</SelectItem>
+                      <SelectItem value="mixed">Mixed Products</SelectItem>
+                    </SelectContent>
+                  </Select>
+                </motion.div>
 
               <div className="grid grid-cols-3 gap-4">
                 <div className="space-y-2">
