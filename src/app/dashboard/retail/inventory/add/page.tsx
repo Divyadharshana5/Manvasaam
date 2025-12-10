@@ -13,10 +13,12 @@ import {
     IndianRupee,
     Warehouse,
     Tag,
+    Loader2,
 } from "lucide-react";
 import Link from "next/link";
 import { useState } from "react";
 import { useRouter } from "next/navigation";
+import { motion, AnimatePresence } from "framer-motion";
 
 export default function AddProductPage() {
     const router = useRouter();
