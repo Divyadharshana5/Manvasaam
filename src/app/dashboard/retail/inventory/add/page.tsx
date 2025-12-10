@@ -104,18 +104,75 @@ export default function AddProductPage() {
         }
     };
 
+    // Animation variants
+    const containerVariants = {
+        hidden: { opacity: 0 },
+        visible: {
+            opacity: 1,
+            transition: {
+                duration: 0.6,
+                staggerChildren: 0.1
+            }
+        }
+    };
+
+    const itemVariants = {
+        hidden: { opacity: 0, y: 20 },
+        visible: {
+            opacity: 1,
+            y: 0,
+            transition: { duration: 0.5 }
+        }
+    };
+
+    const cardVariants = {
+        hidden: { opacity: 0, scale: 0.95 },
+        visible: {
+            opacity: 1,
+            scale: 1,
+            transition: { duration: 0.4 }
+        },
+        hover: {
+            scale: 1.02,
+            transition: { duration: 0.2 }
+        }
+    };
+
+    const inputVariants = {
+        focus: {
+            scale: 1.02,
+            transition: { duration: 0.2 }
+        }
+    };
+
     return (
-        <div className="flex flex-1 flex-col gap-4 p-4 md:gap-8 md:p-8">
+        <motion.div 
+            className="flex flex-1 flex-col gap-4 p-4 md:gap-8 md:p-8"
+            variants={containerVariants}
+            initial="hidden"
+            animate="visible"
+        >
             {/* Header */}
-            <div className="flex items-center gap-4">
-                <Button variant="outline" size="icon" onClick={handleCancel}>
-                    <ArrowLeft className="h-4 w-4" />
-                </Button>
-                <div className="flex-1">
+            <motion.div 
+                className="flex items-center gap-4"
+                variants={itemVariants}
+            >
+                <motion.div
+                    whileHover={{ scale: 1.05 }}
+                    whileTap={{ scale: 0.95 }}
+                >
+                    <Button variant="outline" size="icon" onClick={handleCancel}>
+                        <ArrowLeft className="h-4 w-4" />
+                    </Button>
+                </motion.div>
+                <motion.div 
+                    className="flex-1"
+                    variants={itemVariants}
+                >
                     <h1 className="text-3xl font-bold tracking-tight">Add New Product</h1>
                     <p className="text-muted-foreground">Add a new product to your inventory</p>
-                </div>
-            </div>
+                </motion.div>
+            </motion.div>
 
             <div className="grid gap-6 md:grid-cols-2">
                 {/* Product Information */}
