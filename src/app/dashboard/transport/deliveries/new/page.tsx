@@ -440,27 +440,47 @@ export default function NewDeliveryPage() {
             </Card>
           </motion.div>
 
-          <Card>
-            <CardHeader>
-              <CardTitle className="flex items-center gap-2 text-lg">
-                <Truck className="h-5 w-5" />
-                Vehicle Assignment
-              </CardTitle>
-            </CardHeader>
-            <CardContent className="space-y-4">
-              <div className="space-y-2">
-                <Label>Select Vehicle</Label>
-                <div className="grid gap-3">
-                  {vehicles.map((vehicle) => (
-                    <div
-                      key={vehicle.id}
-                      className={`p-3 border rounded-lg cursor-pointer transition-colors ${
-                        selectedVehicle === vehicle.id
-                          ? "border-primary bg-primary/5"
-                          : "hover:bg-gray-50"
-                      }`}
-                      onClick={() => setSelectedVehicle(vehicle.id)}
-                    >
+          <motion.div
+            variants={cardVariants}
+            whileHover="hover"
+          >
+            <Card className="transition-shadow duration-300 hover:shadow-lg">
+              <CardHeader>
+                <CardTitle className="flex items-center gap-2 text-lg">
+                  <motion.div
+                    animate={{ x: [0, 2, -2, 0] }}
+                    transition={{ duration: 3, repeat: Infinity, repeatDelay: 4 }}
+                  >
+                    <Truck className="h-5 w-5" />
+                  </motion.div>
+                  Vehicle Assignment
+                </CardTitle>
+              </CardHeader>
+              <CardContent className="space-y-4">
+                <div className="space-y-2">
+                  <Label>Select Vehicle</Label>
+                  <motion.div 
+                    className="grid gap-3"
+                    variants={containerVariants}
+                  >
+                    <AnimatePresence>
+                      {vehicles.map((vehicle, index) => (
+                        <motion.div
+                          key={vehicle.id}
+                          variants={itemVariants}
+                          initial="hidden"
+                          animate="visible"
+                          exit="hidden"
+                          transition={{ delay: index * 0.1 }}
+                          className={`p-3 border rounded-lg cursor-pointer transition-all duration-300 ${
+                            selectedVehicle === vehicle.id
+                              ? "border-primary bg-primary/5 shadow-md"
+                              : "hover:bg-gray-50 hover:shadow-sm"
+                          }`}
+                          onClick={() => setSelectedVehicle(vehicle.id)}
+                          whileHover={{ scale: 1.02, y: -2 }}
+                          whileTap={{ scale: 0.98 }}
+                        >
                       <div className="flex items-center justify-between">
                         <div className="flex items-center gap-3">
                           <Truck className="h-5 w-5 text-blue-600" />
