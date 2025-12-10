@@ -716,33 +716,65 @@ export default function NewDeliveryPage() {
             </Card>
           </motion.div>
 
-          <Card>
-            <CardHeader>
-              <CardTitle className="text-lg">Delivery Summary</CardTitle>
-            </CardHeader>
-            <CardContent className="space-y-4">
-              <div className="space-y-2 text-sm">
-                <div className="flex justify-between">
-                  <span>Base Rate:</span>
-                  <span>₹2,500</span>
-                </div>
-                <div className="flex justify-between">
-                  <span>Distance Charge:</span>
-                  <span>₹450</span>
-                </div>
-                <div className="flex justify-between">
-                  <span>Fuel Surcharge:</span>
-                  <span>₹200</span>
-                </div>
-                <div className="flex justify-between">
-                  <span>Toll Charges:</span>
-                  <span>₹150</span>
-                </div>
-                <div className="border-t pt-2 flex justify-between font-semibold">
-                  <span>Total Estimate:</span>
-                  <span>₹3,300</span>
-                </div>
-              </div>
+          <motion.div
+            variants={cardVariants}
+            whileHover="hover"
+          >
+            <Card className="transition-shadow duration-300 hover:shadow-lg">
+              <CardHeader>
+                <CardTitle className="text-lg">Delivery Summary</CardTitle>
+              </CardHeader>
+              <CardContent className="space-y-4">
+                <motion.div 
+                  className="space-y-2 text-sm"
+                  variants={containerVariants}
+                >
+                  <motion.div 
+                    className="flex justify-between"
+                    variants={itemVariants}
+                    whileHover={{ x: 2 }}
+                  >
+                    <span>Base Rate:</span>
+                    <span>₹2,500</span>
+                  </motion.div>
+                  <motion.div 
+                    className="flex justify-between"
+                    variants={itemVariants}
+                    whileHover={{ x: 2 }}
+                  >
+                    <span>Distance Charge:</span>
+                    <span>₹450</span>
+                  </motion.div>
+                  <motion.div 
+                    className="flex justify-between"
+                    variants={itemVariants}
+                    whileHover={{ x: 2 }}
+                  >
+                    <span>Fuel Surcharge:</span>
+                    <span>₹200</span>
+                  </motion.div>
+                  <motion.div 
+                    className="flex justify-between"
+                    variants={itemVariants}
+                    whileHover={{ x: 2 }}
+                  >
+                    <span>Toll Charges:</span>
+                    <span>₹150</span>
+                  </motion.div>
+                  <motion.div 
+                    className="border-t pt-2 flex justify-between font-semibold"
+                    variants={itemVariants}
+                    whileHover={{ scale: 1.02 }}
+                  >
+                    <span>Total Estimate:</span>
+                    <motion.span
+                      animate={{ color: ["#000", "#22c55e", "#000"] }}
+                      transition={{ duration: 2, repeat: Infinity }}
+                    >
+                      ₹3,300
+                    </motion.span>
+                  </motion.div>
+                </motion.div>
 
               <div className="space-y-2 pt-4">
                 <Button
