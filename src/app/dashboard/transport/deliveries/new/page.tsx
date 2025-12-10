@@ -860,50 +860,76 @@ export default function NewDeliveryPage() {
             </Card>
           </motion.div>
 
-          <Card>
-            <CardHeader>
-              <CardTitle className="text-lg">Quick Actions</CardTitle>
-            </CardHeader>
-            <CardContent>
-              <div className="space-y-2">
-                <Button
-                  variant="outline"
-                  size="sm"
-                  className="w-full justify-start"
-                  asChild
+          <motion.div
+            variants={cardVariants}
+            whileHover="hover"
+          >
+            <Card className="transition-shadow duration-300 hover:shadow-lg">
+              <CardHeader>
+                <CardTitle className="text-lg">Quick Actions</CardTitle>
+              </CardHeader>
+              <CardContent>
+                <motion.div 
+                  className="space-y-2"
+                  variants={containerVariants}
                 >
-                  <Link href="/dashboard/transport/routes">
-                    <Navigation className="h-4 w-4 mr-2" />
-                    Track Similar Route
-                  </Link>
-                </Button>
-                <Button
-                  variant="outline"
-                  size="sm"
-                  className="w-full justify-start"
-                  asChild
-                >
-                  <Link href="/dashboard/transport/deliveries/contact">
-                    <Phone className="h-4 w-4 mr-2" />
-                    Contact Customer
-                  </Link>
-                </Button>
-                <Button
-                  variant="outline"
-                  size="sm"
-                  className="w-full justify-start"
-                  asChild
-                >
-                  <Link href="/dashboard/transport/notifications">
-                    <AlertCircle className="h-4 w-4 mr-2" />
-                    Set Alerts
-                  </Link>
-                </Button>
-              </div>
-            </CardContent>
-          </Card>
-        </div>
-      </div>
-    </div>
+                  <motion.div
+                    variants={itemVariants}
+                    whileHover={{ scale: 1.02, x: 5 }}
+                    whileTap={{ scale: 0.98 }}
+                  >
+                    <Button
+                      variant="outline"
+                      size="sm"
+                      className="w-full justify-start transition-all duration-300 hover:shadow-sm"
+                      asChild
+                    >
+                      <Link href="/dashboard/transport/routes">
+                        <Navigation className="h-4 w-4 mr-2" />
+                        Track Similar Route
+                      </Link>
+                    </Button>
+                  </motion.div>
+                  <motion.div
+                    variants={itemVariants}
+                    whileHover={{ scale: 1.02, x: 5 }}
+                    whileTap={{ scale: 0.98 }}
+                  >
+                    <Button
+                      variant="outline"
+                      size="sm"
+                      className="w-full justify-start transition-all duration-300 hover:shadow-sm"
+                      asChild
+                    >
+                      <Link href="/dashboard/transport/deliveries/contact">
+                        <Phone className="h-4 w-4 mr-2" />
+                        Contact Customer
+                      </Link>
+                    </Button>
+                  </motion.div>
+                  <motion.div
+                    variants={itemVariants}
+                    whileHover={{ scale: 1.02, x: 5 }}
+                    whileTap={{ scale: 0.98 }}
+                  >
+                    <Button
+                      variant="outline"
+                      size="sm"
+                      className="w-full justify-start transition-all duration-300 hover:shadow-sm"
+                      asChild
+                    >
+                      <Link href="/dashboard/transport/notifications">
+                        <AlertCircle className="h-4 w-4 mr-2" />
+                        Set Alerts
+                      </Link>
+                    </Button>
+                  </motion.div>
+                </motion.div>
+              </CardContent>
+            </Card>
+          </motion.div>
+        </motion.div>
+      </motion.div>
+    </motion.div>
   );
 }
