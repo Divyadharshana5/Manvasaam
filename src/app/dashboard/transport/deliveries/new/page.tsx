@@ -675,30 +675,46 @@ export default function NewDeliveryPage() {
                         whileHover={{ scale: 1.02, x: 5 }}
                         whileTap={{ scale: 0.98 }}
                       >
-                    <div className="flex justify-between items-start mb-2">
-                      <h4 className="font-medium text-sm">{route.name}</h4>
-                      <Badge variant="outline" className="text-xs">
-                        Recommended
-                      </Badge>
-                    </div>
-                    <div className="space-y-1 text-xs text-muted-foreground">
-                      <div className="flex items-center gap-1">
-                        <MapPin className="h-3 w-3" />
-                        <span>{route.distance}</span>
-                      </div>
-                      <div className="flex items-center gap-1">
-                        <Clock className="h-3 w-3" />
-                        <span>{route.duration}</span>
-                      </div>
-                      <div className="flex items-center gap-1">
-                        <span>Toll: ₹{route.toll}</span>
-                      </div>
-                    </div>
-                  </div>
-                ))}
-              </div>
-            </CardContent>
-          </Card>
+                        <div className="flex justify-between items-start mb-2">
+                          <h4 className="font-medium text-sm">{route.name}</h4>
+                          <motion.div
+                            animate={{ scale: [1, 1.05, 1] }}
+                            transition={{ duration: 2, repeat: Infinity, delay: index * 0.5 }}
+                          >
+                            <Badge variant="outline" className="text-xs">
+                              Recommended
+                            </Badge>
+                          </motion.div>
+                        </div>
+                        <div className="space-y-1 text-xs text-muted-foreground">
+                          <motion.div 
+                            className="flex items-center gap-1"
+                            whileHover={{ x: 2 }}
+                          >
+                            <MapPin className="h-3 w-3" />
+                            <span>{route.distance}</span>
+                          </motion.div>
+                          <motion.div 
+                            className="flex items-center gap-1"
+                            whileHover={{ x: 2 }}
+                          >
+                            <Clock className="h-3 w-3" />
+                            <span>{route.duration}</span>
+                          </motion.div>
+                          <motion.div 
+                            className="flex items-center gap-1"
+                            whileHover={{ x: 2 }}
+                          >
+                            <span>Toll: ₹{route.toll}</span>
+                          </motion.div>
+                        </div>
+                      </motion.div>
+                    ))}
+                  </AnimatePresence>
+                </motion.div>
+              </CardContent>
+            </Card>
+          </motion.div>
 
           <Card>
             <CardHeader>
