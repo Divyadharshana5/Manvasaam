@@ -379,30 +379,50 @@ export default function NewDeliveryPage() {
                   </Select>
                 </motion.div>
 
-              <div className="grid grid-cols-3 gap-4">
-                <div className="space-y-2">
-                  <Label htmlFor="pickup-date">Pickup Date</Label>
-                  <Input type="date" id="pickup-date" />
-                </div>
-                <div className="space-y-2">
-                  <Label htmlFor="pickup-time">Pickup Time</Label>
-                  <Input type="time" id="pickup-time" />
-                </div>
-                <div className="space-y-2">
-                  <Label htmlFor="priority">Priority</Label>
-                  <Select>
-                    <SelectTrigger>
-                      <SelectValue placeholder="Priority" />
-                    </SelectTrigger>
-                    <SelectContent>
-                      <SelectItem value="low">Low</SelectItem>
-                      <SelectItem value="medium">Medium</SelectItem>
-                      <SelectItem value="high">High</SelectItem>
-                      <SelectItem value="urgent">Urgent</SelectItem>
-                    </SelectContent>
-                  </Select>
-                </div>
-              </div>
+                <motion.div 
+                  className="grid grid-cols-3 gap-4"
+                  variants={containerVariants}
+                >
+                  <motion.div 
+                    className="space-y-2"
+                    variants={itemVariants}
+                  >
+                    <Label htmlFor="pickup-date">Pickup Date</Label>
+                    <Input 
+                      type="date" 
+                      id="pickup-date" 
+                      className="transition-all duration-300 focus:shadow-md"
+                    />
+                  </motion.div>
+                  <motion.div 
+                    className="space-y-2"
+                    variants={itemVariants}
+                  >
+                    <Label htmlFor="pickup-time">Pickup Time</Label>
+                    <Input 
+                      type="time" 
+                      id="pickup-time" 
+                      className="transition-all duration-300 focus:shadow-md"
+                    />
+                  </motion.div>
+                  <motion.div 
+                    className="space-y-2"
+                    variants={itemVariants}
+                  >
+                    <Label htmlFor="priority">Priority</Label>
+                    <Select>
+                      <SelectTrigger className="transition-all duration-300 focus:shadow-md">
+                        <SelectValue placeholder="Priority" />
+                      </SelectTrigger>
+                      <SelectContent>
+                        <SelectItem value="low">Low</SelectItem>
+                        <SelectItem value="medium">Medium</SelectItem>
+                        <SelectItem value="high">High</SelectItem>
+                        <SelectItem value="urgent">Urgent</SelectItem>
+                      </SelectContent>
+                    </Select>
+                  </motion.div>
+                </motion.div>
 
               <div className="space-y-2">
                 <Label htmlFor="cargo-details">Cargo Details</Label>
