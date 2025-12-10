@@ -401,16 +401,29 @@ export default function AddProductPage() {
                                 </motion.div>
                             </motion.div>
 
-                        <div className="pt-4 border-t">
-                            <div className="text-sm text-muted-foreground space-y-1">
-                                <p>• Minimum stock: Alert level for low inventory</p>
-                                <p>• Maximum stock: Recommended maximum inventory level</p>
-                                <p>• Fields marked with * are required</p>
-                            </div>
-                        </div>
-                    </CardContent>
-                </Card>
-            </div>
+                            <motion.div 
+                                className="pt-4 border-t"
+                                variants={itemVariants}
+                            >
+                                <motion.div 
+                                    className="text-sm text-muted-foreground space-y-1"
+                                    variants={containerVariants}
+                                >
+                                    <motion.p variants={itemVariants} whileHover={{ x: 5 }}>
+                                        • Minimum stock: Alert level for low inventory
+                                    </motion.p>
+                                    <motion.p variants={itemVariants} whileHover={{ x: 5 }}>
+                                        • Maximum stock: Recommended maximum inventory level
+                                    </motion.p>
+                                    <motion.p variants={itemVariants} whileHover={{ x: 5 }}>
+                                        • Fields marked with * are required
+                                    </motion.p>
+                                </motion.div>
+                            </motion.div>
+                        </CardContent>
+                    </Card>
+                </motion.div>
+            </motion.div>
 
             {/* Action Buttons */}
             <Card>
