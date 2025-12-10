@@ -232,50 +232,63 @@ export default function AddProductPage() {
                                 </motion.div>
                             </motion.div>
 
-                        <div className="space-y-2">
-                            <Label htmlFor="category">Category *</Label>
-                            <Select value={formData.category} onValueChange={(value) => handleInputChange("category", value)}>
-                                <SelectTrigger>
-                                    <SelectValue placeholder="Select category" />
-                                </SelectTrigger>
-                                <SelectContent>
-                                    {categories.map((category) => (
-                                        <SelectItem key={category} value={category}>
-                                            {category}
-                                        </SelectItem>
-                                    ))}
-                                </SelectContent>
-                            </Select>
-                        </div>
+                            <motion.div 
+                                className="space-y-2"
+                                variants={itemVariants}
+                            >
+                                <Label htmlFor="category">Category *</Label>
+                                <Select value={formData.category} onValueChange={(value) => handleInputChange("category", value)}>
+                                    <SelectTrigger className="transition-all duration-300 focus:shadow-md">
+                                        <SelectValue placeholder="Select category" />
+                                    </SelectTrigger>
+                                    <SelectContent>
+                                        {categories.map((category) => (
+                                            <SelectItem key={category} value={category}>
+                                                {category}
+                                            </SelectItem>
+                                        ))}
+                                    </SelectContent>
+                                </Select>
+                            </motion.div>
 
-                        <div className="space-y-2">
-                            <Label htmlFor="supplier">Supplier</Label>
-                            <Select value={formData.supplier} onValueChange={(value) => handleInputChange("supplier", value)}>
-                                <SelectTrigger>
-                                    <SelectValue placeholder="Select supplier" />
-                                </SelectTrigger>
-                                <SelectContent>
-                                    {suppliers.map((supplier) => (
-                                        <SelectItem key={supplier} value={supplier}>
-                                            {supplier}
-                                        </SelectItem>
-                                    ))}
-                                </SelectContent>
-                            </Select>
-                        </div>
+                            <motion.div 
+                                className="space-y-2"
+                                variants={itemVariants}
+                            >
+                                <Label htmlFor="supplier">Supplier</Label>
+                                <Select value={formData.supplier} onValueChange={(value) => handleInputChange("supplier", value)}>
+                                    <SelectTrigger className="transition-all duration-300 focus:shadow-md">
+                                        <SelectValue placeholder="Select supplier" />
+                                    </SelectTrigger>
+                                    <SelectContent>
+                                        {suppliers.map((supplier) => (
+                                            <SelectItem key={supplier} value={supplier}>
+                                                {supplier}
+                                            </SelectItem>
+                                        ))}
+                                    </SelectContent>
+                                </Select>
+                            </motion.div>
 
-                        <div className="space-y-2">
-                            <Label htmlFor="description">Description</Label>
-                            <Textarea
-                                id="description"
-                                placeholder="Product description (optional)"
-                                value={formData.description}
-                                onChange={(e) => handleInputChange("description", e.target.value)}
-                                rows={3}
-                            />
-                        </div>
-                    </CardContent>
-                </Card>
+                            <motion.div 
+                                className="space-y-2"
+                                variants={itemVariants}
+                            >
+                                <Label htmlFor="description">Description</Label>
+                                <motion.div variants={inputVariants} whileFocus="focus">
+                                    <Textarea
+                                        id="description"
+                                        placeholder="Product description (optional)"
+                                        value={formData.description}
+                                        onChange={(e) => handleInputChange("description", e.target.value)}
+                                        rows={3}
+                                        className="transition-all duration-300 focus:shadow-md resize-none"
+                                    />
+                                </motion.div>
+                            </motion.div>
+                        </CardContent>
+                    </Card>
+                </motion.div>
 
                 {/* Pricing and Inventory */}
                 <Card>
