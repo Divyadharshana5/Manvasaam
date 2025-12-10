@@ -776,45 +776,89 @@ export default function NewDeliveryPage() {
                   </motion.div>
                 </motion.div>
 
-              <div className="space-y-2 pt-4">
-                <Button
-                  className="w-full"
-                  onClick={handleScheduleDelivery}
-                  disabled={isScheduling || !selectedVehicle || !selectedDriver}
+                <motion.div 
+                  className="space-y-2 pt-4"
+                  variants={containerVariants}
                 >
-                  {isScheduling ? (
-                    <>
-                      <Loader2 className="h-4 w-4 mr-2 animate-spin" />
-                      Scheduling...
-                    </>
-                  ) : (
-                    <>
-                      <CheckCircle className="h-4 w-4 mr-2" />
-                      Schedule Delivery
-                    </>
-                  )}
-                </Button>
-                <Button
-                  variant="outline"
-                  className="w-full justify-start whitespace-normal"
-                  onClick={handleSaveAsDraft}
-                  disabled={isSaving}
-                >
-                  {isSaving ? (
-                    <>
-                      <Loader2 className="h-4 w-4 mr-2 animate-spin" />
-                      Saving...
-                    </>
-                  ) : (
-                    <>
-                      <Save className="h-4 w-4 mr-2" />
-                      <span>Save as Draft</span>
-                    </>
-                  )}
-                </Button>
-              </div>
-            </CardContent>
-          </Card>
+                  <motion.div
+                    variants={itemVariants}
+                    whileHover={{ scale: 1.02 }}
+                    whileTap={{ scale: 0.98 }}
+                  >
+                    <Button
+                      className="w-full transition-all duration-300"
+                      onClick={handleScheduleDelivery}
+                      disabled={isScheduling || !selectedVehicle || !selectedDriver}
+                    >
+                      <AnimatePresence mode="wait">
+                        {isScheduling ? (
+                          <motion.div
+                            key="scheduling"
+                            initial={{ opacity: 0 }}
+                            animate={{ opacity: 1 }}
+                            exit={{ opacity: 0 }}
+                            className="flex items-center"
+                          >
+                            <Loader2 className="h-4 w-4 mr-2 animate-spin" />
+                            Scheduling...
+                          </motion.div>
+                        ) : (
+                          <motion.div
+                            key="schedule"
+                            initial={{ opacity: 0 }}
+                            animate={{ opacity: 1 }}
+                            exit={{ opacity: 0 }}
+                            className="flex items-center"
+                          >
+                            <CheckCircle className="h-4 w-4 mr-2" />
+                            Schedule Delivery
+                          </motion.div>
+                        )}
+                      </AnimatePresence>
+                    </Button>
+                  </motion.div>
+                  <motion.div
+                    variants={itemVariants}
+                    whileHover={{ scale: 1.02 }}
+                    whileTap={{ scale: 0.98 }}
+                  >
+                    <Button
+                      variant="outline"
+                      className="w-full justify-start whitespace-normal transition-all duration-300"
+                      onClick={handleSaveAsDraft}
+                      disabled={isSaving}
+                    >
+                      <AnimatePresence mode="wait">
+                        {isSaving ? (
+                          <motion.div
+                            key="saving"
+                            initial={{ opacity: 0 }}
+                            animate={{ opacity: 1 }}
+                            exit={{ opacity: 0 }}
+                            className="flex items-center"
+                          >
+                            <Loader2 className="h-4 w-4 mr-2 animate-spin" />
+                            Saving...
+                          </motion.div>
+                        ) : (
+                          <motion.div
+                            key="save"
+                            initial={{ opacity: 0 }}
+                            animate={{ opacity: 1 }}
+                            exit={{ opacity: 0 }}
+                            className="flex items-center"
+                          >
+                            <Save className="h-4 w-4 mr-2" />
+                            <span>Save as Draft</span>
+                          </motion.div>
+                        )}
+                      </AnimatePresence>
+                    </Button>
+                  </motion.div>
+                </motion.div>
+              </CardContent>
+            </Card>
+          </motion.div>
 
           <Card>
             <CardHeader>
