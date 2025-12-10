@@ -426,36 +426,76 @@ export default function AddProductPage() {
             </motion.div>
 
             {/* Action Buttons */}
-            <Card>
-                <CardContent className="p-4">
-                    <div className="flex justify-end gap-4">
-                        <Button 
-                            variant="outline" 
-                            onClick={handleCancel}
-                            disabled={isSubmitting}
+            <motion.div
+                variants={cardVariants}
+                whileHover="hover"
+            >
+                <Card className="transition-shadow duration-300 hover:shadow-lg">
+                    <CardContent className="p-4">
+                        <motion.div 
+                            className="flex justify-end gap-4"
+                            variants={containerVariants}
                         >
-                            Cancel
-                        </Button>
-                        <Button 
-                            onClick={handleSubmit}
-                            disabled={isSubmitting}
-                            className="min-w-[120px]"
-                        >
-                            {isSubmitting ? (
-                                <>
-                                    <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-white mr-2"></div>
-                                    Adding...
-                                </>
-                            ) : (
-                                <>
-                                    <Save className="h-4 w-4 mr-2" />
-                                    Add Product
-                                </>
-                            )}
-                        </Button>
-                    </div>
-                </CardContent>
-            </Card>
-        </div>
+                            <motion.div
+                                variants={itemVariants}
+                                whileHover={{ scale: 1.02 }}
+                                whileTap={{ scale: 0.98 }}
+                            >
+                                <Button 
+                                    variant="outline" 
+                                    onClick={handleCancel}
+                                    disabled={isSubmitting}
+                                    className="transition-all duration-300 hover:shadow-sm"
+                                >
+                                    Cancel
+                                </Button>
+                            </motion.div>
+                            <motion.div
+                                variants={itemVariants}
+                                whileHover={{ scale: 1.02 }}
+                                whileTap={{ scale: 0.98 }}
+                            >
+                                <Button 
+                                    onClick={handleSubmit}
+                                    disabled={isSubmitting}
+                                    className="min-w-[120px] transition-all duration-300 hover:shadow-sm"
+                                >
+                                    <AnimatePresence mode="wait">
+                                        {isSubmitting ? (
+                                            <motion.div
+                                                key="submitting"
+                                                initial={{ opacity: 0 }}
+                                                animate={{ opacity: 1 }}
+                                                exit={{ opacity: 0 }}
+                                                className="flex items-center"
+                                            >
+                                                <Loader2 className="h-4 w-4 mr-2 animate-spin" />
+                                                Adding...
+                                            </motion.div>
+                                        ) : (
+                                            <motion.div
+                                                key="add"
+                                                initial={{ opacity: 0 }}
+                                                animate={{ opacity: 1 }}
+                                                exit={{ opacity: 0 }}
+                                                className="flex items-center"
+                                            >
+                                                <motion.div
+                                                    animate={{ rotate: [0, 15, -15, 0] }}
+                                                    transition={{ duration: 2, repeat: Infinity, repeatDelay: 4 }}
+                                                >
+                                                    <Save className="h-4 w-4 mr-2" />
+                                                </motion.div>
+                                                Add Product
+                                            </motion.div>
+                                        )}
+                                    </AnimatePresence>
+                                </Button>
+                            </motion.div>
+                        </motion.div>
+                    </CardContent>
+                </Card>
+            </motion.div>
+        </motion.div>
     );
 }
