@@ -308,16 +308,28 @@ export default function NewDeliveryPage() {
         </motion.div>
       </motion.div>
 
-      <div className="grid gap-6 md:grid-cols-3">
+      <motion.div 
+        className="grid gap-6 md:grid-cols-3"
+        variants={itemVariants}
+      >
         {/* Delivery Form */}
         <div className="md:col-span-2 space-y-6">
-          <Card>
-            <CardHeader>
-              <CardTitle className="flex items-center gap-2 text-lg">
-                <Package className="h-5 w-5" />
-                Delivery Information
-              </CardTitle>
-            </CardHeader>
+          <motion.div
+            variants={cardVariants}
+            whileHover="hover"
+          >
+            <Card className="transition-shadow duration-300 hover:shadow-lg">
+              <CardHeader>
+                <CardTitle className="flex items-center gap-2 text-lg">
+                  <motion.div
+                    animate={{ rotate: [0, 5, -5, 0] }}
+                    transition={{ duration: 2, repeat: Infinity, repeatDelay: 3 }}
+                  >
+                    <Package className="h-5 w-5" />
+                  </motion.div>
+                  Delivery Information
+                </CardTitle>
+              </CardHeader>
             <CardContent className="space-y-4">
               <div className="grid grid-cols-2 gap-4">
                 <div className="space-y-2">
