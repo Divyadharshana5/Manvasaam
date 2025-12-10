@@ -198,27 +198,39 @@ export default function AddProductPage() {
                                 Basic details about the product
                             </CardDescription>
                         </CardHeader>
-                    <CardContent className="space-y-4">
-                        <div className="space-y-2">
-                            <Label htmlFor="name">Product Name *</Label>
-                            <Input
-                                id="name"
-                                placeholder="Enter product name"
-                                value={formData.name}
-                                onChange={(e) => handleInputChange("name", e.target.value)}
-                                required
-                            />
-                        </div>
+                        <CardContent className="space-y-4">
+                            <motion.div 
+                                className="space-y-2"
+                                variants={itemVariants}
+                            >
+                                <Label htmlFor="name">Product Name *</Label>
+                                <motion.div variants={inputVariants} whileFocus="focus">
+                                    <Input
+                                        id="name"
+                                        placeholder="Enter product name"
+                                        value={formData.name}
+                                        onChange={(e) => handleInputChange("name", e.target.value)}
+                                        required
+                                        className="transition-all duration-300 focus:shadow-md"
+                                    />
+                                </motion.div>
+                            </motion.div>
 
-                        <div className="space-y-2">
-                            <Label htmlFor="sku">SKU</Label>
-                            <Input
-                                id="sku"
-                                placeholder="Product SKU (optional)"
-                                value={formData.sku}
-                                onChange={(e) => handleInputChange("sku", e.target.value)}
-                            />
-                        </div>
+                            <motion.div 
+                                className="space-y-2"
+                                variants={itemVariants}
+                            >
+                                <Label htmlFor="sku">SKU</Label>
+                                <motion.div variants={inputVariants} whileFocus="focus">
+                                    <Input
+                                        id="sku"
+                                        placeholder="Product SKU (optional)"
+                                        value={formData.sku}
+                                        onChange={(e) => handleInputChange("sku", e.target.value)}
+                                        className="transition-all duration-300 focus:shadow-md"
+                                    />
+                                </motion.div>
+                            </motion.div>
 
                         <div className="space-y-2">
                             <Label htmlFor="category">Category *</Label>
