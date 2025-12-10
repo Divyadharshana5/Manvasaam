@@ -481,47 +481,62 @@ export default function NewDeliveryPage() {
                           whileHover={{ scale: 1.02, y: -2 }}
                           whileTap={{ scale: 0.98 }}
                         >
-                      <div className="flex items-center justify-between">
-                        <div className="flex items-center gap-3">
-                          <Truck className="h-5 w-5 text-blue-600" />
-                          <div>
-                            <p className="font-medium text-sm">{vehicle.id}</p>
-                            <p className="text-xs text-muted-foreground">
-                              {vehicle.model} • {vehicle.capacity}
-                            </p>
-                          </div>
-                        </div>
-                        <div className="flex items-center gap-2">
-                          <div className="flex items-center gap-1">
-                            <Fuel className="h-3 w-3" />
-                            <span className="text-xs">{vehicle.fuel}%</span>
-                          </div>
-                          <Badge
-                            variant="outline"
-                            className={`text-xs ${
-                              mode === "edit" ? "cursor-pointer" : ""
-                            }`}
-                            onClick={
-                              mode === "edit"
-                                ? (e) => {
-                                    e.stopPropagation();
-                                    toggleVehicleStatus(vehicle.id);
+                          <div className="flex items-center justify-between">
+                            <div className="flex items-center gap-3">
+                              <motion.div
+                                animate={selectedVehicle === vehicle.id ? { scale: [1, 1.2, 1] } : {}}
+                                transition={{ duration: 0.3 }}
+                              >
+                                <Truck className="h-5 w-5 text-blue-600" />
+                              </motion.div>
+                              <div>
+                                <p className="font-medium text-sm">{vehicle.id}</p>
+                                <p className="text-xs text-muted-foreground">
+                                  {vehicle.model} • {vehicle.capacity}
+                                </p>
+                              </div>
+                            </div>
+                            <div className="flex items-center gap-2">
+                              <motion.div 
+                                className="flex items-center gap-1"
+                                whileHover={{ scale: 1.1 }}
+                              >
+                                <Fuel className="h-3 w-3" />
+                                <span className="text-xs">{vehicle.fuel}%</span>
+                              </motion.div>
+                              <motion.div
+                                whileHover={{ scale: 1.05 }}
+                                whileTap={{ scale: 0.95 }}
+                              >
+                                <Badge
+                                  variant="outline"
+                                  className={`text-xs transition-colors duration-200 ${
+                                    mode === "edit" ? "cursor-pointer hover:bg-primary/10" : ""
+                                  }`}
+                                  onClick={
+                                    mode === "edit"
+                                      ? (e) => {
+                                          e.stopPropagation();
+                                          toggleVehicleStatus(vehicle.id);
+                                        }
+                                      : undefined
                                   }
-                                : undefined
-                            }
-                            role={mode === "edit" ? "button" : undefined}
-                            tabIndex={mode === "edit" ? 0 : undefined}
-                          >
-                            {vehicle.status}
-                          </Badge>
-                        </div>
-                      </div>
-                    </div>
-                  ))}
+                                  role={mode === "edit" ? "button" : undefined}
+                                  tabIndex={mode === "edit" ? 0 : undefined}
+                                >
+                                  {vehicle.status}
+                                </Badge>
+                              </motion.div>
+                            </div>
+                          </div>
+                        </motion.div>
+                      ))}
+                    </AnimatePresence>
+                  </motion.div>
                 </div>
-              </div>
-            </CardContent>
-          </Card>
+              </CardContent>
+            </Card>
+          </motion.div>
 
           <Card>
             <CardHeader>
