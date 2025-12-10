@@ -291,34 +291,56 @@ export default function AddProductPage() {
                 </motion.div>
 
                 {/* Pricing and Inventory */}
-                <Card>
-                    <CardHeader>
-                        <CardTitle className="flex items-center gap-2">
-                            <Warehouse className="h-5 w-5" />
-                            Pricing & Inventory
-                        </CardTitle>
-                        <CardDescription>
-                            Set pricing and stock levels
-                        </CardDescription>
-                    </CardHeader>
-                    <CardContent className="space-y-4">
-                        <div className="space-y-2">
-                            <Label htmlFor="price">Price (₹) *</Label>
-                            <div className="relative">
-                                <IndianRupee className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-muted-foreground" />
-                                <Input
-                                    id="price"
-                                    type="number"
-                                    placeholder="0.00"
-                                    value={formData.price}
-                                    onChange={(e) => handleInputChange("price", e.target.value)}
-                                    className="pl-10"
-                                    min="0"
-                                    step="0.01"
-                                    required
-                                />
-                            </div>
-                        </div>
+                <motion.div
+                    variants={cardVariants}
+                    whileHover="hover"
+                >
+                    <Card className="transition-shadow duration-300 hover:shadow-lg">
+                        <CardHeader>
+                            <CardTitle className="flex items-center gap-2">
+                                <motion.div
+                                    animate={{ scale: [1, 1.1, 1] }}
+                                    transition={{ duration: 2, repeat: Infinity, repeatDelay: 3 }}
+                                >
+                                    <Warehouse className="h-5 w-5" />
+                                </motion.div>
+                                Pricing & Inventory
+                            </CardTitle>
+                            <CardDescription>
+                                Set pricing and stock levels
+                            </CardDescription>
+                        </CardHeader>
+                        <CardContent className="space-y-4">
+                            <motion.div 
+                                className="space-y-2"
+                                variants={itemVariants}
+                            >
+                                <Label htmlFor="price">Price (₹) *</Label>
+                                <motion.div 
+                                    className="relative"
+                                    variants={inputVariants} 
+                                    whileFocus="focus"
+                                >
+                                    <motion.div
+                                        animate={{ rotate: [0, 360] }}
+                                        transition={{ duration: 4, repeat: Infinity, ease: "linear" }}
+                                        className="absolute left-3 top-1/2 transform -translate-y-1/2"
+                                    >
+                                        <IndianRupee className="h-4 w-4 text-muted-foreground" />
+                                    </motion.div>
+                                    <Input
+                                        id="price"
+                                        type="number"
+                                        placeholder="0.00"
+                                        value={formData.price}
+                                        onChange={(e) => handleInputChange("price", e.target.value)}
+                                        className="pl-10 transition-all duration-300 focus:shadow-md"
+                                        min="0"
+                                        step="0.01"
+                                        required
+                                    />
+                                </motion.div>
+                            </motion.div>
 
                         <div className="space-y-2">
                             <Label htmlFor="currentStock">Current Stock *</Label>
