@@ -579,46 +579,61 @@ export default function NewDeliveryPage() {
                           whileHover={{ scale: 1.02, y: -2 }}
                           whileTap={{ scale: 0.98 }}
                         >
-                      <div className="flex items-center justify-between">
-                        <div className="flex items-center gap-3">
-                          <User className="h-5 w-5 text-green-600" />
-                          <div>
-                            <p className="font-medium text-sm">{driver.name}</p>
-                            <p className="text-xs text-muted-foreground">
-                              {driver.experience} experience
-                            </p>
-                          </div>
-                        </div>
-                        <div className="flex items-center gap-2">
-                          <div className="flex items-center gap-1">
-                            <span className="text-xs">⭐ {driver.rating}</span>
-                          </div>
-                          <Badge
-                            variant="outline"
-                            className={`text-xs ${
-                              mode === "edit" ? "cursor-pointer" : ""
-                            }`}
-                            onClick={
-                              mode === "edit"
-                                ? (e) => {
-                                    e.stopPropagation();
-                                    toggleDriverStatus(driver.id);
+                          <div className="flex items-center justify-between">
+                            <div className="flex items-center gap-3">
+                              <motion.div
+                                animate={selectedDriver === driver.id ? { scale: [1, 1.2, 1] } : {}}
+                                transition={{ duration: 0.3 }}
+                              >
+                                <User className="h-5 w-5 text-green-600" />
+                              </motion.div>
+                              <div>
+                                <p className="font-medium text-sm">{driver.name}</p>
+                                <p className="text-xs text-muted-foreground">
+                                  {driver.experience} experience
+                                </p>
+                              </div>
+                            </div>
+                            <div className="flex items-center gap-2">
+                              <motion.div 
+                                className="flex items-center gap-1"
+                                whileHover={{ scale: 1.1 }}
+                              >
+                                <span className="text-xs">⭐ {driver.rating}</span>
+                              </motion.div>
+                              <motion.div
+                                whileHover={{ scale: 1.05 }}
+                                whileTap={{ scale: 0.95 }}
+                              >
+                                <Badge
+                                  variant="outline"
+                                  className={`text-xs transition-colors duration-200 ${
+                                    mode === "edit" ? "cursor-pointer hover:bg-primary/10" : ""
+                                  }`}
+                                  onClick={
+                                    mode === "edit"
+                                      ? (e) => {
+                                          e.stopPropagation();
+                                          toggleDriverStatus(driver.id);
+                                        }
+                                      : undefined
                                   }
-                                : undefined
-                            }
-                            role={mode === "edit" ? "button" : undefined}
-                            tabIndex={mode === "edit" ? 0 : undefined}
-                          >
-                            {driver.status}
-                          </Badge>
-                        </div>
-                      </div>
-                    </div>
-                  ))}
+                                  role={mode === "edit" ? "button" : undefined}
+                                  tabIndex={mode === "edit" ? 0 : undefined}
+                                >
+                                  {driver.status}
+                                </Badge>
+                              </motion.div>
+                            </div>
+                          </div>
+                        </motion.div>
+                      ))}
+                    </AnimatePresence>
+                  </motion.div>
                 </div>
-              </div>
-            </CardContent>
-          </Card>
+              </CardContent>
+            </Card>
+          </motion.div>
         </div>
 
         {/* Delivery Summary */}
