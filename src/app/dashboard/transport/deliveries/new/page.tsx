@@ -242,24 +242,71 @@ export default function NewDeliveryPage() {
     },
   ];
 
+  // Animation variants
+  const containerVariants = {
+    hidden: { opacity: 0 },
+    visible: {
+      opacity: 1,
+      transition: {
+        duration: 0.6,
+        staggerChildren: 0.1
+      }
+    }
+  };
+
+  const itemVariants = {
+    hidden: { opacity: 0, y: 20 },
+    visible: {
+      opacity: 1,
+      y: 0,
+      transition: { duration: 0.5 }
+    }
+  };
+
+  const cardVariants = {
+    hidden: { opacity: 0, scale: 0.95 },
+    visible: {
+      opacity: 1,
+      scale: 1,
+      transition: { duration: 0.4 }
+    },
+    hover: {
+      scale: 1.02,
+      transition: { duration: 0.2 }
+    }
+  };
+
   return (
-    <div className="flex flex-1 flex-col gap-4 p-4 md:gap-8 md:p-8">
+    <motion.div 
+      className="flex flex-1 flex-col gap-4 p-4 md:gap-8 md:p-8"
+      variants={containerVariants}
+      initial="hidden"
+      animate="visible"
+    >
       {/* Header */}
-      <div className="flex items-center gap-4">
-        <Button variant="outline" size="icon" asChild>
-          <Link href="/dashboard/transport">
-            <ArrowLeft className="h-4 w-4" />
-          </Link>
-        </Button>
-        <div>
+      <motion.div 
+        className="flex items-center gap-4"
+        variants={itemVariants}
+      >
+        <motion.div
+          whileHover={{ scale: 1.05 }}
+          whileTap={{ scale: 0.95 }}
+        >
+          <Button variant="outline" size="icon" asChild>
+            <Link href="/dashboard/transport">
+              <ArrowLeft className="h-4 w-4" />
+            </Link>
+          </Button>
+        </motion.div>
+        <motion.div variants={itemVariants}>
           <h1 className="text-2xl font-bold tracking-tight">
             Schedule New Delivery
           </h1>
           <p className="text-muted-foreground">
             Create a new delivery assignment for your fleet
           </p>
-        </div>
-      </div>
+        </motion.div>
+      </motion.div>
 
       <div className="grid gap-6 md:grid-cols-3">
         {/* Delivery Form */}
