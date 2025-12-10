@@ -174,18 +174,30 @@ export default function AddProductPage() {
                 </motion.div>
             </motion.div>
 
-            <div className="grid gap-6 md:grid-cols-2">
+            <motion.div 
+                className="grid gap-6 md:grid-cols-2"
+                variants={itemVariants}
+            >
                 {/* Product Information */}
-                <Card>
-                    <CardHeader>
-                        <CardTitle className="flex items-center gap-2">
-                            <Package className="h-5 w-5" />
-                            Product Information
-                        </CardTitle>
-                        <CardDescription>
-                            Basic details about the product
-                        </CardDescription>
-                    </CardHeader>
+                <motion.div
+                    variants={cardVariants}
+                    whileHover="hover"
+                >
+                    <Card className="transition-shadow duration-300 hover:shadow-lg">
+                        <CardHeader>
+                            <CardTitle className="flex items-center gap-2">
+                                <motion.div
+                                    animate={{ rotate: [0, 5, -5, 0] }}
+                                    transition={{ duration: 3, repeat: Infinity, repeatDelay: 4 }}
+                                >
+                                    <Package className="h-5 w-5" />
+                                </motion.div>
+                                Product Information
+                            </CardTitle>
+                            <CardDescription>
+                                Basic details about the product
+                            </CardDescription>
+                        </CardHeader>
                     <CardContent className="space-y-4">
                         <div className="space-y-2">
                             <Label htmlFor="name">Product Name *</Label>
