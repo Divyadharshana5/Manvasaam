@@ -538,27 +538,47 @@ export default function NewDeliveryPage() {
             </Card>
           </motion.div>
 
-          <Card>
-            <CardHeader>
-              <CardTitle className="flex items-center gap-2 text-lg">
-                <User className="h-5 w-5" />
-                Driver Assignment
-              </CardTitle>
-            </CardHeader>
-            <CardContent className="space-y-4">
-              <div className="space-y-2">
-                <Label>Select Driver</Label>
-                <div className="grid gap-3">
-                  {drivers.map((driver) => (
-                    <div
-                      key={driver.id}
-                      className={`p-3 border rounded-lg cursor-pointer transition-colors ${
-                        selectedDriver === driver.id
-                          ? "border-primary bg-primary/5"
-                          : "hover:bg-gray-50"
-                      }`}
-                      onClick={() => setSelectedDriver(driver.id)}
-                    >
+          <motion.div
+            variants={cardVariants}
+            whileHover="hover"
+          >
+            <Card className="transition-shadow duration-300 hover:shadow-lg">
+              <CardHeader>
+                <CardTitle className="flex items-center gap-2 text-lg">
+                  <motion.div
+                    animate={{ rotate: [0, 10, -10, 0] }}
+                    transition={{ duration: 4, repeat: Infinity, repeatDelay: 5 }}
+                  >
+                    <User className="h-5 w-5" />
+                  </motion.div>
+                  Driver Assignment
+                </CardTitle>
+              </CardHeader>
+              <CardContent className="space-y-4">
+                <div className="space-y-2">
+                  <Label>Select Driver</Label>
+                  <motion.div 
+                    className="grid gap-3"
+                    variants={containerVariants}
+                  >
+                    <AnimatePresence>
+                      {drivers.map((driver, index) => (
+                        <motion.div
+                          key={driver.id}
+                          variants={itemVariants}
+                          initial="hidden"
+                          animate="visible"
+                          exit="hidden"
+                          transition={{ delay: index * 0.1 }}
+                          className={`p-3 border rounded-lg cursor-pointer transition-all duration-300 ${
+                            selectedDriver === driver.id
+                              ? "border-primary bg-primary/5 shadow-md"
+                              : "hover:bg-gray-50 hover:shadow-sm"
+                          }`}
+                          onClick={() => setSelectedDriver(driver.id)}
+                          whileHover={{ scale: 1.02, y: -2 }}
+                          whileTap={{ scale: 0.98 }}
+                        >
                       <div className="flex items-center justify-between">
                         <div className="flex items-center gap-3">
                           <User className="h-5 w-5 text-green-600" />
