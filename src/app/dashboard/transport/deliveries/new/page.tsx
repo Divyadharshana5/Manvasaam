@@ -424,16 +424,21 @@ export default function NewDeliveryPage() {
                   </motion.div>
                 </motion.div>
 
-              <div className="space-y-2">
-                <Label htmlFor="cargo-details">Cargo Details</Label>
-                <Textarea
-                  id="cargo-details"
-                  placeholder="Describe the items to be transported (weight, quantity, special handling requirements...)"
-                  rows={3}
-                />
-              </div>
-            </CardContent>
-          </Card>
+                <motion.div 
+                  className="space-y-2"
+                  variants={itemVariants}
+                >
+                  <Label htmlFor="cargo-details">Cargo Details</Label>
+                  <Textarea
+                    id="cargo-details"
+                    placeholder="Describe the items to be transported (weight, quantity, special handling requirements...)"
+                    rows={3}
+                    className="transition-all duration-300 focus:shadow-md resize-none"
+                  />
+                </motion.div>
+              </CardContent>
+            </Card>
+          </motion.div>
 
           <Card>
             <CardHeader>
