@@ -637,21 +637,44 @@ export default function NewDeliveryPage() {
         </div>
 
         {/* Delivery Summary */}
-        <div className="space-y-6">
-          <Card>
-            <CardHeader>
-              <CardTitle className="flex items-center gap-2 text-lg">
-                <Route className="h-5 w-5" />
-                Route Planning
-              </CardTitle>
-            </CardHeader>
-            <CardContent className="space-y-4">
-              <div className="space-y-3">
-                {routes.map((route, index) => (
-                  <div
-                    key={index}
-                    className="p-3 border rounded-lg hover:bg-gray-50 cursor-pointer"
+        <motion.div 
+          className="space-y-6"
+          variants={itemVariants}
+        >
+          <motion.div
+            variants={cardVariants}
+            whileHover="hover"
+          >
+            <Card className="transition-shadow duration-300 hover:shadow-lg">
+              <CardHeader>
+                <CardTitle className="flex items-center gap-2 text-lg">
+                  <motion.div
+                    animate={{ rotate: 360 }}
+                    transition={{ duration: 8, repeat: Infinity, ease: "linear" }}
                   >
+                    <Route className="h-5 w-5" />
+                  </motion.div>
+                  Route Planning
+                </CardTitle>
+              </CardHeader>
+              <CardContent className="space-y-4">
+                <motion.div 
+                  className="space-y-3"
+                  variants={containerVariants}
+                >
+                  <AnimatePresence>
+                    {routes.map((route, index) => (
+                      <motion.div
+                        key={index}
+                        variants={itemVariants}
+                        initial="hidden"
+                        animate="visible"
+                        exit="hidden"
+                        transition={{ delay: index * 0.1 }}
+                        className="p-3 border rounded-lg hover:bg-gray-50 cursor-pointer transition-all duration-300 hover:shadow-sm"
+                        whileHover={{ scale: 1.02, x: 5 }}
+                        whileTap={{ scale: 0.98 }}
+                      >
                     <div className="flex justify-between items-start mb-2">
                       <h4 className="font-medium text-sm">{route.name}</h4>
                       <Badge variant="outline" className="text-xs">
