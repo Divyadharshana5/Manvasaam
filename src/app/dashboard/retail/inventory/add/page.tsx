@@ -342,43 +342,64 @@ export default function AddProductPage() {
                                 </motion.div>
                             </motion.div>
 
-                        <div className="space-y-2">
-                            <Label htmlFor="currentStock">Current Stock *</Label>
-                            <Input
-                                id="currentStock"
-                                type="number"
-                                placeholder="Enter current stock quantity"
-                                value={formData.currentStock}
-                                onChange={(e) => handleInputChange("currentStock", e.target.value)}
-                                min="0"
-                                required
-                            />
-                        </div>
+                            <motion.div 
+                                className="space-y-2"
+                                variants={itemVariants}
+                            >
+                                <Label htmlFor="currentStock">Current Stock *</Label>
+                                <motion.div variants={inputVariants} whileFocus="focus">
+                                    <Input
+                                        id="currentStock"
+                                        type="number"
+                                        placeholder="Enter current stock quantity"
+                                        value={formData.currentStock}
+                                        onChange={(e) => handleInputChange("currentStock", e.target.value)}
+                                        min="0"
+                                        required
+                                        className="transition-all duration-300 focus:shadow-md"
+                                    />
+                                </motion.div>
+                            </motion.div>
 
-                        <div className="grid grid-cols-2 gap-4">
-                            <div className="space-y-2">
-                                <Label htmlFor="minStock">Minimum Stock</Label>
-                                <Input
-                                    id="minStock"
-                                    type="number"
-                                    placeholder="Min stock level"
-                                    value={formData.minStock}
-                                    onChange={(e) => handleInputChange("minStock", e.target.value)}
-                                    min="0"
-                                />
-                            </div>
-                            <div className="space-y-2">
-                                <Label htmlFor="maxStock">Maximum Stock</Label>
-                                <Input
-                                    id="maxStock"
-                                    type="number"
-                                    placeholder="Max stock level"
-                                    value={formData.maxStock}
-                                    onChange={(e) => handleInputChange("maxStock", e.target.value)}
-                                    min="0"
-                                />
-                            </div>
-                        </div>
+                            <motion.div 
+                                className="grid grid-cols-2 gap-4"
+                                variants={containerVariants}
+                            >
+                                <motion.div 
+                                    className="space-y-2"
+                                    variants={itemVariants}
+                                >
+                                    <Label htmlFor="minStock">Minimum Stock</Label>
+                                    <motion.div variants={inputVariants} whileFocus="focus">
+                                        <Input
+                                            id="minStock"
+                                            type="number"
+                                            placeholder="Min stock level"
+                                            value={formData.minStock}
+                                            onChange={(e) => handleInputChange("minStock", e.target.value)}
+                                            min="0"
+                                            className="transition-all duration-300 focus:shadow-md"
+                                        />
+                                    </motion.div>
+                                </motion.div>
+                                <motion.div 
+                                    className="space-y-2"
+                                    variants={itemVariants}
+                                >
+                                    <Label htmlFor="maxStock">Maximum Stock</Label>
+                                    <motion.div variants={inputVariants} whileFocus="focus">
+                                        <Input
+                                            id="maxStock"
+                                            type="number"
+                                            placeholder="Max stock level"
+                                            value={formData.maxStock}
+                                            onChange={(e) => handleInputChange("maxStock", e.target.value)}
+                                            min="0"
+                                            className="transition-all duration-300 focus:shadow-md"
+                                        />
+                                    </motion.div>
+                                </motion.div>
+                            </motion.div>
 
                         <div className="pt-4 border-t">
                             <div className="text-sm text-muted-foreground space-y-1">
