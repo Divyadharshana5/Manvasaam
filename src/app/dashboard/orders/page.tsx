@@ -191,11 +191,11 @@ export default function OrdersPage() {
           <h2 className="text-2xl md:text-3xl font-bold tracking-tight">
             {t.orders.title}
           </h2>
-          <p className="text-muted-foreground text-sm">
+          <p className="text-muted-foreground text-sm animate-slide-in-left stagger-1">
             {t.orders.description}
           </p>
         </div>
-        <Card className="shadow-sm border card-glow animate-fade-in-up stagger-1">
+        <Card className="shadow-sm border card-glow animate-fade-in-up stagger-2">
           <CardHeader className="pb-3 px-4 md:px-6 pt-4 md:pt-6">
             <div className="flex flex-col gap-4">
               <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
