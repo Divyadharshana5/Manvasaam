@@ -263,15 +263,16 @@ export default function OrdersPage() {
                         </TableRow>
                       </TableHeader>
                       <TableBody>
-                        {filteredOrders.map((order) => (
+                        {filteredOrders.map((order, index) => (
                           <TableRow
                             key={order.id}
                             onClick={() => handleRowClick(order)}
                             className={cn(
                               order.status !== "Cancelled"
-                                ? "cursor-pointer hover:bg-muted/50"
+                                ? "cursor-pointer hover:bg-muted/50 hover:scale-[1.01]"
                                 : "opacity-60",
-                              "transition-colors duration-200"
+                              "transition-all duration-300 animate-fade-in-up",
+                              `stagger-${Math.min(index + 1, 6)}`
                             )}
                           >
                             <TableCell className="font-medium py-3 text-sm">
