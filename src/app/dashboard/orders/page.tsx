@@ -103,6 +103,7 @@ export default function OrdersPage() {
   const [searchTerm, setSearchTerm] = useState("");
   const [selectedOrder, setSelectedOrder] = useState<Order | null>(null);
   const [isDialogOpen, setIsDialogOpen] = useState(false);
+  const [isSearching, setIsSearching] = useState(false);
   const { t } = useLanguage();
   const router = useRouter();
 
@@ -331,7 +332,8 @@ export default function OrdersPage() {
                               )}
                             </TableCell>
                           </TableRow>
-                        ))}
+                          ))
+                        )}
                       </TableBody>
                     </Table>
                   </div>
