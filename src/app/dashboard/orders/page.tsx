@@ -213,7 +213,7 @@ export default function OrdersPage() {
                     placeholder={t.orders.searchPlaceholder}
                     value={searchTerm}
                     onChange={(e) => setSearchTerm(e.target.value)}
-                    className="w-full pl-10 pr-10 h-9 md:h-10"
+                    className="w-full pl-10 pr-10 h-9 md:h-10 focus-ring transition-all duration-300"
                   />
                   {searchTerm && (
                     <button
