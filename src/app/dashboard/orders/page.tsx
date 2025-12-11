@@ -414,8 +414,8 @@ export default function OrdersPage() {
           </DialogHeader>
           {shippingInfo ? (
             <div className="space-y-4 pt-1">
-              <div className="flex items-start gap-3 p-3 rounded-lg border bg-muted/30">
-                <MapPin className="h-4 w-4 md:h-5 md:w-5 text-primary mt-0.5 shrink-0" />
+              <div className="flex items-start gap-3 p-3 rounded-lg border bg-muted/30 animate-fade-in-up stagger-1 hover:bg-muted/50 transition-all duration-300">
+                <MapPin className="h-4 w-4 md:h-5 md:w-5 text-primary mt-0.5 shrink-0 icon-bounce" />
                 <div className="space-y-0.5">
                   <p className="text-xs md:text-sm text-muted-foreground">
                     {t.orders.currentLocation}
@@ -425,8 +425,8 @@ export default function OrdersPage() {
                   </p>
                 </div>
               </div>
-              <div className="flex items-start gap-3 p-3 rounded-lg border bg-muted/30">
-                <PackageCheck className="h-4 w-4 md:h-5 md:w-5 text-primary mt-0.5 shrink-0" />
+              <div className="flex items-start gap-3 p-3 rounded-lg border bg-muted/30 animate-fade-in-up stagger-2 hover:bg-muted/50 transition-all duration-300">
+                <PackageCheck className="h-4 w-4 md:h-5 md:w-5 text-primary mt-0.5 shrink-0 icon-pulse" />
                 <div className="space-y-0.5">
                   <p className="text-xs md:text-sm text-muted-foreground">
                     {t.orders.reachedState}
@@ -436,8 +436,8 @@ export default function OrdersPage() {
                   </p>
                 </div>
               </div>
-              <div className="flex items-start gap-3 p-3 rounded-lg border bg-muted/30">
-                <CalendarClock className="h-4 w-4 md:h-5 md:w-5 text-primary mt-0.5 shrink-0" />
+              <div className="flex items-start gap-3 p-3 rounded-lg border bg-muted/30 animate-fade-in-up stagger-3 hover:bg-muted/50 transition-all duration-300">
+                <CalendarClock className="h-4 w-4 md:h-5 md:w-5 text-primary mt-0.5 shrink-0 icon-bounce" />
                 <div className="space-y-0.5">
                   <p className="text-xs md:text-sm text-muted-foreground">
                     {t.orders.estimatedDelivery}
