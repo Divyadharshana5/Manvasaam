@@ -286,7 +286,11 @@ export default function OrdersPage() {
                             <TableCell className="py-3">
                               <Badge
                                 variant="outline"
-                                className={cn("text-xs", getStatusBadgeClass(order.status))}
+                                className={cn(
+                                  "text-xs transition-all duration-300 hover:scale-105",
+                                  getStatusBadgeClass(order.status),
+                                  order.status === "Processing" && "badge-pulse"
+                                )}
                               >
                                 {order.status}
                               </Badge>
