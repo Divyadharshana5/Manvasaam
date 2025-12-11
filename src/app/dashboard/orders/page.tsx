@@ -263,7 +263,14 @@ export default function OrdersPage() {
                         </TableRow>
                       </TableHeader>
                       <TableBody>
-                        {filteredOrders.map((order, index) => (
+                        {filteredOrders.length === 0 && !loading ? (
+                          <TableRow>
+                            <TableCell colSpan={6} className="text-center py-8 animate-fade-in">
+                              <p className="text-muted-foreground">No orders found matching your search.</p>
+                            </TableCell>
+                          </TableRow>
+                        ) : (
+                          filteredOrders.map((order, index) => (
                           <TableRow
                             key={order.id}
                             onClick={() => handleRowClick(order)}
@@ -400,7 +407,8 @@ export default function OrdersPage() {
                         </CardFooter>
                       )}
                     </Card>
-                  ))}
+                    ))
+                  )}
                 </div>
               </>
             )}
