@@ -334,3 +334,261 @@ html {
   background-size: 200px 100%;
   animation: skeleton 1.5s infinite;
 }
+/* Enhanced Orders Page Animations */
+
+/* Search input focus animation */
+.search-input-focus {
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.search-input-focus:focus {
+  transform: scale(1.02);
+  box-shadow: 0 0 0 3px rgba(34, 197, 94, 0.2);
+}
+
+/* Table row hover animation */
+.table-row-hover {
+  transition: all 0.3s ease;
+  position: relative;
+}
+
+.table-row-hover:hover {
+  background: linear-gradient(90deg, rgba(34, 197, 94, 0.05) 0%, rgba(34, 197, 94, 0.1) 50%, rgba(34, 197, 94, 0.05) 100%);
+}
+
+.table-row-hover::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0;
+  height: 100%;
+  width: 0;
+  background: linear-gradient(90deg, transparent, rgba(34, 197, 94, 0.1), transparent);
+  transition: width 0.5s ease;
+}
+
+.table-row-hover:hover::before {
+  width: 100%;
+}
+
+/* Status badge glow animation */
+@keyframes statusGlow {
+  0%, 100% {
+    box-shadow: 0 0 5px rgba(34, 197, 94, 0.3);
+  }
+  50% {
+    box-shadow: 0 0 15px rgba(34, 197, 94, 0.6);
+  }
+}
+
+.status-delivered {
+  animation: statusGlow 2s ease-in-out infinite;
+}
+
+/* Loading skeleton enhanced animation */
+@keyframes skeletonWave {
+  0% {
+    transform: translateX(-100%);
+  }
+  50% {
+    transform: translateX(100%);
+  }
+  100% {
+    transform: translateX(100%);
+  }
+}
+
+.skeleton-enhanced {
+  position: relative;
+  overflow: hidden;
+  background: #f0f0f0;
+}
+
+.skeleton-enhanced::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(255, 255, 255, 0.6),
+    transparent
+  );
+  animation: skeletonWave 1.5s ease-in-out infinite;
+}
+
+/* Card entrance animation with bounce */
+@keyframes cardBounceIn {
+  0% {
+    opacity: 0;
+    transform: scale(0.3) translateY(50px);
+  }
+  50% {
+    opacity: 1;
+    transform: scale(1.05) translateY(-10px);
+  }
+  70% {
+    transform: scale(0.95) translateY(5px);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+  }
+}
+
+.card-bounce-in {
+  animation: cardBounceIn 0.6s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+}
+
+/* Icon rotation on hover */
+.icon-rotate-hover {
+  transition: transform 0.3s ease;
+}
+
+.icon-rotate-hover:hover {
+  transform: rotate(360deg);
+}
+
+/* Progress line animation for shipping timeline */
+@keyframes progressLine {
+  from {
+    height: 0%;
+  }
+  to {
+    height: 100%;
+  }
+}
+
+.progress-line {
+  animation: progressLine 1s ease-out 0.5s forwards;
+  height: 0%;
+}
+
+/* Floating animation for action buttons */
+@keyframes float {
+  0%, 100% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-3px);
+  }
+}
+
+.float-animation {
+  animation: float 3s ease-in-out infinite;
+}
+
+/* Ripple effect for buttons */
+.ripple-effect {
+  position: relative;
+  overflow: hidden;
+}
+
+.ripple-effect::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 0;
+  height: 0;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.5);
+  transform: translate(-50%, -50%);
+  transition: width 0.6s, height 0.6s;
+}
+
+.ripple-effect:active::before {
+  width: 300px;
+  height: 300px;
+}
+
+/* Staggered fade in for mobile cards */
+.mobile-card-stagger-1 { animation-delay: 0.1s; }
+.mobile-card-stagger-2 { animation-delay: 0.2s; }
+.mobile-card-stagger-3 { animation-delay: 0.3s; }
+.mobile-card-stagger-4 { animation-delay: 0.4s; }
+.mobile-card-stagger-5 { animation-delay: 0.5s; }
+.mobile-card-stagger-6 { animation-delay: 0.6s; }
+
+/* Enhanced modal animation */
+@keyframes modalEnhanced {
+  0% {
+    opacity: 0;
+    transform: translateY(-100px) scale(0.8) rotateX(-10deg);
+  }
+  50% {
+    opacity: 0.8;
+    transform: translateY(10px) scale(1.02) rotateX(2deg);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0) scale(1) rotateX(0deg);
+  }
+}
+
+.modal-enhanced {
+  animation: modalEnhanced 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+/* Breathing animation for processing status */
+@keyframes breathe {
+  0%, 100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+  50% {
+    transform: scale(1.05);
+    opacity: 0.8;
+  }
+}
+
+.breathe-animation {
+  animation: breathe 2s ease-in-out infinite;
+}
+
+/* Slide up animation for search results */
+@keyframes slideUpFade {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.slide-up-fade {
+  animation: slideUpFade 0.4s ease-out;
+}
+
+/* Highlight animation for new orders */
+@keyframes highlight {
+  0% {
+    background-color: rgba(34, 197, 94, 0.2);
+  }
+  100% {
+    background-color: transparent;
+  }
+}
+
+.highlight-new {
+  animation: highlight 2s ease-out;
+}
+
+/* Smooth transitions for all interactive elements */
+.smooth-transition {
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Enhanced focus states */
+.enhanced-focus:focus {
+  outline: none;
+  box-shadow: 
+    0 0 0 3px rgba(34, 197, 94, 0.3),
+    0 4px 12px rgba(0, 0, 0, 0.1);
+  transform: translateY(-1px);
+}
