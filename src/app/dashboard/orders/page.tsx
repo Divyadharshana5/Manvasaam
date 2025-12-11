@@ -311,13 +311,13 @@ export default function OrdersPage() {
                                   asChild
                                   variant="outline"
                                   size="sm"
-                                  className="h-8 text-xs"
+                                  className="h-8 text-xs btn-hover transition-all duration-300 hover:scale-105"
                                   onClick={(e) => e.stopPropagation()}
                                 >
                                   <Link
                                     href={`/dashboard/track?orderId=${order.id}`}
                                   >
-                                    <LocateFixed className="mr-1.5 h-3.5 w-3.5" />
+                                    <LocateFixed className="mr-1.5 h-3.5 w-3.5 icon-pulse" />
                                     {t.orders.trackLive}
                                   </Link>
                                 </Button>
