@@ -403,7 +403,7 @@ export default function OrdersPage() {
         </Card>
 
         <Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
-        <DialogContent className="sm:max-w-lg max-h-[90vh] overflow-y-auto">
+        <DialogContent className="sm:max-w-lg max-h-[90vh] overflow-y-auto modal-content">
           <DialogHeader className="pb-3">
             <DialogTitle className="text-lg md:text-xl">
               {t.orders.dialogTitle}: {selectedOrder?.id}
