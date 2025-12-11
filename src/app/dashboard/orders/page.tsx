@@ -330,15 +330,16 @@ export default function OrdersPage() {
                   </div>
                 </div>
                 <div className="grid grid-cols-1 gap-4 md:hidden">
-                  {filteredOrders.map((order) => (
+                  {filteredOrders.map((order, index) => (
                     <Card
                       key={order.id}
                       onClick={() => handleRowClick(order)}
                       className={cn(
                         order.status !== "Cancelled"
-                          ? "cursor-pointer active:scale-[0.98]"
+                          ? "cursor-pointer active:scale-[0.98] hover:scale-[1.02]"
                           : "opacity-70",
-                        "transition-transform duration-200"
+                        "transition-all duration-300 animate-fade-in-up card-glow",
+                        `stagger-${Math.min(index + 1, 6)}`
                       )}
                     >
                       <CardHeader className="pb-2 px-4 pt-4">
