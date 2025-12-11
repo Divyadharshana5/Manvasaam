@@ -209,7 +209,10 @@ export default function OrdersPage() {
               </div>
               <div className="w-full">
                 <div className="relative flex items-center">
-                  <Search className="absolute left-3 h-4 w-4 text-muted-foreground pointer-events-none z-10" />
+                  <Search className={cn(
+                    "absolute left-3 h-4 w-4 text-muted-foreground pointer-events-none z-10 transition-all duration-300",
+                    isSearching && "animate-pulse text-primary"
+                  )} />
                   <Input
                     placeholder={t.orders.searchPlaceholder}
                     value={searchTerm}
