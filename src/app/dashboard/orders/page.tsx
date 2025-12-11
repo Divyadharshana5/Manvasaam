@@ -201,7 +201,12 @@ export default function OrdersPage() {
             <div className="flex flex-col gap-4">
               <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
                 <div className="space-y-1">
-                  <CardTitle className="text-lg md:text-xl">{t.orders.cardTitle}</CardTitle>
+                  <CardTitle className="text-lg md:text-xl flex items-center gap-2">
+                    {t.orders.cardTitle}
+                    <span className="text-sm font-normal text-muted-foreground animate-fade-in number-counter">
+                      ({filteredOrders.length})
+                    </span>
+                  </CardTitle>
                   <CardDescription className="text-xs md:text-sm">
                     {t.orders.cardDescription}
                   </CardDescription>
