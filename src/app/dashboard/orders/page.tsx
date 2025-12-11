@@ -330,7 +330,12 @@ export default function OrdersPage() {
                   </div>
                 </div>
                 <div className="grid grid-cols-1 gap-4 md:hidden">
-                  {filteredOrders.map((order, index) => (
+                  {filteredOrders.length === 0 && !loading ? (
+                    <div className="text-center py-8 animate-fade-in">
+                      <p className="text-muted-foreground">No orders found matching your search.</p>
+                    </div>
+                  ) : (
+                    filteredOrders.map((order, index) => (
                     <Card
                       key={order.id}
                       onClick={() => handleRowClick(order)}
