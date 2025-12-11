@@ -213,7 +213,11 @@ export default function OrdersPage() {
                   <Input
                     placeholder={t.orders.searchPlaceholder}
                     value={searchTerm}
-                    onChange={(e) => setSearchTerm(e.target.value)}
+                    onChange={(e) => {
+                      setSearchTerm(e.target.value);
+                      setIsSearching(true);
+                      setTimeout(() => setIsSearching(false), 300);
+                    }}
                     className="w-full pl-10 pr-10 h-9 md:h-10 focus-ring transition-all duration-300"
                   />
                   {searchTerm && (
