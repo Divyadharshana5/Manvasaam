@@ -19,11 +19,6 @@ import {
   Plus,
   Package,
   Truck,
-  Calendar,
-  IndianRupee,
-  Weight,
-  Building2,
-  AlertCircle,
   Loader2,
 } from "lucide-react";
 import { Hub } from "@/types/hub";
