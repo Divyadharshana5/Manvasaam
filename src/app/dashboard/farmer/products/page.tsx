@@ -65,24 +65,7 @@ function FarmerProductsContent() {
     }
   }, [action, router]);
 
-  // Update form category when URL parameter changes
-  useEffect(() => {
-    if (categoryFilter) {
-      setFormData((prev) => ({ ...prev, category: categoryFilter }));
-    }
-  }, [categoryFilter]);
 
-  // Scroll to form when it opens
-  useEffect(() => {
-    if (showAddForm) {
-      setTimeout(() => {
-        const formElement = document.getElementById("add-product-form");
-        if (formElement) {
-          formElement.scrollIntoView({ behavior: "smooth", block: "start" });
-        }
-      }, 100);
-    }
-  }, [showAddForm]);
 
   const fetchProducts = async () => {
     setIsLoading(true);
