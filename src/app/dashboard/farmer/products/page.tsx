@@ -66,7 +66,7 @@ function FarmerProductsContent() {
   const [selectedHub, setSelectedHub] = useState<Hub | null>(null);
   const [products, setProducts] = useState<Product[]>([]);
   const [isLoading, setIsLoading] = useState(false);
-  const [showAddForm, setShowAddForm] = useState(action === "add");
+  const [showAddForm, setShowAddForm] = useState(false);
 
   const [formData, setFormData] = useState({
     name: "",
