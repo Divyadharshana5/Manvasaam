@@ -2,7 +2,7 @@
 
 import { useState, useEffect, Suspense } from "react";
 import { useAuth } from "@/hooks/use-auth";
-import { useSearchParams } from "next/navigation";
+import { useSearchParams, useRouter } from "next/navigation";
 import "@/styles/farmer-animations.css";
 import AppLayout from "@/components/app-layout";
 import HubSelector from "@/components/hub-selector";
@@ -57,6 +57,7 @@ interface Product {
 function FarmerProductsContent() {
   const { user } = useAuth();
   const { toast } = useToast();
+  const router = useRouter();
   const searchParams = useSearchParams();
   const categoryFilter = searchParams.get("category");
   const action = searchParams.get("action");
@@ -281,20 +282,11 @@ function FarmerProductsContent() {
           </div>
           <div className="flex flex-col items-end gap-2">
             <Button
-              onClick={() => setShowAddForm(true)}
-              disabled={!selectedHub}
-              title={
-                !selectedHub ? "Please select a hub first" : "Add a new product"
-              }
+              onClick={() => router.push('/dashboard/farmer/products/add')}
             >
               <Plus className="mr-2 h-4 w-4" />
               Add Product
             </Button>
-            {!selectedHub && (
-              <p className="text-xs text-muted-foreground">
-                Select a hub to add products
-              </p>
-            )}
           </div>
         </div>
 
