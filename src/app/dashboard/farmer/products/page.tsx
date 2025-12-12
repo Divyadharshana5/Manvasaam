@@ -573,16 +573,14 @@ function FarmerProductsContent() {
                       : `You haven't added any ${categoryFilter} products yet.`
                     : "Please select a hub first, then add your products."}
                 </p>
-                {selectedHub && (
-                  <div className="mt-6">
-                    <Button onClick={() => setShowAddForm(true)}>
-                      <Plus className="mr-2 h-4 w-4" />
-                      {products.length === 0
-                        ? "Add Your First Product"
-                        : `Add ${categoryFilter} Product`}
-                    </Button>
-                  </div>
-                )}
+                <div className="mt-6">
+                  <Button onClick={() => router.push('/dashboard/farmer/products/add')}>
+                    <Plus className="mr-2 h-4 w-4" />
+                    {products.length === 0
+                      ? "Add Your First Product"
+                      : `Add ${categoryFilter} Product`}
+                  </Button>
+                </div>
               </div>
             ) : (
               <div className="space-y-4">
