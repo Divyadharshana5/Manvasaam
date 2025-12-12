@@ -51,19 +51,6 @@ function FarmerProductsContent() {
   const [selectedHub, setSelectedHub] = useState<Hub | null>(null);
   const [products, setProducts] = useState<Product[]>([]);
   const [isLoading, setIsLoading] = useState(false);
-  const [showAddForm, setShowAddForm] = useState(false);
-
-  const [formData, setFormData] = useState({
-    name: "",
-    category: categoryFilter || "",
-    quantity: "",
-    unit: "kg",
-    pricePerUnit: "",
-    harvestDate: "",
-    expiryDate: "",
-    quality: "standard",
-    description: "",
-  });
 
   useEffect(() => {
     if (user) {
