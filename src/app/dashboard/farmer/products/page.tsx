@@ -86,6 +86,13 @@ function FarmerProductsContent() {
     }
   }, [user]);
 
+  // Redirect to add page if action=add is in URL
+  useEffect(() => {
+    if (action === "add") {
+      router.push('/dashboard/farmer/products/add');
+    }
+  }, [action, router]);
+
   // Update form category when URL parameter changes
   useEffect(() => {
     if (categoryFilter) {
