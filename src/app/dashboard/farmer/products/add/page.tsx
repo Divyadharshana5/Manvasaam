@@ -22,6 +22,7 @@ import { useToast } from "@/hooks/use-toast";
 import { motion, AnimatePresence } from "framer-motion";
 import HubSelector from "@/components/hub-selector";
 import { Hub } from "@/types/hub";
+import AppLayout from "@/components/app-layout";
 
 export default function AddProductPage() {
     const router = useRouter();
