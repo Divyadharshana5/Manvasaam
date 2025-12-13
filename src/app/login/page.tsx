@@ -109,7 +109,7 @@ export default function LoginPage() {
 
         {/* User Type Selection */}
         <motion.div 
-          className="grid gap-6 md:grid-cols-2 lg:grid-cols-4"
+          className="grid gap-6 md:grid-cols-3"
           variants={containerVariants}
         >
           {userTypes.map((userType) => {
