@@ -38,14 +38,6 @@ const userTypes = [
     icon: Truck,
     color: "bg-orange-500",
     hoverColor: "hover:bg-orange-600"
-  },
-  {
-    type: "restaurant",
-    title: "Restaurant",
-    description: "Order fresh ingredients",
-    icon: ChefHat,
-    color: "bg-purple-500",
-    hoverColor: "hover:bg-purple-600"
   }
 ];
 
