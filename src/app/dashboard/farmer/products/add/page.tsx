@@ -595,5 +595,6 @@ export default function AddProductPage() {
                 </Card>
             </motion.div>
         </motion.div>
+        </AppLayout>
     );
 }
