@@ -120,15 +120,7 @@ function FarmerProductsContent() {
 
 
 
-  if (!user) {
-    return (
-      <AppLayout>
-        <div className="flex items-center justify-center h-64">
-          <p>Please log in to access this page.</p>
-        </div>
-      </AppLayout>
-    );
-  }
+  // Removed authentication requirement - allow access without login
 
   // Filter products based on category
   const filteredProducts = categoryFilter
