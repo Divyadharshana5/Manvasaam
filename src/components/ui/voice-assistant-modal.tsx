@@ -34,7 +34,7 @@ export function VoiceAssistantModal({
     { 
       hindi: "मैं किसान हूं", 
       english: "I am farmer", 
-      action: () => router.push("/login/farmer"),
+      action: () => router.push("/dashboard/farmer"),
       response: "किसान पोर्टल पर जा रहे हैं / Going to farmer portal"
     },
     { 
@@ -158,9 +158,9 @@ export function VoiceAssistantModal({
   };
 
   const quickActions = [
-    { text: "किसान / Farmer", action: () => router.push("/login/farmer") },
-    { text: "रिटेल / Retail", action: () => router.push("/login/retail") },
-    { text: "ट्रांसपोर्ट / Transport", action: () => router.push("/login/transport") }
+    { text: "किसान / Farmer", action: () => router.push("/dashboard/farmer") },
+    { text: "रिटेल / Retail", action: () => router.push("/dashboard/retail") },
+    { text: "ट्रांसपोर्ट / Transport", action: () => router.push("/dashboard/transport") }
   ];
 
   if (!isOpen) return null;
