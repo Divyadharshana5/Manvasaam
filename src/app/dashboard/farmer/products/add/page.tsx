@@ -264,7 +264,7 @@ export default function AddProductPage() {
                     </CardHeader>
                     <CardContent>
                         <HubSelector
-                            farmerId={user.uid}
+                            farmerId={user?.uid || "demo-farmer"}
                             onHubSelected={setSelectedHub}
                         />
                         {!selectedHub && (
