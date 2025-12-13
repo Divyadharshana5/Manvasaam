@@ -67,11 +67,7 @@ export default function AddProductPage() {
         { value: "economy", label: "Economy" }
     ];
 
-    useEffect(() => {
-        if (!user) {
-            router.push("/login/farmer");
-        }
-    }, [user, router]);
+    // Removed redirect - user should stay on page even if not authenticated
 
     const handleInputChange = (field: string, value: string) => {
         setFormData(prev => ({
