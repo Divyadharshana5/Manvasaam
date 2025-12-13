@@ -61,9 +61,22 @@ function FarmerProductsContent() {
   // Redirect to add page if action=add is in URL
   useEffect(() => {
     if (action === "add") {
-      router.push('/dashboard/farmer/products/add');
+      router.replace('/dashboard/farmer/products/add');
+      return;
     }
   }, [action, router]);
+
+  // Don't render the main content if we're redirecting
+  if (action === "add") {
+    return (
+      <AppLayout>
+        <div className="flex items-center justify-center h-screen">
+          <Loader2 className="h-8 w-8 animate-spin" />
+          <p className="ml-2">Redirecting to add product...</p>
+        </div>
+      </AppLayout>
+    );
+  }
 
 
 
