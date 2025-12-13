@@ -69,7 +69,7 @@ export default function AddProductPage() {
 
     useEffect(() => {
         if (!user) {
-            router.push("/login");
+            router.push("/login/farmer");
         }
     }, [user, router]);
 
