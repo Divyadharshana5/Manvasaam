@@ -218,16 +218,7 @@ export default function AddProductPage() {
         }
     };
 
-    if (!user) {
-        return (
-            <AppLayout>
-                <div className="flex items-center justify-center h-screen">
-                    <Loader2 className="h-8 w-8 animate-spin" />
-                    <p className="ml-2">Loading...</p>
-                </div>
-            </AppLayout>
-        );
-    }
+    // Allow access even without authentication - removed user check
 
     return (
         <AppLayout>
