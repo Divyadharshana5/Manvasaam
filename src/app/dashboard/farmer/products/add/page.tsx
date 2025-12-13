@@ -514,6 +514,9 @@ export default function AddProductPage() {
                                         • Hub: {selectedHub?.branchName || 'Please select a hub'}
                                     </motion.p>
                                     <motion.p variants={itemVariants} whileHover={{ x: 5 }}>
+                                        • Quality: {formData.quality.charAt(0).toUpperCase() + formData.quality.slice(1)}
+                                    </motion.p>
+                                    <motion.p variants={itemVariants} whileHover={{ x: 5 }}>
                                         • Fields marked with * are required
                                     </motion.p>
                                 </motion.div>
