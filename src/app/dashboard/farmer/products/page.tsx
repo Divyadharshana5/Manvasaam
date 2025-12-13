@@ -219,8 +219,47 @@ function FarmerProductsContent() {
 
 
 
+        {/* Quick Actions */}
+        {selectedHub && (
+          <Card className="animate-fade-in-up stagger-2">
+            <CardHeader>
+              <CardTitle className="flex items-center gap-2">
+                <Package className="h-5 w-5" />
+                Quick Actions
+              </CardTitle>
+              <CardDescription>
+                Manage your products for {selectedHub.branchName}
+              </CardDescription>
+            </CardHeader>
+            <CardContent>
+              <div className="grid gap-4 md:grid-cols-2">
+                <Button 
+                  onClick={() => router.push('/dashboard/farmer/products/add')}
+                  className="h-20 flex-col gap-2"
+                >
+                  <Plus className="h-6 w-6" />
+                  Add New Product
+                </Button>
+                <Button 
+                  variant="outline"
+                  onClick={() => fetchProducts()}
+                  className="h-20 flex-col gap-2"
+                  disabled={isLoading}
+                >
+                  {isLoading ? (
+                    <Loader2 className="h-6 w-6 animate-spin" />
+                  ) : (
+                    <Package className="h-6 w-6" />
+                  )}
+                  Refresh Products
+                </Button>
+              </div>
+            </CardContent>
+          </Card>
+        )}
+
         {/* Products List */}
-        <Card className="animate-fade-in-up stagger-2 card-glow">
+        <Card className="animate-fade-in-up stagger-3 card-glow">
           <CardHeader>
             <CardTitle>
               Your Products
@@ -237,7 +276,17 @@ function FarmerProductsContent() {
             </CardDescription>
           </CardHeader>
           <CardContent>
-            {filteredProducts.length === 0 ? (
+            {!selectedHub ? (
+              <div className="text-center py-8">
+                <Package className="mx-auto h-12 w-12 text-gray-400" />
+                <h3 className="mt-2 text-sm font-medium text-gray-900">
+                  Select a Hub First
+                </h3>
+                <p className="mt-1 text-sm text-gray-500">
+                  Please select a hub above to view and manage your products.
+                </p>
+              </div>
+            ) : filteredProducts.length === 0 ? (
               <div className="text-center py-8">
                 <Package className="mx-auto h-12 w-12 text-gray-400" />
                 <h3 className="mt-2 text-sm font-medium text-gray-900">
@@ -246,11 +295,9 @@ function FarmerProductsContent() {
                     : `No ${categoryFilter} products found`}
                 </h3>
                 <p className="mt-1 text-sm text-gray-500">
-                  {selectedHub
-                    ? products.length === 0
-                      ? "Start by adding your first product to the hub."
-                      : `You haven't added any ${categoryFilter} products yet.`
-                    : "Please select a hub first, then add your products."}
+                  {products.length === 0
+                    ? `Start by adding your first product to ${selectedHub.branchName}.`
+                    : `You haven't added any ${categoryFilter} products to ${selectedHub.branchName} yet.`}
                 </p>
                 <div className="mt-6">
                   <Button onClick={() => router.push('/dashboard/farmer/products/add')}>
@@ -264,30 +311,69 @@ function FarmerProductsContent() {
             ) : (
               <div className="space-y-4">
                 {filteredProducts.map((product, index) => (
-                  <div key={product.id} className={`border rounded-lg p-4 list-item animate-fade-in-up stagger-${Math.min(index + 1, 6)}`}>
+                  <div key={product.id} className={`border rounded-lg p-4 list-item animate-fade-in-up stagger-${Math.min(index + 1, 6)} hover:shadow-md transition-shadow`}>
                     <div className="flex items-start justify-between">
-                      <div>
-                        <h3 className="font-semibold">{product.name}</h3>
-                        <p className="text-sm text-gray-600 capitalize">
-                          {product.category}
+                      <div className="flex-1">
+                        <div className="flex items-center gap-2 mb-2">
+                          <h3 className="font-semibold text-lg">{product.name}</h3>
+                          <span className={`px-2 py-1 rounded-full text-xs font-medium ${
+                            product.status === 'available' ? 'bg-green-100 text-green-800' :
+                            product.status === 'pending' ? 'bg-yellow-100 text-yellow-800' :
+                            'bg-gray-100 text-gray-800'
+                          }`}>
+                            {product.status}
+                          </span>
+                        </div>
+                        <p className="text-sm text-gray-600 capitalize mb-1">
+                          Category: {product.category}
+                        </p>
+                        <p className="text-sm text-gray-600 mb-1">
+                          Quantity: {product.quantity} {product.unit}
                         </p>
                         <p className="text-sm text-gray-600">
-                          {product.quantity} {product.unit} @ ₹
-                          {product.pricePerUnit}/{product.unit}
+                          Price: ₹{product.pricePerUnit}/{product.unit}
                         </p>
+                        {product.quality && (
+                          <p className="text-sm text-gray-600 capitalize">
+                            Quality: {product.quality}
+                          </p>
+                        )}
                       </div>
                       <div className="text-right">
-                        <p className="font-semibold">
-                          ₹
-                          {(product.quantity * product.pricePerUnit).toFixed(2)}
+                        <p className="font-bold text-lg text-green-600">
+                          ₹{(product.quantity * product.pricePerUnit).toFixed(2)}
                         </p>
-                        <p className="text-sm text-gray-600">
-                          {product.hubName}
+                        <p className="text-sm text-gray-600 mb-2">
+                          Total Value
                         </p>
+                        <p className="text-xs text-gray-500">
+                          Hub: {product.hubName}
+                        </p>
+                        {product.harvestDate && (
+                          <p className="text-xs text-gray-500">
+                            Harvested: {new Date(product.harvestDate).toLocaleDateString()}
+                          </p>
+                        )}
                       </div>
                     </div>
                   </div>
                 ))}
+                
+                {/* Summary */}
+                <div className="mt-6 p-4 bg-green-50 rounded-lg">
+                  <div className="flex justify-between items-center">
+                    <div>
+                      <p className="text-sm text-gray-600">Total Products</p>
+                      <p className="text-2xl font-bold text-green-600">{filteredProducts.length}</p>
+                    </div>
+                    <div>
+                      <p className="text-sm text-gray-600">Total Value</p>
+                      <p className="text-2xl font-bold text-green-600">
+                        ₹{filteredProducts.reduce((sum, product) => sum + (product.quantity * product.pricePerUnit), 0).toFixed(2)}
+                      </p>
+                    </div>
+                  </div>
+                </div>
               </div>
             )}
           </CardContent>
