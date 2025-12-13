@@ -526,6 +526,38 @@ export default function AddProductPage() {
                 </motion.div>
             </motion.div>
 
+            {/* Helpful Tips */}
+            <motion.div variants={itemVariants}>
+                <Card className="bg-green-50 border-green-200">
+                    <CardHeader>
+                        <CardTitle className="flex items-center gap-2 text-green-800">
+                            <Sprout className="h-5 w-5" />
+                            Farmer Tips
+                        </CardTitle>
+                    </CardHeader>
+                    <CardContent>
+                        <div className="grid gap-3 text-sm text-green-700">
+                            <div className="flex items-start gap-2">
+                                <span className="font-semibold">💡</span>
+                                <p>Set competitive prices by checking market rates for similar products in your area.</p>
+                            </div>
+                            <div className="flex items-start gap-2">
+                                <span className="font-semibold">📅</span>
+                                <p>Include harvest and expiry dates to help buyers understand freshness and plan purchases.</p>
+                            </div>
+                            <div className="flex items-start gap-2">
+                                <span className="font-semibold">🏆</span>
+                                <p>Premium quality products typically sell faster and at better prices.</p>
+                            </div>
+                            <div className="flex items-start gap-2">
+                                <span className="font-semibold">📝</span>
+                                <p>Add detailed descriptions about growing methods, organic certification, or special features.</p>
+                            </div>
+                        </div>
+                    </CardContent>
+                </Card>
+            </motion.div>
+
             {/* Action Buttons */}
             <motion.div
                 variants={cardVariants}
