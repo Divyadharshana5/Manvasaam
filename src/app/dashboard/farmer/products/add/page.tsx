@@ -92,13 +92,34 @@ export default function AddProductPage() {
             return;
         }
 
-        if (!formData.name || !formData.category || !formData.quantity || !formData.pricePerUnit) {
+        // Validate required fields
+        const missingFields = [];
+        if (!formData.name.trim()) missingFields.push("Product Name");
+        if (!formData.category) missingFields.push("Category");
+        if (!formData.quantity || parseFloat(formData.quantity) <= 0) missingFields.push("Valid Quantity");
+        if (!formData.pricePerUnit || parseFloat(formData.pricePerUnit) <= 0) missingFields.push("Valid Price");
+
+        if (missingFields.length > 0) {
             toast({
                 title: "Missing Information",
-                description: "Please fill in all required fields (name, category, quantity, and price)",
+                description: `Please provide: ${missingFields.join(", ")}`,
                 variant: "destructive",
             });
             return;
+        }
+
+        // Validate dates if provided
+        if (formData.harvestDate && formData.expiryDate) {
+            const harvestDate = new Date(formData.harvestDate);
+            const expiryDate = new Date(formData.expiryDate);
+            if (expiryDate <= harvestDate) {
+                toast({
+                    title: "Invalid Dates",
+                    description: "Expiry date must be after harvest date",
+                    variant: "destructive",
+                });
+                return;
+            }
         }
 
         setIsSubmitting(true);
