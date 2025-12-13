@@ -47,8 +47,8 @@ export default function LoginPage() {
 
   const handleUserTypeSelect = (userType: string) => {
     setSelectedType(userType);
-    // Navigate to the specific login page
-    router.push(`/login/${userType}`);
+    // Navigate to the existing auth login page
+    router.push(`/(auth)/login/${userType}`);
   };
 
   const containerVariants = {
