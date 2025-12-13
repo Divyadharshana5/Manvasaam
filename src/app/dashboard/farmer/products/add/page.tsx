@@ -203,19 +203,23 @@ export default function AddProductPage() {
 
     if (!user) {
         return (
-            <div className="flex items-center justify-center h-screen">
-                <Loader2 className="h-8 w-8 animate-spin" />
-            </div>
+            <AppLayout>
+                <div className="flex items-center justify-center h-screen">
+                    <Loader2 className="h-8 w-8 animate-spin" />
+                    <p className="ml-2">Loading...</p>
+                </div>
+            </AppLayout>
         );
     }
 
     return (
-        <motion.div 
-            className="flex flex-1 flex-col gap-4 p-4 md:gap-8 md:p-8"
-            variants={containerVariants}
-            initial="hidden"
-            animate="visible"
-        >
+        <AppLayout>
+            <motion.div 
+                className="flex flex-1 flex-col gap-4 p-4 md:gap-8 md:p-8"
+                variants={containerVariants}
+                initial="hidden"
+                animate="visible"
+            >
             {/* Header */}
             <motion.div 
                 className="flex items-center gap-4"
