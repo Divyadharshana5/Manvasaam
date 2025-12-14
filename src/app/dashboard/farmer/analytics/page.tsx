@@ -136,62 +136,168 @@ export default function FarmerAnalytics() {
         </motion.div>
       </motion.div>
 
-      <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
-        <Card>
-          <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-            <CardTitle className="text-sm font-medium">Total Revenue</CardTitle>
-            <IndianRupee className="h-4 w-4 text-muted-foreground" />
-          </CardHeader>
-          <CardContent>
-            <div className="text-2xl font-bold">₹45,231</div>
-            <div className="flex items-center text-xs text-green-600">
-              <TrendingUp className="mr-1 h-3 w-3" />
-              +12% from last month
-            </div>
-          </CardContent>
-        </Card>
-        <Card>
-          <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-            <CardTitle className="text-sm font-medium">Products Sold</CardTitle>
-            <Package className="h-4 w-4 text-muted-foreground" />
-          </CardHeader>
-          <CardContent>
-            <div className="text-2xl font-bold">1,234</div>
-            <div className="flex items-center text-xs text-green-600">
-              <TrendingUp className="mr-1 h-3 w-3" />
-              +8% from last month
-            </div>
-          </CardContent>
-        </Card>
-        <Card>
-          <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-            <CardTitle className="text-sm font-medium">Active Buyers</CardTitle>
-            <Users className="h-4 w-4 text-muted-foreground" />
-          </CardHeader>
-          <CardContent>
-            <div className="text-2xl font-bold">24</div>
-            <div className="flex items-center text-xs text-red-600">
-              <TrendingDown className="mr-1 h-3 w-3" />
-              -2% from last month
-            </div>
-          </CardContent>
-        </Card>
-        <Card>
-          <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-            <CardTitle className="text-sm font-medium">
-              Avg. Order Value
-            </CardTitle>
-            <PieChart className="h-4 w-4 text-muted-foreground" />
-          </CardHeader>
-          <CardContent>
-            <div className="text-2xl font-bold">₹1,850</div>
-            <div className="flex items-center text-xs text-green-600">
-              <TrendingUp className="mr-1 h-3 w-3" />
-              +5% from last month
-            </div>
-          </CardContent>
-        </Card>
-      </div>
+      <motion.div 
+        className="grid gap-4 md:grid-cols-2 lg:grid-cols-4"
+        variants={containerVariants}
+      >
+        <motion.div
+          variants={cardVariants}
+          whileHover="hover"
+        >
+          <Card className="transition-shadow duration-300 hover:shadow-lg">
+            <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+              <CardTitle className="text-sm font-medium">Total Revenue</CardTitle>
+              <motion.div
+                animate={{ rotate: [0, 360] }}
+                transition={{ duration: 3, repeat: Infinity, ease: "linear" }}
+              >
+                <IndianRupee className="h-4 w-4 text-muted-foreground" />
+              </motion.div>
+            </CardHeader>
+            <CardContent>
+              <motion.div 
+                className="text-2xl font-bold"
+                variants={numberVariants}
+              >
+                ₹45,231
+              </motion.div>
+              <motion.div 
+                className="flex items-center text-xs text-green-600"
+                initial={{ opacity: 0, x: -10 }}
+                animate={{ opacity: 1, x: 0 }}
+                transition={{ duration: 0.5, delay: 0.8 }}
+              >
+                <motion.div
+                  animate={{ y: [0, -2, 0] }}
+                  transition={{ duration: 1.5, repeat: Infinity }}
+                >
+                  <TrendingUp className="mr-1 h-3 w-3" />
+                </motion.div>
+                +12% from last month
+              </motion.div>
+            </CardContent>
+          </Card>
+        </motion.div>
+
+        <motion.div
+          variants={cardVariants}
+          whileHover="hover"
+        >
+          <Card className="transition-shadow duration-300 hover:shadow-lg">
+            <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+              <CardTitle className="text-sm font-medium">Products Sold</CardTitle>
+              <motion.div
+                animate={{ scale: [1, 1.1, 1] }}
+                transition={{ duration: 2, repeat: Infinity, repeatDelay: 1 }}
+              >
+                <Package className="h-4 w-4 text-muted-foreground" />
+              </motion.div>
+            </CardHeader>
+            <CardContent>
+              <motion.div 
+                className="text-2xl font-bold"
+                variants={numberVariants}
+              >
+                1,234
+              </motion.div>
+              <motion.div 
+                className="flex items-center text-xs text-green-600"
+                initial={{ opacity: 0, x: -10 }}
+                animate={{ opacity: 1, x: 0 }}
+                transition={{ duration: 0.5, delay: 0.9 }}
+              >
+                <motion.div
+                  animate={{ y: [0, -2, 0] }}
+                  transition={{ duration: 1.5, repeat: Infinity, delay: 0.2 }}
+                >
+                  <TrendingUp className="mr-1 h-3 w-3" />
+                </motion.div>
+                +8% from last month
+              </motion.div>
+            </CardContent>
+          </Card>
+        </motion.div>
+
+        <motion.div
+          variants={cardVariants}
+          whileHover="hover"
+        >
+          <Card className="transition-shadow duration-300 hover:shadow-lg">
+            <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+              <CardTitle className="text-sm font-medium">Active Buyers</CardTitle>
+              <motion.div
+                animate={{ rotate: [0, 10, -10, 0] }}
+                transition={{ duration: 2.5, repeat: Infinity, repeatDelay: 2 }}
+              >
+                <Users className="h-4 w-4 text-muted-foreground" />
+              </motion.div>
+            </CardHeader>
+            <CardContent>
+              <motion.div 
+                className="text-2xl font-bold"
+                variants={numberVariants}
+              >
+                24
+              </motion.div>
+              <motion.div 
+                className="flex items-center text-xs text-red-600"
+                initial={{ opacity: 0, x: -10 }}
+                animate={{ opacity: 1, x: 0 }}
+                transition={{ duration: 0.5, delay: 1.0 }}
+              >
+                <motion.div
+                  animate={{ y: [0, 2, 0] }}
+                  transition={{ duration: 1.5, repeat: Infinity, delay: 0.4 }}
+                >
+                  <TrendingDown className="mr-1 h-3 w-3" />
+                </motion.div>
+                -2% from last month
+              </motion.div>
+            </CardContent>
+          </Card>
+        </motion.div>
+
+        <motion.div
+          variants={cardVariants}
+          whileHover="hover"
+        >
+          <Card className="transition-shadow duration-300 hover:shadow-lg">
+            <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+              <CardTitle className="text-sm font-medium">
+                Avg. Order Value
+              </CardTitle>
+              <motion.div
+                animate={{ rotate: [0, 180, 360] }}
+                transition={{ duration: 4, repeat: Infinity, ease: "linear" }}
+              >
+                <PieChart className="h-4 w-4 text-muted-foreground" />
+              </motion.div>
+            </CardHeader>
+            <CardContent>
+              <motion.div 
+                className="text-2xl font-bold"
+                variants={numberVariants}
+              >
+                ₹1,850
+              </motion.div>
+              <motion.div 
+                className="flex items-center text-xs text-green-600"
+                initial={{ opacity: 0, x: -10 }}
+                animate={{ opacity: 1, x: 0 }}
+                transition={{ duration: 0.5, delay: 1.1 }}
+              >
+                <motion.div
+                  animate={{ y: [0, -2, 0] }}
+                  transition={{ duration: 1.5, repeat: Infinity, delay: 0.6 }}
+                >
+                  <TrendingUp className="mr-1 h-3 w-3" />
+                </motion.div>
+                +5% from last month
+              </motion.div>
+            </CardContent>
+          </Card>
+        </motion.div>
+      </motion.div>
 
       <div className="grid gap-4 md:grid-cols-2">
         <Card>
