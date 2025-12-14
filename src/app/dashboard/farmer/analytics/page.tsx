@@ -67,7 +67,7 @@ export default function FarmerAnalytics() {
       scale: 1,
       transition: { 
         duration: 0.6,
-        type: "spring",
+        type: "spring" as const,
         stiffness: 100
       }
     }
