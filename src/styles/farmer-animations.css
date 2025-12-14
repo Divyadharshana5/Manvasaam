@@ -592,3 +592,283 @@ html {
     0 4px 12px rgba(0, 0, 0, 0.1);
   transform: translateY(-1px);
 }
+
+/* Analytics Page Specific Animations */
+
+/* Number counter animation with spring effect */
+@keyframes numberCountUp {
+  0% {
+    opacity: 0;
+    transform: scale(0.5) translateY(20px);
+  }
+  50% {
+    opacity: 0.8;
+    transform: scale(1.1) translateY(-5px);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+  }
+}
+
+.analytics-number {
+  animation: numberCountUp 0.8s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+}
+
+/* Chart placeholder pulse animation */
+@keyframes chartPulse {
+  0%, 100% {
+    opacity: 0.6;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 1;
+    transform: scale(1.05);
+  }
+}
+
+.chart-placeholder {
+  animation: chartPulse 2s ease-in-out infinite;
+}
+
+/* Revenue trend indicator animation */
+@keyframes trendUp {
+  0% {
+    transform: translateY(5px);
+    opacity: 0;
+  }
+  50% {
+    transform: translateY(-2px);
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+@keyframes trendDown {
+  0% {
+    transform: translateY(-5px);
+    opacity: 0;
+  }
+  50% {
+    transform: translateY(2px);
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+.trend-up {
+  animation: trendUp 0.6s ease-out;
+}
+
+.trend-down {
+  animation: trendDown 0.6s ease-out;
+}
+
+/* Product performance bar animation */
+@keyframes performanceBar {
+  from {
+    width: 0%;
+    opacity: 0;
+  }
+  to {
+    width: 100%;
+    opacity: 1;
+  }
+}
+
+.performance-bar {
+  animation: performanceBar 1.2s ease-out;
+}
+
+/* Analytics card hover glow effect */
+.analytics-card {
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  position: relative;
+}
+
+.analytics-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  border-radius: inherit;
+  background: linear-gradient(45deg, transparent, rgba(34, 197, 94, 0.1), transparent);
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  pointer-events: none;
+}
+
+.analytics-card:hover::before {
+  opacity: 1;
+}
+
+.analytics-card:hover {
+  transform: translateY(-8px);
+  box-shadow: 
+    0 20px 40px rgba(0, 0, 0, 0.1),
+    0 0 20px rgba(34, 197, 94, 0.2);
+}
+
+/* Icon rotation animations for different metrics */
+@keyframes rotateRevenue {
+  0%, 100% { transform: rotate(0deg); }
+  25% { transform: rotate(90deg); }
+  50% { transform: rotate(180deg); }
+  75% { transform: rotate(270deg); }
+}
+
+@keyframes rotatePieChart {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+.revenue-icon {
+  animation: rotateRevenue 4s linear infinite;
+}
+
+.pie-chart-icon {
+  animation: rotatePieChart 8s linear infinite;
+}
+
+/* Staggered animation for analytics cards */
+.analytics-stagger-1 {
+  animation-delay: 0.1s;
+  opacity: 0;
+}
+
+.analytics-stagger-2 {
+  animation-delay: 0.2s;
+  opacity: 0;
+}
+
+.analytics-stagger-3 {
+  animation-delay: 0.3s;
+  opacity: 0;
+}
+
+.analytics-stagger-4 {
+  animation-delay: 0.4s;
+  opacity: 0;
+}
+
+/* Product performance item hover effect */
+.product-performance-item {
+  transition: all 0.3s ease;
+  border-radius: 8px;
+  padding: 8px;
+}
+
+.product-performance-item:hover {
+  background: linear-gradient(90deg, rgba(34, 197, 94, 0.05), rgba(34, 197, 94, 0.1));
+  transform: translateX(8px);
+  box-shadow: 0 4px 12px rgba(34, 197, 94, 0.15);
+}
+
+/* Color dot pulse animation */
+@keyframes colorDotPulse {
+  0%, 100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+  50% {
+    transform: scale(1.3);
+    opacity: 0.8;
+  }
+}
+
+.color-dot-pulse {
+  animation: colorDotPulse 2s ease-in-out infinite;
+}
+
+/* Export button hover effect */
+.export-button {
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  position: relative;
+  overflow: hidden;
+}
+
+.export-button::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+  transition: left 0.5s ease;
+}
+
+.export-button:hover::before {
+  left: 100%;
+}
+
+.export-button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+}
+
+/* Badge animation for percentages */
+@keyframes badgeGlow {
+  0%, 100% {
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+  }
+  50% {
+    box-shadow: 0 0 15px rgba(34, 197, 94, 0.3);
+  }
+}
+
+.percentage-badge {
+  animation: badgeGlow 3s ease-in-out infinite;
+}
+
+/* Loading state for analytics data */
+@keyframes analyticsLoading {
+  0% {
+    background-position: -200px 0;
+  }
+  100% {
+    background-position: calc(200px + 100%) 0;
+  }
+}
+
+.analytics-loading {
+  background: linear-gradient(
+    90deg,
+    #f0f0f0 0px,
+    rgba(34, 197, 94, 0.1) 40px,
+    #f0f0f0 80px
+  );
+  background-size: 200px 100%;
+  animation: analyticsLoading 1.5s infinite;
+}
+
+/* Smooth entrance animation for the entire analytics page */
+.analytics-page-enter {
+  animation: fadeInUp 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Responsive animation adjustments */
+@media (max-width: 768px) {
+  .analytics-card:hover {
+    transform: translateY(-4px);
+  }
+  
+  .product-performance-item:hover {
+    transform: translateX(4px);
+  }
+}
+
+/* Dark mode animation support */
+@media (prefers-color-scheme: dark) {
+  .analytics-card::before {
+    background: linear-gradient(45deg, transparent, rgba(34, 197, 94, 0.2), transparent);
+  }
+}
