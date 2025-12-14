@@ -299,65 +299,185 @@ export default function FarmerAnalytics() {
         </motion.div>
       </motion.div>
 
-      <div className="grid gap-4 md:grid-cols-2">
-        <Card>
-          <CardHeader>
-            <CardTitle>Sales Trend</CardTitle>
-            <CardDescription>Monthly sales performance</CardDescription>
-          </CardHeader>
-          <CardContent>
-            <div className="h-[300px] flex items-center justify-center border-2 border-dashed border-gray-200 rounded-lg">
-              <div className="text-center">
-                <BarChart3 className="h-12 w-12 text-gray-400 mx-auto mb-2" />
-                <p className="text-gray-500">
-                  Sales chart will be displayed here
-                </p>
-              </div>
-            </div>
-          </CardContent>
-        </Card>
+      <motion.div 
+        className="grid gap-4 md:grid-cols-2"
+        variants={containerVariants}
+      >
+        <motion.div
+          variants={cardVariants}
+          whileHover="hover"
+        >
+          <Card className="transition-shadow duration-300 hover:shadow-lg">
+            <CardHeader>
+              <motion.div
+                initial={{ opacity: 0, y: -10 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.5, delay: 1.2 }}
+              >
+                <CardTitle>Sales Trend</CardTitle>
+                <CardDescription>Monthly sales performance</CardDescription>
+              </motion.div>
+            </CardHeader>
+            <CardContent>
+              <motion.div 
+                className="h-[300px] flex items-center justify-center border-2 border-dashed border-gray-200 rounded-lg"
+                initial={{ opacity: 0, scale: 0.9 }}
+                animate={{ opacity: 1, scale: 1 }}
+                transition={{ duration: 0.6, delay: 1.4 }}
+              >
+                <motion.div 
+                  className="text-center"
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  transition={{ duration: 0.5, delay: 1.6 }}
+                >
+                  <motion.div
+                    animate={{ 
+                      scale: [1, 1.1, 1],
+                      rotate: [0, 5, -5, 0]
+                    }}
+                    transition={{ 
+                      duration: 3, 
+                      repeat: Infinity, 
+                      repeatDelay: 2 
+                    }}
+                  >
+                    <BarChart3 className="h-12 w-12 text-gray-400 mx-auto mb-2" />
+                  </motion.div>
+                  <motion.p 
+                    className="text-gray-500"
+                    initial={{ opacity: 0, y: 10 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.5, delay: 1.8 }}
+                  >
+                    Sales chart will be displayed here
+                  </motion.p>
+                </motion.div>
+              </motion.div>
+            </CardContent>
+          </Card>
+        </motion.div>
 
-        <Card>
-          <CardHeader>
-            <CardTitle>Product Performance</CardTitle>
-            <CardDescription>Top selling products</CardDescription>
-          </CardHeader>
-          <CardContent>
-            <div className="space-y-4">
-              <div className="flex items-center justify-between">
-                <div className="flex items-center gap-3">
-                  <div className="w-3 h-3 bg-green-500 rounded-full"></div>
-                  <span className="font-medium">Organic Tomatoes</span>
-                </div>
-                <div className="text-right">
-                  <div className="font-bold">₹12,450</div>
-                  <Badge variant="secondary">35% of sales</Badge>
-                </div>
-              </div>
-              <div className="flex items-center justify-between">
-                <div className="flex items-center gap-3">
-                  <div className="w-3 h-3 bg-orange-500 rounded-full"></div>
-                  <span className="font-medium">Fresh Spinach</span>
-                </div>
-                <div className="text-right">
-                  <div className="font-bold">₹8,920</div>
-                  <Badge variant="secondary">25% of sales</Badge>
-                </div>
-              </div>
-              <div className="flex items-center justify-between">
-                <div className="flex items-center gap-3">
-                  <div className="w-3 h-3 bg-blue-500 rounded-full"></div>
-                  <span className="font-medium">Organic Carrots</span>
-                </div>
-                <div className="text-right">
-                  <div className="font-bold">₹6,780</div>
-                  <Badge variant="secondary">18% of sales</Badge>
-                </div>
-              </div>
-            </div>
-          </CardContent>
-        </Card>
-      </div>
-    </div>
+        <motion.div
+          variants={cardVariants}
+          whileHover="hover"
+        >
+          <Card className="transition-shadow duration-300 hover:shadow-lg">
+            <CardHeader>
+              <motion.div
+                initial={{ opacity: 0, y: -10 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.5, delay: 1.3 }}
+              >
+                <CardTitle>Product Performance</CardTitle>
+                <CardDescription>Top selling products</CardDescription>
+              </motion.div>
+            </CardHeader>
+            <CardContent>
+              <motion.div 
+                className="space-y-4"
+                variants={containerVariants}
+              >
+                <motion.div 
+                  className="flex items-center justify-between"
+                  variants={itemVariants}
+                  whileHover={{ x: 5, transition: { duration: 0.2 } }}
+                >
+                  <div className="flex items-center gap-3">
+                    <motion.div 
+                      className="w-3 h-3 bg-green-500 rounded-full"
+                      animate={{ scale: [1, 1.2, 1] }}
+                      transition={{ duration: 2, repeat: Infinity, delay: 0.5 }}
+                    ></motion.div>
+                    <span className="font-medium">Organic Tomatoes</span>
+                  </div>
+                  <div className="text-right">
+                    <motion.div 
+                      className="font-bold"
+                      initial={{ opacity: 0, scale: 0.8 }}
+                      animate={{ opacity: 1, scale: 1 }}
+                      transition={{ duration: 0.5, delay: 1.5 }}
+                    >
+                      ₹12,450
+                    </motion.div>
+                    <motion.div
+                      initial={{ opacity: 0, y: 10 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      transition={{ duration: 0.5, delay: 1.7 }}
+                    >
+                      <Badge variant="secondary">35% of sales</Badge>
+                    </motion.div>
+                  </div>
+                </motion.div>
+
+                <motion.div 
+                  className="flex items-center justify-between"
+                  variants={itemVariants}
+                  whileHover={{ x: 5, transition: { duration: 0.2 } }}
+                >
+                  <div className="flex items-center gap-3">
+                    <motion.div 
+                      className="w-3 h-3 bg-orange-500 rounded-full"
+                      animate={{ scale: [1, 1.2, 1] }}
+                      transition={{ duration: 2, repeat: Infinity, delay: 1 }}
+                    ></motion.div>
+                    <span className="font-medium">Fresh Spinach</span>
+                  </div>
+                  <div className="text-right">
+                    <motion.div 
+                      className="font-bold"
+                      initial={{ opacity: 0, scale: 0.8 }}
+                      animate={{ opacity: 1, scale: 1 }}
+                      transition={{ duration: 0.5, delay: 1.6 }}
+                    >
+                      ₹8,920
+                    </motion.div>
+                    <motion.div
+                      initial={{ opacity: 0, y: 10 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      transition={{ duration: 0.5, delay: 1.8 }}
+                    >
+                      <Badge variant="secondary">25% of sales</Badge>
+                    </motion.div>
+                  </div>
+                </motion.div>
+
+                <motion.div 
+                  className="flex items-center justify-between"
+                  variants={itemVariants}
+                  whileHover={{ x: 5, transition: { duration: 0.2 } }}
+                >
+                  <div className="flex items-center gap-3">
+                    <motion.div 
+                      className="w-3 h-3 bg-blue-500 rounded-full"
+                      animate={{ scale: [1, 1.2, 1] }}
+                      transition={{ duration: 2, repeat: Infinity, delay: 1.5 }}
+                    ></motion.div>
+                    <span className="font-medium">Organic Carrots</span>
+                  </div>
+                  <div className="text-right">
+                    <motion.div 
+                      className="font-bold"
+                      initial={{ opacity: 0, scale: 0.8 }}
+                      animate={{ opacity: 1, scale: 1 }}
+                      transition={{ duration: 0.5, delay: 1.7 }}
+                    >
+                      ₹6,780
+                    </motion.div>
+                    <motion.div
+                      initial={{ opacity: 0, y: 10 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      transition={{ duration: 0.5, delay: 1.9 }}
+                    >
+                      <Badge variant="secondary">18% of sales</Badge>
+                    </motion.div>
+                  </div>
+                </motion.div>
+              </motion.div>
+            </CardContent>
+          </Card>
+        </motion.div>
+      </motion.div>
+    </motion.div>
   );
 }
