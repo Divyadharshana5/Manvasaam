@@ -26,31 +26,115 @@ import { motion } from "framer-motion";
 export default function FarmerAnalytics() {
   const [selectedRange, setSelectedRange] = useState("30");
 
+  // Animation variants
+  const containerVariants = {
+    hidden: { opacity: 0 },
+    visible: {
+      opacity: 1,
+      transition: {
+        duration: 0.6,
+        staggerChildren: 0.1
+      }
+    }
+  };
+
+  const itemVariants = {
+    hidden: { opacity: 0, y: 20 },
+    visible: {
+      opacity: 1,
+      y: 0,
+      transition: { duration: 0.5 }
+    }
+  };
+
+  const cardVariants = {
+    hidden: { opacity: 0, scale: 0.95 },
+    visible: {
+      opacity: 1,
+      scale: 1,
+      transition: { duration: 0.4 }
+    },
+    hover: {
+      scale: 1.02,
+      transition: { duration: 0.2 }
+    }
+  };
+
+  const numberVariants = {
+    hidden: { opacity: 0, scale: 0.5 },
+    visible: {
+      opacity: 1,
+      scale: 1,
+      transition: { 
+        duration: 0.6,
+        type: "spring",
+        stiffness: 100
+      }
+    }
+  };
+
   return (
-    <div className="flex flex-1 flex-col gap-4 p-4 md:gap-8 md:p-8 page-transition">
-      <div className="flex items-center justify-between animate-fade-in-up">
-        <div>
-          <h1 className="text-3xl font-bold tracking-tight">
+    <motion.div 
+      className="flex flex-1 flex-col gap-4 p-4 md:gap-8 md:p-8 page-transition"
+      variants={containerVariants}
+      initial="hidden"
+      animate="visible"
+    >
+      <motion.div 
+        className="flex items-center justify-between"
+        variants={itemVariants}
+      >
+        <motion.div
+          initial={{ opacity: 0, x: -20 }}
+          animate={{ opacity: 1, x: 0 }}
+          transition={{ duration: 0.6 }}
+        >
+          <motion.h1 
+            className="text-3xl font-bold tracking-tight"
+            initial={{ opacity: 0, y: -10 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5, delay: 0.2 }}
+          >
             Analytics Dashboard
-          </h1>
-          <p className="text-muted-foreground">
+          </motion.h1>
+          <motion.p 
+            className="text-muted-foreground"
+            initial={{ opacity: 0, y: -10 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5, delay: 0.3 }}
+          >
             Track your farm performance and sales insights
-          </p>
-        </div>
-        <div className="flex gap-2">
+          </motion.p>
+        </motion.div>
+        <motion.div 
+          className="flex gap-2"
+          initial={{ opacity: 0, x: 20 }}
+          animate={{ opacity: 1, x: 0 }}
+          transition={{ duration: 0.6, delay: 0.4 }}
+        >
           {/* simple range selector - activate Last 30 Days */}
           {/* Last 30 Days button removed per request */}
           {/* Export goes to an export page which will provide downloads */}
-          <Button asChild variant="outline">
-            <a
-              href={`/dashboard/farmer/analytics/export?range=${selectedRange}`}
-            >
-              <BarChart3 className="mr-2 h-4 w-4" />
-              Export Report
-            </a>
-          </Button>
-        </div>
-      </div>
+          <motion.div
+            whileHover={{ scale: 1.05 }}
+            whileTap={{ scale: 0.95 }}
+          >
+            <Button asChild variant="outline">
+              <a
+                href={`/dashboard/farmer/analytics/export?range=${selectedRange}`}
+              >
+                <motion.div
+                  animate={{ rotate: [0, 5, -5, 0] }}
+                  transition={{ duration: 2, repeat: Infinity, repeatDelay: 3 }}
+                >
+                  <BarChart3 className="mr-2 h-4 w-4" />
+                </motion.div>
+                Export Report
+              </a>
+            </Button>
+          </motion.div>
+        </motion.div>
+      </motion.div>
 
       <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
         <Card>
