@@ -21,6 +21,7 @@ import {
   BarChart3,
   PieChart,
 } from "lucide-react";
+import { motion } from "framer-motion";
 
 export default function FarmerAnalytics() {
   const [selectedRange, setSelectedRange] = useState("30");
