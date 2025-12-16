@@ -192,17 +192,26 @@ function FarmerProductsContent() {
             </p>
           </div>
           <div className="flex flex-col items-end gap-2">
-            <Button
-              onClick={() => router.push('/dashboard/farmer/products/add')}
+            <motion.div
+              whileHover={{ scale: 1.02 }}
+              whileTap={{ scale: 0.98 }}
             >
-              <Plus className="mr-2 h-4 w-4" />
-              Add Product
-            </Button>
+              <Button
+                onClick={() => router.push('/dashboard/farmer/products/add')}
+                className="transition-all duration-300"
+              >
+                <Plus className="mr-2 h-4 w-4" />
+                Add Product
+              </Button>
+            </motion.div>
           </div>
-        </div>
+        </motion.div>
 
         {/* Hub Selection */}
-        <div className="grid gap-4 md:grid-cols-3 animate-fade-in-up stagger-1">
+        <motion.div 
+          className="grid gap-4 md:grid-cols-3"
+          variants={containerVariants}
+        >
           <div className="md:col-span-2">
             <HubSelector
               farmerId={user?.uid || "demo-farmer"}
