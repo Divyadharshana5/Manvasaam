@@ -221,45 +221,78 @@ function FarmerProductsContent() {
           </div>
 
           {/* Quick Stats */}
-          <div className="space-y-4">
-            <Card>
-              <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-                <CardTitle className="text-sm font-medium">
-                  {categoryFilter
-                    ? `${categoryFilter} Products`
-                    : "Total Products"}
-                </CardTitle>
-                <Package className="h-4 w-4 text-muted-foreground" />
-              </CardHeader>
-              <CardContent>
-                <div className="text-2xl font-bold">
-                  {filteredProducts.length}
-                </div>
-                <p className="text-xs text-muted-foreground">
-                  {categoryFilter ? `In ${categoryFilter}` : "In inventory"}
-                </p>
-              </CardContent>
-            </Card>
+          <motion.div 
+            className="space-y-4"
+            variants={itemVariants}
+          >
+            <motion.div
+              variants={cardVariants}
+              whileHover="hover"
+            >
+              <Card className="transition-shadow duration-300 hover:shadow-lg">
+                <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+                  <CardTitle className="text-sm font-medium">
+                    {categoryFilter
+                      ? `${categoryFilter} Products`
+                      : "Total Products"}
+                  </CardTitle>
+                  <motion.div
+                    animate={{ rotate: [0, 5, -5, 0] }}
+                    transition={{ duration: 3, repeat: Infinity, repeatDelay: 4 }}
+                  >
+                    <Package className="h-4 w-4 text-muted-foreground" />
+                  </motion.div>
+                </CardHeader>
+                <CardContent>
+                  <motion.div 
+                    className="text-2xl font-bold"
+                    initial={{ scale: 0 }}
+                    animate={{ scale: 1 }}
+                    transition={{ type: "spring", stiffness: 100, delay: 0.2 }}
+                  >
+                    {filteredProducts.length}
+                  </motion.div>
+                  <p className="text-xs text-muted-foreground">
+                    {categoryFilter ? `In ${categoryFilter}` : "In inventory"}
+                  </p>
+                </CardContent>
+              </Card>
+            </motion.div>
 
-            <Card>
-              <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-                <CardTitle className="text-sm font-medium">
-                  Pending Deliveries
-                </CardTitle>
-                <Truck className="h-4 w-4 text-muted-foreground" />
-              </CardHeader>
-              <CardContent>
-                <div className="text-2xl font-bold">
-                  {
-                    filteredProducts.filter((p) => p.status === "pending")
-                      .length
-                  }
-                </div>
-                <p className="text-xs text-muted-foreground">Awaiting pickup</p>
-              </CardContent>
-            </Card>
-          </div>
-        </div>
+            <motion.div
+              variants={cardVariants}
+              whileHover="hover"
+            >
+              <Card className="transition-shadow duration-300 hover:shadow-lg">
+                <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+                  <CardTitle className="text-sm font-medium">
+                    Pending Deliveries
+                  </CardTitle>
+                  <motion.div
+                    animate={{ x: [0, 3, -3, 0] }}
+                    transition={{ duration: 2, repeat: Infinity, repeatDelay: 5 }}
+                  >
+                    <Truck className="h-4 w-4 text-muted-foreground" />
+                  </motion.div>
+                </CardHeader>
+                <CardContent>
+                  <motion.div 
+                    className="text-2xl font-bold"
+                    initial={{ scale: 0 }}
+                    animate={{ scale: 1 }}
+                    transition={{ type: "spring", stiffness: 100, delay: 0.3 }}
+                  >
+                    {
+                      filteredProducts.filter((p) => p.status === "pending")
+                        .length
+                    }
+                  </motion.div>
+                  <p className="text-xs text-muted-foreground">Awaiting pickup</p>
+                </CardContent>
+              </Card>
+            </motion.div>
+          </motion.div>
+        </motion.div>
 
 
 
