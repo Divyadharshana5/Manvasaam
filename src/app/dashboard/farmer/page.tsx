@@ -272,13 +272,22 @@ export default function FarmerDashboard() {
         className="grid gap-4 md:grid-cols-2 lg:grid-cols-4"
         variants={containerVariants}
       >
-        <Card className="stat-card card-glow card-slide-up">
-          <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-            <CardTitle className="text-sm font-medium">
-              Active Products
-            </CardTitle>
-            <Package className="h-4 w-4 text-muted-foreground icon-float" />
-          </CardHeader>
+        <motion.div
+          variants={cardVariants}
+          whileHover="hover"
+        >
+          <Card className="transition-shadow duration-300 hover:shadow-lg">
+            <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+              <CardTitle className="text-sm font-medium">
+                Active Products
+              </CardTitle>
+              <motion.div
+                animate={{ rotate: [0, 5, -5, 0] }}
+                transition={{ duration: 3, repeat: Infinity, repeatDelay: 4 }}
+              >
+                <Package className="h-4 w-4 text-muted-foreground" />
+              </motion.div>
+            </CardHeader>
           <CardContent>
             <div className="text-2xl font-bold count-up">
               {stats.activeProducts}
