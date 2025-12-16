@@ -249,7 +249,7 @@ export default function FarmerDashboard() {
             <RefreshCw className="h-4 w-4" />
           </Button>
         </div>
-      </div>
+      </motion.div>
 
       <motion.div 
         className="flex items-center justify-between"
