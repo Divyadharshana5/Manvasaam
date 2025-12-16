@@ -192,7 +192,10 @@ export default function FarmerDashboard() {
       animate="visible"
     >
       {/* Status and Search */}
-      <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 animate-fade-in-up">
+      <motion.div 
+        className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4"
+        variants={itemVariants}
+      >
         <div className="flex items-center gap-2">
           <Badge variant="outline" className="text-green-600 badge-hover">
             <CheckCircle className="h-3 w-3 mr-1 checkmark-animate" />
