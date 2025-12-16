@@ -416,43 +416,57 @@ export default function FarmerDashboard() {
                 <CardTitle className="text-lg">Vegetables</CardTitle>
               </div>
             </CardHeader>
-          <CardContent>
-            <div className="text-2xl font-bold text-green-600 count-up">
-              {stats.vegetables}
-            </div>
-            <p className="text-sm text-muted-foreground">
-              {stats.vegetables > 0 ? "Active crops" : "No vegetables yet"}
-            </p>
-            <div className="mt-2 space-y-1">
-              {getProductsByCategory("vegetables")
-                .slice(0, 2)
-                .map((product) => (
-                  <div
-                    key={product.id}
-                    className="text-xs text-gray-600 bg-green-50 px-2 py-1 rounded product-item"
-                  >
-                    {product.productName} - {product.quantity}
-                    {product.unit}
+            <CardContent>
+              <motion.div 
+                className="text-2xl font-bold text-green-600"
+                initial={{ scale: 0 }}
+                animate={{ scale: 1 }}
+                transition={{ type: "spring", stiffness: 100, delay: 0.6 }}
+              >
+                {stats.vegetables}
+              </motion.div>
+              <p className="text-sm text-muted-foreground">
+                {stats.vegetables > 0 ? "Active crops" : "No vegetables yet"}
+              </p>
+              <div className="mt-2 space-y-1">
+                {getProductsByCategory("vegetables")
+                  .slice(0, 2)
+                  .map((product, index) => (
+                    <motion.div
+                      key={product.id}
+                      className="text-xs text-gray-600 bg-green-50 px-2 py-1 rounded"
+                      initial={{ opacity: 0, x: -10 }}
+                      animate={{ opacity: 1, x: 0 }}
+                      transition={{ delay: 0.8 + index * 0.1 }}
+                    >
+                      {product.productName} - {product.quantity}
+                      {product.unit}
+                    </motion.div>
+                  ))}
+                {getProductsByCategory("vegetables").length > 2 && (
+                  <div className="text-xs text-gray-500">
+                    +{getProductsByCategory("vegetables").length - 2} more
                   </div>
-                ))}
-              {getProductsByCategory("vegetables").length > 2 && (
-                <div className="text-xs text-gray-500">
-                  +{getProductsByCategory("vegetables").length - 2} more
-                </div>
-              )}
-            </div>
-            <Button
-              variant="outline"
-              size="sm"
-              className="mt-2 w-full button-ripple color-transition"
-              onClick={() =>
-                router.push("/dashboard/farmer/products?category=vegetables")
-              }
-            >
-              Manage
-            </Button>
-          </CardContent>
-        </Card>
+                )}
+              </div>
+              <motion.div
+                whileHover={{ scale: 1.02 }}
+                whileTap={{ scale: 0.98 }}
+              >
+                <Button
+                  variant="outline"
+                  size="sm"
+                  className="mt-2 w-full transition-all duration-300"
+                  onClick={() =>
+                    router.push("/dashboard/farmer/products?category=vegetables")
+                  }
+                >
+                  Manage
+                </Button>
+              </motion.div>
+            </CardContent>
+          </Card>
+        </motion.div>
         <Card className="border-orange-200 category-card card-glow">
           <CardHeader className="pb-3">
             <div className="flex items-center gap-2">
