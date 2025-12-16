@@ -986,19 +986,34 @@ export default function FarmerProfilePage() {
         )}
 
         {/* Farmer Profile Card */}
-        <Card className="w-full">
-          <CardHeader>
-            <CardTitle className="flex items-center gap-2">
-              <Sprout className="h-5 w-5" />
-              {farmerProfile?.farmName || "Farm Information"}
-              {farmerProfile?.verified && (
-                <Badge variant="secondary">
-                  <CheckCircle className="h-3 w-3 mr-1" />
-                  Verified
-                </Badge>
-              )}
-            </CardTitle>
-          </CardHeader>
+        <motion.div
+          variants={cardVariants}
+          whileHover="hover"
+        >
+          <Card className="w-full transition-shadow duration-300 hover:shadow-lg">
+            <CardHeader>
+              <CardTitle className="flex items-center gap-2">
+                <motion.div
+                  animate={{ rotate: [0, 5, -5, 0] }}
+                  transition={{ duration: 3, repeat: Infinity, repeatDelay: 4 }}
+                >
+                  <Sprout className="h-5 w-5" />
+                </motion.div>
+                {farmerProfile?.farmName || "Farm Information"}
+                {farmerProfile?.verified && (
+                  <motion.div
+                    initial={{ scale: 0 }}
+                    animate={{ scale: 1 }}
+                    transition={{ type: "spring", stiffness: 200, delay: 0.3 }}
+                  >
+                    <Badge variant="secondary">
+                      <CheckCircle className="h-3 w-3 mr-1" />
+                      Verified
+                    </Badge>
+                  </motion.div>
+                )}
+              </CardTitle>
+            </CardHeader>
           <CardContent className="p-6">
             {loading ? (
               <div className="flex items-center justify-center py-12">
@@ -1018,8 +1033,9 @@ export default function FarmerProfilePage() {
               </div>
             )}
           </CardContent>
-        </Card>
+          </Card>
+        </motion.div>
       </div>
-    </div>
+    </motion.div>
   );
 }
