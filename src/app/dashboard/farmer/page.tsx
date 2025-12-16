@@ -674,13 +674,20 @@ export default function FarmerDashboard() {
         className="grid gap-4 md:grid-cols-2"
         variants={containerVariants}
       >
-        <Card className="card-glow card-slide-up">
-          <CardHeader>
-            <CardTitle>Recent Orders</CardTitle>
-            <CardDescription>Latest orders from buyers</CardDescription>
-          </CardHeader>
-          <CardContent>
-            <div className="space-y-4 list-stagger">
+        <motion.div
+          variants={cardVariants}
+          whileHover="hover"
+        >
+          <Card className="transition-shadow duration-300 hover:shadow-lg">
+            <CardHeader>
+              <CardTitle>Recent Orders</CardTitle>
+              <CardDescription>Latest orders from buyers</CardDescription>
+            </CardHeader>
+            <CardContent>
+              <motion.div 
+                className="space-y-4"
+                variants={containerVariants}
+              >
               <div className="flex items-center justify-between list-item p-2 rounded-lg">
                 <div className="flex items-center gap-3">
                   <CheckCircle className="h-4 w-4 text-green-600 checkmark-animate" />
