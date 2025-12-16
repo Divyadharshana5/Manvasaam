@@ -550,7 +550,12 @@ export default function FarmerProfilePage() {
           whileHover={{ y: -2 }}
         >
           <div className="flex items-center gap-2">
-            <CheckCircle className="h-5 w-5 text-green-600" />
+            <motion.div
+              animate={{ scale: [1, 1.1, 1] }}
+              transition={{ duration: 2, repeat: Infinity, repeatDelay: 3 }}
+            >
+              <CheckCircle className="h-5 w-5 text-green-600" />
+            </motion.div>
             <span className="text-sm font-medium text-green-800">
               Status:{" "}
               {profileData.verified
@@ -558,8 +563,8 @@ export default function FarmerProfilePage() {
                 : "Pending Verification"}
             </span>
           </div>
-        </div>
-      </div>
+        </motion.div>
+      </motion.div>
     );
   };
 
