@@ -872,3 +872,427 @@ html {
     background: linear-gradient(45deg, transparent, rgba(34, 197, 94, 0.2), transparent);
   }
 }
+
+/* Product Add Page Specific Animations */
+
+/* Form field focus glow effect */
+@keyframes formFieldGlow {
+  0%, 100% {
+    box-shadow: 0 0 5px rgba(34, 197, 94, 0.2);
+  }
+  50% {
+    box-shadow: 0 0 15px rgba(34, 197, 94, 0.4);
+  }
+}
+
+.form-field-focus {
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.form-field-focus:focus {
+  animation: formFieldGlow 2s ease-in-out infinite;
+}
+
+/* Product category selection animation */
+@keyframes categorySelect {
+  0% {
+    transform: scale(1);
+    background-color: transparent;
+  }
+  50% {
+    transform: scale(1.02);
+    background-color: rgba(34, 197, 94, 0.05);
+  }
+  100% {
+    transform: scale(1);
+    background-color: rgba(34, 197, 94, 0.1);
+  }
+}
+
+.category-selected {
+  animation: categorySelect 0.4s ease-out;
+}
+
+/* Price calculation highlight animation */
+@keyframes priceHighlight {
+  0% {
+    background-color: transparent;
+    color: inherit;
+  }
+  50% {
+    background-color: rgba(34, 197, 94, 0.2);
+    color: #16a34a;
+  }
+  100% {
+    background-color: rgba(34, 197, 94, 0.1);
+    color: #16a34a;
+  }
+}
+
+.price-calculation {
+  transition: all 0.3s ease;
+}
+
+.price-updated {
+  animation: priceHighlight 0.6s ease-out;
+}
+
+/* Hub selection confirmation animation */
+@keyframes hubSelected {
+  0% {
+    transform: scale(1);
+    border-color: transparent;
+  }
+  50% {
+    transform: scale(1.05);
+    border-color: #22c55e;
+  }
+  100% {
+    transform: scale(1);
+    border-color: #22c55e;
+  }
+}
+
+.hub-selection-confirmed {
+  animation: hubSelected 0.5s ease-out;
+  border: 2px solid #22c55e;
+}
+
+/* Form validation success animation */
+@keyframes validationSuccess {
+  0% {
+    border-color: #e5e7eb;
+  }
+  50% {
+    border-color: #22c55e;
+    box-shadow: 0 0 10px rgba(34, 197, 94, 0.3);
+  }
+  100% {
+    border-color: #22c55e;
+    box-shadow: 0 0 5px rgba(34, 197, 94, 0.2);
+  }
+}
+
+.field-valid {
+  animation: validationSuccess 0.4s ease-out;
+}
+
+/* Form validation error animation */
+@keyframes validationError {
+  0%, 100% {
+    transform: translateX(0);
+  }
+  25% {
+    transform: translateX(-5px);
+  }
+  75% {
+    transform: translateX(5px);
+  }
+}
+
+.field-error {
+  animation: validationError 0.4s ease-out;
+  border-color: #ef4444;
+}
+
+/* Tips card entrance animation */
+@keyframes tipsCardSlide {
+  0% {
+    opacity: 0;
+    transform: translateY(30px) scale(0.95);
+  }
+  50% {
+    opacity: 0.8;
+    transform: translateY(-5px) scale(1.02);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+.tips-card-enter {
+  animation: tipsCardSlide 0.6s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+}
+
+/* Product form step indicator animation */
+@keyframes stepComplete {
+  0% {
+    background-color: #e5e7eb;
+    transform: scale(1);
+  }
+  50% {
+    background-color: #22c55e;
+    transform: scale(1.2);
+  }
+  100% {
+    background-color: #22c55e;
+    transform: scale(1);
+  }
+}
+
+.step-completed {
+  animation: stepComplete 0.5s ease-out;
+}
+
+/* Quantity unit selector animation */
+@keyframes unitChange {
+  0% {
+    opacity: 1;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.7;
+    transform: scale(0.95);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+.unit-changed {
+  animation: unitChange 0.3s ease-out;
+}
+
+/* Date picker focus animation */
+@keyframes datePickerFocus {
+  0% {
+    box-shadow: 0 0 0 0 rgba(34, 197, 94, 0.4);
+  }
+  70% {
+    box-shadow: 0 0 0 10px rgba(34, 197, 94, 0);
+  }
+  100% {
+    box-shadow: 0 0 0 0 rgba(34, 197, 94, 0);
+  }
+}
+
+.date-picker-focus:focus {
+  animation: datePickerFocus 0.6s ease-out;
+}
+
+/* Submit button success animation */
+@keyframes submitSuccess {
+  0% {
+    background-color: #22c55e;
+    transform: scale(1);
+  }
+  50% {
+    background-color: #16a34a;
+    transform: scale(1.05);
+  }
+  100% {
+    background-color: #15803d;
+    transform: scale(1);
+  }
+}
+
+.submit-success {
+  animation: submitSuccess 0.4s ease-out;
+}
+
+/* Loading dots animation for submit button */
+@keyframes loadingDots {
+  0%, 80%, 100% {
+    transform: scale(0);
+    opacity: 0.5;
+  }
+  40% {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+.loading-dot {
+  animation: loadingDots 1.4s infinite ease-in-out;
+}
+
+.loading-dot:nth-child(1) { animation-delay: -0.32s; }
+.loading-dot:nth-child(2) { animation-delay: -0.16s; }
+
+/* Product image placeholder animation */
+@keyframes imagePlaceholder {
+  0%, 100% {
+    background-color: #f3f4f6;
+  }
+  50% {
+    background-color: #e5e7eb;
+  }
+}
+
+.image-placeholder {
+  animation: imagePlaceholder 2s ease-in-out infinite;
+}
+
+/* Quality badge selection animation */
+@keyframes qualityBadgeSelect {
+  0% {
+    transform: scale(1);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  }
+  50% {
+    transform: scale(1.1);
+    box-shadow: 0 4px 12px rgba(34, 197, 94, 0.3);
+  }
+  100% {
+    transform: scale(1);
+    box-shadow: 0 2px 8px rgba(34, 197, 94, 0.2);
+  }
+}
+
+.quality-badge-selected {
+  animation: qualityBadgeSelect 0.3s ease-out;
+}
+
+/* Form section reveal animation */
+@keyframes sectionReveal {
+  0% {
+    opacity: 0;
+    transform: translateX(-20px);
+    max-height: 0;
+  }
+  50% {
+    opacity: 0.5;
+    transform: translateX(0);
+  }
+  100% {
+    opacity: 1;
+    transform: translateX(0);
+    max-height: 1000px;
+  }
+}
+
+.section-reveal {
+  animation: sectionReveal 0.5s ease-out;
+}
+
+/* Currency symbol animation */
+@keyframes currencyPulse {
+  0%, 100% {
+    color: #6b7280;
+    transform: scale(1);
+  }
+  50% {
+    color: #22c55e;
+    transform: scale(1.1);
+  }
+}
+
+.currency-active {
+  animation: currencyPulse 1s ease-in-out;
+}
+
+/* Progress indicator for form completion */
+@keyframes progressFill {
+  from {
+    width: 0%;
+  }
+  to {
+    width: var(--progress-width, 0%);
+  }
+}
+
+.form-progress {
+  animation: progressFill 0.8s ease-out;
+}
+
+/* Tooltip appearance animation */
+@keyframes tooltipSlideIn {
+  0% {
+    opacity: 0;
+    transform: translateY(10px) scale(0.8);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+.tooltip-enter {
+  animation: tooltipSlideIn 0.2s ease-out;
+}
+
+/* Cancel button hover warning animation */
+@keyframes cancelWarning {
+  0%, 100% {
+    border-color: #e5e7eb;
+  }
+  50% {
+    border-color: #f59e0b;
+    box-shadow: 0 0 10px rgba(245, 158, 11, 0.3);
+  }
+}
+
+.cancel-warning:hover {
+  animation: cancelWarning 1s ease-in-out infinite;
+}
+
+/* Success checkmark animation */
+@keyframes checkmarkDraw {
+  0% {
+    stroke-dashoffset: 20;
+  }
+  100% {
+    stroke-dashoffset: 0;
+  }
+}
+
+.checkmark-path {
+  stroke-dasharray: 20;
+  animation: checkmarkDraw 0.5s ease-out;
+}
+
+/* Mobile responsive animations */
+@media (max-width: 768px) {
+  .mobile-form-slide {
+    animation: slideInLeft 0.4s ease-out;
+  }
+  
+  .mobile-card-stack {
+    animation: fadeInUp 0.5s ease-out;
+  }
+}
+
+/* Accessibility: Reduced motion support */
+@media (prefers-reduced-motion: reduce) {
+  .form-field-focus:focus,
+  .category-selected,
+  .price-updated,
+  .hub-selection-confirmed,
+  .field-valid,
+  .field-error,
+  .tips-card-enter,
+  .step-completed,
+  .unit-changed,
+  .date-picker-focus:focus,
+  .submit-success,
+  .quality-badge-selected,
+  .section-reveal,
+  .currency-active,
+  .form-progress,
+  .tooltip-enter,
+  .cancel-warning:hover,
+  .checkmark-path {
+    animation: none;
+    transition: none;
+  }
+}
+
+/* Enhanced focus states for better accessibility */
+.enhanced-form-focus:focus {
+  outline: 2px solid #22c55e;
+  outline-offset: 2px;
+  box-shadow: 0 0 0 4px rgba(34, 197, 94, 0.2);
+}
+
+/* Smooth transitions for all form elements */
+.form-element-transition {
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Hover effects for interactive elements */
+.interactive-hover:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
