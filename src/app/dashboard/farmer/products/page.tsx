@@ -174,7 +174,10 @@ function FarmerProductsContent() {
         animate="visible"
       >
         {/* Header */}
-        <div className="flex items-center justify-between space-y-2 animate-fade-in-up">
+        <motion.div 
+          className="flex items-center justify-between space-y-2"
+          variants={itemVariants}
+        >
           <div>
             <h2 className="text-3xl font-bold tracking-tight">
               My Products
