@@ -415,10 +415,14 @@ export default function FarmerProfilePage() {
               </p>
             </div>
           </div>
-        </div>
+        </motion.div>
 
         {/* Address */}
-        <div className="bg-white rounded-lg border p-6 animate-fade-in-up stagger-3">
+        <motion.div 
+          className="bg-white rounded-lg border p-6 transition-shadow duration-300 hover:shadow-md"
+          variants={itemVariants}
+          whileHover={{ y: -2 }}
+        >
           <h3 className="text-lg font-semibold mb-4 border-b pb-2 text-gray-900">
             Farm Location
           </h3>
