@@ -305,49 +305,101 @@ export default function FarmerDashboard() {
           </CardContent>
           </Card>
         </motion.div>
-        <Card className="stat-card card-glow card-slide-up" style={{ animationDelay: '0.1s' }}>
-          <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-            <CardTitle className="text-sm font-medium">Total Orders</CardTitle>
-            <ShoppingCart className="h-4 w-4 text-muted-foreground icon-float" style={{ animationDelay: '0.2s' }} />
-          </CardHeader>
-          <CardContent>
-            <div className="text-2xl font-bold count-up">{stats.totalOrders}</div>
-            <p className="text-xs text-muted-foreground">+5 from last week</p>
-          </CardContent>
-        </Card>
-        <Card className="stat-card card-glow card-slide-up" style={{ animationDelay: '0.2s' }}>
-          <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-            <CardTitle className="text-sm font-medium">
-              Connected Buyers
-            </CardTitle>
-            <Users className="h-4 w-4 text-muted-foreground icon-float" style={{ animationDelay: '0.4s' }} />
-          </CardHeader>
-          <CardContent>
-            <div className="text-2xl font-bold count-up">{stats.connectedBuyers}</div>
-            <p className="text-xs text-muted-foreground">
-              Active relationships
-            </p>
-          </CardContent>
-        </Card>
-        <Card className="stat-card card-glow card-slide-up" style={{ animationDelay: '0.3s' }}>
-          <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-            <CardTitle className="text-sm font-medium">
-              Monthly Revenue
-            </CardTitle>
-            <TrendingUp className="h-4 w-4 text-muted-foreground icon-float" style={{ animationDelay: '0.6s' }} />
-          </CardHeader>
-          <CardContent>
-            <div className="text-2xl font-bold count-up">
-              ₹{stats.monthlyRevenue.toLocaleString()}
-            </div>
-            <p className="text-xs text-muted-foreground">
-              +15% from last month
-            </p>
-          </CardContent>
-        </Card>
-      </div>
+        <motion.div
+          variants={cardVariants}
+          whileHover="hover"
+        >
+          <Card className="transition-shadow duration-300 hover:shadow-lg">
+            <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+              <CardTitle className="text-sm font-medium">Total Orders</CardTitle>
+              <motion.div
+                animate={{ scale: [1, 1.1, 1] }}
+                transition={{ duration: 2, repeat: Infinity, repeatDelay: 3 }}
+              >
+                <ShoppingCart className="h-4 w-4 text-muted-foreground" />
+              </motion.div>
+            </CardHeader>
+            <CardContent>
+              <motion.div 
+                className="text-2xl font-bold"
+                initial={{ scale: 0 }}
+                animate={{ scale: 1 }}
+                transition={{ type: "spring", stiffness: 100, delay: 0.3 }}
+              >
+                {stats.totalOrders}
+              </motion.div>
+              <p className="text-xs text-muted-foreground">+5 from last week</p>
+            </CardContent>
+          </Card>
+        </motion.div>
+        <motion.div
+          variants={cardVariants}
+          whileHover="hover"
+        >
+          <Card className="transition-shadow duration-300 hover:shadow-lg">
+            <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+              <CardTitle className="text-sm font-medium">
+                Connected Buyers
+              </CardTitle>
+              <motion.div
+                animate={{ rotate: [0, 10, -10, 0] }}
+                transition={{ duration: 4, repeat: Infinity, repeatDelay: 2 }}
+              >
+                <Users className="h-4 w-4 text-muted-foreground" />
+              </motion.div>
+            </CardHeader>
+            <CardContent>
+              <motion.div 
+                className="text-2xl font-bold"
+                initial={{ scale: 0 }}
+                animate={{ scale: 1 }}
+                transition={{ type: "spring", stiffness: 100, delay: 0.4 }}
+              >
+                {stats.connectedBuyers}
+              </motion.div>
+              <p className="text-xs text-muted-foreground">
+                Active relationships
+              </p>
+            </CardContent>
+          </Card>
+        </motion.div>
+        <motion.div
+          variants={cardVariants}
+          whileHover="hover"
+        >
+          <Card className="transition-shadow duration-300 hover:shadow-lg">
+            <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+              <CardTitle className="text-sm font-medium">
+                Monthly Revenue
+              </CardTitle>
+              <motion.div
+                animate={{ y: [0, -3, 0] }}
+                transition={{ duration: 2.5, repeat: Infinity, repeatDelay: 1 }}
+              >
+                <TrendingUp className="h-4 w-4 text-muted-foreground" />
+              </motion.div>
+            </CardHeader>
+            <CardContent>
+              <motion.div 
+                className="text-2xl font-bold"
+                initial={{ scale: 0 }}
+                animate={{ scale: 1 }}
+                transition={{ type: "spring", stiffness: 100, delay: 0.5 }}
+              >
+                ₹{stats.monthlyRevenue.toLocaleString()}
+              </motion.div>
+              <p className="text-xs text-muted-foreground">
+                +15% from last month
+              </p>
+            </CardContent>
+          </Card>
+        </motion.div>
+      </motion.div>
 
-      <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4 animate-fade-in-up stagger-3">
+      <motion.div 
+        className="grid gap-4 md:grid-cols-2 lg:grid-cols-4"
+        variants={containerVariants}
+      >
         <Card className="border-green-200 category-card card-glow">
           <CardHeader className="pb-3">
             <div className="flex items-center gap-2">
