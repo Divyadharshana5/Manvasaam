@@ -400,13 +400,22 @@ export default function FarmerDashboard() {
         className="grid gap-4 md:grid-cols-2 lg:grid-cols-4"
         variants={containerVariants}
       >
-        <Card className="border-green-200 category-card card-glow">
-          <CardHeader className="pb-3">
-            <div className="flex items-center gap-2">
-              <Leaf className="h-5 w-5 text-green-600 icon-float" />
-              <CardTitle className="text-lg">Vegetables</CardTitle>
-            </div>
-          </CardHeader>
+        <motion.div
+          variants={cardVariants}
+          whileHover="hover"
+        >
+          <Card className="border-green-200 transition-shadow duration-300 hover:shadow-lg">
+            <CardHeader className="pb-3">
+              <div className="flex items-center gap-2">
+                <motion.div
+                  animate={{ rotate: [0, 5, -5, 0] }}
+                  transition={{ duration: 3, repeat: Infinity, repeatDelay: 5 }}
+                >
+                  <Leaf className="h-5 w-5 text-green-600" />
+                </motion.div>
+                <CardTitle className="text-lg">Vegetables</CardTitle>
+              </div>
+            </CardHeader>
           <CardContent>
             <div className="text-2xl font-bold text-green-600 count-up">
               {stats.vegetables}
