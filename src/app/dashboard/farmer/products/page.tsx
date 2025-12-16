@@ -131,9 +131,48 @@ function FarmerProductsContent() {
       )
     : products;
 
+  // Animation variants
+  const containerVariants = {
+    hidden: { opacity: 0 },
+    visible: {
+      opacity: 1,
+      transition: {
+        duration: 0.6,
+        staggerChildren: 0.1
+      }
+    }
+  };
+
+  const itemVariants = {
+    hidden: { opacity: 0, y: 20 },
+    visible: {
+      opacity: 1,
+      y: 0,
+      transition: { duration: 0.5 }
+    }
+  };
+
+  const cardVariants = {
+    hidden: { opacity: 0, scale: 0.95 },
+    visible: {
+      opacity: 1,
+      scale: 1,
+      transition: { duration: 0.4 }
+    },
+    hover: {
+      scale: 1.02,
+      transition: { duration: 0.2 }
+    }
+  };
+
   return (
     <AppLayout>
-      <div className="flex-1 space-y-4 p-4 md:p-8 pt-6 page-transition">
+      <motion.div 
+        className="flex-1 space-y-4 p-4 md:p-8 pt-6"
+        variants={containerVariants}
+        initial="hidden"
+        animate="visible"
+      >
         {/* Header */}
         <div className="flex items-center justify-between space-y-2 animate-fade-in-up">
           <div>
