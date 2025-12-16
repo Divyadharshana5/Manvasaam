@@ -327,9 +327,16 @@ export default function FarmerProfilePage() {
     };
 
     return (
-      <div className="space-y-8 w-full">
+      <motion.div 
+        className="space-y-8 w-full"
+        variants={containerVariants}
+      >
         {/* Basic Information */}
-        <div className="bg-white rounded-lg border p-6 animate-fade-in-up stagger-1">
+        <motion.div 
+          className="bg-white rounded-lg border p-6 transition-shadow duration-300 hover:shadow-md"
+          variants={itemVariants}
+          whileHover={{ y: -2 }}
+        >
           <h3 className="text-lg font-semibold mb-4 border-b pb-2 text-gray-900">
             Basic Information
           </h3>
@@ -369,10 +376,14 @@ export default function FarmerProfilePage() {
               </p>
             </div>
           </div>
-        </div>
+        </motion.div>
 
         {/* Contact Information */}
-        <div className="bg-white rounded-lg border p-6 animate-fade-in-up stagger-2">
+        <motion.div 
+          className="bg-white rounded-lg border p-6 transition-shadow duration-300 hover:shadow-md"
+          variants={itemVariants}
+          whileHover={{ y: -2 }}
+        >
           <h3 className="text-lg font-semibold mb-4 border-b pb-2 text-gray-900">
             Contact Information
           </h3>
