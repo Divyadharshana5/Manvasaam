@@ -688,41 +688,73 @@ export default function FarmerDashboard() {
                 className="space-y-4"
                 variants={containerVariants}
               >
-              <div className="flex items-center justify-between list-item p-2 rounded-lg">
-                <div className="flex items-center gap-3">
-                  <CheckCircle className="h-4 w-4 text-green-600 checkmark-animate" />
-                  <div>
-                    <p className="font-medium">Organic Tomatoes - 25kg</p>
-                    <p className="text-sm text-muted-foreground">
-                      Green Valley Restaurant
-                    </p>
+                <motion.div 
+                  className="flex items-center justify-between p-2 rounded-lg transition-colors hover:bg-gray-50"
+                  variants={itemVariants}
+                  whileHover={{ x: 5 }}
+                >
+                  <div className="flex items-center gap-3">
+                    <motion.div
+                      animate={{ scale: [1, 1.1, 1] }}
+                      transition={{ duration: 2, repeat: Infinity, repeatDelay: 4 }}
+                    >
+                      <CheckCircle className="h-4 w-4 text-green-600" />
+                    </motion.div>
+                    <div>
+                      <p className="font-medium">Organic Tomatoes - 25kg</p>
+                      <p className="text-sm text-muted-foreground">
+                        Green Valley Restaurant
+                      </p>
+                    </div>
                   </div>
-                </div>
-                <Badge variant="secondary" className="badge-hover">Delivered</Badge>
-              </div>
-              <div className="flex items-center justify-between list-item p-2 rounded-lg">
-                <div className="flex items-center gap-3">
-                  <Clock className="h-4 w-4 text-yellow-600 icon-pulse" />
-                  <div>
-                    <p className="font-medium">Fresh Spinach - 15kg</p>
-                    <p className="text-sm text-muted-foreground">City Hub</p>
+                  <Badge variant="secondary">Delivered</Badge>
+                </motion.div>
+                <motion.div 
+                  className="flex items-center justify-between p-2 rounded-lg transition-colors hover:bg-gray-50"
+                  variants={itemVariants}
+                  whileHover={{ x: 5 }}
+                >
+                  <div className="flex items-center gap-3">
+                    <motion.div
+                      animate={{ rotate: [0, 360] }}
+                      transition={{ duration: 3, repeat: Infinity, ease: "linear" }}
+                    >
+                      <Clock className="h-4 w-4 text-yellow-600" />
+                    </motion.div>
+                    <div>
+                      <p className="font-medium">Fresh Spinach - 15kg</p>
+                      <p className="text-sm text-muted-foreground">City Hub</p>
+                    </div>
                   </div>
-                </div>
-                <Badge variant="outline" className="badge-hover">Processing</Badge>
-              </div>
-              <div className="flex items-center justify-between list-item p-2 rounded-lg">
-                <div className="flex items-center gap-3">
-                  <AlertCircle className="h-4 w-4 text-blue-600 icon-pulse" />
-                  <div>
-                    <p className="font-medium">Organic Carrots - 20kg</p>
-                    <p className="text-sm text-muted-foreground">
-                      Fresh Market
-                    </p>
+                  <Badge variant="outline">Processing</Badge>
+                </motion.div>
+                <motion.div 
+                  className="flex items-center justify-between p-2 rounded-lg transition-colors hover:bg-gray-50"
+                  variants={itemVariants}
+                  whileHover={{ x: 5 }}
+                >
+                  <div className="flex items-center gap-3">
+                    <motion.div
+                      animate={{ scale: [1, 1.2, 1] }}
+                      transition={{ duration: 1.5, repeat: Infinity }}
+                    >
+                      <AlertCircle className="h-4 w-4 text-blue-600" />
+                    </motion.div>
+                    <div>
+                      <p className="font-medium">Organic Carrots - 20kg</p>
+                      <p className="text-sm text-muted-foreground">
+                        Fresh Market
+                      </p>
+                    </div>
                   </div>
-                </div>
-                <Badge className="badge-hover elastic-bounce">New Order</Badge>
-              </div>
-            </div>
+                  <motion.div
+                    animate={{ scale: [1, 1.05, 1] }}
+                    transition={{ duration: 2, repeat: Infinity }}
+                  >
+                    <Badge>New Order</Badge>
+                  </motion.div>
+                </motion.div>
+              </motion.div>
             <Link
               href="/dashboard/orders"
               className={cn(
