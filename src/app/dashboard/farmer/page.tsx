@@ -755,60 +755,98 @@ export default function FarmerDashboard() {
                   </motion.div>
                 </motion.div>
               </motion.div>
-            <Link
-              href="/dashboard/orders"
-              className={cn(
-                buttonVariants({ variant: "outline" }),
-                "w-full mt-4 button-ripple color-transition"
-              )}
-            >
-              View All Orders
-            </Link>
-          </CardContent>
-        </Card>
+              <motion.div
+                whileHover={{ scale: 1.02 }}
+                whileTap={{ scale: 0.98 }}
+              >
+                <Link
+                  href="/dashboard/orders"
+                  className={cn(
+                    buttonVariants({ variant: "outline" }),
+                    "w-full mt-4 transition-all duration-300"
+                  )}
+                >
+                  View All Orders
+                </Link>
+              </motion.div>
+            </CardContent>
+          </Card>
+        </motion.div>
 
-        <Card className="card-glow card-slide-up" style={{ animationDelay: '0.1s' }}>
-          <CardHeader>
-            <CardTitle>Quick Actions</CardTitle>
-            <CardDescription>Frequently used farmer operations</CardDescription>
-          </CardHeader>
-          <CardContent>
-            <div className="grid gap-3">
-              <AddProductButton products={products} className="justify-start button-ripple" />
-              <Link
-                href="/dashboard/orders"
-                className={cn(
-                  buttonVariants({ variant: "outline" }),
-                  "justify-start quick-action"
-                )}
+        <motion.div
+          variants={cardVariants}
+          whileHover="hover"
+        >
+          <Card className="transition-shadow duration-300 hover:shadow-lg">
+            <CardHeader>
+              <CardTitle>Quick Actions</CardTitle>
+              <CardDescription>Frequently used farmer operations</CardDescription>
+            </CardHeader>
+            <CardContent>
+              <motion.div 
+                className="grid gap-3"
+                variants={containerVariants}
               >
-                <ShoppingCart className="mr-2 h-4 w-4" />
-                View Orders
-              </Link>
-              <Link
-                href="/dashboard/farmer/matchmaking"
-                className={cn(
-                  buttonVariants({ variant: "outline" }),
-                  "justify-start quick-action"
-                )}
-              >
-                <Users className="mr-2 h-4 w-4" />
-                Find Buyers
-              </Link>
-              <Link
-                href="/dashboard/farmer/analytics"
-                className={cn(
-                  buttonVariants({ variant: "outline" }),
-                  "justify-start quick-action"
-                )}
-              >
-                <BarChart3 className="mr-2 h-4 w-4" />
-                View Analytics
-              </Link>
-            </div>
-          </CardContent>
-        </Card>
-      </div>
-    </div>
+                <motion.div
+                  variants={itemVariants}
+                  whileHover={{ scale: 1.02 }}
+                  whileTap={{ scale: 0.98 }}
+                >
+                  <AddProductButton products={products} className="justify-start transition-all duration-300" />
+                </motion.div>
+                <motion.div
+                  variants={itemVariants}
+                  whileHover={{ scale: 1.02 }}
+                  whileTap={{ scale: 0.98 }}
+                >
+                  <Link
+                    href="/dashboard/orders"
+                    className={cn(
+                      buttonVariants({ variant: "outline" }),
+                      "justify-start transition-all duration-300"
+                    )}
+                  >
+                    <ShoppingCart className="mr-2 h-4 w-4" />
+                    View Orders
+                  </Link>
+                </motion.div>
+                <motion.div
+                  variants={itemVariants}
+                  whileHover={{ scale: 1.02 }}
+                  whileTap={{ scale: 0.98 }}
+                >
+                  <Link
+                    href="/dashboard/farmer/matchmaking"
+                    className={cn(
+                      buttonVariants({ variant: "outline" }),
+                      "justify-start transition-all duration-300"
+                    )}
+                  >
+                    <Users className="mr-2 h-4 w-4" />
+                    Find Buyers
+                  </Link>
+                </motion.div>
+                <motion.div
+                  variants={itemVariants}
+                  whileHover={{ scale: 1.02 }}
+                  whileTap={{ scale: 0.98 }}
+                >
+                  <Link
+                    href="/dashboard/farmer/analytics"
+                    className={cn(
+                      buttonVariants({ variant: "outline" }),
+                      "justify-start transition-all duration-300"
+                    )}
+                  >
+                    <BarChart3 className="mr-2 h-4 w-4" />
+                    View Analytics
+                  </Link>
+                </motion.div>
+              </motion.div>
+            </CardContent>
+          </Card>
+        </motion.div>
+      </motion.div>
+    </motion.div>
   );
 }
