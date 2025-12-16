@@ -540,11 +540,15 @@ export default function FarmerProfilePage() {
                   </div>
                 )}
             </div>
-          </div>
+          </motion.div>
         )}
 
         {/* Verification Status */}
-        <div className="bg-green-50 rounded-lg border border-green-200 p-6">
+        <motion.div 
+          className="bg-green-50 rounded-lg border border-green-200 p-6 transition-shadow duration-300 hover:shadow-md"
+          variants={itemVariants}
+          whileHover={{ y: -2 }}
+        >
           <div className="flex items-center gap-2">
             <CheckCircle className="h-5 w-5 text-green-600" />
             <span className="text-sm font-medium text-green-800">
