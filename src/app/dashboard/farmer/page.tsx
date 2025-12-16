@@ -251,7 +251,10 @@ export default function FarmerDashboard() {
         </div>
       </div>
 
-      <div className="flex items-center justify-between animate-fade-in-up stagger-1">
+      <motion.div 
+        className="flex items-center justify-between"
+        variants={itemVariants}
+      >
         <div>
           <h1 className="text-3xl font-bold tracking-tight">
             Farmer Dashboard
