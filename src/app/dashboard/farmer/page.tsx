@@ -467,141 +467,213 @@ export default function FarmerDashboard() {
             </CardContent>
           </Card>
         </motion.div>
-        <Card className="border-orange-200 category-card card-glow">
-          <CardHeader className="pb-3">
-            <div className="flex items-center gap-2">
-              <Apple className="h-5 w-5 text-orange-600 icon-float" style={{ animationDelay: '0.2s' }} />
-              <CardTitle className="text-lg">Fruits</CardTitle>
-            </div>
-          </CardHeader>
-          <CardContent>
-            <div className="text-2xl font-bold text-orange-600 count-up">
-              {stats.fruits}
-            </div>
-            <p className="text-sm text-muted-foreground">
-              {stats.fruits > 0 ? "Seasonal harvest" : "No fruits yet"}
-            </p>
-            <div className="mt-2 space-y-1">
-              {getProductsByCategory("fruits")
-                .slice(0, 2)
-                .map((product) => (
-                  <div
-                    key={product.id}
-                    className="text-xs text-gray-600 bg-orange-50 px-2 py-1 rounded product-item"
-                  >
-                    {product.productName} - {product.quantity}
-                    {product.unit}
+        <motion.div
+          variants={cardVariants}
+          whileHover="hover"
+        >
+          <Card className="border-orange-200 transition-shadow duration-300 hover:shadow-lg">
+            <CardHeader className="pb-3">
+              <div className="flex items-center gap-2">
+                <motion.div
+                  animate={{ scale: [1, 1.1, 1] }}
+                  transition={{ duration: 2.5, repeat: Infinity, repeatDelay: 4 }}
+                >
+                  <Apple className="h-5 w-5 text-orange-600" />
+                </motion.div>
+                <CardTitle className="text-lg">Fruits</CardTitle>
+              </div>
+            </CardHeader>
+            <CardContent>
+              <motion.div 
+                className="text-2xl font-bold text-orange-600"
+                initial={{ scale: 0 }}
+                animate={{ scale: 1 }}
+                transition={{ type: "spring", stiffness: 100, delay: 0.7 }}
+              >
+                {stats.fruits}
+              </motion.div>
+              <p className="text-sm text-muted-foreground">
+                {stats.fruits > 0 ? "Seasonal harvest" : "No fruits yet"}
+              </p>
+              <div className="mt-2 space-y-1">
+                {getProductsByCategory("fruits")
+                  .slice(0, 2)
+                  .map((product, index) => (
+                    <motion.div
+                      key={product.id}
+                      className="text-xs text-gray-600 bg-orange-50 px-2 py-1 rounded"
+                      initial={{ opacity: 0, x: -10 }}
+                      animate={{ opacity: 1, x: 0 }}
+                      transition={{ delay: 0.9 + index * 0.1 }}
+                    >
+                      {product.productName} - {product.quantity}
+                      {product.unit}
+                    </motion.div>
+                  ))}
+                {getProductsByCategory("fruits").length > 2 && (
+                  <div className="text-xs text-gray-500">
+                    +{getProductsByCategory("fruits").length - 2} more
                   </div>
-                ))}
-              {getProductsByCategory("fruits").length > 2 && (
-                <div className="text-xs text-gray-500">
-                  +{getProductsByCategory("fruits").length - 2} more
-                </div>
-              )}
-            </div>
-            <Button
-              variant="outline"
-              size="sm"
-              className="mt-2 w-full button-ripple color-transition"
-              onClick={() =>
-                router.push("/dashboard/farmer/products?category=fruits")
-              }
-            >
-              Manage
-            </Button>
-          </CardContent>
-        </Card>
-        <Card className="border-amber-200 category-card card-glow">
-          <CardHeader className="pb-3">
-            <div className="flex items-center gap-2">
-              <Wheat className="h-5 w-5 text-amber-600 icon-float" style={{ animationDelay: '0.4s' }} />
-              <CardTitle className="text-lg">Grains</CardTitle>
-            </div>
-          </CardHeader>
-          <CardContent>
-            <div className="text-2xl font-bold text-amber-600 count-up">
-              {stats.grains}
-            </div>
-            <p className="text-sm text-muted-foreground">
-              {stats.grains > 0 ? "Ready to harvest" : "No grains yet"}
-            </p>
-            <div className="mt-2 space-y-1">
-              {getProductsByCategory("grains")
-                .slice(0, 2)
-                .map((product) => (
-                  <div
-                    key={product.id}
-                    className="text-xs text-gray-600 bg-amber-50 px-2 py-1 rounded product-item"
-                  >
-                    {product.productName} - {product.quantity}
-                    {product.unit}
+                )}
+              </div>
+              <motion.div
+                whileHover={{ scale: 1.02 }}
+                whileTap={{ scale: 0.98 }}
+              >
+                <Button
+                  variant="outline"
+                  size="sm"
+                  className="mt-2 w-full transition-all duration-300"
+                  onClick={() =>
+                    router.push("/dashboard/farmer/products?category=fruits")
+                  }
+                >
+                  Manage
+                </Button>
+              </motion.div>
+            </CardContent>
+          </Card>
+        </motion.div>
+        <motion.div
+          variants={cardVariants}
+          whileHover="hover"
+        >
+          <Card className="border-amber-200 transition-shadow duration-300 hover:shadow-lg">
+            <CardHeader className="pb-3">
+              <div className="flex items-center gap-2">
+                <motion.div
+                  animate={{ rotate: [0, 15, -15, 0] }}
+                  transition={{ duration: 4, repeat: Infinity, repeatDelay: 3 }}
+                >
+                  <Wheat className="h-5 w-5 text-amber-600" />
+                </motion.div>
+                <CardTitle className="text-lg">Grains</CardTitle>
+              </div>
+            </CardHeader>
+            <CardContent>
+              <motion.div 
+                className="text-2xl font-bold text-amber-600"
+                initial={{ scale: 0 }}
+                animate={{ scale: 1 }}
+                transition={{ type: "spring", stiffness: 100, delay: 0.8 }}
+              >
+                {stats.grains}
+              </motion.div>
+              <p className="text-sm text-muted-foreground">
+                {stats.grains > 0 ? "Ready to harvest" : "No grains yet"}
+              </p>
+              <div className="mt-2 space-y-1">
+                {getProductsByCategory("grains")
+                  .slice(0, 2)
+                  .map((product, index) => (
+                    <motion.div
+                      key={product.id}
+                      className="text-xs text-gray-600 bg-amber-50 px-2 py-1 rounded"
+                      initial={{ opacity: 0, x: -10 }}
+                      animate={{ opacity: 1, x: 0 }}
+                      transition={{ delay: 1.0 + index * 0.1 }}
+                    >
+                      {product.productName} - {product.quantity}
+                      {product.unit}
+                    </motion.div>
+                  ))}
+                {getProductsByCategory("grains").length > 2 && (
+                  <div className="text-xs text-gray-500">
+                    +{getProductsByCategory("grains").length - 2} more
                   </div>
-                ))}
-              {getProductsByCategory("grains").length > 2 && (
-                <div className="text-xs text-gray-500">
-                  +{getProductsByCategory("grains").length - 2} more
-                </div>
-              )}
-            </div>
-            <Button
-              variant="outline"
-              size="sm"
-              className="mt-2 w-full button-ripple color-transition"
-              onClick={() =>
-                router.push("/dashboard/farmer/products?category=grains")
-              }
-            >
-              Manage
-            </Button>
-          </CardContent>
-        </Card>
-        <Card className="border-emerald-200 category-card card-glow">
-          <CardHeader className="pb-3">
-            <div className="flex items-center gap-2">
-              <Sprout className="h-5 w-5 text-emerald-600 icon-float" style={{ animationDelay: '0.6s' }} />
-              <CardTitle className="text-lg">Herbs</CardTitle>
-            </div>
-          </CardHeader>
-          <CardContent>
-            <div className="text-2xl font-bold text-emerald-600 count-up">
-              {stats.herbs}
-            </div>
-            <p className="text-sm text-muted-foreground">
-              {stats.herbs > 0 ? "Organic varieties" : "No herbs yet"}
-            </p>
-            <div className="mt-2 space-y-1">
-              {getProductsByCategory("herbs")
-                .slice(0, 2)
-                .map((product) => (
-                  <div
-                    key={product.id}
-                    className="text-xs text-gray-600 bg-emerald-50 px-2 py-1 rounded product-item"
-                  >
-                    {product.productName} - {product.quantity}
-                    {product.unit}
+                )}
+              </div>
+              <motion.div
+                whileHover={{ scale: 1.02 }}
+                whileTap={{ scale: 0.98 }}
+              >
+                <Button
+                  variant="outline"
+                  size="sm"
+                  className="mt-2 w-full transition-all duration-300"
+                  onClick={() =>
+                    router.push("/dashboard/farmer/products?category=grains")
+                  }
+                >
+                  Manage
+                </Button>
+              </motion.div>
+            </CardContent>
+          </Card>
+        </motion.div>
+        <motion.div
+          variants={cardVariants}
+          whileHover="hover"
+        >
+          <Card className="border-emerald-200 transition-shadow duration-300 hover:shadow-lg">
+            <CardHeader className="pb-3">
+              <div className="flex items-center gap-2">
+                <motion.div
+                  animate={{ y: [0, -2, 0] }}
+                  transition={{ duration: 2, repeat: Infinity, repeatDelay: 6 }}
+                >
+                  <Sprout className="h-5 w-5 text-emerald-600" />
+                </motion.div>
+                <CardTitle className="text-lg">Herbs</CardTitle>
+              </div>
+            </CardHeader>
+            <CardContent>
+              <motion.div 
+                className="text-2xl font-bold text-emerald-600"
+                initial={{ scale: 0 }}
+                animate={{ scale: 1 }}
+                transition={{ type: "spring", stiffness: 100, delay: 0.9 }}
+              >
+                {stats.herbs}
+              </motion.div>
+              <p className="text-sm text-muted-foreground">
+                {stats.herbs > 0 ? "Organic varieties" : "No herbs yet"}
+              </p>
+              <div className="mt-2 space-y-1">
+                {getProductsByCategory("herbs")
+                  .slice(0, 2)
+                  .map((product, index) => (
+                    <motion.div
+                      key={product.id}
+                      className="text-xs text-gray-600 bg-emerald-50 px-2 py-1 rounded"
+                      initial={{ opacity: 0, x: -10 }}
+                      animate={{ opacity: 1, x: 0 }}
+                      transition={{ delay: 1.1 + index * 0.1 }}
+                    >
+                      {product.productName} - {product.quantity}
+                      {product.unit}
+                    </motion.div>
+                  ))}
+                {getProductsByCategory("herbs").length > 2 && (
+                  <div className="text-xs text-gray-500">
+                    +{getProductsByCategory("herbs").length - 2} more
                   </div>
-                ))}
-              {getProductsByCategory("herbs").length > 2 && (
-                <div className="text-xs text-gray-500">
-                  +{getProductsByCategory("herbs").length - 2} more
-                </div>
-              )}
-            </div>
-            <Button
-              variant="outline"
-              size="sm"
-              className="mt-2 w-full button-ripple color-transition"
-              onClick={() =>
-                router.push("/dashboard/farmer/products?category=herbs")
-              }
-            >
-              Manage
-            </Button>
-          </CardContent>
-        </Card>
-      </div>
+                )}
+              </div>
+              <motion.div
+                whileHover={{ scale: 1.02 }}
+                whileTap={{ scale: 0.98 }}
+              >
+                <Button
+                  variant="outline"
+                  size="sm"
+                  className="mt-2 w-full transition-all duration-300"
+                  onClick={() =>
+                    router.push("/dashboard/farmer/products?category=herbs")
+                  }
+                >
+                  Manage
+                </Button>
+              </motion.div>
+            </CardContent>
+          </Card>
+        </motion.div>
+      </motion.div>
 
-      <div className="grid gap-4 md:grid-cols-2 animate-fade-in-up stagger-4">
+      <motion.div 
+        className="grid gap-4 md:grid-cols-2"
+        variants={containerVariants}
+      >
         <Card className="card-glow card-slide-up">
           <CardHeader>
             <CardTitle>Recent Orders</CardTitle>
