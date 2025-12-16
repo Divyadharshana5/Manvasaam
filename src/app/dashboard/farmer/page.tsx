@@ -289,16 +289,22 @@ export default function FarmerDashboard() {
               </motion.div>
             </CardHeader>
           <CardContent>
-            <div className="text-2xl font-bold count-up">
+            <motion.div 
+              className="text-2xl font-bold"
+              initial={{ scale: 0 }}
+              animate={{ scale: 1 }}
+              transition={{ type: "spring", stiffness: 100, delay: 0.2 }}
+            >
               {stats.activeProducts}
-            </div>
+            </motion.div>
             <p className="text-xs text-muted-foreground">
               {stats.activeProducts > 0
                 ? "In your inventory"
                 : "No products yet"}
             </p>
           </CardContent>
-        </Card>
+          </Card>
+        </motion.div>
         <Card className="stat-card card-glow card-slide-up" style={{ animationDelay: '0.1s' }}>
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
             <CardTitle className="text-sm font-medium">Total Orders</CardTitle>
