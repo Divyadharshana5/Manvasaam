@@ -266,9 +266,12 @@ export default function FarmerDashboard() {
         <div className="flex gap-2">
           <AddProductButton products={products} />
         </div>
-      </div>
+      </motion.div>
 
-      <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4 animate-fade-in-up stagger-2">
+      <motion.div 
+        className="grid gap-4 md:grid-cols-2 lg:grid-cols-4"
+        variants={containerVariants}
+      >
         <Card className="stat-card card-glow card-slide-up">
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
             <CardTitle className="text-sm font-medium">
