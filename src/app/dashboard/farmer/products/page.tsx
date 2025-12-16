@@ -455,7 +455,7 @@ function FarmerProductsContent() {
             )}
           </CardContent>
         </Card>
-      </div>
+      </motion.div>
     </AppLayout>
   );
 }
