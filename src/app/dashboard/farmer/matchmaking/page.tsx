@@ -225,10 +225,13 @@ export default function FarmerMatchmakingPage() {
             Connect with transport companies and drivers for your produce delivery
           </p>
         </div>
-      </div>
+      </motion.div>
 
       {/* Search */}
-      <div className="flex items-center gap-4 animate-fade-in-up stagger-1">
+      <motion.div 
+        className="flex items-center gap-4"
+        variants={itemVariants}
+      >
         <div className="relative flex-1 max-w-md">
           <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground pointer-events-none z-10" />
           <Input
