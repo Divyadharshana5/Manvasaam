@@ -491,11 +491,15 @@ export default function FarmerProfilePage() {
               </p>
             </div>
           </div>
-        </div>
+        </motion.div>
 
         {/* Additional Information */}
         {(profileData.description || profileData.specialties) && (
-          <div className="bg-white rounded-lg border p-6">
+          <motion.div 
+            className="bg-white rounded-lg border p-6 transition-shadow duration-300 hover:shadow-md"
+            variants={itemVariants}
+            whileHover={{ y: -2 }}
+          >
             <h3 className="text-lg font-semibold mb-4 border-b pb-2 text-gray-900">
               Additional Information
             </h3>
