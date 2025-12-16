@@ -590,19 +590,24 @@ export default function FarmerProfilePage() {
             </p>
           </div>
           <div>
-            <Button
-              type="button"
-              onClick={() => {
-                console.log("[FarmerProfile] Open modal");
-                setIsEditDialogOpen(true);
-              }}
-              className="relative z-auto"
+            <motion.div
+              whileHover={{ scale: 1.02 }}
+              whileTap={{ scale: 0.98 }}
             >
-              <Edit3 className="mr-2 h-4 w-4" />
-              Update Profile
-            </Button>
+              <Button
+                type="button"
+                onClick={() => {
+                  console.log("[FarmerProfile] Open modal");
+                  setIsEditDialogOpen(true);
+                }}
+                className="relative z-auto transition-all duration-300"
+              >
+                <Edit3 className="mr-2 h-4 w-4" />
+                Update Profile
+              </Button>
+            </motion.div>
           </div>
-        </div>
+        </motion.div>
 
         {/* Modal Overlay: Rendered at page level for maximum stacking reliability */}
         {isEditDialogOpen && (
