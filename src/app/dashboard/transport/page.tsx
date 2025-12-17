@@ -960,83 +960,168 @@ export default function TransportDashboard() {
         </TabsContent>
 
         <TabsContent value="deliveries" className="space-y-4 tab-content">
-          <div className="flex items-center justify-between">
-            <h3 className="text-lg font-semibold">Active Deliveries</h3>
-            <Button asChild>
-              <Link href="/dashboard/transport/deliveries/new">
-                <Plus className="h-4 w-4 mr-2" />
-                New Delivery
-              </Link>
-            </Button>
-          </div>
+          <motion.div 
+            className="flex items-center justify-between"
+            variants={itemVariants}
+          >
+            <motion.h3 
+              className="text-lg font-semibold"
+              initial={{ opacity: 0, x: -20 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{ duration: 0.5 }}
+            >
+              Active Deliveries
+            </motion.h3>
+            <motion.div
+              initial={{ opacity: 0, x: 20 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{ duration: 0.5, delay: 0.2 }}
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
+            >
+              <Button asChild>
+                <Link href="/dashboard/transport/deliveries/new">
+                  <motion.div
+                    animate={{ rotate: [0, 90, 0] }}
+                    transition={{ duration: 2, repeat: Infinity, repeatDelay: 4 }}
+                  >
+                    <Plus className="h-4 w-4 mr-2" />
+                  </motion.div>
+                  New Delivery
+                </Link>
+              </Button>
+            </motion.div>
+          </motion.div>
 
-          <div className="space-y-4">
-            {deliveries.map((delivery) => (
-              <Card key={delivery.id} className="animate-fade-in-up list-item">
-                <CardContent className="p-4">
-                  <div className="flex items-center justify-between">
-                    <div className="flex-1">
-                      <div className="flex items-center gap-2 mb-2">
-                        <span className="font-medium">{delivery.id}</span>
-                        <Badge
-                          variant={
-                            delivery.status === "delivered"
-                              ? "default"
-                              : delivery.status === "in-transit"
-                              ? "secondary"
-                              : "outline"
-                          }
+          <motion.div 
+            className="space-y-4"
+            variants={containerVariants}
+          >
+            {deliveries.map((delivery, index) => (
+              <motion.div
+                key={delivery.id}
+                variants={cardVariants}
+                whileHover="hover"
+              >
+                <Card className="transition-shadow duration-300 hover:shadow-lg">
+                  <CardContent className="p-4">
+                    <div className="flex items-center justify-between">
+                      <div className="flex-1">
+                        <motion.div 
+                          className="flex items-center gap-2 mb-2"
+                          initial={{ opacity: 0, y: -5 }}
+                          animate={{ opacity: 1, y: 0 }}
+                          transition={{ duration: 0.3, delay: index * 0.1 }}
                         >
-                          {delivery.status}
-                        </Badge>
+                          <span className="font-medium">{delivery.id}</span>
+                          <motion.div
+                            initial={{ scale: 0 }}
+                            animate={{ scale: 1 }}
+                            transition={{ type: "spring", stiffness: 200, delay: index * 0.1 + 0.2 }}
+                          >
+                            <Badge
+                              variant={
+                                delivery.status === "delivered"
+                                  ? "default"
+                                  : delivery.status === "in-transit"
+                                  ? "secondary"
+                                  : "outline"
+                              }
+                            >
+                              {delivery.status}
+                            </Badge>
+                          </motion.div>
+                        </motion.div>
+                        <motion.div 
+                          className="flex items-center gap-2 mb-1"
+                          initial={{ opacity: 0, x: -10 }}
+                          animate={{ opacity: 1, x: 0 }}
+                          transition={{ duration: 0.3, delay: index * 0.1 + 0.1 }}
+                        >
+                          <motion.div
+                            animate={{ 
+                              scale: delivery.status === "in-transit" ? [1, 1.1, 1] : 1 
+                            }}
+                            transition={{ 
+                              duration: 2, 
+                              repeat: delivery.status === "in-transit" ? Infinity : 0,
+                              repeatDelay: 1 
+                            }}
+                          >
+                            <MapPin className="h-4 w-4 text-muted-foreground" />
+                          </motion.div>
+                          <span className="text-sm">
+                            {delivery.from} → {delivery.to}
+                          </span>
+                        </motion.div>
+                        <motion.p 
+                          className="text-sm text-muted-foreground"
+                          initial={{ opacity: 0, x: -10 }}
+                          animate={{ opacity: 1, x: 0 }}
+                          transition={{ duration: 0.3, delay: index * 0.1 + 0.2 }}
+                        >
+                          Items: {delivery.items}
+                        </motion.p>
+                        <motion.p 
+                          className="text-sm text-muted-foreground"
+                          initial={{ opacity: 0, x: -10 }}
+                          animate={{ opacity: 1, x: 0 }}
+                          transition={{ duration: 0.3, delay: index * 0.1 + 0.3 }}
+                        >
+                          Driver: {delivery.driver}
+                        </motion.p>
                       </div>
-                      <div className="flex items-center gap-2 mb-1">
-                        <MapPin className="h-4 w-4 text-muted-foreground" />
-                        <span className="text-sm">
-                          {delivery.from} → {delivery.to}
-                        </span>
-                      </div>
-                      <p className="text-sm text-muted-foreground">
-                        Items: {delivery.items}
-                      </p>
-                      <p className="text-sm text-muted-foreground">
-                        Driver: {delivery.driver}
-                      </p>
+                      <motion.div 
+                        className="text-right"
+                        initial={{ opacity: 0, x: 20 }}
+                        animate={{ opacity: 1, x: 0 }}
+                        transition={{ duration: 0.4, delay: index * 0.1 + 0.4 }}
+                      >
+                        <p className="font-medium">{delivery.eta}</p>
+                        <p className="text-sm text-muted-foreground">
+                          {delivery.distance}
+                        </p>
+                        <motion.div 
+                          className="flex gap-2 mt-2"
+                          initial={{ opacity: 0, y: 10 }}
+                          animate={{ opacity: 1, y: 0 }}
+                          transition={{ duration: 0.3, delay: index * 0.1 + 0.5 }}
+                        >
+                          <motion.div whileHover={{ scale: 1.1 }} whileTap={{ scale: 0.9 }}>
+                            <Button size="sm" variant="outline" asChild>
+                              <Link
+                                href={`/dashboard/transport/deliveries/details?id=${delivery.id}`}
+                              >
+                                <Eye className="h-4 w-4" />
+                              </Link>
+                            </Button>
+                          </motion.div>
+                          <motion.div whileHover={{ scale: 1.1 }} whileTap={{ scale: 0.9 }}>
+                            <Button size="sm" variant="outline" asChild>
+                              <Link
+                                href={`/dashboard/transport/deliveries/tracking?id=${delivery.id}`}
+                              >
+                                <Navigation className="h-4 w-4" />
+                              </Link>
+                            </Button>
+                          </motion.div>
+                          <motion.div whileHover={{ scale: 1.1 }} whileTap={{ scale: 0.9 }}>
+                            <Button size="sm" variant="outline" asChild>
+                              <Link
+                                href={`/dashboard/transport/deliveries/contact?driver=${delivery.driver}&delivery=${delivery.id}`}
+                              >
+                                <Phone className="h-4 w-4" />
+                              </Link>
+                            </Button>
+                          </motion.div>
+                        </motion.div>
+                      </motion.div>
                     </div>
-                    <div className="text-right">
-                      <p className="font-medium">{delivery.eta}</p>
-                      <p className="text-sm text-muted-foreground">
-                        {delivery.distance}
-                      </p>
-                      <div className="flex gap-2 mt-2">
-                        <Button size="sm" variant="outline" asChild>
-                          <Link
-                            href={`/dashboard/transport/deliveries/details?id=${delivery.id}`}
-                          >
-                            <Eye className="h-4 w-4" />
-                          </Link>
-                        </Button>
-                        <Button size="sm" variant="outline" asChild>
-                          <Link
-                            href={`/dashboard/transport/deliveries/tracking?id=${delivery.id}`}
-                          >
-                            <Navigation className="h-4 w-4" />
-                          </Link>
-                        </Button>
-                        <Button size="sm" variant="outline" asChild>
-                          <Link
-                            href={`/dashboard/transport/deliveries/contact?driver=${delivery.driver}&delivery=${delivery.id}`}
-                          >
-                            <Phone className="h-4 w-4" />
-                          </Link>
-                        </Button>
-                      </div>
-                    </div>
-                  </div>
-                </CardContent>
-              </Card>
+                  </CardContent>
+                </Card>
+              </motion.div>
             ))}
-          </div>
+          </motion.div>
         </TabsContent>
 
         <TabsContent value="analytics" className="space-y-4 tab-content">
