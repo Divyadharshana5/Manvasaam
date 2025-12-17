@@ -528,77 +528,172 @@ export default function TransportDashboard() {
 
         <TabsContent value="overview" className="space-y-4 tab-content">
           {/* Monthly Stats Cards */}
-          <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
-            <Card className="animate-scale-in stagger-1">
-              <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-                <CardTitle className="text-sm font-medium">
-                  Active Deliveries
-                </CardTitle>
-                <Truck className="h-4 w-4 text-muted-foreground" />
-              </CardHeader>
-              <CardContent>
-                <div className="text-2xl font-bold">
-                  {stats.activeDeliveries}
-                </div>
-                <p className="text-xs text-muted-foreground">
-                  <TrendingUp className="inline h-3 w-3 mr-1" />
-                  +3 from yesterday
-                </p>
-              </CardContent>
-            </Card>
+          <motion.div 
+            className="grid gap-4 md:grid-cols-2 lg:grid-cols-4"
+            variants={containerVariants}
+          >
+            <motion.div
+              variants={cardVariants}
+              whileHover="hover"
+            >
+              <Card className="transition-shadow duration-300 hover:shadow-lg">
+                <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+                  <CardTitle className="text-sm font-medium">
+                    Active Deliveries
+                  </CardTitle>
+                  <motion.div
+                    animate={{ x: [0, 3, -3, 0] }}
+                    transition={{ duration: 2, repeat: Infinity, repeatDelay: 4 }}
+                  >
+                    <Truck className="h-4 w-4 text-muted-foreground" />
+                  </motion.div>
+                </CardHeader>
+                <CardContent>
+                  <motion.div 
+                    className="text-2xl font-bold"
+                    initial={{ scale: 0 }}
+                    animate={{ scale: 1 }}
+                    transition={{ type: "spring", stiffness: 100, delay: 0.2 }}
+                  >
+                    {stats.activeDeliveries}
+                  </motion.div>
+                  <motion.p 
+                    className="text-xs text-muted-foreground"
+                    initial={{ opacity: 0, y: 10 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.5, delay: 0.4 }}
+                  >
+                    <motion.div
+                      animate={{ y: [0, -2, 0] }}
+                      transition={{ duration: 1.5, repeat: Infinity }}
+                    >
+                      <TrendingUp className="inline h-3 w-3 mr-1" />
+                    </motion.div>
+                    +3 from yesterday
+                  </motion.p>
+                </CardContent>
+              </Card>
+            </motion.div>
 
-            <Card className="animate-scale-in stagger-2">
-              <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-                <CardTitle className="text-sm font-medium">
-                  Monthly Revenue
-                </CardTitle>
-                <IndianRupee className="h-4 w-4 text-muted-foreground" />
-              </CardHeader>
-              <CardContent>
-                <div className="text-2xl font-bold">
-                  ₹{stats.totalRevenue.toLocaleString()}
-                </div>
-                <p className="text-xs text-muted-foreground">
-                  <TrendingUp className="inline h-3 w-3 mr-1" />
-                  +12% from last month
-                </p>
-              </CardContent>
-            </Card>
+            <motion.div
+              variants={cardVariants}
+              whileHover="hover"
+            >
+              <Card className="transition-shadow duration-300 hover:shadow-lg">
+                <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+                  <CardTitle className="text-sm font-medium">
+                    Monthly Revenue
+                  </CardTitle>
+                  <motion.div
+                    animate={{ rotate: [0, 360] }}
+                    transition={{ duration: 3, repeat: Infinity, ease: "linear" }}
+                  >
+                    <IndianRupee className="h-4 w-4 text-muted-foreground" />
+                  </motion.div>
+                </CardHeader>
+                <CardContent>
+                  <motion.div 
+                    className="text-2xl font-bold"
+                    initial={{ scale: 0 }}
+                    animate={{ scale: 1 }}
+                    transition={{ type: "spring", stiffness: 100, delay: 0.3 }}
+                  >
+                    ₹{stats.totalRevenue.toLocaleString()}
+                  </motion.div>
+                  <motion.p 
+                    className="text-xs text-muted-foreground"
+                    initial={{ opacity: 0, y: 10 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.5, delay: 0.5 }}
+                  >
+                    <motion.div
+                      animate={{ y: [0, -2, 0] }}
+                      transition={{ duration: 1.5, repeat: Infinity, delay: 0.2 }}
+                    >
+                      <TrendingUp className="inline h-3 w-3 mr-1" />
+                    </motion.div>
+                    +12% from last month
+                  </motion.p>
+                </CardContent>
+              </Card>
+            </motion.div>
 
-            <Card className="animate-scale-in stagger-3">
-              <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-                <CardTitle className="text-sm font-medium">
-                  Customer Rating
-                </CardTitle>
-                <Star className="h-4 w-4 text-muted-foreground" />
-              </CardHeader>
-              <CardContent>
-                <div className="text-2xl font-bold">{stats.customerRating}</div>
-                <p className="text-xs text-muted-foreground">
-                  <Star className="inline h-3 w-3 mr-1 fill-yellow-400 text-yellow-400" />
-                  Excellent service
-                </p>
-              </CardContent>
-            </Card>
+            <motion.div
+              variants={cardVariants}
+              whileHover="hover"
+            >
+              <Card className="transition-shadow duration-300 hover:shadow-lg">
+                <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+                  <CardTitle className="text-sm font-medium">
+                    Customer Rating
+                  </CardTitle>
+                  <motion.div
+                    animate={{ rotate: [0, 10, -10, 0] }}
+                    transition={{ duration: 2.5, repeat: Infinity, repeatDelay: 2 }}
+                  >
+                    <Star className="h-4 w-4 text-muted-foreground" />
+                  </motion.div>
+                </CardHeader>
+                <CardContent>
+                  <motion.div 
+                    className="text-2xl font-bold"
+                    initial={{ scale: 0 }}
+                    animate={{ scale: 1 }}
+                    transition={{ type: "spring", stiffness: 100, delay: 0.4 }}
+                  >
+                    {stats.customerRating}
+                  </motion.div>
+                  <motion.p 
+                    className="text-xs text-muted-foreground"
+                    initial={{ opacity: 0, y: 10 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.5, delay: 0.6 }}
+                  >
+                    <Star className="inline h-3 w-3 mr-1 fill-yellow-400 text-yellow-400" />
+                    Excellent service
+                  </motion.p>
+                </CardContent>
+              </Card>
+            </motion.div>
 
-            <Card className="animate-scale-in stagger-4">
-              <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-                <CardTitle className="text-sm font-medium">
-                  On-Time Delivery
-                </CardTitle>
-                <Timer className="h-4 w-4 text-muted-foreground" />
-              </CardHeader>
-              <CardContent>
-                <div className="text-2xl font-bold">
-                  {stats.onTimeDelivery}%
-                </div>
-                <p className="text-xs text-muted-foreground">
-                  <CheckCircle className="inline h-3 w-3 mr-1 text-green-500" />
-                  Above target
-                </p>
-              </CardContent>
-            </Card>
-          </div>
+            <motion.div
+              variants={cardVariants}
+              whileHover="hover"
+            >
+              <Card className="transition-shadow duration-300 hover:shadow-lg">
+                <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+                  <CardTitle className="text-sm font-medium">
+                    On-Time Delivery
+                  </CardTitle>
+                  <motion.div
+                    animate={{ scale: [1, 1.1, 1] }}
+                    transition={{ duration: 2, repeat: Infinity, repeatDelay: 3 }}
+                  >
+                    <Timer className="h-4 w-4 text-muted-foreground" />
+                  </motion.div>
+                </CardHeader>
+                <CardContent>
+                  <motion.div 
+                    className="text-2xl font-bold"
+                    initial={{ scale: 0 }}
+                    animate={{ scale: 1 }}
+                    transition={{ type: "spring", stiffness: 100, delay: 0.5 }}
+                  >
+                    {stats.onTimeDelivery}%
+                  </motion.div>
+                  <motion.p 
+                    className="text-xs text-muted-foreground"
+                    initial={{ opacity: 0, y: 10 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.5, delay: 0.7 }}
+                  >
+                    <CheckCircle className="inline h-3 w-3 mr-1 text-green-500" />
+                    Above target
+                  </motion.p>
+                </CardContent>
+              </Card>
+            </motion.div>
+          </motion.div>
 
           {/* Quick Actions */}
           <Card className="animate-fade-in-up stagger-5">
