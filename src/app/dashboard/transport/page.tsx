@@ -391,21 +391,36 @@ export default function TransportDashboard() {
         className="grid gap-4 md:grid-cols-4"
         variants={containerVariants}
       >
-        <Card className="border-l-4 border-l-green-500 stat-card card-glow animate-fade-in-up stagger-1">
-          <CardContent className="p-4">
-            <div className="flex items-center justify-between">
-              <div>
-                <p className="text-sm font-medium text-muted-foreground">
-                  Today's Deliveries
-                </p>
-                <p className="text-2xl font-bold text-green-600 number-counter">
-                  {todayStats.deliveriesToday}
-                </p>
+        <motion.div
+          variants={cardVariants}
+          whileHover="hover"
+        >
+          <Card className="border-l-4 border-l-green-500 transition-shadow duration-300 hover:shadow-lg">
+            <CardContent className="p-4">
+              <div className="flex items-center justify-between">
+                <div>
+                  <p className="text-sm font-medium text-muted-foreground">
+                    Today's Deliveries
+                  </p>
+                  <motion.p 
+                    className="text-2xl font-bold text-green-600"
+                    initial={{ scale: 0 }}
+                    animate={{ scale: 1 }}
+                    transition={{ type: "spring", stiffness: 100, delay: 0.2 }}
+                  >
+                    {todayStats.deliveriesToday}
+                  </motion.p>
+                </div>
+                <motion.div
+                  animate={{ rotate: [0, 5, -5, 0] }}
+                  transition={{ duration: 3, repeat: Infinity, repeatDelay: 4 }}
+                >
+                  <Package className="h-8 w-8 text-green-500" />
+                </motion.div>
               </div>
-              <Package className="h-8 w-8 text-green-500 icon-bounce" />
-            </div>
-          </CardContent>
-        </Card>
+            </CardContent>
+          </Card>
+        </motion.div>
         <Card className="border-l-4 border-l-blue-500 stat-card card-glow animate-fade-in-up stagger-2">
           <CardContent className="p-4">
             <div className="flex items-center justify-between">
