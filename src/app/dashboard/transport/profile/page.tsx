@@ -547,8 +547,47 @@ export default function TransportProfilePage() {
     );
   };
 
+  // Animation variants
+  const containerVariants = {
+    hidden: { opacity: 0 },
+    visible: {
+      opacity: 1,
+      transition: {
+        duration: 0.6,
+        staggerChildren: 0.1
+      }
+    }
+  };
+
+  const itemVariants = {
+    hidden: { opacity: 0, y: 20 },
+    visible: {
+      opacity: 1,
+      y: 0,
+      transition: { duration: 0.5 }
+    }
+  };
+
+  const cardVariants = {
+    hidden: { opacity: 0, scale: 0.95 },
+    visible: {
+      opacity: 1,
+      scale: 1,
+      transition: { duration: 0.4 }
+    },
+    hover: {
+      scale: 1.02,
+      transition: { duration: 0.2 }
+    }
+  };
+
   return (
-    <div className="min-h-screen w-full">
+    <motion.div 
+      className="min-h-screen w-full"
+      variants={containerVariants}
+      initial="hidden"
+      animate="visible"
+    >
       <div className="max-w-7xl mx-auto space-y-6 p-4">
         {/* Header */}
         <div className="flex items-center justify-between">
