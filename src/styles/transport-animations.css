@@ -208,6 +208,89 @@
 }
 
 
+/* Transport-specific animations */
+@keyframes vehicleMove {
+  0%, 100% {
+    transform: translateX(0);
+  }
+  50% {
+    transform: translateX(3px);
+  }
+}
+
+@keyframes fuelPulse {
+  0%, 100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.6;
+  }
+}
+
+@keyframes routeOptimize {
+  0% {
+    transform: scale(1) rotate(0deg);
+  }
+  25% {
+    transform: scale(1.05) rotate(90deg);
+  }
+  50% {
+    transform: scale(1) rotate(180deg);
+  }
+  75% {
+    transform: scale(1.05) rotate(270deg);
+  }
+  100% {
+    transform: scale(1) rotate(360deg);
+  }
+}
+
+@keyframes deliveryProgress {
+  0% {
+    width: 0%;
+  }
+  100% {
+    width: 100%;
+  }
+}
+
+/* Transport-specific classes */
+.vehicle-move {
+  animation: vehicleMove 3s ease-in-out infinite;
+}
+
+.fuel-pulse {
+  animation: fuelPulse 2s ease-in-out infinite;
+}
+
+.route-optimize {
+  animation: routeOptimize 2s linear infinite;
+}
+
+.delivery-progress {
+  animation: deliveryProgress 3s ease-out forwards;
+}
+
+/* Enhanced hover effects for transport elements */
+.transport-card {
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  will-change: transform, box-shadow;
+  transform: translateZ(0);
+}
+
+.transport-card:hover {
+  transform: translateY(-8px) translateZ(0);
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+}
+
+.vehicle-status-active {
+  animation: pulse 2s ease-in-out infinite;
+}
+
+.notification-urgent {
+  animation: bounce 1s ease-in-out infinite;
+}
+
 /* Performance optimizations */
 .animate-fade-in-up,
 .animate-fade-in,
