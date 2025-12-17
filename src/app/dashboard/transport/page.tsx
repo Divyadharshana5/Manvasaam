@@ -292,8 +292,47 @@ export default function TransportDashboard() {
     },
   ];
 
+  // Animation variants
+  const containerVariants = {
+    hidden: { opacity: 0 },
+    visible: {
+      opacity: 1,
+      transition: {
+        duration: 0.6,
+        staggerChildren: 0.1
+      }
+    }
+  };
+
+  const itemVariants = {
+    hidden: { opacity: 0, y: 20 },
+    visible: {
+      opacity: 1,
+      y: 0,
+      transition: { duration: 0.5 }
+    }
+  };
+
+  const cardVariants = {
+    hidden: { opacity: 0, scale: 0.95 },
+    visible: {
+      opacity: 1,
+      scale: 1,
+      transition: { duration: 0.4 }
+    },
+    hover: {
+      scale: 1.02,
+      transition: { duration: 0.2 }
+    }
+  };
+
   return (
-    <div className="flex flex-1 flex-col gap-4 p-4 md:gap-8 md:p-8 page-transition">
+    <motion.div 
+      className="flex flex-1 flex-col gap-4 p-4 md:gap-8 md:p-8"
+      variants={containerVariants}
+      initial="hidden"
+      animate="visible"
+    >
       {/* Status and Search */}
       <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 animate-fade-in-up">
         <div className="flex items-center gap-2">
