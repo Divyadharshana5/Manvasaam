@@ -113,7 +113,10 @@ export default function DeliveriesPage() {
       initial="hidden"
       animate="visible"
     >
-      <div className="flex items-center justify-between animate-fade-in-up">
+      <motion.div 
+        className="flex items-center justify-between"
+        variants={itemVariants}
+      >
         <h1 className="text-3xl font-bold">Deliveries</h1>
         <Button asChild className="bg-emerald-600 hover:bg-emerald-700">
           <Link href="/dashboard/transport/deliveries/new">
