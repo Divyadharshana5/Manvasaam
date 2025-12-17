@@ -1466,64 +1466,125 @@ export default function TransportDashboard() {
           </Card>
         </motion.div>
 
-        <Card className="animate-scale-in stagger-2">
-          <CardHeader>
-            <CardTitle className="flex items-center gap-2 text-lg">
-              <Users className="h-5 w-5" />
-              Driver Performance
-            </CardTitle>
-            <CardDescription>Top performing drivers</CardDescription>
-          </CardHeader>
-          <CardContent>
-            <div className="space-y-4">
-              {drivers.map((driver, index) => (
-                <div key={index} className="flex items-center justify-between">
-                  <div className="flex items-center gap-3">
-                    <div
-                      className={`w-8 h-8 rounded-full flex items-center justify-center ${
-                        driver.status === "active"
-                          ? "bg-green-100"
-                          : driver.status === "available"
-                          ? "bg-blue-100"
-                          : "bg-gray-100"
-                      }`}
-                    >
-                      <User
-                        className={`h-4 w-4 ${
+        <motion.div
+          variants={cardVariants}
+          whileHover="hover"
+        >
+          <Card className="transition-shadow duration-300 hover:shadow-lg">
+            <CardHeader>
+              <motion.div
+                initial={{ opacity: 0, y: -10 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.5, delay: 0.1 }}
+              >
+                <CardTitle className="flex items-center gap-2 text-lg">
+                  <motion.div
+                    animate={{ rotate: [0, 10, -10, 0] }}
+                    transition={{ duration: 2.5, repeat: Infinity, repeatDelay: 2 }}
+                  >
+                    <Users className="h-5 w-5" />
+                  </motion.div>
+                  Driver Performance
+                </CardTitle>
+                <CardDescription>Top performing drivers</CardDescription>
+              </motion.div>
+            </CardHeader>
+            <CardContent>
+              <motion.div 
+                className="space-y-4"
+                variants={containerVariants}
+              >
+                {drivers.map((driver, index) => (
+                  <motion.div 
+                    key={index} 
+                    className="flex items-center justify-between"
+                    variants={itemVariants}
+                    whileHover={{ x: 5, transition: { duration: 0.2 } }}
+                  >
+                    <div className="flex items-center gap-3">
+                      <motion.div
+                        className={`w-8 h-8 rounded-full flex items-center justify-center ${
                           driver.status === "active"
-                            ? "text-green-600"
+                            ? "bg-green-100"
                             : driver.status === "available"
-                            ? "text-blue-600"
-                            : "text-gray-600"
+                            ? "bg-blue-100"
+                            : "bg-gray-100"
                         }`}
-                      />
+                        animate={{ 
+                          scale: driver.status === "active" ? [1, 1.1, 1] : 1 
+                        }}
+                        transition={{ 
+                          duration: 2, 
+                          repeat: driver.status === "active" ? Infinity : 0,
+                          repeatDelay: 3,
+                          delay: index * 0.2 
+                        }}
+                      >
+                        <User
+                          className={`h-4 w-4 ${
+                            driver.status === "active"
+                              ? "text-green-600"
+                              : driver.status === "available"
+                              ? "text-blue-600"
+                              : "text-gray-600"
+                          }`}
+                        />
+                      </motion.div>
+                      <div>
+                        <motion.p 
+                          className="font-medium text-sm"
+                          initial={{ opacity: 0, y: -5 }}
+                          animate={{ opacity: 1, y: 0 }}
+                          transition={{ duration: 0.3, delay: index * 0.1 }}
+                        >
+                          {driver.name}
+                        </motion.p>
+                        <motion.p 
+                          className="text-xs text-muted-foreground"
+                          initial={{ opacity: 0, y: -5 }}
+                          animate={{ opacity: 1, y: 0 }}
+                          transition={{ duration: 0.3, delay: index * 0.1 + 0.1 }}
+                        >
+                          {driver.experience}
+                        </motion.p>
+                      </div>
                     </div>
-                    <div>
-                      <p className="font-medium text-sm">{driver.name}</p>
-                      <p className="text-xs text-muted-foreground">
-                        {driver.experience}
-                      </p>
-                    </div>
-                  </div>
-                  <div className="text-right">
-                    <div className="flex items-center gap-1">
-                      <Star className="h-3 w-3 fill-yellow-400 text-yellow-400" />
-                      <span className="text-xs">{driver.rating}</span>
-                    </div>
-                    <Badge
-                      variant={
-                        driver.status === "active" ? "default" : "secondary"
-                      }
-                      className="text-xs"
+                    <motion.div 
+                      className="text-right"
+                      initial={{ opacity: 0, x: 20 }}
+                      animate={{ opacity: 1, x: 0 }}
+                      transition={{ duration: 0.4, delay: index * 0.1 + 0.2 }}
                     >
-                      {driver.status}
-                    </Badge>
-                  </div>
-                </div>
-              ))}
-            </div>
-          </CardContent>
-        </Card>
+                      <div className="flex items-center gap-1">
+                        <motion.div
+                          animate={{ rotate: [0, 360] }}
+                          transition={{ duration: 3, repeat: Infinity, ease: "linear", delay: index * 0.5 }}
+                        >
+                          <Star className="h-3 w-3 fill-yellow-400 text-yellow-400" />
+                        </motion.div>
+                        <span className="text-xs">{driver.rating}</span>
+                      </div>
+                      <motion.div
+                        initial={{ scale: 0 }}
+                        animate={{ scale: 1 }}
+                        transition={{ type: "spring", stiffness: 200, delay: index * 0.1 + 0.3 }}
+                      >
+                        <Badge
+                          variant={
+                            driver.status === "active" ? "default" : "secondary"
+                          }
+                          className="text-xs"
+                        >
+                          {driver.status}
+                        </Badge>
+                      </motion.div>
+                    </motion.div>
+                  </motion.div>
+                ))}
+              </motion.div>
+            </CardContent>
+          </Card>
+        </motion.div>
 
         <Card className="animate-slide-in-right stagger-3">
           <CardHeader>
