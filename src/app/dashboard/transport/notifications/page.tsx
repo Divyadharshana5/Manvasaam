@@ -343,8 +343,16 @@ export default function TransportNotifications() {
         </motion.div>
 
         {/* Search and Filter */}
-        <div className="flex flex-col sm:flex-row gap-4">
-          <div className="relative flex-1 max-w-md">
+        <motion.div 
+          className="flex flex-col sm:flex-row gap-4"
+          variants={itemVariants}
+        >
+          <motion.div 
+            className="relative flex-1 max-w-md"
+            initial={{ opacity: 0, x: -20 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.5, delay: 0.5 }}
+          >
             <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground pointer-events-none z-10" />
             <Input
               placeholder="Search notifications..."
@@ -353,26 +361,36 @@ export default function TransportNotifications() {
               className="pl-10 pr-10"
             />
             {searchQuery && (
-              <button
+              <motion.button
                 onClick={() => setSearchQuery("")}
                 aria-label="Clear search"
                 className="absolute right-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground hover:text-foreground z-10"
+                whileHover={{ scale: 1.1 }}
+                whileTap={{ scale: 0.9 }}
               >
                 <X className="h-4 w-4" />
-              </button>
+              </motion.button>
             )}
-          </div>
+          </motion.div>
 
-          <div className="relative" ref={filterBtnRef}>
-            <Button
-              variant="outline"
-              className="w-fit"
-              onClick={() => setShowFilter((s) => !s)}
-            >
-              <Filter className="h-4 w-4 mr-2" />
-              Filter
-            </Button>
-          </div>
+          <motion.div 
+            className="relative" 
+            ref={filterBtnRef}
+            initial={{ opacity: 0, x: 20 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.5, delay: 0.6 }}
+          >
+            <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
+              <Button
+                variant="outline"
+                className="w-fit"
+                onClick={() => setShowFilter((s) => !s)}
+              >
+                <Filter className="h-4 w-4 mr-2" />
+                Filter
+              </Button>
+            </motion.div>
+          </motion.div>
           {showFilter &&
             dropdownPos &&
             createPortal(
