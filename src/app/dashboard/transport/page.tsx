@@ -696,38 +696,65 @@ export default function TransportDashboard() {
           </motion.div>
 
           {/* Quick Actions */}
-          <Card className="animate-fade-in-up stagger-5">
-            <CardHeader>
-              <CardTitle className="flex items-center gap-2 text-lg">
-                <Zap className="h-5 w-5" />
-                Quick Actions
-              </CardTitle>
-              <CardDescription>
-                Frequently used actions for transport operations
-              </CardDescription>
-            </CardHeader>
-            <CardContent>
-              <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
-                {quickActions.map((action, index) => (
-                  <Button
-                    key={index}
-                    variant="outline"
-                    className="h-20 flex-col"
-                    asChild
-                  >
-                    <Link href={action.href}>
-                      <div
-                        className={`p-2 rounded-full ${action.color} text-white mb-2`}
+          <motion.div
+            variants={cardVariants}
+            whileHover="hover"
+          >
+            <Card className="transition-shadow duration-300 hover:shadow-lg">
+              <CardHeader>
+                <motion.div
+                  initial={{ opacity: 0, y: -10 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.5, delay: 0.8 }}
+                >
+                  <CardTitle className="flex items-center gap-2 text-lg">
+                    <motion.div
+                      animate={{ rotate: [0, 5, -5, 0] }}
+                      transition={{ duration: 2, repeat: Infinity, repeatDelay: 3 }}
+                    >
+                      <Zap className="h-5 w-5" />
+                    </motion.div>
+                    Quick Actions
+                  </CardTitle>
+                  <CardDescription>
+                    Frequently used actions for transport operations
+                  </CardDescription>
+                </motion.div>
+              </CardHeader>
+              <CardContent>
+                <motion.div 
+                  className="grid gap-4 md:grid-cols-2 lg:grid-cols-4"
+                  variants={containerVariants}
+                >
+                  {quickActions.map((action, index) => (
+                    <motion.div
+                      key={index}
+                      variants={itemVariants}
+                      whileHover={{ scale: 1.05 }}
+                      whileTap={{ scale: 0.95 }}
+                    >
+                      <Button
+                        variant="outline"
+                        className="h-20 flex-col w-full"
+                        asChild
                       >
-                        <action.icon className="h-6 w-6" />
-                      </div>
-                      <span>{action.name}</span>
-                    </Link>
-                  </Button>
-                ))}
-              </div>
-            </CardContent>
-          </Card>
+                        <Link href={action.href}>
+                          <motion.div
+                            className={`p-2 rounded-full ${action.color} text-white mb-2`}
+                            animate={{ rotate: [0, 360] }}
+                            transition={{ duration: 4, repeat: Infinity, ease: "linear", delay: index * 0.5 }}
+                          >
+                            <action.icon className="h-6 w-6" />
+                          </motion.div>
+                          <span>{action.name}</span>
+                        </Link>
+                      </Button>
+                    </motion.div>
+                  ))}
+                </motion.div>
+              </CardContent>
+            </Card>
+          </motion.div>
         </TabsContent>
 
         <TabsContent value="fleet" className="space-y-4 tab-content">
