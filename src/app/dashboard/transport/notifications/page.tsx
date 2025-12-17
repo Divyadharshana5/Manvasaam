@@ -450,7 +450,7 @@ export default function TransportNotifications() {
               </div>,
               document.body
             )}
-        </div>
+        </motion.div>
 
         {/* Notification Tabs */}
         <Tabs
@@ -472,160 +472,290 @@ export default function TransportNotifications() {
 
           <TabsContent value={activeTab} className="space-y-4">
             {filteredNotifications.length === 0 ? (
-              <Card>
-                <CardContent className="p-8 text-center">
-                  <Bell className="h-12 w-12 text-muted-foreground mx-auto mb-4" />
-                  <h3 className="text-lg font-semibold mb-2">
-                    No notifications found
-                  </h3>
-                  <p className="text-muted-foreground">
-                    {searchQuery
-                      ? "Try adjusting your search terms"
-                      : "You're all caught up!"}
-                  </p>
-                </CardContent>
-              </Card>
+              <motion.div
+                variants={cardVariants}
+                whileHover="hover"
+              >
+                <Card className="transition-shadow duration-300 hover:shadow-lg">
+                  <CardContent className="p-8 text-center">
+                    <motion.div
+                      animate={{ rotate: [0, 10, -10, 0] }}
+                      transition={{ duration: 2, repeat: Infinity, repeatDelay: 3 }}
+                    >
+                      <Bell className="h-12 w-12 text-muted-foreground mx-auto mb-4" />
+                    </motion.div>
+                    <motion.h3 
+                      className="text-lg font-semibold mb-2"
+                      initial={{ opacity: 0, y: -10 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      transition={{ duration: 0.5, delay: 0.2 }}
+                    >
+                      No notifications found
+                    </motion.h3>
+                    <motion.p 
+                      className="text-muted-foreground"
+                      initial={{ opacity: 0, y: -10 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      transition={{ duration: 0.5, delay: 0.3 }}
+                    >
+                      {searchQuery
+                        ? "Try adjusting your search terms"
+                        : "You're all caught up!"}
+                    </motion.p>
+                  </CardContent>
+                </Card>
+              </motion.div>
             ) : (
-              <div className="space-y-3 max-h-[600px] overflow-y-auto">
-                {filteredNotifications.map((notification) => (
-                  <Card
+              <motion.div 
+                className="space-y-3 max-h-[600px] overflow-y-auto"
+                variants={containerVariants}
+              >
+                {filteredNotifications.map((notification, index) => (
+                  <motion.div
                     key={notification.id}
-                    className={`${getNotificationColor(notification.type)} ${
-                      !notification.read ? "border-l-4 border-l-blue-500" : ""
-                    } hover:shadow-md transition-shadow`}
+                    variants={cardVariants}
+                    whileHover="hover"
                   >
-                    <CardContent className="p-4">
-                      <div className="flex items-start gap-3">
-                        <div
-                          className={`p-2 rounded-full bg-white ${getIconColor(
-                            notification.type
-                          )} flex-shrink-0`}
-                        >
-                          <notification.icon className="h-4 w-4" />
-                        </div>
-                        <div className="flex-1 min-w-0">
-                          <div className="flex items-start justify-between gap-2">
-                            <div className="flex-1 min-w-0">
-                              <h4 className="font-semibold mb-1 text-sm">
-                                {notification.title}
-                              </h4>
-                              <p className="text-sm text-muted-foreground mb-2 line-clamp-2">
-                                {notification.message}
-                              </p>
-                              <div className="flex items-center gap-2 flex-wrap">
-                                <Badge variant="outline" className="text-xs">
-                                  {notification.category}
-                                </Badge>
-                                <span className="text-xs text-muted-foreground">
-                                  {notification.time}
-                                </span>
+                    <Card
+                      className={`${getNotificationColor(notification.type)} ${
+                        !notification.read ? "border-l-4 border-l-blue-500" : ""
+                      } transition-shadow duration-300 hover:shadow-lg`}
+                    >
+                      <CardContent className="p-4">
+                        <div className="flex items-start gap-3">
+                          <motion.div
+                            className={`p-2 rounded-full bg-white ${getIconColor(
+                              notification.type
+                            )} flex-shrink-0`}
+                            animate={{ 
+                              scale: notification.type === "urgent" ? [1, 1.1, 1] : 1,
+                              rotate: notification.type === "urgent" ? [0, 5, -5, 0] : 0
+                            }}
+                            transition={{ 
+                              duration: notification.type === "urgent" ? 1.5 : 0,
+                              repeat: notification.type === "urgent" ? Infinity : 0,
+                              repeatDelay: 2 
+                            }}
+                          >
+                            <notification.icon className="h-4 w-4" />
+                          </motion.div>
+                          <div className="flex-1 min-w-0">
+                            <div className="flex items-start justify-between gap-2">
+                              <div className="flex-1 min-w-0">
+                                <motion.h4 
+                                  className="font-semibold mb-1 text-sm"
+                                  initial={{ opacity: 0, y: -5 }}
+                                  animate={{ opacity: 1, y: 0 }}
+                                  transition={{ duration: 0.3, delay: index * 0.05 }}
+                                >
+                                  {notification.title}
+                                </motion.h4>
+                                <motion.p 
+                                  className="text-sm text-muted-foreground mb-2 line-clamp-2"
+                                  initial={{ opacity: 0, y: -5 }}
+                                  animate={{ opacity: 1, y: 0 }}
+                                  transition={{ duration: 0.3, delay: index * 0.05 + 0.1 }}
+                                >
+                                  {notification.message}
+                                </motion.p>
+                                <motion.div 
+                                  className="flex items-center gap-2 flex-wrap"
+                                  initial={{ opacity: 0, y: -5 }}
+                                  animate={{ opacity: 1, y: 0 }}
+                                  transition={{ duration: 0.3, delay: index * 0.05 + 0.2 }}
+                                >
+                                  <Badge variant="outline" className="text-xs">
+                                    {notification.category}
+                                  </Badge>
+                                  <span className="text-xs text-muted-foreground">
+                                    {notification.time}
+                                  </span>
+                                </motion.div>
                               </div>
-                            </div>
-                            <div className="flex items-center gap-1 flex-shrink-0">
-                              {!notification.read && (
-                                <div className="w-2 h-2 bg-blue-500 rounded-full"></div>
-                              )}
-                              <Button
-                                variant="ghost"
-                                size="sm"
-                                className="h-8 w-8 p-0"
-                                onClick={() => handleMarkRead(notification.id)}
-                                aria-label="Mark as read"
-                                title="Mark as read"
+                              <motion.div 
+                                className="flex items-center gap-1 flex-shrink-0"
+                                initial={{ opacity: 0, x: 20 }}
+                                animate={{ opacity: 1, x: 0 }}
+                                transition={{ duration: 0.3, delay: index * 0.05 + 0.3 }}
                               >
-                                <Check className="h-3 w-3" />
-                              </Button>
-                              <Button
-                                variant="ghost"
-                                size="sm"
-                                className="h-8 w-8 p-0"
-                                onClick={() =>
-                                  handleDeleteNotification(notification.id)
-                                }
-                                aria-label="Delete notification"
-                                title="Delete"
-                              >
-                                <Trash2 className="h-3 w-3" />
-                              </Button>
+                                {!notification.read && (
+                                  <motion.div 
+                                    className="w-2 h-2 bg-blue-500 rounded-full"
+                                    animate={{ scale: [1, 1.2, 1] }}
+                                    transition={{ duration: 1.5, repeat: Infinity }}
+                                  ></motion.div>
+                                )}
+                                <motion.div whileHover={{ scale: 1.1 }} whileTap={{ scale: 0.9 }}>
+                                  <Button
+                                    variant="ghost"
+                                    size="sm"
+                                    className="h-8 w-8 p-0"
+                                    onClick={() => handleMarkRead(notification.id)}
+                                    aria-label="Mark as read"
+                                    title="Mark as read"
+                                  >
+                                    <Check className="h-3 w-3" />
+                                  </Button>
+                                </motion.div>
+                                <motion.div whileHover={{ scale: 1.1 }} whileTap={{ scale: 0.9 }}>
+                                  <Button
+                                    variant="ghost"
+                                    size="sm"
+                                    className="h-8 w-8 p-0"
+                                    onClick={() =>
+                                      handleDeleteNotification(notification.id)
+                                    }
+                                    aria-label="Delete notification"
+                                    title="Delete"
+                                  >
+                                    <Trash2 className="h-3 w-3" />
+                                  </Button>
+                                </motion.div>
+                              </motion.div>
                             </div>
                           </div>
                         </div>
-                      </div>
-                    </CardContent>
-                  </Card>
+                      </CardContent>
+                    </Card>
+                  </motion.div>
                 ))}
-              </div>
+              </motion.div>
             )}
           </TabsContent>
         </Tabs>
 
         {/* Quick Stats */}
-        <div className="grid gap-4 md:grid-cols-4">
-          <Card>
-            <CardContent className="p-4">
-              <div className="flex items-center justify-between">
-                <div>
-                  <p className="text-sm font-medium text-muted-foreground">
-                    Total Notifications
-                  </p>
-                  <p className="text-2xl font-bold">{notifications.length}</p>
+        <motion.div 
+          className="grid gap-4 md:grid-cols-4"
+          variants={containerVariants}
+        >
+          <motion.div
+            variants={cardVariants}
+            whileHover="hover"
+          >
+            <Card className="transition-shadow duration-300 hover:shadow-lg">
+              <CardContent className="p-4">
+                <div className="flex items-center justify-between">
+                  <div>
+                    <p className="text-sm font-medium text-muted-foreground">
+                      Total Notifications
+                    </p>
+                    <motion.p 
+                      className="text-2xl font-bold"
+                      initial={{ scale: 0 }}
+                      animate={{ scale: 1 }}
+                      transition={{ type: "spring", stiffness: 100, delay: 0.2 }}
+                    >
+                      {notifications.length}
+                    </motion.p>
+                  </div>
+                  <motion.div
+                    animate={{ rotate: [0, 10, -10, 0] }}
+                    transition={{ duration: 2, repeat: Infinity, repeatDelay: 3 }}
+                  >
+                    <Bell className="h-8 w-8 text-blue-500" />
+                  </motion.div>
                 </div>
-                <Bell className="h-8 w-8 text-blue-500 icon-bounce" />
-              </div>
-            </CardContent>
-          </Card>
-          <Card>
-            <CardContent className="p-4">
-              <div className="flex items-center justify-between">
-                <div>
-                  <p className="text-sm font-medium text-muted-foreground">
-                    Unread
-                  </p>
-                  <p className="text-2xl font-bold text-blue-600">
-                    {unreadCount}
-                  </p>
+              </CardContent>
+            </Card>
+          </motion.div>
+          <motion.div
+            variants={cardVariants}
+            whileHover="hover"
+          >
+            <Card className="transition-shadow duration-300 hover:shadow-lg">
+              <CardContent className="p-4">
+                <div className="flex items-center justify-between">
+                  <div>
+                    <p className="text-sm font-medium text-muted-foreground">
+                      Unread
+                    </p>
+                    <motion.p 
+                      className="text-2xl font-bold text-blue-600"
+                      initial={{ scale: 0 }}
+                      animate={{ scale: 1 }}
+                      transition={{ type: "spring", stiffness: 100, delay: 0.3 }}
+                    >
+                      {unreadCount}
+                    </motion.p>
+                  </div>
+                  <motion.div
+                    animate={{ scale: [1, 1.1, 1] }}
+                    transition={{ duration: 2, repeat: Infinity, repeatDelay: 2 }}
+                  >
+                    <Activity className="h-8 w-8 text-blue-500" />
+                  </motion.div>
                 </div>
-                <Activity className="h-8 w-8 text-blue-500 icon-bounce" />
-              </div>
-            </CardContent>
-          </Card>
-          <Card>
-            <CardContent className="p-4">
-              <div className="flex items-center justify-between">
-                <div>
-                  <p className="text-sm font-medium text-muted-foreground">
-                    Urgent
-                  </p>
-                  <p className="text-2xl font-bold text-red-600">
-                    {notifications.filter((n) => n.type === "urgent").length}
-                  </p>
+              </CardContent>
+            </Card>
+          </motion.div>
+          <motion.div
+            variants={cardVariants}
+            whileHover="hover"
+          >
+            <Card className="transition-shadow duration-300 hover:shadow-lg">
+              <CardContent className="p-4">
+                <div className="flex items-center justify-between">
+                  <div>
+                    <p className="text-sm font-medium text-muted-foreground">
+                      Urgent
+                    </p>
+                    <motion.p 
+                      className="text-2xl font-bold text-red-600"
+                      initial={{ scale: 0 }}
+                      animate={{ scale: 1 }}
+                      transition={{ type: "spring", stiffness: 100, delay: 0.4 }}
+                    >
+                      {notifications.filter((n) => n.type === "urgent").length}
+                    </motion.p>
+                  </div>
+                  <motion.div
+                    animate={{ y: [0, -3, 0] }}
+                    transition={{ duration: 1.5, repeat: Infinity, repeatDelay: 1 }}
+                  >
+                    <AlertTriangle className="h-8 w-8 text-red-500" />
+                  </motion.div>
                 </div>
-                <AlertTriangle className="h-8 w-8 text-red-500 icon-bounce" />
-              </div>
-            </CardContent>
-          </Card>
-          <Card>
-            <CardContent className="p-4">
-              <div className="flex items-center justify-between">
-                <div>
-                  <p className="text-sm font-medium text-muted-foreground">
-                    Today
-                  </p>
-                  <p className="text-2xl font-bold text-green-600">
-                    {
-                      notifications.filter(
-                        (n) =>
-                          n.time.includes("hour") || n.time.includes("minute")
-                      ).length
-                    }
-                  </p>
+              </CardContent>
+            </Card>
+          </motion.div>
+          <motion.div
+            variants={cardVariants}
+            whileHover="hover"
+          >
+            <Card className="transition-shadow duration-300 hover:shadow-lg">
+              <CardContent className="p-4">
+                <div className="flex items-center justify-between">
+                  <div>
+                    <p className="text-sm font-medium text-muted-foreground">
+                      Today
+                    </p>
+                    <motion.p 
+                      className="text-2xl font-bold text-green-600"
+                      initial={{ scale: 0 }}
+                      animate={{ scale: 1 }}
+                      transition={{ type: "spring", stiffness: 100, delay: 0.5 }}
+                    >
+                      {
+                        notifications.filter(
+                          (n) =>
+                            n.time.includes("hour") || n.time.includes("minute")
+                        ).length
+                      }
+                    </motion.p>
+                  </div>
+                  <motion.div
+                    animate={{ rotate: [0, 5, -5, 0] }}
+                    transition={{ duration: 2.5, repeat: Infinity, repeatDelay: 2 }}
+                  >
+                    <Calendar className="h-8 w-8 text-green-500" />
+                  </motion.div>
                 </div>
-                <Calendar className="h-8 w-8 text-green-500 icon-bounce" />
-              </div>
-            </CardContent>
-          </Card>
-        </div>
+              </CardContent>
+            </Card>
+          </motion.div>
+        </motion.div>
       </div>
-    </div>
+    </motion.div>
   );
 }
