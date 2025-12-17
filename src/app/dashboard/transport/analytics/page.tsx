@@ -151,7 +151,7 @@ export default function AnalyticsPage() {
             </Card>
           );
         })}
-      </div>
+      </motion.div>
 
       {/* Performance Charts */}
       <div className="grid gap-6 md:grid-cols-2">
@@ -306,6 +306,6 @@ export default function AnalyticsPage() {
           </CardContent>
         </Card>
       </div>
-    </div>
+    </motion.div>
   );
 }
