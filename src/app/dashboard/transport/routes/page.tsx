@@ -486,6 +486,6 @@ export default function RoutesPage() {
           </CardContent>
         </Card>
       </div>
-    </div>
+    </motion.div>
   );
 }
