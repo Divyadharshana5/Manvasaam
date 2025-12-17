@@ -384,10 +384,13 @@ export default function TransportDashboard() {
             <RefreshCw className="h-4 w-4" />
           </Button>
         </div>
-      </div>
+      </motion.div>
 
       {/* Today's Quick Stats */}
-      <div className="grid gap-4 md:grid-cols-4">
+      <motion.div 
+        className="grid gap-4 md:grid-cols-4"
+        variants={containerVariants}
+      >
         <Card className="border-l-4 border-l-green-500 stat-card card-glow animate-fade-in-up stagger-1">
           <CardContent className="p-4">
             <div className="flex items-center justify-between">
