@@ -1,5 +1,6 @@
 "use client";
 
+import { motion, AnimatePresence } from "framer-motion";
 import "@/styles/transport-animations.css";
 import {
   Card,
