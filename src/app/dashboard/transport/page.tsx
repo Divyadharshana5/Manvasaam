@@ -1586,52 +1586,115 @@ export default function TransportDashboard() {
           </Card>
         </motion.div>
 
-        <Card className="animate-slide-in-right stagger-3">
-          <CardHeader>
-            <CardTitle className="flex items-center gap-2 text-lg">
-              <Gauge className="h-5 w-5" />
-              Fleet Health
-            </CardTitle>
-            <CardDescription>Overall fleet performance</CardDescription>
-          </CardHeader>
-          <CardContent className="space-y-4">
-            <div>
-              <div className="flex justify-between items-center mb-2">
-                <span className="text-sm">Fuel Efficiency</span>
-                <span className="font-semibold">
-                  {stats.fuelEfficiency} km/l
-                </span>
-              </div>
-              <Progress value={85} className="h-2" />
-            </div>
+        <motion.div
+          variants={cardVariants}
+          whileHover="hover"
+        >
+          <Card className="transition-shadow duration-300 hover:shadow-lg">
+            <CardHeader>
+              <motion.div
+                initial={{ opacity: 0, y: -10 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.5, delay: 0.2 }}
+              >
+                <CardTitle className="flex items-center gap-2 text-lg">
+                  <motion.div
+                    animate={{ rotate: [0, 180, 360] }}
+                    transition={{ duration: 4, repeat: Infinity, ease: "linear" }}
+                  >
+                    <Gauge className="h-5 w-5" />
+                  </motion.div>
+                  Fleet Health
+                </CardTitle>
+                <CardDescription>Overall fleet performance</CardDescription>
+              </motion.div>
+            </CardHeader>
+            <CardContent className="space-y-4">
+              <motion.div
+                initial={{ opacity: 0, x: -20 }}
+                animate={{ opacity: 1, x: 0 }}
+                transition={{ duration: 0.4, delay: 0.3 }}
+              >
+                <div className="flex justify-between items-center mb-2">
+                  <span className="text-sm">Fuel Efficiency</span>
+                  <motion.span 
+                    className="font-semibold"
+                    initial={{ scale: 0 }}
+                    animate={{ scale: 1 }}
+                    transition={{ type: "spring", stiffness: 100, delay: 0.5 }}
+                  >
+                    {stats.fuelEfficiency} km/l
+                  </motion.span>
+                </div>
+                <Progress value={85} className="h-2" />
+              </motion.div>
 
-            <div>
-              <div className="flex justify-between items-center mb-2">
-                <span className="text-sm">Vehicle Uptime</span>
-                <span className="font-semibold">96%</span>
-              </div>
-              <Progress value={96} className="h-2" />
-            </div>
+              <motion.div
+                initial={{ opacity: 0, x: -20 }}
+                animate={{ opacity: 1, x: 0 }}
+                transition={{ duration: 0.4, delay: 0.4 }}
+              >
+                <div className="flex justify-between items-center mb-2">
+                  <span className="text-sm">Vehicle Uptime</span>
+                  <motion.span 
+                    className="font-semibold"
+                    initial={{ scale: 0 }}
+                    animate={{ scale: 1 }}
+                    transition={{ type: "spring", stiffness: 100, delay: 0.6 }}
+                  >
+                    96%
+                  </motion.span>
+                </div>
+                <Progress value={96} className="h-2" />
+              </motion.div>
 
-            <div>
-              <div className="flex justify-between items-center mb-2">
-                <span className="text-sm">Safety Score</span>
-                <span className="font-semibold">98%</span>
-              </div>
-              <Progress value={98} className="h-2" />
-            </div>
+              <motion.div
+                initial={{ opacity: 0, x: -20 }}
+                animate={{ opacity: 1, x: 0 }}
+                transition={{ duration: 0.4, delay: 0.5 }}
+              >
+                <div className="flex justify-between items-center mb-2">
+                  <span className="text-sm">Safety Score</span>
+                  <motion.span 
+                    className="font-semibold"
+                    initial={{ scale: 0 }}
+                    animate={{ scale: 1 }}
+                    transition={{ type: "spring", stiffness: 100, delay: 0.7 }}
+                  >
+                    98%
+                  </motion.span>
+                </div>
+                <Progress value={98} className="h-2" />
+              </motion.div>
 
-            <div className="pt-2 border-t">
-              <div className="flex items-center gap-2 text-green-600">
-                <Award className="h-4 w-4" />
-                <span className="text-sm font-medium">Excellent Fleet</span>
-              </div>
-              <p className="text-xs text-muted-foreground mt-1">
-                Your fleet is performing above industry standards!
-              </p>
-            </div>
-          </CardContent>
-        </Card>
+              <motion.div 
+                className="pt-2 border-t"
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.4, delay: 0.6 }}
+              >
+                <div className="flex items-center gap-2 text-green-600">
+                  <motion.div
+                    animate={{ scale: [1, 1.2, 1] }}
+                    transition={{ duration: 2, repeat: Infinity, repeatDelay: 3 }}
+                  >
+                    <Award className="h-4 w-4" />
+                  </motion.div>
+                  <span className="text-sm font-medium">Excellent Fleet</span>
+                </div>
+                <motion.p 
+                  className="text-xs text-muted-foreground mt-1"
+                  initial={{ opacity: 0, y: 10 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.3, delay: 0.8 }}
+                >
+                  Your fleet is performing above industry standards!
+                </motion.p>
+              </motion.div>
+            </CardContent>
+          </Card>
+        </motion.div>
+      </motion.div>
       </div>
     </div>
   );
