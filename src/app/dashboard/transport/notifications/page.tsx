@@ -263,39 +263,84 @@ export default function TransportNotifications() {
   }, [showFilter]);
 
   return (
-    <div className="min-h-screen w-full overflow-auto">
+    <motion.div 
+      className="min-h-screen w-full overflow-auto"
+      variants={containerVariants}
+      initial="hidden"
+      animate="visible"
+    >
       <div className="flex flex-col gap-4 p-4 md:gap-6 md:p-6 max-w-7xl mx-auto">
         {/* Header */}
-        <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
+        <motion.div 
+          className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4"
+          variants={itemVariants}
+        >
           <div className="flex items-center gap-4">
-            <Button variant="outline" size="icon" asChild>
-              <Link href="/dashboard/transport">
-                <ArrowLeft className="h-4 w-4" />
-              </Link>
-            </Button>
+            <motion.div
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
+            >
+              <Button variant="outline" size="icon" asChild>
+                <Link href="/dashboard/transport">
+                  <ArrowLeft className="h-4 w-4" />
+                </Link>
+              </Button>
+            </motion.div>
             <div>
-              <h1 className="text-2xl font-bold">Notifications</h1>
-              <p className="text-muted-foreground">
+              <motion.h1 
+                className="text-2xl font-bold"
+                initial={{ opacity: 0, y: -10 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.5, delay: 0.2 }}
+              >
+                Notifications
+              </motion.h1>
+              <motion.p 
+                className="text-muted-foreground"
+                initial={{ opacity: 0, y: -10 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.5, delay: 0.3 }}
+              >
                 Stay updated with your transport operations
-              </p>
+              </motion.p>
             </div>
           </div>
-          <div className="flex items-center gap-2">
-            <Badge variant="secondary">{unreadCount} unread</Badge>
-            <Button variant="outline" size="sm" onClick={handleMarkAllRead}>
-              <Check className="h-4 w-4 mr-2" />
-              Mark All Read
-            </Button>
-            <Button variant="outline" size="sm" asChild>
-              <Link href="/dashboard/transport/settings">
-                <span className="flex items-center">
-                  <Settings className="h-4 w-4 mr-2" />
-                  Settings
-                </span>
-              </Link>
-            </Button>
-          </div>
-        </div>
+          <motion.div 
+            className="flex items-center gap-2"
+            initial={{ opacity: 0, x: 20 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.5, delay: 0.4 }}
+          >
+            <motion.div
+              initial={{ scale: 0 }}
+              animate={{ scale: 1 }}
+              transition={{ type: "spring", stiffness: 200, delay: 0.5 }}
+            >
+              <Badge variant="secondary">{unreadCount} unread</Badge>
+            </motion.div>
+            <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
+              <Button variant="outline" size="sm" onClick={handleMarkAllRead}>
+                <Check className="h-4 w-4 mr-2" />
+                Mark All Read
+              </Button>
+            </motion.div>
+            <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
+              <Button variant="outline" size="sm" asChild>
+                <Link href="/dashboard/transport/settings">
+                  <span className="flex items-center">
+                    <motion.div
+                      animate={{ rotate: [0, 90, 0] }}
+                      transition={{ duration: 2, repeat: Infinity, repeatDelay: 4 }}
+                    >
+                      <Settings className="h-4 w-4 mr-2" />
+                    </motion.div>
+                    Settings
+                  </span>
+                </Link>
+              </Button>
+            </motion.div>
+          </motion.div>
+        </motion.div>
 
         {/* Search and Filter */}
         <div className="flex flex-col sm:flex-row gap-4">
