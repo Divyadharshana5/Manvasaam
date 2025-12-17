@@ -124,9 +124,12 @@ export default function DeliveriesPage() {
             New Delivery
           </Link>
         </Button>
-      </div>
+      </motion.div>
 
-      <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
+      <motion.div 
+        className="grid gap-4 md:grid-cols-2 lg:grid-cols-4"
+        variants={containerVariants}
+      >
         <Card className="border-l-4 border-l-blue-500 animate-scale-in stat-card stagger-1">
           <CardContent className="p-4">
             <div className="flex items-center justify-between">
