@@ -1393,35 +1393,78 @@ export default function TransportDashboard() {
       </Tabs>
 
       {/* Bottom Section - Recent Activities, Drivers, and Fleet Health */}
-      <div className="grid gap-4 md:grid-cols-3">
-        <Card className="animate-slide-in-left stagger-1">
-          <CardHeader>
-            <CardTitle className="flex items-center gap-2 text-lg">
-              <Activity className="h-5 w-5" />
-              Recent Activities
-            </CardTitle>
-            <CardDescription>
-              Latest fleet updates and notifications
-            </CardDescription>
-          </CardHeader>
-          <CardContent>
-            <div className="space-y-4">
-              {recentActivities.map((activity, index) => (
-                <div key={index} className="flex items-start gap-3">
-                  <div className="p-2 bg-gray-100 rounded-full">
-                    <activity.icon className="h-4 w-4" />
-                  </div>
-                  <div className="flex-1">
-                    <p className="text-sm">{activity.message}</p>
-                    <p className="text-xs text-muted-foreground">
-                      {activity.time}
-                    </p>
-                  </div>
-                </div>
-              ))}
-            </div>
-          </CardContent>
-        </Card>
+      <motion.div 
+        className="grid gap-4 md:grid-cols-3"
+        variants={containerVariants}
+      >
+        <motion.div
+          variants={cardVariants}
+          whileHover="hover"
+        >
+          <Card className="transition-shadow duration-300 hover:shadow-lg">
+            <CardHeader>
+              <motion.div
+                initial={{ opacity: 0, y: -10 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.5 }}
+              >
+                <CardTitle className="flex items-center gap-2 text-lg">
+                  <motion.div
+                    animate={{ scale: [1, 1.1, 1] }}
+                    transition={{ duration: 2, repeat: Infinity, repeatDelay: 3 }}
+                  >
+                    <Activity className="h-5 w-5" />
+                  </motion.div>
+                  Recent Activities
+                </CardTitle>
+                <CardDescription>
+                  Latest fleet updates and notifications
+                </CardDescription>
+              </motion.div>
+            </CardHeader>
+            <CardContent>
+              <motion.div 
+                className="space-y-4"
+                variants={containerVariants}
+              >
+                {recentActivities.map((activity, index) => (
+                  <motion.div 
+                    key={index} 
+                    className="flex items-start gap-3"
+                    variants={itemVariants}
+                    whileHover={{ x: 5, transition: { duration: 0.2 } }}
+                  >
+                    <motion.div 
+                      className="p-2 bg-gray-100 rounded-full"
+                      animate={{ rotate: [0, 5, -5, 0] }}
+                      transition={{ duration: 2, repeat: Infinity, repeatDelay: 4, delay: index * 0.2 }}
+                    >
+                      <activity.icon className="h-4 w-4" />
+                    </motion.div>
+                    <div className="flex-1">
+                      <motion.p 
+                        className="text-sm"
+                        initial={{ opacity: 0, y: -5 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        transition={{ duration: 0.3, delay: index * 0.1 }}
+                      >
+                        {activity.message}
+                      </motion.p>
+                      <motion.p 
+                        className="text-xs text-muted-foreground"
+                        initial={{ opacity: 0, y: -5 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        transition={{ duration: 0.3, delay: index * 0.1 + 0.1 }}
+                      >
+                        {activity.time}
+                      </motion.p>
+                    </div>
+                  </motion.div>
+                ))}
+              </motion.div>
+            </CardContent>
+          </Card>
+        </motion.div>
 
         <Card className="animate-scale-in stagger-2">
           <CardHeader>
