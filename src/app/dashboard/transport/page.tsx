@@ -421,52 +421,97 @@ export default function TransportDashboard() {
             </CardContent>
           </Card>
         </motion.div>
-        <Card className="border-l-4 border-l-blue-500 stat-card card-glow animate-fade-in-up stagger-2">
-          <CardContent className="p-4">
-            <div className="flex items-center justify-between">
-              <div>
-                <p className="text-sm font-medium text-muted-foreground">
-                  Today's Revenue
-                </p>
-                <p className="text-2xl font-bold text-blue-600 number-counter">
-                  ₹{todayStats.revenueToday.toLocaleString()}
-                </p>
+        <motion.div
+          variants={cardVariants}
+          whileHover="hover"
+        >
+          <Card className="border-l-4 border-l-blue-500 transition-shadow duration-300 hover:shadow-lg">
+            <CardContent className="p-4">
+              <div className="flex items-center justify-between">
+                <div>
+                  <p className="text-sm font-medium text-muted-foreground">
+                    Today's Revenue
+                  </p>
+                  <motion.p 
+                    className="text-2xl font-bold text-blue-600"
+                    initial={{ scale: 0 }}
+                    animate={{ scale: 1 }}
+                    transition={{ type: "spring", stiffness: 100, delay: 0.3 }}
+                  >
+                    ₹{todayStats.revenueToday.toLocaleString()}
+                  </motion.p>
+                </div>
+                <motion.div
+                  animate={{ scale: [1, 1.1, 1] }}
+                  transition={{ duration: 2, repeat: Infinity, repeatDelay: 3 }}
+                >
+                  <IndianRupee className="h-8 w-8 text-blue-500" />
+                </motion.div>
               </div>
-              <IndianRupee className="h-8 w-8 text-blue-500 icon-bounce" />
-            </div>
-          </CardContent>
-        </Card>
-        <Card className="border-l-4 border-l-purple-500 stat-card card-glow animate-fade-in-up stagger-3">
-          <CardContent className="p-4">
-            <div className="flex items-center justify-between">
-              <div>
-                <p className="text-sm font-medium text-muted-foreground">
-                  Distance Covered
-                </p>
-                <p className="text-2xl font-bold text-purple-600 number-counter">
-                  {todayStats.distanceCovered} km
-                </p>
+            </CardContent>
+          </Card>
+        </motion.div>
+        <motion.div
+          variants={cardVariants}
+          whileHover="hover"
+        >
+          <Card className="border-l-4 border-l-purple-500 transition-shadow duration-300 hover:shadow-lg">
+            <CardContent className="p-4">
+              <div className="flex items-center justify-between">
+                <div>
+                  <p className="text-sm font-medium text-muted-foreground">
+                    Distance Covered
+                  </p>
+                  <motion.p 
+                    className="text-2xl font-bold text-purple-600"
+                    initial={{ scale: 0 }}
+                    animate={{ scale: 1 }}
+                    transition={{ type: "spring", stiffness: 100, delay: 0.4 }}
+                  >
+                    {todayStats.distanceCovered} km
+                  </motion.p>
+                </div>
+                <motion.div
+                  animate={{ x: [0, 3, -3, 0] }}
+                  transition={{ duration: 2, repeat: Infinity, repeatDelay: 5 }}
+                >
+                  <Route className="h-8 w-8 text-purple-500" />
+                </motion.div>
               </div>
-              <Route className="h-8 w-8 text-purple-500 icon-bounce" />
-            </div>
-          </CardContent>
-        </Card>
-        <Card className="border-l-4 border-l-orange-500 stat-card card-glow animate-fade-in-up stagger-4">
-          <CardContent className="p-4">
-            <div className="flex items-center justify-between">
-              <div>
-                <p className="text-sm font-medium text-muted-foreground">
-                  Fuel Consumed
-                </p>
-                <p className="text-2xl font-bold text-orange-600 number-counter">
-                  {todayStats.fuelConsumed}L
-                </p>
+            </CardContent>
+          </Card>
+        </motion.div>
+        <motion.div
+          variants={cardVariants}
+          whileHover="hover"
+        >
+          <Card className="border-l-4 border-l-orange-500 transition-shadow duration-300 hover:shadow-lg">
+            <CardContent className="p-4">
+              <div className="flex items-center justify-between">
+                <div>
+                  <p className="text-sm font-medium text-muted-foreground">
+                    Fuel Consumed
+                  </p>
+                  <motion.p 
+                    className="text-2xl font-bold text-orange-600"
+                    initial={{ scale: 0 }}
+                    animate={{ scale: 1 }}
+                    transition={{ type: "spring", stiffness: 100, delay: 0.5 }}
+                  >
+                    {todayStats.fuelConsumed}L
+                  </motion.p>
+                </div>
+                <motion.div
+                  animate={{ y: [0, -2, 0] }}
+                  transition={{ duration: 2.5, repeat: Infinity, repeatDelay: 1 }}
+                >
+                  <Fuel className="h-8 w-8 text-orange-500" />
+                </motion.div>
               </div>
-              <Fuel className="h-8 w-8 text-orange-500 icon-bounce" />
-            </div>
-          </CardContent>
-        </Card>
-      </div>
+            </CardContent>
+          </Card>
+        </motion.div>
+      </motion.div>
 
       {/* Main Content Tabs */}
       <Tabs
