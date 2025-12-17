@@ -1,6 +1,7 @@
 "use client";
 
-import "@/styles/retail-animations.css";
+import { motion, AnimatePresence } from "framer-motion";
+import "@/styles/transport-animations.css";
 import { useEffect, useState } from "react";
 import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card";
 import { useAuth } from "@/hooks/use-auth";
