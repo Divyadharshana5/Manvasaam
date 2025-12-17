@@ -1305,46 +1305,90 @@ export default function TransportDashboard() {
           </motion.div>
 
           {/* Route Efficiency */}
-          <Card className="animate-scale-in stagger-3">
-            <CardHeader>
-              <CardTitle className="flex items-center gap-2">
-                <Route className="h-5 w-5" />
-                Route Efficiency
-              </CardTitle>
-              <CardDescription>
-                Performance analysis of different routes
-              </CardDescription>
-            </CardHeader>
-            <CardContent>
-              <div className="space-y-4">
-                {routes.map((route, index) => (
-                  <div
-                    key={index}
-                    className="flex items-center justify-between p-3 border rounded-lg"
-                  >
-                    <div>
-                      <h4 className="font-medium">{route.name}</h4>
-                      <p className="text-sm text-muted-foreground">
-                        {route.distance} • {route.avgTime}
-                      </p>
-                    </div>
-                    <div className="flex items-center gap-4">
-                      <div className="text-center">
-                        <p className="text-sm font-medium">
-                          {route.efficiency}%
-                        </p>
-                        <Progress
-                          value={route.efficiency}
-                          className="w-16 h-2"
-                        />
+          <motion.div
+            variants={cardVariants}
+            whileHover="hover"
+          >
+            <Card className="transition-shadow duration-300 hover:shadow-lg">
+              <CardHeader>
+                <motion.div
+                  initial={{ opacity: 0, y: -10 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.5, delay: 0.2 }}
+                >
+                  <CardTitle className="flex items-center gap-2">
+                    <motion.div
+                      animate={{ x: [0, 3, -3, 0] }}
+                      transition={{ duration: 2.5, repeat: Infinity, repeatDelay: 2 }}
+                    >
+                      <Route className="h-5 w-5" />
+                    </motion.div>
+                    Route Efficiency
+                  </CardTitle>
+                  <CardDescription>
+                    Performance analysis of different routes
+                  </CardDescription>
+                </motion.div>
+              </CardHeader>
+              <CardContent>
+                <motion.div 
+                  className="space-y-4"
+                  variants={containerVariants}
+                >
+                  {routes.map((route, index) => (
+                    <motion.div
+                      key={index}
+                      className="flex items-center justify-between p-3 border rounded-lg"
+                      variants={itemVariants}
+                      whileHover={{ x: 5, transition: { duration: 0.2 } }}
+                    >
+                      <div>
+                        <motion.h4 
+                          className="font-medium"
+                          initial={{ opacity: 0, y: -5 }}
+                          animate={{ opacity: 1, y: 0 }}
+                          transition={{ duration: 0.3, delay: index * 0.1 }}
+                        >
+                          {route.name}
+                        </motion.h4>
+                        <motion.p 
+                          className="text-sm text-muted-foreground"
+                          initial={{ opacity: 0, y: -5 }}
+                          animate={{ opacity: 1, y: 0 }}
+                          transition={{ duration: 0.3, delay: index * 0.1 + 0.1 }}
+                        >
+                          {route.distance} • {route.avgTime}
+                        </motion.p>
                       </div>
-                      <Badge variant="outline">{route.vehicles} vehicles</Badge>
-                    </div>
-                  </div>
-                ))}
-              </div>
-            </CardContent>
-          </Card>
+                      <div className="flex items-center gap-4">
+                        <motion.div 
+                          className="text-center"
+                          initial={{ opacity: 0, scale: 0.8 }}
+                          animate={{ opacity: 1, scale: 1 }}
+                          transition={{ duration: 0.4, delay: index * 0.1 + 0.2 }}
+                        >
+                          <p className="text-sm font-medium">
+                            {route.efficiency}%
+                          </p>
+                          <Progress
+                            value={route.efficiency}
+                            className="w-16 h-2"
+                          />
+                        </motion.div>
+                        <motion.div
+                          initial={{ opacity: 0, scale: 0.8 }}
+                          animate={{ opacity: 1, scale: 1 }}
+                          transition={{ duration: 0.4, delay: index * 0.1 + 0.3 }}
+                        >
+                          <Badge variant="outline">{route.vehicles} vehicles</Badge>
+                        </motion.div>
+                      </div>
+                    </motion.div>
+                  ))}
+                </motion.div>
+              </CardContent>
+            </Card>
+          </motion.div>
         </TabsContent>
       </Tabs>
 
