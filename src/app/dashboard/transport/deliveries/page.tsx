@@ -226,6 +226,6 @@ export default function DeliveriesPage() {
           </div>
         </CardContent>
       </Card>
-    </div>
+    </motion.div>
   );
 }
