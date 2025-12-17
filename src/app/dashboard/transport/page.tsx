@@ -1125,78 +1125,184 @@ export default function TransportDashboard() {
         </TabsContent>
 
         <TabsContent value="analytics" className="space-y-4 tab-content">
-          <div className="grid gap-4 md:grid-cols-2">
-            <Card className="animate-fade-in-up stagger-1">
-              <CardHeader>
-                <CardTitle className="flex items-center gap-2">
-                  <BarChart3 className="h-5 w-5" />
-                  Performance Metrics
-                </CardTitle>
-              </CardHeader>
-              <CardContent className="space-y-4">
-                <div className="flex justify-between items-center">
-                  <span className="text-sm">Delivery Success Rate</span>
-                  <span className="font-semibold">
-                    {performanceMetrics.deliverySuccess}%
-                  </span>
-                </div>
-                <Progress
-                  value={performanceMetrics.deliverySuccess}
-                  className="h-2"
-                />
+          <motion.div 
+            className="grid gap-4 md:grid-cols-2"
+            variants={containerVariants}
+          >
+            <motion.div
+              variants={cardVariants}
+              whileHover="hover"
+            >
+              <Card className="transition-shadow duration-300 hover:shadow-lg">
+                <CardHeader>
+                  <motion.div
+                    initial={{ opacity: 0, y: -10 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.5 }}
+                  >
+                    <CardTitle className="flex items-center gap-2">
+                      <motion.div
+                        animate={{ 
+                          scale: [1, 1.1, 1],
+                          rotate: [0, 5, -5, 0]
+                        }}
+                        transition={{ 
+                          duration: 3, 
+                          repeat: Infinity, 
+                          repeatDelay: 2 
+                        }}
+                      >
+                        <BarChart3 className="h-5 w-5" />
+                      </motion.div>
+                      Performance Metrics
+                    </CardTitle>
+                  </motion.div>
+                </CardHeader>
+                <CardContent className="space-y-4">
+                  <motion.div 
+                    className="flex justify-between items-center"
+                    initial={{ opacity: 0, x: -20 }}
+                    animate={{ opacity: 1, x: 0 }}
+                    transition={{ duration: 0.4, delay: 0.1 }}
+                  >
+                    <span className="text-sm">Delivery Success Rate</span>
+                    <motion.span 
+                      className="font-semibold"
+                      initial={{ scale: 0 }}
+                      animate={{ scale: 1 }}
+                      transition={{ type: "spring", stiffness: 100, delay: 0.3 }}
+                    >
+                      {performanceMetrics.deliverySuccess}%
+                    </motion.span>
+                  </motion.div>
+                  <Progress
+                    value={performanceMetrics.deliverySuccess}
+                    className="h-2"
+                  />
 
-                <div className="flex justify-between items-center">
-                  <span className="text-sm">Customer Satisfaction</span>
-                  <span className="font-semibold">
-                    {performanceMetrics.customerSatisfaction}%
-                  </span>
-                </div>
-                <Progress
-                  value={performanceMetrics.customerSatisfaction}
-                  className="h-2"
-                />
+                  <motion.div 
+                    className="flex justify-between items-center"
+                    initial={{ opacity: 0, x: -20 }}
+                    animate={{ opacity: 1, x: 0 }}
+                    transition={{ duration: 0.4, delay: 0.2 }}
+                  >
+                    <span className="text-sm">Customer Satisfaction</span>
+                    <motion.span 
+                      className="font-semibold"
+                      initial={{ scale: 0 }}
+                      animate={{ scale: 1 }}
+                      transition={{ type: "spring", stiffness: 100, delay: 0.4 }}
+                    >
+                      {performanceMetrics.customerSatisfaction}%
+                    </motion.span>
+                  </motion.div>
+                  <Progress
+                    value={performanceMetrics.customerSatisfaction}
+                    className="h-2"
+                  />
 
-                <div className="flex justify-between items-center">
-                  <span className="text-sm">Vehicle Utilization</span>
-                  <span className="font-semibold">
-                    {performanceMetrics.vehicleUtilization}%
-                  </span>
-                </div>
-                <Progress
-                  value={performanceMetrics.vehicleUtilization}
-                  className="h-2"
-                />
-              </CardContent>
-            </Card>
+                  <motion.div 
+                    className="flex justify-between items-center"
+                    initial={{ opacity: 0, x: -20 }}
+                    animate={{ opacity: 1, x: 0 }}
+                    transition={{ duration: 0.4, delay: 0.3 }}
+                  >
+                    <span className="text-sm">Vehicle Utilization</span>
+                    <motion.span 
+                      className="font-semibold"
+                      initial={{ scale: 0 }}
+                      animate={{ scale: 1 }}
+                      transition={{ type: "spring", stiffness: 100, delay: 0.5 }}
+                    >
+                      {performanceMetrics.vehicleUtilization}%
+                    </motion.span>
+                  </motion.div>
+                  <Progress
+                    value={performanceMetrics.vehicleUtilization}
+                    className="h-2"
+                  />
+                </CardContent>
+              </Card>
+            </motion.div>
 
-            <Card className="animate-fade-in-up stagger-2">
-              <CardHeader>
-                <CardTitle className="flex items-center gap-2">
-                  <Target className="h-5 w-5" />
-                  Monthly Goals
-                </CardTitle>
-              </CardHeader>
-              <CardContent className="space-y-4">
-                <div className="flex justify-between items-center">
-                  <span className="text-sm">Revenue Target</span>
-                  <span className="font-semibold">₹200K</span>
-                </div>
-                <Progress value={92} className="h-2" />
-                <p className="text-xs text-muted-foreground">
-                  ₹185K achieved (92%)
-                </p>
+            <motion.div
+              variants={cardVariants}
+              whileHover="hover"
+            >
+              <Card className="transition-shadow duration-300 hover:shadow-lg">
+                <CardHeader>
+                  <motion.div
+                    initial={{ opacity: 0, y: -10 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.5, delay: 0.1 }}
+                  >
+                    <CardTitle className="flex items-center gap-2">
+                      <motion.div
+                        animate={{ rotate: [0, 360] }}
+                        transition={{ duration: 4, repeat: Infinity, ease: "linear" }}
+                      >
+                        <Target className="h-5 w-5" />
+                      </motion.div>
+                      Monthly Goals
+                    </CardTitle>
+                  </motion.div>
+                </CardHeader>
+                <CardContent className="space-y-4">
+                  <motion.div 
+                    className="flex justify-between items-center"
+                    initial={{ opacity: 0, x: -20 }}
+                    animate={{ opacity: 1, x: 0 }}
+                    transition={{ duration: 0.4, delay: 0.2 }}
+                  >
+                    <span className="text-sm">Revenue Target</span>
+                    <motion.span 
+                      className="font-semibold"
+                      initial={{ scale: 0 }}
+                      animate={{ scale: 1 }}
+                      transition={{ type: "spring", stiffness: 100, delay: 0.4 }}
+                    >
+                      ₹200K
+                    </motion.span>
+                  </motion.div>
+                  <Progress value={92} className="h-2" />
+                  <motion.p 
+                    className="text-xs text-muted-foreground"
+                    initial={{ opacity: 0, y: 10 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.3, delay: 0.5 }}
+                  >
+                    ₹185K achieved (92%)
+                  </motion.p>
 
-                <div className="flex justify-between items-center">
-                  <span className="text-sm">Delivery Target</span>
-                  <span className="font-semibold">500</span>
-                </div>
-                <Progress value={91} className="h-2" />
-                <p className="text-xs text-muted-foreground">
-                  456 deliveries completed
-                </p>
-              </CardContent>
-            </Card>
-          </div>
+                  <motion.div 
+                    className="flex justify-between items-center"
+                    initial={{ opacity: 0, x: -20 }}
+                    animate={{ opacity: 1, x: 0 }}
+                    transition={{ duration: 0.4, delay: 0.3 }}
+                  >
+                    <span className="text-sm">Delivery Target</span>
+                    <motion.span 
+                      className="font-semibold"
+                      initial={{ scale: 0 }}
+                      animate={{ scale: 1 }}
+                      transition={{ type: "spring", stiffness: 100, delay: 0.6 }}
+                    >
+                      500
+                    </motion.span>
+                  </motion.div>
+                  <Progress value={91} className="h-2" />
+                  <motion.p 
+                    className="text-xs text-muted-foreground"
+                    initial={{ opacity: 0, y: 10 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.3, delay: 0.7 }}
+                  >
+                    456 deliveries completed
+                  </motion.p>
+                </CardContent>
+              </Card>
+            </motion.div>
+          </motion.div>
 
           {/* Route Efficiency */}
           <Card className="animate-scale-in stagger-3">
