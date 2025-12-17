@@ -758,122 +758,205 @@ export default function TransportDashboard() {
         </TabsContent>
 
         <TabsContent value="fleet" className="space-y-4 tab-content">
-          <div className="flex items-center justify-between">
-            <h3 className="text-lg font-semibold">Fleet Management</h3>
-            <div className="flex gap-2">
-              <Button variant="outline" size="sm" asChild>
-                <Link href="/dashboard/transport/fleet/filter">
-                  <Filter className="h-4 w-4 mr-2" />
-                  Filter
-                </Link>
-              </Button>
-              <Button variant="outline" size="sm" asChild>
-                <Link href="/dashboard/transport/fleet/export">
-                  <Download className="h-4 w-4 mr-2" />
-                  Export
-                </Link>
-              </Button>
-            </div>
-          </div>
+          <motion.div 
+            className="flex items-center justify-between"
+            variants={itemVariants}
+          >
+            <motion.h3 
+              className="text-lg font-semibold"
+              initial={{ opacity: 0, x: -20 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{ duration: 0.5 }}
+            >
+              Fleet Management
+            </motion.h3>
+            <motion.div 
+              className="flex gap-2"
+              initial={{ opacity: 0, x: 20 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{ duration: 0.5, delay: 0.2 }}
+            >
+              <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
+                <Button variant="outline" size="sm" asChild>
+                  <Link href="/dashboard/transport/fleet/filter">
+                    <Filter className="h-4 w-4 mr-2" />
+                    Filter
+                  </Link>
+                </Button>
+              </motion.div>
+              <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
+                <Button variant="outline" size="sm" asChild>
+                  <Link href="/dashboard/transport/fleet/export">
+                    <Download className="h-4 w-4 mr-2" />
+                    Export
+                  </Link>
+                </Button>
+              </motion.div>
+            </motion.div>
+          </motion.div>
 
-          <div className="grid gap-4">
+          <motion.div 
+            className="grid gap-4"
+            variants={containerVariants}
+          >
             {vehicles.map((vehicle, index) => (
-              <Card className="animate-slide-in-left list-item"
+              <motion.div
                 key={index}
-                className={
-                  vehicle.status === "maintenance"
-                    ? "border-orange-200 bg-orange-50"
-                    : ""
-                }
+                variants={cardVariants}
+                whileHover="hover"
               >
-                <CardContent className="p-4">
-                  <div className="flex items-center justify-between">
-                    <div className="flex items-center gap-4">
-                      <div
-                        className={`p-3 rounded-lg ${
-                          vehicle.status === "active"
-                            ? "bg-green-100"
-                            : vehicle.status === "available"
-                            ? "bg-blue-100"
-                            : "bg-orange-100"
-                        }`}
-                      >
-                        <Truck
-                          className={`h-6 w-6 ${
+                <Card 
+                  className={`transition-shadow duration-300 hover:shadow-lg ${
+                    vehicle.status === "maintenance"
+                      ? "border-orange-200 bg-orange-50"
+                      : ""
+                  }`}
+                >
+                  <CardContent className="p-4">
+                    <div className="flex items-center justify-between">
+                      <div className="flex items-center gap-4">
+                        <motion.div
+                          className={`p-3 rounded-lg ${
                             vehicle.status === "active"
-                              ? "text-green-600"
+                              ? "bg-green-100"
                               : vehicle.status === "available"
-                              ? "text-blue-600"
-                              : "text-orange-600"
+                              ? "bg-blue-100"
+                              : "bg-orange-100"
                           }`}
-                        />
-                      </div>
-                      <div>
-                        <h4 className="font-semibold">{vehicle.id}</h4>
-                        <p className="text-sm text-muted-foreground">
-                          Driver: {vehicle.driver}
-                        </p>
-                        <p className="text-sm text-muted-foreground">
-                          Location: {vehicle.location}
-                        </p>
-                      </div>
-                    </div>
-                    <div className="flex items-center gap-6">
-                      <div className="text-center">
-                        <div className="flex items-center gap-1 mb-1">
-                          <Fuel className="h-4 w-4" />
-                          <span className="text-sm font-medium">
-                            {vehicle.fuel}%
-                          </span>
-                        </div>
-                        <Progress value={vehicle.fuel} className="w-16 h-2" />
-                      </div>
-                      <div className="text-center">
-                        <div className="flex items-center gap-1 mb-1">
-                          <ThermometerSun className="h-4 w-4" />
-                          <span className="text-sm font-medium">
-                            {vehicle.temperature}°C
-                          </span>
-                        </div>
-                        <Progress
-                          value={(vehicle.temperature / 100) * 100}
-                          className="w-16 h-2"
-                        />
-                      </div>
-                      <div className="text-center">
-                        <div className="flex items-center gap-1 mb-1">
-                          <Battery className="h-4 w-4" />
-                          <span className="text-sm font-medium">
-                            {vehicle.battery}%
-                          </span>
-                        </div>
-                        <Progress
-                          value={vehicle.battery}
-                          className="w-16 h-2"
-                        />
-                      </div>
-                      <div className="text-right">
-                        <Badge
-                          variant={
-                            vehicle.status === "active"
-                              ? "default"
-                              : vehicle.status === "available"
-                              ? "secondary"
-                              : "destructive"
-                          }
+                          animate={{ 
+                            scale: vehicle.status === "active" ? [1, 1.05, 1] : 1 
+                          }}
+                          transition={{ 
+                            duration: 2, 
+                            repeat: vehicle.status === "active" ? Infinity : 0,
+                            repeatDelay: 3 
+                          }}
                         >
-                          {vehicle.status}
-                        </Badge>
-                        <p className="text-xs text-muted-foreground mt-1">
-                          {vehicle.mileage} km/l
-                        </p>
+                          <motion.div
+                            animate={{ 
+                              x: vehicle.status === "active" ? [0, 2, -2, 0] : 0 
+                            }}
+                            transition={{ 
+                              duration: 3, 
+                              repeat: vehicle.status === "active" ? Infinity : 0,
+                              repeatDelay: 2 
+                            }}
+                          >
+                            <Truck
+                              className={`h-6 w-6 ${
+                                vehicle.status === "active"
+                                  ? "text-green-600"
+                                  : vehicle.status === "available"
+                                  ? "text-blue-600"
+                                  : "text-orange-600"
+                              }`}
+                            />
+                          </motion.div>
+                        </motion.div>
+                        <div>
+                          <motion.h4 
+                            className="font-semibold"
+                            initial={{ opacity: 0, y: -5 }}
+                            animate={{ opacity: 1, y: 0 }}
+                            transition={{ duration: 0.3, delay: index * 0.1 }}
+                          >
+                            {vehicle.id}
+                          </motion.h4>
+                          <motion.p 
+                            className="text-sm text-muted-foreground"
+                            initial={{ opacity: 0, y: -5 }}
+                            animate={{ opacity: 1, y: 0 }}
+                            transition={{ duration: 0.3, delay: index * 0.1 + 0.1 }}
+                          >
+                            Driver: {vehicle.driver}
+                          </motion.p>
+                          <motion.p 
+                            className="text-sm text-muted-foreground"
+                            initial={{ opacity: 0, y: -5 }}
+                            animate={{ opacity: 1, y: 0 }}
+                            transition={{ duration: 0.3, delay: index * 0.1 + 0.2 }}
+                          >
+                            Location: {vehicle.location}
+                          </motion.p>
+                        </div>
+                      </div>
+                      <div className="flex items-center gap-6">
+                        <motion.div 
+                          className="text-center"
+                          initial={{ opacity: 0, scale: 0.8 }}
+                          animate={{ opacity: 1, scale: 1 }}
+                          transition={{ duration: 0.4, delay: index * 0.1 + 0.3 }}
+                        >
+                          <div className="flex items-center gap-1 mb-1">
+                            <Fuel className="h-4 w-4" />
+                            <span className="text-sm font-medium">
+                              {vehicle.fuel}%
+                            </span>
+                          </div>
+                          <Progress value={vehicle.fuel} className="w-16 h-2" />
+                        </motion.div>
+                        <motion.div 
+                          className="text-center"
+                          initial={{ opacity: 0, scale: 0.8 }}
+                          animate={{ opacity: 1, scale: 1 }}
+                          transition={{ duration: 0.4, delay: index * 0.1 + 0.4 }}
+                        >
+                          <div className="flex items-center gap-1 mb-1">
+                            <ThermometerSun className="h-4 w-4" />
+                            <span className="text-sm font-medium">
+                              {vehicle.temperature}°C
+                            </span>
+                          </div>
+                          <Progress
+                            value={(vehicle.temperature / 100) * 100}
+                            className="w-16 h-2"
+                          />
+                        </motion.div>
+                        <motion.div 
+                          className="text-center"
+                          initial={{ opacity: 0, scale: 0.8 }}
+                          animate={{ opacity: 1, scale: 1 }}
+                          transition={{ duration: 0.4, delay: index * 0.1 + 0.5 }}
+                        >
+                          <div className="flex items-center gap-1 mb-1">
+                            <Battery className="h-4 w-4" />
+                            <span className="text-sm font-medium">
+                              {vehicle.battery}%
+                            </span>
+                          </div>
+                          <Progress
+                            value={vehicle.battery}
+                            className="w-16 h-2"
+                          />
+                        </motion.div>
+                        <motion.div 
+                          className="text-right"
+                          initial={{ opacity: 0, x: 20 }}
+                          animate={{ opacity: 1, x: 0 }}
+                          transition={{ duration: 0.4, delay: index * 0.1 + 0.6 }}
+                        >
+                          <Badge
+                            variant={
+                              vehicle.status === "active"
+                                ? "default"
+                                : vehicle.status === "available"
+                                ? "secondary"
+                                : "destructive"
+                            }
+                          >
+                            {vehicle.status}
+                          </Badge>
+                          <p className="text-xs text-muted-foreground mt-1">
+                            {vehicle.mileage} km/l
+                          </p>
+                        </motion.div>
                       </div>
                     </div>
-                  </div>
-                </CardContent>
-              </Card>
+                  </CardContent>
+                </Card>
+              </motion.div>
             ))}
-          </div>
+          </motion.div>
         </TabsContent>
 
         <TabsContent value="deliveries" className="space-y-4 tab-content">
