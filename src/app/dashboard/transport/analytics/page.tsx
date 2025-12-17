@@ -94,7 +94,10 @@ export default function AnalyticsPage() {
       initial="hidden"
       animate="visible"
     >
-      <div className="flex items-center justify-between animate-fade-in-up">
+      <motion.div 
+        className="flex items-center justify-between"
+        variants={itemVariants}
+      >
         <h1 className="text-3xl font-bold">Analytics Dashboard</h1>
         <div className="flex space-x-2">
           <Button variant="outline" asChild>
@@ -109,10 +112,13 @@ export default function AnalyticsPage() {
             </Link>
           </Button>
         </div>
-      </div>
+      </motion.div>
 
       {/* Key Metrics */}
-      <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
+      <motion.div 
+        className="grid gap-4 md:grid-cols-2 lg:grid-cols-4"
+        variants={containerVariants}
+      >
         {metrics.map((metric, index) => {
           const colors = [
             { border: "border-l-green-500", icon: "text-green-500" },
