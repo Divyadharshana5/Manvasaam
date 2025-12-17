@@ -181,7 +181,7 @@ export default function DeliveriesPage() {
             </div>
           </CardContent>
         </Card>
-      </div>
+      </motion.div>
 
       <Card className="animate-fade-in-up stagger-5">
         <CardHeader>
