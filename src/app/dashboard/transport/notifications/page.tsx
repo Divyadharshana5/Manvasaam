@@ -1,6 +1,7 @@
 "use client";
 
-import "@/styles/retail-animations.css";
+import { motion } from "framer-motion";
+import "@/styles/transport-animations.css";
 import {
   Card,
   CardContent,
