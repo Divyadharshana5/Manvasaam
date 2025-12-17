@@ -250,6 +250,6 @@ export default function FleetTrackingPage() {
           </div>
         </CardContent>
       </Card>
-    </div>
+    </motion.div>
   );
 }
