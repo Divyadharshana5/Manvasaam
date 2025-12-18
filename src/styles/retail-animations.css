@@ -207,6 +207,116 @@
   transform: translateZ(0);
 }
 
+/* Retail-specific animations */
+@keyframes inventoryCount {
+  0%, 100% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.05);
+  }
+}
+
+@keyframes salesGrowth {
+  0% {
+    transform: translateY(0) rotate(0deg);
+  }
+  25% {
+    transform: translateY(-2px) rotate(90deg);
+  }
+  50% {
+    transform: translateY(0) rotate(180deg);
+  }
+  75% {
+    transform: translateY(-2px) rotate(270deg);
+  }
+  100% {
+    transform: translateY(0) rotate(360deg);
+  }
+}
+
+@keyframes stockAlert {
+  0%, 100% {
+    background-color: rgba(239, 68, 68, 0.1);
+  }
+  50% {
+    background-color: rgba(239, 68, 68, 0.2);
+  }
+}
+
+@keyframes orderProgress {
+  0% {
+    width: 0%;
+  }
+  100% {
+    width: 100%;
+  }
+}
+
+@keyframes priceFluctuation {
+  0%, 100% {
+    color: #10b981;
+  }
+  50% {
+    color: #f59e0b;
+  }
+}
+
+/* Retail-specific classes */
+.inventory-count {
+  animation: inventoryCount 2s ease-in-out infinite;
+}
+
+.sales-growth {
+  animation: salesGrowth 3s linear infinite;
+}
+
+.stock-alert {
+  animation: stockAlert 2s ease-in-out infinite;
+}
+
+.order-progress {
+  animation: orderProgress 2s ease-out forwards;
+}
+
+.price-fluctuation {
+  animation: priceFluctuation 3s ease-in-out infinite;
+}
+
+/* Enhanced hover effects for retail elements */
+.retail-card {
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  will-change: transform, box-shadow;
+  transform: translateZ(0);
+}
+
+.retail-card:hover {
+  transform: translateY(-8px) translateZ(0);
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+}
+
+.product-card {
+  transition: all 0.2s ease;
+  will-change: transform, box-shadow;
+  transform: translateZ(0);
+}
+
+.product-card:hover {
+  transform: scale(1.03) translateZ(0);
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.12);
+}
+
+.supplier-status-active {
+  animation: pulse 2s ease-in-out infinite;
+}
+
+.low-stock-warning {
+  animation: bounce 1s ease-in-out infinite;
+}
+
+.new-order-notification {
+  animation: bounce 1.5s ease-in-out infinite;
+}
 
 /* Performance optimizations */
 .animate-fade-in-up,
