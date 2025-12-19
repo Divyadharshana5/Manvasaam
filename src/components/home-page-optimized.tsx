@@ -34,6 +34,7 @@ import {
 } from "react";
 import { useRouter } from "next/navigation";
 import { VoiceAssistantGlobal } from "@/components/VoiceAssistantGlobal";
+import { InstantNavigation, useInstantNavigation } from "@/components/instant-navigation";
 
 // Lazy load AI components for better initial load performance
 const ProductShowcase = lazy(() => import("@/components/product-showcase"));
