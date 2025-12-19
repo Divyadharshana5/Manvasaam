@@ -21,11 +21,6 @@ body::-webkit-scrollbar {
   background: transparent;
 }
 
-/* Prevent any component from blocking scroll */
-* {
-  overflow-y: visible !important;
-}
-
 /* Hide all scrollbars globally while maintaining scroll functionality */
 *::-webkit-scrollbar {
   display: none;
