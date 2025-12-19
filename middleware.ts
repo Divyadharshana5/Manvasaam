@@ -6,10 +6,15 @@ export function middleware(request: NextRequest) {
   
   // Skip middleware for prefetch requests for faster navigation
   const purpose = request.headers.get('purpose');
-  const isPrefetch = purpose === 'prefetch' || request.headers.get('x-middleware-prefetch');
+  const isPrefetch = purpose === 'prefetch' || 
+                    request.headers.get('x-middleware-prefetch') ||
+                    request.headers.get('x-nextjs-data');
   
   if (isPrefetch) {
-    return NextResponse.next();
+    // Add cache headers for prefetch requests
+    const response = NextResponse.next();
+    response.headers.set('Cache-Control', 'public, max-age=31536000, immutable');
+    return response;
   }
   
   // Get session cookie to check if user is authenticated
