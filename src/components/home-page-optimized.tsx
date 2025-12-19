@@ -435,7 +435,7 @@ export default function HomePage() {
           </div>
         </header>
 
-        <main className="flex flex-col items-center pt-16 sm:pt-20 md:pt-24 px-4 sm:px-6 md:px-8 pb-8">
+        <main className="flex flex-col items-center pt-16 sm:pt-20 md:pt-24 px-4 sm:px-6 md:px-8 pb-8 relative z-10">
           <div
             className="absolute inset-0 z-0 bg-cover bg-center bg-no-repeat bg-fixed bg-ken-burns"
             style={{
