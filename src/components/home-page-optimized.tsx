@@ -37,6 +37,7 @@ import { VoiceAssistantGlobal } from "@/components/VoiceAssistantGlobal";
 import { InstantNavigation, useInstantNavigation } from "@/components/instant-navigation";
 import { FastLink } from "@/components/fast-link";
 import { useFastNavigation } from "@/hooks/use-fast-navigation";
+import { ScrollFix } from "@/components/scroll-fix";
 
 // Lazy load AI components for better initial load performance
 const ProductShowcase = lazy(() => import("@/components/product-showcase"));
