@@ -117,6 +117,25 @@ export default function RootLayout({
         {/* Performance hints */}
         <meta name="theme-color" content="#22c55e" />
         <meta name="color-scheme" content="light" />
+        
+        {/* Service Worker for fast navigation */}
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `
+              if ('serviceWorker' in navigator) {
+                window.addEventListener('load', () => {
+                  navigator.serviceWorker.register('/sw.js')
+                    .then((registration) => {
+                      console.log('SW registered: ', registration);
+                    })
+                    .catch((registrationError) => {
+                      console.log('SW registration failed: ', registrationError);
+                    });
+                });
+              }
+            `,
+          }}
+        />
 
         {/* Critical CSS inlined for faster rendering */}
         <style
