@@ -35,6 +35,7 @@ import {
 import { useRouter } from "next/navigation";
 import { VoiceAssistantGlobal } from "@/components/VoiceAssistantGlobal";
 import { InstantNavigation, useInstantNavigation } from "@/components/instant-navigation";
+import { FastLink } from "@/components/fast-link";
 
 // Lazy load AI components for better initial load performance
 const ProductShowcase = lazy(() => import("@/components/product-showcase"));
