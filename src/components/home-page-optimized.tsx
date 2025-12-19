@@ -176,6 +176,7 @@ const RoleCard = ({
 export default function HomePage() {
   const { selectedLanguage, setSelectedLanguage, t } = useLanguage();
   const router = useRouter();
+  const { navigateInstantly, prefetchRoute } = useInstantNavigation();
 
   const [loadingRoleHref, setLoadingRoleHref] = useState<string | null>(null);
 
