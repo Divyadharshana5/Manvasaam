@@ -611,36 +611,39 @@ export default function HomePage() {
                   whileHover={{ scale: 1.05 }}
                   transition={{ duration: 0.2 }}
                 >
-                  <Link
+                  <FastLink
                     href="/privacy"
                     className="text-muted-foreground hover:text-primary transition-colors duration-200 hover:underline"
+                    prefetchOnMount={true}
                   >
                     Privacy Policy
-                  </Link>
+                  </FastLink>
                 </motion.div>
                 <span className="text-muted-foreground">•</span>
                 <motion.div
                   whileHover={{ scale: 1.05 }}
                   transition={{ duration: 0.2 }}
                 >
-                  <Link
+                  <FastLink
                     href="/terms"
                     className="text-muted-foreground hover:text-primary transition-colors duration-200 hover:underline"
+                    prefetchOnMount={true}
                   >
                     Terms of Service
-                  </Link>
+                  </FastLink>
                 </motion.div>
                 <span className="text-muted-foreground">•</span>
                 <motion.div
                   whileHover={{ scale: 1.05 }}
                   transition={{ duration: 0.2 }}
                 >
-                  <Link
+                  <FastLink
                     href="/support"
                     className="text-muted-foreground hover:text-primary transition-colors duration-200 hover:underline"
+                    prefetchOnMount={true}
                   >
                     Support
-                  </Link>
+                  </FastLink>
                 </motion.div>
               </div>
             </div>
