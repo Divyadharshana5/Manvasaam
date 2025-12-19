@@ -75,6 +75,13 @@ footer {
 
 /* Prevent any animation from blocking scroll */
 /* Note: Cannot use wildcard with @keyframes, so we target animated elements instead */
+[style*="animation"], 
+.animate-spin, 
+.animate-pulse, 
+.animate-bounce,
+[class*="animate-"] {
+  overflow-y: visible !important;
+}
 
 /* Force scroll on any problematic elements */
 [style*="overflow: hidden"] {
