@@ -155,6 +155,7 @@ export default function RootLayout({
               margin: 0;
               padding: 0;
               overflow-x: hidden;
+              overflow-y: auto;
               width: 100%;
               min-height: 100vh;
               position: relative;
