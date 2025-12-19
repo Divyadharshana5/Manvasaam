@@ -1,173 +1,137 @@
-/**
- * Fast Navigation Hook - Easy access to optimized navigation
- */
+"use client";
 
-import { useCallback } from "react";
-import { useFastNavigation } from "@/lib/navigation-optimizer";
+import { useRouter } from "next/navigation";
+import { useCallback, useEffect, useState } from "react";
 
-export function useFastNavigationHook() {
-  const { navigateWithPreload, preloadRoute } = useFastNavigation();
+interface NavigationState {
+  isNavigating: boolean;
+  currentRoute: string;
+  prefetchedRoutes: Set<string>;
+}
 
-  // Navigate to a route with instant preloading
-  const navigate = useCallback(
-    (
-      route: string,
-      options?: {
-        preloadNext?: string[];
-        showLoading?: boolean;
-      }
-    ) => {
-      const { preloadNext = [], showLoading = true } = options || {};
+export function useFastNavigation() {
+  const router = useRouter();
+  const [navigationState, setNavigationState] = useState<NavigationState>({
+    isNavigating: false,
+    currentRoute: typeof window !== 'undefined' ? window.location.pathname : '/',
+    prefetchedRoutes: new Set(),
+  });
 
-      navigateWithPreload(route, preloadNext);
-    },
-    [navigateWithPreload]
-  );
+  // Prefetch a route with caching
+  const prefetchRoute = useCallback((route: string) => {
+    if (navigationState.prefetchedRoutes.has(route)) {
+      return; // Already prefetched
+    }
 
-  // Preload a route for instant navigation later
-  const preload = useCallback(
-    (route: string, priority: "high" | "normal" = "normal") => {
-      preloadRoute(route, priority);
-    },
-    [preloadRoute]
-  );
+    // Next.js prefetch
+    router.prefetch(route);
 
-  // Preload multiple routes in batch
-  const batchPreload = useCallback(
-    (routes: string[], priority: "high" | "normal" = "normal") => {
-      routes.forEach((route, index) => {
-        setTimeout(() => preloadRoute(route, priority), index * 10);
+    // Browser-level prefetch
+    const link = document.createElement('link');
+    link.rel = 'prefetch';
+    link.href = route;
+    link.as = 'document';
+    document.head.appendChild(link);
+
+    // Service Worker prefetch
+    if ('serviceWorker' in navigator && navigator.serviceWorker.controller) {
+      navigator.serviceWorker.controller.postMessage({
+        type: 'PREFETCH_ROUTE',
+        route,
       });
-    },
-    [preloadRoute]
-  );
+    }
 
-  // Navigate with role-based preloading
-  const navigateWithRole = useCallback(
-    (route: string, userRole?: string) => {
-      const roleBasedRoutes: Record<string, string[]> = {
-        farmer: ["/dashboard/farmer", "/dashboard/farmer/products"],
-        retail: ["/dashboard/retail", "/dashboard/retail/products"],
-        transport: ["/dashboard/transport", "/dashboard/transport/orders"],
-      };
+    setNavigationState(prev => ({
+      ...prev,
+      prefetchedRoutes: new Set([...prev.prefetchedRoutes, route]),
+    }));
+  }, [router, navigationState.prefetchedRoutes]);
 
-      const preloadNext = userRole ? roleBasedRoutes[userRole] || [] : [];
-      navigateWithPreload(route, preloadNext);
-    },
-    [navigateWithPreload]
-  );
+  // Navigate with instant feedback
+  const navigateInstantly = useCallback((route: string) => {
+    setNavigationState(prev => ({ ...prev, isNavigating: true }));
 
-  // Quick navigation to common pages
-  const quickNavigate = useCallback(
-    {
-      home: () => navigate("/"),
-      privacy: () => navigate("/privacy"),
-      terms: () => navigate("/terms"),
-      support: () => navigate("/support"),
-      faq: () => navigate("/dashboard/faq"),
-      login: (role: string) => navigate(`/login/${role}`),
-      dashboard: (role: string) => navigate(`/dashboard/${role}`),
-    },
-    [navigate]
-  );
+    // Add visual feedback
+    document.body.classList.add('page-transitioning');
+
+    // Prefetch one more time for maximum speed
+    router.prefetch(route);
+
+    // Navigate
+    router.push(route);
+
+    // Haptic feedback for mobile
+    if ('vibrate' in navigator) {
+      navigator.vibrate(50);
+    }
+
+    // Clean up after navigation
+    setTimeout(() => {
+      document.body.classList.remove('page-transitioning');
+      setNavigationState(prev => ({ 
+        ...prev, 
+        isNavigating: false,
+        currentRoute: route 
+      }));
+    }, 300);
+  }, [router]);
+
+  // Bulk prefetch multiple routes
+  const prefetchRoutes = useCallback((routes: string[]) => {
+    routes.forEach(route => prefetchRoute(route));
+  }, [prefetchRoute]);
+
+  // Preload critical resources for a route
+  const preloadRoute = useCallback((route: string) => {
+    // Preload the route
+    const preloadLink = document.createElement('link');
+    preloadLink.rel = 'preload';
+    preloadLink.href = route;
+    preloadLink.as = 'document';
+    document.head.appendChild(preloadLink);
+
+    // Also prefetch it
+    prefetchRoute(route);
+  }, [prefetchRoute]);
+
+  // Monitor route changes
+  useEffect(() => {
+    const handleRouteChange = () => {
+      setNavigationState(prev => ({
+        ...prev,
+        currentRoute: window.location.pathname,
+        isNavigating: false,
+      }));
+      document.body.classList.remove('page-transitioning');
+    };
+
+    // Listen for popstate (back/forward navigation)
+    window.addEventListener('popstate', handleRouteChange);
+
+    return () => {
+      window.removeEventListener('popstate', handleRouteChange);
+    };
+  }, []);
+
+  // Cleanup prefetch links on unmount
+  useEffect(() => {
+    return () => {
+      const links = document.querySelectorAll('link[rel="prefetch"], link[rel="preload"]');
+      links.forEach(link => {
+        if (navigationState.prefetchedRoutes.has(link.getAttribute('href') || '')) {
+          link.remove();
+        }
+      });
+    };
+  }, [navigationState.prefetchedRoutes]);
 
   return {
-    navigate,
-    preload,
-    batchPreload,
-    navigateWithRole,
-    quickNavigate,
-    // Utility functions
-    isPreloaded: (route: string) => {
-      // Check if route is in preloaded routes (this would need to be exposed from the optimizer)
-      return false; // Placeholder - would need to be implemented
-    },
+    navigationState,
+    prefetchRoute,
+    prefetchRoutes,
+    preloadRoute,
+    navigateInstantly,
+    isNavigating: navigationState.isNavigating,
+    currentRoute: navigationState.currentRoute,
   };
-}
-
-// Specialized hooks for different user types
-export function useFarmerNavigation() {
-  const { navigate, preload } = useFastNavigationHook();
-
-  const navigateToFarmerPages = useCallback(
-    (page: string) => {
-      const route = `/dashboard/farmer${page ? `/${page}` : ""}`;
-      navigate(route, {
-        preloadNext: [
-          "/dashboard/farmer/products",
-          "/dashboard/farmer/matchmaking",
-        ],
-      });
-    },
-    [navigate]
-  );
-
-  return { navigateToFarmerPages, preload };
-}
-
-export function useRetailNavigation() {
-  const { navigate, preload } = useFastNavigationHook();
-
-  const navigateToRetailPages = useCallback(
-    (page: string) => {
-      const route = `/dashboard/retail${page ? `/${page}` : ""}`;
-      navigate(route, {
-        preloadNext: ["/dashboard/retail/products", "/dashboard/retail/orders"],
-      });
-    },
-    [navigate]
-  );
-
-  return { navigateToRetailPages, preload };
-}
-
-export function useTransportNavigation() {
-  const { navigate, preload } = useFastNavigationHook();
-
-  const navigateToTransportPages = useCallback(
-    (page: string) => {
-      const route = `/dashboard/transport${page ? `/${page}` : ""}`;
-      navigate(route, {
-        preloadNext: ["/dashboard/transport/orders", "/dashboard/transport/vehicles"],
-      });
-    },
-    [navigate]
-  );
-
-  return { navigateToTransportPages, preload };
-}
-
-export function useCustomerNavigation() {
-  const { navigate, preload } = useFastNavigationHook();
-
-  const navigateToCustomerPages = useCallback(
-    (page: string) => {
-      const route = `/dashboard${page ? `/${page}` : ""}`;
-      navigate(route, {
-        preloadNext: ["/dashboard/products", "/dashboard/orders"],
-      });
-    },
-    [navigate]
-  );
-
-  return { navigateToCustomerPages, preload };
-}
-
-export function useRestaurantNavigation() {
-  const { navigate, preload } = useFastNavigationHook();
-
-  const navigateToRestaurantPages = useCallback(
-    (page: string) => {
-      const route = `/dashboard/restaurant${page ? `/${page}` : ""}`;
-      navigate(route, {
-        preloadNext: [
-          "/dashboard/restaurant/orders",
-          "/dashboard/restaurant/products",
-        ],
-      });
-    },
-    [navigate]
-  );
-
-  return { navigateToRestaurantPages, preload };
 }
