@@ -374,6 +374,9 @@ export default function HomePage() {
 
   return (
     <LazyMotion features={domAnimation}>
+      {/* Scroll Fix */}
+      <ScrollFix />
+      
       {/* Instant Navigation Prefetching */}
       <InstantNavigation routes={navigationRoutes} priority="high" />
       
