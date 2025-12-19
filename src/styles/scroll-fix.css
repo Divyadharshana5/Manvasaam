@@ -58,7 +58,7 @@ body::-webkit-scrollbar {
 
 /* Ensure main content can scroll */
 main {
-  overflow-y: visible !important;
+  overflow-y: auto !important;
   height: auto !important;
 }
 
@@ -69,18 +69,13 @@ main {
 
 /* Ensure sections can scroll */
 section {
-  overflow-y: visible !important;
+  overflow-y: auto !important;
   height: auto !important;
-}
-
-/* Fix for any fixed/absolute positioned elements */
-.fixed, .absolute {
-  overflow-y: visible !important;
 }
 
 /* Ensure footer doesn't block scrolling */
 footer {
-  overflow-y: visible !important;
+  overflow-y: auto !important;
   position: relative !important;
 }
 
