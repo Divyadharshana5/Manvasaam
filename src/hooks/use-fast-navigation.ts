@@ -51,7 +51,7 @@ export function useFastNavigation() {
   const navigateInstantly = useCallback((route: string) => {
     setNavigationState(prev => ({ ...prev, isNavigating: true }));
 
-    // Add visual feedback
+    // Add visual feedback without blocking scroll
     document.body.classList.add('page-transitioning');
 
     // Prefetch one more time for maximum speed
@@ -65,7 +65,7 @@ export function useFastNavigation() {
       navigator.vibrate(50);
     }
 
-    // Clean up after navigation
+    // Clean up after navigation - shorter timeout to avoid blocking
     setTimeout(() => {
       document.body.classList.remove('page-transitioning');
       setNavigationState(prev => ({ 
@@ -73,7 +73,7 @@ export function useFastNavigation() {
         isNavigating: false,
         currentRoute: route 
       }));
-    }, 300);
+    }, 150);
   }, [router]);
 
   // Bulk prefetch multiple routes
