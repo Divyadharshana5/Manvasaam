@@ -384,7 +384,7 @@ export default function HomePage() {
         />
       )}
       
-      <div className="relative mobile-container bg-gradient-to-br from-green-50 via-blue-50 to-purple-50">
+      <div className="relative mobile-container bg-gradient-to-br from-green-50 via-blue-50 to-purple-50 min-h-screen">
         {/* Optimized Animated Background Elements */}
         <AnimatedBackground />
 
