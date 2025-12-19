@@ -437,13 +437,13 @@ export default function HomePage() {
 
         <main className="flex flex-col items-center pt-16 sm:pt-20 md:pt-24 px-4 sm:px-6 md:px-8 pb-8 relative z-10">
           <div
-            className="absolute inset-0 z-0 bg-cover bg-center bg-no-repeat bg-fixed bg-ken-burns"
+            className="absolute inset-0 z-0 bg-cover bg-center bg-no-repeat bg-fixed bg-ken-burns pointer-events-none"
             style={{
               backgroundImage: "url('/bg-agri.png')",
               willChange: "transform",
             }}
           ></div>
-          <div className="absolute inset-0 bg-background/30 z-0"></div>
+          <div className="absolute inset-0 bg-background/30 z-0 pointer-events-none"></div>
 
           <section className="text-center w-full max-w-7xl mx-auto z-10 px-2 sm:px-4">
             <motion.h1
