@@ -149,6 +149,10 @@ export default function RootLayout({
               font-size: 16px;
               -webkit-text-size-adjust: 100%;
               text-size-adjust: 100%;
+              scroll-behavior: smooth;
+              overflow-x: hidden;
+              overflow-y: auto;
+              height: 100%;
             }
             body { 
               font-family: ${fontFamily};
