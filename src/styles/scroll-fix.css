@@ -135,7 +135,7 @@ footer {
 .animate-pulse, 
 .animate-bounce,
 [class*="animate-"] {
-  overflow-y: visible !important;
+  overflow-y: auto !important;
 }
 
 /* Force scroll on any problematic elements */
