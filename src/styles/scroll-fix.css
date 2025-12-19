@@ -156,8 +156,31 @@ footer {
 /* Force scroll on any problematic elements */
 [style*="overflow: hidden"] {
   overflow-y: auto !important;
+  scrollbar-width: none !important;
+  -ms-overflow-style: none !important;
 }
 
 [style*="overflow-y: hidden"] {
   overflow-y: auto !important;
+  scrollbar-width: none !important;
+  -ms-overflow-style: none !important;
+}
+
+/* Additional scrollbar hiding for specific elements */
+div, section, main, article, aside, nav, header, footer {
+  scrollbar-width: none !important;
+  -ms-overflow-style: none !important;
+}
+
+div::-webkit-scrollbar,
+section::-webkit-scrollbar,
+main::-webkit-scrollbar,
+article::-webkit-scrollbar,
+aside::-webkit-scrollbar,
+nav::-webkit-scrollbar,
+header::-webkit-scrollbar,
+footer::-webkit-scrollbar {
+  display: none !important;
+  width: 0 !important;
+  height: 0 !important;
 }
