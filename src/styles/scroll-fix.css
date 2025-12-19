@@ -1,0 +1,88 @@
+/* Scroll Fix CSS - Ensures proper scrolling behavior */
+
+/* Force scrolling to work on all elements */
+html, body {
+  overflow-y: auto !important;
+  overflow-x: hidden !important;
+  height: auto !important;
+  scroll-behavior: smooth;
+}
+
+/* Prevent any component from blocking scroll */
+* {
+  overflow-y: visible !important;
+}
+
+/* Specific fixes for containers */
+.mobile-container,
+.scrollable-container {
+  overflow-y: auto !important;
+  overflow-x: hidden !important;
+  height: auto !important;
+  min-height: 100vh;
+}
+
+/* Ensure main content can scroll */
+main {
+  overflow-y: visible !important;
+  height: auto !important;
+}
+
+/* Fix for navigation states */
+.page-transitioning {
+  overflow-y: auto !important;
+}
+
+/* Ensure sections can scroll */
+section {
+  overflow-y: visible !important;
+  height: auto !important;
+}
+
+/* Fix for any fixed/absolute positioned elements */
+.fixed, .absolute {
+  overflow-y: visible !important;
+}
+
+/* Ensure footer doesn't block scrolling */
+footer {
+  overflow-y: visible !important;
+  position: relative !important;
+}
+
+/* Mobile scroll fixes */
+@media (max-width: 768px) {
+  html, body {
+    overflow-y: auto !important;
+    -webkit-overflow-scrolling: touch;
+    height: auto !important;
+  }
+  
+  .mobile-container {
+    overflow-y: auto !important;
+    height: auto !important;
+    min-height: 100vh;
+  }
+}
+
+/* Webkit scroll fixes */
+@supports (-webkit-overflow-scrolling: touch) {
+  html, body {
+    -webkit-overflow-scrolling: touch;
+    overflow-y: auto !important;
+  }
+}
+
+/* Prevent any animation from blocking scroll */
+@keyframes * {
+  overflow-y: auto !important;
+}
+
+/* Force scroll on any problematic elements */
+[style*="overflow: hidden"] {
+  overflow-y: auto !important;
+}
+
+[style*="overflow-y: hidden"] {
+  overflow-y: auto !important;
+}
