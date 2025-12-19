@@ -167,7 +167,6 @@ export default function RootLayout({
             /* Fast navigation optimizations */
             .page-transitioning {
               cursor: wait;
-              overflow: hidden;
             }
             .page-transitioning * {
               pointer-events: none;
