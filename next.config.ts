@@ -16,8 +16,9 @@ const nextConfig: NextConfig = {
   
   // Experimental features for faster navigation
   experimental: {
-    optimizePackageImports: ['lucide-react', '@/components/ui'],
+    optimizePackageImports: ['lucide-react', '@/components/ui', 'framer-motion'],
     scrollRestoration: true,
+    optimisticClientCache: true,
   },
   // Image optimization
   images: {
