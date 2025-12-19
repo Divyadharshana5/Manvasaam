@@ -349,8 +349,25 @@ export default function HomePage() {
     [prefersReducedMotion]
   );
 
+  // Define all navigation routes for prefetching
+  const navigationRoutes = useMemo(() => [
+    "/login/farmer",
+    "/login/transport", 
+    "/login/retail",
+    "/dashboard/retail",
+    "/dashboard/transport",
+    "/dashboard/retail/suppliers",
+    "/dashboard/retail/orders",
+    "/privacy",
+    "/terms",
+    "/support"
+  ], []);
+
   return (
     <LazyMotion features={domAnimation}>
+      {/* Instant Navigation Prefetching */}
+      <InstantNavigation routes={navigationRoutes} priority="high" />
+      
       <div className="relative mobile-container bg-gradient-to-br from-green-50 via-blue-50 to-purple-50">
         {/* Optimized Animated Background Elements */}
         <AnimatedBackground />
