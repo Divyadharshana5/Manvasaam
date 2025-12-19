@@ -305,8 +305,13 @@ export default function HomePage() {
       // Set loading state immediately
       setLoadingRoleHref(href);
       
-      // Navigate immediately - no delays
+      // Instant navigation with optimistic UI
       router.push(href);
+      
+      // Optional: Add haptic feedback for mobile devices
+      if ('vibrate' in navigator) {
+        navigator.vibrate(50);
+      }
     },
     [router]
   );
