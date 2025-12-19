@@ -74,9 +74,7 @@ footer {
 }
 
 /* Prevent any animation from blocking scroll */
-@keyframes * {
-  overflow-y: auto !important;
-}
+/* Note: Cannot use wildcard with @keyframes, so we target animated elements instead */
 
 /* Force scroll on any problematic elements */
 [style*="overflow: hidden"] {
