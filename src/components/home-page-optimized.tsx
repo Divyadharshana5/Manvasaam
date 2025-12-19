@@ -569,10 +569,10 @@ export default function HomePage() {
                     whileHover={{ scale: 1.1, y: -2 }}
                     transition={{ duration: 0.2 }}
                   >
-                    <Link
+                    <FastLink
                       href={role.href}
                       className="flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-gradient-to-r from-green-50 to-primary/5 hover:from-primary/10 hover:to-green-100 border border-primary/20 hover:border-primary/40 transition-all duration-200 text-xs font-medium text-foreground hover:text-primary shadow-sm hover:shadow-md"
-                      onMouseEnter={() => router.prefetch(role.href)}
+                      prefetchOnMount={true}
                     >
                       <span className="text-sm">
                         {role.name === t.roles.farmer.name && "🌾"}
@@ -580,7 +580,7 @@ export default function HomePage() {
                         {role.name === "Retail Shops" && "🏪"}
                       </span>
                       <span>{role.name}</span>
-                    </Link>
+                    </FastLink>
                   </motion.div>
                 ))}
               </div>
