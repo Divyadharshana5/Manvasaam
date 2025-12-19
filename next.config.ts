@@ -19,6 +19,7 @@ const nextConfig: NextConfig = {
     optimizePackageImports: ['lucide-react', '@/components/ui', 'framer-motion'],
     scrollRestoration: true,
     optimisticClientCache: true,
+    serverComponentsExternalPackages: ['@firebase/app', '@firebase/auth'],
   },
   // Image optimization
   images: {
@@ -87,7 +88,7 @@ const nextConfig: NextConfig = {
 
     return config;
   },
-  // Headers for caching
+  // Headers for caching and performance
   async headers() {
     return [
       {
@@ -105,6 +106,10 @@ const nextConfig: NextConfig = {
             key: 'X-XSS-Protection',
             value: '1; mode=block',
           },
+          {
+            key: 'X-DNS-Prefetch-Control',
+            value: 'on',
+          },
         ],
       },
       {
@@ -113,6 +118,28 @@ const nextConfig: NextConfig = {
           {
             key: 'Cache-Control',
             value: 'public, max-age=31536000, immutable',
+          },
+        ],
+      },
+      {
+        source: '/_next/static/(.*)',
+        headers: [
+          {
+            key: 'Cache-Control',
+            value: 'public, max-age=31536000, immutable',
+          },
+        ],
+      },
+      {
+        source: '/sw.js',
+        headers: [
+          {
+            key: 'Cache-Control',
+            value: 'public, max-age=0, must-revalidate',
+          },
+          {
+            key: 'Service-Worker-Allowed',
+            value: '/',
           },
         ],
       },
