@@ -119,6 +119,12 @@ const RoleCard = ({
 
   const handleHover = useCallback(() => {
     router.prefetch(role.href);
+    // Additional browser-level prefetch for instant navigation
+    const link = document.createElement('link');
+    link.rel = 'prefetch';
+    link.href = role.href;
+    link.as = 'document';
+    document.head.appendChild(link);
   }, [router, role.href]);
 
   const handleClick = useCallback(() => {
