@@ -312,6 +312,13 @@
 /* Smooth scrolling for navigation */
 html {
   scroll-behavior: smooth;
+  overflow-x: hidden;
+  overflow-y: auto;
+}
+
+body {
+  overflow-x: hidden;
+  overflow-y: auto;
 }
 
 /* Optimize paint and layout */
