@@ -36,6 +36,7 @@ import { useRouter } from "next/navigation";
 import { VoiceAssistantGlobal } from "@/components/VoiceAssistantGlobal";
 import { InstantNavigation, useInstantNavigation } from "@/components/instant-navigation";
 import { FastLink } from "@/components/fast-link";
+import { useFastNavigation } from "@/hooks/use-fast-navigation";
 
 // Lazy load AI components for better initial load performance
 const ProductShowcase = lazy(() => import("@/components/product-showcase"));
@@ -184,6 +185,7 @@ export default function HomePage() {
   const { selectedLanguage, setSelectedLanguage, t } = useLanguage();
   const router = useRouter();
   const { navigateInstantly, prefetchRoute } = useInstantNavigation();
+  const { prefetchRoutes, isNavigating } = useFastNavigation();
 
   const [loadingRoleHref, setLoadingRoleHref] = useState<string | null>(null);
 
@@ -364,10 +366,23 @@ export default function HomePage() {
     "/support"
   ], []);
 
+  // Prefetch all routes on mount for instant navigation
+  useEffect(() => {
+    prefetchRoutes(navigationRoutes);
+  }, [prefetchRoutes, navigationRoutes]);
+
   return (
     <LazyMotion features={domAnimation}>
       {/* Instant Navigation Prefetching */}
       <InstantNavigation routes={navigationRoutes} priority="high" />
+      
+      {/* Navigation Progress Indicator */}
+      {isNavigating && (
+        <div 
+          id="nav-progress" 
+          className="fixed top-0 left-0 w-full h-1 bg-gradient-to-r from-primary to-green-600 z-50 animate-pulse"
+        />
+      )}
       
       <div className="relative mobile-container bg-gradient-to-br from-green-50 via-blue-50 to-purple-50">
         {/* Optimized Animated Background Elements */}
