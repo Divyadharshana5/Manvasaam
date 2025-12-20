@@ -388,7 +388,7 @@ export default function HomePage() {
         />
       )}
       
-      <div className="relative mobile-container scrollable-container bg-gradient-to-br from-green-50 via-blue-50 to-purple-50 min-h-screen">
+      <div className="relative mobile-container scrollable-container home-page bg-gradient-to-br from-green-50 via-blue-50 to-purple-50 min-h-screen" data-page="home">
         {/* Optimized Animated Background Elements */}
         <AnimatedBackground />
 
