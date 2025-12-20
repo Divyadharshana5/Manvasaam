@@ -4,33 +4,60 @@ import { useEffect } from "react";
 
 export function ScrollFix() {
   useEffect(() => {
-    // Ensure body can scroll
-    const ensureScrollable = () => {
-      // Force scroll on html and body
-      document.body.style.setProperty('overflow-y', 'auto', 'important');
-      document.body.style.setProperty('overflow-x', 'hidden', 'important');
-      document.body.style.setProperty('height', 'auto', 'important');
+    // Ultra-aggressive scrollbar hiding
+    const hideScrollbars = () => {
+      // Force hide scrollbars with inline styles (highest priority)
+      const elements = [document.documentElement, document.body];
       
-      document.documentElement.style.setProperty('overflow-y', 'auto', 'important');
-      document.documentElement.style.setProperty('overflow-x', 'hidden', 'important');
-      document.documentElement.style.setProperty('height', 'auto', 'important');
+      elements.forEach(element => {
+        if (element) {
+          element.style.setProperty('scrollbar-width', 'none', 'important');
+          element.style.setProperty('-ms-overflow-style', 'none', 'important');
+          element.style.setProperty('overflow-y', 'auto', 'important');
+          element.style.setProperty('overflow-x', 'hidden', 'important');
+        }
+      });
+
+      // Add CSS to hide webkit scrollbars
+      const style = document.createElement('style');
+      style.textContent = `
+        html::-webkit-scrollbar,
+        body::-webkit-scrollbar,
+        *::-webkit-scrollbar {
+          display: none !important;
+          width: 0px !important;
+          height: 0px !important;
+          opacity: 0 !important;
+          visibility: hidden !important;
+        }
+        html, body, * {
+          scrollbar-width: none !important;
+          -ms-overflow-style: none !important;
+        }
+      `;
+      document.head.appendChild(style);
+
+      // Add classes to ensure scrollbar hiding
+      document.documentElement.classList.add('hide-scrollbar', 'no-scrollbar', 'scrollbar-hidden');
+      document.body.classList.add('hide-scrollbar', 'no-scrollbar', 'scrollbar-hidden');
       
-      // Ensure main containers can scroll
-      const containers = document.querySelectorAll('.mobile-container, .scrollable-container, main');
+      // Find and update all containers
+      const containers = document.querySelectorAll('.mobile-container, .scrollable-container, .home-page, [data-page="home"]');
       containers.forEach(container => {
         if (container instanceof HTMLElement) {
-          container.style.setProperty('overflow-y', 'auto', 'important');
-          container.style.setProperty('height', 'auto', 'important');
+          container.style.setProperty('scrollbar-width', 'none', 'important');
+          container.style.setProperty('-ms-overflow-style', 'none', 'important');
+          container.classList.add('hide-scrollbar', 'no-scrollbar', 'scrollbar-hidden');
         }
       });
     };
 
     // Apply immediately
-    ensureScrollable();
+    hideScrollbars();
 
     // Apply after DOM changes
     const observer = new MutationObserver(() => {
-      ensureScrollable();
+      hideScrollbars();
     });
     
     observer.observe(document.body, {
@@ -40,42 +67,43 @@ export function ScrollFix() {
       attributeFilter: ['style', 'class']
     });
 
-    // Also apply after any navigation
+    // Apply after any navigation or route changes
     const handleRouteChange = () => {
-      setTimeout(ensureScrollable, 50);
-      setTimeout(ensureScrollable, 200);
+      setTimeout(hideScrollbars, 10);
+      setTimeout(hideScrollbars, 100);
+      setTimeout(hideScrollbars, 500);
     };
 
-    // Listen for navigation events
+    // Listen for all possible events that might affect scrollbars
     window.addEventListener('popstate', handleRouteChange);
     window.addEventListener('beforeunload', handleRouteChange);
+    window.addEventListener('load', hideScrollbars);
+    window.addEventListener('resize', hideScrollbars);
+    document.addEventListener('DOMContentLoaded', hideScrollbars);
     
-    // Clean up navigation classes that might block scrolling
-    const cleanupNavigationClasses = () => {
-      document.body.classList.remove('page-transitioning');
-      document.documentElement.classList.remove('page-transitioning');
+    // Continuous monitoring to ensure scrollbars stay hidden
+    const continuousHiding = setInterval(() => {
+      hideScrollbars();
       
-      // Remove any overflow hidden styles
+      // Remove any overflow hidden styles that might block scrolling
       const elementsWithHiddenOverflow = document.querySelectorAll('[style*="overflow: hidden"], [style*="overflow-y: hidden"]');
       elementsWithHiddenOverflow.forEach(element => {
         if (element instanceof HTMLElement && !element.classList.contains('dropdown-menu')) {
           element.style.setProperty('overflow-y', 'auto', 'important');
+          element.style.setProperty('scrollbar-width', 'none', 'important');
+          element.style.setProperty('-ms-overflow-style', 'none', 'important');
         }
       });
-    };
-
-    // Clean up immediately and periodically
-    cleanupNavigationClasses();
-    const interval = setInterval(() => {
-      cleanupNavigationClasses();
-      ensureScrollable();
-    }, 500);
+    }, 100);
 
     return () => {
       window.removeEventListener('popstate', handleRouteChange);
       window.removeEventListener('beforeunload', handleRouteChange);
+      window.removeEventListener('load', hideScrollbars);
+      window.removeEventListener('resize', hideScrollbars);
+      document.removeEventListener('DOMContentLoaded', hideScrollbars);
       observer.disconnect();
-      clearInterval(interval);
+      clearInterval(continuousHiding);
     };
   }, []);
 
