@@ -1,0 +1,198 @@
+/* ULTIMATE SCROLLBAR HIDING - NUCLEAR APPROACH */
+/* This CSS file is specifically designed to completely hide all scrollbars */
+
+/* Global scrollbar hiding with maximum specificity */
+html, html *, body, body * {
+  scrollbar-width: none !important;
+  -ms-overflow-style: none !important;
+}
+
+/* Webkit scrollbar hiding with maximum specificity */
+html::-webkit-scrollbar,
+html *::-webkit-scrollbar,
+body::-webkit-scrollbar,
+body *::-webkit-scrollbar,
+*::-webkit-scrollbar {
+  display: none !important;
+  width: 0px !important;
+  height: 0px !important;
+  background: transparent !important;
+  opacity: 0 !important;
+  visibility: hidden !important;
+}
+
+/* Hide all scrollbar components */
+html::-webkit-scrollbar-track,
+html *::-webkit-scrollbar-track,
+body::-webkit-scrollbar-track,
+body *::-webkit-scrollbar-track,
+*::-webkit-scrollbar-track {
+  display: none !important;
+  width: 0px !important;
+  height: 0px !important;
+  background: transparent !important;
+  opacity: 0 !important;
+  visibility: hidden !important;
+}
+
+html::-webkit-scrollbar-thumb,
+html *::-webkit-scrollbar-thumb,
+body::-webkit-scrollbar-thumb,
+body *::-webkit-scrollbar-thumb,
+*::-webkit-scrollbar-thumb {
+  display: none !important;
+  width: 0px !important;
+  height: 0px !important;
+  background: transparent !important;
+  opacity: 0 !important;
+  visibility: hidden !important;
+}
+
+html::-webkit-scrollbar-corner,
+html *::-webkit-scrollbar-corner,
+body::-webkit-scrollbar-corner,
+body *::-webkit-scrollbar-corner,
+*::-webkit-scrollbar-corner {
+  display: none !important;
+  width: 0px !important;
+  height: 0px !important;
+  background: transparent !important;
+  opacity: 0 !important;
+  visibility: hidden !important;
+}
+
+/* Force hide on all possible elements */
+div, span, section, main, article, aside, nav, header, footer, 
+ul, ol, li, p, h1, h2, h3, h4, h5, h6, 
+table, tr, td, th, tbody, thead, tfoot,
+form, input, textarea, select, button,
+canvas, svg, img, video, audio,
+iframe, embed, object {
+  scrollbar-width: none !important;
+  -ms-overflow-style: none !important;
+}
+
+div::-webkit-scrollbar, span::-webkit-scrollbar, section::-webkit-scrollbar, 
+main::-webkit-scrollbar, article::-webkit-scrollbar, aside::-webkit-scrollbar, 
+nav::-webkit-scrollbar, header::-webkit-scrollbar, footer::-webkit-scrollbar,
+ul::-webkit-scrollbar, ol::-webkit-scrollbar, li::-webkit-scrollbar, 
+p::-webkit-scrollbar, h1::-webkit-scrollbar, h2::-webkit-scrollbar, 
+h3::-webkit-scrollbar, h4::-webkit-scrollbar, h5::-webkit-scrollbar, h6::-webkit-scrollbar,
+table::-webkit-scrollbar, tr::-webkit-scrollbar, td::-webkit-scrollbar, th::-webkit-scrollbar,
+tbody::-webkit-scrollbar, thead::-webkit-scrollbar, tfoot::-webkit-scrollbar,
+form::-webkit-scrollbar, input::-webkit-scrollbar, textarea::-webkit-scrollbar, 
+select::-webkit-scrollbar, button::-webkit-scrollbar,
+canvas::-webkit-scrollbar, svg::-webkit-scrollbar, img::-webkit-scrollbar, 
+video::-webkit-scrollbar, audio::-webkit-scrollbar,
+iframe::-webkit-scrollbar, embed::-webkit-scrollbar, object::-webkit-scrollbar {
+  display: none !important;
+  width: 0px !important;
+  height: 0px !important;
+  opacity: 0 !important;
+  visibility: hidden !important;
+}
+
+/* Class-based hiding */
+.hide-scrollbar,
+.hide-scrollbar *,
+.no-scrollbar,
+.no-scrollbar *,
+.scrollbar-hidden,
+.scrollbar-hidden * {
+  scrollbar-width: none !important;
+  -ms-overflow-style: none !important;
+}
+
+.hide-scrollbar::-webkit-scrollbar,
+.hide-scrollbar *::-webkit-scrollbar,
+.no-scrollbar::-webkit-scrollbar,
+.no-scrollbar *::-webkit-scrollbar,
+.scrollbar-hidden::-webkit-scrollbar,
+.scrollbar-hidden *::-webkit-scrollbar {
+  display: none !important;
+  width: 0px !important;
+  height: 0px !important;
+  opacity: 0 !important;
+  visibility: hidden !important;
+}
+
+/* Container-specific hiding */
+.mobile-container,
+.mobile-container *,
+.scrollable-container,
+.scrollable-container *,
+.home-page,
+.home-page *,
+[data-page="home"],
+[data-page="home"] * {
+  scrollbar-width: none !important;
+  -ms-overflow-style: none !important;
+}
+
+.mobile-container::-webkit-scrollbar,
+.mobile-container *::-webkit-scrollbar,
+.scrollable-container::-webkit-scrollbar,
+.scrollable-container *::-webkit-scrollbar,
+.home-page::-webkit-scrollbar,
+.home-page *::-webkit-scrollbar,
+[data-page="home"]::-webkit-scrollbar,
+[data-page="home"] *::-webkit-scrollbar {
+  display: none !important;
+  width: 0px !important;
+  height: 0px !important;
+  opacity: 0 !important;
+  visibility: hidden !important;
+}
+
+/* Attribute-based hiding */
+[style*="overflow"],
+[style*="scroll"] {
+  scrollbar-width: none !important;
+  -ms-overflow-style: none !important;
+}
+
+[style*="overflow"]::-webkit-scrollbar,
+[style*="scroll"]::-webkit-scrollbar {
+  display: none !important;
+  width: 0px !important;
+  height: 0px !important;
+  opacity: 0 !important;
+  visibility: hidden !important;
+}
+
+/* Mobile-specific hiding */
+@media (max-width: 768px) {
+  html, html *, body, body *, * {
+    scrollbar-width: none !important;
+    -ms-overflow-style: none !important;
+    -webkit-overflow-scrolling: touch;
+  }
+  
+  html::-webkit-scrollbar,
+  html *::-webkit-scrollbar,
+  body::-webkit-scrollbar,
+  body *::-webkit-scrollbar,
+  *::-webkit-scrollbar {
+    display: none !important;
+    width: 0px !important;
+    height: 0px !important;
+    opacity: 0 !important;
+    visibility: hidden !important;
+  }
+}
+
+/* Ensure scrolling still works */
+html, body {
+  overflow-y: auto !important;
+  overflow-x: hidden !important;
+}
+
+/* Force hide with CSS variables */
+:root {
+  --scrollbar-width: 0px;
+  --scrollbar-height: 0px;
+}
+
+* {
+  scrollbar-width: var(--scrollbar-width) !important;
+}
