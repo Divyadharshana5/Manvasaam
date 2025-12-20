@@ -191,7 +191,7 @@ export default function RootLayout({
           }}
         />
       </head>
-      <body className="font-sans antialiased scroll-enabled">
+      <body className="font-sans antialiased scroll-enabled hide-scrollbar no-scrollbar">
         <FirebaseErrorBoundary>
           <LanguageProvider>
             <NavigationProvider>
