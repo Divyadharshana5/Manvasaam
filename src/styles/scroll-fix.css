@@ -184,3 +184,22 @@ footer::-webkit-scrollbar {
   width: 0 !important;
   height: 0 !important;
 }
+
+/* Specific homepage scrollbar hiding */
+.home-page,
+.home-page *,
+[data-page="home"],
+[data-page="home"] * {
+  scrollbar-width: none !important;
+  -ms-overflow-style: none !important;
+}
+
+.home-page::-webkit-scrollbar,
+.home-page *::-webkit-scrollbar,
+[data-page="home"]::-webkit-scrollbar,
+[data-page="home"] *::-webkit-scrollbar {
+  display: none !important;
+  width: 0 !important;
+  height: 0 !important;
+  background: transparent !important;
+}
