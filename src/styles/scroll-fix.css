@@ -203,3 +203,22 @@ footer::-webkit-scrollbar {
   height: 0 !important;
   background: transparent !important;
 }
+
+/* Ultimate scrollbar hiding - nuclear option */
+::-webkit-scrollbar {
+  display: none !important;
+  width: 0 !important;
+  height: 0 !important;
+}
+
+::-webkit-scrollbar-track {
+  display: none !important;
+}
+
+::-webkit-scrollbar-thumb {
+  display: none !important;
+}
+
+::-webkit-scrollbar-corner {
+  display: none !important;
+}
