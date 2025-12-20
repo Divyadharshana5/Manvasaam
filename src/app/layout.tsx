@@ -1,5 +1,6 @@
 import type { Metadata, Viewport } from "next";
 
+import "../styles/hide-scrollbar.css";
 import "./globals.css";
 import "./background.css";
 import "../styles/navigation-transitions.css";
