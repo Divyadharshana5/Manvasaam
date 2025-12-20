@@ -100,8 +100,8 @@ footer {
     overflow-y: auto !important;
     -webkit-overflow-scrolling: touch;
     height: auto !important;
-    scrollbar-width: none; /* Firefox */
-    -ms-overflow-style: none; /* Internet Explorer 10+ */
+    scrollbar-width: none !important; /* Firefox */
+    -ms-overflow-style: none !important; /* Internet Explorer 10+ */
   }
   
   html::-webkit-scrollbar,
@@ -131,15 +131,15 @@ footer {
   html, body {
     -webkit-overflow-scrolling: touch;
     overflow-y: auto !important;
-    scrollbar-width: none;
-    -ms-overflow-style: none;
+    scrollbar-width: none !important;
+    -ms-overflow-style: none !important;
   }
   
   html::-webkit-scrollbar,
   body::-webkit-scrollbar {
-    display: none;
-    width: 0;
-    height: 0;
+    display: none !important;
+    width: 0 !important;
+    height: 0 !important;
   }
 }
 
