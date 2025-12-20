@@ -1695,7 +1695,6 @@ export default function TransportDashboard() {
           </Card>
         </motion.div>
       </motion.div>
-      </div>
-    </div>
+    </motion.div>
   );
 }
