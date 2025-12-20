@@ -155,6 +155,15 @@ export default function RootLayout({
               overflow-x: hidden;
               overflow-y: auto;
               height: 100%;
+              scrollbar-width: none !important;
+              -ms-overflow-style: none !important;
+            }
+            html::-webkit-scrollbar {
+              display: none !important;
+              width: 0px !important;
+              height: 0px !important;
+              opacity: 0 !important;
+              visibility: hidden !important;
             }
             body { 
               font-family: ${fontFamily};
@@ -165,11 +174,41 @@ export default function RootLayout({
               width: 100%;
               min-height: 100vh;
               position: relative;
+              scrollbar-width: none !important;
+              -ms-overflow-style: none !important;
+            }
+            body::-webkit-scrollbar {
+              display: none !important;
+              width: 0px !important;
+              height: 0px !important;
+              opacity: 0 !important;
+              visibility: hidden !important;
             }
             .mobile-container { 
               width: 100%; 
               max-width: 100vw; 
               overflow-x: hidden; 
+              scrollbar-width: none !important;
+              -ms-overflow-style: none !important;
+            }
+            .mobile-container::-webkit-scrollbar {
+              display: none !important;
+              width: 0px !important;
+              height: 0px !important;
+              opacity: 0 !important;
+              visibility: hidden !important;
+            }
+            /* Universal scrollbar hiding */
+            *::-webkit-scrollbar {
+              display: none !important;
+              width: 0px !important;
+              height: 0px !important;
+              opacity: 0 !important;
+              visibility: hidden !important;
+            }
+            * {
+              scrollbar-width: none !important;
+              -ms-overflow-style: none !important;
             }
             /* Fast navigation optimizations */
             .page-transitioning {
