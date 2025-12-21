@@ -529,7 +529,7 @@ export default function ProfilePage() {
 
         {/* Enhanced Business Information */}
         {(isRetail || userProfile.company) && (
-          <div className="space-y-6">
+          <div className="profile-section space-y-6">
             <div className="flex items-center gap-3 pb-2 border-b border-gray-200">
               <div className="p-2 bg-gradient-to-br from-purple-50 to-purple-100 rounded-lg">
                 <Briefcase className="h-6 w-6 text-purple-600" />
