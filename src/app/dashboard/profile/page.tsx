@@ -413,46 +413,87 @@ export default function ProfilePage() {
 
     return (
       <div className="space-y-8">
-        {/* Profile Header */}
-        <div className="bg-gradient-to-r from-blue-50 to-indigo-50 rounded-2xl p-6 border border-blue-100 animate-scale-in stagger-1">
-          <div className="flex items-center gap-6">
-            <Avatar className="h-20 w-20 border-4 border-white shadow-lg">
-              <AvatarImage src={userProfile.photoURL || undefined} />
-              <AvatarFallback className="bg-blue-100 text-blue-700 text-2xl font-bold">
-                {getProfileTitle(userProfile)?.charAt(0) || 'U'}
-              </AvatarFallback>
-            </Avatar>
-            <div className="flex-1">
-              <div className="flex items-center gap-3 mb-2">
-                <h2 className="text-2xl font-bold text-gray-900">
+        {/* Enhanced Profile Header */}
+        <div className="relative bg-gradient-to-br from-blue-50 via-indigo-50 to-purple-50 rounded-3xl p-8 border border-blue-100/60 shadow-sm overflow-hidden">
+          {/* Background Pattern */}
+          <div className="absolute inset-0 bg-gradient-to-br from-blue-500/5 to-purple-500/5 rounded-3xl"></div>
+          <div className="absolute top-0 right-0 w-32 h-32 bg-gradient-to-br from-blue-200/20 to-purple-200/20 rounded-full -translate-y-16 translate-x-16"></div>
+          <div className="absolute bottom-0 left-0 w-24 h-24 bg-gradient-to-br from-indigo-200/20 to-blue-200/20 rounded-full translate-y-12 -translate-x-12"></div>
+          
+          <div className="relative flex flex-col md:flex-row items-start md:items-center gap-6">
+            <div className="relative">
+              <Avatar className="h-24 w-24 border-4 border-white shadow-xl ring-2 ring-blue-100/50">
+                <AvatarImage src={userProfile.photoURL || undefined} />
+                <AvatarFallback className="bg-gradient-to-br from-blue-100 to-indigo-100 text-blue-700 text-3xl font-bold">
+                  {getProfileTitle(userProfile)?.charAt(0) || 'U'}
+                </AvatarFallback>
+              </Avatar>
+              {userProfile.verified && (
+                <div className="absolute -bottom-1 -right-1 bg-green-500 rounded-full p-1.5 border-2 border-white shadow-lg">
+                  <CheckCircle className="h-4 w-4 text-white" />
+                </div>
+              )}
+            </div>
+            
+            <div className="flex-1 space-y-3">
+              <div className="flex flex-col sm:flex-row sm:items-center gap-3">
+                <h2 className="text-3xl font-bold text-gray-900 leading-tight">
                   {getProfileTitle(userProfile) || "Profile"}
                 </h2>
-                {userProfile.verified && (
-                  <Badge className="bg-green-100 text-green-800 border-green-200">
-                    <CheckCircle className="h-3 w-3 mr-1" />
-                    Verified
+                <div className="flex items-center gap-2">
+                  {userProfile.verified && (
+                    <Badge className="bg-green-100 text-green-800 border-green-200 px-3 py-1 text-sm font-medium">
+                      <CheckCircle className="h-3 w-3 mr-1.5" />
+                      Verified Account
+                    </Badge>
+                  )}
+                  <Badge variant="outline" className="bg-white/50 border-blue-200 text-blue-700 px-3 py-1 text-sm">
+                    {userProfile.userType?.charAt(0).toUpperCase() + userProfile.userType?.slice(1) || 'User'}
                   </Badge>
-                )}
+                </div>
               </div>
-              <p className="text-gray-600 text-lg">
+              
+              <p className="text-gray-600 text-lg font-medium">
                 {getProfileSubtitle(userProfile)}
               </p>
+              
               {(userProfile.description || userProfile.bio) && (
-                <p className="text-gray-700 mt-3 leading-relaxed">
-                  {userProfile.description || userProfile.bio}
-                </p>
+                <div className="bg-white/60 backdrop-blur-sm rounded-xl p-4 border border-white/80">
+                  <p className="text-gray-700 leading-relaxed text-base">
+                    {userProfile.description || userProfile.bio}
+                  </p>
+                </div>
               )}
+              
+              {/* Quick Stats */}
+              <div className="flex flex-wrap gap-4 pt-2">
+                <div className="flex items-center gap-2 text-sm text-gray-600">
+                  <Calendar className="h-4 w-4 text-blue-500" />
+                  <span>Member since {userProfile.createdAt ? new Date(userProfile.createdAt).getFullYear() : 'Recently'}</span>
+                </div>
+                {userProfile.lastActive && (
+                  <div className="flex items-center gap-2 text-sm text-gray-600">
+                    <Clock className="h-4 w-4 text-green-500" />
+                    <span>Last active recently</span>
+                  </div>
+                )}
+              </div>
             </div>
           </div>
         </div>
 
-        {/* Contact Information */}
-        <div>
-          <h3 className="text-xl font-semibold text-gray-900 mb-4 flex items-center gap-2">
-            <Mail className="h-5 w-5 text-blue-600" />
-            Contact Information
-          </h3>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+        {/* Enhanced Contact Information */}
+        <div className="space-y-6">
+          <div className="flex items-center gap-3 pb-2 border-b border-gray-200">
+            <div className="p-2 bg-gradient-to-br from-blue-50 to-blue-100 rounded-lg">
+              <Mail className="h-6 w-6 text-blue-600" />
+            </div>
+            <div>
+              <h3 className="text-xl font-semibold text-gray-900">Contact Information</h3>
+              <p className="text-sm text-gray-500">Ways to reach out and connect</p>
+            </div>
+          </div>
+          <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-5">
             {renderInfoCard(Mail, "Email Address", userProfile.email || "Not provided")}
             {renderInfoCard(Phone, "Primary Phone", userProfile.phone || "Not provided")}
             {isRetail && userProfile.alternatePhone && 
@@ -464,14 +505,19 @@ export default function ProfilePage() {
           </div>
         </div>
 
-        {/* Location Information */}
-        <div>
-          <h3 className="text-xl font-semibold text-gray-900 mb-4 flex items-center gap-2">
-            <MapPin className="h-5 w-5 text-blue-600" />
-            Location Details
-          </h3>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-            {renderInfoCard(MapPin, "Address", userProfile.address || userProfile.location || "Not provided", "md:col-span-2")}
+        {/* Enhanced Location Information */}
+        <div className="space-y-6">
+          <div className="flex items-center gap-3 pb-2 border-b border-gray-200">
+            <div className="p-2 bg-gradient-to-br from-green-50 to-green-100 rounded-lg">
+              <MapPin className="h-6 w-6 text-green-600" />
+            </div>
+            <div>
+              <h3 className="text-xl font-semibold text-gray-900">Location Details</h3>
+              <p className="text-sm text-gray-500">Address and geographical information</p>
+            </div>
+          </div>
+          <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-5">
+            {renderInfoCard(MapPin, "Address", userProfile.address || userProfile.location || "Not provided", "md:col-span-2 xl:col-span-3")}
             {renderInfoCard(Building, "City", userProfile.city || "Not specified")}
             {renderInfoCard(Building, "State", userProfile.state || "Not specified")}
             {renderInfoCard(MapPin, "Pincode", userProfile.pincode || "Not specified")}
@@ -481,14 +527,19 @@ export default function ProfilePage() {
           </div>
         </div>
 
-        {/* Business Information */}
+        {/* Enhanced Business Information */}
         {(isRetail || userProfile.company) && (
-          <div>
-            <h3 className="text-xl font-semibold text-gray-900 mb-4 flex items-center gap-2">
-              <Briefcase className="h-5 w-5 text-blue-600" />
-              Business Information
-            </h3>
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+          <div className="space-y-6">
+            <div className="flex items-center gap-3 pb-2 border-b border-gray-200">
+              <div className="p-2 bg-gradient-to-br from-purple-50 to-purple-100 rounded-lg">
+                <Briefcase className="h-6 w-6 text-purple-600" />
+              </div>
+              <div>
+                <h3 className="text-xl font-semibold text-gray-900">Business Information</h3>
+                <p className="text-sm text-gray-500">Professional and business details</p>
+              </div>
+            </div>
+            <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-5">
               {isRetail ? (
                 <>
                   {userProfile.gstNumber && renderInfoCard(CreditCard, "GST Number", userProfile.gstNumber)}
@@ -507,27 +558,58 @@ export default function ProfilePage() {
             </div>
           </div>
         )}
+                <>
+                  {userProfile.company && renderInfoCard(Building, "Company", userProfile.company)}
+                  {userProfile.role && renderInfoCard(Briefcase, "Role", userProfile.role)}
+                  {userProfile.userType && renderInfoCard(User, "User Type", userProfile.userType.charAt(0).toUpperCase() + userProfile.userType.slice(1))}
+                </>
+              )}
+            </div>
+          </div>
+        )}
 
-        {/* Additional Information */}
+        {/* Enhanced Additional Information */}
         {(userProfile.specialties || userProfile.paymentMethods) && (
-          <div>
-            <h3 className="text-xl font-semibold text-gray-900 mb-4 flex items-center gap-2">
-              <Award className="h-5 w-5 text-blue-600" />
-              Additional Information
-            </h3>
-            <div className="space-y-4">
+          <div className="space-y-6">
+            <div className="flex items-center gap-3 pb-2 border-b border-gray-200">
+              <div className="p-2 bg-gradient-to-br from-amber-50 to-amber-100 rounded-lg">
+                <Award className="h-6 w-6 text-amber-600" />
+              </div>
+              <div>
+                <h3 className="text-xl font-semibold text-gray-900">Additional Information</h3>
+                <p className="text-sm text-gray-500">Specialties and additional details</p>
+              </div>
+            </div>
+            <div className="space-y-5">
               {userProfile.specialties && (
-                <div className="bg-white rounded-xl border border-gray-200 p-6">
-                  <h4 className="font-semibold text-gray-900 mb-3">Specialties</h4>
-                  <p className="text-gray-700 leading-relaxed">{userProfile.specialties}</p>
+                <div className="bg-gradient-to-br from-white to-amber-50/30 rounded-2xl border border-amber-200/40 p-6 shadow-sm">
+                  <div className="flex items-start gap-3 mb-4">
+                    <div className="p-2 bg-amber-100 rounded-lg">
+                      <Award className="h-5 w-5 text-amber-600" />
+                    </div>
+                    <div>
+                      <h4 className="font-semibold text-gray-900 text-lg">Specialties & Expertise</h4>
+                      <p className="text-sm text-gray-500">Areas of focus and expertise</p>
+                    </div>
+                  </div>
+                  <p className="text-gray-700 leading-relaxed text-base pl-11">{userProfile.specialties}</p>
                 </div>
               )}
               {userProfile.paymentMethods && userProfile.paymentMethods.length > 0 && (
-                <div className="bg-white rounded-xl border border-gray-200 p-6">
-                  <h4 className="font-semibold text-gray-900 mb-3">Payment Methods</h4>
-                  <div className="flex flex-wrap gap-2">
+                <div className="bg-gradient-to-br from-white to-green-50/30 rounded-2xl border border-green-200/40 p-6 shadow-sm">
+                  <div className="flex items-start gap-3 mb-4">
+                    <div className="p-2 bg-green-100 rounded-lg">
+                      <CreditCard className="h-5 w-5 text-green-600" />
+                    </div>
+                    <div>
+                      <h4 className="font-semibold text-gray-900 text-lg">Payment Methods</h4>
+                      <p className="text-sm text-gray-500">Accepted payment options</p>
+                    </div>
+                  </div>
+                  <div className="flex flex-wrap gap-3 pl-11">
                     {userProfile.paymentMethods.map((method, index) => (
-                      <Badge key={index} variant="outline" className="bg-blue-50 text-blue-700 border-blue-200">
+                      <Badge key={index} variant="outline" className="bg-green-50 text-green-700 border-green-200 px-3 py-1.5 text-sm font-medium">
+                        <CreditCard className="h-3 w-3 mr-1.5" />
                         {method}
                       </Badge>
                     ))}
@@ -538,16 +620,38 @@ export default function ProfilePage() {
           </div>
         )}
 
-        {/* Account Status */}
-        <div className="bg-green-50 rounded-xl border border-green-200 p-6">
-          <div className="flex items-center gap-3">
-            <CheckCircle className="h-6 w-6 text-green-600" />
-            <div>
-              <h4 className="font-semibold text-green-900">Account Status</h4>
-              <p className="text-green-700">
-                {userProfile.verified ? 'Verified Account' : 'Pending Verification'} • 
-                Member since {userProfile.createdAt ? new Date(userProfile.createdAt).getFullYear() : 'Recently'}
-              </p>
+        {/* Enhanced Account Status */}
+        <div className="bg-gradient-to-br from-green-50 via-emerald-50 to-teal-50 rounded-2xl border border-green-200/60 p-6 shadow-sm relative overflow-hidden">
+          {/* Background decoration */}
+          <div className="absolute top-0 right-0 w-20 h-20 bg-gradient-to-br from-green-200/30 to-emerald-200/30 rounded-full -translate-y-10 translate-x-10"></div>
+          <div className="absolute bottom-0 left-0 w-16 h-16 bg-gradient-to-br from-teal-200/30 to-green-200/30 rounded-full translate-y-8 -translate-x-8"></div>
+          
+          <div className="relative flex items-start gap-4">
+            <div className="p-3 bg-green-100 rounded-xl shadow-sm">
+              <CheckCircle className="h-7 w-7 text-green-600" />
+            </div>
+            <div className="flex-1">
+              <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
+                <div>
+                  <h4 className="font-semibold text-green-900 text-lg mb-1">Account Status</h4>
+                  <p className="text-green-700 text-base">
+                    {userProfile.verified ? '✓ Verified Account' : '⏳ Pending Verification'} • 
+                    Member since {userProfile.createdAt ? new Date(userProfile.createdAt).getFullYear() : 'Recently'}
+                  </p>
+                </div>
+                <div className="flex items-center gap-2">
+                  <Badge className="bg-green-100 text-green-800 border-green-200 px-3 py-1.5">
+                    <Shield className="h-3 w-3 mr-1.5" />
+                    Active
+                  </Badge>
+                  {userProfile.verified && (
+                    <Badge className="bg-blue-100 text-blue-800 border-blue-200 px-3 py-1.5">
+                      <Award className="h-3 w-3 mr-1.5" />
+                      Trusted
+                    </Badge>
+                  )}
+                </div>
+              </div>
             </div>
           </div>
         </div>
@@ -942,27 +1046,29 @@ export default function ProfilePage() {
   };
 
   return (
-    <div className="min-h-screen bg-gray-50 page-transition">
-      <div className="max-w-7xl mx-auto p-6 space-y-8 animate-fade-in-up">
-        {/* Header */}
-        <div className="flex items-center justify-between">
-          <div>
-            <h1 className="text-3xl font-bold text-gray-900">Profile</h1>
-            <p className="text-gray-600 mt-2">
+    <div className="min-h-screen bg-gradient-to-br from-gray-50 via-blue-50/30 to-indigo-50/30">
+      <div className="max-w-7xl mx-auto p-6 space-y-8">
+        {/* Enhanced Header */}
+        <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-6">
+          <div className="space-y-2">
+            <h1 className="text-4xl font-bold bg-gradient-to-r from-gray-900 via-blue-800 to-indigo-800 bg-clip-text text-transparent">
+              Profile
+            </h1>
+            <p className="text-gray-600 text-lg">
               Manage your profile information and settings
             </p>
           </div>
           <Dialog open={isEditDialogOpen} onOpenChange={setIsEditDialogOpen}>
             <DialogTrigger asChild>
-              <Button className="bg-green-600 hover:bg-green-700">
-                <Edit3 className="mr-2 h-4 w-4" />
+              <Button className="bg-gradient-to-r from-green-600 to-emerald-600 hover:from-green-700 hover:to-emerald-700 text-white shadow-lg hover:shadow-xl transition-all duration-300 px-6 py-3 text-base font-medium">
+                <Edit3 className="mr-2 h-5 w-5" />
                 Update Profile
               </Button>
             </DialogTrigger>
             <DialogContent className="max-w-4xl max-h-[90vh] overflow-y-auto">
               <DialogHeader>
-                <DialogTitle>Update Profile</DialogTitle>
-                <DialogDescription>
+                <DialogTitle className="text-2xl font-bold text-gray-900">Update Profile</DialogTitle>
+                <DialogDescription className="text-gray-600">
                   Modify your profile information and details
                 </DialogDescription>
               </DialogHeader>
@@ -973,14 +1079,20 @@ export default function ProfilePage() {
           </Dialog>
         </div>
 
-        {/* Profile Content */}
-        <Card className="border-0 shadow-lg">
+        {/* Enhanced Profile Content */}
+        <Card className="border-0 shadow-xl bg-white/80 backdrop-blur-sm">
           <CardContent className="p-8">
             {loading ? (
               <div className="flex items-center justify-center py-20">
-                <div className="text-center">
-                  <Loader2 className="h-8 w-8 animate-spin text-blue-600 mx-auto mb-4" />
-                  <p className="text-gray-600">Loading profile details...</p>
+                <div className="text-center space-y-4">
+                  <div className="relative">
+                    <Loader2 className="h-12 w-12 animate-spin text-blue-600 mx-auto" />
+                    <div className="absolute inset-0 h-12 w-12 rounded-full border-2 border-blue-200 mx-auto"></div>
+                  </div>
+                  <div className="space-y-2">
+                    <p className="text-gray-900 font-medium text-lg">Loading profile details...</p>
+                    <p className="text-gray-500 text-sm">Please wait while we fetch your information</p>
+                  </div>
                 </div>
               </div>
             ) : (
