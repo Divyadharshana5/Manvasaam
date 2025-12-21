@@ -391,14 +391,14 @@ export default function ProfilePage() {
   const renderInfoCard = (icon: any, label: string, value: string, className?: string) => {
     const Icon = icon;
     return (
-      <div className={`bg-white rounded-xl border border-gray-200 p-4 hover:shadow-md transition-shadow ${className}`}>
-        <div className="flex items-start gap-3">
-          <div className="p-2 bg-blue-50 rounded-lg">
-            <Icon className="h-5 w-5 text-blue-600" />
+      <div className={`bg-gradient-to-br from-white to-gray-50/50 rounded-xl border border-gray-200/60 p-5 hover:shadow-lg hover:border-blue-200/60 transition-all duration-300 group ${className}`}>
+        <div className="flex items-start gap-4">
+          <div className="p-3 bg-gradient-to-br from-blue-50 to-blue-100/50 rounded-xl group-hover:from-blue-100 group-hover:to-blue-200/50 transition-all duration-300">
+            <Icon className="h-5 w-5 text-blue-600 group-hover:text-blue-700 transition-colors duration-300" />
           </div>
           <div className="flex-1 min-w-0">
-            <p className="text-sm font-medium text-gray-500 mb-1">{label}</p>
-            <p className="text-base font-semibold text-gray-900 break-words">{value}</p>
+            <p className="text-sm font-medium text-gray-500 mb-2 group-hover:text-gray-600 transition-colors duration-300">{label}</p>
+            <p className="text-base font-semibold text-gray-900 break-words leading-relaxed">{value}</p>
           </div>
         </div>
       </div>
