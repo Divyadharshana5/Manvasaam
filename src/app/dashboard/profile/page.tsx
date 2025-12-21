@@ -483,7 +483,7 @@ export default function ProfilePage() {
         </div>
 
         {/* Enhanced Contact Information */}
-        <div className="space-y-6">
+        <div className="profile-section space-y-6">
           <div className="flex items-center gap-3 pb-2 border-b border-gray-200">
             <div className="p-2 bg-gradient-to-br from-blue-50 to-blue-100 rounded-lg">
               <Mail className="h-6 w-6 text-blue-600" />
