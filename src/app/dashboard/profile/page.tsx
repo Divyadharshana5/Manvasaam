@@ -559,15 +559,6 @@ export default function ProfilePage() {
             </div>
           </div>
         )}
-                <>
-                  {userProfile.company && renderInfoCard(Building, "Company", userProfile.company)}
-                  {userProfile.role && renderInfoCard(Briefcase, "Role", userProfile.role)}
-                  {userProfile.userType && renderInfoCard(User, "User Type", userProfile.userType.charAt(0).toUpperCase() + userProfile.userType.slice(1))}
-                </>
-              )}
-            </div>
-          </div>
-        )}
 
         {/* Enhanced Additional Information */}
         {(userProfile.specialties || userProfile.paymentMethods) && (
