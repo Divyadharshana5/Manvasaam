@@ -443,7 +443,7 @@ export default function ProfilePage() {
                 </h2>
                 <div className="flex items-center gap-2">
                   {userProfile.verified && (
-                    <Badge className="bg-green-100 text-green-800 border-green-200 px-3 py-1 text-sm font-medium">
+                    <Badge className="profile-badge-animated bg-green-100 text-green-800 border-green-200 px-3 py-1 text-sm font-medium">
                       <CheckCircle className="h-3 w-3 mr-1.5" />
                       Verified Account
                     </Badge>
