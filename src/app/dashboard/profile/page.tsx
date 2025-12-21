@@ -506,7 +506,7 @@ export default function ProfilePage() {
         </div>
 
         {/* Enhanced Location Information */}
-        <div className="space-y-6">
+        <div className="profile-section space-y-6">
           <div className="flex items-center gap-3 pb-2 border-b border-gray-200">
             <div className="p-2 bg-gradient-to-br from-green-50 to-green-100 rounded-lg">
               <MapPin className="h-6 w-6 text-green-600" />
