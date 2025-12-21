@@ -4,6 +4,7 @@
 @import "../styles/dashboard-animations.css";
 @import "../styles/farmer-animations.css";
 @import "../styles/retail-animations.css";
+@import "../styles/profile-animations.css";
 
 @tailwind base;
 @tailwind components;
