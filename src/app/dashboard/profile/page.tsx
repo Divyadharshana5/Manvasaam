@@ -621,7 +621,7 @@ export default function ProfilePage() {
         )}
 
         {/* Enhanced Account Status */}
-        <div className="bg-gradient-to-br from-green-50 via-emerald-50 to-teal-50 rounded-2xl border border-green-200/60 p-6 shadow-sm relative overflow-hidden">
+        <div className="profile-section bg-gradient-to-br from-green-50 via-emerald-50 to-teal-50 rounded-2xl border border-green-200/60 p-6 shadow-sm relative overflow-hidden">
           {/* Background decoration */}
           <div className="absolute top-0 right-0 w-20 h-20 bg-gradient-to-br from-green-200/30 to-emerald-200/30 rounded-full -translate-y-10 translate-x-10"></div>
           <div className="absolute bottom-0 left-0 w-16 h-16 bg-gradient-to-br from-teal-200/30 to-green-200/30 rounded-full translate-y-8 -translate-x-8"></div>
