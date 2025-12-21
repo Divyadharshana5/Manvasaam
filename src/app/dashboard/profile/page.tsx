@@ -412,9 +412,9 @@ export default function ProfilePage() {
     const isHub = userProfile.userType === 'hub';
 
     return (
-      <div className="space-y-8">
+      <div className="space-y-10">
         {/* Enhanced Profile Header */}
-        <div className="relative bg-gradient-to-br from-blue-50 via-indigo-50 to-purple-50 rounded-3xl p-8 border border-blue-100/60 shadow-sm overflow-hidden">
+        <div className="profile-section relative bg-gradient-to-br from-blue-50 via-indigo-50 to-purple-50 rounded-3xl p-8 border border-blue-100/60 shadow-sm overflow-hidden">
           {/* Background Pattern */}
           <div className="absolute inset-0 bg-gradient-to-br from-blue-500/5 to-purple-500/5 rounded-3xl"></div>
           <div className="absolute top-0 right-0 w-32 h-32 bg-gradient-to-br from-blue-200/20 to-purple-200/20 rounded-full -translate-y-16 translate-x-16"></div>
