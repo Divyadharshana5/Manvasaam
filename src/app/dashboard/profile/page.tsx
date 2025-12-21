@@ -449,7 +449,7 @@ export default function ProfilePage() {
                     </Badge>
                   )}
                   <Badge variant="outline" className="bg-white/50 border-blue-200 text-blue-700 px-3 py-1 text-sm">
-                    {userProfile.userType?.charAt(0).toUpperCase() + userProfile.userType?.slice(1) || 'User'}
+                    {userProfile.userType ? userProfile.userType.charAt(0).toUpperCase() + userProfile.userType.slice(1) : 'User'}
                   </Badge>
                 </div>
               </div>
