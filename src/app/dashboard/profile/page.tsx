@@ -417,8 +417,9 @@ export default function ProfilePage() {
         <div className="profile-section relative bg-gradient-to-br from-blue-50 via-indigo-50 to-purple-50 rounded-3xl p-8 border border-blue-100/60 shadow-sm overflow-hidden">
           {/* Background Pattern */}
           <div className="absolute inset-0 bg-gradient-to-br from-blue-500/5 to-purple-500/5 rounded-3xl"></div>
-          <div className="absolute top-0 right-0 w-32 h-32 bg-gradient-to-br from-blue-200/20 to-purple-200/20 rounded-full -translate-y-16 translate-x-16"></div>
-          <div className="absolute bottom-0 left-0 w-24 h-24 bg-gradient-to-br from-indigo-200/20 to-blue-200/20 rounded-full translate-y-12 -translate-x-12"></div>
+          <div className="profile-float absolute top-0 right-0 w-32 h-32 bg-gradient-to-br from-blue-200/20 to-purple-200/20 rounded-full -translate-y-16 translate-x-16"></div>
+          <div className="profile-float absolute bottom-0 left-0 w-24 h-24 bg-gradient-to-br from-indigo-200/20 to-blue-200/20 rounded-full translate-y-12 -translate-x-12" style={{animationDelay: '1s'}}></div>
+          <div className="profile-float absolute top-1/2 right-1/4 w-16 h-16 bg-gradient-to-br from-purple-200/15 to-pink-200/15 rounded-full" style={{animationDelay: '2s'}}></div>
           
           <div className="relative flex flex-col md:flex-row items-start md:items-center gap-6">
             <div className="relative">
