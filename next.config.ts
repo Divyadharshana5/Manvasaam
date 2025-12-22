@@ -14,12 +14,14 @@ const nextConfig: NextConfig = {
   compress: true,
   poweredByHeader: false,
   
+  // Server components external packages (moved out of experimental in Next.js 16)
+  serverExternalPackages: ['@firebase/app', '@firebase/auth'],
+  
   // Experimental features for faster navigation
   experimental: {
     optimizePackageImports: ['lucide-react', '@/components/ui', 'framer-motion'],
     scrollRestoration: true,
     optimisticClientCache: true,
-    serverComponentsExternalPackages: ['@firebase/app', '@firebase/auth'],
   },
   // Image optimization
   images: {
