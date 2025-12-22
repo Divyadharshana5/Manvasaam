@@ -9,8 +9,10 @@ export function ManvaasamLogo(props: Omit<React.ComponentProps<typeof Image>, 's
       width={Number(width)}
       height={Number(height)}
       alt="Manvaasam Logo"
+      priority
+      unoptimized
       {...rest}
-      className="drop-shadow-lg"
+      className={`drop-shadow-lg ${rest.className || ''}`}
     />
   );
 }
