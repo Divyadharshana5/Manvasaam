@@ -5,9 +5,6 @@ import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import * as z from "zod";
 import { Button } from "@/components/ui/button";
-import { FastButton } from "@/components/ui/fast-button";
-import { useOptimizedNavigation } from "@/lib/navigation-optimizer";
-import { VoiceAssistantModal } from "@/components/ui/voice-assistant-modal";
 import {
   Card,
   CardContent,
@@ -25,23 +22,11 @@ import {
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { useToast } from "@/hooks/use-toast";
-import { Loader2, Eye, EyeOff, Truck, Fingerprint, CheckCircle, AlertCircle, Mic } from "lucide-react";
+import { Loader2, Eye, EyeOff, Truck } from "lucide-react";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import {
-  signInWithEmailAndPassword,
-  signInWithCustomToken,
-} from "firebase/auth";
 import { useRouter } from "next/navigation";
-import { auth } from "@/lib/firebase";
 import { redirectToDashboard } from "@/lib/auth-redirect";
-
 import { useLanguage } from "@/context/language-context";
-import "@/styles/navigation-transitions.css";
-import "@/styles/auth-animations.css";
-import { motion } from "framer-motion";
-import { registerPasskey, authenticatePasskey, getInitialPasskeyStatus, type PasskeyStatus } from "@/lib/passkey";
-import { FingerprintStatus } from "@/components/ui/fingerprint-status";
-import { Languages } from "lucide-react";
 
 const loginSchema = z.object({
   email: z.string().email({ message: "Invalid email address." }),
@@ -73,7 +58,6 @@ const registerSchema = z
       })
       .refine((s) => !s.includes(" "), "Password cannot contain spaces."),
     confirmPassword: z.string(),
-    passkeyCredentialId: z.string().optional(),
   })
   .refine((data) => data.password === data.confirmPassword, {
     message: "Passwords don't match",
@@ -84,25 +68,10 @@ export default function TransportAuthPage() {
   const [loading, setLoading] = useState(false);
   const { toast } = useToast();
   const router = useRouter();
-  const { navigateFast } = useOptimizedNavigation();
   const [activeTab, setActiveTab] = useState("login");
-
-  const { t, selectedLanguage } = useLanguage();
+  const { t } = useLanguage();
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
-  const [passkeyStatus, setPasskeyStatus] = useState<PasskeyStatus>({
-    supported: false,
-    registered: false,
-    feedback: "Loading...",
-    status: "ready"
-  });
-  const [usePasskey, setUsePasskey] = useState(false);
-  const [showVoiceAssistant, setShowVoiceAssistant] = useState(false);
-
-  // Initialize passkey status on client side only
-  useEffect(() => {
-    setPasskeyStatus(getInitialPasskeyStatus());
-  }, []);
 
   const loginForm = useForm<z.infer<typeof loginSchema>>({
     resolver: zodResolver(loginSchema),
@@ -117,7 +86,6 @@ export default function TransportAuthPage() {
       phone: "",
       password: "",
       confirmPassword: "",
-      passkeyCredentialId: undefined,
     },
   });
 
@@ -130,8 +98,7 @@ export default function TransportAuthPage() {
         toast({
           variant: "warning" as any,
           title: "Email required",
-          description:
-            "Please enter your email address to reset your password.",
+          description: "Please enter your email address to reset your password.",
           duration: 5000,
         });
         setLoading(false);
@@ -151,8 +118,7 @@ export default function TransportAuthPage() {
         toast({
           variant: "success" as any,
           title: "Password Reset Email Sent",
-          description:
-            "Please check your inbox for instructions to reset your password.",
+          description: "Please check your inbox for instructions to reset your password.",
           duration: 5000,
         });
       } else {
@@ -164,57 +130,6 @@ export default function TransportAuthPage() {
         title: "Request Failed",
         description: error.message || "Failed to send password reset email.",
         duration: 5000,
-      });
-    } finally {
-      setLoading(false);
-    }
-  }
-
-  async function handleFingerprintLogin() {
-    if (!passkeyStatus.supported) {
-      toast({
-        variant: "warning" as any,
-        title: "Not Supported",
-        description: "Fingerprint authentication is not supported on this device.",
-        duration: 3000,
-      });
-      return;
-    }
-
-    const email = loginForm.getValues("email");
-    if (!email) {
-      toast({
-        variant: "warning" as any,
-        title: "Email Required",
-        description: "Please enter your email address first.",
-        duration: 3000,
-      });
-      return;
-    }
-
-    setLoading(true);
-    setPasskeyStatus(prev => ({ ...prev, status: "authenticating", feedback: "Authenticating with fingerprint..." }));
-    
-    try {
-      // In demo mode, simulate fingerprint authentication
-      await new Promise(resolve => setTimeout(resolve, 1500)); // Simulate authentication delay
-      
-      toast({
-        title: "Fingerprint Login Successful",
-        description: "Welcome back, transport partner!",
-        duration: 1000,
-      });
-      
-      setTimeout(() => {
-        redirectToDashboard('transport', router);
-      }, 1000);
-    } catch (error: any) {
-      setPasskeyStatus(prev => ({ ...prev, status: "error", feedback: "Fingerprint authentication failed" }));
-      toast({
-        variant: "destructive",
-        title: "Authentication Failed",
-        description: "Please try again or use password login.",
-        duration: 3000,
       });
     } finally {
       setLoading(false);
@@ -256,85 +171,14 @@ export default function TransportAuthPage() {
     }
   }
 
-  async function handlePasskeyRegistration() {
-    if (!passkeyStatus.supported) {
-      toast({
-        variant: "warning" as any,
-        title: "Not Supported",
-        description: "Fingerprint authentication is not supported on this device.",
-        duration: 3000,
-      });
-      return;
-    }
-
-    setPasskeyStatus(prev => ({ ...prev, status: "registering", feedback: "Setting up fingerprint authentication..." }));
-    
-    const email = registerForm.getValues("email");
-    if (!email) {
-      toast({
-        variant: "warning" as any,
-        title: "Email Required",
-        description: "Please enter your email first.",
-        duration: 3000,
-      });
-      setPasskeyStatus(prev => ({ ...prev, status: "ready" }));
-      return;
-    }
-
-    const result = await registerPasskey(email);
-    
-    if (result.success && result.credentialId) {
-      setPasskeyStatus({
-        supported: true,
-        registered: true,
-        credentialId: result.credentialId,
-        feedback: "Fingerprint authentication set up successfully!",
-        status: "success"
-      });
-      registerForm.setValue("passkeyCredentialId", result.credentialId);
-      setUsePasskey(true);
-      toast({
-        title: "Fingerprint Set Up",
-        description: "You can now use fingerprint authentication for secure login.",
-        duration: 2000,
-      });
-      
-      // Auto switch to login tab after fingerprint setup
-      setTimeout(() => {
-        setActiveTab("login");
-        loginForm.setValue("email", registerForm.getValues("email"));
-      }, 2000);
-    } else {
-      setPasskeyStatus({
-        supported: true,
-        registered: false,
-        feedback: result.error || "Failed to set up fingerprint authentication",
-        status: "error"
-      });
-      toast({
-        variant: "destructive",
-        title: "Setup Failed",
-        description: result.error || "Could not set up fingerprint authentication.",
-        duration: 3000,
-      });
-    }
-  }
-
   async function onRegister(values: z.infer<typeof registerSchema>) {
     setLoading(true);
     try {
       const { confirmPassword, ...apiData } = values;
       
-      // If passkey is not set up, create a mock credential ID for demo mode
-      let passkeyCredentialId = apiData.passkeyCredentialId;
-      if (!passkeyCredentialId && usePasskey) {
-        passkeyCredentialId = `mock-passkey-${Date.now()}`;
-      }
-      
       const transportData = {
         ...apiData,
         userType: "transport",
-        passkeyCredentialId: passkeyCredentialId || `demo-passkey-${Date.now()}`,
       };
 
       const response = await fetch("/api/register", {
@@ -367,9 +211,7 @@ export default function TransportAuthPage() {
 
       toast({
         title: "Registration Successful",
-        description: usePasskey 
-          ? "Your transport account has been created with fingerprint authentication. Please log in."
-          : "Your transport account has been created. Please log in.",
+        description: "Your transport account has been created. Please log in.",
         duration: 5000,
       });
       setActiveTab("login");
@@ -399,153 +241,51 @@ export default function TransportAuthPage() {
     }
   }
 
-  function handleVoiceCommand(command: string) {
-    const lowerCommand = command.toLowerCase();
-    
-    if (lowerCommand.includes("what is manvaasam")) {
-      toast({
-        title: "About Manvaasam",
-        description: "Manvaasam connects farmers, transport services, and retail shops for fresh produce delivery.",
-        duration: 5000,
-      });
-    } else if (lowerCommand.includes("take me to") && lowerCommand.includes("dashboard")) {
-      setShowVoiceAssistant(false);
-      toast({
-        title: "Navigating to Dashboard",
-        description: "Please complete login first to access your transport dashboard.",
-        duration: 3000,
-      });
-    } else if (lowerCommand.includes("login") || lowerCommand.includes("sign in")) {
-      setShowVoiceAssistant(false);
-      setActiveTab("login");
-      toast({
-        title: "Switched to Login",
-        description: "Please enter your credentials to sign in.",
-        duration: 2000,
-      });
-    } else if (lowerCommand.includes("register") || lowerCommand.includes("sign up")) {
-      setShowVoiceAssistant(false);
-      setActiveTab("register");
-      toast({
-        title: "Switched to Register",
-        description: "Please fill out the form to create your transport account.",
-        duration: 2000,
-      });
-    } else if (lowerCommand.includes("help")) {
-      toast({
-        title: "Voice Commands Available",
-        description: "Try: 'What is Manvaasam?', 'Take me to dashboard', 'Login', 'Register', or 'Help'",
-        duration: 5000,
-      });
-    } else {
-      toast({
-        title: "Command Received",
-        description: `You said: "${command}". Try asking about Manvaasam or navigation commands.`,
-        duration: 3000,
-      });
-    }
-  }
-
   return (
-    <div className="animate-in fade-in duration-1000 relative min-h-screen flex flex-col overflow-hidden">
+    <div className="min-h-screen flex flex-col overflow-hidden">
       {/* Main Content Area */}
       <div className="flex-1 flex items-center justify-center p-4">
-        {/* Enhanced animated background with farm theme */}
-        <div className="absolute inset-0 bg-gradient-to-br from-emerald-50 via-green-50 to-lime-50 dark:from-emerald-950 dark:via-green-950 dark:to-lime-950 opacity-40 -z-10 gradient-shift"></div>
+        {/* Background */}
+        <div className="absolute inset-0 bg-gradient-to-br from-emerald-50 via-green-50 to-lime-50 dark:from-emerald-950 dark:via-green-950 dark:to-lime-950 opacity-40 -z-10"></div>
 
-        {/* Floating background elements with farm theme */}
-        <div className="absolute inset-0 -z-5">
-          <div
-            className="absolute top-28 left-14 w-32 h-32 bg-emerald-200/25 dark:bg-emerald-800/25 rounded-full blur-xl floating-bubble"
-            style={{ animationDelay: "0.3s" }}
-          ></div>
-          <div
-            className="absolute top-20 right-18 w-28 h-28 bg-green-200/30 dark:bg-green-800/30 rounded-full blur-xl floating-bubble"
-            style={{ animationDelay: "0.9s" }}
-          ></div>
-          <div
-            className="absolute bottom-32 left-18 w-36 h-36 bg-lime-200/25 dark:bg-lime-800/25 rounded-full floating-bubble"
-            style={{ animationDelay: "1.5s" }}
-          ></div>
-          <div
-            className="absolute bottom-24 right-14 w-30 h-30 bg-emerald-300/30 dark:bg-emerald-700/30 rounded-full floating-bubble"
-            style={{ animationDelay: "0.6s" }}
-          ></div>
-        </div>
-
-        {/* Hero Section */}
-        <div className="absolute inset-0 flex items-center justify-center -z-5">
-          <div className="text-center max-w-2xl mx-auto px-4">
-            <motion.h2
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.3, duration: 0.8 }}
-              className="text-4xl md:text-6xl font-bold text-emerald-700 dark:text-emerald-300 mb-4"
-            >
-              Connecting Farms to Markets
-            </motion.h2>
-          </div>
-        </div>
-
-        <Card className="w-full max-w-md bg-white/95 dark:bg-gray-900/95 backdrop-blur-sm border border-emerald-200 dark:border-emerald-700 card-entrance relative z-10 hover:shadow-2xl hover:scale-[1.03] transition-all duration-500 hover:border-emerald-300 dark:hover:border-emerald-600 hover:bg-white dark:hover:bg-gray-900 group enhanced-hover smooth-transition gpu-accelerated">
+        <Card className="w-full max-w-md bg-white/95 dark:bg-gray-900/95 backdrop-blur-sm border border-emerald-200 dark:border-emerald-700 relative z-10">
           <CardHeader className="text-center px-4 sm:px-6 py-4 sm:py-6 relative">
-            {/* Animated icon */}
-            <div className="flex items-center justify-center w-20 h-20 mx-auto mb-4 bg-gradient-to-br from-emerald-100 to-green-100 dark:from-emerald-900 dark:to-green-900 rounded-full border-2 border-emerald-200 dark:border-emerald-700 icon-bounce-in hover:scale-110 transition-all duration-300 group-hover:shadow-lg hover:rotate-6 auth-animation-container stagger-1">
-              <motion.div
-                className="farmer-tractor-animate"
-                whileHover={{
-                  scale: 1.15,
-                  rotate: 10,
-                  transition: { type: "spring", stiffness: 300, damping: 10 },
-                }}
-                whileTap={{
-                  scale: 0.9,
-                  rotate: -10,
-                  transition: { type: "spring", stiffness: 400, damping: 15 },
-                }}
-              >
-                <Truck className="h-10 w-10 text-emerald-600 dark:text-emerald-400" />
-              </motion.div>
+            {/* Icon */}
+            <div className="flex items-center justify-center w-20 h-20 mx-auto mb-4 bg-gradient-to-br from-emerald-100 to-green-100 dark:from-emerald-900 dark:to-green-900 rounded-full border-2 border-emerald-200 dark:border-emerald-700">
+              <Truck className="h-10 w-10 text-emerald-600 dark:text-emerald-400" />
             </div>
 
-            <CardTitle className="text-xl sm:text-2xl font-bold text-emerald-700 dark:text-emerald-300 animate-in slide-in-from-top-2 duration-800 delay-600 hover:text-emerald-600 dark:hover:text-emerald-200 transition-colors duration-300 text-reveal stagger-2">
+            <CardTitle className="text-xl sm:text-2xl font-bold text-emerald-700 dark:text-emerald-300">
               Transport Portal
             </CardTitle>
-            <CardDescription className="text-base sm:text-lg text-emerald-600 dark:text-emerald-400 animate-in fade-in duration-800 delay-800 hover:text-emerald-500 dark:hover:text-emerald-300 transition-colors duration-300 text-reveal stagger-3">
+            <CardDescription className="text-base sm:text-lg text-emerald-600 dark:text-emerald-400">
               Logistics management access
             </CardDescription>
           </CardHeader>
           <CardContent className="relative z-20">
             <Tabs
               value={activeTab}
-              onValueChange={(value) => {
-                setActiveTab(value);
-              }}
-              className="w-full animate-in fade-in duration-500 delay-500 relative z-30"
+              onValueChange={setActiveTab}
+              className="w-full"
             >
-              <TabsList className="grid w-full grid-cols-2 bg-gradient-to-r from-emerald-100 to-green-100 dark:from-emerald-900 dark:to-green-900 p-1 rounded-lg relative z-40 pointer-events-auto animate-in slide-in-from-bottom-2 duration-600 delay-1000 shadow-inner">
+              <TabsList className="grid w-full grid-cols-2 bg-gradient-to-r from-emerald-100 to-green-100 dark:from-emerald-900 dark:to-green-900 p-1 rounded-lg">
                 <TabsTrigger
                   value="login"
-                  className="data-[state=active]:bg-gradient-to-r data-[state=active]:from-emerald-200 data-[state=active]:to-green-200 dark:data-[state=active]:from-emerald-700 dark:data-[state=active]:to-green-700 data-[state=active]:shadow-md transition-all duration-400 cursor-pointer hover:scale-105 hover:bg-emerald-150 dark:hover:bg-emerald-800 transform-gpu animate-in slide-in-from-left-2 duration-500 delay-1200"
+                  className="data-[state=active]:bg-gradient-to-r data-[state=active]:from-emerald-200 data-[state=active]:to-green-200 dark:data-[state=active]:from-emerald-700 dark:data-[state=active]:to-green-700"
                 >
                   {t.auth.login}
                 </TabsTrigger>
                 <TabsTrigger
                   value="register"
-                  className="data-[state=active]:bg-gradient-to-r data-[state=active]:from-emerald-200 data-[state=active]:to-green-200 dark:data-[state=active]:from-emerald-700 dark:data-[state=active]:to-green-700 data-[state=active]:shadow-md transition-all duration-400 cursor-pointer hover:scale-105 hover:bg-emerald-150 dark:hover:bg-emerald-800 transform-gpu animate-in slide-in-from-right-2 duration-500 delay-1200"
+                  className="data-[state=active]:bg-gradient-to-r data-[state=active]:from-emerald-200 data-[state=active]:to-green-200 dark:data-[state=active]:from-emerald-700 dark:data-[state=active]:to-green-700"
                 >
                   {t.auth.register}
                 </TabsTrigger>
               </TabsList>
-              <TabsContent
-                value="login"
-                className="pt-4 animate-in slide-in-from-right-4 duration-500 delay-100"
-              >
+              
+              <TabsContent value="login" className="pt-4">
                 <Form {...loginForm}>
-                  <form
-                    onSubmit={loginForm.handleSubmit(onLogin)}
-                    className="space-y-4"
-                  >
+                  <form onSubmit={loginForm.handleSubmit(onLogin)} className="space-y-4">
                     <FormField
                       control={loginForm.control}
                       name="email"
@@ -558,7 +298,7 @@ export default function TransportAuthPage() {
                             <Input
                               type="email"
                               placeholder="transport@gmail.com"
-                              className="border-emerald-200 dark:border-emerald-700 focus:border-emerald-400 dark:focus:border-emerald-500 focus:ring-emerald-200 dark:focus:ring-emerald-800 bg-emerald-50/50 dark:bg-emerald-950/50 placeholder:text-emerald-500 dark:placeholder:text-emerald-400"
+                              className="border-emerald-200 dark:border-emerald-700 focus:border-emerald-400 dark:focus:border-emerald-500"
                               {...field}
                             />
                           </FormControl>
@@ -579,7 +319,7 @@ export default function TransportAuthPage() {
                               variant="link"
                               size="sm"
                               type="button"
-                              className="p-0 h-auto text-xs text-emerald-600 dark:text-emerald-400 hover:text-emerald-800 dark:hover:text-emerald-200"
+                              className="p-0 h-auto text-xs text-emerald-600 dark:text-emerald-400"
                               onClick={onForgotPassword}
                               disabled={loading}
                             >
@@ -590,14 +330,14 @@ export default function TransportAuthPage() {
                             <div className="relative">
                               <Input
                                 type={showPassword ? "text" : "password"}
-                                className="border-emerald-200 dark:border-emerald-700 focus:border-emerald-400 dark:focus:border-emerald-500 focus:ring-emerald-200 dark:focus:ring-emerald-800 bg-emerald-50/50 dark:bg-emerald-950/50"
+                                className="border-emerald-200 dark:border-emerald-700 focus:border-emerald-400 dark:focus:border-emerald-500"
                                 {...field}
                               />
                               <Button
                                 type="button"
                                 variant="ghost"
                                 size="icon"
-                                className="absolute right-1 top-1/2 -translate-y-1/2 h-7 w-7 hover:bg-emerald-100 dark:hover:bg-emerald-900"
+                                className="absolute right-1 top-1/2 -translate-y-1/2 h-7 w-7"
                                 onClick={() => setShowPassword(!showPassword)}
                               >
                                 {showPassword ? (
@@ -617,58 +357,16 @@ export default function TransportAuthPage() {
                       className="w-full bg-gradient-to-r from-emerald-600 to-green-600 hover:from-emerald-700 hover:to-green-700 text-white"
                       disabled={loading}
                     >
-                      {loading && (
-                        <Loader2 className="mr-2 h-4 w-4 animate-spin" />
-                      )}
+                      {loading && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
                       {t.auth.login}
                     </Button>
-                    
-                    {/* Fingerprint Login Option */}
-                    {passkeyStatus.supported && (
-                      <div className="mt-4 pt-4 border-t border-emerald-200 dark:border-emerald-700">
-                        <div className="text-center mb-3">
-                          <span className="text-xs text-emerald-600 dark:text-emerald-400">
-                            Or use fingerprint authentication
-                          </span>
-                        </div>
-                        <div className="bg-emerald-50 dark:bg-emerald-950 p-2 rounded mb-3">
-                          <p className="text-xs text-emerald-700 dark:text-emerald-300 text-center">
-                            👆 Touch your fingerprint sensor for quick & secure login
-                          </p>
-                        </div>
-                        <Button
-                          type="button"
-                          variant="outline"
-                          className="w-full border-emerald-300 dark:border-emerald-600 text-emerald-700 dark:text-emerald-300 hover:bg-emerald-50 dark:hover:bg-emerald-900"
-                          onClick={handleFingerprintLogin}
-                          disabled={loading || !loginForm.getValues("email")}
-                        >
-                          {loading && passkeyStatus.status === "authenticating" ? (
-                            <>
-                              <Loader2 className="mr-2 h-4 w-4 animate-spin" />
-                              Authenticating...
-                            </>
-                          ) : (
-                            <>
-                              <Fingerprint className="mr-2 h-4 w-4" />
-                              Login with Fingerprint
-                            </>
-                          )}
-                        </Button>
-                      </div>
-                    )}
                   </form>
                 </Form>
               </TabsContent>
-              <TabsContent
-                value="register"
-                className="pt-4 animate-in slide-in-from-left-4 duration-500 delay-100"
-              >
+              
+              <TabsContent value="register" className="pt-4">
                 <Form {...registerForm}>
-                  <form
-                    onSubmit={registerForm.handleSubmit(onRegister)}
-                    className="space-y-4"
-                  >
+                  <form onSubmit={registerForm.handleSubmit(onRegister)} className="space-y-4">
                     <FormField
                       control={registerForm.control}
                       name="username"
@@ -681,7 +379,7 @@ export default function TransportAuthPage() {
                             <Input
                               type="text"
                               placeholder="Transport Company"
-                              className="border-emerald-200 dark:border-emerald-700 focus:border-emerald-400 dark:focus:border-emerald-500 focus:ring-emerald-200 dark:focus:ring-emerald-800 bg-emerald-50/50 dark:bg-emerald-950/50 placeholder:text-emerald-500 dark:placeholder:text-emerald-400"
+                              className="border-emerald-200 dark:border-emerald-700 focus:border-emerald-400 dark:focus:border-emerald-500"
                               {...field}
                             />
                           </FormControl>
@@ -701,7 +399,7 @@ export default function TransportAuthPage() {
                             <Input
                               type="email"
                               placeholder="transport@gmail.com"
-                              className="border-emerald-200 dark:border-emerald-700 focus:border-emerald-400 dark:focus:border-emerald-500 focus:ring-emerald-200 dark:focus:ring-emerald-800 bg-emerald-50/50 dark:bg-emerald-950/50 placeholder:text-emerald-500 dark:placeholder:text-emerald-400"
+                              className="border-emerald-200 dark:border-emerald-700 focus:border-emerald-400 dark:focus:border-emerald-500"
                               {...field}
                             />
                           </FormControl>
@@ -722,11 +420,10 @@ export default function TransportAuthPage() {
                               type="tel"
                               placeholder="1234567890"
                               maxLength={10}
-                              className="border-emerald-200 dark:border-emerald-700 focus:border-emerald-400 dark:focus:border-emerald-500 focus:ring-emerald-200 dark:focus:ring-emerald-800 bg-emerald-50/50 dark:bg-emerald-950/50 placeholder:text-emerald-500 dark:placeholder:text-emerald-400"
+                              className="border-emerald-200 dark:border-emerald-700 focus:border-emerald-400 dark:focus:border-emerald-500"
                               {...field}
                               onInput={(e) => {
-                                e.currentTarget.value =
-                                  e.currentTarget.value.replace(/[^0-9]/g, "");
+                                e.currentTarget.value = e.currentTarget.value.replace(/[^0-9]/g, "");
                               }}
                             />
                           </FormControl>
@@ -782,9 +479,7 @@ export default function TransportAuthPage() {
                                 variant="ghost"
                                 size="icon"
                                 className="absolute right-1 top-1/2 -translate-y-1/2 h-7 w-7"
-                                onClick={() =>
-                                  setShowConfirmPassword(!showConfirmPassword)
-                                }
+                                onClick={() => setShowConfirmPassword(!showConfirmPassword)}
                               >
                                 {showConfirmPassword ? (
                                   <EyeOff className="h-4 w-4" />
@@ -798,77 +493,12 @@ export default function TransportAuthPage() {
                         </FormItem>
                       )}
                     />
-                    
-                    {/* Optional Fingerprint Authentication Section */}
-                    <div className="border-t border-emerald-200 dark:border-emerald-700 pt-4 mt-4">
-                      <div className="flex items-center justify-between mb-3">
-                        <div className="flex items-center space-x-2">
-                          <Fingerprint className="h-5 w-5 text-emerald-600 dark:text-emerald-400" />
-                          <span className="text-sm font-medium text-emerald-700 dark:text-emerald-300">
-                            Fingerprint Authentication (Optional)
-                          </span>
-                        </div>
-                        {passkeyStatus.registered ? (
-                          <CheckCircle className="h-5 w-5 text-green-600 dark:text-green-400" />
-                        ) : passkeyStatus.supported ? (
-                          <div className="w-2 h-2 bg-emerald-400 rounded-full" />
-                        ) : null}
-                      </div>
-                      
-                      <FingerprintStatus
-                        status={passkeyStatus.status}
-                        supported={passkeyStatus.supported}
-                        registered={passkeyStatus.registered}
-                        feedback={passkeyStatus.feedback}
-                        className="mb-2"
-                      />
-                      
-                      <div className="bg-emerald-50 dark:bg-emerald-950 p-3 rounded-lg mb-3">
-                        <p className="text-xs text-emerald-700 dark:text-emerald-300 leading-relaxed">
-                          👆 <strong>Easy & Secure:</strong> Use your fingerprint to login quickly without remembering passwords. 
-                          This is completely optional - you can still use your password anytime.
-                        </p>
-                      </div>
-                      
-                      {passkeyStatus.supported && !passkeyStatus.registered && (
-                        <Button
-                          type="button"
-                          variant="outline"
-                          size="sm"
-                          className="w-full border-emerald-300 dark:border-emerald-600 text-emerald-700 dark:text-emerald-300 hover:bg-emerald-50 dark:hover:bg-emerald-900"
-                          onClick={handlePasskeyRegistration}
-                          disabled={passkeyStatus.status === "registering"}
-                        >
-                          {passkeyStatus.status === "registering" ? (
-                            <>
-                              <Loader2 className="mr-2 h-4 w-4 animate-spin" />
-                              Setting up...
-                            </>
-                          ) : (
-                            <>
-                              <Fingerprint className="mr-2 h-4 w-4" />
-                              Set up Fingerprint
-                            </>
-                          )}
-                        </Button>
-                      )}
-                      
-                      {!passkeyStatus.supported && (
-                        <div className="flex items-center space-x-2 text-amber-600 dark:text-amber-400">
-                          <AlertCircle className="h-4 w-4" />
-                          <span className="text-xs">Not available on this device</span>
-                        </div>
-                      )}
-                    </div>
-
                     <Button
                       type="submit"
-                      className="w-full bg-gradient-to-r from-emerald-600 to-green-600 hover:from-emerald-700 hover:to-green-700 text-white transition-all duration-400 hover:scale-[1.05] hover:shadow-xl active:scale-[0.98] transform-gpu animate-in slide-in-from-bottom-2 duration-600 delay-700 hover:rotate-1"
+                      className="w-full bg-gradient-to-r from-emerald-600 to-green-600 hover:from-emerald-700 hover:to-green-700 text-white"
                       disabled={loading}
                     >
-                      {loading && (
-                        <Loader2 className="mr-2 h-4 w-4 animate-spin" />
-                      )}
+                      {loading && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
                       {t.auth.createAccount}
                     </Button>
                   </form>
@@ -877,15 +507,6 @@ export default function TransportAuthPage() {
             </Tabs>
           </CardContent>
         </Card>
-        
-        {/* Voice Assistant Modal */}
-        <VoiceAssistantModal
-          isOpen={showVoiceAssistant}
-          onClose={() => setShowVoiceAssistant(false)}
-          title="Enhanced Voice Assistant"
-          description="Ask me anything! I can help you navigate, answer questions about Manvaasam, or provide information about our platform. Try saying 'What is Manvaasam?' or 'Take me to the dashboard'."
-          onVoiceCommand={handleVoiceCommand}
-        />
       </div>
     </div>
   );
