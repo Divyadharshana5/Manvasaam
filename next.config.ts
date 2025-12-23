@@ -8,7 +8,9 @@ const nextConfig: NextConfig = {
   },
 
   // Turbopack configuration (required for Next.js 16)
-  turbopack: {},
+  turbo: {
+    // Turbopack-specific configuration
+  },
 
   // Compression and caching
   compress: true,
@@ -21,7 +23,7 @@ const nextConfig: NextConfig = {
   experimental: {
     optimizePackageImports: ['lucide-react', '@/components/ui', 'framer-motion'],
     scrollRestoration: true,
-    optimisticClientCache: true,
+    // optimisticClientCache removed as it may not be compatible with Next.js 16
   },
   // Image optimization
   images: {
@@ -45,49 +47,13 @@ const nextConfig: NextConfig = {
       }
     ],
   },
-  // Bundle optimization
+  // Bundle optimization - Turbopack handles most optimizations automatically
   webpack: (config, { dev, isServer }) => {
+    // Only add essential fallbacks for Turbopack compatibility
     config.resolve.fallback = {
       ...config.resolve.fallback,
       fs: false,
     };
-
-    // Production optimizations
-    if (!dev && !isServer) {
-      config.optimization.splitChunks = {
-        chunks: 'all',
-        cacheGroups: {
-          vendor: {
-            test: /[\\/]node_modules[\\/]/,
-            name: 'vendors',
-            chunks: 'all',
-            priority: 10,
-          },
-          framerMotion: {
-            test: /[\\/]node_modules[\\/]framer-motion[\\/]/,
-            name: 'framer-motion',
-            chunks: 'all',
-            priority: 20,
-          },
-          ui: {
-            test: /[\\/]src[\\/]components[\\/]ui[\\/]/,
-            name: 'ui-components',
-            chunks: 'all',
-            priority: 30,
-          },
-          dashboard: {
-            test: /[\\/]src[\\/]app[\\/]dashboard[\\/]/,
-            name: 'dashboard',
-            chunks: 'async',
-            priority: 15,
-          },
-        },
-      };
-      
-      // Minimize bundle size
-      config.optimization.minimize = true;
-      config.optimization.usedExports = true;
-    }
 
     return config;
   },
