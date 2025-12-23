@@ -7,6 +7,9 @@ const nextConfig: NextConfig = {
     ignoreBuildErrors: true,
   },
 
+  // Turbopack configuration (empty to silence warnings)
+  turbopack: {},
+
   // Compression and caching
   compress: true,
   poweredByHeader: false,
