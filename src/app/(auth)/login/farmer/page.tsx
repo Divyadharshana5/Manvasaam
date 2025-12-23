@@ -69,9 +69,30 @@ export default function FarmerAuthPage() {
   const { toast } = useToast();
   const router = useRouter();
   const [activeTab, setActiveTab] = useState("login");
-  const { t } = useLanguage();
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
+
+  // Safe language context usage with fallback
+  let t;
+  try {
+    const languageContext = useLanguage();
+    t = languageContext.t;
+  } catch (error) {
+    console.warn("Language context not available, using fallback");
+    t = {
+      auth: {
+        login: "Login",
+        register: "Register",
+        emailLabel: "Email",
+        passwordLabel: "Password",
+        forgotPassword: "Forgot Password?",
+        usernameLabel: "Username",
+        phoneLabel: "Phone Number",
+        confirmPasswordLabel: "Confirm Password",
+        createAccount: "Create Account"
+      }
+    };
+  }
 
   const loginForm = useForm<z.infer<typeof loginSchema>>({
     resolver: zodResolver(loginSchema),
