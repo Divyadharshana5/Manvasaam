@@ -554,30 +554,10 @@ export default function FarmerAuthPage() {
   const [loading, setLoading] = useState(false);
   const { toast } = useToast();
   const router = useRouter();
-  const { navigateFast } = useOptimizedNavigation();
   const [activeTab, setActiveTab] = useState("login");
-
-  const { t, selectedLanguage } = useLanguage();
+  const { t } = useLanguage();
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
-  const [passkeyStatus, setPasskeyStatus] = useState<PasskeyStatus>({
-    supported: false,
-    registered: false,
-    feedback: "Loading...",
-    status: "ready"
-  });
-  const [usePasskey, setUsePasskey] = useState(false);
-  const [showVoiceAssistant, setShowVoiceAssistant] = useState(false);
-
-  // Initialize passkey status on client side only
-  useEffect(() => {
-    setPasskeyStatus(getInitialPasskeyStatus());
-  }, []);
-
-  // Initialize EmailJS on component mount
-  useEffect(() => {
-    // initEmailJS();
-  }, []);
 
   const loginForm = useForm<z.infer<typeof loginSchema>>({
     resolver: zodResolver(loginSchema),
@@ -592,7 +572,6 @@ export default function FarmerAuthPage() {
       phone: "",
       password: "",
       confirmPassword: "",
-      passkeyCredentialId: undefined,
     },
   });
 
