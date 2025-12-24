@@ -242,20 +242,13 @@ export default function TransportAuthPage() {
   }
 
   return (
-    <div className="min-h-screen flex flex-col overflow-hidden relative">
-      {/* Background Image - Same as Home Page */}
-      <div
-        className="absolute inset-0 z-0 bg-cover bg-center bg-no-repeat bg-fixed pointer-events-none"
-        style={{
-          backgroundImage: "url('/bg-agri.png')",
-          willChange: "transform",
-        }}
-      ></div>
-      <div className="absolute inset-0 bg-background/30 z-0 pointer-events-none"></div>
-
+    <div className="min-h-screen flex flex-col overflow-hidden">
       {/* Main Content Area */}
-      <div className="flex-1 flex items-center justify-center p-4 relative z-10">
-        <Card className="w-full max-w-md bg-white/95 dark:bg-gray-900/95 backdrop-blur-sm border border-emerald-200 dark:border-emerald-700 relative z-10 shadow-2xl">
+      <div className="flex-1 flex items-center justify-center p-4">
+        {/* Background */}
+        <div className="absolute inset-0 bg-gradient-to-br from-emerald-50 via-green-50 to-lime-50 dark:from-emerald-950 dark:via-green-950 dark:to-lime-950 opacity-40 -z-10"></div>
+
+        <Card className="w-full max-w-md bg-white/95 dark:bg-gray-900/95 backdrop-blur-sm border border-emerald-200 dark:border-emerald-700 relative z-10">
           <CardHeader className="text-center px-4 sm:px-6 py-4 sm:py-6 relative">
             {/* Icon */}
             <div className="flex items-center justify-center w-20 h-20 mx-auto mb-4 bg-gradient-to-br from-emerald-100 to-green-100 dark:from-emerald-900 dark:to-green-900 rounded-full border-2 border-emerald-200 dark:border-emerald-700">
