@@ -24,23 +24,29 @@ export function InstantNavigation({
 
     if (preloadResources) {
       routes.forEach((route) => {
-        // Create prefetch link for browser-level optimization
-        const prefetchLink = document.createElement('link');
-        prefetchLink.rel = 'prefetch';
-        prefetchLink.href = route;
-        prefetchLink.as = 'document';
-        if (priority === "high") {
-          prefetchLink.setAttribute('importance', 'high');
+        // Create prefetch link for browser-level optimization - avoid duplicates
+        const existingPrefetch = document.querySelector(`link[rel="prefetch"][href="${route}"]`);
+        if (!existingPrefetch) {
+          const prefetchLink = document.createElement('link');
+          prefetchLink.rel = 'prefetch';
+          prefetchLink.href = route;
+          prefetchLink.as = 'document';
+          if (priority === "high") {
+            prefetchLink.setAttribute('importance', 'high');
+          }
+          document.head.appendChild(prefetchLink);
         }
-        document.head.appendChild(prefetchLink);
 
-        // Create preload link for critical routes
+        // Create preload link for critical routes - avoid duplicates
         if (priority === "high") {
-          const preloadLink = document.createElement('link');
-          preloadLink.rel = 'preload';
-          preloadLink.href = route;
-          preloadLink.as = 'document';
-          document.head.appendChild(preloadLink);
+          const existingPreload = document.querySelector(`link[rel="preload"][href="${route}"]`);
+          if (!existingPreload) {
+            const preloadLink = document.createElement('link');
+            preloadLink.rel = 'preload';
+            preloadLink.href = route;
+            preloadLink.as = 'document';
+            document.head.appendChild(preloadLink);
+          }
         }
       });
     }
@@ -50,7 +56,8 @@ export function InstantNavigation({
       if (preloadResources) {
         const links = document.querySelectorAll('link[rel="prefetch"], link[rel="preload"]');
         links.forEach(link => {
-          if (routes.includes(link.getAttribute('href') || '')) {
+          const href = link.getAttribute('href');
+          if (href && routes.includes(href)) {
             link.remove();
           }
         });
@@ -81,8 +88,8 @@ export function useInstantNavigation() {
   const prefetchRoute = useCallback((href: string) => {
     router.prefetch(href);
     
-    // Also add browser-level prefetch
-    const existingLink = document.querySelector(`link[href="${href}"]`);
+    // Also add browser-level prefetch - avoid duplicates
+    const existingLink = document.querySelector(`link[rel="prefetch"][href="${href}"]`);
     if (!existingLink) {
       const link = document.createElement('link');
       link.rel = 'prefetch';
