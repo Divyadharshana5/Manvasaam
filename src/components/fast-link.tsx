@@ -27,18 +27,21 @@ export function FastLink({
   const linkRef = useRef<HTMLAnchorElement>(null);
   const prefetchedRef = useRef(false);
 
-  // Prefetch on mount for critical routes
+  // Prefetch on mount for critical routes - optimized to avoid duplicates
   useEffect(() => {
     if (prefetchOnMount && !prefetchedRef.current) {
       router.prefetch(href);
       prefetchedRef.current = true;
       
-      // Add browser-level prefetch
-      const link = document.createElement('link');
-      link.rel = 'prefetch';
-      link.href = href;
-      link.as = 'document';
-      document.head.appendChild(link);
+      // Add browser-level prefetch only if it doesn't exist
+      const existingLink = document.querySelector(`link[rel="prefetch"][href="${href}"]`);
+      if (!existingLink) {
+        const link = document.createElement('link');
+        link.rel = 'prefetch';
+        link.href = href;
+        link.as = 'document';
+        document.head.appendChild(link);
+      }
     }
   }, [href, router, prefetchOnMount]);
 

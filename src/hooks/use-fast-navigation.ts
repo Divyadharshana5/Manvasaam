@@ -9,82 +9,100 @@ export function useFastNavigation() {
   const isNavigatingRef = useRef(false);
 
   // Prefetch a route with caching - optimized to avoid state updates
-  const prefetchRoute = useCallback((route: string) => {
-    if (prefetchedRoutes.current.has(route)) {
-      return; // Already prefetched
-    }
+  const prefetchRoute = useCallback(
+    (route: string) => {
+      if (prefetchedRoutes.current.has(route)) {
+        return; // Already prefetched
+      }
 
-    // Next.js prefetch
-    router.prefetch(route);
+      // Next.js prefetch
+      router.prefetch(route);
 
-    // Browser-level prefetch - check if already exists
-    const existingLink = document.querySelector(`link[rel="prefetch"][href="${route}"]`);
-    if (!existingLink) {
-      const link = document.createElement('link');
-      link.rel = 'prefetch';
-      link.href = route;
-      link.as = 'document';
-      document.head.appendChild(link);
-    }
+      // Browser-level prefetch - check if already exists
+      const existingLink = document.querySelector(
+        `link[rel="prefetch"][href="${route}"]`
+      );
+      if (!existingLink) {
+        const link = document.createElement("link");
+        link.rel = "prefetch";
+        link.href = route;
+        link.as = "document";
+        document.head.appendChild(link);
+      }
 
-    prefetchedRoutes.current.add(route);
-  }, [router]);
+      prefetchedRoutes.current.add(route);
+    },
+    [router]
+  );
 
   // Navigate with instant feedback - optimized
-  const navigateInstantly = useCallback((route: string) => {
-    if (isNavigatingRef.current) return; // Prevent double navigation
-    
-    isNavigatingRef.current = true;
-    document.body.classList.add('page-transitioning');
+  const navigateInstantly = useCallback(
+    (route: string) => {
+      if (isNavigatingRef.current) return; // Prevent double navigation
 
-    // Prefetch one more time for maximum speed
-    router.prefetch(route);
+      isNavigatingRef.current = true;
+      document.body.classList.add("page-transitioning");
 
-    // Navigate
-    router.push(route);
+      // Prefetch one more time for maximum speed
+      router.prefetch(route);
 
-    // Haptic feedback for mobile
-    if ('vibrate' in navigator) {
-      navigator.vibrate(50);
-    }
+      // Navigate
+      router.push(route);
 
-    // Clean up after short delay
-    setTimeout(() => {
-      document.body.classList.remove('page-transitioning');
-      isNavigatingRef.current = false;
-    }, 150);
-  }, [router]);
+      // Haptic feedback for mobile
+      if ("vibrate" in navigator) {
+        navigator.vibrate(50);
+      }
+
+      // Clean up after short delay
+      setTimeout(() => {
+        document.body.classList.remove("page-transitioning");
+        isNavigatingRef.current = false;
+      }, 150);
+    },
+    [router]
+  );
 
   // Bulk prefetch multiple routes - optimized
-  const prefetchRoutes = useCallback((routes: string[]) => {
-    routes.forEach(route => {
-      if (!prefetchedRoutes.current.has(route)) {
-        router.prefetch(route);
-        prefetchedRoutes.current.add(route);
-      }
-    });
-  }, [router]);
+  const prefetchRoutes = useCallback(
+    (routes: string[]) => {
+      routes.forEach((route) => {
+        if (!prefetchedRoutes.current.has(route)) {
+          router.prefetch(route);
+          prefetchedRoutes.current.add(route);
+        }
+      });
+    },
+    [router]
+  );
 
   // Preload critical resources for a route - optimized
-  const preloadRoute = useCallback((route: string) => {
-    const existingPreload = document.querySelector(`link[rel="preload"][href="${route}"]`);
-    if (!existingPreload) {
-      const preloadLink = document.createElement('link');
-      preloadLink.rel = 'preload';
-      preloadLink.href = route;
-      preloadLink.as = 'document';
-      document.head.appendChild(preloadLink);
-    }
+  const preloadRoute = useCallback(
+    (route: string) => {
+      const existingPreload = document.querySelector(
+        `link[rel="preload"][href="${route}"]`
+      );
+      if (!existingPreload) {
+        const preloadLink = document.createElement("link");
+        preloadLink.rel = "preload";
+        preloadLink.href = route;
+        preloadLink.as = "document";
+        document.head.appendChild(preloadLink);
+      }
 
-    prefetchRoute(route);
-  }, [prefetchRoute]);
+      prefetchRoute(route);
+    },
+    [prefetchRoute]
+  );
 
   // Cleanup prefetch links on unmount
   useEffect(() => {
     return () => {
-      const links = document.querySelectorAll('link[rel="prefetch"], link[rel="preload"]');
-      links.forEach(link => {
-        const href = link.getAttribute('href');
+      const links = document.querySelectorAll(
+        'link[rel="prefetch"], link[rel="preload"]'
+      );
+      links.forEach((link) => {
+        const href = link.getAttribute("href");
         if (href && prefetchedRoutes.current.has(href)) {
           link.remove();
         }
@@ -93,12 +111,15 @@ export function useFastNavigation() {
   }, []);
 
   // Memoize return object to prevent unnecessary re-renders
-  return useMemo(() => ({
-    prefetchRoute,
-    prefetchRoutes,
-    preloadRoute,
-    navigateInstantly,
-    navigate: navigateInstantly, // Alias for convenience
-    preload: prefetchRoute, // Alias for convenience
-  }), [prefetchRoute, prefetchRoutes, preloadRoute, navigateInstantly]);
+  return useMemo(
+    () => ({
+      prefetchRoute,
+      prefetchRoutes,
+      preloadRoute,
+      navigateInstantly,
+      navigate: navigateInstantly, // Alias for convenience
+      preload: prefetchRoute, // Alias for convenience
+    }),
+    [prefetchRoute, prefetchRoutes, preloadRoute, navigateInstantly]
+  );
 }
