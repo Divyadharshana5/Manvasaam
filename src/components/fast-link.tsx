@@ -32,14 +32,16 @@ export function FastLink({
     if (prefetchOnMount && !prefetchedRef.current) {
       router.prefetch(href);
       prefetchedRef.current = true;
-      
+
       // Add browser-level prefetch only if it doesn't exist
-      const existingLink = document.querySelector(`link[rel="prefetch"][href="${href}"]`);
+      const existingLink = document.querySelector(
+        `link[rel="prefetch"][href="${href}"]`
+      );
       if (!existingLink) {
-        const link = document.createElement('link');
-        link.rel = 'prefetch';
+        const link = document.createElement("link");
+        link.rel = "prefetch";
         link.href = href;
-        link.as = 'document';
+        link.as = "document";
         document.head.appendChild(link);
       }
     }
@@ -57,7 +59,7 @@ export function FastLink({
             }
           });
         },
-        { rootMargin: '100px' }
+        { rootMargin: "100px" }
       );
 
       observer.observe(linkRef.current);
@@ -72,17 +74,20 @@ export function FastLink({
     }
   }, [href, router, prefetchOnHover]);
 
-  const handleClick = useCallback((e: React.MouseEvent) => {
-    // Prefetch one more time for instant navigation
-    router.prefetch(href);
-    
-    // Add haptic feedback for mobile
-    if ('vibrate' in navigator) {
-      navigator.vibrate(50);
-    }
-    
-    onClick?.();
-  }, [href, router, onClick]);
+  const handleClick = useCallback(
+    (e: React.MouseEvent) => {
+      // Prefetch one more time for instant navigation
+      router.prefetch(href);
+
+      // Add haptic feedback for mobile
+      if ("vibrate" in navigator) {
+        navigator.vibrate(50);
+      }
+
+      onClick?.();
+    },
+    [href, router, onClick]
+  );
 
   return (
     <Link
