@@ -7,9 +7,10 @@ export async function GET(request: Request) {
     const url = new URL(request.url);
     const category = url.searchParams.get("category");
     const parsedLimit = parseInt(url.searchParams.get("limit") || "50", 10);
-    const limit = Number.isFinite(parsedLimit) && parsedLimit > 0
-      ? Math.min(parsedLimit, 500)
-      : 50;
+    const limit =
+      Number.isFinite(parsedLimit) && parsedLimit > 0
+        ? Math.min(parsedLimit, 500)
+        : 50;
 
     if (!isFirebaseInitialized) {
       console.warn("Firebase not configured - serving mock public products");
@@ -17,7 +18,7 @@ export async function GET(request: Request) {
 
     // Get all active hubs
     const hubs = await getAllHubs();
-    const activeHubs = hubs.filter(hub => hub.status === "active");
+    const activeHubs = hubs.filter((hub) => hub.status === "active");
 
     const allProducts: any[] = [];
 
@@ -25,10 +26,10 @@ export async function GET(request: Request) {
     for (const hub of activeHubs) {
       try {
         const inventory = await getHubInventory(hub.id, false); // Only available items
-        
+
         const hubProducts = inventory
-          .filter(item => item.status === "available")
-          .map(item => ({
+          .filter((item) => item.status === "available")
+          .map((item) => ({
             id: item.id,
             productName: item.productName,
             category: item.category,
@@ -54,12 +55,16 @@ export async function GET(request: Request) {
     let filteredProducts = allProducts;
     if (category) {
       filteredProducts = allProducts.filter(
-        product => product.category.toLowerCase() === category.toLowerCase()
+        (product) => product.category.toLowerCase() === category.toLowerCase()
       );
     }
 
     // Sort by creation date (newest first) and limit results
-    filteredProducts.sort((a, b) => new Date(b.harvestDate || '').getTime() - new Date(a.harvestDate || '').getTime());
+    filteredProducts.sort(
+      (a, b) =>
+        new Date(b.harvestDate || "").getTime() -
+        new Date(a.harvestDate || "").getTime()
+    );
     filteredProducts = filteredProducts.slice(0, limit);
 
     // Group by category for easier consumption
@@ -72,12 +77,15 @@ export async function GET(request: Request) {
       return acc;
     }, {} as Record<string, any[]>);
 
-    return NextResponse.json({
-      products: filteredProducts,
-      productsByCategory,
-      totalCount: filteredProducts.length,
-      categories: Object.keys(productsByCategory),
-    }, { status: 200 });
+    return NextResponse.json(
+      {
+        products: filteredProducts,
+        productsByCategory,
+        totalCount: filteredProducts.length,
+        categories: Object.keys(productsByCategory),
+      },
+      { status: 200 }
+    );
   } catch (error: any) {
     console.error("Get Public Products Error:", error);
     return NextResponse.json(
