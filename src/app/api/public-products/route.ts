@@ -4,16 +4,16 @@ import { getAllHubs, getHubInventory } from "@/lib/hub-db";
 
 export async function GET(request: Request) {
   try {
-    if (!isFirebaseInitialized) {
-      return NextResponse.json(
-        { message: "Server configuration error" },
-        { status: 500 }
-      );
-    }
-
     const url = new URL(request.url);
     const category = url.searchParams.get("category");
-    const limit = parseInt(url.searchParams.get("limit") || "50");
+    const parsedLimit = parseInt(url.searchParams.get("limit") || "50", 10);
+    const limit = Number.isFinite(parsedLimit) && parsedLimit > 0
+      ? Math.min(parsedLimit, 500)
+      : 50;
+
+    if (!isFirebaseInitialized) {
+      console.warn("Firebase not configured - serving mock public products");
+    }
 
     // Get all active hubs
     const hubs = await getAllHubs();
