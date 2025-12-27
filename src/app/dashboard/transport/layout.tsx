@@ -29,7 +29,15 @@ import {
 } from "lucide-react";
 
 // Sidebar component
-function Sidebar({ className, onSignOut, preload }: { className?: string; onSignOut: () => void; preload: (route: string) => void }) {
+function Sidebar({
+  className,
+  onSignOut,
+  preload,
+}: {
+  className?: string;
+  onSignOut: () => void;
+  preload: (route: string) => void;
+}) {
   const pathname = usePathname();
   const [mounted, setMounted] = useState(false);
 
@@ -62,7 +70,12 @@ function Sidebar({ className, onSignOut, preload }: { className?: string; onSign
   }
 
   return (
-    <div className={cn("pb-4 bg-gradient-to-b from-emerald-50/30 via-green-50/30 to-lime-50/30 dark:from-emerald-950/30 dark:via-green-950/30 dark:to-lime-950/30 flex flex-col h-full", className)}>
+    <div
+      className={cn(
+        "pb-4 bg-gradient-to-b from-emerald-50/30 via-green-50/30 to-lime-50/30 dark:from-emerald-950/30 dark:via-green-950/30 dark:to-lime-950/30 flex flex-col h-full",
+        className
+      )}
+    >
       <div className="flex-1 space-y-4 py-4">
         <div className="px-3 py-2">
           <div className="flex items-center gap-2 mb-6 p-3 rounded-lg bg-gradient-to-r from-emerald-100 to-green-100 dark:from-emerald-900 dark:to-green-900 border border-emerald-200 dark:border-emerald-700">
@@ -73,8 +86,8 @@ function Sidebar({ className, onSignOut, preload }: { className?: string; onSign
           </div>
           <div className="space-y-1">
             {sidebarItems.map((item) => (
-              <Link 
-                key={item.href} 
+              <Link
+                key={item.href}
                 href={item.href}
                 onMouseEnter={() => preload(item.href)}
                 className="fast-button"
@@ -83,13 +96,18 @@ function Sidebar({ className, onSignOut, preload }: { className?: string; onSign
                   variant={pathname === item.href ? "secondary" : "ghost"}
                   className={cn(
                     "w-full justify-start hover:bg-emerald-100 dark:hover:bg-emerald-900 transition-all duration-100",
-                    pathname === item.href && "bg-gradient-to-r from-emerald-200 to-green-200 dark:from-emerald-800 dark:to-green-800 text-emerald-800 dark:text-emerald-200 border border-emerald-300 dark:border-emerald-600"
+                    pathname === item.href &&
+                      "bg-gradient-to-r from-emerald-200 to-green-200 dark:from-emerald-800 dark:to-green-800 text-emerald-800 dark:text-emerald-200 border border-emerald-300 dark:border-emerald-600"
                   )}
                 >
-                  <item.icon className={cn(
-                    "mr-2 h-4 w-4",
-                    pathname === item.href ? "text-emerald-700 dark:text-emerald-300" : "text-emerald-600 dark:text-emerald-400"
-                  )} />
+                  <item.icon
+                    className={cn(
+                      "mr-2 h-4 w-4",
+                      pathname === item.href
+                        ? "text-emerald-700 dark:text-emerald-300"
+                        : "text-emerald-600 dark:text-emerald-400"
+                    )}
+                  />
                   {item.title}
                 </Button>
               </Link>
@@ -161,7 +179,11 @@ const sidebarItems = [
   },
 ];
 
-export default function TransportLayout({ children }: { children: React.ReactNode }) {
+export default function TransportLayout({
+  children,
+}: {
+  children: React.ReactNode;
+}) {
   const { toast } = useToast();
   const router = useRouter();
   const [sidebarOpen, setSidebarOpen] = useState(false);
@@ -178,9 +200,9 @@ export default function TransportLayout({ children }: { children: React.ReactNod
       "/dashboard/transport/maintenance",
       "/dashboard/transport/analytics",
       "/dashboard/transport/profile",
-      "/dashboard/faq"
+      "/dashboard/faq",
     ];
-    transportRoutes.forEach(route => preload(route));
+    transportRoutes.forEach((route) => preload(route));
   }, [preload]);
 
   const handleSignOut = async () => {
@@ -195,7 +217,7 @@ export default function TransportLayout({ children }: { children: React.ReactNod
       if (response.ok) {
         localStorage.removeItem("userType");
         localStorage.removeItem("userEmail");
-        
+
         toast({
           title: "Signed Out Successfully",
           description: "Thank you for using Transport Portal",
@@ -241,28 +263,32 @@ export default function TransportLayout({ children }: { children: React.ReactNod
             </SheetContent>
           </Sheet>
           <div className="w-full flex-1">
-            <h1 className="text-lg font-semibold md:text-2xl">Transport Dashboard</h1>
+            <h1 className="text-lg font-semibold md:text-2xl">
+              Transport Dashboard
+            </h1>
           </div>
         </div>
-        
+
         <div className="border-b border-emerald-200 dark:border-emerald-700 bg-gradient-to-r from-emerald-50 to-green-50 dark:from-emerald-950 dark:to-green-950 p-4">
           <div className="flex items-center justify-between">
-            <h2 className="text-lg font-semibold text-emerald-800 dark:text-emerald-200">Transport Management Portal</h2>
-            <Button 
+            <h2 className="text-lg font-semibold text-emerald-800 dark:text-emerald-200">
+              Transport Management Portal
+            </h2>
+            <Button
               className={`font-semibold px-6 py-2 rounded-full shadow-lg transition-all duration-300 hover:scale-105 ${
-                isListening 
-                  ? 'bg-red-500 hover:bg-red-600 animate-pulse' 
-                  : 'bg-gradient-to-r from-emerald-500 via-green-500 to-lime-500 hover:from-emerald-600 hover:via-green-600 hover:to-lime-600'
+                isListening
+                  ? "bg-red-500 hover:bg-red-600 animate-pulse"
+                  : "bg-gradient-to-r from-emerald-500 via-green-500 to-lime-500 hover:from-emerald-600 hover:via-green-600 hover:to-lime-600"
               } text-white`}
               onClick={startListening}
               disabled={isListening}
             >
               <Mic className="mr-2 h-5 w-5" />
-              {isListening ? 'Listening...' : 'Voice Assistant'}
+              {isListening ? "Listening..." : "Voice Assistant"}
             </Button>
           </div>
         </div>
-        
+
         <main className="flex flex-1 flex-col gap-4 p-4 lg:gap-6 lg:p-6">
           {children}
         </main>
