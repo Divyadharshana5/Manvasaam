@@ -2,7 +2,7 @@
 
 import React, { useState, useEffect } from "react";
 import Link from "next/link";
-import { useFastNavigation } from "@/lib/fast-navigation";
+import { useFastNavigation } from "@/hooks/use-fast-navigation";
 import "@/styles/fast-transitions.css";
 import "@/styles/dropdown-fix.css";
 import { usePathname, useRouter } from "next/navigation";
