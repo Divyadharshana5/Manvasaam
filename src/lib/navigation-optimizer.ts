@@ -111,7 +111,6 @@ export class NavigationOptimizer {
           this.hideNavigationProgress();
         }
       }, 300);
-
     } catch (error) {
       console.error("Navigation failed:", error);
       // Force navigation on error
@@ -134,8 +133,8 @@ export class NavigationOptimizer {
 
   // Show navigation progress indicator
   private showNavigationProgress() {
-    if (typeof document === 'undefined') return;
-    
+    if (typeof document === "undefined") return;
+
     // Remove existing progress bar if any
     const existing = document.getElementById("nav-progress");
     if (existing) existing.remove();
@@ -152,7 +151,7 @@ export class NavigationOptimizer {
       z-index: 9999;
       animation: progressSlide 0.3s ease-out;
     `;
-    
+
     // Add animation
     const style = document.createElement("style");
     style.textContent = `
@@ -167,8 +166,8 @@ export class NavigationOptimizer {
 
   // Hide navigation progress indicator
   private hideNavigationProgress() {
-    if (typeof document === 'undefined') return;
-    
+    if (typeof document === "undefined") return;
+
     const progressBar = document.getElementById("nav-progress");
     if (progressBar) {
       progressBar.remove();
@@ -177,8 +176,9 @@ export class NavigationOptimizer {
 
   // Perform optimistic UI updates
   private performOptimisticUpdate(route: string) {
-    if (typeof window === 'undefined' || typeof document === 'undefined') return;
-    
+    if (typeof window === "undefined" || typeof document === "undefined")
+      return;
+
     // Update page title immediately
     const routeTitles: Record<string, string> = {
       "/login/farmer": "Farmer Login - Manvaasam",
