@@ -9,20 +9,23 @@ export function NavigationPerformance() {
   useEffect(() => {
     // Track navigation performance
     const trackNavigation = () => {
-      if (typeof window !== 'undefined' && 'performance' in window) {
+      if (typeof window !== "undefined" && "performance" in window) {
         // Measure navigation timing
-        const navigation = performance.getEntriesByType('navigation')[0] as PerformanceNavigationTiming;
-        
+        const navigation = performance.getEntriesByType(
+          "navigation"
+        )[0] as PerformanceNavigationTiming;
+
         if (navigation) {
           const loadTime = navigation.loadEventEnd - navigation.fetchStart;
-          const domContentLoaded = navigation.domContentLoadedEventEnd - navigation.fetchStart;
-          
+          const domContentLoaded =
+            navigation.domContentLoadedEventEnd - navigation.fetchStart;
+
           // Log performance metrics (you can send these to analytics)
-          console.log('Navigation Performance:', {
+          console.log("Navigation Performance:", {
             loadTime: `${loadTime}ms`,
             domContentLoaded: `${domContentLoaded}ms`,
             transferSize: navigation.transferSize,
-            encodedBodySize: navigation.encodedBodySize
+            encodedBodySize: navigation.encodedBodySize,
           });
         }
       }
@@ -33,26 +36,30 @@ export function NavigationPerformance() {
 
     // Track route changes
     const handleRouteChange = (url: string) => {
-      if (typeof document === 'undefined' || typeof MutationObserver === 'undefined') return;
-      
+      if (
+        typeof document === "undefined" ||
+        typeof MutationObserver === "undefined"
+      )
+        return;
+
       const startTime = performance.now();
-      
+
       // Track when the route change completes
       const observer = new MutationObserver(() => {
         const endTime = performance.now();
         const routeChangeTime = endTime - startTime;
-        
-        console.log('Route Change Performance:', {
+
+        console.log("Route Change Performance:", {
           url,
-          time: `${routeChangeTime}ms`
+          time: `${routeChangeTime}ms`,
         });
-        
+
         observer.disconnect();
       });
-      
+
       observer.observe(document.body, {
         childList: true,
-        subtree: true
+        subtree: true,
       });
     };
 
