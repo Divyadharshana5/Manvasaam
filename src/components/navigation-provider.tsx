@@ -108,6 +108,8 @@ export function NavigationProvider({ children }: NavigationProviderProps) {
   // Fast navigation with instant feedback
   const handleFastNavigation = useCallback(
     (route: string) => {
+      if (typeof document === "undefined") return;
+
       // Show instant loading state
       document.body.classList.add("page-transitioning");
 
@@ -119,7 +121,9 @@ export function NavigationProvider({ children }: NavigationProviderProps) {
 
       // Remove loading state after navigation completes
       setTimeout(() => {
-        document.body.classList.remove("page-transitioning");
+        if (typeof document !== "undefined") {
+          document.body.classList.remove("page-transitioning");
+        }
       }, 100);
     },
     [navigateFast]
@@ -153,10 +157,12 @@ export function NavigationProvider({ children }: NavigationProviderProps) {
 
   // Expose fast navigation globally for use in components
   useEffect(() => {
-    (window as any).fastNavigate = handleFastNavigation;
-    return () => {
-      delete (window as any).fastNavigate;
-    };
+    if (typeof window !== 'undefined') {
+      (window as any).fastNavigate = handleFastNavigation;
+      return () => {
+        delete (window as any).fastNavigate;
+      };
+    }
   }, [handleFastNavigation]);
 
   return <>{children}</>;
