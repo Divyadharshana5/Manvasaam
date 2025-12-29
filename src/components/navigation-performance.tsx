@@ -33,6 +33,8 @@ export function NavigationPerformance() {
 
     // Track route changes
     const handleRouteChange = (url: string) => {
+      if (typeof document === 'undefined' || typeof MutationObserver === 'undefined') return;
+      
       const startTime = performance.now();
       
       // Track when the route change completes
