@@ -17,6 +17,9 @@ export function InstantNavigation({
   const router = useRouter();
 
   useEffect(() => {
+    // Only run on client side
+    if (typeof window === 'undefined') return;
+    
     // Prefetch all routes immediately
     routes.forEach((route) => {
       router.prefetch(route);
@@ -57,7 +60,7 @@ export function InstantNavigation({
 
     // Cleanup function
     return () => {
-      if (preloadResources) {
+      if (preloadResources && typeof document !== 'undefined') {
         const links = document.querySelectorAll(
           'link[rel="prefetch"], link[rel="preload"]'
         );
