@@ -38,13 +38,19 @@ export function NavigationProvider({ children }: NavigationProviderProps) {
     });
 
     // Preload based on user type if available
-    if (typeof localStorage !== 'undefined') {
+    if (typeof localStorage !== "undefined") {
       const userType = localStorage.getItem("userType");
       if (userType) {
         const userSpecificRoutes = {
-          farmer: ["/dashboard/farmer/products", "/dashboard/farmer/matchmaking"],
+          farmer: [
+            "/dashboard/farmer/products",
+            "/dashboard/farmer/matchmaking",
+          ],
           retail: ["/dashboard/retail/products", "/dashboard/retail/orders"],
-          transport: ["/dashboard/transport/orders", "/dashboard/transport/vehicles"],
+          transport: [
+            "/dashboard/transport/orders",
+            "/dashboard/transport/vehicles",
+          ],
         };
 
         const routes =
@@ -58,8 +64,8 @@ export function NavigationProvider({ children }: NavigationProviderProps) {
 
   // Global navigation optimization
   useEffect(() => {
-    if (typeof document === 'undefined') return;
-    
+    if (typeof document === "undefined") return;
+
     // Add global navigation event listeners
     const handleLinkHover = (event: MouseEvent) => {
       const target = event.target as HTMLElement;
@@ -124,13 +130,22 @@ export function NavigationProvider({ children }: NavigationProviderProps) {
     const routeMap: Record<string, string[]> = {
       "/login/farmer": ["/dashboard/farmer", "/dashboard/farmer/products"],
       "/login/retail": ["/dashboard/retail", "/dashboard/retail/products"],
-      "/login/transport": ["/dashboard/transport", "/dashboard/transport/orders"],
+      "/login/transport": [
+        "/dashboard/transport",
+        "/dashboard/transport/orders",
+      ],
       "/dashboard/farmer": [
         "/dashboard/farmer/products",
         "/dashboard/farmer/matchmaking",
       ],
-      "/dashboard/retail": ["/dashboard/retail/products", "/dashboard/retail/orders"],
-      "/dashboard/transport": ["/dashboard/transport/orders", "/dashboard/transport/vehicles"],
+      "/dashboard/retail": [
+        "/dashboard/retail/products",
+        "/dashboard/retail/orders",
+      ],
+      "/dashboard/transport": [
+        "/dashboard/transport/orders",
+        "/dashboard/transport/vehicles",
+      ],
     };
 
     return routeMap[currentRoute] || [];
