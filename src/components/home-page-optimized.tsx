@@ -123,11 +123,13 @@ const RoleCard = ({
   const handleHover = useCallback(() => {
     router.prefetch(role.href);
     // Additional browser-level prefetch for instant navigation
-    const link = document.createElement('link');
-    link.rel = 'prefetch';
-    link.href = role.href;
-    link.as = 'document';
-    document.head.appendChild(link);
+    if (typeof document !== 'undefined') {
+      const link = document.createElement('link');
+      link.rel = 'prefetch';
+      link.href = role.href;
+      link.as = 'document';
+      document.head.appendChild(link);
+    }
   }, [router, role.href]);
 
   const handleClick = useCallback(() => {
@@ -189,14 +191,16 @@ export default function HomePage() {
   const { prefetchRoutes, isNavigating } = useFastNavigation();
 
   const [loadingRoleHref, setLoadingRoleHref] = useState<string | null>(null);
+  const [prefersReducedMotion, setPrefersReducedMotion] = useState(false);
 
   // Memoize expensive calculations for better performance
   const taglineWords = useMemo(() => t.tagline.split(" "), [t.tagline]);
 
   // Check for reduced motion preference for better performance
-  const prefersReducedMotion = useMemo(() => {
-    if (typeof window === "undefined") return false;
-    return window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  useEffect(() => {
+    if (typeof window !== "undefined") {
+      setPrefersReducedMotion(window.matchMedia("(prefers-reduced-motion: reduce)").matches);
+    }
   }, []);
 
   const userRoles = useMemo(
