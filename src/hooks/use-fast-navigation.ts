@@ -19,15 +19,17 @@ export function useFastNavigation() {
       router.prefetch(route);
 
       // Browser-level prefetch - check if already exists
-      const existingLink = document.querySelector(
-        `link[rel="prefetch"][href="${route}"]`
-      );
-      if (!existingLink) {
-        const link = document.createElement("link");
-        link.rel = "prefetch";
-        link.href = route;
-        link.as = "document";
-        document.head.appendChild(link);
+      if (typeof document !== 'undefined') {
+        const existingLink = document.querySelector(
+          `link[rel="prefetch"][href="${route}"]`
+        );
+        if (!existingLink) {
+          const link = document.createElement("link");
+          link.rel = "prefetch";
+          link.href = route;
+          link.as = "document";
+          document.head.appendChild(link);
+        }
       }
 
       prefetchedRoutes.current.add(route);
@@ -41,7 +43,9 @@ export function useFastNavigation() {
       if (isNavigatingRef.current) return; // Prevent double navigation
 
       isNavigatingRef.current = true;
-      document.body.classList.add("page-transitioning");
+      if (typeof document !== 'undefined') {
+        document.body.classList.add("page-transitioning");
+      }
 
       // Prefetch one more time for maximum speed
       router.prefetch(route);
