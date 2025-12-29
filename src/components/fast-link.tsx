@@ -29,7 +29,7 @@ export function FastLink({
 
   // Prefetch on mount for critical routes - optimized to avoid duplicates
   useEffect(() => {
-    if (prefetchOnMount && !prefetchedRef.current) {
+    if (prefetchOnMount && !prefetchedRef.current && typeof document !== 'undefined') {
       router.prefetch(href);
       prefetchedRef.current = true;
 
