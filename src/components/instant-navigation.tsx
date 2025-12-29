@@ -102,7 +102,7 @@ export function useInstantNavigation() {
       router.prefetch(href);
 
       // Also add browser-level prefetch - avoid duplicates
-      if (typeof document !== 'undefined') {
+      if (typeof document !== "undefined") {
         const existingLink = document.querySelector(
           `link[rel="prefetch"][href="${href}"]`
         );
