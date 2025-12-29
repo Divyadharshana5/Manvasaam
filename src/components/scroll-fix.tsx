@@ -123,7 +123,7 @@ export function ScrollFix() {
     }, 100);
 
     return () => {
-      if (typeof window !== 'undefined' && typeof document !== 'undefined') {
+      if (typeof window !== "undefined" && typeof document !== "undefined") {
         window.removeEventListener("popstate", handleRouteChange);
         window.removeEventListener("beforeunload", handleRouteChange);
         window.removeEventListener("load", hideScrollbars);
