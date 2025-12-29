@@ -4,6 +4,9 @@ import { useEffect } from "react";
 
 export function ScrollFix() {
   useEffect(() => {
+    // Check if we're on the client side
+    if (typeof document === 'undefined') return;
+    
     // Ultra-aggressive scrollbar hiding
     const hideScrollbars = () => {
       // Force hide scrollbars with inline styles (highest priority)
