@@ -310,6 +310,8 @@ export default function HomePage() {
 
   // Aggressive prefetching for instant navigation
   useEffect(() => {
+    if (typeof document === 'undefined') return;
+    
     const loginPages = ["/login/farmer", "/login/transport", "/login/retail"];
 
     // Prefetch immediately with high priority
@@ -345,6 +347,8 @@ export default function HomePage() {
 
     // Cleanup function to remove links when component unmounts
     return () => {
+      if (typeof document === 'undefined') return;
+      
       const links = document.querySelectorAll(
         'link[rel="prefetch"], link[rel="preload"]'
       );
