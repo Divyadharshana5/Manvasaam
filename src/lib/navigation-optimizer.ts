@@ -134,6 +134,8 @@ export class NavigationOptimizer {
 
   // Show navigation progress indicator
   private showNavigationProgress() {
+    if (typeof document === 'undefined') return;
+    
     // Remove existing progress bar if any
     const existing = document.getElementById("nav-progress");
     if (existing) existing.remove();
@@ -165,6 +167,8 @@ export class NavigationOptimizer {
 
   // Hide navigation progress indicator
   private hideNavigationProgress() {
+    if (typeof document === 'undefined') return;
+    
     const progressBar = document.getElementById("nav-progress");
     if (progressBar) {
       progressBar.remove();
@@ -173,6 +177,8 @@ export class NavigationOptimizer {
 
   // Perform optimistic UI updates
   private performOptimisticUpdate(route: string) {
+    if (typeof window === 'undefined' || typeof document === 'undefined') return;
+    
     // Update page title immediately
     const routeTitles: Record<string, string> = {
       "/login/farmer": "Farmer Login - Manvaasam",
@@ -188,9 +194,7 @@ export class NavigationOptimizer {
     }
 
     // Update URL without navigation for instant feedback
-    if (typeof window !== "undefined") {
-      window.history.replaceState({}, "", route);
-    }
+    window.history.replaceState({}, "", route);
   }
 
   // Preload all critical routes instantly
