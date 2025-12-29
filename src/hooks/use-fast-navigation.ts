@@ -19,7 +19,7 @@ export function useFastNavigation() {
       router.prefetch(route);
 
       // Browser-level prefetch - check if already exists
-      if (typeof document !== 'undefined') {
+      if (typeof document !== "undefined") {
         const existingLink = document.querySelector(
           `link[rel="prefetch"][href="${route}"]`
         );
@@ -43,7 +43,7 @@ export function useFastNavigation() {
       if (isNavigatingRef.current) return; // Prevent double navigation
 
       isNavigatingRef.current = true;
-      if (typeof document !== 'undefined') {
+      if (typeof document !== "undefined") {
         document.body.classList.add("page-transitioning");
       }
 
@@ -54,13 +54,15 @@ export function useFastNavigation() {
       router.push(route);
 
       // Haptic feedback for mobile
-      if ("vibrate" in navigator) {
+      if (typeof navigator !== "undefined" && "vibrate" in navigator) {
         navigator.vibrate(50);
       }
 
       // Clean up after short delay
       setTimeout(() => {
-        document.body.classList.remove("page-transitioning");
+        if (typeof document !== "undefined") {
+          document.body.classList.remove("page-transitioning");
+        }
         isNavigatingRef.current = false;
       }, 150);
     },
@@ -83,15 +85,17 @@ export function useFastNavigation() {
   // Preload critical resources for a route - optimized
   const preloadRoute = useCallback(
     (route: string) => {
-      const existingPreload = document.querySelector(
-        `link[rel="preload"][href="${route}"]`
-      );
-      if (!existingPreload) {
-        const preloadLink = document.createElement("link");
-        preloadLink.rel = "preload";
-        preloadLink.href = route;
-        preloadLink.as = "document";
-        document.head.appendChild(preloadLink);
+      if (typeof document !== "undefined") {
+        const existingPreload = document.querySelector(
+          `link[rel="preload"][href="${route}"]`
+        );
+        if (!existingPreload) {
+          const preloadLink = document.createElement("link");
+          preloadLink.rel = "preload";
+          preloadLink.href = route;
+          preloadLink.as = "document";
+          document.head.appendChild(preloadLink);
+        }
       }
 
       prefetchRoute(route);
@@ -102,15 +106,17 @@ export function useFastNavigation() {
   // Cleanup prefetch links on unmount
   useEffect(() => {
     return () => {
-      const links = document.querySelectorAll(
-        'link[rel="prefetch"], link[rel="preload"]'
-      );
-      links.forEach((link) => {
-        const href = link.getAttribute("href");
-        if (href && prefetchedRoutes.current.has(href)) {
-          link.remove();
-        }
-      });
+      if (typeof document !== "undefined") {
+        const links = document.querySelectorAll(
+          'link[rel="prefetch"], link[rel="preload"]'
+        );
+        links.forEach((link) => {
+          const href = link.getAttribute("href");
+          if (href && prefetchedRoutes.current.has(href)) {
+            link.remove();
+          }
+        });
+      }
     };
   }, []);
 
