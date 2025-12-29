@@ -5,24 +5,24 @@ import { useEffect } from "react";
 export function ScrollFix() {
   useEffect(() => {
     // Check if we're on the client side
-    if (typeof document === 'undefined') return;
-    
+    if (typeof document === "undefined") return;
+
     // Ultra-aggressive scrollbar hiding
     const hideScrollbars = () => {
       // Force hide scrollbars with inline styles (highest priority)
       const elements = [document.documentElement, document.body];
-      
-      elements.forEach(element => {
+
+      elements.forEach((element) => {
         if (element) {
-          element.style.setProperty('scrollbar-width', 'none', 'important');
-          element.style.setProperty('-ms-overflow-style', 'none', 'important');
-          element.style.setProperty('overflow-y', 'auto', 'important');
-          element.style.setProperty('overflow-x', 'hidden', 'important');
+          element.style.setProperty("scrollbar-width", "none", "important");
+          element.style.setProperty("-ms-overflow-style", "none", "important");
+          element.style.setProperty("overflow-y", "auto", "important");
+          element.style.setProperty("overflow-x", "hidden", "important");
         }
       });
 
       // Add CSS to hide webkit scrollbars
-      const style = document.createElement('style');
+      const style = document.createElement("style");
       style.textContent = `
         html::-webkit-scrollbar,
         body::-webkit-scrollbar,
@@ -41,16 +41,34 @@ export function ScrollFix() {
       document.head.appendChild(style);
 
       // Add classes to ensure scrollbar hiding
-      document.documentElement.classList.add('hide-scrollbar', 'no-scrollbar', 'scrollbar-hidden');
-      document.body.classList.add('hide-scrollbar', 'no-scrollbar', 'scrollbar-hidden');
-      
+      document.documentElement.classList.add(
+        "hide-scrollbar",
+        "no-scrollbar",
+        "scrollbar-hidden"
+      );
+      document.body.classList.add(
+        "hide-scrollbar",
+        "no-scrollbar",
+        "scrollbar-hidden"
+      );
+
       // Find and update all containers
-      const containers = document.querySelectorAll('.mobile-container, .scrollable-container, .home-page, [data-page="home"]');
-      containers.forEach(container => {
+      const containers = document.querySelectorAll(
+        '.mobile-container, .scrollable-container, .home-page, [data-page="home"]'
+      );
+      containers.forEach((container) => {
         if (container instanceof HTMLElement) {
-          container.style.setProperty('scrollbar-width', 'none', 'important');
-          container.style.setProperty('-ms-overflow-style', 'none', 'important');
-          container.classList.add('hide-scrollbar', 'no-scrollbar', 'scrollbar-hidden');
+          container.style.setProperty("scrollbar-width", "none", "important");
+          container.style.setProperty(
+            "-ms-overflow-style",
+            "none",
+            "important"
+          );
+          container.classList.add(
+            "hide-scrollbar",
+            "no-scrollbar",
+            "scrollbar-hidden"
+          );
         }
       });
     };
@@ -62,12 +80,12 @@ export function ScrollFix() {
     const observer = new MutationObserver(() => {
       hideScrollbars();
     });
-    
+
     observer.observe(document.body, {
       childList: true,
       subtree: true,
       attributes: true,
-      attributeFilter: ['style', 'class']
+      attributeFilter: ["style", "class"],
     });
 
     // Apply after any navigation or route changes
@@ -78,35 +96,42 @@ export function ScrollFix() {
     };
 
     // Listen for all possible events that might affect scrollbars
-    window.addEventListener('popstate', handleRouteChange);
-    window.addEventListener('beforeunload', handleRouteChange);
-    window.addEventListener('load', hideScrollbars);
-    window.addEventListener('resize', hideScrollbars);
-    document.addEventListener('DOMContentLoaded', hideScrollbars);
-    
+    window.addEventListener("popstate", handleRouteChange);
+    window.addEventListener("beforeunload", handleRouteChange);
+    window.addEventListener("load", hideScrollbars);
+    window.addEventListener("resize", hideScrollbars);
+    document.addEventListener("DOMContentLoaded", hideScrollbars);
+
     // Continuous monitoring to ensure scrollbars stay hidden
     const continuousHiding = setInterval(() => {
       hideScrollbars();
-      
+
       // Remove any overflow hidden styles that might block scrolling
-      const elementsWithHiddenOverflow = document.querySelectorAll('[style*="overflow: hidden"], [style*="overflow-y: hidden"]');
-      elementsWithHiddenOverflow.forEach(element => {
-        if (element instanceof HTMLElement && !element.classList.contains('dropdown-menu')) {
-          element.style.setProperty('overflow-y', 'auto', 'important');
-          element.style.setProperty('scrollbar-width', 'none', 'important');
-          element.style.setProperty('-ms-overflow-style', 'none', 'important');
+      const elementsWithHiddenOverflow = document.querySelectorAll(
+        '[style*="overflow: hidden"], [style*="overflow-y: hidden"]'
+      );
+      elementsWithHiddenOverflow.forEach((element) => {
+        if (
+          element instanceof HTMLElement &&
+          !element.classList.contains("dropdown-menu")
+        ) {
+          element.style.setProperty("overflow-y", "auto", "important");
+          element.style.setProperty("scrollbar-width", "none", "important");
+          element.style.setProperty("-ms-overflow-style", "none", "important");
         }
       });
     }, 100);
 
     return () => {
-      window.removeEventListener('popstate', handleRouteChange);
-      window.removeEventListener('beforeunload', handleRouteChange);
-      window.removeEventListener('load', hideScrollbars);
-      window.removeEventListener('resize', hideScrollbars);
-      document.removeEventListener('DOMContentLoaded', hideScrollbars);
-      observer.disconnect();
-      clearInterval(continuousHiding);
+      if (typeof window !== 'undefined' && typeof document !== 'undefined') {
+        window.removeEventListener("popstate", handleRouteChange);
+        window.removeEventListener("beforeunload", handleRouteChange);
+        window.removeEventListener("load", hideScrollbars);
+        window.removeEventListener("resize", hideScrollbars);
+        document.removeEventListener("DOMContentLoaded", hideScrollbars);
+        observer.disconnect();
+        clearInterval(continuousHiding);
+      }
     };
   }, []);
 
