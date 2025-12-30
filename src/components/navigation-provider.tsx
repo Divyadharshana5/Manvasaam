@@ -38,22 +38,27 @@ export function NavigationProvider({ children }: NavigationProviderProps) {
     });
 
     // Preload based on user type if available
-    const userType = localStorage.getItem("userType");
-    if (userType) {
-      const userSpecificRoutes = {
-        farmer: ["/dashboard/farmer/products", "/dashboard/farmer/matchmaking"],
-        retail: ["/dashboard/retail/products", "/dashboard/retail/orders"],
-        transport: [
-          "/dashboard/transport/orders",
-          "/dashboard/transport/vehicles",
-        ],
-      };
+    try {
+      const userType = localStorage.getItem("userType");
+      if (userType) {
+        const userSpecificRoutes = {
+          farmer: ["/dashboard/farmer/products", "/dashboard/farmer/matchmaking"],
+          retail: ["/dashboard/retail/products", "/dashboard/retail/orders"],
+          transport: [
+            "/dashboard/transport/orders",
+            "/dashboard/transport/vehicles",
+          ],
+        };
 
-      const routes =
-        userSpecificRoutes[userType as keyof typeof userSpecificRoutes];
-      if (routes) {
-        routes.forEach((route) => preloadRoute(route));
+        const routes =
+          userSpecificRoutes[userType as keyof typeof userSpecificRoutes];
+        if (routes) {
+          routes.forEach((route) => preloadRoute(route));
+        }
       }
+    } catch (error) {
+      // Silently handle localStorage access errors
+      console.warn("Could not access localStorage:", error);
     }
   }, [preloadRoute]);
 
