@@ -13,6 +13,7 @@ import { NavigationProvider } from "@/components/navigation-provider";
 import { FirebaseErrorBoundary } from "@/components/firebase-error-boundary";
 import { NavigationPerformance } from "@/components/navigation-performance";
 import { ServiceWorkerRegistration } from "@/components/service-worker-registration";
+import { ClientOnly } from "@/components/client-only";
 // Using system fonts for better compatibility with Next.js 16.0.0 + Turbopack
 const fontFamily =
   "system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif";
@@ -217,12 +218,14 @@ export default function RootLayout({
         className="font-sans antialiased scroll-enabled hide-scrollbar no-scrollbar"
         suppressHydrationWarning
       >
-        <ServiceWorkerRegistration />
+        <ClientOnly>
+          <ServiceWorkerRegistration />
+          <NavigationPerformance />
+        </ClientOnly>
         <FirebaseErrorBoundary>
           <LanguageProvider>
             <NavigationProvider>
               <AuthProvider>
-                <NavigationPerformance />
                 {children}
               </AuthProvider>
             </NavigationProvider>
