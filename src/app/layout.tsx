@@ -213,7 +213,10 @@ export default function RootLayout({
           }}
         />
       </head>
-      <body className="font-sans antialiased scroll-enabled hide-scrollbar no-scrollbar" suppressHydrationWarning>
+      <body
+        className="font-sans antialiased scroll-enabled hide-scrollbar no-scrollbar"
+        suppressHydrationWarning
+      >
         <ServiceWorkerRegistration />
         <FirebaseErrorBoundary>
           <LanguageProvider>
