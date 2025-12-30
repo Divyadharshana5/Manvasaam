@@ -15,22 +15,8 @@ export function useFastNavigation() {
         return; // Already prefetched
       }
 
-      // Next.js prefetch
+      // Next.js prefetch only (browser-level prefetch can cause hydration issues)
       router.prefetch(route);
-
-      // Browser-level prefetch - check if already exists
-      if (typeof document !== "undefined") {
-        const existingLink = document.querySelector(
-          `link[rel="prefetch"][href="${route}"]`
-        );
-        if (!existingLink) {
-          const link = document.createElement("link");
-          link.rel = "prefetch";
-          link.href = route;
-          link.as = "document";
-          document.head.appendChild(link);
-        }
-      }
 
       prefetchedRoutes.current.add(route);
     },
@@ -43,9 +29,7 @@ export function useFastNavigation() {
       if (isNavigatingRef.current) return; // Prevent double navigation
 
       isNavigatingRef.current = true;
-      if (typeof document !== "undefined") {
-        document.body.classList.add("page-transitioning");
-      }
+      document.body.classList.add("page-transitioning");
 
       // Prefetch one more time for maximum speed
       router.prefetch(route);
@@ -54,15 +38,13 @@ export function useFastNavigation() {
       router.push(route);
 
       // Haptic feedback for mobile
-      if (typeof navigator !== "undefined" && "vibrate" in navigator) {
+      if ("vibrate" in navigator) {
         navigator.vibrate(50);
       }
 
       // Clean up after short delay
       setTimeout(() => {
-        if (typeof document !== "undefined") {
-          document.body.classList.remove("page-transitioning");
-        }
+        document.body.classList.remove("page-transitioning");
         isNavigatingRef.current = false;
       }, 150);
     },
