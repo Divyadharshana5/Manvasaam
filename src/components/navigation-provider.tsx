@@ -42,7 +42,10 @@ export function NavigationProvider({ children }: NavigationProviderProps) {
       const userType = localStorage.getItem("userType");
       if (userType) {
         const userSpecificRoutes = {
-          farmer: ["/dashboard/farmer/products", "/dashboard/farmer/matchmaking"],
+          farmer: [
+            "/dashboard/farmer/products",
+            "/dashboard/farmer/matchmaking",
+          ],
           retail: ["/dashboard/retail/products", "/dashboard/retail/orders"],
           transport: [
             "/dashboard/transport/orders",
