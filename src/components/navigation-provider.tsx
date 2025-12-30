@@ -38,34 +38,30 @@ export function NavigationProvider({ children }: NavigationProviderProps) {
     });
 
     // Preload based on user type if available
-    if (typeof localStorage !== "undefined") {
-      const userType = localStorage.getItem("userType");
-      if (userType) {
-        const userSpecificRoutes = {
-          farmer: [
-            "/dashboard/farmer/products",
-            "/dashboard/farmer/matchmaking",
-          ],
-          retail: ["/dashboard/retail/products", "/dashboard/retail/orders"],
-          transport: [
-            "/dashboard/transport/orders",
-            "/dashboard/transport/vehicles",
-          ],
-        };
+    const userType = localStorage.getItem("userType");
+    if (userType) {
+      const userSpecificRoutes = {
+        farmer: [
+          "/dashboard/farmer/products",
+          "/dashboard/farmer/matchmaking",
+        ],
+        retail: ["/dashboard/retail/products", "/dashboard/retail/orders"],
+        transport: [
+          "/dashboard/transport/orders",
+          "/dashboard/transport/vehicles",
+        ],
+      };
 
-        const routes =
-          userSpecificRoutes[userType as keyof typeof userSpecificRoutes];
-        if (routes) {
-          routes.forEach((route) => preloadRoute(route));
-        }
+      const routes =
+        userSpecificRoutes[userType as keyof typeof userSpecificRoutes];
+      if (routes) {
+        routes.forEach((route) => preloadRoute(route));
       }
     }
   }, [preloadRoute]);
 
   // Global navigation optimization
   useEffect(() => {
-    if (typeof document === "undefined") return;
-
     // Add global navigation event listeners
     const handleLinkHover = (event: MouseEvent) => {
       const target = event.target as HTMLElement;
@@ -108,8 +104,6 @@ export function NavigationProvider({ children }: NavigationProviderProps) {
   // Fast navigation with instant feedback
   const handleFastNavigation = useCallback(
     (route: string) => {
-      if (typeof document === "undefined") return;
-
       // Show instant loading state
       document.body.classList.add("page-transitioning");
 
@@ -121,9 +115,7 @@ export function NavigationProvider({ children }: NavigationProviderProps) {
 
       // Remove loading state after navigation completes
       setTimeout(() => {
-        if (typeof document !== "undefined") {
-          document.body.classList.remove("page-transitioning");
-        }
+        document.body.classList.remove("page-transitioning");
       }, 100);
     },
     [navigateFast]
@@ -157,12 +149,10 @@ export function NavigationProvider({ children }: NavigationProviderProps) {
 
   // Expose fast navigation globally for use in components
   useEffect(() => {
-    if (typeof window !== "undefined") {
-      (window as any).fastNavigate = handleFastNavigation;
-      return () => {
-        delete (window as any).fastNavigate;
-      };
-    }
+    (window as any).fastNavigate = handleFastNavigation;
+    return () => {
+      delete (window as any).fastNavigate;
+    };
   }, [handleFastNavigation]);
 
   return <>{children}</>;
