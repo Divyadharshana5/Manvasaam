@@ -9,7 +9,7 @@ export function NavigationPerformance() {
   useEffect(() => {
     // Track navigation performance
     const trackNavigation = () => {
-      if (typeof window !== "undefined" && "performance" in window) {
+      if ("performance" in window) {
         // Measure navigation timing
         const navigation = performance.getEntriesByType(
           "navigation"
@@ -36,12 +36,6 @@ export function NavigationPerformance() {
 
     // Track route changes
     const handleRouteChange = (url: string) => {
-      if (
-        typeof document === "undefined" ||
-        typeof MutationObserver === "undefined"
-      )
-        return;
-
       const startTime = performance.now();
 
       // Track when the route change completes
