@@ -14,7 +14,8 @@ import { FirebaseErrorBoundary } from "@/components/firebase-error-boundary";
 import { NavigationPerformance } from "@/components/navigation-performance";
 import { ServiceWorkerRegistration } from "@/components/service-worker-registration";
 // Using system fonts for better compatibility with Next.js 16.0.0 + Turbopack
-const fontFamily = "system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif";
+const fontFamily =
+  "system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif";
 
 export const metadata: Metadata = {
   title: {
