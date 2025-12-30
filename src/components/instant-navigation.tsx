@@ -103,12 +103,13 @@ export function useInstantNavigation() {
         `link[rel="prefetch"][href="${href}"]`
       );
       if (!existingLink) {
-          const link = document.createElement("link");
-          link.rel = "prefetch";
-          link.href = href;
-          link.as = "document";
-          document.head.appendChild(link);
-
+        const link = document.createElement("link");
+        link.rel = "prefetch";
+        link.href = href;
+        link.as = "document";
+        document.head.appendChild(link);
+      }
+    },
     [router]
   );
 
