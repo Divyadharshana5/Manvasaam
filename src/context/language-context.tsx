@@ -2276,22 +2276,21 @@ const LanguageContext = createContext<LanguageContextType | undefined>(
 );
 
 export const LanguageProvider = ({ children }: { children: ReactNode }) => {
-  const [selectedLanguage, setSelectedLanguage] = useState<Language>(() => {
-    // Initialize from localStorage only on client-side, default to English on server
-    if (typeof window !== "undefined") {
-      try {
-        const storedLanguage = localStorage.getItem(
-          "manvaasam-language"
-        ) as Language;
-        if (storedLanguage && translations[storedLanguage]) {
-          return storedLanguage;
-        }
-      } catch (error) {
-        // Silently handle errors
+  const [selectedLanguage, setSelectedLanguage] = useState<Language>("English");
+  const [mounted, setMounted] = useState(false);
+
+  useEffect(() => {
+    setMounted(true);
+    // Load language preference after component mounts
+    try {
+      const storedLanguage = localStorage.getItem("manvaasam-language") as Language;
+      if (storedLanguage && translations[storedLanguage]) {
+        setSelectedLanguage(storedLanguage);
       }
+    } catch (error) {
+      // Silently handle errors
     }
-    return "English";
-  });
+  }, []);
 
   const handleSetLanguage = (language: Language) => {
     setSelectedLanguage(language);
