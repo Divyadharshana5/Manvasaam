@@ -2116,11 +2116,18 @@ const LanguageContext = createContext<LanguageContextType | undefined>(undefined
 
 export const LanguageProvider = ({ children }: { children: ReactNode }) => {
   const [selectedLanguage, setSelectedLanguage] = useState<Language>('English');
+  const [isHydrated, setIsHydrated] = useState(false);
 
   useEffect(() => {
-    const storedLanguage = localStorage.getItem('manvaasam-language') as Language;
-    if (storedLanguage && translations[storedLanguage]) {
-      setSelectedLanguage(storedLanguage);
+    // Mark as hydrated first
+    setIsHydrated(true);
+    
+    // Then check localStorage
+    if (typeof window !== 'undefined') {
+      const storedLanguage = localStorage.getItem('manvaasam-language') as Language;
+      if (storedLanguage && translations[storedLanguage]) {
+        setSelectedLanguage(storedLanguage);
+      }
     }
   }, []);
 
