@@ -2283,7 +2283,9 @@ export const LanguageProvider = ({ children }: { children: ReactNode }) => {
     setMounted(true);
     // Load language preference after component mounts
     try {
-      const storedLanguage = localStorage.getItem("manvaasam-language") as Language;
+      const storedLanguage = localStorage.getItem(
+        "manvaasam-language"
+      ) as Language;
       if (storedLanguage && translations[storedLanguage]) {
         setSelectedLanguage(storedLanguage);
       }
