@@ -22,33 +22,40 @@ export class FirebaseErrorBoundary extends React.Component<Props, State> {
 
   static getDerivedStateFromError(error: Error): State {
     // Check if it's a Firebase network error
-    if (error.message.includes('auth/network-request-failed') || 
-        error.message.includes('Firebase') ||
-        error.name === 'FirebaseError') {
-      console.warn('Firebase error caught by boundary, switching to demo mode:', error);
+    if (
+      error.message.includes("auth/network-request-failed") ||
+      error.message.includes("Firebase") ||
+      error.name === "FirebaseError"
+    ) {
+      console.warn(
+        "Firebase error caught by boundary, switching to demo mode:",
+        error
+      );
       return { hasError: true, error };
     }
-    
+
     // Check if it's a hydration error - silently recover
-    if (error.message.includes('Hydration') || 
-        error.message.includes('hydration') ||
-        error.message.includes('did not match')) {
-      console.warn('Hydration error caught, recovering:', error);
+    if (
+      error.message.includes("Hydration") ||
+      error.message.includes("hydration") ||
+      error.message.includes("did not match")
+    ) {
+      console.warn("Hydration error caught, recovering:", error);
       return { hasError: false };
     }
-    
+
     // Let other errors bubble up
     throw error;
   }
 
   componentDidCatch(error: Error, errorInfo: React.ErrorInfo) {
-    console.error('Firebase Error Boundary caught an error:', error, errorInfo);
+    console.error("Firebase Error Boundary caught an error:", error, errorInfo);
   }
 
   render() {
     if (this.state.hasError) {
       // Silently handle Firebase errors and continue in demo mode
-      console.log('Running in demo mode due to Firebase connection issue');
+      console.log("Running in demo mode due to Firebase connection issue");
       // Reset error state and continue rendering
       this.setState({ hasError: false });
     }
