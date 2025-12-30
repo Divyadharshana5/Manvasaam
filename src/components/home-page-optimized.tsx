@@ -124,14 +124,9 @@ const RoleCard = ({
   }, [router, role.href, isPrefetched]);
 
   const handleHover = useCallback(() => {
-    router.prefetch(role.href);
-    // Additional browser-level prefetch for instant navigation
-    if (typeof document !== "undefined") {
-      const link = document.createElement("link");
-      link.rel = "prefetch";
-      link.href = role.href;
-      link.as = "document";
-      document.head.appendChild(link);
+    // Only prefetch on client side
+    if (typeof window !== "undefined") {
+      router.prefetch(role.href);
     }
   }, [router, role.href]);
 
@@ -201,11 +196,8 @@ export default function HomePage() {
 
   // Check for reduced motion preference for better performance
   useEffect(() => {
-    if (typeof window !== "undefined") {
-      setPrefersReducedMotion(
-        window.matchMedia("(prefers-reduced-motion: reduce)").matches
-      );
-    }
+    const mediaQuery = window.matchMedia("(prefers-reduced-motion: reduce)");
+    setPrefersReducedMotion(mediaQuery.matches);
   }, []);
 
   const userRoles = useMemo(
@@ -308,32 +300,9 @@ export default function HomePage() {
     [t.roles]
   );
 
-  // Aggressive prefetching for instant navigation
+  // Simplified prefetching for instant navigation
   useEffect(() => {
-    if (typeof document === "undefined") return;
-
     const loginPages = ["/login/farmer", "/login/transport", "/login/retail"];
-
-    // Prefetch immediately with high priority
-    loginPages.forEach((page) => {
-      router.prefetch(page);
-
-      // Browser-level prefetching for instant navigation
-      const prefetchLink = document.createElement("link");
-      prefetchLink.rel = "prefetch";
-      prefetchLink.href = page;
-      prefetchLink.as = "document";
-      document.head.appendChild(prefetchLink);
-
-      // Preload critical resources for faster rendering
-      const preloadLink = document.createElement("link");
-      preloadLink.rel = "preload";
-      preloadLink.href = page;
-      preloadLink.as = "document";
-      document.head.appendChild(preloadLink);
-    });
-
-    // Prefetch dashboard routes for authenticated users
     const dashboardPages = [
       "/dashboard/retail",
       "/dashboard/transport",
@@ -341,26 +310,10 @@ export default function HomePage() {
       "/dashboard/retail/orders",
     ];
 
-    dashboardPages.forEach((page) => {
+    // Prefetch routes using Next.js router only
+    [...loginPages, ...dashboardPages].forEach((page) => {
       router.prefetch(page);
     });
-
-    // Cleanup function to remove links when component unmounts
-    return () => {
-      if (typeof document === "undefined") return;
-
-      const links = document.querySelectorAll(
-        'link[rel="prefetch"], link[rel="preload"]'
-      );
-      links.forEach((link) => {
-        if (
-          loginPages.includes(link.getAttribute("href") || "") ||
-          dashboardPages.includes(link.getAttribute("href") || "")
-        ) {
-          link.remove();
-        }
-      });
-    };
   }, [router]);
 
   const handleContinueClick = useCallback(
