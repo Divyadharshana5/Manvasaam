@@ -16,8 +16,6 @@ export function VoiceAssistantGlobal() {
     if (isListening) return;
 
     try {
-      if (typeof window === "undefined") return;
-      
       await navigator.mediaDevices.getUserMedia({ audio: true });
 
       const SpeechRecognition =
