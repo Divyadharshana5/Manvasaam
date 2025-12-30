@@ -1,7 +1,12 @@
-
 "use client";
 
-import React, { createContext, useState, useContext, ReactNode, useEffect } from 'react';
+import React, {
+  createContext,
+  useState,
+  useContext,
+  ReactNode,
+  useEffect,
+} from "react";
 
 export const translations = {
   English: {
@@ -28,7 +33,8 @@ export const translations = {
     },
     continue: "Continue",
     ourMission: "Our Mission",
-    missionStatement: "Manvaasam connects you directly with local farmers through our trusted hub network, ensuring you receive the freshest organic products while supporting sustainable agriculture.",
+    missionStatement:
+      "Manvaasam connects you directly with local farmers through our trusted hub network, ensuring you receive the freshest organic products while supporting sustainable agriculture.",
     footer: "All rights reserved.",
     sidebar: {
       dashboard: "Dashboard",
@@ -45,7 +51,7 @@ export const translations = {
       button: "Sign Out",
       title: "Signed Out",
       description: "You have been successfully signed out.",
-      errorTitle: "Sign Out Failed"
+      errorTitle: "Sign Out Failed",
     },
     auth: {
       welcome: "Welcome to Manvaasam",
@@ -84,7 +90,8 @@ export const translations = {
       restaurantDesc: "Access your account or register your restaurant.",
       restaurantIdLabel: "Restaurant ID",
       restaurantIdPlaceholder: "Your unique Restaurant ID",
-      forgotPasswordRestaurantDesc: "Enter your Restaurant ID or email to receive a password reset link.",
+      forgotPasswordRestaurantDesc:
+        "Enter your Restaurant ID or email to receive a password reset link.",
       restaurantIdOrEmailLabel: "Restaurant ID or Email",
       restaurantIdOrEmailPlaceholder: "ID or email",
       restaurantNameLabel: "Restaurant Name",
@@ -111,7 +118,8 @@ export const translations = {
       cardDescription: "Your personal and account details.",
       editProfile: "Edit Profile",
       editDialogTitle: "Edit Profile",
-      editDialogDescription: "Make changes to your profile here. Click save when you're done.",
+      editDialogDescription:
+        "Make changes to your profile here. Click save when you're done.",
       profilePicture: "Profile Picture",
       branchName: "Branch Name",
       username: "Username",
@@ -134,7 +142,8 @@ export const translations = {
       title: "Orders",
       description: "Here's a list of all the recent orders.",
       cardTitle: "All Orders",
-      cardDescription: "Review and manage all customer orders. Click on an order to view details.",
+      cardDescription:
+        "Review and manage all customer orders. Click on an order to view details.",
       searchPlaceholder: "Search by order ID or customer name...",
       orderId: "Order ID",
       customer: "Customer",
@@ -153,13 +162,15 @@ export const translations = {
     },
     products: {
       title: "Products",
-      description: "Browse and purchase fresh produce directly from our farmers.",
+      description:
+        "Browse and purchase fresh produce directly from our farmers.",
       freshCarrots: "Fresh Carrots",
       kgPrice: "1kg - Rs.20",
       addToCart: "Add to Cart",
       buyNow: "Buy Now",
       dialogTitle: "Place Your Order",
-      dialogDescription: "Please fill in your details to complete the purchase.",
+      dialogDescription:
+        "Please fill in your details to complete the purchase.",
       nameLabel: "Name",
       namePlaceholder: "Your full name",
       emailLabel: "Email ID",
@@ -185,11 +196,13 @@ export const translations = {
     },
     matchmaking: {
       title: "Farmer Matchmaking",
-      description: "Connect directly with farmers to source the freshest ingredients.",
+      description:
+        "Connect directly with farmers to source the freshest ingredients.",
       specializesIn: "Specializes in:",
       sendInquiry: "Send Inquiry",
       dialogTitle: "Contact",
-      dialogDescription: "Send a message directly to inquire about their produce.",
+      dialogDescription:
+        "Send a message directly to inquire about their produce.",
       subjectLabel: "Subject",
       subjectPlaceholder: "e.g., Inquiry about fresh tomatoes",
       messageLabel: "Message",
@@ -197,21 +210,25 @@ export const translations = {
       cancel: "Cancel",
       send: "Send Inquiry",
       inquirySuccessTitle: "Inquiry Sent!",
-      inquirySuccessDescription: "Your message has been successfully sent to {farmerName}.",
+      inquirySuccessDescription:
+        "Your message has been successfully sent to {farmerName}.",
     },
     faq: {
       title: "Frequently Asked Questions",
       description: "Here are some answers to common questions.",
       cardTitle: "Common Questions",
-      cardDescription: "Find answers to the most frequently asked questions below.",
+      cardDescription:
+        "Find answers to the most frequently asked questions below.",
     },
     marketing: {
       title: "Marketing",
       description: "Tools and analytics for your marketing campaigns.",
       comingSoon: "Coming Soon",
-      comingSoonDescription: "This section is under construction. Check back later for exciting new marketing tools!",
-      workingHard: "We are working hard to bring you features like campaign tracking, analytics, and promotional tools.",
-    }
+      comingSoonDescription:
+        "This section is under construction. Check back later for exciting new marketing tools!",
+      workingHard:
+        "We are working hard to bring you features like campaign tracking, analytics, and promotional tools.",
+    },
   },
   Tamil: {
     tagline: "விவசாயிகளை மேம்படுத்துதல், புத்துணர்ச்சியை வழங்குதல்",
@@ -220,24 +237,29 @@ export const translations = {
     roles: {
       farmer: {
         name: "விவசாயி",
-        description: "உங்கள் விளைபொருட்களை நேரடியாக விற்க எங்கள் நெட்வொர்க்கில் சேரவும்.",
+        description:
+          "உங்கள் விளைபொருட்களை நேரடியாக விற்க எங்கள் நெட்வொர்க்கில் சேரவும்.",
       },
       customer: {
         name: "வாடிக்கையாளர்",
-        description: "புதிய, ஆர்கானிக் பொருட்களை உங்கள் வீட்டு வாசலில் பெறுங்கள்.",
+        description:
+          "புதிய, ஆர்கானிக் பொருட்களை உங்கள் வீட்டு வாசலில் பெறுங்கள்.",
       },
       hub: {
         name: "மையம்",
-        description: "விநியோகத்தை நிர்வகித்து விவசாயிகளை வாடிக்கையாளர்களுடன் இணைக்கவும்.",
+        description:
+          "விநியோகத்தை நிர்வகித்து விவசாயிகளை வாடிக்கையாளர்களுடன் இணைக்கவும்.",
       },
       restaurant: {
         name: "உணவகம்",
-        description: "உள்ளூர் பண்ணைகளிலிருந்து நேரடியாக புதிய பொருட்களைப் பெறுங்கள்.",
+        description:
+          "உள்ளூர் பண்ணைகளிலிருந்து நேரடியாக புதிய பொருட்களைப் பெறுங்கள்.",
       },
     },
     continue: "தொடரவும்",
     ourMission: "எங்கள் நோக்கம்",
-    missionStatement: "மன்வாசம் உங்களை உள்ளூர் விவசாயிகளுடன் எங்கள் நம்பகமான மைய நெட்வொர்க் மூலம் நேரடியாக இணைக்கிறது, நிலையான விவசாயத்தை ஆதரிக்கும் அதே வேளையில் புத்துணர்ச்சியான ஆர்கானிக் தயாரிப்புகளைப் பெறுவதை உறுதி செய்கிறது.",
+    missionStatement:
+      "மன்வாசம் உங்களை உள்ளூர் விவசாயிகளுடன் எங்கள் நம்பகமான மைய நெட்வொர்க் மூலம் நேரடியாக இணைக்கிறது, நிலையான விவசாயத்தை ஆதரிக்கும் அதே வேளையில் புத்துணர்ச்சியான ஆர்கானிக் தயாரிப்புகளைப் பெறுவதை உறுதி செய்கிறது.",
     footer: "அனைத்து உரிமைகளும் பாதுகாக்கப்பட்டவை.",
     sidebar: {
       dashboard: "முகப்பு",
@@ -254,7 +276,7 @@ export const translations = {
       button: "வெளியேறு",
       title: "வெளியேறப்பட்டது",
       description: "நீங்கள் வெற்றிகரமாக வெளியேறிவிட்டீர்கள்.",
-      errorTitle: "வெளியேற முடியவில்லை"
+      errorTitle: "வெளியேற முடியவில்லை",
     },
     auth: {
       welcome: "மன்வாசமிற்கு வரவேற்கிறோம்",
@@ -267,7 +289,8 @@ export const translations = {
       passwordLabel: "கடவுச்சொல்",
       forgotPassword: "கடவுச்சொல்லை மறந்துவிட்டீர்களா?",
       forgotPasswordTitle: "கடவுச்சொல்லை மறந்துவிட்டீர்களா",
-      forgotPasswordDesc: "உங்கள் மின்னஞ்சலை உள்ளிடவும், நாங்கள் ஒரு மீட்டமைப்பு இணைப்பை அனுப்புவோம்.",
+      forgotPasswordDesc:
+        "உங்கள் மின்னஞ்சலை உள்ளிடவும், நாங்கள் ஒரு மீட்டமைப்பு இணைப்பை அனுப்புவோம்.",
       sendResetLink: "மீட்டமைப்பு இணைப்பை அனுப்பு",
       cancel: "ரத்துசெய்",
       signIn: "உள்நுழைக",
@@ -275,7 +298,8 @@ export const translations = {
       customer: "வாடிக்கையாளர்",
       farmer: "விவசாயி",
       faceReg: "முக பதிவு",
-      faceRegDesc: "உங்கள் முகத்தை கேமராவில் மையப்படுத்தி, பிடி என்பதைக் கிளிக் செய்யவும்.",
+      faceRegDesc:
+        "உங்கள் முகத்தை கேமராவில் மையப்படுத்தி, பிடி என்பதைக் கிளிக் செய்யவும்.",
       capturePhoto: "புகைப்படம் எடு",
       photoCaptured: "புகைப்படம் வெற்றிகரமாக எடுக்கப்பட்டது!",
       retakePhoto: "மீண்டும் புகைப்படம் எடு",
@@ -284,16 +308,19 @@ export const translations = {
       confirmPasswordLabel: "கடவுச்சொல்லை உறுதிப்படுத்தவும்",
       createAccount: "கணக்கை உருவாக்கு",
       hubPortal: "மையம் போர்டల్",
-      hubDesc: "தளவாடங்களை நிர்வகிக்கவும் மற்றும் எங்கள் நெட்வொர்க்கை இணைக்கவும்.",
+      hubDesc:
+        "தளவாடங்களை நிர்வகிக்கவும் மற்றும் எங்கள் நெட்வொர்க்கை இணைக்கவும்.",
       branchNameLabel: "கிளை பெயர்",
       branchIdLabel: "கிளை ஐடி",
       hubAdminEmailLabel: "மைய நிர்வாகி மின்னஞ்சல்",
       registerHub: "மையத்தை பதிவு செய்யுங்கள்",
       restaurantPortal: "உணவக போர்டల్",
-      restaurantDesc: "உங்கள் கணக்கை அணுகவும் அல்லது உங்கள் உணவகத்தை பதிவு செய்யவும்.",
+      restaurantDesc:
+        "உங்கள் கணக்கை அணுகவும் அல்லது உங்கள் உணவகத்தை பதிவு செய்யவும்.",
       restaurantIdLabel: "உணவக ஐடி",
       restaurantIdPlaceholder: "உங்கள் தனிப்பட்ட உணவக ஐடி",
-      forgotPasswordRestaurantDesc: "கடவுச்சொல் மீட்டமைப்பு இணைப்பைப் பெற உங்கள் உணவக ஐடி அல்லது மின்னஞ்சலை உள்ளிடவும்.",
+      forgotPasswordRestaurantDesc:
+        "கடவுச்சொல் மீட்டமைப்பு இணைப்பைப் பெற உங்கள் உணவக ஐடி அல்லது மின்னஞ்சலை உள்ளிடவும்.",
       restaurantIdOrEmailLabel: "உணவக ஐடி அல்லது மின்னஞ்சல்",
       restaurantIdOrEmailPlaceholder: "ஐடி அல்லது மின்னஞ்சல்",
       restaurantNameLabel: "உணவகத்தின் பெயர்",
@@ -320,7 +347,8 @@ export const translations = {
       cardDescription: "உங்கள் தனிப்பட்ட மற்றும் கணக்கு விவரங்கள்.",
       editProfile: "சுயவிவரத்தைத் திருத்து",
       editDialogTitle: "சுயவிவரத்தைத் திருத்து",
-      editDialogDescription: "உங்கள் சுயவிவரத்தில் மாற்றங்களை இங்கே செய்யுங்கள். முடிந்ததும் சேமி என்பதைக் கிளிக் செய்யவும்.",
+      editDialogDescription:
+        "உங்கள் சுயவிவரத்தில் மாற்றங்களை இங்கே செய்யுங்கள். முடிந்ததும் சேமி என்பதைக் கிளிக் செய்யவும்.",
       profilePicture: "சுயவிவரப் படம்",
       branchName: "கிளை பெயர்",
       username: "பயனர்பெயர்",
@@ -329,7 +357,8 @@ export const translations = {
       saveChanges: "மாற்றங்களைச் சேமிக்கவும்",
       cancel: "ரத்துசெய்",
       updateSuccessTitle: "வெற்றி",
-      updateSuccessDescription: "உங்கள் சுயவிவரம் வெற்றிகரமாகப் புதுப்பிக்கப்பட்டது.",
+      updateSuccessDescription:
+        "உங்கள் சுயவிவரம் வெற்றிகரமாகப் புதுப்பிக்கப்பட்டது.",
       updateErrorTitle: "புதுப்பிப்பு தோல்வியடைந்தது",
       loadError: "பயனர் சுயவிவரத்தை ஏற்ற முடியவில்லை.",
       emailLabel: "மின்னஞ்சல்",
@@ -343,8 +372,10 @@ export const translations = {
       title: "ஆர்டர்கள்",
       description: "சமீபத்திய ஆர்டர்களின் பட்டியல் இங்கே.",
       cardTitle: "அனைத்து ஆர்டர்களும்",
-      cardDescription: "வாடிக்கையாளர் ஆர்டர்களை மதிப்பாய்வு செய்து நிர்வகிக்கவும். விவரங்களைக் காண ஒரு ஆர்டரைக் கிளிக் செய்யவும்.",
-      searchPlaceholder: "ஆர்டர் ஐடி அல்லது வாடிக்கையாளர் பெயர் மூலம் தேடவும்...",
+      cardDescription:
+        "வாடிக்கையாளர் ஆர்டர்களை மதிப்பாய்வு செய்து நிர்வகிக்கவும். விவரங்களைக் காண ஒரு ஆர்டரைக் கிளிக் செய்யவும்.",
+      searchPlaceholder:
+        "ஆர்டர் ஐடி அல்லது வாடிக்கையாளர் பெயர் மூலம் தேடவும்...",
       orderId: "ஆர்டர் ஐடி",
       customer: "வாடிக்கையாளர்",
       status: "நிலை",
@@ -353,16 +384,19 @@ export const translations = {
       actions: "செயல்கள்",
       trackLive: "நேரலையில் கண்காணிக்கவும்",
       dialogTitle: "ஆர்டர் கண்காணிப்பு",
-      dialogDescription: "உங்கள் ஆர்டருக்கான நேரடி ஷிப்பிங் மற்றும் டெலிவரி புதுப்பிப்புகள்.",
+      dialogDescription:
+        "உங்கள் ஆர்டருக்கான நேரடி ஷிப்பிங் மற்றும் டெலிவரி புதுப்பிப்புகள்.",
       currentLocation: "தற்போதைய இடம்",
       reachedState: "உங்கள் மாநிலத்தை அடைந்தது",
       estimatedDelivery: "மதிப்பிடப்பட்ட டெலிவரி",
       shipmentHistory: "ஏற்றுமதி வரலாறு",
-      noDetails: "இந்த ஆர்டருக்கு இன்னும் ஷிப்பிங் விவரங்கள் எதுவும் கிடைக்கவில்லை.",
+      noDetails:
+        "இந்த ஆர்டருக்கு இன்னும் ஷிப்பிங் விவரங்கள் எதுவும் கிடைக்கவில்லை.",
     },
     products: {
       title: "பொருட்கள்",
-      description: "எங்கள் விவசாயிகளிடமிருந்து நேரடியாக புதிய விளைபொருட்களை உலவவும் மற்றும் வாங்கவும்.",
+      description:
+        "எங்கள் விவசாயிகளிடமிருந்து நேரடியாக புதிய விளைபொருட்களை உலவவும் மற்றும் வாங்கவும்.",
       freshCarrots: "புதிய கேரட்",
       kgPrice: "1கிலோ - ரூ.20",
       addToCart: "வண்டியில் சேர்",
@@ -398,7 +432,8 @@ export const translations = {
       specializesIn: "இதில் நிபுணத்துவம் பெற்றது:",
       sendInquiry: "விசாரணை அனுப்பு",
       dialogTitle: "தொடர்பு கொள்ள",
-      dialogDescription: "அவர்களின் விளைப்பொருட்கள் பற்றி விசாரிக்க সরাসরি একটি செய்தியை அனுப்பவும்.",
+      dialogDescription:
+        "அவர்களின் விளைப்பொருட்கள் பற்றி விசாரிக்க সরাসরি একটি செய்தியை அனுப்பவும்.",
       subjectLabel: "பொருள்",
       subjectPlaceholder: "எ.கா., புதிய தக்காளி பற்றிய விசாரணை",
       messageLabel: "செய்தி",
@@ -406,21 +441,26 @@ export const translations = {
       cancel: "ரத்துசெய்",
       send: "விசாரணை அனுப்பு",
       inquirySuccessTitle: "விசாரணை அனுப்பப்பட்டது!",
-      inquirySuccessDescription: "உங்கள் செய்தி {farmerName}க்கு வெற்றிகரமாக அனுப்பப்பட்டது.",
+      inquirySuccessDescription:
+        "உங்கள் செய்தி {farmerName}க்கு வெற்றிகரமாக அனுப்பப்பட்டது.",
     },
     faq: {
       title: "அடிக்கடி கேட்கப்படும் கேள்விகள்",
       description: "பொதுவான கேள்விகளுக்கான சில பதில்கள் இங்கே.",
       cardTitle: "பொதுவான கேள்விகள்",
-      cardDescription: "கீழே அடிக்கடி கேட்கப்படும் கேள்விகளுக்கான பதில்களைக் கண்டறியவும்.",
+      cardDescription:
+        "கீழே அடிக்கடி கேட்கப்படும் கேள்விகளுக்கான பதில்களைக் கண்டறியவும்.",
     },
     marketing: {
       title: "சந்தைப்படுத்தல்",
-      description: "உங்கள் சந்தைப்படுத்தல் பிரச்சாரங்களுக்கான கருவிகள் மற்றும் பகுப்பாய்வுகள்.",
+      description:
+        "உங்கள் சந்தைப்படுத்தல் பிரச்சாரங்களுக்கான கருவிகள் மற்றும் பகுப்பாய்வுகள்.",
       comingSoon: "விரைவில்",
-      comingSoonDescription: "இந்த பகுதி கட்டுமானத்தில் உள்ளது. அற்புதமான புதிய சந்தைப்படுத்தல் கருவிகளுக்காக பின்னர் மீண்டும் பார்க்கவும்!",
-      workingHard: " பிரச்சார கண்காணிப்பு, பகுப்பாய்வு மற்றும் விளம்பர கருவிகள் போன்ற அம்சங்களை உங்களுக்கு வழங்க நாங்கள் கடுமையாக உழைத்து வருகிறோம்.",
-    }
+      comingSoonDescription:
+        "இந்த பகுதி கட்டுமானத்தில் உள்ளது. அற்புதமான புதிய சந்தைப்படுத்தல் கருவிகளுக்காக பின்னர் மீண்டும் பார்க்கவும்!",
+      workingHard:
+        " பிரச்சார கண்காணிப்பு, பகுப்பாய்வு மற்றும் விளம்பர கருவிகள் போன்ற அம்சங்களை உங்களுக்கு வழங்க நாங்கள் கடுமையாக உழைத்து வருகிறோம்.",
+    },
   },
   Malayalam: {
     tagline: "കർഷകരെ ശാക്തീകരിക്കുന്നു, പുതുമ നൽകുന്നു",
@@ -429,15 +469,18 @@ export const translations = {
     roles: {
       farmer: {
         name: "കർഷകൻ",
-        description: "നിങ്ങളുടെ ഉൽപ്പന്നങ്ങൾ നേരിട്ട് വിൽക്കാൻ ഞങ്ങളുടെ നെറ്റ്‌വർക്കിൽ ചേരുക.",
+        description:
+          "നിങ്ങളുടെ ഉൽപ്പന്നങ്ങൾ നേരിട്ട് വിൽക്കാൻ ഞങ്ങളുടെ നെറ്റ്‌വർക്കിൽ ചേരുക.",
       },
       customer: {
         name: "ഉപഭോക്താവ്",
-        description: "പുതിയ, ഓർഗാനിക് ഉൽപ്പന്നങ്ങൾ നിങ്ങളുടെ വീട്ടുവാതിൽക്കൽ എത്തിക്കുക.",
+        description:
+          "പുതിയ, ഓർഗാനിക് ഉൽപ്പന്നങ്ങൾ നിങ്ങളുടെ വീട്ടുവാതിൽക്കൽ എത്തിക്കുക.",
       },
       hub: {
         name: "ഹബ്",
-        description: "ലോജിസ്റ്റിക്സ് നിയന്ത്രിക്കുക, കർഷകരെ ഉപഭോക്താക്കളുമായി ബന്ധിപ്പിക്കുക.",
+        description:
+          "ലോജിസ്റ്റിക്സ് നിയന്ത്രിക്കുക, കർഷകരെ ഉപഭോക്താക്കളുമായി ബന്ധിപ്പിക്കുക.",
       },
       restaurant: {
         name: "റെസ്റ്റോറന്റ്",
@@ -446,7 +489,8 @@ export const translations = {
     },
     continue: "തുടരുക",
     ourMission: "ഞങ്ങളുടെ ദൗത്യം",
-    missionStatement: "സുസ്ഥിരമായ കൃഷിയെ പിന്തുണച്ചുകൊണ്ട് നിങ്ങൾക്ക് ഏറ്റവും പുതിയ ഓർഗാനിക് ഉൽപ്പന്നങ്ങൾ ലഭിക്കുന്നുണ്ടെന്ന് ഉറപ്പാക്കിക്കൊണ്ട് ഞങ്ങളുടെ വിശ്വസ്ത ഹബ് നെറ്റ്‌വർക്ക് വഴി മൻവാസം നിങ്ങളെ പ്രാദേശിക കർഷകരുമായി നേരിട്ട് ബന്ധിപ്പിക്കുന്നു.",
+    missionStatement:
+      "സുസ്ഥിരമായ കൃഷിയെ പിന്തുണച്ചുകൊണ്ട് നിങ്ങൾക്ക് ഏറ്റവും പുതിയ ഓർഗാനിക് ഉൽപ്പന്നങ്ങൾ ലഭിക്കുന്നുണ്ടെന്ന് ഉറപ്പാക്കിക്കൊണ്ട് ഞങ്ങളുടെ വിശ്വസ്ത ഹബ് നെറ്റ്‌വർക്ക് വഴി മൻവാസം നിങ്ങളെ പ്രാദേശിക കർഷകരുമായി നേരിട്ട് ബന്ധിപ്പിക്കുന്നു.",
     footer: "എല്ലാ അവകാശങ്ങളും നിക്ഷിപ്തം.",
     sidebar: {
       dashboard: "ഡാഷ്ബോർഡ്",
@@ -463,11 +507,12 @@ export const translations = {
       button: "സൈൻ ഔട്ട് ചെയ്യുക",
       title: "സൈൻ ഔട്ട് ചെയ്തു",
       description: "നിങ്ങൾ വിജയകരമായി സൈൻ ഔട്ട് ചെയ്തു.",
-      errorTitle: "സൈൻ ഔട്ട് പരാജയപ്പെട്ടു"
+      errorTitle: "സൈൻ ഔട്ട് പരാജയപ്പെട്ടു",
     },
     auth: {
       welcome: "മൻവാസത്തിലേക്ക് സ്വാഗതം",
-      getStarted: "ആരംഭിക്കാൻ സൈൻ ഇൻ ചെയ്യുക അല്ലെങ്കിൽ ഒരു അക്കൗണ്ട് ഉണ്ടാക്കുക.",
+      getStarted:
+        "ആരംഭിക്കാൻ സൈൻ ഇൻ ചെയ്യുക അല്ലെങ്കിൽ ഒരു അക്കൗണ്ട് ഉണ്ടാക്കുക.",
       login: "പ്രവേശിക്കുക",
       register: "രജിസ്റ്റർ ചെയ്യുക",
       emailPassword: "ഇമെയിൽ & പാസ്‌വേഡ്",
@@ -476,7 +521,8 @@ export const translations = {
       passwordLabel: "പാസ്വേഡ്",
       forgotPassword: "പാസ്വേഡ് മറന്നോ?",
       forgotPasswordTitle: "പാസ്വേഡ് മറന്നോ",
-      forgotPasswordDesc: "നിങ്ങളുടെ ഇമെയിൽ നൽകുക, ഞങ്ങൾ ഒരു പുനഃസജ്ജീകരണ ലിങ്ക് അയയ്ക്കും.",
+      forgotPasswordDesc:
+        "നിങ്ങളുടെ ഇമെയിൽ നൽകുക, ഞങ്ങൾ ഒരു പുനഃസജ്ജീകരണ ലിങ്ക് അയയ്ക്കും.",
       sendResetLink: "പുനഃസജ്ജീകരണ ലിങ്ക് അയയ്ക്കുക",
       cancel: "റദ്ദാക്കുക",
       signIn: "സൈൻ ഇൻ ചെയ്യുക",
@@ -484,7 +530,8 @@ export const translations = {
       customer: "ഉപഭോക്താവ്",
       farmer: "കർഷകൻ",
       faceReg: "മുഖം രജിസ്ട്രേഷൻ",
-      faceRegDesc: "നിങ്ങളുടെ മുഖം ക്യാമറയിൽ കേന്ദ്രീകരിച്ച് ക്യാപ്ചർ ക്ലിക്കുചെയ്യുക.",
+      faceRegDesc:
+        "നിങ്ങളുടെ മുഖം ക്യാമറയിൽ കേന്ദ്രീകരിച്ച് ക്യാപ്ചർ ക്ലിക്കുചെയ്യുക.",
       capturePhoto: "ഫോട്ടോ എടുക്കുക",
       photoCaptured: "ഫോട്ടോ വിജയകരമായി എടുത്തു!",
       retakePhoto: "വീണ്ടും ഫോട്ടോ എടുക്കുക",
@@ -493,16 +540,19 @@ export const translations = {
       confirmPasswordLabel: "പാസ്വേഡ് സ്ഥിരീകരിക്കുക",
       createAccount: "അക്കൗണ്ട് ഉണ്ടാക്കുക",
       hubPortal: "ഹബ് പോർട്ടൽ",
-      hubDesc: "ലോജിസ്റ്റിക്സ് നിയന്ത്രിക്കുകയും ഞങ്ങളുടെ നെറ്റ്‌വർക്കിനെ ബന്ധിപ്പിക്കുകയും ചെയ്യുക.",
+      hubDesc:
+        "ലോജിസ്റ്റിക്സ് നിയന്ത്രിക്കുകയും ഞങ്ങളുടെ നെറ്റ്‌വർക്കിനെ ബന്ധിപ്പിക്കുകയും ചെയ്യുക.",
       branchNameLabel: "ബ്രാഞ്ചിന്റെ പേര്",
       branchIdLabel: "ബ്രാഞ്ച് ഐഡി",
       hubAdminEmailLabel: "ഹബ് അഡ്മിൻ ഇമെയിൽ",
       registerHub: "ഹബ് രജിസ്റ്റർ ചെയ്യുക",
       restaurantPortal: "റെസ്റ്റോറന്റ് പോർട്ടൽ",
-      restaurantDesc: "നിങ്ങളുടെ അക്കൗണ്ട് ആക്‌സസ് ചെയ്യുക അല്ലെങ്കിൽ നിങ്ങളുടെ റെസ്റ്റോറന്റ് രജിസ്റ്റർ ചെയ്യുക.",
+      restaurantDesc:
+        "നിങ്ങളുടെ അക്കൗണ്ട് ആക്‌സസ് ചെയ്യുക അല്ലെങ്കിൽ നിങ്ങളുടെ റെസ്റ്റോറന്റ് രജിസ്റ്റർ ചെയ്യുക.",
       restaurantIdLabel: "റെസ്റ്റോറന്റ് ഐഡി",
       restaurantIdPlaceholder: "നിങ്ങളുടെ തനതായ റെസ്റ്റോറന്റ് ഐഡി",
-      forgotPasswordRestaurantDesc: "പാസ്‌വേഡ് പുനഃസജ്ജീകരണ ലിങ്ക് ലഭിക്കുന്നതിന് നിങ്ങളുടെ റെസ്റ്റോറന്റ് ഐഡിയോ ഇമെയിലോ നൽകുക.",
+      forgotPasswordRestaurantDesc:
+        "പാസ്‌വേഡ് പുനഃസജ്ജീകരണ ലിങ്ക് ലഭിക്കുന്നതിന് നിങ്ങളുടെ റെസ്റ്റോറന്റ് ഐഡിയോ ഇമെയിലോ നൽകുക.",
       restaurantIdOrEmailLabel: "റെസ്റ്റോറന്റ് ഐഡി അല്ലെങ്കിൽ ഇമെയിൽ",
       restaurantIdOrEmailPlaceholder: "ഐഡി അല്ലെങ്കിൽ ഇമെയിൽ",
       restaurantNameLabel: "റെസ്റ്റോറന്റിന്റെ പേര്",
@@ -529,7 +579,8 @@ export const translations = {
       cardDescription: "നിങ്ങളുടെ വ്യക്തിഗത, അക്കൗണ്ട് വിവരങ്ങൾ.",
       editProfile: "പ്രൊഫൈൽ എഡിറ്റുചെയ്യുക",
       editDialogTitle: "പ്രൊഫൈൽ എഡിറ്റുചെയ്യുക",
-      editDialogDescription: "നിങ്ങളുടെ പ്രൊഫൈലിൽ മാറ്റങ്ങൾ ഇവിടെ വരുത്തുക. പൂർത്തിയാകുമ്പോൾ സേവ് ക്ലിക്കുചെയ്യുക.",
+      editDialogDescription:
+        "നിങ്ങളുടെ പ്രൊഫൈലിൽ മാറ്റങ്ങൾ ഇവിടെ വരുത്തുക. പൂർത്തിയാകുമ്പോൾ സേവ് ക്ലിക്കുചെയ്യുക.",
       profilePicture: "പ്രൊഫൈൽ ചിത്രം",
       branchName: "ബ്രാഞ്ചിന്റെ പേര്",
       username: "ഉപയോക്തൃനാമം",
@@ -538,7 +589,8 @@ export const translations = {
       saveChanges: "മാറ്റങ്ങൾ സംരക്ഷിക്കുക",
       cancel: "റദ്ദാക്കുക",
       updateSuccessTitle: "വിജയം",
-      updateSuccessDescription: "നിങ്ങളുടെ പ്രൊഫൈൽ വിജയകരമായി അപ്‌ഡേറ്റುചെയ്‌തു.",
+      updateSuccessDescription:
+        "നിങ്ങളുടെ പ്രൊഫൈൽ വിജയകരമായി അപ്‌ഡേറ്റುചെയ്‌തു.",
       updateErrorTitle: "അപ്ഡേറ്റ് പരാജയപ്പെട്ടു",
       loadError: "ഉപയോക്തൃ പ്രൊഫൈൽ ലോഡുചെയ്യാൻ കഴിഞ്ഞില്ല.",
       emailLabel: "ഇമെയിൽ",
@@ -552,8 +604,10 @@ export const translations = {
       title: "ഓർഡറുകൾ",
       description: "സമീപകാല ഓർഡറുകളുടെ ഒരു ലിസ്റ്റ് ഇതാ.",
       cardTitle: "എല്ലാ ഓർഡറുകളും",
-      cardDescription: "ഉപഭോക്തൃ ഓർഡറുകൾ അവലോകനം ചെയ്യുകയും നിയന്ത്രിക്കുകയും ചെയ്യുക. വിശദാംശങ്ങൾ കാണുന്നതിന് ഒരു ഓർഡറിൽ ക്ലിക്കുചെയ്യുക.",
-      searchPlaceholder: "ഓർഡർ ഐഡി അല്ലെങ്കിൽ ഉപഭോക്തൃ നാമം ഉപയോഗിച്ച് തിരയുക...",
+      cardDescription:
+        "ഉപഭോക്തൃ ഓർഡറുകൾ അവലോകനം ചെയ്യുകയും നിയന്ത്രിക്കുകയും ചെയ്യുക. വിശദാംശങ്ങൾ കാണുന്നതിന് ഒരു ഓർഡറിൽ ക്ലിക്കുചെയ്യുക.",
+      searchPlaceholder:
+        "ഓർഡർ ഐഡി അല്ലെങ്കിൽ ഉപഭോക്തൃ നാമം ഉപയോഗിച്ച് തിരയുക...",
       orderId: "ഓർഡർ ഐഡി",
       customer: "ഉപഭോക്താവ്",
       status: "നില",
@@ -562,7 +616,8 @@ export const translations = {
       actions: "പ്രവർത്തനങ്ങൾ",
       trackLive: "ലൈവ് ട്രാക്ക് ചെയ്യുക",
       dialogTitle: "ഓർഡർ ട്രാക്കിംഗ്",
-      dialogDescription: "നിങ്ങളുടെ ഓർഡറിനായുള്ള ലൈവ് ഷിപ്പിംഗ്, ഡെലിവറി അപ്‌ഡേറ്റുകൾ.",
+      dialogDescription:
+        "നിങ്ങളുടെ ഓർഡറിനായുള്ള ലൈവ് ഷിപ്പിംഗ്, ഡെലിവറി അപ്‌ഡേറ്റുകൾ.",
       currentLocation: "നിലവിലെ സ്ഥലം",
       reachedState: "നിങ്ങളുടെ സംസ്ഥാനത്ത് എത്തി",
       estimatedDelivery: "കണക്കാക്കിയ ഡെലിവറി",
@@ -571,13 +626,15 @@ export const translations = {
     },
     products: {
       title: "ഉൽപ്പന്നങ്ങൾ",
-      description: "ഞങ്ങളുടെ കർഷകരിൽ നിന്ന് നേരിട്ട് പുതിയ ഉൽപ്പന്നങ്ങൾ ബ്രൗസ് ചെയ്യുകയും വാങ്ങുകയും ചെയ്യുക.",
+      description:
+        "ഞങ്ങളുടെ കർഷകരിൽ നിന്ന് നേരിട്ട് പുതിയ ഉൽപ്പന്നങ്ങൾ ബ്രൗസ് ചെയ്യുകയും വാങ്ങുകയും ചെയ്യുക.",
       freshCarrots: "ഫ്രഷ് കാരറ്റ്",
       kgPrice: "1 കിലോ - 20 രൂപ",
       addToCart: "കാർട്ടിലേക്ക് ചേർക്കുക",
       buyNow: "ഇപ്പോൾ വാങ്ങുക",
       dialogTitle: "നിങ്ങളുടെ ഓർഡർ നൽകുക",
-      dialogDescription: "വാങ്ങൽ പൂർത്തിയാക്കാൻ നിങ്ങളുടെ വിശദാംശങ്ങൾ പൂരിപ്പിക്കുക.",
+      dialogDescription:
+        "വാങ്ങൽ പൂർത്തിയാക്കാൻ നിങ്ങളുടെ വിശദാംശങ്ങൾ പൂരിപ്പിക്കുക.",
       nameLabel: "പേര്",
       namePlaceholder: "നിങ്ങളുടെ പൂർണ്ണമായ പേര്",
       emailLabel: "ഇമെയിൽ ഐഡി",
@@ -607,7 +664,8 @@ export const translations = {
       specializesIn: "പ്രത്യേകത:",
       sendInquiry: "അന്വേഷണം അയയ്ക്കുക",
       dialogTitle: "ബന്ധപ്പെടുക",
-      dialogDescription: "അവരുടെ ഉൽപ്പന്നങ്ങളെക്കുറിച്ച് അന്വേഷിക്കാൻ നേരിട്ട് ഒരു സന്ദേശം അയയ്ക്കുക.",
+      dialogDescription:
+        "അവരുടെ ഉൽപ്പന്നങ്ങളെക്കുറിച്ച് അന്വേഷിക്കാൻ നേരിട്ട് ഒരു സന്ദേശം അയയ്ക്കുക.",
       subjectLabel: "വിഷയം",
       subjectPlaceholder: "ഉദാഹരണത്തിന്, പുതിയ തക്കാളിയെക്കുറിച്ചുള്ള അന്വേഷണം",
       messageLabel: "സന്ദേശം",
@@ -615,21 +673,26 @@ export const translations = {
       cancel: "റദ്ദാക്കുക",
       send: "അന്വേഷണം അയയ്ക്കുക",
       inquirySuccessTitle: "അന്വേഷണം അയച്ചു!",
-      inquirySuccessDescription: "നിങ്ങളുടെ സന്ദേശം {farmerName} എന്നയാൾക്ക് വിജയകരമായി അയച്ചു.",
+      inquirySuccessDescription:
+        "നിങ്ങളുടെ സന്ദേശം {farmerName} എന്നയാൾക്ക് വിജയകരമായി അയച്ചു.",
     },
     faq: {
       title: "പതിവുചോദ്യങ്ങൾ",
       description: "സാധാരണ ചോദ്യങ്ങൾക്കുള്ള ചില ഉത്തരങ്ങൾ ഇതാ.",
       cardTitle: "സാധാരണ ചോദ്യങ്ങൾ",
-      cardDescription: "ഏറ്റവും കൂടുതൽ ചോദിക്കുന്ന ചോദ്യങ്ങൾക്കുള്ള ഉത്തരങ്ങൾ താഴെ കണ്ടെത്തുക.",
+      cardDescription:
+        "ഏറ്റവും കൂടുതൽ ചോദിക്കുന്ന ചോദ്യങ്ങൾക്കുള്ള ഉത്തരങ്ങൾ താഴെ കണ്ടെത്തുക.",
     },
     marketing: {
       title: "മാർക്കറ്റിംഗ്",
-      description: "നിങ്ങളുടെ മാർക്കറ്റിംഗ് കാമ്പെയ്‌നുകൾക്കായുള്ള ഉപകരണങ്ങളും അനലിറ്റിക്‌സും.",
+      description:
+        "നിങ്ങളുടെ മാർക്കറ്റിംഗ് കാമ്പെയ്‌നുകൾക്കായുള്ള ഉപകരണങ്ങളും അനലിറ്റിക്‌സും.",
       comingSoon: "ഉടൻ വരുന്നു",
-      comingSoonDescription: "ഈ വിഭാഗം നിർമ്മാണത്തിലാണ്. ആവേശകരമായ പുതിയ മാർക്കറ്റിംഗ് ഉപകരണങ്ങൾക്കായി പിന്നീട് വീണ്ടും പരിശോധിക്കുക!",
-      workingHard: "കാമ്പെയ്ൻ ട്രാക്കിംഗ്, അനലിറ്റിക്സ്, പ്രൊമോഷണൽ ടൂളുകൾ പോലുള്ള സവിശേഷതകൾ നിങ്ങൾക്ക് നൽകാൻ ഞങ്ങൾ കഠിനമായി പരിശ്രമിക്കുന്നു.",
-    }
+      comingSoonDescription:
+        "ഈ വിഭാഗം നിർമ്മാണത്തിലാണ്. ആവേശകരമായ പുതിയ മാർക്കറ്റിംഗ് ഉപകരണങ്ങൾക്കായി പിന്നീട് വീണ്ടും പരിശോധിക്കുക!",
+      workingHard:
+        "കാമ്പെയ്ൻ ട്രാക്കിംഗ്, അനലിറ്റിക്സ്, പ്രൊമോഷണൽ ടൂളുകൾ പോലുള്ള സവിശേഷതകൾ നിങ്ങൾക്ക് നൽകാൻ ഞങ്ങൾ കഠിനമായി പരിശ്രമിക്കുന്നു.",
+    },
   },
   Telugu: {
     tagline: "రైతులకు సాధికారత, తాజాదనాన్ని అందించడం",
@@ -638,7 +701,8 @@ export const translations = {
     roles: {
       farmer: {
         name: "రైతు",
-        description: "మీ ఉత్పత్తులను నేరుగా విక్రయించడానికి మా నెట్వర్క్‌లో చేరండి.",
+        description:
+          "మీ ఉత్పత్తులను నేరుగా విక్రయించడానికి మా నెట్వర్క్‌లో చేరండి.",
       },
       customer: {
         name: "వినియోగదారుడు",
@@ -646,7 +710,8 @@ export const translations = {
       },
       hub: {
         name: "హబ్",
-        description: "లాజిస్టిక్స్ నిర్వహించండి మరియు రైతులను వినియోగదారులతో కనెక్ట్ చేయండి.",
+        description:
+          "లాజిస్టిక్స్ నిర్వహించండి మరియు రైతులను వినియోగదారులతో కనెక్ట్ చేయండి.",
       },
       restaurant: {
         name: "రెస్టారెంట్",
@@ -655,7 +720,8 @@ export const translations = {
     },
     continue: "కొనసాగించు",
     ourMission: "మా లక్ష్యం",
-    missionStatement: "సుస్థిర వ్యవసాయానికి మద్దతు ఇస్తూ, తాజా సేంద్రీయ ఉత్పత్తులను మీరు పొందేలా మా విశ్వసనీయ హబ్ నెట్‌వర్క్ ద్వారా మన్వాసం మిమ్మల్ని స్థానిక రైతులతో నేరుగా కలుపుతుంది.",
+    missionStatement:
+      "సుస్థిర వ్యవసాయానికి మద్దతు ఇస్తూ, తాజా సేంద్రీయ ఉత్పత్తులను మీరు పొందేలా మా విశ్వసనీయ హబ్ నెట్‌వర్క్ ద్వారా మన్వాసం మిమ్మల్ని స్థానిక రైతులతో నేరుగా కలుపుతుంది.",
     footer: "అన్ని హక్కులు ప్రత్యేకించబడ్డాయి.",
     sidebar: {
       dashboard: "డాష్బోర్డ్",
@@ -672,7 +738,7 @@ export const translations = {
       button: "సైన్ అవుట్ చేయండి",
       title: "సైన్ అవుట్ చేయబడింది",
       description: "మీరు విజయవంతంగా సైన్ అవుట్ చేసారు.",
-      errorTitle: "సైన్ అవుట్ విఫలమైంది"
+      errorTitle: "సైన్ అవుట్ విఫలమైంది",
     },
     auth: {
       welcome: "మన్వాసంకు స్వాగతం",
@@ -685,7 +751,8 @@ export const translations = {
       passwordLabel: "పాస్వర్డ్",
       forgotPassword: "పాస్వర్డ్ మర్చిపోయారా?",
       forgotPasswordTitle: "పాస్వర్డ్ మర్చిపోయారా",
-      forgotPasswordDesc: "మీ ఇమెయిల్‌ను నమోదు చేయండి మరియు మేము రీసెట్ లింక్‌ను పంపుతాము.",
+      forgotPasswordDesc:
+        "మీ ఇమెయిల్‌ను నమోదు చేయండి మరియు మేము రీసెట్ లింక్‌ను పంపుతాము.",
       sendResetLink: "రీసెట్ లింక్‌ను పంపండి",
       cancel: "రద్దు చేయండి",
       signIn: "సైన్ ఇన్ చేయండి",
@@ -693,7 +760,8 @@ export const translations = {
       customer: "వినియోగదారుడు",
       farmer: "రైతు",
       faceReg: "ఫేస్ రిజిస్ట్రేషన్",
-      faceRegDesc: "మీ ముఖాన్ని కెమెరాలో కేంద్రీకరించండి మరియు క్యాప్చర్ క్లిక్ చేయండి.",
+      faceRegDesc:
+        "మీ ముఖాన్ని కెమెరాలో కేంద్రీకరించండి మరియు క్యాప్చర్ క్లిక్ చేయండి.",
       capturePhoto: "ఫోటోను క్యాప్చర్ చేయండి",
       photoCaptured: "ఫోటో విజయవంతంగా క్యాప్చర్ చేయబడింది!",
       retakePhoto: "ఫోటోను మళ్లీ తీసుకోండి",
@@ -702,16 +770,19 @@ export const translations = {
       confirmPasswordLabel: "పాస్వర్డ్ను నిర్ధారించండి",
       createAccount: "ఖాతాను సృష్టించండి",
       hubPortal: "హబ్ పోర్టల్",
-      hubDesc: "లాజిస్టిక్స్ నిర్వహించండి మరియు మా నెట్‌వర్క్‌ను కనెక్ట్ చేయండి.",
+      hubDesc:
+        "లాజిస్టిక్స్ నిర్వహించండి మరియు మా నెట్‌వర్క్‌ను కనెక్ట్ చేయండి.",
       branchNameLabel: "శాఖ పేరు",
       branchIdLabel: "శాఖ ఐడి",
       hubAdminEmailLabel: "హబ్ అడ్మిన్ ఇమెయిల్",
       registerHub: "హబ్‌ను నమోదు చేయండి",
       restaurantPortal: "రెస్టారెంట్ పోర్టల్",
-      restaurantDesc: "మీ ఖాతాను యాక్సెస్ చేయండి లేదా మీ రెస్టారెంట్‌ను నమోదు చేయండి.",
+      restaurantDesc:
+        "మీ ఖాతాను యాక్సెస్ చేయండి లేదా మీ రెస్టారెంట్‌ను నమోదు చేయండి.",
       restaurantIdLabel: "రెస్టారెంట్ ఐడి",
       restaurantIdPlaceholder: "మీ ప్రత్యేక రెస్టారెంట్ ఐడి",
-      forgotPasswordRestaurantDesc: "పాస్‌వర్డ్ రీసెట్ లింక్‌ను స్వీకరించడానికి మీ రెస్టారెంట్ ఐడి లేదా ఇమెయిల్‌ను నమోదు చేయండి.",
+      forgotPasswordRestaurantDesc:
+        "పాస్‌వర్డ్ రీసెట్ లింక్‌ను స్వీకరించడానికి మీ రెస్టారెంట్ ఐడి లేదా ఇమెయిల్‌ను నమోదు చేయండి.",
       restaurantIdOrEmailLabel: "రెస్టారెంట్ ఐడి లేదా ఇమెయిల్",
       restaurantIdOrEmailPlaceholder: "ఐడి లేదా ఇమెయిల్",
       restaurantNameLabel: "రెస్టారెంట్ పేరు",
@@ -738,7 +809,8 @@ export const translations = {
       cardDescription: "మీ వ్యక్తిగత మరియు ఖాతా వివరాలు.",
       editProfile: "ప్రొఫైల్ ను మార్చు",
       editDialogTitle: "ప్రొఫైల్ ను మార్చు",
-      editDialogDescription: "మీ ప్రొఫైల్ లో మార్పులు ఇక్కడ చేయండి. పూర్తయిన తర్వాత సేవ్ క్లిక్ చేయండి.",
+      editDialogDescription:
+        "మీ ప్రొఫైల్ లో మార్పులు ఇక్కడ చేయండి. పూర్తయిన తర్వాత సేవ్ క్లిక్ చేయండి.",
       profilePicture: "ప్రొఫైల్ చిత్రం",
       branchName: "శాఖ పేరు",
       username: "యూజర్పేరు",
@@ -761,7 +833,8 @@ export const translations = {
       title: "ఆర్డర్లు",
       description: "ఇటీవలి ఆర్డర్ల జాబితా ఇక్కడ ఉంది.",
       cardTitle: "అన్ని ఆర్డర్లు",
-      cardDescription: "వినియోగదారుల ఆర్డర్లను సమీక్షించండి మరియు నిర్వహించండి. వివరాలను వీక్షించడానికి ఆర్డర్‌పై క్లిక్ చేయండి.",
+      cardDescription:
+        "వినియోగదారుల ఆర్డర్లను సమీక్షించండి మరియు నిర్వహించండి. వివరాలను వీక్షించడానికి ఆర్డర్‌పై క్లిక్ చేయండి.",
       searchPlaceholder: "ఆర్డర్ ఐడి లేదా వినియోగదారు పేరు ద్వారా శోధించండి...",
       orderId: "ఆర్డర్ ఐడి",
       customer: "వినియోగదారు",
@@ -771,7 +844,8 @@ export const translations = {
       actions: "చర్యలు",
       trackLive: "ప్రత్యక్షంగా ట్రాక్ చేయండి",
       dialogTitle: "ఆర్డర్ ట్రాకింగ్",
-      dialogDescription: "మీ ఆర్డర్ కోసం ప్రత్యక్ష షిప్పింగ్ మరియు డెలివరీ నవీకరణలు.",
+      dialogDescription:
+        "మీ ఆర్డర్ కోసం ప్రత్యక్ష షిప్పింగ్ మరియు డెలివరీ నవీకరణలు.",
       currentLocation: "ప్రస్తుత స్థానం",
       reachedState: "మీ రాష్ట్రానికి చేరుకుంది",
       estimatedDelivery: "అంచనా వేసిన డెలివరీ",
@@ -780,13 +854,15 @@ export const translations = {
     },
     products: {
       title: "ఉత్పత్తులు",
-      description: "మా రైతుల నుండి నేరుగా తాజా ఉత్పత్తులను బ్రౌజ్ చేయండి మరియు కొనుగోలు చేయండి.",
+      description:
+        "మా రైతుల నుండి నేరుగా తాజా ఉత్పత్తులను బ్రౌజ్ చేయండి మరియు కొనుగోలు చేయండి.",
       freshCarrots: "తాజా క్యారెట్లు",
       kgPrice: "1కిలో - రూ.20",
       addToCart: "కార్ట్‌కు జోడించండి",
       buyNow: "ఇప్పుడే కొనండి",
       dialogTitle: "మీ ఆర్డర్ ఉంచండి",
-      dialogDescription: "కొనుగోలు పూర్తి చేయడానికి దయచేసి మీ వివరాలను పూరించండి.",
+      dialogDescription:
+        "కొనుగోలు పూర్తి చేయడానికి దయచేసి మీ వివరాలను పూరించండి.",
       nameLabel: "పేరు",
       namePlaceholder: "మీ పూర్తి పేరు",
       emailLabel: "ఇమెయిల్ ఐడి",
@@ -812,11 +888,13 @@ export const translations = {
     },
     matchmaking: {
       title: "రైతు మ్యాచ్ మేకింగ్",
-      description: "తాజా పదార్థాలను సోర్స్ చేయడానికి రైతులతో నేరుగా కనెక్ట్ అవ్వండి.",
+      description:
+        "తాజా పదార్థాలను సోర్స్ చేయడానికి రైతులతో నేరుగా కనెక్ట్ అవ్వండి.",
       specializesIn: "ప్రత్యేకత:",
       sendInquiry: "విచారణ పంపండి",
       dialogTitle: "సంప్రదించండి",
-      dialogDescription: "వారి ఉత్పత్తుల గురించి విచారించడానికి నేరుగా సందేశం పంపండి.",
+      dialogDescription:
+        "వారి ఉత్పత్తుల గురించి విచారించడానికి నేరుగా సందేశం పంపండి.",
       subjectLabel: "విషయం",
       subjectPlaceholder: "ఉదా., తాజా టమోటాల గురించి విచారణ",
       messageLabel: "సందేశం",
@@ -824,7 +902,8 @@ export const translations = {
       cancel: "రద్దు చేయండి",
       send: "విచారణ పంపండి",
       inquirySuccessTitle: "విచారణ పంపబడింది!",
-      inquirySuccessDescription: "మీ సందేశం {farmerName}కు విజయవంతంగా పంపబడింది.",
+      inquirySuccessDescription:
+        "మీ సందేశం {farmerName}కు విజయవంతంగా పంపబడింది.",
     },
     faq: {
       title: "తరచుగా అడిగే ప్రశ్నలు",
@@ -836,9 +915,11 @@ export const translations = {
       title: "మార్కెటింగ్",
       description: "మీ మార్కెటింగ్ ప్రచారాల కోసం సాధనాలు మరియు విశ్లేషణలు.",
       comingSoon: "త్వరలో వస్తుంది",
-      comingSoonDescription: "ఈ విభాగం నిర్మాణంలో ఉంది. ఉత్తేజకరమైన కొత్త మార్కెటింగ్ సాధనాల కోసం తర్వాత తిరిగి తనిఖీ చేయండి!",
-      workingHard: "ప్రచార ట్రాకింగ్, విశ్లేషణలు మరియు ప్రచార సాధనాలు వంటి లక్షణాలను మీకు అందించడానికి మేము తీవ్రంగా కృషి చేస్తున్నాము.",
-    }
+      comingSoonDescription:
+        "ఈ విభాగం నిర్మాణంలో ఉంది. ఉత్తేజకరమైన కొత్త మార్కెటింగ్ సాధనాల కోసం తర్వాత తిరిగి తనిఖీ చేయండి!",
+      workingHard:
+        "ప్రచార ట్రాకింగ్, విశ్లేషణలు మరియు ప్రచార సాధనాలు వంటి లక్షణాలను మీకు అందించడానికి మేము తీవ్రంగా కృషి చేస్తున్నాము.",
+    },
   },
   Hindi: {
     tagline: "किसानों को सशक्त बनाना, ताजगी पहुंचाना",
@@ -856,7 +937,8 @@ export const translations = {
       },
       hub: {
         name: "हब",
-        description: "लॉजिस्टिक्स प्रबंधित करें और किसानों को ग्राहकों से जोड़ें।",
+        description:
+          "लॉजिस्टिक्स प्रबंधित करें और किसानों को ग्राहकों से जोड़ें।",
       },
       restaurant: {
         name: "रेस्टोरेंट",
@@ -865,7 +947,8 @@ export const translations = {
     },
     continue: "जारी रखें",
     ourMission: "हमारा विशेष कार्य",
-    missionStatement: "मनवाசம் आपको हमारे विश्वसनीय हब नेटवर्क के माध्यम से सीधे स्थानीय किसानों से जोड़ता है, यह सुनिश्चित करता है कि आपको स्थायी कृषि का समर्थन करते हुए सबसे ताज़ा जैविक उत्पाद प्राप्त हों।",
+    missionStatement:
+      "मनवाசம் आपको हमारे विश्वसनीय हब नेटवर्क के माध्यम से सीधे स्थानीय किसानों से जोड़ता है, यह सुनिश्चित करता है कि आपको स्थायी कृषि का समर्थन करते हुए सबसे ताज़ा जैविक उत्पाद प्राप्त हों।",
     footer: "सर्वाधिकार सुरक्षित।",
     sidebar: {
       dashboard: "डैशबोर्ड",
@@ -882,7 +965,7 @@ export const translations = {
       button: "साइन आउट",
       title: "साइन आउट किया गया",
       description: "आप सफलतापूर्वक साइन आउट हो गए हैं।",
-      errorTitle: "साइन आउट विफल"
+      errorTitle: "साइन आउट विफल",
     },
     auth: {
       welcome: "मनवाசம் में आपका स्वागत है",
@@ -903,7 +986,8 @@ export const translations = {
       customer: "ग्राहक",
       farmer: "किसान",
       faceReg: "फेस पंजीकरण",
-      faceRegDesc: "अपने चेहरे को कैमरे में केंद्रित करें और कैप्चर पर क्लिक करें।",
+      faceRegDesc:
+        "अपने चेहरे को कैमरे में केंद्रित करें और कैप्चर पर क्लिक करें।",
       capturePhoto: "फोटो कैप्चर करें",
       photoCaptured: "फोटो सफलतापूर्वक कैप्चर किया गया!",
       retakePhoto: "फोटो फिर से लें",
@@ -921,7 +1005,8 @@ export const translations = {
       restaurantDesc: "अपने खाते तक पहुंचें या अपने रेस्तरां को पंजीकृत करें।",
       restaurantIdLabel: "रेस्तरां आईडी",
       restaurantIdPlaceholder: "आपकी अनूठी रेस्तरां आईडी",
-      forgotPasswordRestaurantDesc: "पासवर्ड रीसेट लिंक प्राप्त करने के लिए अपनी रेस्तरां आईडी या ईमेल दर्ज करें।",
+      forgotPasswordRestaurantDesc:
+        "पासवर्ड रीसेट लिंक प्राप्त करने के लिए अपनी रेस्तरां आईडी या ईमेल दर्ज करें।",
       restaurantIdOrEmailLabel: "रेस्तरां आईडी या ईमेल",
       restaurantIdOrEmailPlaceholder: "आईडी या ईमेल",
       restaurantNameLabel: "रेस्तरां का नाम",
@@ -948,7 +1033,8 @@ export const translations = {
       cardDescription: "आपका व्यक्तिगत और खाता विवरण।",
       editProfile: "प्रोफ़ाइल संपादित करें",
       editDialogTitle: "प्रोफ़ाइल संपादित करें",
-      editDialogDescription: "अपनी प्रोफ़ाइल में परिवर्तन यहाँ करें। जब आप पूरा कर लें तो सहेजें पर क्लिक करें।",
+      editDialogDescription:
+        "अपनी प्रोफ़ाइल में परिवर्तन यहाँ करें। जब आप पूरा कर लें तो सहेजें पर क्लिक करें।",
       profilePicture: "प्रोफ़ाइल तस्वीर",
       branchName: "शाखा का नाम",
       username: "उपयोगकर्ता नाम",
@@ -971,7 +1057,8 @@ export const translations = {
       title: "आदेश",
       description: "यहाँ हाल के सभी आदेशों की एक सूची है।",
       cardTitle: "सभी आदेश",
-      cardDescription: "सभी ग्राहक आदेशों की समीक्षा और प्रबंधन करें। विवरण देखने के लिए एक आदेश पर क्लिक करें।",
+      cardDescription:
+        "सभी ग्राहक आदेशों की समीक्षा और प्रबंधन करें। विवरण देखने के लिए एक आदेश पर क्लिक करें।",
       searchPlaceholder: "आदेश आईडी या ग्राहक नाम से खोजें...",
       orderId: "आदेश आईडी",
       customer: "ग्राहक",
@@ -1026,7 +1113,8 @@ export const translations = {
       specializesIn: "में माहिर:",
       sendInquiry: "पूछताछ भेजें",
       dialogTitle: "संपर्क करें",
-      dialogDescription: "उनकी उपज के बारे में पूछताछ करने के लिए सीधे एक संदेश भेजें।",
+      dialogDescription:
+        "उनकी उपज के बारे में पूछताछ करने के लिए सीधे एक संदेश भेजें।",
       subjectLabel: "विषय",
       subjectPlaceholder: "जैसे, ताजा टमाटर के बारे में पूछताछ",
       messageLabel: "संदेश",
@@ -1034,7 +1122,8 @@ export const translations = {
       cancel: "रद्द करें",
       send: "पूछताछ भेजें",
       inquirySuccessTitle: "पूछताछ भेजी गई!",
-      inquirySuccessDescription: "आपका संदेश {farmerName} को सफलतापूर्वक भेज दिया गया है।",
+      inquirySuccessDescription:
+        "आपका संदेश {farmerName} को सफलतापूर्वक भेज दिया गया है।",
     },
     faq: {
       title: "अक्सर पूछे जाने वाले प्रश्न",
@@ -1046,9 +1135,11 @@ export const translations = {
       title: "विपणन",
       description: "आपके विपणन अभियानों के लिए उपकरण और विश्लेषण।",
       comingSoon: "जल्द आ रहा है",
-      comingSoonDescription: "यह अनुभाग निर्माणाधीन है। रोमांचक नए विपणन उपकरणों के लिए बाद में वापस देखें!",
-      workingHard: "हम आपको अभियान ट्रैकिंग, विश्लेषण और प्रचार उपकरण जैसी सुविधाएँ लाने के लिए कड़ी मेहनत कर रहे हैं।",
-    }
+      comingSoonDescription:
+        "यह अनुभाग निर्माणाधीन है। रोमांचक नए विपणन उपकरणों के लिए बाद में वापस देखें!",
+      workingHard:
+        "हम आपको अभियान ट्रैकिंग, विश्लेषण और प्रचार उपकरण जैसी सुविधाएँ लाने के लिए कड़ी मेहनत कर रहे हैं।",
+    },
   },
   Kannada: {
     tagline: "ರೈತರನ್ನು ಸಬಲೀಕರಣಗೊಳಿಸುವುದು, ತಾಜಾತನವನ್ನು ತಲುಪಿಸುವುದು",
@@ -1058,15 +1149,18 @@ export const translations = {
     roles: {
       farmer: {
         name: "ರೈತ",
-        description: "ನಿಮ್ಮ ಉತ್ಪನ್ನಗಳನ್ನು ನೇರವಾಗಿ ಮಾರಾಟ ಮಾಡಲು ನಮ್ಮ ನೆಟ್‌ವರ್ಕ್‌ಗೆ ಸೇರಿ.",
+        description:
+          "ನಿಮ್ಮ ಉತ್ಪನ್ನಗಳನ್ನು ನೇರವಾಗಿ ಮಾರಾಟ ಮಾಡಲು ನಮ್ಮ ನೆಟ್‌ವರ್ಕ್‌ಗೆ ಸೇರಿ.",
       },
       customer: {
         name: "ಗ್ರಾಹಕ",
-        description: "ತಾಜಾ, ಸಾವಯವ ಉತ್ಪನ್ನಗಳನ್ನು ನಿಮ್ಮ ಮನೆ ಬಾಗಿಲಿಗೆ ತಲುಪಿಸಲಾಗುತ್ತದೆ.",
+        description:
+          "ತಾಜಾ, ಸಾವಯವ ಉತ್ಪನ್ನಗಳನ್ನು ನಿಮ್ಮ ಮನೆ ಬಾಗಿಲಿಗೆ ತಲುಪಿಸಲಾಗುತ್ತದೆ.",
       },
       hub: {
         name: "ಕೇಂದ್ರ",
-        description: "ಲಾಜಿಸ್ಟಿಕ್ಸ್ ಅನ್ನು ನಿರ್ವಹಿಸಿ ಮತ್ತು ರೈತರನ್ನು ಗ್ರಾಹಕರಿಗೆ ಸಂಪರ್ಕಿಸಿ.",
+        description:
+          "ಲಾಜಿಸ್ಟಿಕ್ಸ್ ಅನ್ನು ನಿರ್ವಹಿಸಿ ಮತ್ತು ರೈತರನ್ನು ಗ್ರಾಹಕರಿಗೆ ಸಂಪರ್ಕಿಸಿ.",
       },
       restaurant: {
         name: "ರೆಸ್ಟೋರೆಂಟ್",
@@ -1075,7 +1169,8 @@ export const translations = {
     },
     continue: "ಮುಂದುವರಿಸಿ",
     ourMission: "ನಮ್ಮ ಧ್ಯೇಯ",
-    missionStatement: "ಮನ್ವಾസം ನಮ್ಮ ವಿಶ್ವಾಸಾರ್ಹ ಕೇಂದ್ರ ನೆಟ್‌ವರ್ಕ್ ಮೂಲಕ ನಿಮ್ಮನ್ನು ಸ್ಥಳೀಯ ರೈತರೊಂದಿಗೆ ನೇರವಾಗಿ ಸಂಪರ್ಕಿಸುತ್ತದೆ, ಸುಸ್ಥಿರ ಕೃಷಿಯನ್ನು ಬೆಂಬಲಿಸುವಾಗ ನೀವು ತಾಜಾ ಸಾವಯವ ಉತ್ಪನ್ನಗಳನ್ನು ಪಡೆಯುವುದನ್ನು ಖಚಿತಪಡಿಸುತ್ತದೆ.",
+    missionStatement:
+      "ಮನ್ವಾസം ನಮ್ಮ ವಿಶ್ವಾಸಾರ್ಹ ಕೇಂದ್ರ ನೆಟ್‌ವರ್ಕ್ ಮೂಲಕ ನಿಮ್ಮನ್ನು ಸ್ಥಳೀಯ ರೈತರೊಂದಿಗೆ ನೇರವಾಗಿ ಸಂಪರ್ಕಿಸುತ್ತದೆ, ಸುಸ್ಥಿರ ಕೃಷಿಯನ್ನು ಬೆಂಬಲಿಸುವಾಗ ನೀವು ತಾಜಾ ಸಾವಯವ ಉತ್ಪನ್ನಗಳನ್ನು ಪಡೆಯುವುದನ್ನು ಖಚಿತಪಡಿಸುತ್ತದೆ.",
     footer: "ಎಲ್ಲ ಹಕ್ಕುಗಳನ್ನು ಕಾಯ್ದಿರಿಸಲಾಗಿದೆ.",
     sidebar: {
       dashboard: "ಡ್ಯಾಶ್ಬೋರ್ಡ್",
@@ -1092,7 +1187,7 @@ export const translations = {
       button: "ಸೈನ್ ಔಟ್ ಮಾಡಿ",
       title: "ಸೈನ್ ಔಟ್ ಮಾಡಲಾಗಿದೆ",
       description: "ನೀವು ಯಶಸ್ವಿಯಾಗಿ ಸೈನ್ ಔಟ್ ಮಾಡಿದ್ದೀರಿ.",
-      errorTitle: "ಸೈನ್ ಔಟ್ ವಿಫಲವಾಗಿದೆ"
+      errorTitle: "ಸೈನ್ ಔಟ್ ವಿಫಲವಾಗಿದೆ",
     },
     auth: {
       welcome: "ಮನ್ವಾസംಗೆ ಸ್ವಾಗತ",
@@ -1105,7 +1200,8 @@ export const translations = {
       passwordLabel: "ಪಾಸ್ವರ್డ్",
       forgotPassword: "ಪಾಸ್ವರ್డ్ ಮರೆತಿರಾ?",
       forgotPasswordTitle: "ಪಾಸ್ವರ್డ్ ಮರೆತಿರಾ",
-      forgotPasswordDesc: "ನಿಮ್ಮ ಇಮೇಲ್ ಅನ್ನು ನಮೂದಿಸಿ ಮತ್ತು ನಾವು ಮರುಹೊಂದಿಸುವ ಲಿಂಕ್ ಅನ್ನು ಕಳುಹಿಸುತ್ತೇವೆ.",
+      forgotPasswordDesc:
+        "ನಿಮ್ಮ ಇಮೇಲ್ ಅನ್ನು ನಮೂದಿಸಿ ಮತ್ತು ನಾವು ಮರುಹೊಂದಿಸುವ ಲಿಂಕ್ ಅನ್ನು ಕಳುಹಿಸುತ್ತೇವೆ.",
       sendResetLink: "ಮರುಹೊಂದಿಸುವ ಲಿಂಕ್ ಕಳುಹಿಸಿ",
       cancel: "ರದ್ದುಮಾಡಿ",
       signIn: "ಸೈನ್ ಇನ್ ಮಾಡಿ",
@@ -1113,7 +1209,8 @@ export const translations = {
       customer: "ಗ್ರಾಹಕ",
       farmer: "ರೈತ",
       faceReg: "ಮುಖ ನೋಂದಣಿ",
-      faceRegDesc: "ನಿಮ್ಮ ಮುಖವನ್ನು ಕ್ಯಾಮರಾದಲ್ಲಿ ಕೇಂದ್ರೀಕರಿಸಿ ಮತ್ತು ಕ್ಯಾಪ್ಚರ್ ಕ್ಲಿಕ್ ಮಾಡಿ.",
+      faceRegDesc:
+        "ನಿಮ್ಮ ಮುಖವನ್ನು ಕ್ಯಾಮರಾದಲ್ಲಿ ಕೇಂದ್ರೀಕರಿಸಿ ಮತ್ತು ಕ್ಯಾಪ್ಚರ್ ಕ್ಲಿಕ್ ಮಾಡಿ.",
       capturePhoto: "ಫೋಟೋ ಸೆರೆಹಿಡಿಯಿರಿ",
       photoCaptured: "ಫೋಟೋ ಯಶಸ್ವಿಯಾಗಿ ಸೆರೆಹಿಡಿಯಲಾಗಿದೆ!",
       retakePhoto: "ಫೋಟೋವನ್ನು ಮರುಪಡೆಯಿರಿ",
@@ -1122,16 +1219,19 @@ export const translations = {
       confirmPasswordLabel: "ಪಾಸ್ವರ್డ్ ದೃಢೀಕರಿಸಿ",
       createAccount: "ಖಾತೆ ತೆರೆ",
       hubPortal: "ಹಬ್ ಪೋರ್ಟಲ್",
-      hubDesc: "ಲಾಜಿಸ್ಟಿಕ್ಸ್ ಅನ್ನು ನಿರ್ವಹಿಸಿ ಮತ್ತು ನಮ್ಮ ನೆಟ್ವರ್ಕ್ ಅನ್ನು ಸಂಪರ್ಕಿಸಿ.",
+      hubDesc:
+        "ಲಾಜಿಸ್ಟಿಕ್ಸ್ ಅನ್ನು ನಿರ್ವಹಿಸಿ ಮತ್ತು ನಮ್ಮ ನೆಟ್ವರ್ಕ್ ಅನ್ನು ಸಂಪರ್ಕಿಸಿ.",
       branchNameLabel: "ಶಾಖೆಯ ಹೆಸರು",
       branchIdLabel: "ಶಾಖೆ ಐಡಿ",
       hubAdminEmailLabel: "ಹಬ್ ನಿರ್ವಾಹಕ ಇಮೇಲ್",
       registerHub: "ಹಬ್ ನೋಂದಾಯಿಸಿ",
       restaurantPortal: "ರೆಸ್ಟೋರೆಂಟ್ ಪೋರ್ಟಲ್",
-      restaurantDesc: "ನಿಮ್ಮ ಖಾತೆಯನ್ನು ಪ್ರವೇಶಿಸಿ ಅಥವಾ ನಿಮ್ಮ ರೆಸ್ಟೋರೆಂಟ್ ಅನ್ನು ನೋಂದಾಯಿಸಿ.",
+      restaurantDesc:
+        "ನಿಮ್ಮ ಖಾತೆಯನ್ನು ಪ್ರವೇಶಿಸಿ ಅಥವಾ ನಿಮ್ಮ ರೆಸ್ಟೋರೆಂಟ್ ಅನ್ನು ನೋಂದಾಯಿಸಿ.",
       restaurantIdLabel: "ರೆಸ್ಟೋರೆಂಟ್ ಐಡಿ",
       restaurantIdPlaceholder: "ನಿಮ್ಮ ಅನನ್ಯ ರೆಸ್ಟೋರೆಂಟ್ ಐಡಿ",
-      forgotPasswordRestaurantDesc: "ಪಾಸ್ವರ್డ్ ಮರುಹೊಂದಿಸುವ ಲಿಂಕ್ ಅನ್ನು ಸ್ವೀಕರಿಸಲು ನಿಮ್ಮ ರೆಸ್ಟೋರೆಂಟ್ ಐಡಿ ಅಥವಾ ಇಮೇಲ್ ಅನ್ನು ನಮೂದಿಸಿ.",
+      forgotPasswordRestaurantDesc:
+        "ಪಾಸ್ವರ್డ్ ಮರುಹೊಂದಿಸುವ ಲಿಂಕ್ ಅನ್ನು ಸ್ವೀಕರಿಸಲು ನಿಮ್ಮ ರೆಸ್ಟೋರೆಂಟ್ ಐಡಿ ಅಥವಾ ಇಮೇಲ್ ಅನ್ನು ನಮೂದಿಸಿ.",
       restaurantIdOrEmailLabel: "ರೆಸ್ಟೋರೆಂಟ್ ಐಡಿ ಅಥವಾ ಇಮೇಲ್",
       restaurantIdOrEmailPlaceholder: "ಐಡಿ ಅಥವಾ ಇಮೇಲ್",
       restaurantNameLabel: "ರೆಸ್ಟೋರೆಂಟ್ ಹೆಸರು",
@@ -1158,7 +1258,8 @@ export const translations = {
       cardDescription: "ನಿಮ್ಮ ವೈಯಕ್ತಿಕ ಮತ್ತು ಖಾತೆ ವಿವರಗಳು.",
       editProfile: "ಪ್ರೊಫೈಲ್ ಸಂಪಾದಿಸಿ",
       editDialogTitle: "ಪ್ರೊಫೈಲ್ ಸಂಪಾದಿಸಿ",
-      editDialogDescription: "ನಿಮ್ಮ ಪ್ರೊಫೈಲ್‍ನಲ್ಲಿ ಇಲ್ಲಿ ಬದಲಾವಣೆಗಳನ್ನು ಮಾಡಿ. ನೀವು ಮುಗಿದ ನಂತರ ಉಳಿಸು ಕ್ಲಿಕ್ ಮಾಡಿ.",
+      editDialogDescription:
+        "ನಿಮ್ಮ ಪ್ರೊಫೈಲ್‍ನಲ್ಲಿ ಇಲ್ಲಿ ಬದಲಾವಣೆಗಳನ್ನು ಮಾಡಿ. ನೀವು ಮುಗಿದ ನಂತರ ಉಳಿಸು ಕ್ಲಿಕ್ ಮಾಡಿ.",
       profilePicture: "ಪ್ರೊಫೈಲ್ ಚಿತ್ರ",
       branchName: "ಶಾಖೆಯ ಹೆಸರು",
       username: "ಬಳಕೆದಾರಹೆಸರು",
@@ -1181,7 +1282,8 @@ export const translations = {
       title: "ಆದೇಶಗಳು",
       description: "ಇತ್ತೀಚಿನ ಎಲ್ಲಾ ಆದೇಶಗಳ ಪಟ್ಟಿ ಇಲ್ಲಿದೆ.",
       cardTitle: "ಎಲ್ಲಾ ಆದೇಶಗಳು",
-      cardDescription: "ಎಲ್ಲಾ ಗ್ರಾಹಕರ ಆದೇಶಗಳನ್ನು ಪರಿಶೀಲಿಸಿ ಮತ್ತು ನಿರ್ವಹಿಸಿ. ವಿವರಗಳನ್ನು ವೀಕ್ಷಿಸಲು ಆದೇಶದ ಮೇಲೆ ಕ್ಲಿಕ್ ಮಾಡಿ.",
+      cardDescription:
+        "ಎಲ್ಲಾ ಗ್ರಾಹಕರ ಆದೇಶಗಳನ್ನು ಪರಿಶೀಲಿಸಿ ಮತ್ತು ನಿರ್ವಹಿಸಿ. ವಿವರಗಳನ್ನು ವೀಕ್ಷಿಸಲು ಆದೇಶದ ಮೇಲೆ ಕ್ಲಿಕ್ ಮಾಡಿ.",
       searchPlaceholder: "ಆದೇಶ ಐಡಿ ಅಥವಾ ಗ್ರಾಹಕರ ಹೆಸರಿನಿಂದ ಹುಡುಕಿ...",
       orderId: "ಆದೇಶ ಐಡಿ",
       customer: "ಗ್ರಾಹಕ",
@@ -1191,7 +1293,8 @@ export const translations = {
       actions: "ಕ್ರಿಯೆಗಳು",
       trackLive: "ಲೈವ್ ಟ್ರ್ಯಾಕ್ ಮಾಡಿ",
       dialogTitle: "ಆದೇಶ ಟ್ರ್ಯಾಕಿಂಗ್",
-      dialogDescription: "ನಿಮ್ಮ ಆದೇಶಕ್ಕಾಗಿ ಲೈವ್ ಶಿಪ್ಪಿಂಗ್ ಮತ್ತು ವಿತರಣಾ ನವೀಕರಣಗಳು.",
+      dialogDescription:
+        "ನಿಮ್ಮ ಆದೇಶಕ್ಕಾಗಿ ಲೈವ್ ಶಿಪ್ಪಿಂಗ್ ಮತ್ತು ವಿತರಣಾ ನವೀಕರಣಗಳು.",
       currentLocation: "ಪ್ರಸ್ತುತ ಸ್ಥಳ",
       reachedState: "ನಿಮ್ಮ ರಾಜ್ಯವನ್ನು ತಲುಪಿದೆ",
       estimatedDelivery: "ಅಂದಾಜು ವಿತರಣೆ",
@@ -1200,13 +1303,15 @@ export const translations = {
     },
     products: {
       title: "ಉತ್ಪನ್ನಗಳು",
-      description: "ನಮ್ಮ ರೈತರಿಂದ ನೇರವಾಗಿ ತಾಜಾ ಉತ್ಪನ್ನಗಳನ್ನು ಬ್ರೌಸ್ ಮಾಡಿ ಮತ್ತು ಖರೀದಿಸಿ.",
+      description:
+        "ನಮ್ಮ ರೈತರಿಂದ ನೇರವಾಗಿ ತಾಜಾ ಉತ್ಪನ್ನಗಳನ್ನು ಬ್ರೌಸ್ ಮಾಡಿ ಮತ್ತು ಖರೀದಿಸಿ.",
       freshCarrots: "ತಾಜಾ ಕ್ಯಾರೆಟ್",
       kgPrice: "1 ಕೆಜಿ - ರೂ.20",
       addToCart: "ಕಾರ್ಟ್‍ಗೆ ಸೇರಿಸಿ",
       buyNow: "ಈಗ ಖರೀದಿಸಿ",
       dialogTitle: "ನಿಮ್ಮ ಆದೇಶವನ್ನು ಇರಿಸಿ",
-      dialogDescription: "ಖರೀದಿ ಪೂರ್ಣಗೊಳಿಸಲು ದಯವಿಟ್ಟು ನಿಮ್ಮ ವಿವರಗಳನ್ನು ಭರ್ತಿ ಮಾಡಿ.",
+      dialogDescription:
+        "ಖರೀದಿ ಪೂರ್ಣಗೊಳಿಸಲು ದಯವಿಟ್ಟು ನಿಮ್ಮ ವಿವರಗಳನ್ನು ಭರ್ತಿ ಮಾಡಿ.",
       nameLabel: "ಹೆಸರು",
       namePlaceholder: "ನಿಮ್ಮ ಪೂರ್ಣ ಹೆಸರು",
       emailLabel: "ಇಮೇಲ್ ಐಡಿ",
@@ -1244,21 +1349,26 @@ export const translations = {
       cancel: "ರದ್ದುಮಾಡಿ",
       send: "ವಿಚಾರಣೆ ಕಳುಹಿಸಿ",
       inquirySuccessTitle: "ವಿಚಾರಣೆ ಕಳುಹಿಸಲಾಗಿದೆ!",
-      inquirySuccessDescription: "ನಿಮ್ಮ ಸಂದೇಶವನ್ನು {farmerName} ಗೆ ಯಶಸ್ವಿಯಾಗಿ ಕಳುಹಿಸಲಾಗಿದೆ.",
+      inquirySuccessDescription:
+        "ನಿಮ್ಮ ಸಂದೇಶವನ್ನು {farmerName} ಗೆ ಯಶಸ್ವಿಯಾಗಿ ಕಳುಹಿಸಲಾಗಿದೆ.",
     },
     faq: {
       title: "ಪದೇ ಪದೇ ಕೇಳಲಾಗುವ ಪ್ರಶ್ನೆಗಳು",
       description: "ಸಾಮಾನ್ಯ ಪ್ರಶ್ನೆಗಳಿಗೆ ಕೆಲವು ಉತ್ತರಗಳು ಇಲ್ಲಿವೆ.",
       cardTitle: "ಸಾಮಾನ್ಯ ಪ್ರಶ್ನೆಗಳು",
-      cardDescription: "ಕೆಳಗೆ ಪದೇ ಪದೇ ಕೇಳಲಾಗುವ ಪ್ರಶ್ನೆಗಳಿಗೆ ಉತ್ತರಗಳನ್ನು ಹುಡುಕಿ.",
+      cardDescription:
+        "ಕೆಳಗೆ ಪದೇ ಪದೇ ಕೇಳಲಾಗುವ ಪ್ರಶ್ನೆಗಳಿಗೆ ಉತ್ತರಗಳನ್ನು ಹುಡುಕಿ.",
     },
     marketing: {
       title: "ಮಾರ್ಕೆಟಿಂಗ್",
-      description: "ನಿಮ್ಮ ಮಾರ್ಕೆಟಿಂಗ್ ಪ್ರಚಾರಗಳಿಗಾಗಿ ಉಪಕರಣಗಳು ಮತ್ತು ವಿಶ್ಲೇಷಣೆಗಳು.",
+      description:
+        "ನಿಮ್ಮ ಮಾರ್ಕೆಟಿಂಗ್ ಪ್ರಚಾರಗಳಿಗಾಗಿ ಉಪಕರಣಗಳು ಮತ್ತು ವಿಶ್ಲೇಷಣೆಗಳು.",
       comingSoon: "ಶೀಘ್ರದಲ್ಲೇ ಬರಲಿದೆ",
-      comingSoonDescription: "ಈ ವಿಭಾಗವು ನಿರ್ಮಾಣ ಹಂತದಲ್ಲಿದೆ. ರೋಚಕ ಹೊಸ ಮಾರ್ಕೆಟಿಂಗ್ ಉಪಕರಣಗಳಿಗಾಗಿ ನಂತರ ಮತ್ತೆ ಪರಿಶೀಲಿಸಿ!",
-      workingHard: "ಪ್ರಚಾರ ಟ್ರ್ಯಾಕಿಂಗ್, ವಿಶ್ಲೇಷಣೆಗಳು ಮತ್ತು ಪ್ರಚಾರದ ಉಪಕರಣಗಳಂತಹ ವೈಶಿಷ್ಟ್ಯಗಳನ್ನು ನಿಮಗೆ ತರಲು ನಾವು ಶ್ರಮಿಸುತ್ತಿದ್ದೇವೆ.",
-    }
+      comingSoonDescription:
+        "ಈ ವಿಭಾಗವು ನಿರ್ಮಾಣ ಹಂತದಲ್ಲಿದೆ. ರೋಚಕ ಹೊಸ ಮಾರ್ಕೆಟಿಂಗ್ ಉಪಕರಣಗಳಿಗಾಗಿ ನಂತರ ಮತ್ತೆ ಪರಿಶೀಲಿಸಿ!",
+      workingHard:
+        "ಪ್ರಚಾರ ಟ್ರ್ಯಾಕಿಂಗ್, ವಿಶ್ಲೇಷಣೆಗಳು ಮತ್ತು ಪ್ರಚಾರದ ಉಪಕರಣಗಳಂತಹ ವೈಶಿಷ್ಟ್ಯಗಳನ್ನು ನಿಮಗೆ ತರಲು ನಾವು ಶ್ರಮಿಸುತ್ತಿದ್ದೇವೆ.",
+    },
   },
   Bengali: {
     tagline: "কৃষকদের ক্ষমতায়ন, সতেজতা সরবরাহ",
@@ -1268,7 +1378,8 @@ export const translations = {
     roles: {
       farmer: {
         name: "কৃষক",
-        description: "আপনার পণ্য সরাসরি বিক্রি করতে আমাদের নেটওয়ার্কে যোগ দিন।",
+        description:
+          "আপনার পণ্য সরাসরি বিক্রি করতে আমাদের নেটওয়ার্কে যোগ দিন।",
       },
       customer: {
         name: "গ্রাহক",
@@ -1276,7 +1387,8 @@ export const translations = {
       },
       hub: {
         name: "হাব",
-        description: "লজিস্টিক পরিচালনা করুন এবং কৃষকদের গ্রাহকদের সাথে সংযুক্ত করুন।",
+        description:
+          "লজিস্টিক পরিচালনা করুন এবং কৃষকদের গ্রাহকদের সাথে সংযুক্ত করুন।",
       },
       restaurant: {
         name: "রেস্তোরাঁ",
@@ -1285,7 +1397,8 @@ export const translations = {
     },
     continue: "চালিয়ে যান",
     ourMission: "আমাদের লক্ষ্য",
-    missionStatement: "মনবাসম আমাদের বিশ্বস্ত হাব নেটওয়ার্কের মাধ্যমে আপনাকে স্থানীয় কৃষকদের সাথে সরাসরি সংযুক্ত করে, টেকসই কৃষিকে সমর্থন করার সময় আপনি তাজা জৈব পণ্য পান তা নিশ্চিত করে।",
+    missionStatement:
+      "মনবাসম আমাদের বিশ্বস্ত হাব নেটওয়ার্কের মাধ্যমে আপনাকে স্থানীয় কৃষকদের সাথে সরাসরি সংযুক্ত করে, টেকসই কৃষিকে সমর্থন করার সময় আপনি তাজা জৈব পণ্য পান তা নিশ্চিত করে।",
     footer: "সমস্ত অধিকার সংরক্ষিত।",
     sidebar: {
       dashboard: "ড্যাশবোর্ড",
@@ -1302,7 +1415,7 @@ export const translations = {
       button: "সাইন আউট",
       title: "সাইন আউট করা হয়েছে",
       description: "আপনি সফলভাবে সাইন আউট হয়েছেন।",
-      errorTitle: "সাইন আউট ব্যর্থ হয়েছে"
+      errorTitle: "সাইন আউট ব্যর্থ হয়েছে",
     },
     auth: {
       welcome: "মনবাসম-এ স্বাগতম",
@@ -1323,7 +1436,8 @@ export const translations = {
       customer: "গ্রাহক",
       farmer: "কৃষক",
       faceReg: "ফেস রেজিস্ট্রেশন",
-      faceRegDesc: "আপনার মুখ ক্যামেরায় কেন্দ্র করুন এবং ক্যাপচারে ক্লিক করুন।",
+      faceRegDesc:
+        "আপনার মুখ ক্যামেরায় কেন্দ্র করুন এবং ক্যাপচারে ক্লিক করুন।",
       capturePhoto: "ছবি ক্যাপচার করুন",
       photoCaptured: "ছবি সফলভাবে ক্যাপচার করা হয়েছে!",
       retakePhoto: "ছবি আবার তুলুন",
@@ -1338,10 +1452,12 @@ export const translations = {
       hubAdminEmailLabel: "হাব অ্যাডমিন ইমেল",
       registerHub: "হাব নিবন্ধন করুন",
       restaurantPortal: "রেস্তোরাঁ পোর্টাল",
-      restaurantDesc: "আপনার অ্যাকাউন্ট অ্যাক্সেস করুন বা আপনার রেস্তোরাঁ নিবন্ধন করুন।",
+      restaurantDesc:
+        "আপনার অ্যাকাউন্ট অ্যাক্সেস করুন বা আপনার রেস্তোরাঁ নিবন্ধন করুন।",
       restaurantIdLabel: "রেস্তোরাঁ আইডি",
       restaurantIdPlaceholder: "আপনার অনন্য রেস্তোরাঁ আইডি",
-      forgotPasswordRestaurantDesc: "পাসওয়ার্ড রিসেট লিঙ্ক পেতে আপনার রেস্তোরাঁ আইডি বা ইমেল লিখুন।",
+      forgotPasswordRestaurantDesc:
+        "পাসওয়ার্ড রিসেট লিঙ্ক পেতে আপনার রেস্তোরাঁ আইডি বা ইমেল লিখুন।",
       restaurantIdOrEmailLabel: "রেস্তোরাঁ আইডি বা ইমেল",
       restaurantIdOrEmailPlaceholder: "আইডি বা ইমেল",
       restaurantNameLabel: "রেস্তোরাঁর নাম",
@@ -1368,7 +1484,8 @@ export const translations = {
       cardDescription: "আপনার ব্যক্তিগত এবং অ্যাকাউন্টের বিবরণ।",
       editProfile: "প্রোফাইল সম্পাদনা করুন",
       editDialogTitle: "প্রোফাইল সম্পাদনা করুন",
-      editDialogDescription: "এখানে আপনার প্রোফাইলে পরিবর্তন করুন। সম্পন্ন হলে সংরক্ষণ ক্লিক করুন।",
+      editDialogDescription:
+        "এখানে আপনার প্রোফাইলে পরিবর্তন করুন। সম্পন্ন হলে সংরক্ষণ ক্লিক করুন।",
       profilePicture: "প্রোফাইল ছবি",
       branchName: "শাখার নাম",
       username: "ব্যবহারকারীর নাম",
@@ -1391,7 +1508,8 @@ export const translations = {
       title: "অর্ডার",
       description: "এখানে সাম্প্রতিক সমস্ত অর্ডারের একটি তালিকা রয়েছে।",
       cardTitle: "সমস্ত অর্ডার",
-      cardDescription: "সমস্ত গ্রাহক অর্ডার পর্যালোচনা এবং পরিচালনা করুন। বিশদ দেখতে একটি অর্ডারে ক্লিক করুন।",
+      cardDescription:
+        "সমস্ত গ্রাহক অর্ডার পর্যালোচনা এবং পরিচালনা করুন। বিশদ দেখতে একটি অর্ডারে ক্লিক করুন।",
       searchPlaceholder: "অর্ডার আইডি বা গ্রাহকের নাম দিয়ে অনুসন্ধান করুন...",
       orderId: "অর্ডার আইডি",
       customer: "গ্রাহক",
@@ -1410,7 +1528,8 @@ export const translations = {
     },
     products: {
       title: "পণ্য",
-      description: "আমাদের কৃষকদের কাছ থেকে সরাসরি তাজা পণ্য ব্রাউজ করুন এবং কিনুন।",
+      description:
+        "আমাদের কৃষকদের কাছ থেকে সরাসরি তাজা পণ্য ব্রাউজ করুন এবং কিনুন।",
       freshCarrots: "তাজা গাজর",
       kgPrice: "১ কেজি - ২০ টাকা",
       addToCart: "কার্টে যোগ করুন",
@@ -1446,7 +1565,8 @@ export const translations = {
       specializesIn: "বিশেষত্ব:",
       sendInquiry: "অনুসন্ধান পাঠান",
       dialogTitle: "যোগাযোগ",
-      dialogDescription: "তাদের পণ্য সম্পর্কে জিজ্ঞাসা করতে সরাসরি একটি বার্তা পাঠান।",
+      dialogDescription:
+        "তাদের পণ্য সম্পর্কে জিজ্ঞাসা করতে সরাসরি একটি বার্তা পাঠান।",
       subjectLabel: "বিষয়",
       subjectPlaceholder: "যেমন, তাজা টমেটো সম্পর্কে জিজ্ঞাসা",
       messageLabel: "বার্তা",
@@ -1454,7 +1574,8 @@ export const translations = {
       cancel: "বাতিল করুন",
       send: "অনুসন্ধান পাঠান",
       inquirySuccessTitle: "অনুসন্ধান পাঠানো হয়েছে!",
-      inquirySuccessDescription: "আপনার বার্তা সফলভাবে {farmerName} এর কাছে পাঠানো হয়েছে।",
+      inquirySuccessDescription:
+        "আপনার বার্তা সফলভাবে {farmerName} এর কাছে পাঠানো হয়েছে।",
     },
     faq: {
       title: "প্রায়শই জিজ্ঞাসিত প্রশ্ন",
@@ -1466,9 +1587,11 @@ export const translations = {
       title: "বিপণন",
       description: "আপনার বিপণন প্রচারের জন্য সরঞ্জাম এবং বিশ্লেষণ।",
       comingSoon: "শীঘ্রই আসছে",
-      comingSoonDescription: "এই বিভাগটি নির্মাণাধীন। উত্তেজনাপূর্ণ নতুন বিপণন সরঞ্জামগুলির জন্য পরে আবার দেখুন!",
-      workingHard: "আমরা আপনাকে প্রচারাভিযান ট্র্যাকিং, বিশ্লেষণ এবং প্রচারমূলক সরঞ্জামগুলির মতো বৈশিষ্ট্যগুলি সরবরাহ করার জন্য কঠোর পরিশ্রম করছি।",
-    }
+      comingSoonDescription:
+        "এই বিভাগটি নির্মাণাধীন। উত্তেজনাপূর্ণ নতুন বিপণন সরঞ্জামগুলির জন্য পরে আবার দেখুন!",
+      workingHard:
+        "আমরা আপনাকে প্রচারাভিযান ট্র্যাকিং, বিশ্লেষণ এবং প্রচারমূলক সরঞ্জামগুলির মতো বৈশিষ্ট্যগুলি সরবরাহ করার জন্য কঠোর পরিশ্রম করছি।",
+    },
   },
   Arabic: {
     tagline: "تمكين المزارعين، وتوصيل المنتجات الطازجة",
@@ -1495,7 +1618,8 @@ export const translations = {
     },
     continue: "متابعة",
     ourMission: "مهمتنا",
-    missionStatement: "تقوم مانفاسام بتوصيلك مباشرة بالمزارعين المحليين من خلال شبكة مراكزنا الموثوقة، مما يضمن حصولك على المنتجات العضوية الطازجة مع دعم الزراعة المستدامة.",
+    missionStatement:
+      "تقوم مانفاسام بتوصيلك مباشرة بالمزارعين المحليين من خلال شبكة مراكزنا الموثوقة، مما يضمن حصولك على المنتجات العضوية الطازجة مع دعم الزراعة المستدامة.",
     footer: "كل الحقوق محفوظة.",
     sidebar: {
       dashboard: "لوحة القيادة",
@@ -1512,7 +1636,7 @@ export const translations = {
       button: "تسجيل الخروج",
       title: "تم تسجيل الخروج",
       description: "لقد تم تسجيل خروجك بنجاح.",
-      errorTitle: "فشل تسجيل الخروج"
+      errorTitle: "فشل تسجيل الخروج",
     },
     auth: {
       welcome: "مرحبًا بك في مانفاسام",
@@ -1551,7 +1675,8 @@ export const translations = {
       restaurantDesc: "الوصول إلى حسابك أو تسجيل مطعمك.",
       restaurantIdLabel: "معرف المطعم",
       restaurantIdPlaceholder: "معرف المطعم الفريد الخاص بك",
-      forgotPasswordRestaurantDesc: "أدخل معرف المطعم أو البريد الإلكتروني لتلقي رابط إعادة تعيين كلمة المرور.",
+      forgotPasswordRestaurantDesc:
+        "أدخل معرف المطعم أو البريد الإلكتروني لتلقي رابط إعادة تعيين كلمة المرور.",
       restaurantIdOrEmailLabel: "معرف المطعم أو البريد الإلكتروني",
       restaurantIdOrEmailPlaceholder: "المعرف أو البريد الإلكتروني",
       restaurantNameLabel: "اسم المطعم",
@@ -1578,7 +1703,8 @@ export const translations = {
       cardDescription: "تفاصيلك الشخصية وحسابك.",
       editProfile: "تعديل الملف الشخصي",
       editDialogTitle: "تعديل الملف الشخصي",
-      editDialogDescription: "قم بإجراء تغييرات على ملفك الشخصي هنا. انقر فوق حفظ عند الانتهاء.",
+      editDialogDescription:
+        "قم بإجراء تغييرات على ملفك الشخصي هنا. انقر فوق حفظ عند الانتهاء.",
       profilePicture: "الصورة الشخصية",
       branchName: "اسم الفرع",
       username: "اسم المستخدم",
@@ -1601,7 +1727,8 @@ export const translations = {
       title: "الطلبات",
       description: "فيما يلي قائمة بجميع الطلبات الأخيرة.",
       cardTitle: "جميع الطلبات",
-      cardDescription: "مراجعة وإدارة جميع طلبات العملاء. انقر فوق طلب لعرض التفاصيل.",
+      cardDescription:
+        "مراجعة وإدارة جميع طلبات العملاء. انقر فوق طلب لعرض التفاصيل.",
       searchPlaceholder: "البحث عن طريق معرف الطلب أو اسم العميل...",
       orderId: "معرف الطلب",
       customer: "العميل",
@@ -1676,9 +1803,11 @@ export const translations = {
       title: "التسويق",
       description: "أدوات وتحليلات لحملاتك التسويقية.",
       comingSoon: "قريبا",
-      comingSoonDescription: "هذا القسم قيد الإنشاء. تحقق مرة أخرى لاحقًا للحصول على أدوات تسويقية جديدة ومثيرة!",
-      workingHard: "نحن نعمل بجد لنقدم لك ميزات مثل تتبع الحملات والتحليلات والأدوات الترويجية.",
-    }
+      comingSoonDescription:
+        "هذا القسم قيد الإنشاء. تحقق مرة أخرى لاحقًا للحصول على أدوات تسويقية جديدة ومثيرة!",
+      workingHard:
+        "نحن نعمل بجد لنقدم لك ميزات مثل تتبع الحملات والتحليلات والأدوات الترويجية.",
+    },
   },
   Urdu: {
     tagline: "کسانوں کو بااختیار بنانا، تازگی فراہم کرنا",
@@ -1688,7 +1817,8 @@ export const translations = {
     roles: {
       farmer: {
         name: "کسان",
-        description: "اپنی پیداوار براہ راست فروخت کرنے کے لیے ہمارے نیٹ ورک میں شامل ہوں۔",
+        description:
+          "اپنی پیداوار براہ راست فروخت کرنے کے لیے ہمارے نیٹ ورک میں شامل ہوں۔",
       },
       customer: {
         name: "گاہک",
@@ -1705,7 +1835,8 @@ export const translations = {
     },
     continue: "جاری رکھیں",
     ourMission: "ہمارا مقصد",
-    missionStatement: "منواسم آپ کو ہمارے قابل اعتماد مرکز نیٹ ورک کے ذریعے براہ راست مقامی کسانوں سے جوڑتا ہے، اس بات کو یقینی بناتا ہے کہ آپ پائیدار زراعت کی حمایت کرتے ہوئے تازہ ترین نامیاتی مصنوعات حاصل کریں۔",
+    missionStatement:
+      "منواسم آپ کو ہمارے قابل اعتماد مرکز نیٹ ورک کے ذریعے براہ راست مقامی کسانوں سے جوڑتا ہے، اس بات کو یقینی بناتا ہے کہ آپ پائیدار زراعت کی حمایت کرتے ہوئے تازہ ترین نامیاتی مصنوعات حاصل کریں۔",
     footer: "جملہ حقوق محفوظ ہیں۔",
     sidebar: {
       dashboard: "ڈیش بورڈ",
@@ -1722,7 +1853,7 @@ export const translations = {
       button: "সাইন আউট",
       title: "সাইন আউট করা হয়েছে",
       description: "আপনি সফলভাবে সাইন আউট হয়েছেন।",
-      errorTitle: "সাইন আউট ব্যর্থ হয়েছে"
+      errorTitle: "সাইন আউট ব্যর্থ হয়েছে",
     },
     auth: {
       welcome: "منواسم میں خوش آمدید",
@@ -1735,7 +1866,8 @@ export const translations = {
       passwordLabel: "پاس ورڈ",
       forgotPassword: "پاس ورڈ بھول گئے؟",
       forgotPasswordTitle: "پاس ورڈ بھول گئے",
-      forgotPasswordDesc: "اپنا ای میل درج کریں اور ہم ایک ری سیٹ لنک بھیجیں گے۔",
+      forgotPasswordDesc:
+        "اپنا ای میل درج کریں اور ہم ایک ری سیٹ لنک بھیجیں گے۔",
       sendResetLink: "ری سیٹ لنک بھیجیں",
       cancel: "منسوخ کریں",
       signIn: "سائن ان کریں",
@@ -1758,10 +1890,12 @@ export const translations = {
       hubAdminEmailLabel: "حب ایڈمن ای میل",
       registerHub: "حب رجسٹر کریں",
       restaurantPortal: "ریستوراں پورٹل",
-      restaurantDesc: "اپنے اکاؤنٹ تک رسائی حاصل کریں یا اپنے ریستوراں کو رجسٹر کریں۔",
+      restaurantDesc:
+        "اپنے اکاؤنٹ تک رسائی حاصل کریں یا اپنے ریستوراں کو رجسٹر کریں۔",
       restaurantIdLabel: "ریستوراں آئی ڈی",
       restaurantIdPlaceholder: "آپ کی منفرد ریستوراں آئی ڈی",
-      forgotPasswordRestaurantDesc: "پاس ورڈ ری سیٹ لنک حاصل کرنے کے لیے اپنی ریستوراں آئی ڈی یا ای میل درج کریں۔",
+      forgotPasswordRestaurantDesc:
+        "پاس ورڈ ری سیٹ لنک حاصل کرنے کے لیے اپنی ریستوراں آئی ڈی یا ای میل درج کریں۔",
       restaurantIdOrEmailLabel: "ریستوراں آئی ڈی یا ای میل",
       restaurantIdOrEmailPlaceholder: "آئی ڈی یا ای میل",
       restaurantNameLabel: "ریستوراں کا نام",
@@ -1788,7 +1922,8 @@ export const translations = {
       cardDescription: "آپ کی ذاتی اور اکاؤنٹ کی تفصیلات۔",
       editProfile: "پروفائل میں ترمیم کریں",
       editDialogTitle: "پروفائل میں ترمیم کریں",
-      editDialogDescription: "اپنی پروفائل میں تبدیلیاں یہاں کریں۔ جب آپ کام کر لیں تو محفوظ کریں پر کلک کریں۔",
+      editDialogDescription:
+        "اپنی پروفائل میں تبدیلیاں یہاں کریں۔ جب آپ کام کر لیں تو محفوظ کریں پر کلک کریں۔",
       profilePicture: "پروفائل تصویر",
       branchName: "برانچ کا نام",
       username: "صارف نام",
@@ -1811,7 +1946,8 @@ export const translations = {
       title: "آرڈرز",
       description: "یہاں تمام حالیہ آرڈرز کی فہرست ہے۔",
       cardTitle: "تمام آرڈرز",
-      cardDescription: "تمام کسٹمر آرڈرز کا جائزہ لیں اور ان کا نظم کریں۔ تفصیلات دیکھنے کے لیے کسی آرڈر پر کلک کریں۔",
+      cardDescription:
+        "تمام کسٹمر آرڈرز کا جائزہ لیں اور ان کا نظم کریں۔ تفصیلات دیکھنے کے لیے کسی آرڈر پر کلک کریں۔",
       searchPlaceholder: "آرڈر آئی ڈی یا کسٹمر کے نام سے تلاش کریں...",
       orderId: "آرڈر آئی ڈی",
       customer: "کسٹمر",
@@ -1830,13 +1966,15 @@ export const translations = {
     },
     products: {
       title: "مصنوعات",
-      description: "ہمارے کسانوں سے براہ راست تازہ پیداوار براؤز کریں اور خریدیں۔",
+      description:
+        "ہمارے کسانوں سے براہ راست تازہ پیداوار براؤز کریں اور خریدیں۔",
       freshCarrots: "تازہ گاجر",
       kgPrice: "1 کلوگرام - 20 روپے",
       addToCart: "کارٹ میں شامل کریں",
       buyNow: "ابھی خریدیں",
       dialogTitle: "اپنا آرڈر دیں",
-      dialogDescription: "خریداری مکمل کرنے کے لیے براہ کرم اپنی تفصیلات بھریں۔",
+      dialogDescription:
+        "خریداری مکمل کرنے کے لیے براہ کرم اپنی تفصیلات بھریں۔",
       nameLabel: "نام",
       namePlaceholder: "آپ کا پورا نام",
       emailLabel: "ای میل آئی ڈی",
@@ -1862,11 +2000,13 @@ export const translations = {
     },
     matchmaking: {
       title: "کسان میچ میکنگ",
-      description: "تازہ اجزاء حاصل کرنے کے لیے کسانوں سے براہ راست رابطہ کریں۔",
+      description:
+        "تازہ اجزاء حاصل کرنے کے لیے کسانوں سے براہ راست رابطہ کریں۔",
       specializesIn: "میں مہارت رکھتا ہے:",
       sendInquiry: "انکوائری بھیجیں",
       dialogTitle: "رابطہ کریں",
-      dialogDescription: "ان کی پیداوار کے بارے میں پوچھ گچھ کرنے کے لیے براہ راست ایک پیغام بھیجیں۔",
+      dialogDescription:
+        "ان کی پیداوار کے بارے میں پوچھ گچھ کرنے کے لیے براہ راست ایک پیغام بھیجیں۔",
       subjectLabel: "موضوع",
       subjectPlaceholder: "مثال کے طور پر، تازہ ٹماٹروں کے بارے میں انکوائری",
       messageLabel: "پیغام",
@@ -1874,21 +2014,25 @@ export const translations = {
       cancel: "منسوخ کریں",
       send: "انکوائरी بھیجیں",
       inquirySuccessTitle: "انکوائری بھیجی گئی!",
-      inquirySuccessDescription: "آپ کا پیغام {farmerName} کو کامیابی سے بھیج دیا گیا ہے۔",
+      inquirySuccessDescription:
+        "آپ کا پیغام {farmerName} کو کامیابی سے بھیج دیا گیا ہے۔",
     },
     faq: {
       title: "اکثر پوچھے جانے والے سوالات",
       description: "یہاں عام سوالات کے کچھ جوابات ہیں۔",
       cardTitle: "عام سوالات",
-      cardDescription: "ذیل میں اکثر پوچھے جانے والے سوالات کے جوابات تلاش کریں۔",
+      cardDescription:
+        "ذیل میں اکثر پوچھے جانے والے سوالات کے جوابات تلاش کریں۔",
     },
     marketing: {
       title: "مارکیٹنگ",
       description: "آپ کی مارکیٹنگ مہموں کے لیے ٹولز اور تجزیات۔",
       comingSoon: " جلد آ رہا ہے۔",
-      comingSoonDescription: "یہ سیکشن زیر تعمیر ہے۔ دلچسپ نئے مارکیٹنگ ٹولز کے لیے بعد میں دوبارہ چیک کریں۔!",
-      workingHard: "ہم آپ کو مہم سے باخبر رہنے، تجزیات، اور پروموشنل ٹولز جیسی خصوصیات لانے کے لیے سخت محنت کر रहे ہیں۔",
-    }
+      comingSoonDescription:
+        "یہ سیکشن زیر تعمیر ہے۔ دلچسپ نئے مارکیٹنگ ٹولز کے لیے بعد میں دوبارہ چیک کریں۔!",
+      workingHard:
+        "ہم آپ کو مہم سے باخبر رہنے، تجزیات، اور پروموشنل ٹولز جیسی خصوصیات لانے کے لیے سخت محنت کر रहे ہیں۔",
+    },
   },
   Srilanka: {
     tagline: "ගොවීන් සවිබල ගැන්වීම, නැවුම් බව ලබා දීම",
@@ -1898,7 +2042,8 @@ export const translations = {
     roles: {
       farmer: {
         name: "ගොවියා",
-        description: "ඔබේ නිෂ්පාදන සෘජුවම විකිණීම සඳහා අපගේ ජාලයට සම්බන්ධ වන්න.",
+        description:
+          "ඔබේ නිෂ්පාදන සෘජුවම විකිණීම සඳහා අපගේ ජාලයට සම්බන්ධ වන්න.",
       },
       customer: {
         name: "පාරිභෝගික",
@@ -1906,7 +2051,8 @@ export const translations = {
       },
       hub: {
         name: "කේන්ද්‍රය",
-        description: "ලොජිස්ටික්ස් කළමනාකරණය කර ගොවීන් පාරිಭෝගිකයන් හා සම්බන්ධ කරන්න.",
+        description:
+          "ලොජිස්ටික්ස් කළමනාකරණය කර ගොවීන් පාරිಭෝගිකයන් හා සම්බන්ධ කරන්න.",
       },
       restaurant: {
         name: "ආපන ශාලාව",
@@ -1915,7 +2061,8 @@ export const translations = {
     },
     continue: "ඉදිරියට යන්න",
     ourMission: "අපේ මෙහෙවර",
-    missionStatement: "මන්වාasam අපගේ විශ්වාසවන්ත මධ්‍යස්ථාන ජාලය හරහා ඔබව දේශීය ගොවීන් සමඟ සෘජුවම සම්බන්ධ කරයි, තිරසාර කෘෂිකර්මාන්තයට සහාය දෙන අතරම ඔබට නැවුම්ම කාබනික නිෂ්පාදන ලැබෙන බව සහතික කරයි.",
+    missionStatement:
+      "මන්වාasam අපගේ විශ්වාසවන්ත මධ්‍යස්ථාන ජාලය හරහා ඔබව දේශීය ගොවීන් සමඟ සෘජුවම සම්බන්ධ කරයි, තිරසාර කෘෂිකර්මාන්තයට සහාය දෙන අතරම ඔබට නැවුම්ම කාබනික නිෂ්පාදන ලැබෙන බව සහතික කරයි.",
     footer: "සියලුම හිමිකම් ඇවිරිණි.",
     sidebar: {
       dashboard: "แดชบอร์ด",
@@ -1932,7 +2079,7 @@ export const translations = {
       button: "ออกจากระบบ",
       title: "ออกจากระบบแล้ว",
       description: "คุณออกจากระบบเรียบร้อยแล้ว",
-      errorTitle: "การออกจากระบบล้มเหลว"
+      errorTitle: "การออกจากระบบล้มเหลว",
     },
     auth: {
       welcome: "මන්වාasam වෙත සාදරයෙන් පිළිගනිමු",
@@ -1945,7 +2092,8 @@ export const translations = {
       passwordLabel: "මුරපදය",
       forgotPassword: "මුරපදය අමතක වුණා ද?",
       forgotPasswordTitle: "මුරපදය අමතක වුණා ද",
-      forgotPasswordDesc: "ඔබගේ විද්‍යುත් තැපෑල ඇතුළත් කරන්න, අපි යළි පිහිටුවීමේ සබැඳියක් එවන්නෙමු.",
+      forgotPasswordDesc:
+        "ඔබගේ විද්‍යುත් තැපෑල ඇතුළත් කරන්න, අපි යළි පිහිටුවීමේ සබැඳියක් එවන්නෙමු.",
       sendResetLink: "යළි පිහිටුවීමේ සබැඳිය යවන්න",
       cancel: "අუা करें",
       signIn: "පුරනය වන්න",
@@ -1968,10 +2116,12 @@ export const translations = {
       hubAdminEmailLabel: "හබ් පරිපාලක විද්‍යುත් තැපෑල",
       registerHub: "හබ් ලියාපදිංචි කරන්න",
       restaurantPortal: "ආපනශාලා ද්වාරය",
-      restaurantDesc: "ඔබගේ ගිණුමට පිවිසෙන්න හෝ ඔබගේ ආපනශාලාව ලියාපදිංචි කරන්න.",
+      restaurantDesc:
+        "ඔබගේ ගිණුමට පිවිසෙන්න හෝ ඔබගේ ආපනශාලාව ලියාපදිංචි කරන්න.",
       restaurantIdLabel: "ආපනශාලා හැඳුනුම්පත",
       restaurantIdPlaceholder: "ඔබගේ අනන්‍ය ආපනශාලා හැඳුනුම්පත",
-      forgotPasswordRestaurantDesc: "මුරපද යළි පිහිටුවීමේ සබැඳියක් ලබා ගැනීමට ඔබගේ ආපනශාලා හැඳුනුම්පත හෝ විද්‍යುත් තැපෑල ඇතුළත් කරන්න.",
+      forgotPasswordRestaurantDesc:
+        "මුරපද යළි පිහිටුවීමේ සබැඳියක් ලබා ගැනීමට ඔබගේ ආපනශාලා හැඳුනුම්පත හෝ විද්‍යುත් තැපෑල ඇතුළත් කරන්න.",
       restaurantIdOrEmailLabel: "ආපනශාලා හැඳුනුම්පත හෝ විද්‍යುත් තැපෑල",
       restaurantIdOrEmailPlaceholder: "හැඳුනුම්පත හෝ විද්‍යುත් තැපෑල",
       restaurantNameLabel: "ආපනශාලාවේ නම",
@@ -1998,7 +2148,8 @@ export const translations = {
       cardDescription: "ඔබගේ පුද්ගලික සහ ගිණුම් විස්තර.",
       editProfile: "පැතිකඩ සංස්කරණය කරන්න",
       editDialogTitle: "පැතිකඩ සංස්කරණය කරන්න",
-      editDialogDescription: "ඔබගේ පැතිකඩෙහි වෙනස්කම් මෙහි සිදු කරන්න. ඔබ අවසන් වූ පසු සුරකින්න ක්ලිಕ್ කරන්න.",
+      editDialogDescription:
+        "ඔබගේ පැතිකඩෙහි වෙනස්කම් මෙහි සිදු කරන්න. ඔබ අවසන් වූ පසු සුරකින්න ක්ලිಕ್ කරන්න.",
       profilePicture: "පැතිකඩ පින්තූරය",
       branchName: "ශාඛාවේ නම",
       username: "පරිශීලක නාමය",
@@ -2021,7 +2172,8 @@ export const translations = {
       title: "ใบสั่งซื้อ",
       description: "මෑත කාලීන සියලුම ඇණවුම් ලැයිස්තුවක් මෙන්න.",
       cardTitle: "සියලුම ඇණවුම්",
-      cardDescription: "සියලුම පාරිභෝගික ඇණවුම් සමාලෝචනය කර කළමනාකරණය කරන්න. විස්තර බැලීමට ඇණවුමක් මත ක්ලිಕ್ කරන්න.",
+      cardDescription:
+        "සියලුම පාරිභෝගික ඇණවුම් සමාලෝචනය කර කළමනාකරණය කරන්න. විස්තර බැලීමට ඇණවුමක් මත ක්ලිಕ್ කරන්න.",
       searchPlaceholder: "ඇණවුම් හැඳුනුම්පත හෝ පාරිභෝගික නාමය මගින් සොයන්න...",
       orderId: "ඇණවුම් හැඳුනුම්පත",
       customer: "පාරිභෝගික",
@@ -2031,7 +2183,8 @@ export const translations = {
       actions: "ක්‍රියා",
       trackLive: "සජීවීව නිරීක්ෂණය කරන්න",
       dialogTitle: "ඇණවුම් ලුහුබැඳීම",
-      dialogDescription: "ඔබගේ ඇණවුම සඳහා සජීವී නැව්ගත කිරීමේ සහ බෙදා හැරීමේ යාවත්කාලීන කිරීම්.",
+      dialogDescription:
+        "ඔබගේ ඇණවුම සඳහා සජීವී නැව්ගත කිරීමේ සහ බෙදා හැරීමේ යාවත්කාලීන කිරීම්.",
       currentLocation: "වත්මන් ස්ථානය",
       reachedState: "ඔබගේ ප්‍රාන්තයට ළඟා විය",
       estimatedDelivery: "ඇස්තමේන්තුගත බෙදාහැරීම",
@@ -2040,13 +2193,15 @@ export const translations = {
     },
     products: {
       title: "නිෂ්පාදන",
-      description: "අපගේ ගොვීන්ගෙන් සෘජුවම නැවුම් නිෂ්පාදන බ්‍රවුස් කර මිලදී ගන්න.",
+      description:
+        "අපගේ ගොვීන්ගෙන් සෘජුවම නැවුම් නිෂ්පාදන බ්‍රවුස් කර මිලදී ගන්න.",
       freshCarrots: "නැවුම් කැරට්",
       kgPrice: "1kg - රු.20",
       addToCart: "කරත්තයට එකතු කරන්න",
       buyNow: "දැන් මිලදී ගන්න",
       dialogTitle: "ඔබගේ ඇණවුම ලබා දෙන්න",
-      dialogDescription: "මිලදී ගැනීම සම්පූර්ණ කිරීම සඳහා කරුණාකර ඔබගේ විස්තර පුරවන්න.",
+      dialogDescription:
+        "මිලදී ගැනීම සම්පූර්ණ කිරීම සඳහා කරුණාකර ඔබගේ විස්තර පුරවන්න.",
       nameLabel: "නම",
       namePlaceholder: "ඔබගේ සම්පූර්ණ නම",
       emailLabel: "විද්‍යුත් තැපැල් හැඳුනුම්පත",
@@ -2072,7 +2227,8 @@ export const translations = {
     },
     matchmaking: {
       title: "ගොವಿ ගැලපීම",
-      description: "නැවුම් අමුද්‍රව්‍ය ලබා ගැනීමට ගොවීන් සමඟ සෘජුවම සම්බන්ධ වන්න.",
+      description:
+        "නැවුම් අමුද්‍රව්‍ය ලබා ගැනීමට ගොවීන් සමඟ සෘජුවම සම්බන්ධ වන්න.",
       specializesIn: "විශේෂඥ:",
       sendInquiry: "විමසීමක් යවන්න",
       dialogTitle: "සම්බන්ධ වන්න",
@@ -2084,7 +2240,8 @@ export const translations = {
       cancel: "අუা करें",
       send: "විමසීමක් යවන්න",
       inquirySuccessTitle: "විමසීම යවා ඇත!",
-      inquirySuccessDescription: "ඔබගේ පණිවිඩය {farmerName} වෙත සාර්ථකව යවා ඇත.",
+      inquirySuccessDescription:
+        "ඔබගේ පණිවිඩය {farmerName} වෙත සාර්ථකව යවා ඇත.",
     },
     faq: {
       title: "නිතර අසන පැන",
@@ -2096,9 +2253,11 @@ export const translations = {
       title: "අලෙවිකරණය",
       description: "ඔබගේ අලෙවිකරණ ව්‍යාපාර සඳහා මෙවලම් සහ විශ්ලේෂණ.",
       comingSoon: "ඉක්මනින් පැමිණේ",
-      comingSoonDescription: "මෙම කොටස ඉදිවෙමින් පවතී. සිත් ඇදගන්නාසුළු නව අලෙවිකරණ මෙවලම් සඳහා පසුව නැවත පරීක්ෂා කරන්න!",
-      workingHard: "ප්‍රචාරක ලුහුබැඳීම, විශ්ලේෂණ සහ ප්‍රවර්ධන මෙවලම් වැනි විශේෂාංග ඔබට ගෙන ඒමට අපි වෙහෙස මහන්සි වී වැඩ කරමු.",
-    }
+      comingSoonDescription:
+        "මෙම කොටස ඉදිවෙමින් පවතී. සිත් ඇදගන්නාසුළු නව අලෙවිකරණ මෙවලම් සඳහා පසුව නැවත පරීක්ෂා කරන්න!",
+      workingHard:
+        "ප්‍රචාරක ලුහුබැඳීම, විශ්ලේෂණ සහ ප්‍රවර්ධන මෙවලම් වැනි විශේෂාංග ඔබට ගෙන ඒමට අපි වෙහෙස මහන්සි වී වැඩ කරමු.",
+    },
   },
 };
 
@@ -2109,22 +2268,26 @@ type Language = keyof typeof translations;
 interface LanguageContextType {
   selectedLanguage: Language;
   setSelectedLanguage: (language: Language) => void;
-  t: typeof translations[Language];
+  t: (typeof translations)[Language];
 }
 
-const LanguageContext = createContext<LanguageContextType | undefined>(undefined);
+const LanguageContext = createContext<LanguageContextType | undefined>(
+  undefined
+);
 
 export const LanguageProvider = ({ children }: { children: ReactNode }) => {
-  const [selectedLanguage, setSelectedLanguage] = useState<Language>('English');
+  const [selectedLanguage, setSelectedLanguage] = useState<Language>("English");
   const [isHydrated, setIsHydrated] = useState(false);
 
   useEffect(() => {
     // Mark as hydrated first
     setIsHydrated(true);
-    
+
     // Then check localStorage
-    if (typeof window !== 'undefined') {
-      const storedLanguage = localStorage.getItem('manvaasam-language') as Language;
+    if (typeof window !== "undefined") {
+      const storedLanguage = localStorage.getItem(
+        "manvaasam-language"
+      ) as Language;
       if (storedLanguage && translations[storedLanguage]) {
         setSelectedLanguage(storedLanguage);
       }
@@ -2133,16 +2296,18 @@ export const LanguageProvider = ({ children }: { children: ReactNode }) => {
 
   const handleSetLanguage = (language: Language) => {
     setSelectedLanguage(language);
-    if (typeof window !== 'undefined') {
-      localStorage.setItem('manvaasam-language', language);
+    if (typeof window !== "undefined") {
+      localStorage.setItem("manvaasam-language", language);
       document.cookie = `manvaasam-language=${language};path=/;max-age=31536000`;
     }
   };
 
-  const t = translations[selectedLanguage] || translations['English'];
+  const t = translations[selectedLanguage] || translations["English"];
 
   return (
-    <LanguageContext.Provider value={{ selectedLanguage, setSelectedLanguage: handleSetLanguage, t }}>
+    <LanguageContext.Provider
+      value={{ selectedLanguage, setSelectedLanguage: handleSetLanguage, t }}
+    >
       {children}
     </LanguageContext.Provider>
   );
@@ -2151,7 +2316,7 @@ export const LanguageProvider = ({ children }: { children: ReactNode }) => {
 export const useLanguage = () => {
   const context = useContext(LanguageContext);
   if (context === undefined) {
-    throw new Error('useLanguage must be used within a LanguageProvider');
+    throw new Error("useLanguage must be used within a LanguageProvider");
   }
   return context;
 };
