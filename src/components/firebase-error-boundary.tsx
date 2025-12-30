@@ -29,6 +29,14 @@ export class FirebaseErrorBoundary extends React.Component<Props, State> {
       return { hasError: true, error };
     }
     
+    // Check if it's a hydration error - silently recover
+    if (error.message.includes('Hydration') || 
+        error.message.includes('hydration') ||
+        error.message.includes('did not match')) {
+      console.warn('Hydration error caught, recovering:', error);
+      return { hasError: false };
+    }
+    
     // Let other errors bubble up
     throw error;
   }
