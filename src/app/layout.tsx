@@ -225,9 +225,7 @@ export default function RootLayout({
         <FirebaseErrorBoundary>
           <LanguageProvider>
             <NavigationProvider>
-              <AuthProvider>
-                {children}
-              </AuthProvider>
+              <AuthProvider>{children}</AuthProvider>
             </NavigationProvider>
           </LanguageProvider>
         </FirebaseErrorBoundary>
