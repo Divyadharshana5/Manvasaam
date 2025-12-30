@@ -2280,7 +2280,9 @@ export const LanguageProvider = ({ children }: { children: ReactNode }) => {
     // Initialize from localStorage only on client-side, default to English on server
     if (typeof window !== "undefined") {
       try {
-        const storedLanguage = localStorage.getItem("manvaasam-language") as Language;
+        const storedLanguage = localStorage.getItem(
+          "manvaasam-language"
+        ) as Language;
         if (storedLanguage && translations[storedLanguage]) {
           return storedLanguage;
         }
