@@ -2276,29 +2276,30 @@ const LanguageContext = createContext<LanguageContextType | undefined>(
 );
 
 export const LanguageProvider = ({ children }: { children: ReactNode }) => {
-  const [selectedLanguage, setSelectedLanguage] = useState<Language>("English");
-  const [isHydrated, setIsHydrated] = useState(false);
-
-  useEffect(() => {
-    // Mark as hydrated first
-    setIsHydrated(true);
-
-    // Then check localStorage
+  const [selectedLanguage, setSelectedLanguage] = useState<Language>(() => {
+    // Initialize from localStorage only on client-side, default to English on server
     if (typeof window !== "undefined") {
-      const storedLanguage = localStorage.getItem(
-        "manvaasam-language"
-      ) as Language;
-      if (storedLanguage && translations[storedLanguage]) {
-        setSelectedLanguage(storedLanguage);
+      try {
+        const storedLanguage = localStorage.getItem("manvaasam-language") as Language;
+        if (storedLanguage && translations[storedLanguage]) {
+          return storedLanguage;
+        }
+      } catch (error) {
+        // Silently handle errors
       }
     }
-  }, []);
+    return "English";
+  });
 
   const handleSetLanguage = (language: Language) => {
     setSelectedLanguage(language);
     if (typeof window !== "undefined") {
-      localStorage.setItem("manvaasam-language", language);
-      document.cookie = `manvaasam-language=${language};path=/;max-age=31536000`;
+      try {
+        localStorage.setItem("manvaasam-language", language);
+        document.cookie = `manvaasam-language=${language};path=/;max-age=31536000`;
+      } catch (error) {
+        console.warn("Could not save language preference:", error);
+      }
     }
   };
 
