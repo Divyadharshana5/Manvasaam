@@ -624,7 +624,7 @@ export default function HomePage() {
               <div className="flex items-center gap-2">
                 <span className="w-1 h-1 bg-primary rounded-full animate-pulse"></span>
                 <p className="text-xs font-medium text-foreground">
-                  © {new Date().getFullYear()} Manvaasam. All rights reserved.
+                  © 2025 Manvaasam. All rights reserved.
                 </p>
               </div>
 
