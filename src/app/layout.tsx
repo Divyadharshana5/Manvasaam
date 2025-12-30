@@ -12,6 +12,7 @@ import { LanguageProvider } from "@/context/language-context";
 import { NavigationProvider } from "@/components/navigation-provider";
 import { FirebaseErrorBoundary } from "@/components/firebase-error-boundary";
 import { NavigationPerformance } from "@/components/navigation-performance";
+import { ServiceWorkerRegistration } from "@/components/service-worker-registration";
 // Using system fonts for better compatibility with Next.js 16.0.0 + Turbopack
 const fontFamily = "system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif";
 
@@ -119,25 +120,6 @@ export default function RootLayout({
         {/* Performance hints */}
         <meta name="theme-color" content="#22c55e" />
         <meta name="color-scheme" content="light" />
-        
-        {/* Service Worker for fast navigation */}
-        <script
-          dangerouslySetInnerHTML={{
-            __html: `
-              if ('serviceWorker' in navigator) {
-                window.addEventListener('load', () => {
-                  navigator.serviceWorker.register('/sw.js')
-                    .then((registration) => {
-                      console.log('SW registered: ', registration);
-                    })
-                    .catch((registrationError) => {
-                      console.log('SW registration failed: ', registrationError);
-                    });
-                });
-              }
-            `,
-          }}
-        />
 
         {/* Critical CSS inlined for faster rendering */}
         <style
@@ -231,6 +213,7 @@ export default function RootLayout({
         />
       </head>
       <body className="font-sans antialiased scroll-enabled hide-scrollbar no-scrollbar">
+        <ServiceWorkerRegistration />
         <FirebaseErrorBoundary>
           <LanguageProvider>
             <NavigationProvider>
