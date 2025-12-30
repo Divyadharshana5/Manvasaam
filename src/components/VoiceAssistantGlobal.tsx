@@ -74,7 +74,7 @@ export function VoiceAssistantGlobal() {
       farmers: "/dashboard/hub/farmers",
       analytics: "/dashboard/hub/analytics",
       settings: "/dashboard/hub/settings",
-      overview: "/dashboard/hub"
+      overview: "/dashboard/hub",
     };
 
     const protectedRoutes = [
@@ -91,7 +91,7 @@ export function VoiceAssistantGlobal() {
       "farmers",
       "analytics",
       "settings",
-      "overview"
+      "overview",
     ];
 
     // Extract page name from transcript - check for multi-word commands first
