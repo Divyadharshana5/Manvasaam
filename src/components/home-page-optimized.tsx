@@ -385,11 +385,6 @@ export default function HomePage() {
     }
   }, [prefetchRoutes, navigationRoutes, isMounted]);
 
-  // Don't render until mounted to avoid hydration issues
-  if (!isMounted) {
-    return null;
-  }
-
   return (
     <LazyMotion features={domAnimation}>
       {/* Scroll Fix */}
