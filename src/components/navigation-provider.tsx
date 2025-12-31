@@ -4,7 +4,7 @@
 
 "use client";
 
-import { useEffect, useCallback } from "react";
+import { useEffect, useCallback, useState } from "react";
 import { useOptimizedNavigation } from "@/lib/navigation-optimizer";
 import { useRouter } from "next/navigation";
 
@@ -15,9 +15,15 @@ interface NavigationProviderProps {
 export function NavigationProvider({ children }: NavigationProviderProps) {
   const { preloadRoute, navigateFast } = useOptimizedNavigation();
   const router = useRouter();
+  const [isMounted, setIsMounted] = useState(false);
+
+  useEffect(() => {
+    setIsMounted(true);
+  }, []);
 
   // Instant preloading on mount
   useEffect(() => {
+    if (!isMounted || typeof window === "undefined") return;
     // Preload critical routes immediately
     const criticalRoutes = [
       "/login/farmer",
@@ -63,10 +69,11 @@ export function NavigationProvider({ children }: NavigationProviderProps) {
       // Silently handle localStorage access errors
       console.warn("Could not access localStorage:", error);
     }
-  }, [preloadRoute]);
+  }, [preloadRoute, isMounted]);
 
   // Global navigation optimization
   useEffect(() => {
+    if (!isMounted || typeof window === "undefined") return;
     // Add global navigation event listeners
     const handleLinkHover = (event: MouseEvent) => {
       const target = event.target as HTMLElement;
@@ -104,7 +111,7 @@ export function NavigationProvider({ children }: NavigationProviderProps) {
       document.removeEventListener("mouseover", handleLinkHover);
       document.removeEventListener("focusin", handleLinkFocus);
     };
-  }, [preloadRoute]);
+  }, [preloadRoute, isMounted]);
 
   // Fast navigation with instant feedback
   const handleFastNavigation = useCallback(
