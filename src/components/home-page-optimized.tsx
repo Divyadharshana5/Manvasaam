@@ -47,8 +47,6 @@ import { ScrollFix } from "@/components/scroll-fix";
 const ProductShowcase = lazy(() => import("@/components/product-showcase"));
 
 // Memoized components for better performance
-import { memo } from "react";
-
 const AnimatedBackground = memo(() => (
   <div className="absolute inset-0 overflow-hidden pointer-events-none">
     <motion.div
