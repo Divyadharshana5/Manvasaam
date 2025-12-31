@@ -11,7 +11,7 @@ export function ServiceWorkerRegistration() {
 
   useEffect(() => {
     if (!isMounted) return;
-    
+
     if (typeof window !== "undefined" && "serviceWorker" in navigator) {
       navigator.serviceWorker
         .register("/sw.js")
