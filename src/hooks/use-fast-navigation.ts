@@ -29,7 +29,7 @@ export function useFastNavigation() {
       if (isNavigatingRef.current) return; // Prevent double navigation
 
       isNavigatingRef.current = true;
-      
+
       if (typeof document !== "undefined") {
         document.body.classList.add("page-transitioning");
       }
