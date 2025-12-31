@@ -1,7 +1,7 @@
 "use client";
 
 import { useRouter } from "next/navigation";
-import { useEffect, useCallback } from "react";
+import { useEffect, useCallback, useState } from "react";
 
 interface InstantNavigationProps {
   routes: string[];
@@ -15,8 +15,15 @@ export function InstantNavigation({
   preloadResources = true,
 }: InstantNavigationProps) {
   const router = useRouter();
+  const [isMounted, setIsMounted] = useState(false);
 
   useEffect(() => {
+    setIsMounted(true);
+  }, []);
+
+  useEffect(() => {
+    if (!isMounted || typeof window === "undefined") return;
+
     // Prefetch all routes immediately
     routes.forEach((route) => {
       router.prefetch(route);
