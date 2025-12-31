@@ -190,6 +190,12 @@ export default function HomePage() {
 
   const [loadingRoleHref, setLoadingRoleHref] = useState<string | null>(null);
   const [prefersReducedMotion, setPrefersReducedMotion] = useState(false);
+  const [isMounted, setIsMounted] = useState(false);
+
+  // Mount effect
+  useEffect(() => {
+    setIsMounted(true);
+  }, []);
 
   // Memoize expensive calculations for better performance
   const taglineWords = useMemo(() => t.tagline.split(" "), [t.tagline]);
