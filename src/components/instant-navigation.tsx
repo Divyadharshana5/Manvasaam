@@ -106,15 +106,17 @@ export function useInstantNavigation() {
       router.prefetch(href);
 
       // Also add browser-level prefetch - avoid duplicates
-      const existingLink = document.querySelector(
-        `link[rel="prefetch"][href="${href}"]`
-      );
-      if (!existingLink) {
-        const link = document.createElement("link");
-        link.rel = "prefetch";
-        link.href = href;
-        link.as = "document";
-        document.head.appendChild(link);
+      if (typeof window !== "undefined" && typeof document !== "undefined") {
+        const existingLink = document.querySelector(
+          `link[rel="prefetch"][href="${href}"]`
+        );
+        if (!existingLink) {
+          const link = document.createElement("link");
+          link.rel = "prefetch";
+          link.href = href;
+          link.as = "document";
+          document.head.appendChild(link);
+        }
       }
     },
     [router]
