@@ -391,7 +391,9 @@ export default function HomePage() {
       {isMounted && <ScrollFix />}
 
       {/* Instant Navigation Prefetching - Only render on client */}
-      {isMounted && <InstantNavigation routes={navigationRoutes} priority="high" />}
+      {isMounted && (
+        <InstantNavigation routes={navigationRoutes} priority="high" />
+      )}
 
       {/* Navigation Progress Indicator */}
       {isMounted && isNavigating && (
