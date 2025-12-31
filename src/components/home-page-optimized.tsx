@@ -380,8 +380,15 @@ export default function HomePage() {
 
   // Prefetch all routes on mount for instant navigation
   useEffect(() => {
-    prefetchRoutes(navigationRoutes);
-  }, [prefetchRoutes, navigationRoutes]);
+    if (isMounted) {
+      prefetchRoutes(navigationRoutes);
+    }
+  }, [prefetchRoutes, navigationRoutes, isMounted]);
+
+  // Don't render until mounted to avoid hydration issues
+  if (!isMounted) {
+    return null;
+  }
 
   return (
     <LazyMotion features={domAnimation}>
