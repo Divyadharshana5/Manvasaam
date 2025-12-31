@@ -74,7 +74,7 @@ export function NavigationPerformance() {
     return () => {
       router.push = originalPush;
     };
-  }, [router]);
+  }, [router, isMounted]);
 
   return null; // This component doesn't render anything
 }
