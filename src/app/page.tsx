@@ -1,11 +1,4 @@
-"use client";
-
-import dynamic from "next/dynamic";
-
-const HomePage = dynamic(() => import("@/components/home-page-optimized"), {
-  ssr: false,
-  loading: () => null,
-});
+import HomePage from "@/components/home-page-optimized";
 
 export default function Page() {
   return <HomePage />;
