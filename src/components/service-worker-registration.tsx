@@ -1,10 +1,18 @@
 "use client";
 
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 
 export function ServiceWorkerRegistration() {
+  const [isMounted, setIsMounted] = useState(false);
+
   useEffect(() => {
-    if ("serviceWorker" in navigator) {
+    setIsMounted(true);
+  }, []);
+
+  useEffect(() => {
+    if (!isMounted) return;
+    
+    if (typeof window !== "undefined" && "serviceWorker" in navigator) {
       navigator.serviceWorker
         .register("/sw.js")
         .then((registration) => {
@@ -14,7 +22,7 @@ export function ServiceWorkerRegistration() {
           console.log("SW registration failed: ", registrationError);
         });
     }
-  }, []);
+  }, [isMounted]);
 
   return null;
 }
