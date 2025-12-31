@@ -161,11 +161,13 @@ export function NavigationProvider({ children }: NavigationProviderProps) {
 
   // Expose fast navigation globally for use in components
   useEffect(() => {
+    if (!isMounted || typeof window === "undefined") return;
+    
     (window as any).fastNavigate = handleFastNavigation;
     return () => {
       delete (window as any).fastNavigate;
     };
-  }, [handleFastNavigation]);
+  }, [handleFastNavigation, isMounted]);
 
   return <>{children}</>;
 }

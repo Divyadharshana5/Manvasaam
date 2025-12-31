@@ -1,5 +1,5 @@
 "use client";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import { Button } from "@/components/ui/button";
 import { MicIcon } from "lucide-react";
@@ -8,12 +8,17 @@ import { useLanguage } from "@/context/language-context";
 
 export function VoiceAssistantGlobal() {
   const [isListening, setIsListening] = useState(false);
+  const [isMounted, setIsMounted] = useState(false);
   const router = useRouter();
   const { user } = useAuth();
   const { selectedLanguage } = useLanguage();
 
+  useEffect(() => {
+    setIsMounted(true);
+  }, []);
+
   const startListening = async () => {
-    if (isListening) return;
+    if (!isMounted || typeof window === "undefined" || isListening) return;
 
     try {
       await navigator.mediaDevices.getUserMedia({ audio: true });
