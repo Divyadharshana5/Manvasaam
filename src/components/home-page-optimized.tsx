@@ -389,15 +389,13 @@ export default function HomePage() {
   return (
     <LazyMotion features={domAnimation}>
       {/* Scroll Fix - Only render on client */}
-      {isMounted && <ScrollFix />}
+      <ScrollFix />
 
       {/* Instant Navigation Prefetching - Only render on client */}
-      {isMounted && (
-        <InstantNavigation routes={navigationRoutes} priority="high" />
-      )}
+      <InstantNavigation routes={navigationRoutes} priority="high" />
 
       {/* Navigation Progress Indicator */}
-      {isMounted && isNavigating && (
+      {isNavigating && (
         <div
           id="nav-progress"
           className="fixed top-0 left-0 w-full h-1 bg-gradient-to-r from-primary to-green-600 z-50 animate-pulse"
@@ -409,7 +407,7 @@ export default function HomePage() {
         data-page="home"
       >
         {/* Optimized Animated Background Elements */}
-        {isMounted && <AnimatedBackground />}
+        <AnimatedBackground />
 
         <header className="fixed top-0 left-0 right-0 z-50 flex items-center justify-between p-3 sm:p-4 bg-white/80 backdrop-blur-md border-b border-primary/20 shadow-sm">
           <m.div
@@ -426,11 +424,9 @@ export default function HomePage() {
             </Link>
           </m.div>
           <div className="flex items-center gap-2 sm:gap-4">
-            {isMounted && (
-              <m.div whileHover={{ scale: 1.1 }}>
-                <VoiceAssistantGlobal />
-              </m.div>
-            )}
+            <m.div whileHover={{ scale: 1.1 }}>
+              <VoiceAssistantGlobal />
+            </m.div>
 
             <DropdownMenu>
               <DropdownMenuTrigger asChild>
