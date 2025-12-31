@@ -31,6 +31,7 @@ import {
   useCallback,
   lazy,
   Suspense,
+  memo,
 } from "react";
 import { useRouter } from "next/navigation";
 import { VoiceAssistantGlobal } from "@/components/VoiceAssistantGlobal";
@@ -92,7 +93,7 @@ const AnimatedBackground = memo(() => (
       }}
     />
   </div>
-);
+));
 
 interface RoleCardProps {
   role: {
