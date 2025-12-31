@@ -13,7 +13,7 @@ export function NavigationPerformance() {
 
   useEffect(() => {
     if (!isMounted || typeof window === "undefined") return;
-    
+
     // Track navigation performance
     const trackNavigation = () => {
       if ("performance" in window) {
