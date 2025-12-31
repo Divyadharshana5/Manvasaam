@@ -29,7 +29,10 @@ export function useFastNavigation() {
       if (isNavigatingRef.current) return; // Prevent double navigation
 
       isNavigatingRef.current = true;
-      document.body.classList.add("page-transitioning");
+      
+      if (typeof document !== "undefined") {
+        document.body.classList.add("page-transitioning");
+      }
 
       // Prefetch one more time for maximum speed
       router.prefetch(route);
@@ -38,13 +41,15 @@ export function useFastNavigation() {
       router.push(route);
 
       // Haptic feedback for mobile
-      if ("vibrate" in navigator) {
+      if (typeof navigator !== "undefined" && "vibrate" in navigator) {
         navigator.vibrate(50);
       }
 
       // Clean up after short delay
       setTimeout(() => {
-        document.body.classList.remove("page-transitioning");
+        if (typeof document !== "undefined") {
+          document.body.classList.remove("page-transitioning");
+        }
         isNavigatingRef.current = false;
       }, 150);
     },
