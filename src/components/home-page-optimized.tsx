@@ -423,9 +423,11 @@ export default function HomePage() {
             </Link>
           </m.div>
           <div className="flex items-center gap-2 sm:gap-4">
-            <m.div whileHover={{ scale: 1.1 }}>
-              <VoiceAssistantGlobal />
-            </m.div>
+            {isMounted && (
+              <m.div whileHover={{ scale: 1.1 }}>
+                <VoiceAssistantGlobal />
+              </m.div>
+            )}
 
             <DropdownMenu>
               <DropdownMenuTrigger asChild>
