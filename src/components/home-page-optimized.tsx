@@ -387,14 +387,14 @@ export default function HomePage() {
 
   return (
     <LazyMotion features={domAnimation}>
-      {/* Scroll Fix */}
-      <ScrollFix />
+      {/* Scroll Fix - Only render on client */}
+      {isMounted && <ScrollFix />}
 
-      {/* Instant Navigation Prefetching */}
-      <InstantNavigation routes={navigationRoutes} priority="high" />
+      {/* Instant Navigation Prefetching - Only render on client */}
+      {isMounted && <InstantNavigation routes={navigationRoutes} priority="high" />}
 
       {/* Navigation Progress Indicator */}
-      {isNavigating && (
+      {isMounted && isNavigating && (
         <div
           id="nav-progress"
           className="fixed top-0 left-0 w-full h-1 bg-gradient-to-r from-primary to-green-600 z-50 animate-pulse"

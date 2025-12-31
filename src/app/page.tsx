@@ -1,3 +1,5 @@
+"use client";
+
 import HomePage from "@/components/home-page-optimized";
 
 export default function Page() {
