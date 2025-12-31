@@ -196,8 +196,10 @@ export default function HomePage() {
 
   // Check for reduced motion preference for better performance
   useEffect(() => {
-    const mediaQuery = window.matchMedia("(prefers-reduced-motion: reduce)");
-    setPrefersReducedMotion(mediaQuery.matches);
+    if (typeof window !== "undefined") {
+      const mediaQuery = window.matchMedia("(prefers-reduced-motion: reduce)");
+      setPrefersReducedMotion(mediaQuery.matches);
+    }
   }, []);
 
   const userRoles = useMemo(
