@@ -3,16 +3,11 @@ import type { Metadata, Viewport } from "next";
 import "../styles/hide-scrollbar.css";
 import "./globals.css";
 import "./background.css";
-import "../styles/navigation-transitions.css";
 import "../styles/auth-animations.css";
 import "../styles/scroll-fix.css";
 import { AuthProvider } from "@/hooks/use-auth";
 import { Toaster } from "@/components/ui/toaster";
-import { LanguageProvider } from "@/context/language-context";
-import { NavigationProvider } from "@/components/navigation-provider";
 import { FirebaseErrorBoundary } from "@/components/firebase-error-boundary";
-import { NavigationPerformance } from "@/components/navigation-performance";
-import { ServiceWorkerRegistration } from "@/components/service-worker-registration";
 // Using system fonts for better compatibility with Next.js 16.0.0 + Turbopack
 const fontFamily =
   "system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif";
