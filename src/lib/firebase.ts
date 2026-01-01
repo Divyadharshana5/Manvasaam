@@ -1,4 +1,3 @@
-
 "use client";
 import { initializeApp, getApps, getApp, FirebaseApp } from "firebase/app";
 import { getAuth, Auth } from "firebase/auth";
@@ -28,15 +27,18 @@ try {
   } else {
     app = getApp();
   }
-  
+
   auth = getAuth(app);
   db = getFirestore(app);
   storage = getStorage(app);
   isFirebaseAvailable = true;
-  
+
   console.log("✅ Firebase initialized successfully");
 } catch (error) {
-  console.warn("⚠️ Firebase initialization failed, running in demo mode:", error);
+  console.warn(
+    "⚠️ Firebase initialization failed, running in demo mode:",
+    error
+  );
   isFirebaseAvailable = false;
 }
 
