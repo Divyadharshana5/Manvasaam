@@ -2,9 +2,8 @@
 
 import dynamic from "next/dynamic";
 import { Suspense } from "react";
-import { ClientOnly } from "@/components/client-only";
 
-const HomePage = dynamic(() => import("@/components/home-page-optimized"), {
+const HomePage = dynamic(() => import("@/components/home-page-simple"), {
   ssr: false,
   loading: () => <LoadingFallback />,
 });
@@ -23,9 +22,7 @@ function LoadingFallback() {
 export default function Page() {
   return (
     <Suspense fallback={<LoadingFallback />}>
-      <ClientOnly>
-        <HomePage />
-      </ClientOnly>
+      <HomePage />
     </Suspense>
   );
 }
