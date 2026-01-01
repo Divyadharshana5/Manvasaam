@@ -2280,7 +2280,6 @@ export const LanguageProvider = ({ children }: { children: ReactNode }) => {
   const [mounted, setMounted] = useState(false);
 
   useEffect(() => {
-    setMounted(true);
     // Load language preference after component mounts
     try {
       const storedLanguage = localStorage.getItem(
@@ -2292,6 +2291,7 @@ export const LanguageProvider = ({ children }: { children: ReactNode }) => {
     } catch (error) {
       // Silently handle errors
     }
+    setMounted(true);
   }, []);
 
   const handleSetLanguage = (language: Language) => {
@@ -2311,6 +2311,7 @@ export const LanguageProvider = ({ children }: { children: ReactNode }) => {
   return (
     <LanguageContext.Provider
       value={{ selectedLanguage, setSelectedLanguage: handleSetLanguage, t }}
+      suppressHydrationWarning
     >
       {children}
     </LanguageContext.Provider>
