@@ -217,14 +217,8 @@ export default function RootLayout({
         className="font-sans antialiased scroll-enabled hide-scrollbar no-scrollbar"
         suppressHydrationWarning
       >
-        <ServiceWorkerRegistration />
-        <NavigationPerformance />
         <FirebaseErrorBoundary>
-          <LanguageProvider>
-            <NavigationProvider>
-              <AuthProvider>{children}</AuthProvider>
-            </NavigationProvider>
-          </LanguageProvider>
+          <AuthProvider>{children}</AuthProvider>
         </FirebaseErrorBoundary>
         <Toaster />
       </body>
