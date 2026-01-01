@@ -2308,11 +2308,15 @@ export const LanguageProvider = ({ children }: { children: ReactNode }) => {
 
   const t = translations[selectedLanguage] || translations["English"];
 
+  // Use default English value on server/first render, then switch to stored language after mount
+  const contextValue = {
+    selectedLanguage: mounted ? selectedLanguage : "English",
+    setSelectedLanguage: handleSetLanguage,
+    t: mounted ? t : translations["English"],
+  };
+
   return (
-    <LanguageContext.Provider
-      value={{ selectedLanguage, setSelectedLanguage: handleSetLanguage, t }}
-      suppressHydrationWarning
-    >
+    <LanguageContext.Provider value={contextValue} suppressHydrationWarning>
       {children}
     </LanguageContext.Provider>
   );
