@@ -1,12 +1,17 @@
-
 "use client";
 
-import React, {useEffect, useState, createContext, useContext, ReactNode} from 'react';
-import { auth, isFirebaseAvailable } from '@/lib/firebase';
-import { demoAuth, type DemoUser } from '@/lib/demo-auth';
-import type {User} from 'firebase/auth';
-import { onIdTokenChanged } from 'firebase/auth';
-import { getUserType, type UserType } from '@/lib/auth-redirect';
+import React, {
+  useEffect,
+  useState,
+  createContext,
+  useContext,
+  ReactNode,
+} from "react";
+import { auth, isFirebaseAvailable } from "@/lib/firebase";
+import { demoAuth, type DemoUser } from "@/lib/demo-auth";
+import type { User } from "firebase/auth";
+import { onIdTokenChanged } from "firebase/auth";
+import { getUserType, type UserType } from "@/lib/auth-redirect";
 
 interface AuthContextType {
   user: User | DemoUser | null;
@@ -15,24 +20,24 @@ interface AuthContextType {
   isDemoMode: boolean;
 }
 
-const AuthContext = createContext<AuthContextType>({ 
-  user: null, 
-  loading: true, 
+const AuthContext = createContext<AuthContextType>({
+  user: null,
+  loading: true,
   userType: null,
-  isDemoMode: !isFirebaseAvailable 
+  isDemoMode: !isFirebaseAvailable,
 });
 
 async function setSessionCookie(idToken: string) {
   try {
-    await fetch('/api/login', {
-      method: 'POST',
+    await fetch("/api/login", {
+      method: "POST",
       headers: {
-        'Content-Type': 'application/json',
+        "Content-Type": "application/json",
       },
       body: JSON.stringify({ idToken }),
     });
   } catch (error) {
-    console.warn('Session cookie setting failed:', error);
+    console.warn("Session cookie setting failed:", error);
   }
 }
 
@@ -50,27 +55,27 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   useEffect(() => {
     if (!mounted) return;
     if (!isFirebaseAvailable || !auth) {
-      console.log('🔄 Running in demo mode - Firebase not available');
-      
+      console.log("🔄 Running in demo mode - Firebase not available");
+
       // Use demo auth service
       const unsubscribe = demoAuth.onAuthStateChanged((demoUser) => {
         setUser(demoUser);
         if (demoUser) {
           setUserType(demoUser.userType as UserType);
           // Store user type for getUserType function
-          localStorage.setItem('userType', demoUser.userType);
+          localStorage.setItem("userType", demoUser.userType);
         } else {
           setUserType(null);
-          localStorage.removeItem('userType');
+          localStorage.removeItem("userType");
         }
         setLoading(false);
       });
-      
+
       return unsubscribe;
     }
 
     let unsubscribe: (() => void) | undefined;
-    
+
     try {
       unsubscribe = onIdTokenChanged(auth, async (user) => {
         try {
@@ -78,7 +83,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
             setUser(user);
             const idToken = await user.getIdToken();
             await setSessionCookie(idToken);
-            
+
             const detectedUserType = getUserType();
             setUserType(detectedUserType);
           } else {
@@ -86,14 +91,14 @@ export function AuthProvider({ children }: { children: ReactNode }) {
             setUserType(null);
           }
         } catch (error) {
-          console.warn('Auth token error, continuing in demo mode:', error);
+          console.warn("Auth token error, continuing in demo mode:", error);
           setUser(null);
           setUserType(null);
         }
         setLoading(false);
       });
     } catch (error) {
-      console.warn('Auth listener setup failed, running in demo mode:', error);
+      console.warn("Auth listener setup failed, running in demo mode:", error);
       setLoading(false);
     }
 
@@ -102,7 +107,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
         try {
           unsubscribe();
         } catch (error) {
-          console.warn('Auth cleanup error:', error);
+          console.warn("Auth cleanup error:", error);
         }
       }
     };
@@ -120,7 +125,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
 export function useAuth() {
   const context = useContext(AuthContext);
   if (context === undefined) {
-    throw new Error('useAuth must be used within an AuthProvider');
+    throw new Error("useAuth must be used within an AuthProvider");
   }
   return context;
 }
