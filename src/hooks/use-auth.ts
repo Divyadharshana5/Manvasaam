@@ -40,9 +40,15 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   const [user, setUser] = useState<User | DemoUser | null>(null);
   const [loading, setLoading] = useState(true);
   const [userType, setUserType] = useState<UserType | null>(null);
+  const [mounted, setMounted] = useState(false);
   const isDemoMode = !isFirebaseAvailable;
 
   useEffect(() => {
+    setMounted(true);
+  }, []);
+
+  useEffect(() => {
+    if (!mounted) return;
     if (!isFirebaseAvailable || !auth) {
       console.log('🔄 Running in demo mode - Firebase not available');
       
@@ -100,11 +106,15 @@ export function AuthProvider({ children }: { children: ReactNode }) {
         }
       }
     };
-  }, []);
+  }, [mounted]);
 
   const value = { user, loading, userType, isDemoMode };
 
-  return React.createElement(AuthContext.Provider, { value: value }, children);
+  return React.createElement(
+    AuthContext.Provider,
+    { value: value, suppressHydrationWarning: true as any },
+    children
+  );
 }
 
 export function useAuth() {
