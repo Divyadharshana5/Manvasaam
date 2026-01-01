@@ -5,9 +5,7 @@ import "./globals.css";
 import "./background.css";
 import "../styles/auth-animations.css";
 import "../styles/scroll-fix.css";
-import { AuthProvider } from "@/hooks/use-auth";
 import { Toaster } from "@/components/ui/toaster";
-import { FirebaseErrorBoundary } from "@/components/firebase-error-boundary";
 // Using system fonts for better compatibility with Next.js 16.0.0 + Turbopack
 const fontFamily =
   "system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif";
@@ -212,9 +210,7 @@ export default function RootLayout({
         className="font-sans antialiased scroll-enabled hide-scrollbar no-scrollbar"
         suppressHydrationWarning
       >
-        <FirebaseErrorBoundary>
-          <AuthProvider>{children}</AuthProvider>
-        </FirebaseErrorBoundary>
+        {children}
         <Toaster />
       </body>
     </html>
