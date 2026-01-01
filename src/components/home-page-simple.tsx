@@ -2,20 +2,9 @@
 
 import { useState, useEffect } from "react";
 import Link from "next/link";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Button } from "@/components/ui/button";
-import { Tractor, Building, Users, Truck } from "lucide-react";
-
-interface RoleOption {
-  name: string;
-  description: string;
-  href: string;
-  icon: React.ReactNode;
-}
 
 export default function HomePageSimple() {
   const [mounted, setMounted] = useState(false);
-  const [loading, setLoading] = useState<string | null>(null);
 
   useEffect(() => {
     setMounted(true);
@@ -23,140 +12,233 @@ export default function HomePageSimple() {
 
   if (!mounted) {
     return (
-      <div className="w-full min-h-screen flex items-center justify-center bg-gradient-to-b from-green-50 to-blue-50">
-        <div className="text-center">
-          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-green-500 mx-auto mb-4"></div>
-          <p className="text-gray-600">Loading...</p>
+      <div style={{
+        width: "100%",
+        minHeight: "100vh",
+        display: "flex",
+        alignItems: "center",
+        justifyContent: "center",
+        background: "linear-gradient(to bottom, #f0fdf4, #f0f9ff)"
+      }}>
+        <div style={{ textAlign: "center" }}>
+          <div style={{
+            animation: "spin 1s linear infinite",
+            width: "48px",
+            height: "48px",
+            border: "4px solid #dcfce7",
+            borderTop: "4px solid #16a34a",
+            borderRadius: "50%",
+            margin: "0 auto 16px"
+          }}></div>
+          <style>{`@keyframes spin { to { transform: rotate(360deg); } }`}</style>
+          <p style={{ color: "#4b5563" }}>Loading...</p>
         </div>
       </div>
     );
   }
 
-  const roles: RoleOption[] = [
-    {
-      name: "Farmer",
-      description: "Join our network to sell your produce directly.",
-      href: "/login/farmer",
-      icon: <Tractor className="w-12 h-12 text-green-600" />,
-    },
-    {
-      name: "Customer",
-      description: "Get fresh, organic products delivered to your doorstep.",
-      href: "/login/retail",
-      icon: <Users className="w-12 h-12 text-blue-600" />,
-    },
-    {
-      name: "Hub Manager",
-      description: "Manage logistics and connect farmers to customers.",
-      href: "/login/transport",
-      icon: <Building className="w-12 h-12 text-purple-600" />,
-    },
-    {
-      name: "Transport",
-      description: "Deliver fresh produce with our logistics network.",
-      href: "/login/transport",
-      icon: <Truck className="w-12 h-12 text-orange-600" />,
-    },
-  ];
-
-  const handleContinue = (href: string) => {
-    setLoading(href);
-    setTimeout(() => {
-      window.location.href = href;
-    }, 300);
-  };
-
   return (
-    <div className="w-full min-h-screen bg-gradient-to-b from-green-50 via-blue-50 to-purple-50">
+    <div style={{
+      width: "100%",
+      minHeight: "100vh",
+      background: "linear-gradient(to bottom, #f0fdf4, #f0f9ff, #f3f0ff)",
+      padding: "32px 16px"
+    }}>
       {/* Header */}
-      <div className="text-center py-12 px-4">
-        <h1 className="text-4xl md:text-5xl font-bold text-gray-900 mb-4">
+      <div style={{ textAlign: "center", marginBottom: "48px" }}>
+        <h1 style={{
+          fontSize: "48px",
+          fontWeight: "bold",
+          color: "#111827",
+          marginBottom: "16px"
+        }}>
           Manvaasam
         </h1>
-        <p className="text-xl text-gray-600 mb-2">
+        <p style={{
+          fontSize: "20px",
+          color: "#4b5563",
+          marginBottom: "8px"
+        }}>
           Empowering Farmers, Delivering Freshness
         </p>
-        <p className="text-gray-500">
+        <p style={{
+          color: "#6b7280"
+        }}>
           Connect farmers, hubs, customers, and restaurants in a seamless
           agricultural marketplace.
         </p>
       </div>
 
-      {/* Role Selection Cards */}
-      <div className="max-w-6xl mx-auto px-4 py-12">
-        <h2 className="text-3xl font-bold text-center mb-12 text-gray-900">
+      {/* Role Selection */}
+      <div style={{
+        maxWidth: "1200px",
+        margin: "0 auto",
+        marginBottom: "48px"
+      }}>
+        <h2 style={{
+          fontSize: "30px",
+          fontWeight: "bold",
+          textAlign: "center",
+          marginBottom: "48px",
+          color: "#111827"
+        }}>
           Join Our Community
         </h2>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-          {roles.map((role) => (
-            <Card
-              key={role.href}
-              className="flex flex-col h-full hover:shadow-lg transition-shadow duration-300 cursor-pointer"
-            >
-              <CardHeader className="text-center flex-shrink-0">
-                <div className="flex justify-center mb-4">{role.icon}</div>
-                <CardTitle className="text-xl">{role.name}</CardTitle>
-              </CardHeader>
-              <CardContent className="flex flex-col flex-grow">
-                <p className="text-gray-600 text-sm mb-6 flex-grow">
-                  {role.description}
-                </p>
-                <Button
-                  onClick={() => handleContinue(role.href)}
-                  disabled={loading === role.href}
-                  className="w-full"
-                >
-                  {loading === role.href ? (
-                    <>
-                      <span className="inline-block animate-spin mr-2">⟳</span>
-                      Loading...
-                    </>
-                  ) : (
-                    "Continue"
-                  )}
-                </Button>
-              </CardContent>
-            </Card>
+        <div style={{
+          display: "grid",
+          gridTemplateColumns: "repeat(auto-fit, minmax(250px, 1fr))",
+          gap: "24px"
+        }}>
+          {[
+            {
+              name: "Farmer",
+              desc: "Join our network to sell your produce directly.",
+              href: "/login/farmer",
+              color: "#16a34a"
+            },
+            {
+              name: "Customer",
+              desc: "Get fresh, organic products delivered to your doorstep.",
+              href: "/login/retail",
+              color: "#2563eb"
+            },
+            {
+              name: "Hub Manager",
+              desc: "Manage logistics and connect farmers to customers.",
+              href: "/login/transport",
+              color: "#9333ea"
+            },
+            {
+              name: "Transport",
+              desc: "Deliver fresh produce with our logistics network.",
+              href: "/login/transport",
+              color: "#ea580c"
+            }
+          ].map((role) => (
+            <div key={role.href} style={{
+              border: "1px solid #e5e7eb",
+              borderRadius: "8px",
+              padding: "24px",
+              background: "#fff",
+              boxShadow: "0 1px 3px rgba(0,0,0,0.1)",
+              cursor: "pointer",
+              transition: "all 0.3s ease",
+              display: "flex",
+              flexDirection: "column"
+            }}
+            onMouseEnter={(e) => {
+              e.currentTarget.style.boxShadow = "0 10px 15px rgba(0,0,0,0.1)";
+            }}
+            onMouseLeave={(e) => {
+              e.currentTarget.style.boxShadow = "0 1px 3px rgba(0,0,0,0.1)";
+            }}>
+              <h3 style={{
+                fontSize: "20px",
+                fontWeight: "bold",
+                marginBottom: "12px",
+                color: role.color
+              }}>
+                {role.name}
+              </h3>
+              <p style={{
+                color: "#6b7280",
+                fontSize: "14px",
+                marginBottom: "20px",
+                flex: 1
+              }}>
+                {role.desc}
+              </p>
+              <Link href={role.href}>
+                <button style={{
+                  width: "100%",
+                  padding: "10px 16px",
+                  background: role.color,
+                  color: "white",
+                  border: "none",
+                  borderRadius: "6px",
+                  fontWeight: "600",
+                  cursor: "pointer",
+                  transition: "opacity 0.2s"
+                }}
+                onMouseEnter={(e) => e.currentTarget.style.opacity = "0.9"}
+                onMouseLeave={(e) => e.currentTarget.style.opacity = "1"}>
+                  Continue
+                </button>
+              </Link>
+            </div>
           ))}
         </div>
       </div>
 
-      {/* Footer */}
-      <div className="text-center py-8 px-4 border-t border-gray-200 mt-12">
-        <div className="max-w-4xl mx-auto mb-6">
-          <h3 className="text-2xl font-bold text-gray-900 mb-4">Our Mission</h3>
-          <p className="text-gray-600">
-            Manvaasam connects you directly with local farmers through our
-            trusted hub network, ensuring you receive the freshest organic
-            products while supporting sustainable agriculture.
-          </p>
-        </div>
+      {/* Mission Section */}
+      <div style={{
+        maxWidth: "800px",
+        margin: "0 auto",
+        textAlign: "center",
+        paddingTop: "32px",
+        borderTop: "1px solid #e5e7eb"
+      }}>
+        <h3 style={{
+          fontSize: "24px",
+          fontWeight: "bold",
+          marginBottom: "16px",
+          color: "#111827"
+        }}>
+          Our Mission
+        </h3>
+        <p style={{
+          color: "#4b5563",
+          lineHeight: "1.6"
+        }}>
+          Manvaasam connects you directly with local farmers through our
+          trusted hub network, ensuring you receive the freshest organic
+          products while supporting sustainable agriculture.
+        </p>
+      </div>
 
-        <div className="flex justify-center gap-4 flex-wrap mb-6">
-          <Link
-            href="/privacy"
-            className="text-gray-600 hover:text-gray-900 text-sm"
-          >
+      {/* Footer */}
+      <div style={{
+        textAlign: "center",
+        marginTop: "48px",
+        paddingTop: "32px",
+        borderTop: "1px solid #e5e7eb"
+      }}>
+        <div style={{
+          display: "flex",
+          justifyContent: "center",
+          gap: "16px",
+          flexWrap: "wrap",
+          marginBottom: "24px"
+        }}>
+          <Link href="/privacy" style={{
+            color: "#4b5563",
+            textDecoration: "none",
+            fontSize: "14px"
+          }}>
             Privacy Policy
           </Link>
-          <span className="text-gray-400">•</span>
-          <Link
-            href="/terms"
-            className="text-gray-600 hover:text-gray-900 text-sm"
-          >
+          <span style={{ color: "#9ca3af" }}>•</span>
+          <Link href="/terms" style={{
+            color: "#4b5563",
+            textDecoration: "none",
+            fontSize: "14px"
+          }}>
             Terms of Service
           </Link>
-          <span className="text-gray-400">•</span>
-          <Link
-            href="/support"
-            className="text-gray-600 hover:text-gray-900 text-sm"
-          >
+          <span style={{ color: "#9ca3af" }}>•</span>
+          <Link href="/support" style={{
+            color: "#4b5563",
+            textDecoration: "none",
+            fontSize: "14px"
+          }}>
             Support
           </Link>
         </div>
-
-        <p className="text-gray-500 text-sm">
+        <p style={{
+          color: "#6b7280",
+          fontSize: "14px"
+        }}>
           © 2024 Manvaasam. All rights reserved.
         </p>
       </div>
