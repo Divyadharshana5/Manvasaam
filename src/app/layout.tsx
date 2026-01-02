@@ -109,9 +109,6 @@ export default function RootLayout({
   return (
     <html lang="en" suppressHydrationWarning>
       <head>
-        {/* Preload critical resources */}
-        <link rel="preload" href="/bg-agri.png" as="image" />
-
         {/* Performance hints */}
         <meta name="theme-color" content="#22c55e" />
         <meta name="color-scheme" content="light" />
