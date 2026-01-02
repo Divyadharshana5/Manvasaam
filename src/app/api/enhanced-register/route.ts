@@ -1,5 +1,9 @@
 import { NextResponse } from "next/server";
-import { adminAuth, adminDb, isFirebaseInitialized } from "@/lib/firebase-admin";
+import {
+  adminAuth,
+  adminDb,
+  isFirebaseInitialized,
+} from "@/lib/firebase-admin";
 import { sendPasswordResetEmail } from "@/lib/email";
 import { randomBytes } from "crypto";
 
@@ -31,11 +35,14 @@ export async function POST(request: Request) {
 
       let branchId: string | undefined = undefined;
       if (userType === "hub") {
-        branchId = `HUB-${Math.random().toString(36).substr(2, 6).toUpperCase()}`;
+        branchId = `HUB-${Math.random()
+          .toString(36)
+          .substr(2, 6)
+          .toUpperCase()}`;
       }
 
       console.log(`✅ Mock registration successful for ${userType}: ${email}`);
-      
+
       // Simulate successful registration
       return NextResponse.json(
         {
@@ -44,7 +51,7 @@ export async function POST(request: Request) {
           branchId,
           mockMode: true,
           email: email,
-          branchName: branchName
+          branchName: branchName,
         },
         { status: 201 }
       );
