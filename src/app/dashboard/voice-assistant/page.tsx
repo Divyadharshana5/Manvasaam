@@ -19,7 +19,7 @@ import {
   HelpCircle,
 } from "lucide-react";
 import { useLanguage } from "@/context/language-context";
-import { VoiceAssistant } from "@/components/voice-assistant";
+import VoiceAssistant from "@/components/voice-assistant";
 
 export default function VoiceAssistantPage() {
   const { selectedLanguage, setSelectedLanguage, t } = useLanguage();
