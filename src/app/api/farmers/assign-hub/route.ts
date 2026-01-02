@@ -9,7 +9,7 @@ export async function POST(request: Request) {
       // Mock assignment when Firebase is not configured
       const data = await request.json();
       const { hubId } = data;
-      
+
       const mockHub = {
         id: hubId || "hub1",
         branchId: "HUB-001",
@@ -19,14 +19,14 @@ export async function POST(request: Request) {
         status: "active",
         operatingHours: { open: "06:00", close: "20:00" },
         capacity: 5000,
-        currentLoad: 1200
+        currentLoad: 1200,
       };
-      
+
       return NextResponse.json(
-        { 
+        {
           message: "Farmer assigned to hub successfully",
           assignmentId: "mock-assignment",
-          hub: mockHub
+          hub: mockHub,
         },
         { status: 200 }
       );
@@ -36,13 +36,13 @@ export async function POST(request: Request) {
     const sessionCookie = cookieStore.get("session")?.value;
 
     if (!sessionCookie) {
-      return NextResponse.json(
-        { message: "Unauthorized" },
-        { status: 401 }
-      );
+      return NextResponse.json({ message: "Unauthorized" }, { status: 401 });
     }
 
-    const decodedToken = await adminAuth.verifySessionCookie(sessionCookie, true);
+    const decodedToken = await adminAuth.verifySessionCookie(
+      sessionCookie,
+      true
+    );
     const data = await request.json();
 
     const { farmerId, coordinates, hubId, assignmentType = "auto" } = data;
@@ -60,7 +60,7 @@ export async function POST(request: Request) {
       assignmentId = await assignFarmerToHub(farmerId, hubId, 0, "manual");
     } else if (assignmentType === "auto" && coordinates) {
       const { latitude, longitude } = coordinates;
-      
+
       if (!latitude || !longitude) {
         return NextResponse.json(
           { message: "Coordinates are required for auto assignment" },
@@ -68,7 +68,10 @@ export async function POST(request: Request) {
         );
       }
 
-      assignmentId = await autoAssignFarmerToNearestHub(farmerId, { latitude, longitude });
+      assignmentId = await autoAssignFarmerToNearestHub(farmerId, {
+        latitude,
+        longitude,
+      });
     } else {
       return NextResponse.json(
         { message: "Invalid assignment parameters" },
@@ -86,10 +89,10 @@ export async function POST(request: Request) {
     const assignedHub = await getFarmerHub(farmerId);
 
     return NextResponse.json(
-      { 
+      {
         message: "Farmer assigned to hub successfully",
         assignmentId,
-        hub: assignedHub
+        hub: assignedHub,
       },
       { status: 200 }
     );
@@ -116,13 +119,13 @@ export async function GET(request: Request) {
     const sessionCookie = cookieStore.get("session")?.value;
 
     if (!sessionCookie) {
-      return NextResponse.json(
-        { message: "Unauthorized" },
-        { status: 401 }
-      );
+      return NextResponse.json({ message: "Unauthorized" }, { status: 401 });
     }
 
-    const decodedToken = await adminAuth.verifySessionCookie(sessionCookie, true);
+    const decodedToken = await adminAuth.verifySessionCookie(
+      sessionCookie,
+      true
+    );
     const url = new URL(request.url);
     const farmerId = url.searchParams.get("farmerId");
 
@@ -142,10 +145,7 @@ export async function GET(request: Request) {
       );
     }
 
-    return NextResponse.json(
-      { hub: assignedHub },
-      { status: 200 }
-    );
+    return NextResponse.json({ hub: assignedHub }, { status: 200 });
   } catch (error: any) {
     console.error("Get Farmer Hub Error:", error);
     return NextResponse.json(
