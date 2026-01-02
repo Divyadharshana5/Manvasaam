@@ -634,6 +634,6 @@ export default function FarmerMatchmakingPage() {
           </div>
         </TabsContent>
       </Tabs>
-    </div>
+    </motion.div>
   );
 }
