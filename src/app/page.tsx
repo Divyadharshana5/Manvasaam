@@ -3,7 +3,9 @@
 import { Suspense, useState, useEffect, lazy } from "react";
 
 // Lazy load the optimized home page
-const HomePageOptimized = lazy(() => import("@/components/home-page-optimized"));
+const HomePageOptimized = lazy(
+  () => import("@/components/home-page-optimized")
+);
 
 function LoadingFallback() {
   return (
