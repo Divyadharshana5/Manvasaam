@@ -18,8 +18,8 @@ import {
   Languages,
   HelpCircle,
 } from "lucide-react";
-import SimpleVoiceNavigation from "@/components/simple-voice-navigation";
 import { useLanguage } from "@/context/language-context";
+import { VoiceAssistant } from "@/components/voice-assistant";
 
 export default function VoiceAssistantPage() {
   const { selectedLanguage, setSelectedLanguage, t } = useLanguage();
@@ -70,7 +70,7 @@ export default function VoiceAssistantPage() {
           </CardHeader>
           <CardContent className="text-center space-y-6">
             <div className="relative flex justify-center">
-              <SimpleVoiceNavigation size="lg" className="w-32 h-32" />
+              <VoiceAssistant />
             </div>
 
             <div>
