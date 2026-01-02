@@ -162,6 +162,55 @@ export async function getFarmerHub(farmerId: string): Promise<Hub | null> {
 }
 
 /**
+ * Assign farmer to a hub
+ */
+export async function assignFarmerToHub(farmerId: string, hubId: string): Promise<void> {
+  if (!isFirebaseInitialized || !adminDb) {
+    console.log('Mock: Assigning farmer to hub', farmerId, hubId);
+    return;
+  }
+
+  try {
+    await adminDb.collection('farmers').doc(farmerId).update({
+      hubId: hubId,
+      assignedAt: new Date().toISOString()
+    });
+  } catch (error) {
+    console.error('Error assigning farmer to hub:', error);
+    throw error;
+  }
+}
+
+/**
+ * Auto-assign farmer to nearest hub
+ */
+export async function autoAssignFarmerToNearestHub(farmerId: string, coordinates?: any): Promise<Hub | null> {
+  if (!isFirebaseInitialized || !adminDb) {
+    return mockHubs[0] || null;
+  }
+
+  try {
+    // Get all hubs and find the nearest one
+    const hubs = await getAllHubs();
+    if (hubs.length === 0) {
+      return null;
+    }
+
+    // For now, assign to the first active hub
+    const nearestHub = hubs.find(h => h.status === 'active') || hubs[0];
+    
+    if (nearestHub) {
+      await assignFarmerToHub(farmerId, nearestHub.id);
+    }
+    
+    return nearestHub;
+  } catch (error) {
+    console.error('Error auto-assigning farmer to hub:', error);
+    return mockHubs[0] || null;
+  }
+}
+
+/**
  * Add a new inventory item
  */
 export async function addInventoryItem(data: any): Promise<string> {
