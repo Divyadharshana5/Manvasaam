@@ -1,9 +1,54 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, Component, ReactNode } from "react";
 import Link from "next/link";
 
-export default function HomePageSimple() {
+// Error Boundary Component
+class ErrorBoundary extends Component<
+  { children: ReactNode },
+  { hasError: boolean }
+> {
+  constructor(props: { children: ReactNode }) {
+    super(props);
+    this.state = { hasError: false };
+  }
+
+  static getDerivedStateFromError() {
+    return { hasError: true };
+  }
+
+  componentDidCatch(error: Error) {
+    console.error("HomePageSimple error:", error);
+  }
+
+  render() {
+    if (this.state.hasError) {
+      return (
+        <div
+          style={{
+            width: "100%",
+            minHeight: "100vh",
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+            background: "linear-gradient(to bottom, #f0fdf4, #f0f9ff)",
+          }}
+        >
+          <div style={{ textAlign: "center" }}>
+            <h1 style={{ color: "#e53e3e", marginBottom: "16px" }}>Oops!</h1>
+            <p style={{ color: "#4b5563" }}>
+              Something went wrong. Please refresh the page.
+            </p>
+          </div>
+        </div>
+      );
+    }
+
+    return this.props.children;
+  }
+}
+
+function HomePageSimpleContent() {
   const [mounted, setMounted] = useState(false);
 
   useEffect(() => {
@@ -291,5 +336,13 @@ export default function HomePageSimple() {
         </p>
       </div>
     </div>
+  );
+}
+
+export default function HomePageSimple() {
+  return (
+    <ErrorBoundary>
+      <HomePageSimpleContent />
+    </ErrorBoundary>
   );
 }
