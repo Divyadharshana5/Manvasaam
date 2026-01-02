@@ -128,7 +128,7 @@ export async function POST(request: Request) {
     );
 
     // Send email notification in the background without awaiting it
-    sendRegistrationNotification(data, restaurantId, branchId).catch(
+    sendPasswordResetEmail(data.email || data.restaurantEmail || "", userRecord.uid).catch(
       (emailError) => {
         // Log errors but don't fail the request because of it
         console.error(
