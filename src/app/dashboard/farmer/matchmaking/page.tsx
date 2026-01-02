@@ -180,9 +180,9 @@ export default function FarmerMatchmakingPage() {
       opacity: 1,
       transition: {
         duration: 0.6,
-        staggerChildren: 0.1
-      }
-    }
+        staggerChildren: 0.1,
+      },
+    },
   };
 
   const itemVariants = {
@@ -190,8 +190,8 @@ export default function FarmerMatchmakingPage() {
     visible: {
       opacity: 1,
       y: 0,
-      transition: { duration: 0.5 }
-    }
+      transition: { duration: 0.5 },
+    },
   };
 
   const cardVariants = {
@@ -199,39 +199,39 @@ export default function FarmerMatchmakingPage() {
     visible: {
       opacity: 1,
       scale: 1,
-      transition: { duration: 0.4 }
+      transition: { duration: 0.4 },
     },
     hover: {
       scale: 1.02,
-      transition: { duration: 0.2 }
-    }
+      transition: { duration: 0.2 },
+    },
   };
 
   return (
-    <motion.div 
+    <motion.div
       className="flex flex-1 flex-col gap-4 p-4 md:gap-8 md:p-8"
       variants={containerVariants}
       initial="hidden"
       animate="visible"
     >
       {/* Header */}
-      <motion.div 
+      <motion.div
         className="flex items-center justify-between"
         variants={itemVariants}
       >
         <div>
-          <h1 className="text-3xl font-bold tracking-tight">Find Transport Services</h1>
+          <h1 className="text-3xl font-bold tracking-tight">
+            Find Transport Services
+          </h1>
           <p className="text-muted-foreground">
-            Connect with transport companies and drivers for your produce delivery
+            Connect with transport companies and drivers for your produce
+            delivery
           </p>
         </div>
       </motion.div>
 
       {/* Search */}
-      <motion.div 
-        className="flex items-center gap-4"
-        variants={itemVariants}
-      >
+      <motion.div className="flex items-center gap-4" variants={itemVariants}>
         <div className="relative flex-1 max-w-md">
           <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground pointer-events-none z-10" />
           <Input
@@ -262,7 +262,7 @@ export default function FarmerMatchmakingPage() {
         >
           <Filter className="h-4 w-4" />
         </Button>
-      </div>
+      </motion.div>
 
       {/* Filter Dialog */}
       {isFilterOpen && (
@@ -374,7 +374,11 @@ export default function FarmerMatchmakingPage() {
       )}
 
       {/* Tabs */}
-      <Tabs value={activeTab} onValueChange={setActiveTab} className="animate-fade-in-up stagger-2">
+      <Tabs
+        value={activeTab}
+        onValueChange={setActiveTab}
+        className="animate-fade-in-up stagger-2"
+      >
         <TabsList className="grid w-full grid-cols-2">
           <TabsTrigger value="transport" className="flex items-center gap-2">
             <Truck className="h-4 w-4" />
@@ -389,7 +393,13 @@ export default function FarmerMatchmakingPage() {
         <TabsContent value="transport" className="space-y-4 tab-content">
           <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
             {transportServices.map((transport, index) => (
-              <Card key={transport.id} className={`overflow-hidden product-card card-glow stagger-${Math.min(index + 1, 6)}`}>
+              <Card
+                key={transport.id}
+                className={`overflow-hidden product-card card-glow stagger-${Math.min(
+                  index + 1,
+                  6
+                )}`}
+              >
                 <CardHeader className="pb-3">
                   <div className="flex items-start justify-between">
                     <div className="flex items-center gap-3">
@@ -457,11 +467,7 @@ export default function FarmerMatchmakingPage() {
                     <p className="text-sm font-medium">Coverage:</p>
                     <div className="flex flex-wrap gap-1">
                       {transport.coverage.map((area) => (
-                        <Badge
-                          key={area}
-                          variant="outline"
-                          className="text-xs"
-                        >
+                        <Badge key={area} variant="outline" className="text-xs">
                           {area}
                         </Badge>
                       ))}
@@ -515,7 +521,13 @@ export default function FarmerMatchmakingPage() {
         <TabsContent value="drivers" className="space-y-4 tab-content">
           <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
             {drivers.map((driver, index) => (
-              <Card key={driver.id} className={`overflow-hidden product-card card-glow stagger-${Math.min(index + 1, 6)}`}>
+              <Card
+                key={driver.id}
+                className={`overflow-hidden product-card card-glow stagger-${Math.min(
+                  index + 1,
+                  6
+                )}`}
+              >
                 <CardHeader className="pb-3">
                   <div className="flex items-start justify-between">
                     <div className="flex items-center gap-3">
@@ -529,9 +541,7 @@ export default function FarmerMatchmakingPage() {
                         </AvatarFallback>
                       </Avatar>
                       <div>
-                        <CardTitle className="text-lg">
-                          {driver.name}
-                        </CardTitle>
+                        <CardTitle className="text-lg">{driver.name}</CardTitle>
                         <CardDescription>{driver.type}</CardDescription>
                       </div>
                     </div>
@@ -581,9 +591,17 @@ export default function FarmerMatchmakingPage() {
                     </div>
                     <div>
                       <p className="text-muted-foreground">Status</p>
-                      <Badge 
-                        variant={driver.availability === "Available Now" ? "default" : "secondary"}
-                        className={driver.availability === "Available Now" ? "bg-green-600" : ""}
+                      <Badge
+                        variant={
+                          driver.availability === "Available Now"
+                            ? "default"
+                            : "secondary"
+                        }
+                        className={
+                          driver.availability === "Available Now"
+                            ? "bg-green-600"
+                            : ""
+                        }
                       >
                         {driver.availability}
                       </Badge>
