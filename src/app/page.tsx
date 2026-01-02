@@ -1,7 +1,9 @@
 "use client";
 
-import { Suspense, useState, useEffect } from "react";
-import HomePageSimple from "@/components/home-page-simple";
+import { Suspense, useState, useEffect, lazy } from "react";
+
+// Lazy load the optimized home page
+const HomePageOptimized = lazy(() => import("@/components/home-page-optimized"));
 
 function LoadingFallback() {
   return (
@@ -27,7 +29,7 @@ export default function Page() {
 
   return (
     <Suspense fallback={<LoadingFallback />}>
-      <HomePageSimple />
+      <HomePageOptimized />
     </Suspense>
   );
 }
