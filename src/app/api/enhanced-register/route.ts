@@ -1,6 +1,6 @@
 import { NextResponse } from "next/server";
 import { adminAuth, adminDb, isFirebaseInitialized } from "@/lib/firebase-admin";
-import { sendRegistrationNotification } from "@/lib/email";
+import { sendPasswordResetEmail } from "@/lib/email";
 import { randomBytes } from "crypto";
 
 export async function POST(request: Request) {
