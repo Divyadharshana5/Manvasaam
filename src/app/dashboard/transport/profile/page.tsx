@@ -1042,6 +1042,6 @@ export default function TransportProfilePage() {
           </CardContent>
         </Card>
       </div>
-    </div>
+    </motion.div>
   );
 }
