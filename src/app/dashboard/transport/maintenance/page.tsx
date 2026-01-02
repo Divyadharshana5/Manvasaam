@@ -736,6 +736,7 @@ COST ANALYSIS:
                     </div>
                 </TabsContent>
             </Tabs>
-        </div>
+        </motion.div>
+
     );
 }
