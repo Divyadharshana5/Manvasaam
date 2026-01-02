@@ -1,4 +1,5 @@
 import type { Metadata, Viewport } from "next";
+import { LanguageProvider } from "@/context/language-context";
 
 import "../styles/hide-scrollbar.css";
 import "./globals.css";
@@ -206,12 +207,12 @@ export default function RootLayout({
           }}
         />
       </head>
-      <body
-        className="font-sans antialiased scroll-enabled hide-scrollbar no-scrollbar"
-        suppressHydrationWarning
-      >
-        {children}
-        <Toaster />
+         <body className="font-sans antialiased">
+        {/* 🔥 THIS IS THE FIX */}
+        <LanguageProvider>
+          {children}
+          <Toaster />
+        </LanguageProvider>
       </body>
     </html>
   );
