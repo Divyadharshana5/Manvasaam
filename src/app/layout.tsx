@@ -207,8 +207,7 @@ export default function RootLayout({
           }}
         />
       </head>
-         <body className="font-sans antialiased">
-        {/* 🔥 THIS IS THE FIX */}
+      <body className="font-sans antialiased" suppressHydrationWarning>
         <LanguageProvider>
           {children}
           <Toaster />
