@@ -818,6 +818,6 @@ export default function FarmerNotifications() {
           </CardContent>
         </Card>
       </div>
-    </div>
+    </motion.div>
   );
 }
