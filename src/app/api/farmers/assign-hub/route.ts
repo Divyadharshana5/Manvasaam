@@ -1,6 +1,6 @@
 import { NextResponse } from "next/server";
 import { adminAuth, isFirebaseInitialized } from "@/lib/firebase-admin";
-import { autoAssignFarmerToNearestHub, assignFarmerToHub, getFarmerHub } from "@/lib/hub-db";
+import { getFarmerHub } from "@/lib/hub-db";
 import { cookies } from "next/headers";
 
 export async function POST(request: Request) {
