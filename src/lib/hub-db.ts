@@ -40,8 +40,8 @@ const mockHubs: Hub[] = [
     status: "active",
     createdAt: new Date().toISOString(),
     capacity: 1000,
-    currentLoad: 450
-  }
+    currentLoad: 450,
+  },
 ];
 
 const mockInventory: InventoryItem[] = [
@@ -55,14 +55,16 @@ const mockInventory: InventoryItem[] = [
     pricePerUnit: 80,
     farmerId: "farmer1",
     farmerName: "Ravi Kumar",
-    harvestDate: new Date().toISOString().split('T')[0],
-    expiryDate: new Date(Date.now() + 7 * 24 * 60 * 60 * 1000).toISOString().split('T')[0],
+    harvestDate: new Date().toISOString().split("T")[0],
+    expiryDate: new Date(Date.now() + 7 * 24 * 60 * 60 * 1000)
+      .toISOString()
+      .split("T")[0],
     quality: "premium",
     batchId: "BATCH-001",
     status: "available",
     createdAt: new Date().toISOString(),
-    updatedAt: new Date().toISOString()
-  }
+    updatedAt: new Date().toISOString(),
+  },
 ];
 
 /**
@@ -74,19 +76,19 @@ export async function getAllHubs(): Promise<Hub[]> {
   }
 
   try {
-    const hubsSnapshot = await adminDb.collection('hubs').get();
+    const hubsSnapshot = await adminDb.collection("hubs").get();
     const hubs: Hub[] = [];
-    
+
     hubsSnapshot.forEach((doc: any) => {
       hubs.push({
         id: doc.id,
-        ...doc.data()
+        ...doc.data(),
       } as Hub);
     });
-    
+
     return hubs;
   } catch (error) {
-    console.error('Error fetching hubs:', error);
+    console.error("Error fetching hubs:", error);
     return mockHubs;
   }
 }
@@ -94,32 +96,35 @@ export async function getAllHubs(): Promise<Hub[]> {
 /**
  * Get inventory for a specific hub
  */
-export async function getHubInventory(hubId: string, includeAll: boolean = true): Promise<InventoryItem[]> {
+export async function getHubInventory(
+  hubId: string,
+  includeAll: boolean = true
+): Promise<InventoryItem[]> {
   if (!isFirebaseInitialized || !adminDb) {
-    return mockInventory.filter(item => item.hubId === hubId);
+    return mockInventory.filter((item) => item.hubId === hubId);
   }
 
   try {
-    let query = adminDb.collection('inventory').where('hubId', '==', hubId);
-    
+    let query = adminDb.collection("inventory").where("hubId", "==", hubId);
+
     if (!includeAll) {
-      query = query.where('status', '==', 'available');
+      query = query.where("status", "==", "available");
     }
-    
+
     const inventorySnapshot = await query.get();
     const inventory: InventoryItem[] = [];
-    
+
     inventorySnapshot.forEach((doc: any) => {
       inventory.push({
         id: doc.id,
-        ...doc.data()
+        ...doc.data(),
       } as InventoryItem);
     });
-    
+
     return inventory;
   } catch (error) {
-    console.error('Error fetching hub inventory:', error);
-    return mockInventory.filter(item => item.hubId === hubId);
+    console.error("Error fetching hub inventory:", error);
+    return mockInventory.filter((item) => item.hubId === hubId);
   }
 }
 
@@ -132,31 +137,31 @@ export async function getFarmerHub(farmerId: string): Promise<Hub | null> {
   }
 
   try {
-    const farmerDoc = await adminDb.collection('farmers').doc(farmerId).get();
-    
+    const farmerDoc = await adminDb.collection("farmers").doc(farmerId).get();
+
     if (!farmerDoc.exists) {
       return null;
     }
-    
+
     const farmerData = farmerDoc.data();
     const hubId = farmerData?.hubId;
-    
+
     if (!hubId) {
       return null;
     }
-    
-    const hubDoc = await adminDb.collection('hubs').doc(hubId).get();
-    
+
+    const hubDoc = await adminDb.collection("hubs").doc(hubId).get();
+
     if (!hubDoc.exists) {
       return null;
     }
-    
+
     return {
       id: hubDoc.id,
-      ...hubDoc.data()
+      ...hubDoc.data(),
     } as Hub;
   } catch (error) {
-    console.error('Error fetching farmer hub:', error);
+    console.error("Error fetching farmer hub:", error);
     return mockHubs[0];
   }
 }
@@ -164,19 +169,22 @@ export async function getFarmerHub(farmerId: string): Promise<Hub | null> {
 /**
  * Assign farmer to a hub
  */
-export async function assignFarmerToHub(farmerId: string, hubId: string): Promise<void> {
+export async function assignFarmerToHub(
+  farmerId: string,
+  hubId: string
+): Promise<void> {
   if (!isFirebaseInitialized || !adminDb) {
-    console.log('Mock: Assigning farmer to hub', farmerId, hubId);
+    console.log("Mock: Assigning farmer to hub", farmerId, hubId);
     return;
   }
 
   try {
-    await adminDb.collection('farmers').doc(farmerId).update({
+    await adminDb.collection("farmers").doc(farmerId).update({
       hubId: hubId,
-      assignedAt: new Date().toISOString()
+      assignedAt: new Date().toISOString(),
     });
   } catch (error) {
-    console.error('Error assigning farmer to hub:', error);
+    console.error("Error assigning farmer to hub:", error);
     throw error;
   }
 }
@@ -184,7 +192,10 @@ export async function assignFarmerToHub(farmerId: string, hubId: string): Promis
 /**
  * Auto-assign farmer to nearest hub
  */
-export async function autoAssignFarmerToNearestHub(farmerId: string, coordinates?: any): Promise<Hub | null> {
+export async function autoAssignFarmerToNearestHub(
+  farmerId: string,
+  coordinates?: any
+): Promise<Hub | null> {
   if (!isFirebaseInitialized || !adminDb) {
     return mockHubs[0] || null;
   }
@@ -197,15 +208,15 @@ export async function autoAssignFarmerToNearestHub(farmerId: string, coordinates
     }
 
     // For now, assign to the first active hub
-    const nearestHub = hubs.find(h => h.status === 'active') || hubs[0];
-    
+    const nearestHub = hubs.find((h) => h.status === "active") || hubs[0];
+
     if (nearestHub) {
       await assignFarmerToHub(farmerId, nearestHub.id);
     }
-    
+
     return nearestHub;
   } catch (error) {
-    console.error('Error auto-assigning farmer to hub:', error);
+    console.error("Error auto-assigning farmer to hub:", error);
     return mockHubs[0] || null;
   }
 }
@@ -224,13 +235,13 @@ export async function addInventoryItem(data: any): Promise<string> {
       ...data,
       status: "available",
       createdAt: new Date().toISOString(),
-      updatedAt: new Date().toISOString()
+      updatedAt: new Date().toISOString(),
     };
-    
-    const docRef = await adminDb.collection('inventory').add(inventoryItem);
+
+    const docRef = await adminDb.collection("inventory").add(inventoryItem);
     return docRef.id;
   } catch (error) {
-    console.error('Error adding inventory item:', error);
+    console.error("Error adding inventory item:", error);
     throw error;
   }
 }
