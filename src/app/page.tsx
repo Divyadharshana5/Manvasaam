@@ -1,12 +1,7 @@
 "use client";
 
-import dynamic from "next/dynamic";
 import { Suspense, useState, useEffect } from "react";
-
-const HomePage = dynamic(() => import("@/components/home-page-simple"), {
-  ssr: false,
-  loading: () => <LoadingFallback />,
-});
+import HomePageSimple from "@/components/home-page-simple";
 
 function LoadingFallback() {
   return (
@@ -32,7 +27,7 @@ export default function Page() {
 
   return (
     <Suspense fallback={<LoadingFallback />}>
-      <HomePage />
+      <HomePageSimple />
     </Suspense>
   );
 }
