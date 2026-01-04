@@ -875,5 +875,6 @@ export default function RetailAuthPage() {
         </Card>
       </div>
     </div>
+    </>
   );
 }

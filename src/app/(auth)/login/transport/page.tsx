@@ -27,6 +27,8 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { useRouter } from "next/navigation";
 import { redirectToDashboard } from "@/lib/auth-redirect";
 import { useLanguage } from "@/context/language-context";
+import { InstantNavigation } from "@/components/instant-navigation";
+import { useFastNavigation } from "@/hooks/use-fast-navigation";
 
 const loginSchema = z.object({
   email: z.string().email({ message: "Invalid email address." }),
@@ -68,6 +70,7 @@ export default function TransportAuthPage() {
   const [loading, setLoading] = useState(false);
   const { toast } = useToast();
   const router = useRouter();
+  const { navigateInstantly, prefetchRoute } = useFastNavigation();
   const [activeTab, setActiveTab] = useState("login");
   const { t } = useLanguage();
   const [showPassword, setShowPassword] = useState(false);
