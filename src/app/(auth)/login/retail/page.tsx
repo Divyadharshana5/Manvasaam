@@ -24,7 +24,15 @@ import {
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { useToast } from "@/hooks/use-toast";
-import { Loader2, Eye, EyeOff, Building, Fingerprint, CheckCircle, AlertCircle } from "lucide-react";
+import {
+  Loader2,
+  Eye,
+  EyeOff,
+  Building,
+  Fingerprint,
+  CheckCircle,
+  AlertCircle,
+} from "lucide-react";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { useRouter } from "next/navigation";
 import { redirectToDashboard } from "@/lib/auth-redirect";
@@ -34,7 +42,12 @@ import { useFastNavigation } from "@/hooks/use-fast-navigation";
 import "@/styles/navigation-transitions.css";
 import "@/styles/auth-animations.css";
 import { motion } from "framer-motion";
-import { registerPasskey, authenticatePasskey, getInitialPasskeyStatus, type PasskeyStatus } from "@/lib/passkey";
+import {
+  registerPasskey,
+  authenticatePasskey,
+  getInitialPasskeyStatus,
+  type PasskeyStatus,
+} from "@/lib/passkey";
 import { FingerprintStatus } from "@/components/ui/fingerprint-status";
 import { Languages } from "lucide-react";
 
@@ -89,7 +102,7 @@ export default function RetailAuthPage() {
     supported: false,
     registered: false,
     feedback: "Loading...",
-    status: "ready"
+    status: "ready",
   });
   const [usePasskey, setUsePasskey] = useState(false);
 
@@ -121,22 +134,22 @@ export default function RetailAuthPage() {
       // Demo mode: Accept any email/password combination
       if (values.email && values.password) {
         // Store user type for persistence
-        localStorage.setItem('userType', 'retail');
-        localStorage.setItem('userEmail', values.email);
-        
+        localStorage.setItem("userType", "retail");
+        localStorage.setItem("userEmail", values.email);
+
         toast({
           title: "Login successful",
           description: "Welcome back, retail partner...",
           duration: 1000,
         });
-        
+
         // Instant navigation to dashboard
         setTimeout(() => {
-          navigateInstantly('/dashboard/retail');
+          navigateInstantly("/dashboard/retail");
         }, 1000);
         return;
       }
-      
+
       throw new Error("Please enter email and password");
     } catch (error: any) {
       toast({
@@ -155,14 +168,19 @@ export default function RetailAuthPage() {
       toast({
         variant: "warning" as any,
         title: "Not Supported",
-        description: "Fingerprint authentication is not supported on this device.",
+        description:
+          "Fingerprint authentication is not supported on this device.",
         duration: 3000,
       });
       return;
     }
 
-    setPasskeyStatus(prev => ({ ...prev, status: "registering", feedback: "Setting up fingerprint authentication..." }));
-    
+    setPasskeyStatus((prev) => ({
+      ...prev,
+      status: "registering",
+      feedback: "Setting up fingerprint authentication...",
+    }));
+
     const email = registerForm.getValues("email");
     if (!email) {
       toast({
@@ -171,28 +189,29 @@ export default function RetailAuthPage() {
         description: "Please enter your email first.",
         duration: 3000,
       });
-      setPasskeyStatus(prev => ({ ...prev, status: "ready" }));
+      setPasskeyStatus((prev) => ({ ...prev, status: "ready" }));
       return;
     }
 
     const result = await registerPasskey(email);
-    
+
     if (result.success && result.credentialId) {
       setPasskeyStatus({
         supported: true,
         registered: true,
         credentialId: result.credentialId,
         feedback: "Fingerprint authentication set up successfully!",
-        status: "success"
+        status: "success",
       });
       registerForm.setValue("passkeyCredentialId", result.credentialId);
       setUsePasskey(true);
       toast({
         title: "Fingerprint Set Up",
-        description: "You can now use fingerprint authentication for secure login.",
+        description:
+          "You can now use fingerprint authentication for secure login.",
         duration: 2000,
       });
-      
+
       // Auto switch to login tab after fingerprint setup
       setTimeout(() => {
         setActiveTab("login");
@@ -203,12 +222,13 @@ export default function RetailAuthPage() {
         supported: true,
         registered: false,
         feedback: result.error || "Failed to set up fingerprint authentication",
-        status: "error"
+        status: "error",
       });
       toast({
         variant: "destructive",
         title: "Setup Failed",
-        description: result.error || "Could not set up fingerprint authentication.",
+        description:
+          result.error || "Could not set up fingerprint authentication.",
         duration: 3000,
       });
     }
@@ -218,17 +238,18 @@ export default function RetailAuthPage() {
     setLoading(true);
     try {
       const { confirmPassword, ...apiData } = values;
-      
+
       // If passkey is not set up, create a mock credential ID for demo mode
       let passkeyCredentialId = apiData.passkeyCredentialId;
       if (!passkeyCredentialId && usePasskey) {
         passkeyCredentialId = `mock-passkey-${Date.now()}`;
       }
-      
+
       const retailData = {
         ...apiData,
         userType: "retail",
-        passkeyCredentialId: passkeyCredentialId || `demo-passkey-${Date.now()}`,
+        passkeyCredentialId:
+          passkeyCredentialId || `demo-passkey-${Date.now()}`,
       };
 
       const response = await fetch("/api/register", {
@@ -249,7 +270,8 @@ export default function RetailAuthPage() {
           toast({
             variant: "destructive",
             title: "Email Already Registered",
-            description: "This email is already registered. Please try logging in instead.",
+            description:
+              "This email is already registered. Please try logging in instead.",
             duration: 5000,
           });
           setActiveTab("login");
@@ -261,7 +283,7 @@ export default function RetailAuthPage() {
 
       toast({
         title: "Registration Successful",
-        description: usePasskey 
+        description: usePasskey
           ? "Your retail account has been created with fingerprint authentication. Please log in."
           : "Your retail account has been created. Please log in.",
         duration: 5000,
@@ -275,7 +297,8 @@ export default function RetailAuthPage() {
         toast({
           variant: "destructive",
           title: "Email Already Registered",
-          description: "This email is already registered. Please try logging in instead.",
+          description:
+            "This email is already registered. Please try logging in instead.",
           duration: 5000,
         });
         setActiveTab("login");
@@ -298,7 +321,8 @@ export default function RetailAuthPage() {
       toast({
         variant: "warning" as any,
         title: "Not Supported",
-        description: "Fingerprint authentication is not supported on this device.",
+        description:
+          "Fingerprint authentication is not supported on this device.",
         duration: 3000,
       });
       return;
@@ -316,23 +340,31 @@ export default function RetailAuthPage() {
     }
 
     setLoading(true);
-    setPasskeyStatus(prev => ({ ...prev, status: "authenticating", feedback: "Authenticating with fingerprint..." }));
-    
+    setPasskeyStatus((prev) => ({
+      ...prev,
+      status: "authenticating",
+      feedback: "Authenticating with fingerprint...",
+    }));
+
     try {
       // In demo mode, simulate fingerprint authentication
-      await new Promise(resolve => setTimeout(resolve, 1500)); // Simulate authentication delay
-      
+      await new Promise((resolve) => setTimeout(resolve, 1500)); // Simulate authentication delay
+
       toast({
         title: "Fingerprint Login Successful",
         description: "Welcome back, retail partner!",
         duration: 1000,
       });
-      
+
       setTimeout(() => {
-        redirectToDashboard('retail', router);
+        redirectToDashboard("retail", router);
       }, 1000);
     } catch (error: any) {
-      setPasskeyStatus(prev => ({ ...prev, status: "error", feedback: "Fingerprint authentication failed" }));
+      setPasskeyStatus((prev) => ({
+        ...prev,
+        status: "error",
+        feedback: "Fingerprint authentication failed",
+      }));
       toast({
         variant: "destructive",
         title: "Authentication Failed",
@@ -353,7 +385,8 @@ export default function RetailAuthPage() {
         toast({
           variant: "warning" as any,
           title: "Email required",
-          description: "Please enter your email address to reset your password.",
+          description:
+            "Please enter your email address to reset your password.",
           duration: 5000,
         });
         setLoading(false);
@@ -361,19 +394,20 @@ export default function RetailAuthPage() {
       }
 
       // Send password reset email using API
-      const response = await fetch('/api/send-reset-email', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ email, userType: 'retail' })
+      const response = await fetch("/api/send-reset-email", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ email, userType: "retail" }),
       });
-      
+
       const result = await response.json();
-      
+
       if (result.success) {
         toast({
           variant: "success" as any,
           title: "Password Reset Email Sent",
-          description: "Please check your inbox for instructions to reset your password.",
+          description:
+            "Please check your inbox for instructions to reset your password.",
           duration: 5000,
         });
       } else {
@@ -392,6 +426,18 @@ export default function RetailAuthPage() {
   }
 
   return (
+    <>
+      {/* Preload critical routes for instant navigation */}
+      <InstantNavigation
+        routes={[
+          '/dashboard/retail',
+          '/dashboard/retail/products',
+          '/dashboard/retail/orders',
+          '/dashboard/profile',
+        ]}
+        priority="high"
+        preloadResources={true}
+      />
     <div className="animate-in fade-in duration-1000 relative min-h-screen flex flex-col overflow-hidden">
       {/* Main Content Area */}
       <div className="flex-1 flex items-center justify-center p-4">
@@ -418,24 +464,12 @@ export default function RetailAuthPage() {
           ></div>
 
           {/* Enhanced farm-specific animated elements */}
-          <div
-            className="absolute top-40 left-1/4 w-6 h-6 bg-yellow-400/60 rounded-full farmer-soil-ripple stagger-1"
-          ></div>
-          <div
-            className="absolute top-60 right-1/3 w-4 h-4 bg-brown-600/50 rounded-full farmer-soil-ripple stagger-3"
-          ></div>
-          <div
-            className="absolute bottom-40 left-1/3 w-7 h-7 bg-green-500/40 rounded-full farmer-soil-ripple stagger-5"
-          ></div>
-          <div
-            className="absolute top-1/2 left-8 w-3 h-3 bg-amber-400/70 rounded-full farmer-growth-animate stagger-2"
-          ></div>
-          <div
-            className="absolute top-1/4 right-16 w-5 h-5 bg-lime-400/60 rounded-full farmer-field-wave stagger-4"
-          ></div>
-          <div
-            className="absolute bottom-1/4 right-8 w-4 h-4 bg-emerald-400/80 rounded-full particle-drift stagger-6"
-          ></div>
+          <div className="absolute top-40 left-1/4 w-6 h-6 bg-yellow-400/60 rounded-full farmer-soil-ripple stagger-1"></div>
+          <div className="absolute top-60 right-1/3 w-4 h-4 bg-brown-600/50 rounded-full farmer-soil-ripple stagger-3"></div>
+          <div className="absolute bottom-40 left-1/3 w-7 h-7 bg-green-500/40 rounded-full farmer-soil-ripple stagger-5"></div>
+          <div className="absolute top-1/2 left-8 w-3 h-3 bg-amber-400/70 rounded-full farmer-growth-animate stagger-2"></div>
+          <div className="absolute top-1/4 right-16 w-5 h-5 bg-lime-400/60 rounded-full farmer-field-wave stagger-4"></div>
+          <div className="absolute bottom-1/4 right-8 w-4 h-4 bg-emerald-400/80 rounded-full particle-drift stagger-6"></div>
         </div>
 
         {/* Hero Section */}
@@ -587,7 +621,7 @@ export default function RetailAuthPage() {
                       )}
                       {t.auth.login}
                     </Button>
-                    
+
                     {/* Fingerprint Login Option */}
                     {passkeyStatus.supported && (
                       <div className="mt-4 pt-4 border-t border-emerald-200 dark:border-emerald-700">
@@ -598,7 +632,8 @@ export default function RetailAuthPage() {
                         </div>
                         <div className="bg-emerald-50 dark:bg-emerald-950 p-2 rounded mb-3">
                           <p className="text-xs text-emerald-700 dark:text-emerald-300 text-center">
-                            👆 Touch your fingerprint sensor for quick & secure login
+                            👆 Touch your fingerprint sensor for quick & secure
+                            login
                           </p>
                         </div>
                         <Button
@@ -608,7 +643,8 @@ export default function RetailAuthPage() {
                           onClick={handleFingerprintLogin}
                           disabled={loading || !loginForm.getValues("email")}
                         >
-                          {loading && passkeyStatus.status === "authenticating" ? (
+                          {loading &&
+                          passkeyStatus.status === "authenticating" ? (
                             <>
                               <Loader2 className="mr-2 h-4 w-4 animate-spin" />
                               Authenticating...
@@ -779,7 +815,7 @@ export default function RetailAuthPage() {
                       )}
                       Register Shop
                     </Button>
-                    
+
                     {/* Fingerprint Setup Option */}
                     {passkeyStatus.supported && !passkeyStatus.registered && (
                       <div className="mt-4 pt-4 border-t border-emerald-200 dark:border-emerald-700">
@@ -812,18 +848,23 @@ export default function RetailAuthPage() {
                             </>
                           )}
                         </Button>
-                        
-                        {passkeyStatus.feedback && passkeyStatus.status !== "ready" && (
-                          <div className="mt-2 text-center">
-                            <span className={`text-xs ${
-                              passkeyStatus.status === "success" ? "text-green-600 dark:text-green-400" :
-                              passkeyStatus.status === "error" ? "text-red-600 dark:text-red-400" :
-                              "text-emerald-600 dark:text-emerald-400"
-                            }`}>
-                              {passkeyStatus.feedback}
-                            </span>
-                          </div>
-                        )}
+
+                        {passkeyStatus.feedback &&
+                          passkeyStatus.status !== "ready" && (
+                            <div className="mt-2 text-center">
+                              <span
+                                className={`text-xs ${
+                                  passkeyStatus.status === "success"
+                                    ? "text-green-600 dark:text-green-400"
+                                    : passkeyStatus.status === "error"
+                                    ? "text-red-600 dark:text-red-400"
+                                    : "text-emerald-600 dark:text-emerald-400"
+                                }`}
+                              >
+                                {passkeyStatus.feedback}
+                              </span>
+                            </div>
+                          )}
                       </div>
                     )}
                   </form>
