@@ -92,8 +92,8 @@ export default function FarmerAuthPage() {
         usernameLabel: "Username",
         phoneLabel: "Phone Number",
         confirmPasswordLabel: "Confirm Password",
-        createAccount: "Create Account"
-      }
+        createAccount: "Create Account",
+      },
     };
   }
 
@@ -122,7 +122,8 @@ export default function FarmerAuthPage() {
         toast({
           variant: "warning" as any,
           title: "Email required",
-          description: "Please enter your email address to reset your password.",
+          description:
+            "Please enter your email address to reset your password.",
           duration: 5000,
         });
         setLoading(false);
@@ -130,19 +131,20 @@ export default function FarmerAuthPage() {
       }
 
       // Send password reset email using API
-      const response = await fetch('/api/send-reset-email', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ email, userType: 'farmer' })
+      const response = await fetch("/api/send-reset-email", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ email, userType: "farmer" }),
       });
-      
+
       const result = await response.json();
-      
+
       if (result.success) {
         toast({
           variant: "success" as any,
           title: "Password Reset Email Sent",
-          description: "Please check your inbox for instructions to reset your password.",
+          description:
+            "Please check your inbox for instructions to reset your password.",
           duration: 5000,
         });
       } else {
@@ -166,22 +168,22 @@ export default function FarmerAuthPage() {
       // Demo mode: Accept any email/password combination
       if (values.email && values.password) {
         // Store user type for persistence
-        localStorage.setItem('userType', 'farmer');
-        localStorage.setItem('userEmail', values.email);
-        
+        localStorage.setItem("userType", "farmer");
+        localStorage.setItem("userEmail", values.email);
+
         toast({
           title: "Login successful",
           description: "Welcome back, farmer...",
           duration: 1000,
         });
-        
+
         // Instant navigation to dashboard
         setTimeout(() => {
-          navigateInstantly('/dashboard/farmer');
+          navigateInstantly("/dashboard/farmer");
         }, 1000);
         return;
       }
-      
+
       throw new Error("Please enter email and password");
     } catch (error: any) {
       toast({
@@ -199,7 +201,7 @@ export default function FarmerAuthPage() {
     setLoading(true);
     try {
       const { confirmPassword, ...apiData } = values;
-      
+
       const farmerData = {
         ...apiData,
         userType: "farmer",
@@ -223,7 +225,8 @@ export default function FarmerAuthPage() {
           toast({
             variant: "destructive",
             title: "Email Already Registered",
-            description: "This email is already registered. Please try logging in instead.",
+            description:
+              "This email is already registered. Please try logging in instead.",
             duration: 5000,
           });
           setActiveTab("login");
@@ -247,7 +250,8 @@ export default function FarmerAuthPage() {
         toast({
           variant: "destructive",
           title: "Email Already Registered",
-          description: "This email is already registered. Please try logging in instead.",
+          description:
+            "This email is already registered. Please try logging in instead.",
           duration: 5000,
         });
         setActiveTab("login");
@@ -270,282 +274,300 @@ export default function FarmerAuthPage() {
       {/* Preload critical routes for instant navigation */}
       <InstantNavigation
         routes={[
-          '/dashboard/farmer',
-          '/dashboard/farmer/products',
-          '/dashboard/farmer/matchmaking',
-          '/dashboard/farmer/orders',
-          '/dashboard/profile',
+          "/dashboard/farmer",
+          "/dashboard/farmer/products",
+          "/dashboard/farmer/matchmaking",
+          "/dashboard/farmer/orders",
+          "/dashboard/profile",
         ]}
         priority="high"
         preloadResources={true}
       />
-    <div className="min-h-screen flex flex-col overflow-hidden">
-      {/* Main Content Area */}
-      <div className="flex-1 flex items-center justify-center p-4">
-        {/* Background */}
-        <div className="absolute inset-0 bg-gradient-to-br from-emerald-50 via-green-50 to-lime-50 dark:from-emerald-950 dark:via-green-950 dark:to-lime-950 opacity-40 -z-10"></div>
+      <div className="min-h-screen flex flex-col overflow-hidden">
+        {/* Main Content Area */}
+        <div className="flex-1 flex items-center justify-center p-4">
+          {/* Background */}
+          <div className="absolute inset-0 bg-gradient-to-br from-emerald-50 via-green-50 to-lime-50 dark:from-emerald-950 dark:via-green-950 dark:to-lime-950 opacity-40 -z-10"></div>
 
-        <Card className="w-full max-w-md bg-white/95 dark:bg-gray-900/95 backdrop-blur-sm border border-emerald-200 dark:border-emerald-700 relative z-10">
-          <CardHeader className="text-center px-4 sm:px-6 py-4 sm:py-6 relative">
-            {/* Icon */}
-            <div className="flex items-center justify-center w-20 h-20 mx-auto mb-4 bg-gradient-to-br from-emerald-100 to-green-100 dark:from-emerald-900 dark:to-green-900 rounded-full border-2 border-emerald-200 dark:border-emerald-700">
-              <Tractor className="h-10 w-10 text-emerald-600 dark:text-emerald-400" />
-            </div>
+          <Card className="w-full max-w-md bg-white/95 dark:bg-gray-900/95 backdrop-blur-sm border border-emerald-200 dark:border-emerald-700 relative z-10">
+            <CardHeader className="text-center px-4 sm:px-6 py-4 sm:py-6 relative">
+              {/* Icon */}
+              <div className="flex items-center justify-center w-20 h-20 mx-auto mb-4 bg-gradient-to-br from-emerald-100 to-green-100 dark:from-emerald-900 dark:to-green-900 rounded-full border-2 border-emerald-200 dark:border-emerald-700">
+                <Tractor className="h-10 w-10 text-emerald-600 dark:text-emerald-400" />
+              </div>
 
-            <CardTitle className="text-xl sm:text-2xl font-bold text-emerald-700 dark:text-emerald-300">
-              Farmer Portal
-            </CardTitle>
-            <CardDescription className="text-base sm:text-lg text-emerald-600 dark:text-emerald-400">
-              Farm management access
-            </CardDescription>
-          </CardHeader>
-          <CardContent className="relative z-20">
-            <Tabs
-              value={activeTab}
-              onValueChange={setActiveTab}
-              className="w-full"
-            >
-              <TabsList className="grid w-full grid-cols-2 bg-gradient-to-r from-emerald-100 to-green-100 dark:from-emerald-900 dark:to-green-900 p-1 rounded-lg">
-                <TabsTrigger
-                  value="login"
-                  className="data-[state=active]:bg-gradient-to-r data-[state=active]:from-emerald-200 data-[state=active]:to-green-200 dark:data-[state=active]:from-emerald-700 dark:data-[state=active]:to-green-700"
-                >
-                  {t.auth.login}
-                </TabsTrigger>
-                <TabsTrigger
-                  value="register"
-                  className="data-[state=active]:bg-gradient-to-r data-[state=active]:from-emerald-200 data-[state=active]:to-green-200 dark:data-[state=active]:from-emerald-700 dark:data-[state=active]:to-green-700"
-                >
-                  {t.auth.register}
-                </TabsTrigger>
-              </TabsList>
-              
-              <TabsContent value="login" className="pt-4">
-                <Form {...loginForm}>
-                  <form onSubmit={loginForm.handleSubmit(onLogin)} className="space-y-4">
-                    <FormField
-                      control={loginForm.control}
-                      name="email"
-                      render={({ field }) => (
-                        <FormItem>
-                          <FormLabel className="text-emerald-700 dark:text-emerald-300 font-medium">
-                            {t.auth.emailLabel}
-                          </FormLabel>
-                          <FormControl>
-                            <Input
-                              type="email"
-                              placeholder="farmer@gmail.com"
-                              className="border-emerald-200 dark:border-emerald-700 focus:border-emerald-400 dark:focus:border-emerald-500"
-                              {...field}
-                            />
-                          </FormControl>
-                          <FormMessage className="text-red-600 dark:text-red-400" />
-                        </FormItem>
-                      )}
-                    />
-                    <FormField
-                      control={loginForm.control}
-                      name="password"
-                      render={({ field }) => (
-                        <FormItem>
-                          <div className="flex justify-between items-center">
+              <CardTitle className="text-xl sm:text-2xl font-bold text-emerald-700 dark:text-emerald-300">
+                Farmer Portal
+              </CardTitle>
+              <CardDescription className="text-base sm:text-lg text-emerald-600 dark:text-emerald-400">
+                Farm management access
+              </CardDescription>
+            </CardHeader>
+            <CardContent className="relative z-20">
+              <Tabs
+                value={activeTab}
+                onValueChange={setActiveTab}
+                className="w-full"
+              >
+                <TabsList className="grid w-full grid-cols-2 bg-gradient-to-r from-emerald-100 to-green-100 dark:from-emerald-900 dark:to-green-900 p-1 rounded-lg">
+                  <TabsTrigger
+                    value="login"
+                    className="data-[state=active]:bg-gradient-to-r data-[state=active]:from-emerald-200 data-[state=active]:to-green-200 dark:data-[state=active]:from-emerald-700 dark:data-[state=active]:to-green-700"
+                  >
+                    {t.auth.login}
+                  </TabsTrigger>
+                  <TabsTrigger
+                    value="register"
+                    className="data-[state=active]:bg-gradient-to-r data-[state=active]:from-emerald-200 data-[state=active]:to-green-200 dark:data-[state=active]:from-emerald-700 dark:data-[state=active]:to-green-700"
+                  >
+                    {t.auth.register}
+                  </TabsTrigger>
+                </TabsList>
+
+                <TabsContent value="login" className="pt-4">
+                  <Form {...loginForm}>
+                    <form
+                      onSubmit={loginForm.handleSubmit(onLogin)}
+                      className="space-y-4"
+                    >
+                      <FormField
+                        control={loginForm.control}
+                        name="email"
+                        render={({ field }) => (
+                          <FormItem>
                             <FormLabel className="text-emerald-700 dark:text-emerald-300 font-medium">
-                              {t.auth.passwordLabel}
+                              {t.auth.emailLabel}
                             </FormLabel>
-                            <Button
-                              variant="link"
-                              size="sm"
-                              type="button"
-                              className="p-0 h-auto text-xs text-emerald-600 dark:text-emerald-400"
-                              onClick={onForgotPassword}
-                              disabled={loading}
-                            >
-                              {t.auth.forgotPassword}
-                            </Button>
-                          </div>
-                          <FormControl>
-                            <div className="relative">
+                            <FormControl>
                               <Input
-                                type={showPassword ? "text" : "password"}
+                                type="email"
+                                placeholder="farmer@gmail.com"
                                 className="border-emerald-200 dark:border-emerald-700 focus:border-emerald-400 dark:focus:border-emerald-500"
                                 {...field}
                               />
+                            </FormControl>
+                            <FormMessage className="text-red-600 dark:text-red-400" />
+                          </FormItem>
+                        )}
+                      />
+                      <FormField
+                        control={loginForm.control}
+                        name="password"
+                        render={({ field }) => (
+                          <FormItem>
+                            <div className="flex justify-between items-center">
+                              <FormLabel className="text-emerald-700 dark:text-emerald-300 font-medium">
+                                {t.auth.passwordLabel}
+                              </FormLabel>
                               <Button
+                                variant="link"
+                                size="sm"
                                 type="button"
-                                variant="ghost"
-                                size="icon"
-                                className="absolute right-1 top-1/2 -translate-y-1/2 h-7 w-7"
-                                onClick={() => setShowPassword(!showPassword)}
+                                className="p-0 h-auto text-xs text-emerald-600 dark:text-emerald-400"
+                                onClick={onForgotPassword}
+                                disabled={loading}
                               >
-                                {showPassword ? (
-                                  <EyeOff className="h-4 w-4 text-emerald-600 dark:text-emerald-400" />
-                                ) : (
-                                  <Eye className="h-4 w-4 text-emerald-600 dark:text-emerald-400" />
-                                )}
+                                {t.auth.forgotPassword}
                               </Button>
                             </div>
-                          </FormControl>
-                          <FormMessage className="text-red-600 dark:text-red-400" />
-                        </FormItem>
-                      )}
-                    />
-                    <Button
-                      type="submit"
-                      className="w-full bg-gradient-to-r from-emerald-600 to-green-600 hover:from-emerald-700 hover:to-green-700 text-white"
-                      disabled={loading}
+                            <FormControl>
+                              <div className="relative">
+                                <Input
+                                  type={showPassword ? "text" : "password"}
+                                  className="border-emerald-200 dark:border-emerald-700 focus:border-emerald-400 dark:focus:border-emerald-500"
+                                  {...field}
+                                />
+                                <Button
+                                  type="button"
+                                  variant="ghost"
+                                  size="icon"
+                                  className="absolute right-1 top-1/2 -translate-y-1/2 h-7 w-7"
+                                  onClick={() => setShowPassword(!showPassword)}
+                                >
+                                  {showPassword ? (
+                                    <EyeOff className="h-4 w-4 text-emerald-600 dark:text-emerald-400" />
+                                  ) : (
+                                    <Eye className="h-4 w-4 text-emerald-600 dark:text-emerald-400" />
+                                  )}
+                                </Button>
+                              </div>
+                            </FormControl>
+                            <FormMessage className="text-red-600 dark:text-red-400" />
+                          </FormItem>
+                        )}
+                      />
+                      <Button
+                        type="submit"
+                        className="w-full bg-gradient-to-r from-emerald-600 to-green-600 hover:from-emerald-700 hover:to-green-700 text-white"
+                        disabled={loading}
+                      >
+                        {loading && (
+                          <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                        )}
+                        {t.auth.login}
+                      </Button>
+                    </form>
+                  </Form>
+                </TabsContent>
+
+                <TabsContent value="register" className="pt-4">
+                  <Form {...registerForm}>
+                    <form
+                      onSubmit={registerForm.handleSubmit(onRegister)}
+                      className="space-y-4"
                     >
-                      {loading && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
-                      {t.auth.login}
-                    </Button>
-                  </form>
-                </Form>
-              </TabsContent>
-              
-              <TabsContent value="register" className="pt-4">
-                <Form {...registerForm}>
-                  <form onSubmit={registerForm.handleSubmit(onRegister)} className="space-y-4">
-                    <FormField
-                      control={registerForm.control}
-                      name="username"
-                      render={({ field }) => (
-                        <FormItem>
-                          <FormLabel className="text-emerald-700 dark:text-emerald-300 font-medium">
-                            {t.auth.usernameLabel}
-                          </FormLabel>
-                          <FormControl>
-                            <Input
-                              type="text"
-                              placeholder="John Doe"
-                              className="border-emerald-200 dark:border-emerald-700 focus:border-emerald-400 dark:focus:border-emerald-500"
-                              {...field}
-                            />
-                          </FormControl>
-                          <FormMessage className="text-red-600 dark:text-red-400" />
-                        </FormItem>
-                      )}
-                    />
-                    <FormField
-                      control={registerForm.control}
-                      name="email"
-                      render={({ field }) => (
-                        <FormItem>
-                          <FormLabel className="text-emerald-700 dark:text-emerald-300 font-medium">
-                            {t.auth.emailLabel}
-                          </FormLabel>
-                          <FormControl>
-                            <Input
-                              type="email"
-                              placeholder="farmer@gmail.com"
-                              className="border-emerald-200 dark:border-emerald-700 focus:border-emerald-400 dark:focus:border-emerald-500"
-                              {...field}
-                            />
-                          </FormControl>
-                          <FormMessage className="text-red-600 dark:text-red-400" />
-                        </FormItem>
-                      )}
-                    />
-                    <FormField
-                      control={registerForm.control}
-                      name="phone"
-                      render={({ field }) => (
-                        <FormItem>
-                          <FormLabel className="text-emerald-700 dark:text-emerald-300 font-medium">
-                            {t.auth.phoneLabel}
-                          </FormLabel>
-                          <FormControl>
-                            <Input
-                              type="tel"
-                              placeholder="1234567890"
-                              maxLength={10}
-                              className="border-emerald-200 dark:border-emerald-700 focus:border-emerald-400 dark:focus:border-emerald-500"
-                              {...field}
-                              onInput={(e) => {
-                                e.currentTarget.value = e.currentTarget.value.replace(/[^0-9]/g, "");
-                              }}
-                            />
-                          </FormControl>
-                          <FormMessage className="text-red-600 dark:text-red-400" />
-                        </FormItem>
-                      )}
-                    />
-                    <FormField
-                      control={registerForm.control}
-                      name="password"
-                      render={({ field }) => (
-                        <FormItem>
-                          <FormLabel>{t.auth.passwordLabel}</FormLabel>
-                          <FormControl>
-                            <div className="relative">
+                      <FormField
+                        control={registerForm.control}
+                        name="username"
+                        render={({ field }) => (
+                          <FormItem>
+                            <FormLabel className="text-emerald-700 dark:text-emerald-300 font-medium">
+                              {t.auth.usernameLabel}
+                            </FormLabel>
+                            <FormControl>
                               <Input
-                                type={showPassword ? "text" : "password"}
+                                type="text"
+                                placeholder="John Doe"
+                                className="border-emerald-200 dark:border-emerald-700 focus:border-emerald-400 dark:focus:border-emerald-500"
                                 {...field}
                               />
-                              <Button
-                                type="button"
-                                variant="ghost"
-                                size="icon"
-                                className="absolute right-1 top-1/2 -translate-y-1/2 h-7 w-7"
-                                onClick={() => setShowPassword(!showPassword)}
-                              >
-                                {showPassword ? (
-                                  <EyeOff className="h-4 w-4" />
-                                ) : (
-                                  <Eye className="h-4 w-4" />
-                                )}
-                              </Button>
-                            </div>
-                          </FormControl>
-                          <FormMessage />
-                        </FormItem>
-                      )}
-                    />
-                    <FormField
-                      control={registerForm.control}
-                      name="confirmPassword"
-                      render={({ field }) => (
-                        <FormItem>
-                          <FormLabel>{t.auth.confirmPasswordLabel}</FormLabel>
-                          <FormControl>
-                            <div className="relative">
+                            </FormControl>
+                            <FormMessage className="text-red-600 dark:text-red-400" />
+                          </FormItem>
+                        )}
+                      />
+                      <FormField
+                        control={registerForm.control}
+                        name="email"
+                        render={({ field }) => (
+                          <FormItem>
+                            <FormLabel className="text-emerald-700 dark:text-emerald-300 font-medium">
+                              {t.auth.emailLabel}
+                            </FormLabel>
+                            <FormControl>
                               <Input
-                                type={showConfirmPassword ? "text" : "password"}
+                                type="email"
+                                placeholder="farmer@gmail.com"
+                                className="border-emerald-200 dark:border-emerald-700 focus:border-emerald-400 dark:focus:border-emerald-500"
                                 {...field}
                               />
-                              <Button
-                                type="button"
-                                variant="ghost"
-                                size="icon"
-                                className="absolute right-1 top-1/2 -translate-y-1/2 h-7 w-7"
-                                onClick={() => setShowConfirmPassword(!showConfirmPassword)}
-                              >
-                                {showConfirmPassword ? (
-                                  <EyeOff className="h-4 w-4" />
-                                ) : (
-                                  <Eye className="h-4 w-4" />
-                                )}
-                              </Button>
-                            </div>
-                          </FormControl>
-                          <FormMessage />
-                        </FormItem>
-                      )}
-                    />
-                    <Button
-                      type="submit"
-                      className="w-full bg-gradient-to-r from-emerald-600 to-green-600 hover:from-emerald-700 hover:to-green-700 text-white"
-                      disabled={loading}
-                    >
-                      {loading && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
-                      {t.auth.createAccount}
-                    </Button>
-                  </form>
-                </Form>
-              </TabsContent>
-            </Tabs>
-          </CardContent>
-        </Card>
+                            </FormControl>
+                            <FormMessage className="text-red-600 dark:text-red-400" />
+                          </FormItem>
+                        )}
+                      />
+                      <FormField
+                        control={registerForm.control}
+                        name="phone"
+                        render={({ field }) => (
+                          <FormItem>
+                            <FormLabel className="text-emerald-700 dark:text-emerald-300 font-medium">
+                              {t.auth.phoneLabel}
+                            </FormLabel>
+                            <FormControl>
+                              <Input
+                                type="tel"
+                                placeholder="1234567890"
+                                maxLength={10}
+                                className="border-emerald-200 dark:border-emerald-700 focus:border-emerald-400 dark:focus:border-emerald-500"
+                                {...field}
+                                onInput={(e) => {
+                                  e.currentTarget.value =
+                                    e.currentTarget.value.replace(
+                                      /[^0-9]/g,
+                                      ""
+                                    );
+                                }}
+                              />
+                            </FormControl>
+                            <FormMessage className="text-red-600 dark:text-red-400" />
+                          </FormItem>
+                        )}
+                      />
+                      <FormField
+                        control={registerForm.control}
+                        name="password"
+                        render={({ field }) => (
+                          <FormItem>
+                            <FormLabel>{t.auth.passwordLabel}</FormLabel>
+                            <FormControl>
+                              <div className="relative">
+                                <Input
+                                  type={showPassword ? "text" : "password"}
+                                  {...field}
+                                />
+                                <Button
+                                  type="button"
+                                  variant="ghost"
+                                  size="icon"
+                                  className="absolute right-1 top-1/2 -translate-y-1/2 h-7 w-7"
+                                  onClick={() => setShowPassword(!showPassword)}
+                                >
+                                  {showPassword ? (
+                                    <EyeOff className="h-4 w-4" />
+                                  ) : (
+                                    <Eye className="h-4 w-4" />
+                                  )}
+                                </Button>
+                              </div>
+                            </FormControl>
+                            <FormMessage />
+                          </FormItem>
+                        )}
+                      />
+                      <FormField
+                        control={registerForm.control}
+                        name="confirmPassword"
+                        render={({ field }) => (
+                          <FormItem>
+                            <FormLabel>{t.auth.confirmPasswordLabel}</FormLabel>
+                            <FormControl>
+                              <div className="relative">
+                                <Input
+                                  type={
+                                    showConfirmPassword ? "text" : "password"
+                                  }
+                                  {...field}
+                                />
+                                <Button
+                                  type="button"
+                                  variant="ghost"
+                                  size="icon"
+                                  className="absolute right-1 top-1/2 -translate-y-1/2 h-7 w-7"
+                                  onClick={() =>
+                                    setShowConfirmPassword(!showConfirmPassword)
+                                  }
+                                >
+                                  {showConfirmPassword ? (
+                                    <EyeOff className="h-4 w-4" />
+                                  ) : (
+                                    <Eye className="h-4 w-4" />
+                                  )}
+                                </Button>
+                              </div>
+                            </FormControl>
+                            <FormMessage />
+                          </FormItem>
+                        )}
+                      />
+                      <Button
+                        type="submit"
+                        className="w-full bg-gradient-to-r from-emerald-600 to-green-600 hover:from-emerald-700 hover:to-green-700 text-white"
+                        disabled={loading}
+                      >
+                        {loading && (
+                          <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                        )}
+                        {t.auth.createAccount}
+                      </Button>
+                    </form>
+                  </Form>
+                </TabsContent>
+              </Tabs>
+            </CardContent>
+          </Card>
+        </div>
       </div>
-    </div>
     </>
   );
 }
