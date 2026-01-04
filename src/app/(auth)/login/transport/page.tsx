@@ -101,7 +101,8 @@ export default function TransportAuthPage() {
         toast({
           variant: "warning" as any,
           title: "Email required",
-          description: "Please enter your email address to reset your password.",
+          description:
+            "Please enter your email address to reset your password.",
           duration: 5000,
         });
         setLoading(false);
@@ -109,19 +110,20 @@ export default function TransportAuthPage() {
       }
 
       // Send password reset email using API
-      const response = await fetch('/api/send-reset-email', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ email, userType: 'transport' })
+      const response = await fetch("/api/send-reset-email", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ email, userType: "transport" }),
       });
-      
+
       const result = await response.json();
-      
+
       if (result.success) {
         toast({
           variant: "success" as any,
           title: "Password Reset Email Sent",
-          description: "Please check your inbox for instructions to reset your password.",
+          description:
+            "Please check your inbox for instructions to reset your password.",
           duration: 5000,
         });
       } else {
@@ -145,22 +147,22 @@ export default function TransportAuthPage() {
       // Demo mode: Accept any email/password combination
       if (values.email && values.password) {
         // Store user type for persistence
-        localStorage.setItem('userType', 'transport');
-        localStorage.setItem('userEmail', values.email);
-        
+        localStorage.setItem("userType", "transport");
+        localStorage.setItem("userEmail", values.email);
+
         toast({
           title: "Login successful",
           description: "Welcome back, transport partner...",
           duration: 1000,
         });
-        
+
         // Instant navigation to dashboard
         setTimeout(() => {
-          navigateInstantly('/dashboard/transport');
+          navigateInstantly("/dashboard/transport");
         }, 1000);
         return;
       }
-      
+
       throw new Error("Please enter email and password");
     } catch (error: any) {
       toast({
@@ -178,7 +180,7 @@ export default function TransportAuthPage() {
     setLoading(true);
     try {
       const { confirmPassword, ...apiData } = values;
-      
+
       const transportData = {
         ...apiData,
         userType: "transport",
@@ -202,7 +204,8 @@ export default function TransportAuthPage() {
           toast({
             variant: "destructive",
             title: "Email Already Registered",
-            description: "This email is already registered. Please try logging in instead.",
+            description:
+              "This email is already registered. Please try logging in instead.",
             duration: 5000,
           });
           setActiveTab("login");
@@ -226,7 +229,8 @@ export default function TransportAuthPage() {
         toast({
           variant: "destructive",
           title: "Email Already Registered",
-          description: "This email is already registered. Please try logging in instead.",
+          description:
+            "This email is already registered. Please try logging in instead.",
           duration: 5000,
         });
         setActiveTab("login");
@@ -285,10 +289,13 @@ export default function TransportAuthPage() {
                   {t.auth.register}
                 </TabsTrigger>
               </TabsList>
-              
+
               <TabsContent value="login" className="pt-4">
                 <Form {...loginForm}>
-                  <form onSubmit={loginForm.handleSubmit(onLogin)} className="space-y-4">
+                  <form
+                    onSubmit={loginForm.handleSubmit(onLogin)}
+                    className="space-y-4"
+                  >
                     <FormField
                       control={loginForm.control}
                       name="email"
@@ -360,16 +367,21 @@ export default function TransportAuthPage() {
                       className="w-full bg-gradient-to-r from-emerald-600 to-green-600 hover:from-emerald-700 hover:to-green-700 text-white"
                       disabled={loading}
                     >
-                      {loading && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
+                      {loading && (
+                        <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                      )}
                       {t.auth.login}
                     </Button>
                   </form>
                 </Form>
               </TabsContent>
-              
+
               <TabsContent value="register" className="pt-4">
                 <Form {...registerForm}>
-                  <form onSubmit={registerForm.handleSubmit(onRegister)} className="space-y-4">
+                  <form
+                    onSubmit={registerForm.handleSubmit(onRegister)}
+                    className="space-y-4"
+                  >
                     <FormField
                       control={registerForm.control}
                       name="username"
@@ -426,7 +438,8 @@ export default function TransportAuthPage() {
                               className="border-emerald-200 dark:border-emerald-700 focus:border-emerald-400 dark:focus:border-emerald-500"
                               {...field}
                               onInput={(e) => {
-                                e.currentTarget.value = e.currentTarget.value.replace(/[^0-9]/g, "");
+                                e.currentTarget.value =
+                                  e.currentTarget.value.replace(/[^0-9]/g, "");
                               }}
                             />
                           </FormControl>
@@ -482,7 +495,9 @@ export default function TransportAuthPage() {
                                 variant="ghost"
                                 size="icon"
                                 className="absolute right-1 top-1/2 -translate-y-1/2 h-7 w-7"
-                                onClick={() => setShowConfirmPassword(!showConfirmPassword)}
+                                onClick={() =>
+                                  setShowConfirmPassword(!showConfirmPassword)
+                                }
                               >
                                 {showConfirmPassword ? (
                                   <EyeOff className="h-4 w-4" />
@@ -501,7 +516,9 @@ export default function TransportAuthPage() {
                       className="w-full bg-gradient-to-r from-emerald-600 to-green-600 hover:from-emerald-700 hover:to-green-700 text-white"
                       disabled={loading}
                     >
-                      {loading && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
+                      {loading && (
+                        <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                      )}
                       {t.auth.createAccount}
                     </Button>
                   </form>
