@@ -154,9 +154,9 @@ export default function TransportAuthPage() {
           duration: 1000,
         });
         
-        // Automatic redirection after toast
+        // Instant navigation to dashboard
         setTimeout(() => {
-          redirectToDashboard('transport', router);
+          navigateInstantly('/dashboard/transport');
         }, 1000);
         return;
       }
