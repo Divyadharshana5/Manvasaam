@@ -249,6 +249,18 @@ export default function TransportAuthPage() {
   }
 
   return (
+    <>
+      {/* Preload critical routes for instant navigation */}
+      <InstantNavigation
+        routes={[
+          '/dashboard/transport',
+          '/dashboard/transport/orders',
+          '/dashboard/transport/vehicles',
+          '/dashboard/profile',
+        ]}
+        priority="high"
+        preloadResources={true}
+      />
     <div className="min-h-screen flex flex-col overflow-hidden">
       {/* Main Content Area */}
       <div className="flex-1 flex items-center justify-center p-4">
