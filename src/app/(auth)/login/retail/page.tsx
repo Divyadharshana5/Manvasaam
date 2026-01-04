@@ -29,6 +29,8 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { useRouter } from "next/navigation";
 import { redirectToDashboard } from "@/lib/auth-redirect";
 import { useLanguage } from "@/context/language-context";
+import { InstantNavigation } from "@/components/instant-navigation";
+import { useFastNavigation } from "@/hooks/use-fast-navigation";
 import "@/styles/navigation-transitions.css";
 import "@/styles/auth-animations.css";
 import { motion } from "framer-motion";
@@ -78,6 +80,7 @@ export default function RetailAuthPage() {
   const { toast } = useToast();
   const router = useRouter();
   const { navigateFast } = useOptimizedNavigation();
+  const { navigateInstantly, prefetchRoute } = useFastNavigation();
   const [activeTab, setActiveTab] = useState("login");
   const { t, selectedLanguage } = useLanguage();
   const [showPassword, setShowPassword] = useState(false);
@@ -127,9 +130,9 @@ export default function RetailAuthPage() {
           duration: 1000,
         });
         
-        // Automatic redirection after toast
+        // Instant navigation to dashboard
         setTimeout(() => {
-          redirectToDashboard('retail', router);
+          navigateInstantly('/dashboard/retail');
         }, 1000);
         return;
       }
