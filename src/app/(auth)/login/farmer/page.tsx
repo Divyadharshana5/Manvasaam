@@ -27,6 +27,8 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { useRouter } from "next/navigation";
 import { redirectToDashboard } from "@/lib/auth-redirect";
 import { useLanguage } from "@/context/language-context";
+import { InstantNavigation } from "@/components/instant-navigation";
+import { useFastNavigation } from "@/hooks/use-fast-navigation";
 
 const loginSchema = z.object({
   email: z.string().email({ message: "Invalid email address." }),
@@ -68,6 +70,7 @@ export default function FarmerAuthPage() {
   const [loading, setLoading] = useState(false);
   const { toast } = useToast();
   const router = useRouter();
+  const { navigateInstantly, prefetchRoute } = useFastNavigation();
   const [activeTab, setActiveTab] = useState("login");
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
@@ -172,9 +175,9 @@ export default function FarmerAuthPage() {
           duration: 1000,
         });
         
-        // Automatic redirection after toast
+        // Instant navigation to dashboard
         setTimeout(() => {
-          redirectToDashboard('farmer', router);
+          navigateInstantly('/dashboard/farmer');
         }, 1000);
         return;
       }
@@ -263,6 +266,19 @@ export default function FarmerAuthPage() {
   }
 
   return (
+    <>
+      {/* Preload critical routes for instant navigation */}
+      <InstantNavigation
+        routes={[
+          '/dashboard/farmer',
+          '/dashboard/farmer/products',
+          '/dashboard/farmer/matchmaking',
+          '/dashboard/farmer/orders',
+          '/dashboard/profile',
+        ]}
+        priority="high"
+        preloadResources={true}
+      />
     <div className="min-h-screen flex flex-col overflow-hidden">
       {/* Main Content Area */}
       <div className="flex-1 flex items-center justify-center p-4">
@@ -530,5 +546,6 @@ export default function FarmerAuthPage() {
         </Card>
       </div>
     </div>
+    </>
   );
 }
