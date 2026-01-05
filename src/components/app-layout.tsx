@@ -46,7 +46,11 @@ import { auth } from "@/lib/firebase";
 import { signOut } from "firebase/auth";
 import { useRouter } from "next/navigation";
 import { useToast } from "@/hooks/use-toast";
-import { useLanguage, languages, translations } from "@/context/language-context";
+import {
+  useLanguage,
+  languages,
+  translations,
+} from "@/context/language-context";
 import VoiceAssistant from "@/components/voice-assistant";
 import { Languages } from "lucide-react";
 
@@ -258,99 +262,99 @@ export function AppLayout({ children }: { children: React.ReactNode }) {
   return (
     <div className="min-h-screen w-full flex flex-col">
       <header className="flex h-14 items-center gap-4 border-b bg-background/30 backdrop-blur-sm px-4 md:px-6 sticky top-0 z-40 w-full">
-          <Button
-            variant="ghost"
-            size="icon"
-            onClick={() => router.back()}
-            className="shrink-0"
-          >
-            <ArrowLeft className="h-5 w-5" />
-          </Button>
-          <div className="flex-1">
-            <h1 className="text-xl font-semibold">{getPageTitle()}</h1>
-          </div>
-          <div className="flex items-center gap-4">
-            {!pathname.startsWith("/dashboard/farmer/products") && <VoiceAssistant />}
-            <DropdownMenu>
-              <DropdownMenuTrigger asChild>
-                <Button
-                  variant="ghost"
-                  size="sm"
-                  className="gap-2"
-                >
-                  <Languages className="h-4 w-4" />
-                  <span className="hidden sm:inline text-sm">{selectedLanguage}</span>
-                </Button>
-              </DropdownMenuTrigger>
-              <DropdownMenuContent align="end">
-                {languages.map((lang) => (
-                  <DropdownMenuItem
-                    key={lang}
-                    onSelect={() =>
-                      setSelectedLanguage(lang as keyof typeof translations)
-                    }
-                    className={selectedLanguage === lang ? "bg-accent" : ""}
-                  >
-                    {lang}
-                  </DropdownMenuItem>
-                ))}
-              </DropdownMenuContent>
-            </DropdownMenu>
-            <DropdownMenu>
-              <DropdownMenuTrigger asChild>
-                <Button
-                  variant="ghost"
-                  className="relative h-10 w-10 rounded-full"
-                >
-                  <Avatar>
-                    <AvatarImage
-                      src={
-                        user && "photoURL" in user
-                          ? user.photoURL || undefined
-                          : undefined
-                      }
-                    />
-                    <AvatarFallback>
-                      <UserIcon />
-                    </AvatarFallback>
-                  </Avatar>
-                </Button>
-              </DropdownMenuTrigger>
-              <DropdownMenuContent className="w-56" align="end" forceMount>
-                <DropdownMenuLabel className="font-normal">
-                  <div className="flex flex-col space-y-1">
-                    <p className="text-sm font-medium leading-none">
-                      {userProfile?.username || "User"}
-                    </p>
-                    <p className="text-xs leading-none text-muted-foreground">
-                      {user?.email}
-                    </p>
-                  </div>
-                </DropdownMenuLabel>
-                <DropdownMenuSeparator />
-                <DropdownMenuItem asChild>
-                  <Link href="/dashboard/profile" className="cursor-pointer">
-                    <UserIcon className="mr-2 h-4 w-4" />
-                    <span>{t.sidebar.profile}</span>
-                  </Link>
-                </DropdownMenuItem>
-                <DropdownMenuItem asChild>
-                  <Link href="/dashboard/faq" className="cursor-pointer">
-                    <HelpCircle className="mr-2 h-4 w-4" />
-                    <span>{t.sidebar.faq}</span>
-                  </Link>
-                </DropdownMenuItem>
-                <DropdownMenuSeparator />
+        <Button
+          variant="ghost"
+          size="icon"
+          onClick={() => router.back()}
+          className="shrink-0"
+        >
+          <ArrowLeft className="h-5 w-5" />
+        </Button>
+        <div className="flex-1">
+          <h1 className="text-xl font-semibold">{getPageTitle()}</h1>
+        </div>
+        <div className="flex items-center gap-4">
+          {!pathname.startsWith("/dashboard/farmer/products") && (
+            <VoiceAssistant />
+          )}
+          <DropdownMenu>
+            <DropdownMenuTrigger asChild>
+              <Button variant="ghost" size="sm" className="gap-2">
+                <Languages className="h-4 w-4" />
+                <span className="hidden sm:inline text-sm">
+                  {selectedLanguage}
+                </span>
+              </Button>
+            </DropdownMenuTrigger>
+            <DropdownMenuContent align="end">
+              {languages.map((lang) => (
                 <DropdownMenuItem
-                  onClick={handleSignOut}
-                  className="cursor-pointer"
+                  key={lang}
+                  onSelect={() =>
+                    setSelectedLanguage(lang as keyof typeof translations)
+                  }
+                  className={selectedLanguage === lang ? "bg-accent" : ""}
                 >
-                  <LogOut className="mr-2 h-4 w-4" />
-                  <span>{t.signOut.button}</span>
+                  {lang}
                 </DropdownMenuItem>
-              </DropdownMenuContent>
-            </DropdownMenu>
-          </div>
+              ))}
+            </DropdownMenuContent>
+          </DropdownMenu>
+          <DropdownMenu>
+            <DropdownMenuTrigger asChild>
+              <Button
+                variant="ghost"
+                className="relative h-10 w-10 rounded-full"
+              >
+                <Avatar>
+                  <AvatarImage
+                    src={
+                      user && "photoURL" in user
+                        ? user.photoURL || undefined
+                        : undefined
+                    }
+                  />
+                  <AvatarFallback>
+                    <UserIcon />
+                  </AvatarFallback>
+                </Avatar>
+              </Button>
+            </DropdownMenuTrigger>
+            <DropdownMenuContent className="w-56" align="end" forceMount>
+              <DropdownMenuLabel className="font-normal">
+                <div className="flex flex-col space-y-1">
+                  <p className="text-sm font-medium leading-none">
+                    {userProfile?.username || "User"}
+                  </p>
+                  <p className="text-xs leading-none text-muted-foreground">
+                    {user?.email}
+                  </p>
+                </div>
+              </DropdownMenuLabel>
+              <DropdownMenuSeparator />
+              <DropdownMenuItem asChild>
+                <Link href="/dashboard/profile" className="cursor-pointer">
+                  <UserIcon className="mr-2 h-4 w-4" />
+                  <span>{t.sidebar.profile}</span>
+                </Link>
+              </DropdownMenuItem>
+              <DropdownMenuItem asChild>
+                <Link href="/dashboard/faq" className="cursor-pointer">
+                  <HelpCircle className="mr-2 h-4 w-4" />
+                  <span>{t.sidebar.faq}</span>
+                </Link>
+              </DropdownMenuItem>
+              <DropdownMenuSeparator />
+              <DropdownMenuItem
+                onClick={handleSignOut}
+                className="cursor-pointer"
+              >
+                <LogOut className="mr-2 h-4 w-4" />
+                <span>{t.signOut.button}</span>
+              </DropdownMenuItem>
+            </DropdownMenuContent>
+          </DropdownMenu>
+        </div>
       </header>
       <main className="flex-1 w-full overflow-auto bg-background flex justify-center">
         <div className="w-full max-w-7xl px-4 md:px-6 lg:px-8">{children}</div>
