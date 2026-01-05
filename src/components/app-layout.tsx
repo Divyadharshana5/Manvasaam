@@ -46,8 +46,9 @@ import { auth } from "@/lib/firebase";
 import { signOut } from "firebase/auth";
 import { useRouter } from "next/navigation";
 import { useToast } from "@/hooks/use-toast";
-import { useLanguage } from "@/context/language-context";
+import { useLanguage, languages, translations } from "@/context/language-context";
 import VoiceAssistant from "@/components/voice-assistant";
+import { Languages } from "lucide-react";
 
 interface UserProfile {
   userType?: string;
@@ -67,7 +68,7 @@ export function AppLayout({ children }: { children: React.ReactNode }) {
   const { user, loading } = useAuth();
   const router = useRouter();
   const { toast } = useToast();
-  const { t } = useLanguage();
+  const { t, selectedLanguage, setSelectedLanguage } = useLanguage();
   const isAuthPage = authPages.includes(pathname);
   const [userProfile, setUserProfile] = React.useState<UserProfile | null>(
     null
@@ -270,6 +271,31 @@ export function AppLayout({ children }: { children: React.ReactNode }) {
           </div>
           <div className="flex items-center gap-4">
             {!pathname.startsWith("/dashboard/farmer/products") && <VoiceAssistant />}
+            <DropdownMenu>
+              <DropdownMenuTrigger asChild>
+                <Button
+                  variant="ghost"
+                  size="sm"
+                  className="gap-2"
+                >
+                  <Languages className="h-4 w-4" />
+                  <span className="hidden sm:inline text-sm">{selectedLanguage}</span>
+                </Button>
+              </DropdownMenuTrigger>
+              <DropdownMenuContent align="end">
+                {languages.map((lang) => (
+                  <DropdownMenuItem
+                    key={lang}
+                    onSelect={() =>
+                      setSelectedLanguage(lang as keyof typeof translations)
+                    }
+                    className={selectedLanguage === lang ? "bg-accent" : ""}
+                  >
+                    {lang}
+                  </DropdownMenuItem>
+                ))}
+              </DropdownMenuContent>
+            </DropdownMenu>
             <DropdownMenu>
               <DropdownMenuTrigger asChild>
                 <Button
