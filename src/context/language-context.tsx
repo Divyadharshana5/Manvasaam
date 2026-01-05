@@ -2275,23 +2275,28 @@ const LanguageContext = createContext<LanguageContextType | undefined>(
   undefined
 );
 
+// Initialize language from localStorage if available
+const initializeLanguage = (): Language => {
+  if (typeof window === "undefined") return "English";
+  try {
+    const storedLanguage = localStorage.getItem("manvaasam-language") as Language;
+    if (storedLanguage && translations[storedLanguage]) {
+      return storedLanguage;
+    }
+  } catch (error) {
+    // Silently handle errors
+  }
+  return "English";
+};
+
 export const LanguageProvider = ({ children }: { children: ReactNode }) => {
-  const [selectedLanguage, setSelectedLanguage] = useState<Language>("English");
-  const [mounted, setMounted] = useState(false);
+  const [selectedLanguage, setSelectedLanguage] = useState<Language>(() =>
+    initializeLanguage()
+  );
+  const [isMounted, setIsMounted] = useState(false);
 
   useEffect(() => {
-    // Load language preference after component mounts
-    try {
-      const storedLanguage = localStorage.getItem(
-        "manvaasam-language"
-      ) as Language;
-      if (storedLanguage && translations[storedLanguage]) {
-        setSelectedLanguage(storedLanguage);
-      }
-    } catch (error) {
-      // Silently handle errors
-    }
-    setMounted(true);
+    setIsMounted(true);
   }, []);
 
   const handleSetLanguage = (language: Language) => {
@@ -2308,11 +2313,10 @@ export const LanguageProvider = ({ children }: { children: ReactNode }) => {
 
   const t = translations[selectedLanguage] || translations["English"];
 
-  // Use default English value on server/first render, then switch to stored language after mount
   const contextValue = {
-    selectedLanguage: mounted ? selectedLanguage : "English",
+    selectedLanguage,
     setSelectedLanguage: handleSetLanguage,
-    t: mounted ? t : translations["English"],
+    t,
   };
 
   return (
