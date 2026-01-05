@@ -3,7 +3,6 @@ import { DashboardContent } from "@/components/dashboard-content";
 import { adminAuth, adminDb } from "@/lib/firebase-admin";
 import { cookies } from "next/headers";
 import { redirect } from "next/navigation";
-import { DashboardContent } from "@/components/dashboard-content";
 
 interface UserProfile {
   username?: string;
@@ -11,41 +10,6 @@ interface UserProfile {
   branchName?: string;
   email?: string;
 }
-
-// Mock data for farmer dashboard
-const farmerStats = {
-  totalSales: "₹1,25,300.00",
-  pendingShipments: 12,
-  customerCount: 48,
-  totalProfit: "₹95,600.50",
-  recentOrders: [
-    { id: "ORD006", customer: "Priya Sharma", status: "Processing" },
-    { id: "ORD007", customer: "Amit Singh", status: "Processing" },
-    { id: "ORD008", customer: "Sunita Rao", status: "Shipped" },
-  ],
-  outOfStock: [{ name: "Organic Spinach" }, { name: "Tomatoes" }],
-};
-
-// Mock data for customer dashboard
-const customerStats = {
-  pendingOrders: 2,
-  completedOrders: 18,
-  totalSpent: "₹12,850.75",
-  newProducts: [
-    { name: "Organic Strawberries" },
-    { name: "Fresh Basil" },
-    { name: "Artisanal Cheese" },
-  ],
-  lastWeekPurchases: [
-    { id: "ORD001", date: "2024-07-20", total: "₹150.75" },
-    { id: "ORD002", date: "2024-07-19", total: "₹85.50" },
-  ],
-  recentOrders: [
-    { id: "ORD001", date: "2024-07-20", status: "Delivered", total: "₹150.75" },
-    { id: "ORD005", date: "2024-07-21", status: "Processing", total: "₹99.99" },
-    { id: "ORD002", date: "2024-07-19", status: "Shipped", total: "₹85.50" },
-  ],
-};
 
 async function getUserProfile(uid: string): Promise<UserProfile | null> {
   try {
