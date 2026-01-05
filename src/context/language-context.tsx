@@ -2279,7 +2279,9 @@ const LanguageContext = createContext<LanguageContextType | undefined>(
 const initializeLanguage = (): Language => {
   if (typeof window === "undefined") return "English";
   try {
-    const storedLanguage = localStorage.getItem("manvaasam-language") as Language;
+    const storedLanguage = localStorage.getItem(
+      "manvaasam-language"
+    ) as Language;
     if (storedLanguage && translations[storedLanguage]) {
       return storedLanguage;
     }
