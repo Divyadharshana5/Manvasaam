@@ -21,6 +21,7 @@ import {
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { translations } from "@/context/language-context";
+import { DashboardContent } from "@/components/dashboard-content";
 import {
   Table,
   TableBody,
@@ -33,6 +34,7 @@ import { Badge } from "@/components/ui/badge";
 import { adminAuth, adminDb } from "@/lib/firebase-admin";
 import { cookies } from "next/headers";
 import { redirect } from "next/navigation";
+import { DashboardContent } from "@/components/dashboard-content";
 
 interface UserProfile {
   username?: string;
