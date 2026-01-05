@@ -1,36 +1,5 @@
 import { AppLayout } from "@/components/app-layout";
-import {
-  Card,
-  CardHeader,
-  CardTitle,
-  CardContent,
-  CardDescription,
-  CardFooter,
-} from "@/components/ui/card";
-import {
-  IndianRupee,
-  Package,
-  Users,
-  Activity,
-  ShoppingCart,
-  Truck,
-  PackageX,
-  CheckCircle,
-  Sparkles,
-} from "lucide-react";
-import Link from "next/link";
-import { Button } from "@/components/ui/button";
-import { translations } from "@/context/language-context";
 import { DashboardContent } from "@/components/dashboard-content";
-import {
-  Table,
-  TableBody,
-  TableCell,
-  TableHead,
-  TableHeader,
-  TableRow,
-} from "@/components/ui/table";
-import { Badge } from "@/components/ui/badge";
 import { adminAuth, adminDb } from "@/lib/firebase-admin";
 import { cookies } from "next/headers";
 import { redirect } from "next/navigation";
