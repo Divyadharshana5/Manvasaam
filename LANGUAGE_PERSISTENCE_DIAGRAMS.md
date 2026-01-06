@@ -325,45 +325,45 @@ TIME    ACTION                              STATE                  STORAGE
 ────────────────────────────────────────────────────────────────────────────
 
 0:00    User opens app                      selectedLanguage:      Empty
-                                            "English"              
-                                                                   
+                                            "English"
+
 1:30    User navigates to Home Page         selectedLanguage:      Empty
-                                            "English"              
-                                                                   
+                                            "English"
+
 2:00    User clicks Language selector       Dropdown menu shown    Empty
-        
+
 2:15    User selects "Tamil"                selectedLanguage:      localStorage:
                                             "Tamil"                "Tamil"
                                                                    Cookies:
                                                                    "Tamil"
-                                                                   
+
 2:30    User navigates to Dashboard         selectedLanguage:      localStorage:
                                             "Tamil" (persistent)   "Tamil"
                                                                    Cookies:
                                                                    "Tamil"
-                                                                   
+
 2:45    User views Dashboard in Tamil       Sidebar in Tamil       localStorage:
                                             Content in Tamil       "Tamil"
-                                                                   
+
 5:00    User presses F5 (refresh)           Page reloads           localStorage:
                                                                    "Tamil"
-                                                                   
+
 5:05    App loads again                     initializeLanguage()   localStorage:
                                             reads "Tamil"          "Tamil"
-                                            selectedLanguage:      
-                                            "Tamil"                
-                                                                   
+                                            selectedLanguage:
+                                            "Tamil"
+
 5:10    Dashboard renders                   All content in Tamil   localStorage:
                                                                    "Tamil"
-                                                                   
+
 10:00   User closes browser                 N/A                    localStorage:
                                                                    "Tamil"
                                                                    Cookies:
                                                                    "Tamil" (1yr)
-                                                                   
+
 Next    User reopens browser &              localStorage:          localStorage:
 Day     navigates to app                    "Tamil" restored       "Tamil"
-                                                                   
+
         App displays in Tamil               selectedLanguage:      localStorage:
                                             "Tamil"                "Tamil"
 ```
@@ -394,7 +394,7 @@ translations = {
     profile: { ... },
     ...
   },
-  
+
   Tamil: {
     tagline: "விவசாயிகளை மேம்படுத்துதல்...",
     roles: {
@@ -412,7 +412,7 @@ translations = {
     },
     ...
   },
-  
+
   ... (9 more languages)
 }
 ```
