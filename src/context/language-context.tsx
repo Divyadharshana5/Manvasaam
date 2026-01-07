@@ -2299,6 +2299,11 @@ export const LanguageProvider = ({ children }: { children: ReactNode }) => {
 
   useEffect(() => {
     setIsMounted(true);
+    // Re-check localStorage on mount to ensure we have the latest language preference
+    const storedLanguage = localStorage.getItem("manvaasam-language") as Language;
+    if (storedLanguage && translations[storedLanguage] && storedLanguage !== selectedLanguage) {
+      setSelectedLanguage(storedLanguage);
+    }
   }, []);
 
   const handleSetLanguage = (language: Language) => {
