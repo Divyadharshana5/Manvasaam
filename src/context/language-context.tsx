@@ -2282,7 +2282,7 @@ const initializeLanguage = (): Language => {
     console.log("[initializeLanguage] SSR mode - returning English");
     return "English";
   }
-  
+
   try {
     const storedLanguage = localStorage.getItem(
       "manvaasam-language"
