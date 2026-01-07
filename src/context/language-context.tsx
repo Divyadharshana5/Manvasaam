@@ -2278,21 +2278,23 @@ const LanguageContext = createContext<LanguageContextType | undefined>(
 // Initialize language from localStorage if available
 const initializeLanguage = (): Language => {
   // Always return English during SSR to prevent hydration mismatches
-  if (typeof window === "undefined") return "English";
-
+  if (typeof window === "undefined") {
+    console.log("[initializeLanguage] SSR mode - returning English");
+    return "English";
+  }
+  
   try {
     const storedLanguage = localStorage.getItem(
       "manvaasam-language"
     ) as Language;
+    console.log("[initializeLanguage] Found stored language:", storedLanguage);
     if (storedLanguage && translations[storedLanguage]) {
       return storedLanguage;
     }
   } catch (error) {
-    // Silently handle errors
+    console.warn("[initializeLanguage] Error reading localStorage:", error);
   }
-  return "English";
-};
-
+  console.log("[initializeLanguage] Defaulting to English");
 export const LanguageProvider = ({ children }: { children: ReactNode }) => {
   const [selectedLanguage, setSelectedLanguage] = useState<Language>(() =>
     initializeLanguage()
@@ -2305,7 +2307,10 @@ export const LanguageProvider = ({ children }: { children: ReactNode }) => {
     const storedLanguage = localStorage.getItem(
       "manvaasam-language"
     ) as Language;
-    console.log("[LanguageProvider] Mounted - stored language:", storedLanguage);
+    console.log(
+      "[LanguageProvider] Mounted - stored language:",
+      storedLanguage
+    );
     if (
       storedLanguage &&
       translations[storedLanguage] &&
@@ -2323,7 +2328,9 @@ export const LanguageProvider = ({ children }: { children: ReactNode }) => {
       try {
         localStorage.setItem("manvaasam-language", language);
         document.cookie = `manvaasam-language=${language};path=/;max-age=31536000`;
-        console.log("[LanguageProvider] Language saved to localStorage and cookie");
+        console.log(
+          "[LanguageProvider] Language saved to localStorage and cookie"
+        );
       } catch (error) {
         console.warn("Could not save language preference:", error);
       }
