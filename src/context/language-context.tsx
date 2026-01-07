@@ -2305,21 +2305,25 @@ export const LanguageProvider = ({ children }: { children: ReactNode }) => {
     const storedLanguage = localStorage.getItem(
       "manvaasam-language"
     ) as Language;
+    console.log("[LanguageProvider] Mounted - stored language:", storedLanguage);
     if (
       storedLanguage &&
       translations[storedLanguage] &&
       storedLanguage !== selectedLanguage
     ) {
+      console.log("[LanguageProvider] Updating language to:", storedLanguage);
       setSelectedLanguage(storedLanguage);
     }
   }, []);
 
   const handleSetLanguage = (language: Language) => {
+    console.log("[LanguageProvider] Setting language to:", language);
     setSelectedLanguage(language);
     if (typeof window !== "undefined") {
       try {
         localStorage.setItem("manvaasam-language", language);
         document.cookie = `manvaasam-language=${language};path=/;max-age=31536000`;
+        console.log("[LanguageProvider] Language saved to localStorage and cookie");
       } catch (error) {
         console.warn("Could not save language preference:", error);
       }
