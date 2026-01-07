@@ -2295,6 +2295,8 @@ const initializeLanguage = (): Language => {
     console.warn("[initializeLanguage] Error reading localStorage:", error);
   }
   console.log("[initializeLanguage] Defaulting to English");
+  return "English";
+};
 export const LanguageProvider = ({ children }: { children: ReactNode }) => {
   const [selectedLanguage, setSelectedLanguage] = useState<Language>(() =>
     initializeLanguage()
