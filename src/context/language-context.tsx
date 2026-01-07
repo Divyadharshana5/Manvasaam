@@ -2277,7 +2277,9 @@ const LanguageContext = createContext<LanguageContextType | undefined>(
 
 // Initialize language from localStorage if available
 const initializeLanguage = (): Language => {
+  // Always return English during SSR to prevent hydration mismatches
   if (typeof window === "undefined") return "English";
+  
   try {
     const storedLanguage = localStorage.getItem(
       "manvaasam-language"
@@ -2300,8 +2302,14 @@ export const LanguageProvider = ({ children }: { children: ReactNode }) => {
   useEffect(() => {
     setIsMounted(true);
     // Re-check localStorage on mount to ensure we have the latest language preference
-    const storedLanguage = localStorage.getItem("manvaasam-language") as Language;
-    if (storedLanguage && translations[storedLanguage] && storedLanguage !== selectedLanguage) {
+    const storedLanguage = localStorage.getItem(
+      "manvaasam-language"
+    ) as Language;
+    if (
+      storedLanguage &&
+      translations[storedLanguage] &&
+      storedLanguage !== selectedLanguage
+    ) {
       setSelectedLanguage(storedLanguage);
     }
   }, []);
