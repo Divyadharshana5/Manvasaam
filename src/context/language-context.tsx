@@ -2279,7 +2279,7 @@ const LanguageContext = createContext<LanguageContextType | undefined>(
 const initializeLanguage = (): Language => {
   // Always return English during SSR to prevent hydration mismatches
   if (typeof window === "undefined") return "English";
-  
+
   try {
     const storedLanguage = localStorage.getItem(
       "manvaasam-language"
