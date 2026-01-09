@@ -2284,7 +2284,10 @@ export const LanguageProvider = ({
 }) => {
   const [selectedLanguage, setSelectedLanguage] = useState<Language>(() => {
     if (initialLanguage && translations[initialLanguage]) {
-      console.log("[LanguageProvider] Using initialLanguage prop:", initialLanguage);
+      console.log(
+        "[LanguageProvider] Using initialLanguage prop:",
+        initialLanguage
+      );
       return initialLanguage;
     }
     if (typeof window === "undefined") {
@@ -2293,7 +2296,9 @@ export const LanguageProvider = ({
     }
 
     try {
-      const storedLanguage = localStorage.getItem("manvaasam-language") as Language;
+      const storedLanguage = localStorage.getItem(
+        "manvaasam-language"
+      ) as Language;
       console.log("[LanguageProvider] Found stored language:", storedLanguage);
       if (storedLanguage && translations[storedLanguage]) {
         return storedLanguage;
