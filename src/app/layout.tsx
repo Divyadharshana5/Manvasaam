@@ -108,9 +108,8 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  const cookieLang = (cookies().get("manvaasam-language")?.value || undefined) as
-    | Language
-    | undefined;
+  const cookieLang = (cookies().get("manvaasam-language")?.value ||
+    undefined) as Language | undefined;
   return (
     <html lang="en" suppressHydrationWarning>
       <head>
@@ -210,7 +209,7 @@ export default function RootLayout({
         />
       </head>
       <body className="font-sans antialiased" suppressHydrationWarning>
-        <LanguageProvider>
+        <LanguageProvider initialLanguage={cookieLang}>
           {children}
           <Toaster />
         </LanguageProvider>

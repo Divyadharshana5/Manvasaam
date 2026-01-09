@@ -2263,7 +2263,7 @@ export const translations = {
 
 export const languages = Object.keys(translations);
 
-type Language = keyof typeof translations;
+export type Language = keyof typeof translations;
 
 interface LanguageContextType {
   selectedLanguage: Language;
@@ -2275,32 +2275,35 @@ const LanguageContext = createContext<LanguageContextType | undefined>(
   undefined
 );
 
-// Initialize language from localStorage if available
-const initializeLanguage = (): Language => {
-  // Always return English during SSR to prevent hydration mismatches
-  if (typeof window === "undefined") {
-    console.log("[initializeLanguage] SSR mode - returning English");
-    return "English";
-  }
-
-  try {
-    const storedLanguage = localStorage.getItem(
-      "manvaasam-language"
-    ) as Language;
-    console.log("[initializeLanguage] Found stored language:", storedLanguage);
-    if (storedLanguage && translations[storedLanguage]) {
-      return storedLanguage;
+export const LanguageProvider = ({
+  children,
+  initialLanguage,
+}: {
+  children: ReactNode;
+  initialLanguage?: Language;
+}) => {
+  const [selectedLanguage, setSelectedLanguage] = useState<Language>(() => {
+    if (initialLanguage && translations[initialLanguage]) {
+      console.log("[LanguageProvider] Using initialLanguage prop:", initialLanguage);
+      return initialLanguage;
     }
-  } catch (error) {
-    console.warn("[initializeLanguage] Error reading localStorage:", error);
-  }
-  console.log("[initializeLanguage] Defaulting to English");
-  return "English";
-};
-export const LanguageProvider = ({ children }: { children: ReactNode }) => {
-  const [selectedLanguage, setSelectedLanguage] = useState<Language>(() =>
-    initializeLanguage()
-  );
+    if (typeof window === "undefined") {
+      console.log("[LanguageProvider] SSR mode - defaulting to English");
+      return "English";
+    }
+
+    try {
+      const storedLanguage = localStorage.getItem("manvaasam-language") as Language;
+      console.log("[LanguageProvider] Found stored language:", storedLanguage);
+      if (storedLanguage && translations[storedLanguage]) {
+        return storedLanguage;
+      }
+    } catch (error) {
+      console.warn("[LanguageProvider] Error reading localStorage:", error);
+    }
+    console.log("[LanguageProvider] Defaulting to English");
+    return "English";
+  });
   const [isMounted, setIsMounted] = useState(false);
 
   useEffect(() => {
