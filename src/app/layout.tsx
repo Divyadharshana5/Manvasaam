@@ -1,5 +1,7 @@
 import type { Metadata, Viewport } from "next";
 import { LanguageProvider } from "@/context/language-context";
+import { cookies } from "next/headers";
+import type { Language } from "@/context/language-context";
 
 import "../styles/hide-scrollbar.css";
 import "./globals.css";
@@ -106,6 +108,9 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const cookieLang = (cookies().get("manvaasam-language")?.value || undefined) as
+    | Language
+    | undefined;
   return (
     <html lang="en" suppressHydrationWarning>
       <head>
