@@ -2338,8 +2338,20 @@ export const LanguageProvider = ({ children }: { children: ReactNode }) => {
       }
     };
 
+    // Also listen for custom language change events (for same-page updates)
+    const handleLanguageChange = (e: Event) => {
+      const customEvent = e as CustomEvent<Language>;
+      if (customEvent.detail && translations[customEvent.detail]) {
+        console.log("[LanguageProvider] Custom event - language:", customEvent.detail);
+      }
+    };
+
     window.addEventListener("storage", handleStorageChange);
-    return () => window.removeEventListener("storage", handleStorageChange);
+    window.addEventListener("languageChange", handleLanguageChange);
+    return () => {
+      window.removeEventListener("storage", handleStorageChange);
+      window.removeEventListener("languageChange", handleLanguageChange);
+    };
   }, []);
 
   const handleSetLanguage = (language: Language) => {
