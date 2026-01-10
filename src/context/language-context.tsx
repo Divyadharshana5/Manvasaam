@@ -2364,15 +2364,18 @@ export const LanguageProvider = ({ children }: { children: ReactNode }) => {
 
   const t = translations[selectedLanguage] || translations["English"];
 
-  const contextValue = {
-    selectedLanguage,
-    setSelectedLanguage: handleSetLanguage,
-    t,
-  };
+  const contextValue = React.useMemo(
+    () => ({
+      selectedLanguage,
+      setSelectedLanguage: handleSetLanguage,
+      t,
+    }),
+    [selectedLanguage, t]
+  );
 
   return (
     <LanguageContext.Provider value={contextValue} suppressHydrationWarning>
-      {children}
+      {isMounted ? children : children}
     </LanguageContext.Provider>
   );
 };
