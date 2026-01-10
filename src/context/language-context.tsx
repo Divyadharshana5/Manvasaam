@@ -2329,7 +2329,10 @@ export const LanguageProvider = ({ children }: { children: ReactNode }) => {
       if (e.key === "manvaasam-language" && e.newValue) {
         const newLanguage = e.newValue as Language;
         if (translations[newLanguage]) {
-          console.log("[LanguageProvider] Storage event - updating to:", newLanguage);
+          console.log(
+            "[LanguageProvider] Storage event - updating to:",
+            newLanguage
+          );
           setSelectedLanguage(newLanguage);
         }
       }
@@ -2346,6 +2349,8 @@ export const LanguageProvider = ({ children }: { children: ReactNode }) => {
       try {
         localStorage.setItem("manvaasam-language", language);
         document.cookie = `manvaasam-language=${language};path=/;max-age=31536000`;
+        // Dispatch a custom event to notify other components
+        window.dispatchEvent(new CustomEvent("languageChange", { detail: language }));
         console.log(
           "[LanguageProvider] Language saved to localStorage and cookie"
         );
