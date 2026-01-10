@@ -2323,6 +2323,22 @@ export const LanguageProvider = ({ children }: { children: ReactNode }) => {
     }
   }, []);
 
+  // Add an effect to sync language changes across tabs/windows
+  useEffect(() => {
+    const handleStorageChange = (e: StorageEvent) => {
+      if (e.key === "manvaasam-language" && e.newValue) {
+        const newLanguage = e.newValue as Language;
+        if (translations[newLanguage]) {
+          console.log("[LanguageProvider] Storage event - updating to:", newLanguage);
+          setSelectedLanguage(newLanguage);
+        }
+      }
+    };
+
+    window.addEventListener("storage", handleStorageChange);
+    return () => window.removeEventListener("storage", handleStorageChange);
+  }, []);
+
   const handleSetLanguage = (language: Language) => {
     console.log("[LanguageProvider] Setting language to:", language);
     setSelectedLanguage(language);
