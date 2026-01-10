@@ -2313,11 +2313,7 @@ export const LanguageProvider = ({ children }: { children: ReactNode }) => {
       "[LanguageProvider] Mounted - stored language:",
       storedLanguage
     );
-    if (
-      storedLanguage &&
-      translations[storedLanguage] &&
-      storedLanguage !== selectedLanguage
-    ) {
+    if (storedLanguage && translations[storedLanguage]) {
       console.log("[LanguageProvider] Updating language to:", storedLanguage);
       setSelectedLanguage(storedLanguage);
     }
@@ -2342,7 +2338,10 @@ export const LanguageProvider = ({ children }: { children: ReactNode }) => {
     const handleLanguageChange = (e: Event) => {
       const customEvent = e as CustomEvent<Language>;
       if (customEvent.detail && translations[customEvent.detail]) {
-        console.log("[LanguageProvider] Custom event - language:", customEvent.detail);
+        console.log(
+          "[LanguageProvider] Custom event - language:",
+          customEvent.detail
+        );
       }
     };
 
