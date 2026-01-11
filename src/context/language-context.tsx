@@ -2297,76 +2297,71 @@ const initializeLanguage = (): Language => {
   console.log("[initializeLanguage] Defaulting to English");
   return "English";
 };
-export const LanguageProvider = ({ children }: { children: ReactNode }) => {
+export const LanguageProvider = ({
+  children,
+  initialLanguage,
+}: {
+  children: ReactNode;
+  initialLanguage?: Language;
+}) => {
+  // Initialize from server-provided language (cookie) when available,
+  // otherwise fall back to localStorage on the client, then English.
   const [selectedLanguage, setSelectedLanguage] = useState<Language>(() =>
-    initializeLanguage()
+    initialLanguage && translations[initialLanguage]
+      ? initialLanguage
+      : initializeLanguage()
   );
   const [isMounted, setIsMounted] = useState(false);
 
   useEffect(() => {
     setIsMounted(true);
     // Re-check localStorage on mount to ensure we have the latest language preference
-    const storedLanguage = localStorage.getItem(
-      "manvaasam-language"
-    ) as Language;
-    console.log(
-      "[LanguageProvider] Mounted - stored language:",
-      storedLanguage
-    );
-    if (storedLanguage && translations[storedLanguage]) {
-      console.log("[LanguageProvider] Updating language to:", storedLanguage);
-      setSelectedLanguage(storedLanguage);
+    try {
+      const storedLanguage = localStorage.getItem("manvaasam-language") as
+        | Language
+        | null;
+      if (storedLanguage && translations[storedLanguage]) {
+        setSelectedLanguage(storedLanguage);
+      }
+    } catch (e) {
+      // ignore
     }
   }, []);
 
-  // Add an effect to sync language changes across tabs/windows
+  // Sync language across tabs/windows and respond to custom events
   useEffect(() => {
     const handleStorageChange = (e: StorageEvent) => {
       if (e.key === "manvaasam-language" && e.newValue) {
         const newLanguage = e.newValue as Language;
         if (translations[newLanguage]) {
-          console.log(
-            "[LanguageProvider] Storage event - updating to:",
-            newLanguage
-          );
           setSelectedLanguage(newLanguage);
         }
       }
     };
 
-    // Also listen for custom language change events (for same-page updates)
     const handleLanguageChange = (e: Event) => {
       const customEvent = e as CustomEvent<Language>;
-      if (customEvent.detail && translations[customEvent.detail]) {
-        console.log(
-          "[LanguageProvider] Custom event - language:",
-          customEvent.detail
-        );
+      if (customEvent?.detail && translations[customEvent.detail]) {
+        setSelectedLanguage(customEvent.detail);
       }
     };
 
     window.addEventListener("storage", handleStorageChange);
-    window.addEventListener("languageChange", handleLanguageChange);
+    window.addEventListener("languageChange", handleLanguageChange as EventListener);
     return () => {
       window.removeEventListener("storage", handleStorageChange);
-      window.removeEventListener("languageChange", handleLanguageChange);
+      window.removeEventListener("languageChange", handleLanguageChange as EventListener);
     };
   }, []);
 
   const handleSetLanguage = (language: Language) => {
-    console.log("[LanguageProvider] Setting language to:", language);
     setSelectedLanguage(language);
     if (typeof window !== "undefined") {
       try {
         localStorage.setItem("manvaasam-language", language);
         document.cookie = `manvaasam-language=${language};path=/;max-age=31536000`;
-        // Dispatch a custom event to notify other components
-        window.dispatchEvent(
-          new CustomEvent("languageChange", { detail: language })
-        );
-        console.log(
-          "[LanguageProvider] Language saved to localStorage and cookie"
-        );
+        // Notify other listeners on the same page
+        window.dispatchEvent(new CustomEvent("languageChange", { detail: language }));
       } catch (error) {
         console.warn("Could not save language preference:", error);
       }
@@ -2376,17 +2371,13 @@ export const LanguageProvider = ({ children }: { children: ReactNode }) => {
   const t = translations[selectedLanguage] || translations["English"];
 
   const contextValue = React.useMemo(
-    () => ({
-      selectedLanguage,
-      setSelectedLanguage: handleSetLanguage,
-      t,
-    }),
+    () => ({ selectedLanguage, setSelectedLanguage: handleSetLanguage, t }),
     [selectedLanguage, t]
   );
 
   return (
     <LanguageContext.Provider value={contextValue} suppressHydrationWarning>
-      {isMounted ? children : children}
+      {children}
     </LanguageContext.Provider>
   );
 };
