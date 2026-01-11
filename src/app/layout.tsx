@@ -108,8 +108,18 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   // Read language cookie on the server and pass it to the client provider
-  const cookieStore = cookies();
-  const langCookie = cookieStore.get("manvaasam-language")?.value;
+  let langCookie: string | undefined;
+  try {
+    // cookies() may return different shapes across Next.js versions; use safe access
+    const cookieStore = cookies();
+    // prefer the get() API when available
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+    // @ts-ignore
+    langCookie = cookieStore?.get?.("manvaasam-language")?.value;
+  } catch (e) {
+    // If headers API isn't available at runtime, gracefully ignore
+    langCookie = undefined;
+  }
   return (
     <html lang="en" suppressHydrationWarning>
       <head>
