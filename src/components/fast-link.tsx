@@ -9,11 +9,22 @@ type FastLinkProps = React.ComponentProps<typeof Link> & {
   className?: string;
 };
 
-export function FastLink({ href, children, prefetchOnMount, className, ...rest }: FastLinkProps) {
+export function FastLink({
+  href,
+  children,
+  prefetchOnMount,
+  className,
+  ...rest
+}: FastLinkProps) {
   // Map prefetchOnMount (custom prop) to Next.js Link `prefetch` prop
   const prefetch = !!prefetchOnMount;
   return (
-    <Link href={href as any} prefetch={prefetch} className={className} {...rest}>
+    <Link
+      href={href as any}
+      prefetch={prefetch}
+      className={className}
+      {...rest}
+    >
       {children}
     </Link>
   );
