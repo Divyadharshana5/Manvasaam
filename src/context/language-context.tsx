@@ -2317,9 +2317,9 @@ export const LanguageProvider = ({
     setIsMounted(true);
     // Re-check localStorage on mount to ensure we have the latest language preference
     try {
-      const storedLanguage = localStorage.getItem("manvaasam-language") as
-        | Language
-        | null;
+      const storedLanguage = localStorage.getItem(
+        "manvaasam-language"
+      ) as Language | null;
       if (storedLanguage && translations[storedLanguage]) {
         setSelectedLanguage(storedLanguage);
       }
@@ -2347,10 +2347,16 @@ export const LanguageProvider = ({
     };
 
     window.addEventListener("storage", handleStorageChange);
-    window.addEventListener("languageChange", handleLanguageChange as EventListener);
+    window.addEventListener(
+      "languageChange",
+      handleLanguageChange as EventListener
+    );
     return () => {
       window.removeEventListener("storage", handleStorageChange);
-      window.removeEventListener("languageChange", handleLanguageChange as EventListener);
+      window.removeEventListener(
+        "languageChange",
+        handleLanguageChange as EventListener
+      );
     };
   }, []);
 
@@ -2361,7 +2367,9 @@ export const LanguageProvider = ({
         localStorage.setItem("manvaasam-language", language);
         document.cookie = `manvaasam-language=${language};path=/;max-age=31536000`;
         // Notify other listeners on the same page
-        window.dispatchEvent(new CustomEvent("languageChange", { detail: language }));
+        window.dispatchEvent(
+          new CustomEvent("languageChange", { detail: language })
+        );
       } catch (error) {
         console.warn("Could not save language preference:", error);
       }
