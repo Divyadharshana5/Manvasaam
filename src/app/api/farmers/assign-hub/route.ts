@@ -2,7 +2,7 @@ import { NextResponse } from "next/server";
 import { adminAuth, isFirebaseInitialized } from "@/lib/firebase-admin";
 import { getFarmerHub } from "@/lib/hub-db";
 import { cookies } from "next/headers";
-import { readCookie } from '@/lib/read-cookie';
+import { readCookie } from "@/lib/read-cookie";
 
 export async function POST(request: Request) {
   try {
