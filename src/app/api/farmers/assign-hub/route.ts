@@ -2,6 +2,7 @@ import { NextResponse } from "next/server";
 import { adminAuth, isFirebaseInitialized } from "@/lib/firebase-admin";
 import { getFarmerHub } from "@/lib/hub-db";
 import { cookies } from "next/headers";
+import { readCookie } from '@/lib/read-cookie';
 
 export async function POST(request: Request) {
   try {
@@ -32,8 +33,7 @@ export async function POST(request: Request) {
       );
     }
 
-    const cookieStore = await cookies();
-    const sessionCookie = cookieStore.get("session")?.value;
+    const sessionCookie = await readCookie("session");
 
     if (!sessionCookie) {
       return NextResponse.json({ message: "Unauthorized" }, { status: 401 });
@@ -115,8 +115,7 @@ export async function GET(request: Request) {
       );
     }
 
-    const cookieStore = await cookies();
-    const sessionCookie = cookieStore.get("session")?.value;
+    const sessionCookie = await readCookie("session");
 
     if (!sessionCookie) {
       return NextResponse.json({ message: "Unauthorized" }, { status: 401 });
