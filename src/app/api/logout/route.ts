@@ -6,7 +6,7 @@ export async function POST() {
 
   try {
     const cookieStore = await cookies();
-    
+
     // Clear the session cookie
     // Use optional chaining in case the cookie store implementation differs
     cookieStore?.set?.({
