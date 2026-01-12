@@ -2,7 +2,7 @@ import { NextResponse } from "next/server";
 import { adminAuth, isFirebaseInitialized } from "@/lib/firebase-admin";
 import { addInventoryItem, getFarmerHub, getHubInventory } from "@/lib/hub-db";
 import { cookies } from "next/headers";
-import { readCookie } from '@/lib/read-cookie';
+import { readCookie } from "@/lib/read-cookie";
 
 export async function POST(request: Request) {
   try {
@@ -10,10 +10,10 @@ export async function POST(request: Request) {
       // Mock mode - simulate successful product addition
       const data = await request.json();
       return NextResponse.json(
-        { 
+        {
           message: "Product added successfully",
           inventoryId: "mock-inventory-" + Date.now(),
-          batchId: "BATCH-" + Date.now()
+          batchId: "BATCH-" + Date.now(),
         },
         { status: 201 }
       );
@@ -22,17 +22,17 @@ export async function POST(request: Request) {
     const sessionCookie = await readCookie("session");
 
     if (!sessionCookie) {
-      return NextResponse.json(
-        { message: "Unauthorized" },
-        { status: 401 }
-      );
+      return NextResponse.json({ message: "Unauthorized" }, { status: 401 });
     }
 
-    const decodedToken = await adminAuth.verifySessionCookie(sessionCookie, true);
+    const decodedToken = await adminAuth.verifySessionCookie(
+      sessionCookie,
+      true
+    );
     const data = await request.json();
 
     // Validate required fields
-    const requiredFields = ['name', 'quantity', 'pricePerUnit', 'hubId'];
+    const requiredFields = ["name", "quantity", "pricePerUnit", "hubId"];
     for (const field of requiredFields) {
       if (!data[field]) {
         return NextResponse.json(
@@ -52,7 +52,10 @@ export async function POST(request: Request) {
     }
 
     // Generate batch ID
-    const batchId = `BATCH-${Date.now()}-${Math.random().toString(36).substr(2, 6).toUpperCase()}`;
+    const batchId = `BATCH-${Date.now()}-${Math.random()
+      .toString(36)
+      .substr(2, 6)
+      .toUpperCase()}`;
 
     // Get farmer name (this would typically come from user profile)
     const farmerName = `Farmer-${decodedToken.uid.slice(0, 8)}`;
@@ -67,17 +70,21 @@ export async function POST(request: Request) {
       pricePerUnit: data.pricePerUnit,
       farmerId: decodedToken.uid,
       farmerName,
-      harvestDate: data.harvestDate || new Date().toISOString().split('T')[0],
-      expiryDate: data.expiryDate || new Date(Date.now() + 7 * 24 * 60 * 60 * 1000).toISOString().split('T')[0], // Default 7 days
+      harvestDate: data.harvestDate || new Date().toISOString().split("T")[0],
+      expiryDate:
+        data.expiryDate ||
+        new Date(Date.now() + 7 * 24 * 60 * 60 * 1000)
+          .toISOString()
+          .split("T")[0], // Default 7 days
       quality: data.quality || "standard",
       batchId,
     });
 
     return NextResponse.json(
-      { 
+      {
         message: "Product added successfully",
         inventoryId,
-        batchId
+        batchId,
       },
       { status: 201 }
     );
@@ -105,10 +112,12 @@ export async function GET(request: Request) {
           status: "available",
           hubId: "hub1",
           createdAt: new Date().toISOString(),
-          harvestDate: new Date().toISOString().split('T')[0],
-          expiryDate: new Date(Date.now() + 7 * 24 * 60 * 60 * 1000).toISOString().split('T')[0],
+          harvestDate: new Date().toISOString().split("T")[0],
+          expiryDate: new Date(Date.now() + 7 * 24 * 60 * 60 * 1000)
+            .toISOString()
+            .split("T")[0],
           quality: "premium",
-          batchId: "BATCH-001"
+          batchId: "BATCH-001",
         },
         {
           id: "prod2",
@@ -120,19 +129,21 @@ export async function GET(request: Request) {
           status: "available",
           hubId: "hub1",
           createdAt: new Date().toISOString(),
-          harvestDate: new Date().toISOString().split('T')[0],
-          expiryDate: new Date(Date.now() + 5 * 24 * 60 * 60 * 1000).toISOString().split('T')[0],
+          harvestDate: new Date().toISOString().split("T")[0],
+          expiryDate: new Date(Date.now() + 5 * 24 * 60 * 60 * 1000)
+            .toISOString()
+            .split("T")[0],
           quality: "standard",
-          batchId: "BATCH-002"
-        }
+          batchId: "BATCH-002",
+        },
       ];
-      
+
       const mockHub = {
         id: "hub1",
         branchName: "Green Valley Hub",
-        location: "Bangalore North"
+        location: "Bangalore North",
       };
-      
+
       return NextResponse.json(
         { products: mockProducts, hub: mockHub },
         { status: 200 }
@@ -142,13 +153,13 @@ export async function GET(request: Request) {
     const sessionCookie = await readCookie("session");
 
     if (!sessionCookie) {
-      return NextResponse.json(
-        { message: "Unauthorized" },
-        { status: 401 }
-      );
+      return NextResponse.json({ message: "Unauthorized" }, { status: 401 });
     }
 
-    const decodedToken = await adminAuth.verifySessionCookie(sessionCookie, true);
+    const decodedToken = await adminAuth.verifySessionCookie(
+      sessionCookie,
+      true
+    );
 
     const farmerHub = await getFarmerHub(decodedToken.uid);
     if (!farmerHub) {
@@ -158,12 +169,12 @@ export async function GET(request: Request) {
       );
     }
 
-    const { getHubInventory } = await import('@/lib/hub-db');
+    const { getHubInventory } = await import("@/lib/hub-db");
     const hubInventory = await getHubInventory(farmerHub.id);
-    
+
     const products = hubInventory
-      .filter(item => item.farmerId === decodedToken.uid)
-      .map(item => ({
+      .filter((item) => item.farmerId === decodedToken.uid)
+      .map((item) => ({
         id: item.id,
         productName: item.productName,
         category: item.category,
@@ -176,13 +187,10 @@ export async function GET(request: Request) {
         harvestDate: item.harvestDate,
         expiryDate: item.expiryDate,
         quality: item.quality,
-        batchId: item.batchId
+        batchId: item.batchId,
       }));
 
-    return NextResponse.json(
-      { products, hub: farmerHub },
-      { status: 200 }
-    );
+    return NextResponse.json({ products, hub: farmerHub }, { status: 200 });
   } catch (error: any) {
     console.error("Get Farmer Products Error:", error);
     return NextResponse.json(
