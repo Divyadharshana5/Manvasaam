@@ -1,6 +1,6 @@
 import type { Metadata, Viewport } from "next";
 import { LanguageProvider } from "@/context/language-context";
-import { cookies } from "next/headers";
+import { readCookie } from "@/lib/read-cookie";
 
 import "../styles/hide-scrollbar.css";
 import "./globals.css";
@@ -102,24 +102,13 @@ export const viewport: Viewport = {
   themeColor: "#22c55e",
 };
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
   // Read language cookie on the server and pass it to the client provider
-  let langCookie: string | undefined;
-  try {
-    // cookies() may return different shapes across Next.js versions; use safe access
-    const cookieStore = cookies();
-    // prefer the get() API when available
-    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-    // @ts-ignore
-    langCookie = cookieStore?.get?.("manvaasam-language")?.value;
-  } catch (e) {
-    // If headers API isn't available at runtime, gracefully ignore
-    langCookie = undefined;
-  }
+  const langCookie = await readCookie("manvaasam-language");
   return (
     <html lang="en" suppressHydrationWarning>
       <head>
