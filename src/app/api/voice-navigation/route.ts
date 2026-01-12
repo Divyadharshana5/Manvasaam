@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { cookies } from 'next/headers';
+import { readCookie } from '@/lib/read-cookie';
 
 // Simple speech-to-text using Web Speech API (fallback for demo)
 // In production, you'd use a proper STT service
@@ -10,8 +11,7 @@ export async function POST(request: NextRequest) {
     const { audioDataUri, language = 'English' } = body;
 
     // Check authentication status
-    const cookieStore = await cookies();
-    const sessionCookie = cookieStore.get('session')?.value;
+    const sessionCookie = await readCookie('session');
     const isAuthenticated = !!sessionCookie;
 
     // For demo purposes, we'll use a simple keyword matching approach
