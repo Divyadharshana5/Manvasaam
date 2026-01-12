@@ -1,5 +1,4 @@
 import { NextRequest, NextResponse } from "next/server";
-import { cookies } from "next/headers";
 import { readCookie } from "@/lib/read-cookie";
 
 // Simple speech-to-text using Web Speech API (fallback for demo)

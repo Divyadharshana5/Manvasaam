@@ -1,7 +1,6 @@
 import { AppLayout } from "@/components/app-layout";
 import { DashboardContent } from "@/components/dashboard-content";
 import { adminAuth, adminDb } from "@/lib/firebase-admin";
-import { cookies } from "next/headers";
 import { readCookie } from "@/lib/read-cookie";
 import { redirect } from "next/navigation";
 
