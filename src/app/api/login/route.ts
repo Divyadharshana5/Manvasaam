@@ -84,7 +84,8 @@ export async function POST(request: Request) {
 
     try {
       const cookieStore = await cookies();
-      cookieStore.set({
+      // Use optional chaining to support different cookie store shapes
+      cookieStore?.set?.({
         name: "session",
         value: sessionCookie,
         maxAge: expiresIn,
