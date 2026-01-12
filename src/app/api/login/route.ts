@@ -102,10 +102,11 @@ export async function POST(request: Request) {
       if (userInfo?.email) {
         // In a real app, you'd get this from your user database
         // For demo, we'll try to infer from email or use localStorage on client
-        if (userInfo.email.includes('farmer')) detectedUserType = 'farmer';
-        else if (userInfo.email.includes('hub')) detectedUserType = 'hub';
-        else if (userInfo.email.includes('restaurant')) detectedUserType = 'restaurant';
-        else detectedUserType = 'customer'; // default
+        if (userInfo.email.includes("farmer")) detectedUserType = "farmer";
+        else if (userInfo.email.includes("hub")) detectedUserType = "hub";
+        else if (userInfo.email.includes("restaurant"))
+          detectedUserType = "restaurant";
+        else detectedUserType = "customer"; // default
       }
 
       const successResponse = {
