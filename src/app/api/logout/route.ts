@@ -8,7 +8,8 @@ export async function POST() {
     const cookieStore = await cookies();
     
     // Clear the session cookie
-    cookieStore.set({
+    // Use optional chaining in case the cookie store implementation differs
+    cookieStore?.set?.({
       name: "session",
       value: "",
       maxAge: 0,
