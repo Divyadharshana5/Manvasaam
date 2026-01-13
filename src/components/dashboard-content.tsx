@@ -77,7 +77,10 @@ export function DashboardContent({
   displayName,
 }: DashboardContentProps) {
   const { t } = useLanguage();
-  console.log("[DashboardContent] using language t:", t?.dashboard?.totalRevenue);
+  console.log(
+    "[DashboardContent] using language t:",
+    t?.dashboard?.totalRevenue
+  );
 
   const renderGeneralDashboard = () => (
     <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
