@@ -2361,6 +2361,7 @@ export const LanguageProvider = ({
   }, []);
 
   const handleSetLanguage = (language: Language) => {
+    console.log("[LanguageProvider] setSelectedLanguage called ->", language);
     setSelectedLanguage(language);
     if (typeof window !== "undefined") {
       try {
