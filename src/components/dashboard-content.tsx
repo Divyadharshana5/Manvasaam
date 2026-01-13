@@ -76,11 +76,27 @@ export function DashboardContent({
   userProfile,
   displayName,
 }: DashboardContentProps) {
-  const { t } = useLanguage();
+  const { t, selectedLanguage, setSelectedLanguage } = useLanguage();
   console.log(
     "[DashboardContent] using language t:",
-    t?.dashboard?.totalRevenue
+    t?.dashboard?.totalRevenue,
+    "selected:",
+    selectedLanguage
   );
+
+  React.useEffect(() => {
+    try {
+      const stored = typeof window !== "undefined" ? localStorage.getItem("manvaasam-language") : null;
+      if (stored && stored !== selectedLanguage) {
+        console.log("[DashboardContent] syncing language from localStorage:", stored);
+        // @ts-ignore
+        setSelectedLanguage(stored);
+      }
+    } catch (e) {
+      // ignore
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   const renderGeneralDashboard = () => (
     <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
