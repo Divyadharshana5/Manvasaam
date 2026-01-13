@@ -86,9 +86,15 @@ export function DashboardContent({
 
   React.useEffect(() => {
     try {
-      const stored = typeof window !== "undefined" ? localStorage.getItem("manvaasam-language") : null;
+      const stored =
+        typeof window !== "undefined"
+          ? localStorage.getItem("manvaasam-language")
+          : null;
       if (stored && stored !== selectedLanguage) {
-        console.log("[DashboardContent] syncing language from localStorage:", stored);
+        console.log(
+          "[DashboardContent] syncing language from localStorage:",
+          stored
+        );
         // @ts-ignore
         setSelectedLanguage(stored);
       }
