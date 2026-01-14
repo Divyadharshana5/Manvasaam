@@ -186,6 +186,8 @@ export default function RetailLayout({
 }: {
   children: React.ReactNode;
 }) {
+  const { t } = useLanguage();
+  const sidebarItems = makeSidebarItems(t);
   const { toast } = useToast();
   const router = useRouter();
   const [sidebarOpen, setSidebarOpen] = useState(false);
