@@ -52,7 +52,11 @@ function Sidebar({
         <div className="flex-1 space-y-4 py-4">
           <div className="px-3 py-2">
             <div className="flex items-center gap-2 mb-6 p-3 rounded-lg border">
-              <h2 className="text-lg font-semibold">{t.dashboard?.title ? `${t.dashboard.title} Portal` : "Retail Portal"}</h2>
+              <h2 className="text-lg font-semibold">
+                {t.dashboard?.title
+                  ? `${t.dashboard.title} Portal`
+                  : "Retail Portal"}
+              </h2>
             </div>
             <div className="space-y-1">
               {sidebarItems.map((item) => (
@@ -82,7 +86,9 @@ function Sidebar({
           <div className="flex items-center gap-2 mb-6 p-3 rounded-lg bg-gradient-to-r from-emerald-100 to-green-100 dark:from-emerald-900 dark:to-green-900 border border-emerald-200 dark:border-emerald-700">
             <Building className="h-5 w-5 text-emerald-600 dark:text-emerald-400" />
             <h2 className="text-lg font-semibold text-emerald-800 dark:text-emerald-200">
-              {t.dashboard?.title ? `${t.dashboard.title} Portal` : "Retail Portal"}
+              {t.dashboard?.title
+                ? `${t.dashboard.title} Portal`
+                : "Retail Portal"}
             </h2>
           </div>
           <div className="space-y-1">
@@ -137,39 +143,39 @@ function Sidebar({
   );
 }
 
-const sidebarItems = [
+const makeSidebarItems = (t: any) => [
   {
-    title: "Overview",
+    title: t?.sidebar?.dashboard || "Overview",
     href: "/dashboard/retail",
     icon: LayoutDashboard,
   },
   {
-    title: "Inventory",
+    title: t?.products?.title || "Inventory",
     href: "/dashboard/retail/inventory",
     icon: Warehouse,
   },
   {
-    title: "Orders",
+    title: t?.sidebar?.orders || "Orders",
     href: "/dashboard/retail/orders",
     icon: ShoppingCart,
   },
   {
-    title: "Suppliers",
+    title: t?.sidebar?.matchmaking || "Suppliers",
     href: "/dashboard/retail/suppliers",
     icon: Users,
   },
   {
-    title: "Analytics",
+    title: t?.sidebar?.marketing || "Analytics",
     href: "/dashboard/retail/analytics",
     icon: BarChart3,
   },
   {
-    title: "Shop Profile",
+    title: t?.sidebar?.profile || "Shop Profile",
     href: "/dashboard/retail/profile",
     icon: Settings,
   },
   {
-    title: "FAQ",
+    title: t?.sidebar?.faq || "FAQ",
     href: "/dashboard/faq",
     icon: HelpCircle,
   },
