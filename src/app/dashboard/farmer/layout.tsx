@@ -33,12 +33,19 @@ import {
 function Sidebar({
   className,
   onSignOut,
+  sidebarItems,
 }: {
   className?: string;
   onSignOut: () => void;
+  sidebarItems: {
+    title: string;
+    href: string;
+    icon: any;
+  }[];
 }) {
   const pathname = usePathname();
   const [mounted, setMounted] = useState(false);
+  const { t } = useLanguage();
 
   useEffect(() => {
     setMounted(true);
@@ -50,9 +57,7 @@ function Sidebar({
         <div className="flex-1 space-y-4 py-4">
           <div className="px-3 py-2">
             <div className="flex items-center gap-2 mb-6 p-3 rounded-lg border">
-              <h2 className="text-lg font-semibold">{`${
-                t.roles?.farmer?.name || "Farmer"
-              } Portal`}</h2>
+              <h2 className="text-lg font-semibold">{`${t.roles?.farmer?.name || "Farmer"} Portal`}</h2>
             </div>
             <div className="space-y-1">
               {sidebarItems.map((item) => (
