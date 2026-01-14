@@ -50,7 +50,9 @@ function Sidebar({
         <div className="flex-1 space-y-4 py-4">
           <div className="px-3 py-2">
             <div className="flex items-center gap-2 mb-6 p-3 rounded-lg border">
-              <h2 className="text-lg font-semibold">{`${t.roles?.farmer?.name || "Farmer"} Portal`}</h2>
+              <h2 className="text-lg font-semibold">{`${
+                t.roles?.farmer?.name || "Farmer"
+              } Portal`}</h2>
             </div>
             <div className="space-y-1">
               {sidebarItems.map((item) => (
@@ -129,39 +131,39 @@ function Sidebar({
   );
 }
 
-const sidebarItems = [
+const makeSidebarItems = (t: any) => [
   {
-    title: "Overview",
+    title: t?.sidebar?.dashboard || "Overview",
     href: "/dashboard/farmer",
     icon: LayoutDashboard,
   },
   {
-    title: "My Products",
+    title: t?.sidebar?.products || "My Products",
     href: "/dashboard/farmer/products",
     icon: Package,
   },
   {
-    title: "Orders",
+    title: t?.sidebar?.orders || "Orders",
     href: "/dashboard/orders",
     icon: ShoppingCart,
   },
   {
-    title: "Matchmaking",
+    title: t?.sidebar?.matchmaking || "Matchmaking",
     href: "/dashboard/farmer/matchmaking",
     icon: Users,
   },
   {
-    title: "Analytics",
+    title: t?.sidebar?.marketing || "Analytics",
     href: "/dashboard/farmer/analytics",
     icon: BarChart3,
   },
   {
-    title: "Profile",
+    title: t?.sidebar?.profile || "Profile",
     href: "/dashboard/farmer/profile",
     icon: Settings,
   },
   {
-    title: "FAQ",
+    title: t?.sidebar?.faq || "FAQ",
     href: "/dashboard/faq",
     icon: HelpCircle,
   },
