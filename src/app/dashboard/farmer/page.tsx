@@ -162,9 +162,9 @@ export default function FarmerDashboard() {
       opacity: 1,
       transition: {
         duration: 0.6,
-        staggerChildren: 0.1
-      }
-    }
+        staggerChildren: 0.1,
+      },
+    },
   };
 
   const itemVariants = {
@@ -172,8 +172,8 @@ export default function FarmerDashboard() {
     visible: {
       opacity: 1,
       y: 0,
-      transition: { duration: 0.5 }
-    }
+      transition: { duration: 0.5 },
+    },
   };
 
   const cardVariants = {
@@ -181,23 +181,23 @@ export default function FarmerDashboard() {
     visible: {
       opacity: 1,
       scale: 1,
-      transition: { duration: 0.4 }
+      transition: { duration: 0.4 },
     },
     hover: {
       scale: 1.02,
-      transition: { duration: 0.2 }
-    }
+      transition: { duration: 0.2 },
+    },
   };
 
   return (
-    <motion.div 
+    <motion.div
       className="flex flex-1 flex-col gap-4 p-4 md:gap-8 md:p-8"
       variants={containerVariants}
       initial="hidden"
       animate="visible"
     >
       {/* Status and Search */}
-      <motion.div 
+      <motion.div
         className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4"
         variants={itemVariants}
       >
@@ -215,7 +215,9 @@ export default function FarmerDashboard() {
           <div className="relative">
             <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground pointer-events-none z-10" />
             <Input
-              placeholder={t.orders?.searchPlaceholder || "Search products, orders..."}
+              placeholder={
+                t.orders?.searchPlaceholder || "Search products, orders..."
+              }
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
               className="pl-10 pr-10 w-64 search-input"
@@ -256,16 +258,19 @@ export default function FarmerDashboard() {
         </div>
       </motion.div>
 
-      <motion.div 
+      <motion.div
         className="flex items-center justify-between"
         variants={itemVariants}
       >
         <div>
           <h1 className="text-3xl font-bold tracking-tight">
-            {`${t.roles?.farmer?.name || "Farmer"} ${t.dashboard?.title || "Dashboard"}`}
+            {`${t.roles?.farmer?.name || "Farmer"} ${
+              t.dashboard?.title || "Dashboard"
+            }`}
           </h1>
           <p className="text-muted-foreground">
-            {t.dashboard?.welcome || "Manage your crops and connect with buyers"}
+            {t.dashboard?.welcome ||
+              "Manage your crops and connect with buyers"}
           </p>
         </div>
         <div className="flex gap-2">
@@ -273,14 +278,11 @@ export default function FarmerDashboard() {
         </div>
       </motion.div>
 
-      <motion.div 
+      <motion.div
         className="grid gap-4 md:grid-cols-2 lg:grid-cols-4"
         variants={containerVariants}
       >
-        <motion.div
-          variants={cardVariants}
-          whileHover="hover"
-        >
+        <motion.div variants={cardVariants} whileHover="hover">
           <Card className="transition-shadow duration-300 hover:shadow-lg">
             <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
               <CardTitle className="text-sm font-medium">
@@ -293,30 +295,29 @@ export default function FarmerDashboard() {
                 <Package className="h-4 w-4 text-muted-foreground" />
               </motion.div>
             </CardHeader>
-          <CardContent>
-            <motion.div 
-              className="text-2xl font-bold"
-              initial={{ scale: 0 }}
-              animate={{ scale: 1 }}
-              transition={{ type: "spring", stiffness: 100, delay: 0.2 }}
-            >
-              {stats.activeProducts}
-            </motion.div>
-            <p className="text-xs text-muted-foreground">
-              {stats.activeProducts > 0
-                ? "In your inventory"
-                : "No products yet"}
-            </p>
-          </CardContent>
+            <CardContent>
+              <motion.div
+                className="text-2xl font-bold"
+                initial={{ scale: 0 }}
+                animate={{ scale: 1 }}
+                transition={{ type: "spring", stiffness: 100, delay: 0.2 }}
+              >
+                {stats.activeProducts}
+              </motion.div>
+              <p className="text-xs text-muted-foreground">
+                {stats.activeProducts > 0
+                  ? "In your inventory"
+                  : "No products yet"}
+              </p>
+            </CardContent>
           </Card>
         </motion.div>
-        <motion.div
-          variants={cardVariants}
-          whileHover="hover"
-        >
+        <motion.div variants={cardVariants} whileHover="hover">
           <Card className="transition-shadow duration-300 hover:shadow-lg">
             <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-              <CardTitle className="text-sm font-medium">Total Orders</CardTitle>
+              <CardTitle className="text-sm font-medium">
+                Total Orders
+              </CardTitle>
               <motion.div
                 animate={{ scale: [1, 1.1, 1] }}
                 transition={{ duration: 2, repeat: Infinity, repeatDelay: 3 }}
@@ -325,7 +326,7 @@ export default function FarmerDashboard() {
               </motion.div>
             </CardHeader>
             <CardContent>
-              <motion.div 
+              <motion.div
                 className="text-2xl font-bold"
                 initial={{ scale: 0 }}
                 animate={{ scale: 1 }}
@@ -337,10 +338,7 @@ export default function FarmerDashboard() {
             </CardContent>
           </Card>
         </motion.div>
-        <motion.div
-          variants={cardVariants}
-          whileHover="hover"
-        >
+        <motion.div variants={cardVariants} whileHover="hover">
           <Card className="transition-shadow duration-300 hover:shadow-lg">
             <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
               <CardTitle className="text-sm font-medium">
@@ -354,7 +352,7 @@ export default function FarmerDashboard() {
               </motion.div>
             </CardHeader>
             <CardContent>
-              <motion.div 
+              <motion.div
                 className="text-2xl font-bold"
                 initial={{ scale: 0 }}
                 animate={{ scale: 1 }}
@@ -368,10 +366,7 @@ export default function FarmerDashboard() {
             </CardContent>
           </Card>
         </motion.div>
-        <motion.div
-          variants={cardVariants}
-          whileHover="hover"
-        >
+        <motion.div variants={cardVariants} whileHover="hover">
           <Card className="transition-shadow duration-300 hover:shadow-lg">
             <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
               <CardTitle className="text-sm font-medium">
@@ -385,7 +380,7 @@ export default function FarmerDashboard() {
               </motion.div>
             </CardHeader>
             <CardContent>
-              <motion.div 
+              <motion.div
                 className="text-2xl font-bold"
                 initial={{ scale: 0 }}
                 animate={{ scale: 1 }}
@@ -401,14 +396,11 @@ export default function FarmerDashboard() {
         </motion.div>
       </motion.div>
 
-      <motion.div 
+      <motion.div
         className="grid gap-4 md:grid-cols-2 lg:grid-cols-4"
         variants={containerVariants}
       >
-        <motion.div
-          variants={cardVariants}
-          whileHover="hover"
-        >
+        <motion.div variants={cardVariants} whileHover="hover">
           <Card className="border-green-200 transition-shadow duration-300 hover:shadow-lg">
             <CardHeader className="pb-3">
               <div className="flex items-center gap-2">
@@ -422,7 +414,7 @@ export default function FarmerDashboard() {
               </div>
             </CardHeader>
             <CardContent>
-              <motion.div 
+              <motion.div
                 className="text-2xl font-bold text-green-600"
                 initial={{ scale: 0 }}
                 animate={{ scale: 1 }}
@@ -463,7 +455,9 @@ export default function FarmerDashboard() {
                   size="sm"
                   className="mt-2 w-full transition-all duration-300"
                   onClick={() =>
-                    router.push("/dashboard/farmer/products?category=vegetables")
+                    router.push(
+                      "/dashboard/farmer/products?category=vegetables"
+                    )
                   }
                 >
                   Manage
@@ -472,16 +466,17 @@ export default function FarmerDashboard() {
             </CardContent>
           </Card>
         </motion.div>
-        <motion.div
-          variants={cardVariants}
-          whileHover="hover"
-        >
+        <motion.div variants={cardVariants} whileHover="hover">
           <Card className="border-orange-200 transition-shadow duration-300 hover:shadow-lg">
             <CardHeader className="pb-3">
               <div className="flex items-center gap-2">
                 <motion.div
                   animate={{ scale: [1, 1.1, 1] }}
-                  transition={{ duration: 2.5, repeat: Infinity, repeatDelay: 4 }}
+                  transition={{
+                    duration: 2.5,
+                    repeat: Infinity,
+                    repeatDelay: 4,
+                  }}
                 >
                   <Apple className="h-5 w-5 text-orange-600" />
                 </motion.div>
@@ -489,7 +484,7 @@ export default function FarmerDashboard() {
               </div>
             </CardHeader>
             <CardContent>
-              <motion.div 
+              <motion.div
                 className="text-2xl font-bold text-orange-600"
                 initial={{ scale: 0 }}
                 animate={{ scale: 1 }}
@@ -539,10 +534,7 @@ export default function FarmerDashboard() {
             </CardContent>
           </Card>
         </motion.div>
-        <motion.div
-          variants={cardVariants}
-          whileHover="hover"
-        >
+        <motion.div variants={cardVariants} whileHover="hover">
           <Card className="border-amber-200 transition-shadow duration-300 hover:shadow-lg">
             <CardHeader className="pb-3">
               <div className="flex items-center gap-2">
@@ -556,7 +548,7 @@ export default function FarmerDashboard() {
               </div>
             </CardHeader>
             <CardContent>
-              <motion.div 
+              <motion.div
                 className="text-2xl font-bold text-amber-600"
                 initial={{ scale: 0 }}
                 animate={{ scale: 1 }}
@@ -606,10 +598,7 @@ export default function FarmerDashboard() {
             </CardContent>
           </Card>
         </motion.div>
-        <motion.div
-          variants={cardVariants}
-          whileHover="hover"
-        >
+        <motion.div variants={cardVariants} whileHover="hover">
           <Card className="border-emerald-200 transition-shadow duration-300 hover:shadow-lg">
             <CardHeader className="pb-3">
               <div className="flex items-center gap-2">
@@ -623,7 +612,7 @@ export default function FarmerDashboard() {
               </div>
             </CardHeader>
             <CardContent>
-              <motion.div 
+              <motion.div
                 className="text-2xl font-bold text-emerald-600"
                 initial={{ scale: 0 }}
                 animate={{ scale: 1 }}
@@ -675,25 +664,19 @@ export default function FarmerDashboard() {
         </motion.div>
       </motion.div>
 
-      <motion.div 
+      <motion.div
         className="grid gap-4 md:grid-cols-2"
         variants={containerVariants}
       >
-        <motion.div
-          variants={cardVariants}
-          whileHover="hover"
-        >
+        <motion.div variants={cardVariants} whileHover="hover">
           <Card className="transition-shadow duration-300 hover:shadow-lg">
             <CardHeader>
               <CardTitle>Recent Orders</CardTitle>
               <CardDescription>Latest orders from buyers</CardDescription>
             </CardHeader>
             <CardContent>
-              <motion.div 
-                className="space-y-4"
-                variants={containerVariants}
-              >
-                <motion.div 
+              <motion.div className="space-y-4" variants={containerVariants}>
+                <motion.div
                   className="flex items-center justify-between p-2 rounded-lg transition-colors hover:bg-gray-50"
                   variants={itemVariants}
                   whileHover={{ x: 5 }}
@@ -701,7 +684,11 @@ export default function FarmerDashboard() {
                   <div className="flex items-center gap-3">
                     <motion.div
                       animate={{ scale: [1, 1.1, 1] }}
-                      transition={{ duration: 2, repeat: Infinity, repeatDelay: 4 }}
+                      transition={{
+                        duration: 2,
+                        repeat: Infinity,
+                        repeatDelay: 4,
+                      }}
                     >
                       <CheckCircle className="h-4 w-4 text-green-600" />
                     </motion.div>
@@ -714,7 +701,7 @@ export default function FarmerDashboard() {
                   </div>
                   <Badge variant="secondary">Delivered</Badge>
                 </motion.div>
-                <motion.div 
+                <motion.div
                   className="flex items-center justify-between p-2 rounded-lg transition-colors hover:bg-gray-50"
                   variants={itemVariants}
                   whileHover={{ x: 5 }}
@@ -722,7 +709,11 @@ export default function FarmerDashboard() {
                   <div className="flex items-center gap-3">
                     <motion.div
                       animate={{ rotate: [0, 360] }}
-                      transition={{ duration: 3, repeat: Infinity, ease: "linear" }}
+                      transition={{
+                        duration: 3,
+                        repeat: Infinity,
+                        ease: "linear",
+                      }}
                     >
                       <Clock className="h-4 w-4 text-yellow-600" />
                     </motion.div>
@@ -733,7 +724,7 @@ export default function FarmerDashboard() {
                   </div>
                   <Badge variant="outline">Processing</Badge>
                 </motion.div>
-                <motion.div 
+                <motion.div
                   className="flex items-center justify-between p-2 rounded-lg transition-colors hover:bg-gray-50"
                   variants={itemVariants}
                   whileHover={{ x: 5 }}
@@ -778,26 +769,25 @@ export default function FarmerDashboard() {
           </Card>
         </motion.div>
 
-        <motion.div
-          variants={cardVariants}
-          whileHover="hover"
-        >
+        <motion.div variants={cardVariants} whileHover="hover">
           <Card className="transition-shadow duration-300 hover:shadow-lg">
             <CardHeader>
               <CardTitle>Quick Actions</CardTitle>
-              <CardDescription>Frequently used farmer operations</CardDescription>
+              <CardDescription>
+                Frequently used farmer operations
+              </CardDescription>
             </CardHeader>
             <CardContent>
-              <motion.div 
-                className="grid gap-3"
-                variants={containerVariants}
-              >
+              <motion.div className="grid gap-3" variants={containerVariants}>
                 <motion.div
                   variants={itemVariants}
                   whileHover={{ scale: 1.02 }}
                   whileTap={{ scale: 0.98 }}
                 >
-                  <AddProductButton products={products} className="justify-start transition-all duration-300" />
+                  <AddProductButton
+                    products={products}
+                    className="justify-start transition-all duration-300"
+                  />
                 </motion.div>
                 <motion.div
                   variants={itemVariants}
