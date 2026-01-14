@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import { useLanguage } from "@/context/language-context";
 import {
   Card,
   CardHeader,
@@ -366,6 +367,8 @@ export default function ProfilePage() {
 
   const loading = authLoading || profileLoading;
 
+  const { t } = useLanguage();
+
   const getProfileIcon = (userType?: string) => {
     switch (userType) {
       case 'retail': return Store;
@@ -439,7 +442,7 @@ export default function ProfilePage() {
             <div className="flex-1 space-y-3">
               <div className="flex flex-col sm:flex-row sm:items-center gap-3">
                 <h2 className="text-3xl font-bold text-gray-900 leading-tight">
-                  {getProfileTitle(userProfile) || "Profile"}
+                  {getProfileTitle(userProfile) || (t.profile?.title || "Profile")}
                 </h2>
                 <div className="flex items-center gap-2">
                   {userProfile.verified && (
