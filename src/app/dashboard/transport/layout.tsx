@@ -140,44 +140,44 @@ function Sidebar({
   );
 }
 
-const sidebarItems = [
+const makeSidebarItems = (t: any) => [
   {
-    title: "Overview",
+    title: t?.sidebar?.dashboard || "Overview",
     href: "/dashboard/transport",
     icon: LayoutDashboard,
   },
   {
-    title: "Deliveries",
+    title: t?.sidebar?.products || "Deliveries",
     href: "/dashboard/transport/deliveries",
     icon: Package,
   },
   {
-    title: "Fleet Tracking",
+    title: t?.sidebar?.track || "Fleet Tracking",
     href: "/dashboard/transport/tracking",
     icon: Navigation,
   },
   {
-    title: "Routes",
+    title: t?.sidebar?.matchmaking || "Routes",
     href: "/dashboard/transport/routes",
     icon: Route,
   },
   {
-    title: "Maintenance",
+    title: t?.sidebar?.marketing || "Maintenance",
     href: "/dashboard/transport/maintenance",
     icon: Wrench,
   },
   {
-    title: "Analytics",
+    title: t?.sidebar?.marketing || "Analytics",
     href: "/dashboard/transport/analytics",
     icon: BarChart3,
   },
   {
-    title: "Profile",
+    title: t?.sidebar?.profile || "Profile",
     href: "/dashboard/transport/profile",
     icon: Settings,
   },
   {
-    title: "FAQ",
+    title: t?.sidebar?.faq || "FAQ",
     href: "/dashboard/faq",
     icon: HelpCircle,
   },
@@ -188,6 +188,8 @@ export default function TransportLayout({
 }: {
   children: React.ReactNode;
 }) {
+  const { t } = useLanguage();
+  const sidebarItems = makeSidebarItems(t);
   const { toast } = useToast();
   const router = useRouter();
   const [sidebarOpen, setSidebarOpen] = useState(false);
