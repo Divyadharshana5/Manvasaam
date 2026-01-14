@@ -56,7 +56,9 @@ function Sidebar({
           <div className="px-3 py-2">
             <div className="flex items-center gap-2 mb-6 p-3 rounded-lg border">
               <h2 className="text-lg font-semibold">
-                {t.dashboard?.title ? `${t.dashboard.title} Portal` : "Retail Portal"}
+                {t.dashboard?.title
+                  ? `${t.dashboard.title} Portal`
+                  : "Retail Portal"}
               </h2>
             </div>
             <div className="space-y-1">
@@ -194,6 +196,7 @@ export default function RetailLayout({
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const { isListening, startListening } = useVoiceAssistant();
   const { navigate, preload } = useFastNavigation();
+  const sidebarItems = makeSidebarItems(t);
 
   // Preload all retail routes on mount for instant navigation
   useEffect(() => {
