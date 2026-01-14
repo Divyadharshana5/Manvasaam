@@ -57,7 +57,9 @@ function Sidebar({
         <div className="flex-1 space-y-4 py-4">
           <div className="px-3 py-2">
             <div className="flex items-center gap-2 mb-6 p-3 rounded-lg border">
-              <h2 className="text-lg font-semibold">{`${t.roles?.farmer?.name || "Farmer"} Portal`}</h2>
+              <h2 className="text-lg font-semibold">{`${
+                t.roles?.farmer?.name || "Farmer"
+              } Portal`}</h2>
             </div>
             <div className="space-y-1">
               {sidebarItems.map((item) => (
@@ -223,8 +225,8 @@ export default function FarmerLayout({
   return (
     <div className="grid min-h-screen w-full md:grid-cols-[220px_1fr] lg:grid-cols-[280px_1fr]">
       <div className="hidden border-r border-emerald-200 dark:border-emerald-700 bg-gradient-to-b from-emerald-50/50 to-green-50/50 dark:from-emerald-950/50 dark:to-green-950/50 md:block">
-        <div className="flex h-full max-h-screen flex-col">
-          <Sidebar onSignOut={handleSignOut} />
+          <div className="flex h-full max-h-screen flex-col">
+          <Sidebar onSignOut={handleSignOut} sidebarItems={sidebarItems} />
         </div>
       </div>
       <div className="flex flex-col">
@@ -240,7 +242,7 @@ export default function FarmerLayout({
               </Button>
             </SheetTrigger>
             <SheetContent side="left" className="flex flex-col">
-              <Sidebar onSignOut={handleSignOut} />
+              <Sidebar onSignOut={handleSignOut} sidebarItems={sidebarItems} />
             </SheetContent>
           </Sheet>
           <div className="w-full flex-1">
