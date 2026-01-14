@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useState, useEffect } from "react";
+import { useLanguage } from "@/context/language-context";
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
 import { cn } from "@/lib/utils";
@@ -51,7 +52,7 @@ function Sidebar({
         <div className="flex-1 space-y-4 py-4">
           <div className="px-3 py-2">
             <div className="flex items-center gap-2 mb-6 p-3 rounded-lg border">
-              <h2 className="text-lg font-semibold">Retail Portal</h2>
+              <h2 className="text-lg font-semibold">{t.dashboard?.title ? `${t.dashboard.title} Portal` : "Retail Portal"}</h2>
             </div>
             <div className="space-y-1">
               {sidebarItems.map((item) => (
@@ -81,7 +82,7 @@ function Sidebar({
           <div className="flex items-center gap-2 mb-6 p-3 rounded-lg bg-gradient-to-r from-emerald-100 to-green-100 dark:from-emerald-900 dark:to-green-900 border border-emerald-200 dark:border-emerald-700">
             <Building className="h-5 w-5 text-emerald-600 dark:text-emerald-400" />
             <h2 className="text-lg font-semibold text-emerald-800 dark:text-emerald-200">
-              Retail Portal
+              {t.dashboard?.title ? `${t.dashboard.title} Portal` : "Retail Portal"}
             </h2>
           </div>
           <div className="space-y-1">
