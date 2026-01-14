@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useEffect } from "react";
+import { useLanguage } from "@/context/language-context";
 import { useAuth } from "@/hooks/use-auth";
 import { useToast } from "@/hooks/use-toast";
 import { motion, AnimatePresence } from "framer-motion";
@@ -67,13 +68,15 @@ function AddProductButton({
 
   const router = useRouter();
 
+  const { t } = useLanguage();
+
   return (
     <Button
       onClick={() => router.push(href)}
       className={cn(buttonVariants(), className)}
     >
       <Plus className="mr-2 h-4 w-4" />
-      Add Product
+      {t.products ? `Add ${t.products.title}` : "Add Product"}
     </Button>
   );
 }
@@ -102,6 +105,8 @@ export default function FarmerDashboard() {
       fetchFarmerProducts();
     }
   }, [user]);
+
+  const { t } = useLanguage();
 
   useEffect(() => {
     const handleMessage = (event: MessageEvent) => {
@@ -210,7 +215,7 @@ export default function FarmerDashboard() {
           <div className="relative">
             <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground pointer-events-none z-10" />
             <Input
-              placeholder="Search products, orders..."
+              placeholder={t.orders?.searchPlaceholder || "Search products, orders..."}
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
               className="pl-10 pr-10 w-64 search-input"
@@ -257,10 +262,10 @@ export default function FarmerDashboard() {
       >
         <div>
           <h1 className="text-3xl font-bold tracking-tight">
-            Farmer Dashboard
+            {`${t.roles?.farmer?.name || "Farmer"} ${t.dashboard?.title || "Dashboard"}`}
           </h1>
           <p className="text-muted-foreground">
-            Manage your crops and connect with buyers
+            {t.dashboard?.welcome || "Manage your crops and connect with buyers"}
           </p>
         </div>
         <div className="flex gap-2">
