@@ -32,6 +32,7 @@ import {
   MessageCircle,
   Phone,
   QrCode,
+import { useLanguage } from "@/context/language-context";
   CreditCard,
   Bell,
   Eye,
