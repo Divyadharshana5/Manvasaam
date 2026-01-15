@@ -35,9 +35,11 @@ import {
 } from "lucide-react";
 import Link from "next/link";
 import { useState } from "react";
+import { useLanguage } from "@/context/language-context";
 import { useRouter } from "next/navigation";
 
 export default function OrdersPage() {
+  const { t } = useLanguage();
   const router = useRouter();
   const [searchQuery, setSearchQuery] = useState("");
   const [statusFilter, setStatusFilter] = useState("all");
@@ -344,8 +346,8 @@ For real-time updates, contact supplier at ${order.supplierContact}
     <div className="space-y-6 page-transition">
       <div className="flex items-center justify-between animate-fade-in-up">
         <div>
-          <h1 className="text-3xl font-bold">Orders Management</h1>
-          <p className="text-muted-foreground">Track and manage your supplier orders</p>
+          <h1 className="text-3xl font-bold">{t?.orders?.title ?? "Orders Management"}</h1>
+          <p className="text-muted-foreground">{t?.orders?.description ?? "Track and manage your supplier orders"}</p>
         </div>
         <div className="flex space-x-2">
           <Button 
@@ -354,14 +356,14 @@ For real-time updates, contact supplier at ${order.supplierContact}
             disabled={filteredOrders.length === 0}
           >
             <Download className="mr-2 h-4 w-4" />
-            Export
+            {t?.dashboard?.export ?? "Export"}
           </Button>
           <Button 
             className="bg-emerald-600 hover:bg-emerald-700"
             onClick={handleNewOrder}
           >
             <Plus className="mr-2 h-4 w-4" />
-            New Order
+            {t?.orders?.placeOrder ?? "New Order"}
           </Button>
         </div>
       </div>
