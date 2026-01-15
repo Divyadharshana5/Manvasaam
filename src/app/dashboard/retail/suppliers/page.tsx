@@ -25,8 +25,10 @@ import {
 } from "lucide-react";
 import Link from "next/link";
 import { useState } from "react";
+import { useLanguage } from "@/context/language-context";
 
 export default function SuppliersPage() {
+    const { t } = useLanguage();
     const [searchQuery, setSearchQuery] = useState("");
     const [selectedSupplier, setSelectedSupplier] = useState<any>(null);
     const [messageDialog, setMessageDialog] = useState(false);
@@ -146,12 +148,12 @@ export default function SuppliersPage() {
                     </Link>
                 </Button>
                 <div className="flex-1">
-                    <h1 className="text-3xl font-bold tracking-tight">Supplier Management</h1>
-                    <p className="text-muted-foreground">Manage your supplier relationships and communications</p>
+                    <h1 className="text-3xl font-bold tracking-tight">{t?.retail?.suppliersTitle ?? "Supplier Management"}</h1>
+                    <p className="text-muted-foreground">{t?.retail?.suppliersDesc ?? "Manage your supplier relationships and communications"}</p>
                 </div>
                 <Button onClick={handleAddSupplier}>
                     <Plus className="h-4 w-4 mr-2" />
-                    Add Supplier
+                    {t?.retail?.addSupplier ?? "Add Supplier"}
                 </Button>
             </div>
 

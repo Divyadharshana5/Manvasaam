@@ -509,15 +509,29 @@ For real-time updates, contact supplier at ${order.supplierContact}
             )}
           </div>
           <Select value={statusFilter} onValueChange={setStatusFilter}>
-              <SelectTrigger className="w-40">
-              <SelectValue placeholder={t?.filters?.statusPlaceholder ?? "Filter by status"} />
+            <SelectTrigger className="w-40">
+              <SelectValue
+                placeholder={
+                  t?.filters?.statusPlaceholder ?? "Filter by status"
+                }
+              />
             </SelectTrigger>
             <SelectContent>
-              <SelectItem value="all">{t?.filters?.all ?? "All Status"}</SelectItem>
-              <SelectItem value="pending">{t?.orders?.statusPending ?? "Pending"}</SelectItem>
-              <SelectItem value="processing">{t?.orders?.statusProcessing ?? "Processing"}</SelectItem>
-              <SelectItem value="delivered">{t?.orders?.statusDelivered ?? "Delivered"}</SelectItem>
-              <SelectItem value="cancelled">{t?.orders?.statusCancelled ?? "Cancelled"}</SelectItem>
+              <SelectItem value="all">
+                {t?.filters?.all ?? "All Status"}
+              </SelectItem>
+              <SelectItem value="pending">
+                {t?.orders?.statusPending ?? "Pending"}
+              </SelectItem>
+              <SelectItem value="processing">
+                {t?.orders?.statusProcessing ?? "Processing"}
+              </SelectItem>
+              <SelectItem value="delivered">
+                {t?.orders?.statusDelivered ?? "Delivered"}
+              </SelectItem>
+              <SelectItem value="cancelled">
+                {t?.orders?.statusCancelled ?? "Cancelled"}
+              </SelectItem>
             </SelectContent>
           </Select>
           {/* Active Filters Indicator */}
