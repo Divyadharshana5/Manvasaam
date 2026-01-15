@@ -218,9 +218,9 @@ export default function TransportNotifications() {
       opacity: 1,
       transition: {
         duration: 0.6,
-        staggerChildren: 0.1
-      }
-    }
+        staggerChildren: 0.1,
+      },
+    },
   };
 
   const itemVariants = {
@@ -228,8 +228,8 @@ export default function TransportNotifications() {
     visible: {
       opacity: 1,
       y: 0,
-      transition: { duration: 0.5 }
-    }
+      transition: { duration: 0.5 },
+    },
   };
 
   const cardVariants = {
@@ -237,12 +237,12 @@ export default function TransportNotifications() {
     visible: {
       opacity: 1,
       scale: 1,
-      transition: { duration: 0.4 }
+      transition: { duration: 0.4 },
     },
     hover: {
       scale: 1.02,
-      transition: { duration: 0.2 }
-    }
+      transition: { duration: 0.2 },
+    },
   };
 
   useEffect(() => {
@@ -265,7 +265,7 @@ export default function TransportNotifications() {
   }, [showFilter]);
 
   return (
-    <motion.div 
+    <motion.div
       className="min-h-screen w-full overflow-auto"
       variants={containerVariants}
       initial="hidden"
@@ -273,15 +273,12 @@ export default function TransportNotifications() {
     >
       <div className="flex flex-col gap-4 p-4 md:gap-6 md:p-6 max-w-7xl mx-auto">
         {/* Header */}
-        <motion.div 
+        <motion.div
           className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4"
           variants={itemVariants}
         >
           <div className="flex items-center gap-4">
-            <motion.div
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
-            >
+            <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
               <Button variant="outline" size="icon" asChild>
                 <Link href="/dashboard/transport">
                   <ArrowLeft className="h-4 w-4" />
@@ -289,7 +286,7 @@ export default function TransportNotifications() {
               </Button>
             </motion.div>
             <div>
-              <motion.h1 
+              <motion.h1
                 className="text-2xl font-bold"
                 initial={{ opacity: 0, y: -10 }}
                 animate={{ opacity: 1, y: 0 }}
@@ -297,29 +294,32 @@ export default function TransportNotifications() {
               >
                 {t?.notifications?.title ?? "Notifications"}
               </motion.h1>
-              <motion.p 
+              <motion.p
                 className="text-muted-foreground"
                 initial={{ opacity: 0, y: -10 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.5, delay: 0.3 }}
               >
-                {t?.notifications?.subtitle ?? "Stay updated with your transport operations"}
+                {t?.notifications?.subtitle ??
+                  "Stay updated with your transport operations"}
               </motion.p>
             </div>
           </div>
-          <motion.div 
+          <motion.div
             className="flex items-center gap-2"
             initial={{ opacity: 0, x: 20 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.5, delay: 0.4 }}
           >
-              <motion.div
-                initial={{ scale: 0 }}
-                animate={{ scale: 1 }}
-                transition={{ type: "spring", stiffness: 200, delay: 0.5 }}
-              >
-                <Badge variant="secondary">{unreadCount} {t?.notifications?.unread ?? "unread"}</Badge>
-              </motion.div>
+            <motion.div
+              initial={{ scale: 0 }}
+              animate={{ scale: 1 }}
+              transition={{ type: "spring", stiffness: 200, delay: 0.5 }}
+            >
+              <Badge variant="secondary">
+                {unreadCount} {t?.notifications?.unread ?? "unread"}
+              </Badge>
+            </motion.div>
             <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
               <Button variant="outline" size="sm" onClick={handleMarkAllRead}>
                 <Check className="h-4 w-4 mr-2" />
@@ -329,10 +329,14 @@ export default function TransportNotifications() {
             <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
               <Button variant="outline" size="sm" asChild>
                 <Link href="/dashboard/transport/settings">
-                    <span className="flex items-center">
+                  <span className="flex items-center">
                     <motion.div
                       animate={{ rotate: [0, 90, 0] }}
-                      transition={{ duration: 2, repeat: Infinity, repeatDelay: 4 }}
+                      transition={{
+                        duration: 2,
+                        repeat: Infinity,
+                        repeatDelay: 4,
+                      }}
                     >
                       <Settings className="h-4 w-4 mr-2" />
                     </motion.div>
@@ -345,11 +349,11 @@ export default function TransportNotifications() {
         </motion.div>
 
         {/* Search and Filter */}
-        <motion.div 
+        <motion.div
           className="flex flex-col sm:flex-row gap-4"
           variants={itemVariants}
         >
-          <motion.div 
+          <motion.div
             className="relative flex-1 max-w-md"
             initial={{ opacity: 0, x: -20 }}
             animate={{ opacity: 1, x: 0 }}
@@ -357,7 +361,7 @@ export default function TransportNotifications() {
           >
             <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground pointer-events-none z-10" />
             <Input
-              placeholder="Search notifications..."
+              placeholder={t?.notifications?.searchPlaceholder ?? "Search notifications..."}
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
               className="pl-10 pr-10"
@@ -375,8 +379,8 @@ export default function TransportNotifications() {
             )}
           </motion.div>
 
-          <motion.div 
-            className="relative" 
+          <motion.div
+            className="relative"
             ref={filterBtnRef}
             initial={{ opacity: 0, x: 20 }}
             animate={{ opacity: 1, x: 0 }}
@@ -389,7 +393,7 @@ export default function TransportNotifications() {
                 onClick={() => setShowFilter((s) => !s)}
               >
                 <Filter className="h-4 w-4 mr-2" />
-                Filter
+                {t?.filters?.label ?? "Filter"}
               </Button>
             </motion.div>
           </motion.div>
@@ -474,19 +478,20 @@ export default function TransportNotifications() {
 
           <TabsContent value={activeTab} className="space-y-4">
             {filteredNotifications.length === 0 ? (
-              <motion.div
-                variants={cardVariants}
-                whileHover="hover"
-              >
+              <motion.div variants={cardVariants} whileHover="hover">
                 <Card className="transition-shadow duration-300 hover:shadow-lg">
                   <CardContent className="p-8 text-center">
                     <motion.div
                       animate={{ rotate: [0, 10, -10, 0] }}
-                      transition={{ duration: 2, repeat: Infinity, repeatDelay: 3 }}
+                      transition={{
+                        duration: 2,
+                        repeat: Infinity,
+                        repeatDelay: 3,
+                      }}
                     >
                       <Bell className="h-12 w-12 text-muted-foreground mx-auto mb-4" />
                     </motion.div>
-                    <motion.h3 
+                    <motion.h3
                       className="text-lg font-semibold mb-2"
                       initial={{ opacity: 0, y: -10 }}
                       animate={{ opacity: 1, y: 0 }}
@@ -494,7 +499,7 @@ export default function TransportNotifications() {
                     >
                       No notifications found
                     </motion.h3>
-                    <motion.p 
+                    <motion.p
                       className="text-muted-foreground"
                       initial={{ opacity: 0, y: -10 }}
                       animate={{ opacity: 1, y: 0 }}
@@ -508,7 +513,7 @@ export default function TransportNotifications() {
                 </Card>
               </motion.div>
             ) : (
-              <motion.div 
+              <motion.div
                 className="space-y-3 max-h-[600px] overflow-y-auto"
                 variants={containerVariants}
               >
@@ -529,14 +534,22 @@ export default function TransportNotifications() {
                             className={`p-2 rounded-full bg-white ${getIconColor(
                               notification.type
                             )} flex-shrink-0`}
-                            animate={{ 
-                              scale: notification.type === "urgent" ? [1, 1.1, 1] : 1,
-                              rotate: notification.type === "urgent" ? [0, 5, -5, 0] : 0
+                            animate={{
+                              scale:
+                                notification.type === "urgent"
+                                  ? [1, 1.1, 1]
+                                  : 1,
+                              rotate:
+                                notification.type === "urgent"
+                                  ? [0, 5, -5, 0]
+                                  : 0,
                             }}
-                            transition={{ 
-                              duration: notification.type === "urgent" ? 1.5 : 0,
-                              repeat: notification.type === "urgent" ? Infinity : 0,
-                              repeatDelay: 2 
+                            transition={{
+                              duration:
+                                notification.type === "urgent" ? 1.5 : 0,
+                              repeat:
+                                notification.type === "urgent" ? Infinity : 0,
+                              repeatDelay: 2,
                             }}
                           >
                             <notification.icon className="h-4 w-4" />
@@ -544,27 +557,36 @@ export default function TransportNotifications() {
                           <div className="flex-1 min-w-0">
                             <div className="flex items-start justify-between gap-2">
                               <div className="flex-1 min-w-0">
-                                <motion.h4 
+                                <motion.h4
                                   className="font-semibold mb-1 text-sm"
                                   initial={{ opacity: 0, y: -5 }}
                                   animate={{ opacity: 1, y: 0 }}
-                                  transition={{ duration: 0.3, delay: index * 0.05 }}
+                                  transition={{
+                                    duration: 0.3,
+                                    delay: index * 0.05,
+                                  }}
                                 >
                                   {notification.title}
                                 </motion.h4>
-                                <motion.p 
+                                <motion.p
                                   className="text-sm text-muted-foreground mb-2 line-clamp-2"
                                   initial={{ opacity: 0, y: -5 }}
                                   animate={{ opacity: 1, y: 0 }}
-                                  transition={{ duration: 0.3, delay: index * 0.05 + 0.1 }}
+                                  transition={{
+                                    duration: 0.3,
+                                    delay: index * 0.05 + 0.1,
+                                  }}
                                 >
                                   {notification.message}
                                 </motion.p>
-                                <motion.div 
+                                <motion.div
                                   className="flex items-center gap-2 flex-wrap"
                                   initial={{ opacity: 0, y: -5 }}
                                   animate={{ opacity: 1, y: 0 }}
-                                  transition={{ duration: 0.3, delay: index * 0.05 + 0.2 }}
+                                  transition={{
+                                    duration: 0.3,
+                                    delay: index * 0.05 + 0.2,
+                                  }}
                                 >
                                   <Badge variant="outline" className="text-xs">
                                     {notification.category}
@@ -574,32 +596,46 @@ export default function TransportNotifications() {
                                   </span>
                                 </motion.div>
                               </div>
-                              <motion.div 
+                              <motion.div
                                 className="flex items-center gap-1 flex-shrink-0"
                                 initial={{ opacity: 0, x: 20 }}
                                 animate={{ opacity: 1, x: 0 }}
-                                transition={{ duration: 0.3, delay: index * 0.05 + 0.3 }}
+                                transition={{
+                                  duration: 0.3,
+                                  delay: index * 0.05 + 0.3,
+                                }}
                               >
                                 {!notification.read && (
-                                  <motion.div 
+                                  <motion.div
                                     className="w-2 h-2 bg-blue-500 rounded-full"
                                     animate={{ scale: [1, 1.2, 1] }}
-                                    transition={{ duration: 1.5, repeat: Infinity }}
+                                    transition={{
+                                      duration: 1.5,
+                                      repeat: Infinity,
+                                    }}
                                   ></motion.div>
                                 )}
-                                <motion.div whileHover={{ scale: 1.1 }} whileTap={{ scale: 0.9 }}>
+                                <motion.div
+                                  whileHover={{ scale: 1.1 }}
+                                  whileTap={{ scale: 0.9 }}
+                                >
                                   <Button
                                     variant="ghost"
                                     size="sm"
                                     className="h-8 w-8 p-0"
-                                    onClick={() => handleMarkRead(notification.id)}
+                                    onClick={() =>
+                                      handleMarkRead(notification.id)
+                                    }
                                     aria-label="Mark as read"
                                     title="Mark as read"
                                   >
                                     <Check className="h-3 w-3" />
                                   </Button>
                                 </motion.div>
-                                <motion.div whileHover={{ scale: 1.1 }} whileTap={{ scale: 0.9 }}>
+                                <motion.div
+                                  whileHover={{ scale: 1.1 }}
+                                  whileTap={{ scale: 0.9 }}
+                                >
                                   <Button
                                     variant="ghost"
                                     size="sm"
@@ -627,14 +663,11 @@ export default function TransportNotifications() {
         </Tabs>
 
         {/* Quick Stats */}
-        <motion.div 
+        <motion.div
           className="grid gap-4 md:grid-cols-4"
           variants={containerVariants}
         >
-          <motion.div
-            variants={cardVariants}
-            whileHover="hover"
-          >
+          <motion.div variants={cardVariants} whileHover="hover">
             <Card className="transition-shadow duration-300 hover:shadow-lg">
               <CardContent className="p-4">
                 <div className="flex items-center justify-between">
@@ -642,18 +675,26 @@ export default function TransportNotifications() {
                     <p className="text-sm font-medium text-muted-foreground">
                       Total Notifications
                     </p>
-                    <motion.p 
+                    <motion.p
                       className="text-2xl font-bold"
                       initial={{ scale: 0 }}
                       animate={{ scale: 1 }}
-                      transition={{ type: "spring", stiffness: 100, delay: 0.2 }}
+                      transition={{
+                        type: "spring",
+                        stiffness: 100,
+                        delay: 0.2,
+                      }}
                     >
                       {notifications.length}
                     </motion.p>
                   </div>
                   <motion.div
                     animate={{ rotate: [0, 10, -10, 0] }}
-                    transition={{ duration: 2, repeat: Infinity, repeatDelay: 3 }}
+                    transition={{
+                      duration: 2,
+                      repeat: Infinity,
+                      repeatDelay: 3,
+                    }}
                   >
                     <Bell className="h-8 w-8 text-blue-500" />
                   </motion.div>
@@ -661,10 +702,7 @@ export default function TransportNotifications() {
               </CardContent>
             </Card>
           </motion.div>
-          <motion.div
-            variants={cardVariants}
-            whileHover="hover"
-          >
+          <motion.div variants={cardVariants} whileHover="hover">
             <Card className="transition-shadow duration-300 hover:shadow-lg">
               <CardContent className="p-4">
                 <div className="flex items-center justify-between">
@@ -672,18 +710,26 @@ export default function TransportNotifications() {
                     <p className="text-sm font-medium text-muted-foreground">
                       Unread
                     </p>
-                    <motion.p 
+                    <motion.p
                       className="text-2xl font-bold text-blue-600"
                       initial={{ scale: 0 }}
                       animate={{ scale: 1 }}
-                      transition={{ type: "spring", stiffness: 100, delay: 0.3 }}
+                      transition={{
+                        type: "spring",
+                        stiffness: 100,
+                        delay: 0.3,
+                      }}
                     >
                       {unreadCount}
                     </motion.p>
                   </div>
                   <motion.div
                     animate={{ scale: [1, 1.1, 1] }}
-                    transition={{ duration: 2, repeat: Infinity, repeatDelay: 2 }}
+                    transition={{
+                      duration: 2,
+                      repeat: Infinity,
+                      repeatDelay: 2,
+                    }}
                   >
                     <Activity className="h-8 w-8 text-blue-500" />
                   </motion.div>
@@ -691,10 +737,7 @@ export default function TransportNotifications() {
               </CardContent>
             </Card>
           </motion.div>
-          <motion.div
-            variants={cardVariants}
-            whileHover="hover"
-          >
+          <motion.div variants={cardVariants} whileHover="hover">
             <Card className="transition-shadow duration-300 hover:shadow-lg">
               <CardContent className="p-4">
                 <div className="flex items-center justify-between">
@@ -702,18 +745,26 @@ export default function TransportNotifications() {
                     <p className="text-sm font-medium text-muted-foreground">
                       Urgent
                     </p>
-                    <motion.p 
+                    <motion.p
                       className="text-2xl font-bold text-red-600"
                       initial={{ scale: 0 }}
                       animate={{ scale: 1 }}
-                      transition={{ type: "spring", stiffness: 100, delay: 0.4 }}
+                      transition={{
+                        type: "spring",
+                        stiffness: 100,
+                        delay: 0.4,
+                      }}
                     >
                       {notifications.filter((n) => n.type === "urgent").length}
                     </motion.p>
                   </div>
                   <motion.div
                     animate={{ y: [0, -3, 0] }}
-                    transition={{ duration: 1.5, repeat: Infinity, repeatDelay: 1 }}
+                    transition={{
+                      duration: 1.5,
+                      repeat: Infinity,
+                      repeatDelay: 1,
+                    }}
                   >
                     <AlertTriangle className="h-8 w-8 text-red-500" />
                   </motion.div>
@@ -721,10 +772,7 @@ export default function TransportNotifications() {
               </CardContent>
             </Card>
           </motion.div>
-          <motion.div
-            variants={cardVariants}
-            whileHover="hover"
-          >
+          <motion.div variants={cardVariants} whileHover="hover">
             <Card className="transition-shadow duration-300 hover:shadow-lg">
               <CardContent className="p-4">
                 <div className="flex items-center justify-between">
@@ -732,11 +780,15 @@ export default function TransportNotifications() {
                     <p className="text-sm font-medium text-muted-foreground">
                       Today
                     </p>
-                    <motion.p 
+                    <motion.p
                       className="text-2xl font-bold text-green-600"
                       initial={{ scale: 0 }}
                       animate={{ scale: 1 }}
-                      transition={{ type: "spring", stiffness: 100, delay: 0.5 }}
+                      transition={{
+                        type: "spring",
+                        stiffness: 100,
+                        delay: 0.5,
+                      }}
                     >
                       {
                         notifications.filter(
@@ -748,7 +800,11 @@ export default function TransportNotifications() {
                   </div>
                   <motion.div
                     animate={{ rotate: [0, 5, -5, 0] }}
-                    transition={{ duration: 2.5, repeat: Infinity, repeatDelay: 2 }}
+                    transition={{
+                      duration: 2.5,
+                      repeat: Infinity,
+                      repeatDelay: 2,
+                    }}
                   >
                     <Calendar className="h-8 w-8 text-green-500" />
                   </motion.div>
