@@ -16,6 +16,7 @@ import {
     DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { useToast } from "@/hooks/use-toast";
+import { useLanguage } from "@/context/language-context";
 import {
     ShoppingCart,
     Package,
@@ -49,6 +50,7 @@ import Link from "next/link";
 import { useState } from "react";
 
 export default function RetailDashboard() {
+    const { t } = useLanguage();
     const [searchQuery, setSearchQuery] = useState("");
     const [activeTab, setActiveTab] = useState("overview");
     const [filterCategory, setFilterCategory] = useState<string>("all");
@@ -216,18 +218,18 @@ export default function RetailDashboard() {
                 <div className="flex items-center gap-2">
                     <Badge variant="outline" className="text-green-600">
                         <CheckCircle className="h-3 w-3 mr-1" />
-                        Online
+                        {t?.status?.online ?? "Online"}
                     </Badge>
                     <Badge variant="secondary">
                         <Clock className="h-3 w-3 mr-1" />
-                        Last sync: 2 min ago
+                        {t?.dashboard?.lastSync ?? "Last sync: 2 min ago"}
                     </Badge>
                 </div>
                 <div className="flex items-center gap-2">
                     <div className="relative">
                         <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground pointer-events-none z-10" />
                         <Input
-                            placeholder="Search orders, products..."
+                            placeholder={t?.orders?.searchPlaceholder ?? "Search orders, products..."}
                             value={searchQuery}
                             onChange={(e) => setSearchQuery(e.target.value)}
                             className="pl-10 pr-10 w-64"
@@ -259,7 +261,7 @@ export default function RetailDashboard() {
                     <CardContent className="p-4">
                         <div className="flex items-center justify-between">
                             <div>
-                                <p className="text-sm font-medium text-muted-foreground">Today's Orders</p>
+                                <p className="text-sm font-medium text-muted-foreground">{t?.dashboard?.todayOrders ?? "Today's Orders"}</p>
                                 <p className="text-2xl font-bold text-green-600 number-counter">{todayStats.ordersToday}</p>
                             </div>
                             <ShoppingCart className="h-8 w-8 text-green-500 icon-bounce" />
@@ -270,7 +272,7 @@ export default function RetailDashboard() {
                     <CardContent className="p-4">
                         <div className="flex items-center justify-between">
                             <div>
-                                <p className="text-sm font-medium text-muted-foreground">Today's Revenue</p>
+                                <p className="text-sm font-medium text-muted-foreground">{t?.dashboard?.todayRevenue ?? "Today's Revenue"}</p>
                                 <p className="text-2xl font-bold text-blue-600 number-counter">₹{todayStats.revenueToday.toLocaleString()}</p>
                             </div>
                             <IndianRupee className="h-8 w-8 text-blue-500 icon-bounce" />
@@ -281,7 +283,7 @@ export default function RetailDashboard() {
                     <CardContent className="p-4">
                         <div className="flex items-center justify-between">
                             <div>
-                                <p className="text-sm font-medium text-muted-foreground">New Customers</p>
+                                <p className="text-sm font-medium text-muted-foreground">{t?.dashboard?.newCustomers ?? "New Customers"}</p>
                                 <p className="text-2xl font-bold text-purple-600 number-counter">{todayStats.newCustomers}</p>
                             </div>
                             <Users className="h-8 w-8 text-purple-500 icon-bounce" />
@@ -292,7 +294,7 @@ export default function RetailDashboard() {
                     <CardContent className="p-4">
                         <div className="flex items-center justify-between">
                             <div>
-                                <p className="text-sm font-medium text-muted-foreground">Deliveries</p>
+                                <p className="text-sm font-medium text-muted-foreground">{t?.dashboard?.deliveries ?? "Deliveries"}</p>
                                 <p className="text-2xl font-bold text-orange-600 number-counter">{todayStats.deliveriesCompleted}</p>
                             </div>
                             <Truck className="h-8 w-8 text-orange-500 icon-bounce" />
@@ -304,10 +306,10 @@ export default function RetailDashboard() {
             {/* Main Content Tabs */}
             <Tabs value={activeTab} onValueChange={setActiveTab} className="space-y-4">
                 <TabsList className="grid w-full grid-cols-4">
-                    <TabsTrigger value="overview">Overview</TabsTrigger>
-                    <TabsTrigger value="inventory">Inventory</TabsTrigger>
-                    <TabsTrigger value="orders">Orders</TabsTrigger>
-                    <TabsTrigger value="analytics">Analytics</TabsTrigger>
+                    <TabsTrigger value="overview">{t?.sidebar?.dashboard ?? "Overview"}</TabsTrigger>
+                    <TabsTrigger value="inventory">{t?.products?.title ?? "Inventory"}</TabsTrigger>
+                    <TabsTrigger value="orders">{t?.orders?.title ?? "Orders"}</TabsTrigger>
+                    <TabsTrigger value="analytics">{t?.dashboard?.analytics ?? "Analytics"}</TabsTrigger>
                 </TabsList>
 
                 <TabsContent value="overview" className="space-y-4 tab-content">
@@ -315,7 +317,7 @@ export default function RetailDashboard() {
                     <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
                         <Card className="animate-scale-in stagger-1">
                             <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-                                <CardTitle className="text-sm font-medium">Total Orders</CardTitle>
+                                <CardTitle className="text-sm font-medium">{t?.orders?.cardTitle ?? "Total Orders"}</CardTitle>
                                 <ShoppingCart className="h-4 w-4 text-muted-foreground" />
                             </CardHeader>
                             <CardContent>
@@ -329,7 +331,7 @@ export default function RetailDashboard() {
 
                         <Card className="animate-scale-in stagger-2">
                             <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-                                <CardTitle className="text-sm font-medium">Monthly Revenue</CardTitle>
+                                <CardTitle className="text-sm font-medium">{t?.dashboard?.totalRevenue ?? "Monthly Revenue"}</CardTitle>
                                 <IndianRupee className="h-4 w-4 text-muted-foreground" />
                             </CardHeader>
                             <CardContent>
@@ -343,7 +345,7 @@ export default function RetailDashboard() {
 
                         <Card className="animate-scale-in stagger-3">
                             <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-                                <CardTitle className="text-sm font-medium">Customer Rating</CardTitle>
+                                <CardTitle className="text-sm font-medium">{t?.dashboard?.customerRating ?? "Customer Rating"}</CardTitle>
                                 <Star className="h-4 w-4 text-muted-foreground" />
                             </CardHeader>
                             <CardContent>
@@ -357,7 +359,7 @@ export default function RetailDashboard() {
 
                         <Card className="animate-scale-in stagger-4">
                             <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-                                <CardTitle className="text-sm font-medium">Inventory Value</CardTitle>
+                                <CardTitle className="text-sm font-medium">{t?.dashboard?.inventoryValue ?? "Inventory Value"}</CardTitle>
                                 <Package className="h-4 w-4 text-muted-foreground" />
                             </CardHeader>
                             <CardContent>
@@ -372,13 +374,13 @@ export default function RetailDashboard() {
 
                     {/* Quick Actions */}
                     <Card className="animate-fade-in-up stagger-5">
-                        <CardHeader>
-                            <CardTitle className="flex items-center gap-2 text-lg">
-                                <Zap className="h-5 w-5" />
-                                Quick Actions
-                            </CardTitle>
-                            <CardDescription>Frequently used actions for your retail operations</CardDescription>
-                        </CardHeader>
+                            <CardHeader>
+                                <CardTitle className="flex items-center gap-2 text-lg">
+                                    <Zap className="h-5 w-5" />
+                                    {t?.dashboard?.quickActions ?? "Quick Actions"}
+                                </CardTitle>
+                                <CardDescription>{t?.dashboard?.quickActionsDesc ?? "Frequently used actions for your retail operations"}</CardDescription>
+                            </CardHeader>
                         <CardContent>
                             <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
                                 {quickActions.map((action, index) => (
@@ -398,7 +400,7 @@ export default function RetailDashboard() {
 
                 <TabsContent value="inventory" className="space-y-4 tab-content">
                     <div className="flex items-center justify-between">
-                        <h3 className="text-lg font-semibold">Inventory Management</h3>
+                        <h3 className="text-lg font-semibold">{t?.products?.title ?? "Inventory Management"}</h3>
                         <div className="flex gap-2">
                             <DropdownMenu>
                                 <DropdownMenuTrigger asChild>
@@ -413,46 +415,46 @@ export default function RetailDashboard() {
                                     </Button>
                                 </DropdownMenuTrigger>
                                 <DropdownMenuContent align="end" className="w-56">
-                                    <DropdownMenuLabel>Filter by Category</DropdownMenuLabel>
+                                    <DropdownMenuLabel>{t?.filters?.byCategory ?? "Filter by Category"}</DropdownMenuLabel>
                                     <DropdownMenuCheckboxItem
                                         checked={filterCategory === "all"}
                                         onCheckedChange={() => setFilterCategory("all")}
                                     >
-                                        All Categories
+                                        {t?.filters?.allCategories ?? "All Categories"}
                                     </DropdownMenuCheckboxItem>
                                     <DropdownMenuCheckboxItem
                                         checked={filterCategory === "Vegetables"}
                                         onCheckedChange={() => setFilterCategory("Vegetables")}
                                     >
-                                        Vegetables
+                                        {t?.categories?.vegetables ?? "Vegetables"}
                                     </DropdownMenuCheckboxItem>
                                     <DropdownMenuCheckboxItem
                                         checked={filterCategory === "Dairy"}
                                         onCheckedChange={() => setFilterCategory("Dairy")}
                                     >
-                                        Dairy
+                                        {t?.categories?.dairy ?? "Dairy"}
                                     </DropdownMenuCheckboxItem>
                                     <DropdownMenuCheckboxItem
                                         checked={filterCategory === "Grains"}
                                         onCheckedChange={() => setFilterCategory("Grains")}
                                     >
-                                        Grains
+                                        {t?.categories?.grains ?? "Grains"}
                                     </DropdownMenuCheckboxItem>
                                     <DropdownMenuCheckboxItem
                                         checked={filterCategory === "Fruits"}
                                         onCheckedChange={() => setFilterCategory("Fruits")}
                                     >
-                                        Fruits
+                                        {t?.categories?.fruits ?? "Fruits"}
                                     </DropdownMenuCheckboxItem>
                                     
                                     <DropdownMenuSeparator />
                                     
-                                    <DropdownMenuLabel>Stock Status</DropdownMenuLabel>
+                                    <DropdownMenuLabel>{t?.filters?.stockStatus ?? "Stock Status"}</DropdownMenuLabel>
                                     <DropdownMenuCheckboxItem
                                         checked={showLowStock}
                                         onCheckedChange={setShowLowStock}
                                     >
-                                        Low Stock Only
+                                        {t?.filters?.lowStockOnly ?? "Low Stock Only"}
                                     </DropdownMenuCheckboxItem>
                                     
                                     {(filterCategory !== "all" || showLowStock) && (
@@ -467,7 +469,7 @@ export default function RetailDashboard() {
                                                     setShowLowStock(false);
                                                 }}
                                             >
-                                                Clear Filters
+                                                {t?.filters?.clear ?? "Clear Filters"}
                                             </Button>
                                         </>
                                     )}
@@ -475,7 +477,7 @@ export default function RetailDashboard() {
                             </DropdownMenu>
                             <Button variant="outline" size="sm" onClick={exportInventory}>
                                 <Download className="h-4 w-4 mr-2" />
-                                Export
+                                {t?.dashboard?.export ?? "Export"}
                             </Button>
                         </div>
                     </div>
@@ -505,12 +507,12 @@ export default function RetailDashboard() {
                                                     className="h-2"
                                                 />
                                                 {item.stock <= item.minStock && (
-                                                    <p className="text-xs text-orange-600 mt-1">Low Stock!</p>
+                                                    <p className="text-xs text-orange-600 mt-1">{t?.products?.lowStockIndicator ?? "Low Stock!"}</p>
                                                 )}
                                             </div>
                                             <Button size="sm" onClick={() => handleReorder(item.name)}>
                                                 <Plus className="h-4 w-4 mr-1" />
-                                                Reorder
+                                                {t?.products?.reorder ?? "Reorder"}
                                             </Button>
                                         </div>
                                     </div>
@@ -522,10 +524,10 @@ export default function RetailDashboard() {
 
                 <TabsContent value="orders" className="space-y-4 tab-content">
                     <div className="flex items-center justify-between">
-                        <h3 className="text-lg font-semibold">Recent Orders</h3>
+                        <h3 className="text-lg font-semibold">{t?.orders?.title ?? "Recent Orders"}</h3>
                         <Button onClick={handleNewOrder}>
                             <Plus className="h-4 w-4 mr-2" />
-                            New Order
+                            {t?.orders?.placeOrder ?? "New Order"}
                         </Button>
                     </div>
 
