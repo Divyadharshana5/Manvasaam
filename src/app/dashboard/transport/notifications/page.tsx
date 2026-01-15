@@ -469,14 +469,26 @@ export default function TransportNotifications() {
           className="space-y-4"
         >
           <div className="overflow-x-auto">
-              <TabsList className="grid w-full grid-cols-7 min-w-[700px]">
+            <TabsList className="grid w-full grid-cols-7 min-w-[700px]">
               <TabsTrigger value="all">{t?.filters?.all ?? "All"}</TabsTrigger>
-              <TabsTrigger value="unread">{t?.notifications?.unread ?? "Unread"}</TabsTrigger>
-              <TabsTrigger value="urgent">{t?.notifications?.urgent ?? "Urgent"}</TabsTrigger>
-              <TabsTrigger value="vehicle">{t?.transport?.vehicle ?? "Vehicle"}</TabsTrigger>
-              <TabsTrigger value="delivery">{t?.transport?.delivery ?? "Delivery"}</TabsTrigger>
-              <TabsTrigger value="route">{t?.transport?.route ?? "Route"}</TabsTrigger>
-              <TabsTrigger value="maintenance">{t?.transport?.maintenance ?? "Maintenance"}</TabsTrigger>
+              <TabsTrigger value="unread">
+                {t?.notifications?.unread ?? "Unread"}
+              </TabsTrigger>
+              <TabsTrigger value="urgent">
+                {t?.notifications?.urgent ?? "Urgent"}
+              </TabsTrigger>
+              <TabsTrigger value="vehicle">
+                {t?.transport?.vehicle ?? "Vehicle"}
+              </TabsTrigger>
+              <TabsTrigger value="delivery">
+                {t?.transport?.delivery ?? "Delivery"}
+              </TabsTrigger>
+              <TabsTrigger value="route">
+                {t?.transport?.route ?? "Route"}
+              </TabsTrigger>
+              <TabsTrigger value="maintenance">
+                {t?.transport?.maintenance ?? "Maintenance"}
+              </TabsTrigger>
             </TabsList>
           </div>
 
