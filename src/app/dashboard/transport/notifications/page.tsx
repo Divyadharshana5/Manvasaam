@@ -361,7 +361,9 @@ export default function TransportNotifications() {
           >
             <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground pointer-events-none z-10" />
             <Input
-              placeholder={t?.notifications?.searchPlaceholder ?? "Search notifications..."}
+              placeholder={
+                t?.notifications?.searchPlaceholder ?? "Search notifications..."
+              }
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
               className="pl-10 pr-10"
@@ -409,7 +411,7 @@ export default function TransportNotifications() {
                 className="fixed rounded-md border border-gray-200 bg-white p-3 shadow-lg z-50"
               >
                 <div className="mb-2">
-                  <p className="text-sm font-medium mb-1">Category</p>
+                  <p className="text-sm font-medium mb-1">{t?.filters?.category ?? "Category"}</p>
                   <div className="flex flex-col gap-1">
                     <button
                       className={`text-left text-sm p-1 rounded hover:bg-gray-100 ${
@@ -422,7 +424,7 @@ export default function TransportNotifications() {
                         setShowFilter(false);
                       }}
                     >
-                      All
+                      {t?.filters?.all ?? "All"}
                     </button>
                     {categories.map((c) => (
                       <button
@@ -450,7 +452,7 @@ export default function TransportNotifications() {
                         setShowFilter(false);
                       }}
                     />
-                    Unread only
+                    {t?.notifications?.unreadOnly ?? "Unread only"}
                   </label>
                 </div>
               </div>,
