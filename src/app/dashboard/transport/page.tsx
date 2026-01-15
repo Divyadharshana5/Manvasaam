@@ -67,6 +67,8 @@ export default function TransportDashboard() {
   const [searchQuery, setSearchQuery] = useState("");
   const [activeTab, setActiveTab] = useState("overview");
 
+  const { t } = useLanguage();
+
   // Enhanced Mock data
   const stats = {
     activeDeliveries: 24,
