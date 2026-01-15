@@ -44,7 +44,9 @@ export default function OrdersPage() {
   const [searchQuery, setSearchQuery] = useState("");
   const [statusFilter, setStatusFilter] = useState("all");
   const [activeTab, setActiveTab] = useState("all");
-  const [processingOrderId, setProcessingOrderId] = useState<string | null>(null);
+  const [processingOrderId, setProcessingOrderId] = useState<string | null>(
+    null
+  );
   const [showMoreFilters, setShowMoreFilters] = useState(false);
   const [dateFilter, setDateFilter] = useState("all");
   const [priorityFilter, setPriorityFilter] = useState("all");
@@ -60,7 +62,7 @@ export default function OrdersPage() {
       items: [
         { name: "Fresh Tomatoes", quantity: "25 kg", price: 80 },
         { name: "Fresh Onions", quantity: "20 kg", price: 60 },
-        { name: "Potatoes", quantity: "30 kg", price: 40 }
+        { name: "Potatoes", quantity: "30 kg", price: 40 },
       ],
       totalAmount: 4700,
       status: "delivered",
@@ -68,7 +70,7 @@ export default function OrdersPage() {
       deliveryDate: "2024-01-16",
       deliveryAddress: "123 Market Street, Downtown",
       paymentStatus: "paid",
-      priority: "medium"
+      priority: "medium",
     },
     {
       id: "ORD-002",
@@ -77,7 +79,7 @@ export default function OrdersPage() {
       items: [
         { name: "Organic Milk", quantity: "50 L", price: 65 },
         { name: "Fresh Yogurt", quantity: "20 cups", price: 45 },
-        { name: "Cheese", quantity: "5 kg", price: 200 }
+        { name: "Cheese", quantity: "5 kg", price: 200 },
       ],
       totalAmount: 4150,
       status: "pending",
@@ -85,7 +87,7 @@ export default function OrdersPage() {
       deliveryDate: "2024-01-17",
       deliveryAddress: "456 Fresh Avenue, Midtown",
       paymentStatus: "pending",
-      priority: "high"
+      priority: "high",
     },
     {
       id: "ORD-003",
@@ -94,7 +96,7 @@ export default function OrdersPage() {
       items: [
         { name: "Fresh Apples", quantity: "40 kg", price: 120 },
         { name: "Bananas", quantity: "30 kg", price: 80 },
-        { name: "Oranges", quantity: "25 kg", price: 100 }
+        { name: "Oranges", quantity: "25 kg", price: 100 },
       ],
       totalAmount: 7300,
       status: "processing",
@@ -102,7 +104,7 @@ export default function OrdersPage() {
       deliveryDate: "2024-01-18",
       deliveryAddress: "789 Fruit Market, Uptown",
       paymentStatus: "paid",
-      priority: "low"
+      priority: "low",
     },
     {
       id: "ORD-004",
@@ -111,7 +113,7 @@ export default function OrdersPage() {
       items: [
         { name: "Wheat Flour", quantity: "50 kg", price: 45 },
         { name: "Rice", quantity: "40 kg", price: 70 },
-        { name: "Lentils", quantity: "20 kg", price: 90 }
+        { name: "Lentils", quantity: "20 kg", price: 90 },
       ],
       totalAmount: 6050,
       status: "cancelled",
@@ -119,63 +121,83 @@ export default function OrdersPage() {
       deliveryDate: "2024-01-19",
       deliveryAddress: "321 Grain Street, Southside",
       paymentStatus: "refunded",
-      priority: "medium"
-    }
+      priority: "medium",
+    },
   ];
 
   const stats = {
     totalOrders: orders.length,
-    pendingOrders: orders.filter(o => o.status === 'pending').length,
-    deliveredOrders: orders.filter(o => o.status === 'delivered').length,
+    pendingOrders: orders.filter((o) => o.status === "pending").length,
+    deliveredOrders: orders.filter((o) => o.status === "delivered").length,
     totalValue: orders.reduce((sum, order) => sum + order.totalAmount, 0),
-    processingOrders: orders.filter(o => o.status === 'processing').length,
-    cancelledOrders: orders.filter(o => o.status === 'cancelled').length,
+    processingOrders: orders.filter((o) => o.status === "processing").length,
+    cancelledOrders: orders.filter((o) => o.status === "cancelled").length,
   };
 
   const getStatusColor = (status: string) => {
     switch (status) {
-      case "delivered": return "bg-green-100 text-green-800";
-      case "pending": return "bg-yellow-100 text-yellow-800";
-      case "processing": return "bg-blue-100 text-blue-800";
-      case "cancelled": return "bg-red-100 text-red-800";
-      default: return "bg-gray-100 text-gray-800";
+      case "delivered":
+        return "bg-green-100 text-green-800";
+      case "pending":
+        return "bg-yellow-100 text-yellow-800";
+      case "processing":
+        return "bg-blue-100 text-blue-800";
+      case "cancelled":
+        return "bg-red-100 text-red-800";
+      default:
+        return "bg-gray-100 text-gray-800";
     }
   };
 
   const getPaymentStatusColor = (status: string) => {
     switch (status) {
-      case "paid": return "bg-green-100 text-green-800";
-      case "pending": return "bg-yellow-100 text-yellow-800";
-      case "refunded": return "bg-blue-100 text-blue-800";
-      default: return "bg-gray-100 text-gray-800";
+      case "paid":
+        return "bg-green-100 text-green-800";
+      case "pending":
+        return "bg-yellow-100 text-yellow-800";
+      case "refunded":
+        return "bg-blue-100 text-blue-800";
+      default:
+        return "bg-gray-100 text-gray-800";
     }
   };
 
   const getPriorityColor = (priority: string) => {
     switch (priority) {
-      case "high": return "bg-red-100 text-red-800";
-      case "medium": return "bg-orange-100 text-orange-800";
-      case "low": return "bg-green-100 text-green-800";
-      default: return "bg-gray-100 text-gray-800";
+      case "high":
+        return "bg-red-100 text-red-800";
+      case "medium":
+        return "bg-orange-100 text-orange-800";
+      case "low":
+        return "bg-green-100 text-green-800";
+      default:
+        return "bg-gray-100 text-gray-800";
     }
   };
 
-  const filteredOrders = orders.filter(order => {
-    const matchesSearch = order.id.toLowerCase().includes(searchQuery.toLowerCase()) ||
-                         order.supplier.toLowerCase().includes(searchQuery.toLowerCase());
-    const matchesStatus = statusFilter === "all" || order.status === statusFilter;
+  const filteredOrders = orders.filter((order) => {
+    const matchesSearch =
+      order.id.toLowerCase().includes(searchQuery.toLowerCase()) ||
+      order.supplier.toLowerCase().includes(searchQuery.toLowerCase());
+    const matchesStatus =
+      statusFilter === "all" || order.status === statusFilter;
     const matchesTab = activeTab === "all" || order.status === activeTab;
-    const matchesPriority = priorityFilter === "all" || order.priority === priorityFilter;
-    const matchesPayment = paymentFilter === "all" || order.paymentStatus === paymentFilter;
-    const matchesSupplier = supplierFilter === "all" || order.supplier === supplierFilter;
-    
+    const matchesPriority =
+      priorityFilter === "all" || order.priority === priorityFilter;
+    const matchesPayment =
+      paymentFilter === "all" || order.paymentStatus === paymentFilter;
+    const matchesSupplier =
+      supplierFilter === "all" || order.supplier === supplierFilter;
+
     // Date filter logic
     let matchesDate = true;
     if (dateFilter !== "all") {
       const orderDate = new Date(order.orderDate);
       const today = new Date();
-      const daysDiff = Math.floor((today.getTime() - orderDate.getTime()) / (1000 * 60 * 60 * 24));
-      
+      const daysDiff = Math.floor(
+        (today.getTime() - orderDate.getTime()) / (1000 * 60 * 60 * 24)
+      );
+
       switch (dateFilter) {
         case "today":
           matchesDate = daysDiff === 0;
@@ -190,8 +212,16 @@ export default function OrdersPage() {
           matchesDate = true;
       }
     }
-    
-    return matchesSearch && matchesStatus && matchesTab && matchesPriority && matchesPayment && matchesSupplier && matchesDate;
+
+    return (
+      matchesSearch &&
+      matchesStatus &&
+      matchesTab &&
+      matchesPriority &&
+      matchesPayment &&
+      matchesSupplier &&
+      matchesDate
+    );
   });
 
   const handleViewOrder = (order: any) => {
@@ -200,16 +230,16 @@ export default function OrdersPage() {
   };
 
   const handleProcessOrder = async (order: any) => {
-    if (order.status !== 'pending') {
-      alert('Only pending orders can be processed.');
+    if (order.status !== "pending") {
+      alert("Only pending orders can be processed.");
       return;
     }
 
     const confirmProcess = confirm(
       `Are you sure you want to process order ${order.id}?\n\n` +
-      `Supplier: ${order.supplier}\n` +
-      `Total Amount: ₹${order.totalAmount.toLocaleString()}\n\n` +
-      `This will change the status to "processing".`
+        `Supplier: ${order.supplier}\n` +
+        `Total Amount: ₹${order.totalAmount.toLocaleString()}\n\n` +
+        `This will change the status to "processing".`
     );
 
     if (!confirmProcess) return;
@@ -218,19 +248,20 @@ export default function OrdersPage() {
 
     try {
       // Simulate API call to process the order
-      await new Promise(resolve => setTimeout(resolve, 2000));
-      
+      await new Promise((resolve) => setTimeout(resolve, 2000));
+
       // In a real app, this would make an API call to update the order status
       console.log(`Processing order ${order.id}`);
-      
-      alert(`Order ${order.id} has been successfully processed!\n\nStatus updated to: PROCESSING\nThe supplier has been notified.`);
-      
+
+      alert(
+        `Order ${order.id} has been successfully processed!\n\nStatus updated to: PROCESSING\nThe supplier has been notified.`
+      );
+
       // In a real app, you would update the order status in your state/database
       // For now, we'll just show the success message
-      
     } catch (error) {
-      console.error('Failed to process order:', error);
-      alert('Failed to process order. Please try again.');
+      console.error("Failed to process order:", error);
+      alert("Failed to process order. Please try again.");
     } finally {
       setProcessingOrderId(null);
     }
@@ -255,7 +286,7 @@ Delivery Address: ${order.deliveryAddress}
 
 For real-time updates, contact supplier at ${order.supplierContact}
     `;
-    
+
     alert(trackingInfo);
   };
 
@@ -263,17 +294,16 @@ For real-time updates, contact supplier at ${order.supplierContact}
     setIsRefreshing(true);
     try {
       // Simulate API call to refresh data
-      await new Promise(resolve => setTimeout(resolve, 1500));
-      
+      await new Promise((resolve) => setTimeout(resolve, 1500));
+
       // In a real app, this would fetch fresh data from the API
-      console.log('Refreshing orders data...');
-      
+      console.log("Refreshing orders data...");
+
       // Show success message
-      alert('Orders data refreshed successfully!');
-      
+      alert("Orders data refreshed successfully!");
     } catch (error) {
-      console.error('Failed to refresh data:', error);
-      alert('Failed to refresh data. Please try again.');
+      console.error("Failed to refresh data:", error);
+      alert("Failed to refresh data. Please try again.");
     } finally {
       setIsRefreshing(false);
     }
@@ -293,64 +323,82 @@ For real-time updates, contact supplier at ${order.supplierContact}
     setActiveTab("all");
   };
 
-  const uniqueSuppliers = [...new Set(orders.map(order => order.supplier))];
+  const uniqueSuppliers = [...new Set(orders.map((order) => order.supplier))];
 
   const handleExport = () => {
     try {
       // Prepare CSV data
-      const csvHeaders = ['Order ID', 'Supplier', 'Contact', 'Items', 'Total Amount', 'Status', 'Order Date', 'Delivery Date', 'Payment Status', 'Priority'];
-      const csvRows = filteredOrders.map(order => [
+      const csvHeaders = [
+        "Order ID",
+        "Supplier",
+        "Contact",
+        "Items",
+        "Total Amount",
+        "Status",
+        "Order Date",
+        "Delivery Date",
+        "Payment Status",
+        "Priority",
+      ];
+      const csvRows = filteredOrders.map((order) => [
         order.id,
         order.supplier,
         order.supplierContact,
-        order.items.map(item => `${item.name} (${item.quantity})`).join('; '),
+        order.items.map((item) => `${item.name} (${item.quantity})`).join("; "),
         order.totalAmount,
         order.status,
         order.orderDate,
         order.deliveryDate,
         order.paymentStatus,
-        order.priority
+        order.priority,
       ]);
 
       // Create CSV content
       const csvContent = [
-        csvHeaders.join(','),
-        ...csvRows.map(row => row.map(cell => `"${cell}"`).join(','))
-      ].join('\n');
+        csvHeaders.join(","),
+        ...csvRows.map((row) => row.map((cell) => `"${cell}"`).join(",")),
+      ].join("\n");
 
       // Create blob and download
-      const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
-      const link = document.createElement('a');
+      const blob = new Blob([csvContent], { type: "text/csv;charset=utf-8;" });
+      const link = document.createElement("a");
       const url = URL.createObjectURL(blob);
-      
-      link.setAttribute('href', url);
-      link.setAttribute('download', `orders_export_${new Date().toISOString().split('T')[0]}.csv`);
-      link.style.visibility = 'hidden';
-      
+
+      link.setAttribute("href", url);
+      link.setAttribute(
+        "download",
+        `orders_export_${new Date().toISOString().split("T")[0]}.csv`
+      );
+      link.style.visibility = "hidden";
+
       document.body.appendChild(link);
       link.click();
       document.body.removeChild(link);
 
       alert(`Successfully exported ${filteredOrders.length} orders to CSV!`);
     } catch (error) {
-      console.error('Export failed:', error);
-      alert('Failed to export orders. Please try again.');
+      console.error("Export failed:", error);
+      alert("Failed to export orders. Please try again.");
     }
   };
 
   const handleNewOrder = () => {
-    router.push('/dashboard/retail/orders/new');
+    router.push("/dashboard/retail/orders/new");
   };
 
   return (
     <div className="space-y-6 page-transition">
       <div className="flex items-center justify-between animate-fade-in-up">
         <div>
-          <h1 className="text-3xl font-bold">{t?.orders?.title ?? "Orders Management"}</h1>
-          <p className="text-muted-foreground">{t?.orders?.description ?? "Track and manage your supplier orders"}</p>
+          <h1 className="text-3xl font-bold">
+            {t?.orders?.title ?? "Orders Management"}
+          </h1>
+          <p className="text-muted-foreground">
+            {t?.orders?.description ?? "Track and manage your supplier orders"}
+          </p>
         </div>
         <div className="flex space-x-2">
-          <Button 
+          <Button
             variant="outline"
             onClick={handleExport}
             disabled={filteredOrders.length === 0}
@@ -358,7 +406,7 @@ For real-time updates, contact supplier at ${order.supplierContact}
             <Download className="mr-2 h-4 w-4" />
             {t?.dashboard?.export ?? "Export"}
           </Button>
-          <Button 
+          <Button
             className="bg-emerald-600 hover:bg-emerald-700"
             onClick={handleNewOrder}
           >
@@ -374,7 +422,9 @@ For real-time updates, contact supplier at ${order.supplierContact}
           <CardContent className="p-4">
             <div className="flex items-center justify-between">
               <div>
-                <p className="text-sm font-medium text-muted-foreground">Total Orders</p>
+                <p className="text-sm font-medium text-muted-foreground">
+                  Total Orders
+                </p>
                 <p className="text-2xl font-bold">{stats.totalOrders}</p>
                 <p className="text-xs text-muted-foreground">All time orders</p>
               </div>
@@ -387,9 +437,13 @@ For real-time updates, contact supplier at ${order.supplierContact}
           <CardContent className="p-4">
             <div className="flex items-center justify-between">
               <div>
-                <p className="text-sm font-medium text-muted-foreground">Pending Orders</p>
+                <p className="text-sm font-medium text-muted-foreground">
+                  Pending Orders
+                </p>
                 <p className="text-2xl font-bold">{stats.pendingOrders}</p>
-                <p className="text-xs text-muted-foreground">Awaiting processing</p>
+                <p className="text-xs text-muted-foreground">
+                  Awaiting processing
+                </p>
               </div>
               <Clock className="h-8 w-8 text-yellow-500 icon-bounce" />
             </div>
@@ -400,9 +454,13 @@ For real-time updates, contact supplier at ${order.supplierContact}
           <CardContent className="p-4">
             <div className="flex items-center justify-between">
               <div>
-                <p className="text-sm font-medium text-muted-foreground">Delivered</p>
+                <p className="text-sm font-medium text-muted-foreground">
+                  Delivered
+                </p>
                 <p className="text-2xl font-bold">{stats.deliveredOrders}</p>
-                <p className="text-xs text-muted-foreground">Successfully completed</p>
+                <p className="text-xs text-muted-foreground">
+                  Successfully completed
+                </p>
               </div>
               <CheckCircle className="h-8 w-8 text-green-500 icon-bounce" />
             </div>
@@ -413,9 +471,15 @@ For real-time updates, contact supplier at ${order.supplierContact}
           <CardContent className="p-4">
             <div className="flex items-center justify-between">
               <div>
-                <p className="text-sm font-medium text-muted-foreground">Total Value</p>
-                <p className="text-2xl font-bold">₹{stats.totalValue.toLocaleString()}</p>
-                <p className="text-xs text-muted-foreground">Total order value</p>
+                <p className="text-sm font-medium text-muted-foreground">
+                  Total Value
+                </p>
+                <p className="text-2xl font-bold">
+                  ₹{stats.totalValue.toLocaleString()}
+                </p>
+                <p className="text-xs text-muted-foreground">
+                  Total order value
+                </p>
               </div>
               <IndianRupee className="h-8 w-8 text-purple-500 icon-bounce" />
             </div>
@@ -429,7 +493,7 @@ For real-time updates, contact supplier at ${order.supplierContact}
           <div className="relative">
             <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-gray-500 pointer-events-none z-10" />
             <Input
-              placeholder="Search orders..."
+              placeholder={t?.orders?.searchPlaceholder ?? "Search orders..."}
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
               className="pl-10 pr-10 w-64"
@@ -445,34 +509,42 @@ For real-time updates, contact supplier at ${order.supplierContact}
             )}
           </div>
           <Select value={statusFilter} onValueChange={setStatusFilter}>
-            <SelectTrigger className="w-40">
-              <SelectValue placeholder="Filter by status" />
+              <SelectTrigger className="w-40">
+              <SelectValue placeholder={t?.filters?.statusPlaceholder ?? "Filter by status"} />
             </SelectTrigger>
             <SelectContent>
-              <SelectItem value="all">All Status</SelectItem>
-              <SelectItem value="pending">Pending</SelectItem>
-              <SelectItem value="processing">Processing</SelectItem>
-              <SelectItem value="delivered">Delivered</SelectItem>
-              <SelectItem value="cancelled">Cancelled</SelectItem>
+              <SelectItem value="all">{t?.filters?.all ?? "All Status"}</SelectItem>
+              <SelectItem value="pending">{t?.orders?.statusPending ?? "Pending"}</SelectItem>
+              <SelectItem value="processing">{t?.orders?.statusProcessing ?? "Processing"}</SelectItem>
+              <SelectItem value="delivered">{t?.orders?.statusDelivered ?? "Delivered"}</SelectItem>
+              <SelectItem value="cancelled">{t?.orders?.statusCancelled ?? "Cancelled"}</SelectItem>
             </SelectContent>
           </Select>
           {/* Active Filters Indicator */}
-          {(searchQuery || statusFilter !== "all" || dateFilter !== "all" || priorityFilter !== "all" || paymentFilter !== "all" || supplierFilter !== "all") && (
+          {(searchQuery ||
+            statusFilter !== "all" ||
+            dateFilter !== "all" ||
+            priorityFilter !== "all" ||
+            paymentFilter !== "all" ||
+            supplierFilter !== "all") && (
             <Badge variant="secondary" className="ml-2">
-              {[
-                searchQuery ? "search" : null,
-                statusFilter !== "all" ? "status" : null,
-                dateFilter !== "all" ? "date" : null,
-                priorityFilter !== "all" ? "priority" : null,
-                paymentFilter !== "all" ? "payment" : null,
-                supplierFilter !== "all" ? "supplier" : null
-              ].filter(Boolean).length} active
+              {
+                [
+                  searchQuery ? "search" : null,
+                  statusFilter !== "all" ? "status" : null,
+                  dateFilter !== "all" ? "date" : null,
+                  priorityFilter !== "all" ? "priority" : null,
+                  paymentFilter !== "all" ? "payment" : null,
+                  supplierFilter !== "all" ? "supplier" : null,
+                ].filter(Boolean).length
+              }{" "}
+              active
             </Badge>
           )}
         </div>
         <div className="flex gap-2">
-          <Button 
-            variant="outline" 
+          <Button
+            variant="outline"
             size="sm"
             onClick={handleMoreFilters}
             className={showMoreFilters ? "bg-blue-50 border-blue-200" : ""}
@@ -480,14 +552,16 @@ For real-time updates, contact supplier at ${order.supplierContact}
             <Filter className="h-4 w-4 mr-2" />
             More Filters
           </Button>
-          <Button 
-            variant="outline" 
+          <Button
+            variant="outline"
             size="sm"
             onClick={handleRefresh}
             disabled={isRefreshing}
           >
-            <RefreshCw className={`h-4 w-4 mr-2 ${isRefreshing ? 'animate-spin' : ''}`} />
-            {isRefreshing ? 'Refreshing...' : 'Refresh'}
+            <RefreshCw
+              className={`h-4 w-4 mr-2 ${isRefreshing ? "animate-spin" : ""}`}
+            />
+            {isRefreshing ? "Refreshing..." : "Refresh"}
           </Button>
         </div>
       </div>
@@ -498,9 +572,9 @@ For real-time updates, contact supplier at ${order.supplierContact}
           <CardHeader className="pb-4">
             <div className="flex items-center justify-between">
               <CardTitle className="text-lg">Advanced Filters</CardTitle>
-              <Button 
-                variant="ghost" 
-                size="sm" 
+              <Button
+                variant="ghost"
+                size="sm"
                 onClick={clearAllFilters}
                 className="text-blue-600 hover:text-blue-700"
               >
@@ -529,7 +603,10 @@ For real-time updates, contact supplier at ${order.supplierContact}
               {/* Priority Filter */}
               <div className="space-y-2">
                 <label className="text-sm font-medium">Priority</label>
-                <Select value={priorityFilter} onValueChange={setPriorityFilter}>
+                <Select
+                  value={priorityFilter}
+                  onValueChange={setPriorityFilter}
+                >
                   <SelectTrigger>
                     <SelectValue placeholder="Select priority" />
                   </SelectTrigger>
@@ -561,7 +638,10 @@ For real-time updates, contact supplier at ${order.supplierContact}
               {/* Supplier Filter */}
               <div className="space-y-2">
                 <label className="text-sm font-medium">Supplier</label>
-                <Select value={supplierFilter} onValueChange={setSupplierFilter}>
+                <Select
+                  value={supplierFilter}
+                  onValueChange={setSupplierFilter}
+                >
                   <SelectTrigger>
                     <SelectValue placeholder="Select supplier" />
                   </SelectTrigger>
@@ -582,10 +662,20 @@ For real-time updates, contact supplier at ${order.supplierContact}
               <span className="text-sm text-muted-foreground">
                 Showing {filteredOrders.length} of {orders.length} orders
               </span>
-              {(dateFilter !== "all" || priorityFilter !== "all" || paymentFilter !== "all" || supplierFilter !== "all") && (
+              {(dateFilter !== "all" ||
+                priorityFilter !== "all" ||
+                paymentFilter !== "all" ||
+                supplierFilter !== "all") && (
                 <Badge variant="secondary" className="ml-2">
-                  {[dateFilter, priorityFilter, paymentFilter, supplierFilter]
-                    .filter(f => f !== "all").length} filters active
+                  {
+                    [
+                      dateFilter,
+                      priorityFilter,
+                      paymentFilter,
+                      supplierFilter,
+                    ].filter((f) => f !== "all").length
+                  }{" "}
+                  filters active
                 </Badge>
               )}
             </div>
@@ -594,7 +684,11 @@ For real-time updates, contact supplier at ${order.supplierContact}
       )}
 
       {/* Orders Tabs */}
-      <Tabs value={activeTab} onValueChange={setActiveTab} className="space-y-4">
+      <Tabs
+        value={activeTab}
+        onValueChange={setActiveTab}
+        className="space-y-4"
+      >
         <TabsList className="grid w-full grid-cols-5">
           <TabsTrigger value="all">All Orders</TabsTrigger>
           <TabsTrigger value="pending">Pending</TabsTrigger>
@@ -610,8 +704,8 @@ For real-time updates, contact supplier at ${order.supplierContact}
                 <Package className="h-12 w-12 text-muted-foreground mx-auto mb-4" />
                 <h3 className="text-lg font-semibold mb-2">No orders found</h3>
                 <p className="text-muted-foreground mb-4">
-                  {searchQuery || statusFilter !== "all" 
-                    ? "Try adjusting your search or filters" 
+                  {searchQuery || statusFilter !== "all"
+                    ? "Try adjusting your search or filters"
                     : "Start by creating your first order"}
                 </p>
                 <Button asChild>
@@ -625,7 +719,11 @@ For real-time updates, contact supplier at ${order.supplierContact}
           ) : (
             <div className="space-y-4">
               {filteredOrders.map((order) => (
-                <Card key={order.id} className="hover:shadow-md transition-shadow cursor-pointer animate-fade-in-up list-item" onClick={() => handleViewOrder(order)}>
+                <Card
+                  key={order.id}
+                  className="hover:shadow-md transition-shadow cursor-pointer animate-fade-in-up list-item"
+                  onClick={() => handleViewOrder(order)}
+                >
                   <CardContent className="p-6">
                     <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-4">
                       {/* Order Info */}
@@ -639,11 +737,13 @@ For real-time updates, contact supplier at ${order.supplierContact}
                             {order.priority} priority
                           </Badge>
                         </div>
-                        
+
                         <div className="grid grid-cols-1 md:grid-cols-2 gap-4 text-sm">
                           <div className="flex items-center gap-2">
                             <User className="h-4 w-4 text-muted-foreground" />
-                            <span className="font-medium">{order.supplier}</span>
+                            <span className="font-medium">
+                              {order.supplier}
+                            </span>
                           </div>
                           <div className="flex items-center gap-2">
                             <Phone className="h-4 w-4 text-muted-foreground" />
@@ -665,11 +765,18 @@ For real-time updates, contact supplier at ${order.supplierContact}
 
                         {/* Items Summary */}
                         <div className="bg-gray-50 rounded-lg p-3">
-                          <h4 className="font-medium mb-2">Items ({order.items.length})</h4>
+                          <h4 className="font-medium mb-2">
+                            Items ({order.items.length})
+                          </h4>
                           <div className="space-y-1">
                             {order.items.slice(0, 2).map((item, index) => (
-                              <div key={index} className="flex justify-between text-sm">
-                                <span>{item.name} - {item.quantity}</span>
+                              <div
+                                key={index}
+                                className="flex justify-between text-sm"
+                              >
+                                <span>
+                                  {item.name} - {item.quantity}
+                                </span>
                                 <span>₹{item.price}/unit</span>
                               </div>
                             ))}
@@ -685,24 +792,33 @@ For real-time updates, contact supplier at ${order.supplierContact}
                       {/* Order Actions */}
                       <div className="flex flex-col items-end gap-3">
                         <div className="text-right">
-                          <p className="text-2xl font-bold">₹{order.totalAmount.toLocaleString()}</p>
-                          <Badge className={getPaymentStatusColor(order.paymentStatus)}>
+                          <p className="text-2xl font-bold">
+                            ₹{order.totalAmount.toLocaleString()}
+                          </p>
+                          <Badge
+                            className={getPaymentStatusColor(
+                              order.paymentStatus
+                            )}
+                          >
                             {order.paymentStatus}
                           </Badge>
                         </div>
-                        
-                        <div className="flex gap-2" onClick={(e) => e.stopPropagation()}>
-                          <Button 
-                            variant="outline" 
+
+                        <div
+                          className="flex gap-2"
+                          onClick={(e) => e.stopPropagation()}
+                        >
+                          <Button
+                            variant="outline"
                             size="sm"
                             onClick={() => handleViewOrder(order)}
                           >
                             <Eye className="h-4 w-4 mr-1" />
                             View
                           </Button>
-                          {order.status === 'pending' && (
-                            <Button 
-                              size="sm" 
+                          {order.status === "pending" && (
+                            <Button
+                              size="sm"
                               className="bg-emerald-600 hover:bg-emerald-700"
                               onClick={() => handleProcessOrder(order)}
                               disabled={processingOrderId === order.id}
@@ -713,13 +829,13 @@ For real-time updates, contact supplier at ${order.supplierContact}
                                   Processing...
                                 </>
                               ) : (
-                                'Process'
+                                "Process"
                               )}
                             </Button>
                           )}
-                          {order.status === 'processing' && (
-                            <Button 
-                              size="sm" 
+                          {order.status === "processing" && (
+                            <Button
+                              size="sm"
                               variant="outline"
                               onClick={() => handleTrackOrder(order)}
                             >
