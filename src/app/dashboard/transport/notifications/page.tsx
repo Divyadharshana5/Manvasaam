@@ -39,9 +39,11 @@ import {
 } from "lucide-react";
 import Link from "next/link";
 import { useState, useRef, useEffect } from "react";
+import { useLanguage } from "@/context/language-context";
 import { createPortal } from "react-dom";
 
 export default function TransportNotifications() {
+  const { t } = useLanguage();
   const [searchQuery, setSearchQuery] = useState("");
   const [activeTab, setActiveTab] = useState("all");
   const [showFilter, setShowFilter] = useState(false);
@@ -293,7 +295,7 @@ export default function TransportNotifications() {
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.5, delay: 0.2 }}
               >
-                Notifications
+                {t?.notifications?.title ?? "Notifications"}
               </motion.h1>
               <motion.p 
                 className="text-muted-foreground"
@@ -301,7 +303,7 @@ export default function TransportNotifications() {
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.5, delay: 0.3 }}
               >
-                Stay updated with your transport operations
+                {t?.notifications?.subtitle ?? "Stay updated with your transport operations"}
               </motion.p>
             </div>
           </div>
@@ -311,30 +313,30 @@ export default function TransportNotifications() {
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.5, delay: 0.4 }}
           >
-            <motion.div
-              initial={{ scale: 0 }}
-              animate={{ scale: 1 }}
-              transition={{ type: "spring", stiffness: 200, delay: 0.5 }}
-            >
-              <Badge variant="secondary">{unreadCount} unread</Badge>
-            </motion.div>
+              <motion.div
+                initial={{ scale: 0 }}
+                animate={{ scale: 1 }}
+                transition={{ type: "spring", stiffness: 200, delay: 0.5 }}
+              >
+                <Badge variant="secondary">{unreadCount} {t?.notifications?.unread ?? "unread"}</Badge>
+              </motion.div>
             <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
               <Button variant="outline" size="sm" onClick={handleMarkAllRead}>
                 <Check className="h-4 w-4 mr-2" />
-                Mark All Read
+                {t?.notifications?.markAll ?? "Mark All Read"}
               </Button>
             </motion.div>
             <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
               <Button variant="outline" size="sm" asChild>
                 <Link href="/dashboard/transport/settings">
-                  <span className="flex items-center">
+                    <span className="flex items-center">
                     <motion.div
                       animate={{ rotate: [0, 90, 0] }}
                       transition={{ duration: 2, repeat: Infinity, repeatDelay: 4 }}
                     >
                       <Settings className="h-4 w-4 mr-2" />
                     </motion.div>
-                    Settings
+                    {t?.settings?.title ?? "Settings"}
                   </span>
                 </Link>
               </Button>
