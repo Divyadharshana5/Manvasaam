@@ -523,10 +523,10 @@ export default function TransportDashboard() {
         className="space-y-4"
       >
         <TabsList className="grid w-full grid-cols-4">
-          <TabsTrigger value="overview">Overview</TabsTrigger>
-          <TabsTrigger value="fleet">Fleet</TabsTrigger>
-          <TabsTrigger value="deliveries">Deliveries</TabsTrigger>
-          <TabsTrigger value="analytics">Analytics</TabsTrigger>
+          <TabsTrigger value="overview">{t?.sidebar?.dashboard || "Overview"}</TabsTrigger>
+          <TabsTrigger value="fleet">{t?.sidebar?.profile || "Fleet"}</TabsTrigger>
+          <TabsTrigger value="deliveries">{t?.sidebar?.orders || "Deliveries"}</TabsTrigger>
+          <TabsTrigger value="analytics">{t?.sidebar?.marketing || "Analytics"}</TabsTrigger>
         </TabsList>
 
         <TabsContent value="overview" className="space-y-4 tab-content">
