@@ -226,7 +226,8 @@ export default function FarmerMatchmakingPage() {
             {t?.matchmaking?.title ?? "Find Transport Services"}
           </h1>
           <p className="text-muted-foreground">
-            {t?.matchmaking?.desc ?? "Connect with transport companies and drivers for your produce delivery"}
+            {t?.matchmaking?.desc ??
+              "Connect with transport companies and drivers for your produce delivery"}
           </p>
         </div>
       </motion.div>
@@ -236,7 +237,10 @@ export default function FarmerMatchmakingPage() {
         <div className="relative flex-1 max-w-md">
           <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground pointer-events-none z-10" />
           <Input
-            placeholder={t?.matchmaking?.searchPlaceholder ?? "Search by name, location, or requirements..."}
+            placeholder={
+              t?.matchmaking?.searchPlaceholder ??
+              "Search by name, location, or requirements..."
+            }
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}
             className="pl-10 pr-10"
@@ -276,8 +280,12 @@ export default function FarmerMatchmakingPage() {
             <div className="relative w-full max-w-md bg-white rounded-lg shadow-2xl ring-2 ring-green-500/40 border border-green-200 animate-in zoom-in-95">
               <div className="sticky top-0 z-10 flex items-start justify-between p-4 border-b bg-white/90 backdrop-blur">
                 <div>
-                  <h2 className="text-lg font-semibold">{t?.filters?.title ?? "Filter Results"}</h2>
-                  <p className="text-sm text-muted-foreground">{t?.filters?.desc ?? "Refine your search"}</p>
+                  <h2 className="text-lg font-semibold">
+                    {t?.filters?.title ?? "Filter Results"}
+                  </h2>
+                  <p className="text-sm text-muted-foreground">
+                    {t?.filters?.desc ?? "Refine your search"}
+                  </p>
                 </div>
                 <button
                   onClick={() => setIsFilterOpen(false)}
