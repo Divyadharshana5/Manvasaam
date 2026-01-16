@@ -32,7 +32,6 @@ import {
   MessageCircle,
   Phone,
   QrCode,
-import { useLanguage } from "@/context/language-context";
   CreditCard,
   Bell,
   Eye,
@@ -61,6 +60,7 @@ import { useLanguage } from "@/context/language-context";
 } from "lucide-react";
 import Link from "next/link";
 import { useState } from "react";
+import { useLanguage } from "@/context/language-context";
 
 export default function TransportDashboard() {
   const [companyName] = useState("Swift Logistics");
@@ -270,25 +270,25 @@ export default function TransportDashboard() {
 
   const quickActions = [
     {
-      name: "New Delivery",
+      name: t?.transport?.quickActions?.newDelivery ?? "New Delivery",
       icon: Plus,
       href: "/dashboard/transport/deliveries/new",
       color: "bg-green-500",
     },
     {
-      name: "Track Vehicle",
+      name: t?.transport?.quickActions?.trackVehicle ?? "Track Vehicle",
       icon: Navigation,
       href: "/dashboard/transport/tracking",
       color: "bg-blue-500",
     },
     {
-      name: "Route Planning",
+      name: t?.transport?.quickActions?.routePlanning ?? "Route Planning",
       icon: Map,
       href: "/dashboard/transport/routes",
       color: "bg-purple-500",
     },
     {
-      name: "Maintenance",
+      name: t?.transport?.quickActions?.maintenance ?? "Maintenance",
       icon: Wrench,
       href: "/dashboard/transport/maintenance",
       color: "bg-orange-500",
