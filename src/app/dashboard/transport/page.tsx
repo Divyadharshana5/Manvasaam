@@ -302,9 +302,9 @@ export default function TransportDashboard() {
       opacity: 1,
       transition: {
         duration: 0.6,
-        staggerChildren: 0.1
-      }
-    }
+        staggerChildren: 0.1,
+      },
+    },
   };
 
   const itemVariants = {
@@ -312,8 +312,8 @@ export default function TransportDashboard() {
     visible: {
       opacity: 1,
       y: 0,
-      transition: { duration: 0.5 }
-    }
+      transition: { duration: 0.5 },
+    },
   };
 
   const cardVariants = {
@@ -321,45 +321,45 @@ export default function TransportDashboard() {
     visible: {
       opacity: 1,
       scale: 1,
-      transition: { duration: 0.4 }
+      transition: { duration: 0.4 },
     },
     hover: {
       scale: 1.02,
-      transition: { duration: 0.2 }
-    }
+      transition: { duration: 0.2 },
+    },
   };
 
   return (
-    <motion.div 
+    <motion.div
       className="flex flex-1 flex-col gap-4 p-4 md:gap-8 md:p-8"
       variants={containerVariants}
       initial="hidden"
       animate="visible"
     >
       {/* Status and Search */}
-      <motion.div 
+      <motion.div
         className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4"
         variants={itemVariants}
       >
         <div className="flex items-center gap-2">
           <Badge variant="outline" className="text-green-600">
             <Activity className="h-3 w-3 mr-1" />
-            Fleet Active
+            {t?.transport?.fleetActive ?? "Fleet Active"}
           </Badge>
           <Badge variant="secondary">
             <Clock className="h-3 w-3 mr-1" />
-            Last update: 1 min ago
+            {t?.dashboard?.lastUpdate ?? "Last update: 1 min ago"}
           </Badge>
           <Badge variant="outline" className="text-blue-600">
             <Shield className="h-3 w-3 mr-1" />
-            Safety Certified
+            {t?.transport?.safetyCertified ?? "Safety Certified"}
           </Badge>
         </div>
         <div className="flex items-center gap-2">
           <div className="relative">
             <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground pointer-events-none z-10" />
             <Input
-              placeholder="Search deliveries, vehicles..."
+              placeholder={t?.transport?.searchPlaceholder ?? "Search deliveries, vehicles..."}
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
               className="pl-10 pr-10 w-64"
@@ -390,14 +390,11 @@ export default function TransportDashboard() {
       </motion.div>
 
       {/* Today's Quick Stats */}
-      <motion.div 
+      <motion.div
         className="grid gap-4 md:grid-cols-4"
         variants={containerVariants}
       >
-        <motion.div
-          variants={cardVariants}
-          whileHover="hover"
-        >
+        <motion.div variants={cardVariants} whileHover="hover">
           <Card className="border-l-4 border-l-green-500 transition-shadow duration-300 hover:shadow-lg">
             <CardContent className="p-4">
               <div className="flex items-center justify-between">
@@ -405,7 +402,7 @@ export default function TransportDashboard() {
                   <p className="text-sm font-medium text-muted-foreground">
                     Today's Deliveries
                   </p>
-                  <motion.p 
+                  <motion.p
                     className="text-2xl font-bold text-green-600"
                     initial={{ scale: 0 }}
                     animate={{ scale: 1 }}
@@ -424,10 +421,7 @@ export default function TransportDashboard() {
             </CardContent>
           </Card>
         </motion.div>
-        <motion.div
-          variants={cardVariants}
-          whileHover="hover"
-        >
+        <motion.div variants={cardVariants} whileHover="hover">
           <Card className="border-l-4 border-l-blue-500 transition-shadow duration-300 hover:shadow-lg">
             <CardContent className="p-4">
               <div className="flex items-center justify-between">
@@ -435,7 +429,7 @@ export default function TransportDashboard() {
                   <p className="text-sm font-medium text-muted-foreground">
                     Today's Revenue
                   </p>
-                  <motion.p 
+                  <motion.p
                     className="text-2xl font-bold text-blue-600"
                     initial={{ scale: 0 }}
                     animate={{ scale: 1 }}
@@ -454,10 +448,7 @@ export default function TransportDashboard() {
             </CardContent>
           </Card>
         </motion.div>
-        <motion.div
-          variants={cardVariants}
-          whileHover="hover"
-        >
+        <motion.div variants={cardVariants} whileHover="hover">
           <Card className="border-l-4 border-l-purple-500 transition-shadow duration-300 hover:shadow-lg">
             <CardContent className="p-4">
               <div className="flex items-center justify-between">
@@ -465,7 +456,7 @@ export default function TransportDashboard() {
                   <p className="text-sm font-medium text-muted-foreground">
                     Distance Covered
                   </p>
-                  <motion.p 
+                  <motion.p
                     className="text-2xl font-bold text-purple-600"
                     initial={{ scale: 0 }}
                     animate={{ scale: 1 }}
@@ -484,10 +475,7 @@ export default function TransportDashboard() {
             </CardContent>
           </Card>
         </motion.div>
-        <motion.div
-          variants={cardVariants}
-          whileHover="hover"
-        >
+        <motion.div variants={cardVariants} whileHover="hover">
           <Card className="border-l-4 border-l-orange-500 transition-shadow duration-300 hover:shadow-lg">
             <CardContent className="p-4">
               <div className="flex items-center justify-between">
@@ -495,7 +483,7 @@ export default function TransportDashboard() {
                   <p className="text-sm font-medium text-muted-foreground">
                     Fuel Consumed
                   </p>
-                  <motion.p 
+                  <motion.p
                     className="text-2xl font-bold text-orange-600"
                     initial={{ scale: 0 }}
                     animate={{ scale: 1 }}
@@ -506,7 +494,11 @@ export default function TransportDashboard() {
                 </div>
                 <motion.div
                   animate={{ y: [0, -2, 0] }}
-                  transition={{ duration: 2.5, repeat: Infinity, repeatDelay: 1 }}
+                  transition={{
+                    duration: 2.5,
+                    repeat: Infinity,
+                    repeatDelay: 1,
+                  }}
                 >
                   <Fuel className="h-8 w-8 text-orange-500" />
                 </motion.div>
@@ -523,22 +515,27 @@ export default function TransportDashboard() {
         className="space-y-4"
       >
         <TabsList className="grid w-full grid-cols-4">
-          <TabsTrigger value="overview">{t?.sidebar?.dashboard || "Overview"}</TabsTrigger>
-          <TabsTrigger value="fleet">{t?.sidebar?.profile || "Fleet"}</TabsTrigger>
-          <TabsTrigger value="deliveries">{t?.sidebar?.orders || "Deliveries"}</TabsTrigger>
-          <TabsTrigger value="analytics">{t?.sidebar?.marketing || "Analytics"}</TabsTrigger>
+          <TabsTrigger value="overview">
+            {t?.sidebar?.dashboard || "Overview"}
+          </TabsTrigger>
+          <TabsTrigger value="fleet">
+            {t?.sidebar?.profile || "Fleet"}
+          </TabsTrigger>
+          <TabsTrigger value="deliveries">
+            {t?.sidebar?.orders || "Deliveries"}
+          </TabsTrigger>
+          <TabsTrigger value="analytics">
+            {t?.sidebar?.marketing || "Analytics"}
+          </TabsTrigger>
         </TabsList>
 
         <TabsContent value="overview" className="space-y-4 tab-content">
           {/* Monthly Stats Cards */}
-          <motion.div 
+          <motion.div
             className="grid gap-4 md:grid-cols-2 lg:grid-cols-4"
             variants={containerVariants}
           >
-            <motion.div
-              variants={cardVariants}
-              whileHover="hover"
-            >
+            <motion.div variants={cardVariants} whileHover="hover">
               <Card className="transition-shadow duration-300 hover:shadow-lg">
                 <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
                   <CardTitle className="text-sm font-medium">
@@ -546,13 +543,17 @@ export default function TransportDashboard() {
                   </CardTitle>
                   <motion.div
                     animate={{ x: [0, 3, -3, 0] }}
-                    transition={{ duration: 2, repeat: Infinity, repeatDelay: 4 }}
+                    transition={{
+                      duration: 2,
+                      repeat: Infinity,
+                      repeatDelay: 4,
+                    }}
                   >
                     <Truck className="h-4 w-4 text-muted-foreground" />
                   </motion.div>
                 </CardHeader>
                 <CardContent>
-                  <motion.div 
+                  <motion.div
                     className="text-2xl font-bold"
                     initial={{ scale: 0 }}
                     animate={{ scale: 1 }}
@@ -560,7 +561,7 @@ export default function TransportDashboard() {
                   >
                     {stats.activeDeliveries}
                   </motion.div>
-                  <motion.p 
+                  <motion.p
                     className="text-xs text-muted-foreground"
                     initial={{ opacity: 0, y: 10 }}
                     animate={{ opacity: 1, y: 0 }}
@@ -578,10 +579,7 @@ export default function TransportDashboard() {
               </Card>
             </motion.div>
 
-            <motion.div
-              variants={cardVariants}
-              whileHover="hover"
-            >
+            <motion.div variants={cardVariants} whileHover="hover">
               <Card className="transition-shadow duration-300 hover:shadow-lg">
                 <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
                   <CardTitle className="text-sm font-medium">
@@ -589,13 +587,17 @@ export default function TransportDashboard() {
                   </CardTitle>
                   <motion.div
                     animate={{ rotate: [0, 360] }}
-                    transition={{ duration: 3, repeat: Infinity, ease: "linear" }}
+                    transition={{
+                      duration: 3,
+                      repeat: Infinity,
+                      ease: "linear",
+                    }}
                   >
                     <IndianRupee className="h-4 w-4 text-muted-foreground" />
                   </motion.div>
                 </CardHeader>
                 <CardContent>
-                  <motion.div 
+                  <motion.div
                     className="text-2xl font-bold"
                     initial={{ scale: 0 }}
                     animate={{ scale: 1 }}
@@ -603,7 +605,7 @@ export default function TransportDashboard() {
                   >
                     ₹{stats.totalRevenue.toLocaleString()}
                   </motion.div>
-                  <motion.p 
+                  <motion.p
                     className="text-xs text-muted-foreground"
                     initial={{ opacity: 0, y: 10 }}
                     animate={{ opacity: 1, y: 0 }}
@@ -611,7 +613,11 @@ export default function TransportDashboard() {
                   >
                     <motion.div
                       animate={{ y: [0, -2, 0] }}
-                      transition={{ duration: 1.5, repeat: Infinity, delay: 0.2 }}
+                      transition={{
+                        duration: 1.5,
+                        repeat: Infinity,
+                        delay: 0.2,
+                      }}
                     >
                       <TrendingUp className="inline h-3 w-3 mr-1" />
                     </motion.div>
@@ -621,10 +627,7 @@ export default function TransportDashboard() {
               </Card>
             </motion.div>
 
-            <motion.div
-              variants={cardVariants}
-              whileHover="hover"
-            >
+            <motion.div variants={cardVariants} whileHover="hover">
               <Card className="transition-shadow duration-300 hover:shadow-lg">
                 <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
                   <CardTitle className="text-sm font-medium">
@@ -632,13 +635,17 @@ export default function TransportDashboard() {
                   </CardTitle>
                   <motion.div
                     animate={{ rotate: [0, 10, -10, 0] }}
-                    transition={{ duration: 2.5, repeat: Infinity, repeatDelay: 2 }}
+                    transition={{
+                      duration: 2.5,
+                      repeat: Infinity,
+                      repeatDelay: 2,
+                    }}
                   >
                     <Star className="h-4 w-4 text-muted-foreground" />
                   </motion.div>
                 </CardHeader>
                 <CardContent>
-                  <motion.div 
+                  <motion.div
                     className="text-2xl font-bold"
                     initial={{ scale: 0 }}
                     animate={{ scale: 1 }}
@@ -646,7 +653,7 @@ export default function TransportDashboard() {
                   >
                     {stats.customerRating}
                   </motion.div>
-                  <motion.p 
+                  <motion.p
                     className="text-xs text-muted-foreground"
                     initial={{ opacity: 0, y: 10 }}
                     animate={{ opacity: 1, y: 0 }}
@@ -659,10 +666,7 @@ export default function TransportDashboard() {
               </Card>
             </motion.div>
 
-            <motion.div
-              variants={cardVariants}
-              whileHover="hover"
-            >
+            <motion.div variants={cardVariants} whileHover="hover">
               <Card className="transition-shadow duration-300 hover:shadow-lg">
                 <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
                   <CardTitle className="text-sm font-medium">
@@ -670,13 +674,17 @@ export default function TransportDashboard() {
                   </CardTitle>
                   <motion.div
                     animate={{ scale: [1, 1.1, 1] }}
-                    transition={{ duration: 2, repeat: Infinity, repeatDelay: 3 }}
+                    transition={{
+                      duration: 2,
+                      repeat: Infinity,
+                      repeatDelay: 3,
+                    }}
                   >
                     <Timer className="h-4 w-4 text-muted-foreground" />
                   </motion.div>
                 </CardHeader>
                 <CardContent>
-                  <motion.div 
+                  <motion.div
                     className="text-2xl font-bold"
                     initial={{ scale: 0 }}
                     animate={{ scale: 1 }}
@@ -684,7 +692,7 @@ export default function TransportDashboard() {
                   >
                     {stats.onTimeDelivery}%
                   </motion.div>
-                  <motion.p 
+                  <motion.p
                     className="text-xs text-muted-foreground"
                     initial={{ opacity: 0, y: 10 }}
                     animate={{ opacity: 1, y: 0 }}
@@ -699,10 +707,7 @@ export default function TransportDashboard() {
           </motion.div>
 
           {/* Quick Actions */}
-          <motion.div
-            variants={cardVariants}
-            whileHover="hover"
-          >
+          <motion.div variants={cardVariants} whileHover="hover">
             <Card className="transition-shadow duration-300 hover:shadow-lg">
               <CardHeader>
                 <motion.div
@@ -713,7 +718,11 @@ export default function TransportDashboard() {
                   <CardTitle className="flex items-center gap-2 text-lg">
                     <motion.div
                       animate={{ rotate: [0, 5, -5, 0] }}
-                      transition={{ duration: 2, repeat: Infinity, repeatDelay: 3 }}
+                      transition={{
+                        duration: 2,
+                        repeat: Infinity,
+                        repeatDelay: 3,
+                      }}
                     >
                       <Zap className="h-5 w-5" />
                     </motion.div>
@@ -725,7 +734,7 @@ export default function TransportDashboard() {
                 </motion.div>
               </CardHeader>
               <CardContent>
-                <motion.div 
+                <motion.div
                   className="grid gap-4 md:grid-cols-2 lg:grid-cols-4"
                   variants={containerVariants}
                 >
@@ -745,7 +754,12 @@ export default function TransportDashboard() {
                           <motion.div
                             className={`p-2 rounded-full ${action.color} text-white mb-2`}
                             animate={{ rotate: [0, 360] }}
-                            transition={{ duration: 4, repeat: Infinity, ease: "linear", delay: index * 0.5 }}
+                            transition={{
+                              duration: 4,
+                              repeat: Infinity,
+                              ease: "linear",
+                              delay: index * 0.5,
+                            }}
                           >
                             <action.icon className="h-6 w-6" />
                           </motion.div>
@@ -761,11 +775,11 @@ export default function TransportDashboard() {
         </TabsContent>
 
         <TabsContent value="fleet" className="space-y-4 tab-content">
-          <motion.div 
+          <motion.div
             className="flex items-center justify-between"
             variants={itemVariants}
           >
-            <motion.h3 
+            <motion.h3
               className="text-lg font-semibold"
               initial={{ opacity: 0, x: -20 }}
               animate={{ opacity: 1, x: 0 }}
@@ -773,13 +787,16 @@ export default function TransportDashboard() {
             >
               Fleet Management
             </motion.h3>
-            <motion.div 
+            <motion.div
               className="flex gap-2"
               initial={{ opacity: 0, x: 20 }}
               animate={{ opacity: 1, x: 0 }}
               transition={{ duration: 0.5, delay: 0.2 }}
             >
-              <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
+              <motion.div
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
+              >
                 <Button variant="outline" size="sm" asChild>
                   <Link href="/dashboard/transport/fleet/filter">
                     <Filter className="h-4 w-4 mr-2" />
@@ -787,7 +804,10 @@ export default function TransportDashboard() {
                   </Link>
                 </Button>
               </motion.div>
-              <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
+              <motion.div
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
+              >
                 <Button variant="outline" size="sm" asChild>
                   <Link href="/dashboard/transport/fleet/export">
                     <Download className="h-4 w-4 mr-2" />
@@ -798,17 +818,14 @@ export default function TransportDashboard() {
             </motion.div>
           </motion.div>
 
-          <motion.div 
-            className="grid gap-4"
-            variants={containerVariants}
-          >
+          <motion.div className="grid gap-4" variants={containerVariants}>
             {vehicles.map((vehicle, index) => (
               <motion.div
                 key={index}
                 variants={cardVariants}
                 whileHover="hover"
               >
-                <Card 
+                <Card
                   className={`transition-shadow duration-300 hover:shadow-lg ${
                     vehicle.status === "maintenance"
                       ? "border-orange-200 bg-orange-50"
@@ -826,23 +843,26 @@ export default function TransportDashboard() {
                               ? "bg-blue-100"
                               : "bg-orange-100"
                           }`}
-                          animate={{ 
-                            scale: vehicle.status === "active" ? [1, 1.05, 1] : 1 
+                          animate={{
+                            scale:
+                              vehicle.status === "active" ? [1, 1.05, 1] : 1,
                           }}
-                          transition={{ 
-                            duration: 2, 
+                          transition={{
+                            duration: 2,
                             repeat: vehicle.status === "active" ? Infinity : 0,
-                            repeatDelay: 3 
+                            repeatDelay: 3,
                           }}
                         >
                           <motion.div
-                            animate={{ 
-                              x: vehicle.status === "active" ? [0, 2, -2, 0] : 0 
+                            animate={{
+                              x:
+                                vehicle.status === "active" ? [0, 2, -2, 0] : 0,
                             }}
-                            transition={{ 
-                              duration: 3, 
-                              repeat: vehicle.status === "active" ? Infinity : 0,
-                              repeatDelay: 2 
+                            transition={{
+                              duration: 3,
+                              repeat:
+                                vehicle.status === "active" ? Infinity : 0,
+                              repeatDelay: 2,
                             }}
                           >
                             <Truck
@@ -857,7 +877,7 @@ export default function TransportDashboard() {
                           </motion.div>
                         </motion.div>
                         <div>
-                          <motion.h4 
+                          <motion.h4
                             className="font-semibold"
                             initial={{ opacity: 0, y: -5 }}
                             animate={{ opacity: 1, y: 0 }}
@@ -865,30 +885,39 @@ export default function TransportDashboard() {
                           >
                             {vehicle.id}
                           </motion.h4>
-                          <motion.p 
+                          <motion.p
                             className="text-sm text-muted-foreground"
                             initial={{ opacity: 0, y: -5 }}
                             animate={{ opacity: 1, y: 0 }}
-                            transition={{ duration: 0.3, delay: index * 0.1 + 0.1 }}
+                            transition={{
+                              duration: 0.3,
+                              delay: index * 0.1 + 0.1,
+                            }}
                           >
                             Driver: {vehicle.driver}
                           </motion.p>
-                          <motion.p 
+                          <motion.p
                             className="text-sm text-muted-foreground"
                             initial={{ opacity: 0, y: -5 }}
                             animate={{ opacity: 1, y: 0 }}
-                            transition={{ duration: 0.3, delay: index * 0.1 + 0.2 }}
+                            transition={{
+                              duration: 0.3,
+                              delay: index * 0.1 + 0.2,
+                            }}
                           >
                             Location: {vehicle.location}
                           </motion.p>
                         </div>
                       </div>
                       <div className="flex items-center gap-6">
-                        <motion.div 
+                        <motion.div
                           className="text-center"
                           initial={{ opacity: 0, scale: 0.8 }}
                           animate={{ opacity: 1, scale: 1 }}
-                          transition={{ duration: 0.4, delay: index * 0.1 + 0.3 }}
+                          transition={{
+                            duration: 0.4,
+                            delay: index * 0.1 + 0.3,
+                          }}
                         >
                           <div className="flex items-center gap-1 mb-1">
                             <Fuel className="h-4 w-4" />
@@ -898,11 +927,14 @@ export default function TransportDashboard() {
                           </div>
                           <Progress value={vehicle.fuel} className="w-16 h-2" />
                         </motion.div>
-                        <motion.div 
+                        <motion.div
                           className="text-center"
                           initial={{ opacity: 0, scale: 0.8 }}
                           animate={{ opacity: 1, scale: 1 }}
-                          transition={{ duration: 0.4, delay: index * 0.1 + 0.4 }}
+                          transition={{
+                            duration: 0.4,
+                            delay: index * 0.1 + 0.4,
+                          }}
                         >
                           <div className="flex items-center gap-1 mb-1">
                             <ThermometerSun className="h-4 w-4" />
@@ -915,11 +947,14 @@ export default function TransportDashboard() {
                             className="w-16 h-2"
                           />
                         </motion.div>
-                        <motion.div 
+                        <motion.div
                           className="text-center"
                           initial={{ opacity: 0, scale: 0.8 }}
                           animate={{ opacity: 1, scale: 1 }}
-                          transition={{ duration: 0.4, delay: index * 0.1 + 0.5 }}
+                          transition={{
+                            duration: 0.4,
+                            delay: index * 0.1 + 0.5,
+                          }}
                         >
                           <div className="flex items-center gap-1 mb-1">
                             <Battery className="h-4 w-4" />
@@ -932,11 +967,14 @@ export default function TransportDashboard() {
                             className="w-16 h-2"
                           />
                         </motion.div>
-                        <motion.div 
+                        <motion.div
                           className="text-right"
                           initial={{ opacity: 0, x: 20 }}
                           animate={{ opacity: 1, x: 0 }}
-                          transition={{ duration: 0.4, delay: index * 0.1 + 0.6 }}
+                          transition={{
+                            duration: 0.4,
+                            delay: index * 0.1 + 0.6,
+                          }}
                         >
                           <Badge
                             variant={
@@ -963,11 +1001,11 @@ export default function TransportDashboard() {
         </TabsContent>
 
         <TabsContent value="deliveries" className="space-y-4 tab-content">
-          <motion.div 
+          <motion.div
             className="flex items-center justify-between"
             variants={itemVariants}
           >
-            <motion.h3 
+            <motion.h3
               className="text-lg font-semibold"
               initial={{ opacity: 0, x: -20 }}
               animate={{ opacity: 1, x: 0 }}
@@ -986,7 +1024,11 @@ export default function TransportDashboard() {
                 <Link href="/dashboard/transport/deliveries/new">
                   <motion.div
                     animate={{ rotate: [0, 90, 0] }}
-                    transition={{ duration: 2, repeat: Infinity, repeatDelay: 4 }}
+                    transition={{
+                      duration: 2,
+                      repeat: Infinity,
+                      repeatDelay: 4,
+                    }}
                   >
                     <Plus className="h-4 w-4 mr-2" />
                   </motion.div>
@@ -996,10 +1038,7 @@ export default function TransportDashboard() {
             </motion.div>
           </motion.div>
 
-          <motion.div 
-            className="space-y-4"
-            variants={containerVariants}
-          >
+          <motion.div className="space-y-4" variants={containerVariants}>
             {deliveries.map((delivery, index) => (
               <motion.div
                 key={delivery.id}
@@ -1010,7 +1049,7 @@ export default function TransportDashboard() {
                   <CardContent className="p-4">
                     <div className="flex items-center justify-between">
                       <div className="flex-1">
-                        <motion.div 
+                        <motion.div
                           className="flex items-center gap-2 mb-2"
                           initial={{ opacity: 0, y: -5 }}
                           animate={{ opacity: 1, y: 0 }}
@@ -1020,7 +1059,11 @@ export default function TransportDashboard() {
                           <motion.div
                             initial={{ scale: 0 }}
                             animate={{ scale: 1 }}
-                            transition={{ type: "spring", stiffness: 200, delay: index * 0.1 + 0.2 }}
+                            transition={{
+                              type: "spring",
+                              stiffness: 200,
+                              delay: index * 0.1 + 0.2,
+                            }}
                           >
                             <Badge
                               variant={
@@ -1035,20 +1078,27 @@ export default function TransportDashboard() {
                             </Badge>
                           </motion.div>
                         </motion.div>
-                        <motion.div 
+                        <motion.div
                           className="flex items-center gap-2 mb-1"
                           initial={{ opacity: 0, x: -10 }}
                           animate={{ opacity: 1, x: 0 }}
-                          transition={{ duration: 0.3, delay: index * 0.1 + 0.1 }}
+                          transition={{
+                            duration: 0.3,
+                            delay: index * 0.1 + 0.1,
+                          }}
                         >
                           <motion.div
-                            animate={{ 
-                              scale: delivery.status === "in-transit" ? [1, 1.1, 1] : 1 
+                            animate={{
+                              scale:
+                                delivery.status === "in-transit"
+                                  ? [1, 1.1, 1]
+                                  : 1,
                             }}
-                            transition={{ 
-                              duration: 2, 
-                              repeat: delivery.status === "in-transit" ? Infinity : 0,
-                              repeatDelay: 1 
+                            transition={{
+                              duration: 2,
+                              repeat:
+                                delivery.status === "in-transit" ? Infinity : 0,
+                              repeatDelay: 1,
                             }}
                           >
                             <MapPin className="h-4 w-4 text-muted-foreground" />
@@ -1057,24 +1107,30 @@ export default function TransportDashboard() {
                             {delivery.from} → {delivery.to}
                           </span>
                         </motion.div>
-                        <motion.p 
+                        <motion.p
                           className="text-sm text-muted-foreground"
                           initial={{ opacity: 0, x: -10 }}
                           animate={{ opacity: 1, x: 0 }}
-                          transition={{ duration: 0.3, delay: index * 0.1 + 0.2 }}
+                          transition={{
+                            duration: 0.3,
+                            delay: index * 0.1 + 0.2,
+                          }}
                         >
                           Items: {delivery.items}
                         </motion.p>
-                        <motion.p 
+                        <motion.p
                           className="text-sm text-muted-foreground"
                           initial={{ opacity: 0, x: -10 }}
                           animate={{ opacity: 1, x: 0 }}
-                          transition={{ duration: 0.3, delay: index * 0.1 + 0.3 }}
+                          transition={{
+                            duration: 0.3,
+                            delay: index * 0.1 + 0.3,
+                          }}
                         >
                           Driver: {delivery.driver}
                         </motion.p>
                       </div>
-                      <motion.div 
+                      <motion.div
                         className="text-right"
                         initial={{ opacity: 0, x: 20 }}
                         animate={{ opacity: 1, x: 0 }}
@@ -1084,13 +1140,19 @@ export default function TransportDashboard() {
                         <p className="text-sm text-muted-foreground">
                           {delivery.distance}
                         </p>
-                        <motion.div 
+                        <motion.div
                           className="flex gap-2 mt-2"
                           initial={{ opacity: 0, y: 10 }}
                           animate={{ opacity: 1, y: 0 }}
-                          transition={{ duration: 0.3, delay: index * 0.1 + 0.5 }}
+                          transition={{
+                            duration: 0.3,
+                            delay: index * 0.1 + 0.5,
+                          }}
                         >
-                          <motion.div whileHover={{ scale: 1.1 }} whileTap={{ scale: 0.9 }}>
+                          <motion.div
+                            whileHover={{ scale: 1.1 }}
+                            whileTap={{ scale: 0.9 }}
+                          >
                             <Button size="sm" variant="outline" asChild>
                               <Link
                                 href={`/dashboard/transport/deliveries/details?id=${delivery.id}`}
@@ -1099,7 +1161,10 @@ export default function TransportDashboard() {
                               </Link>
                             </Button>
                           </motion.div>
-                          <motion.div whileHover={{ scale: 1.1 }} whileTap={{ scale: 0.9 }}>
+                          <motion.div
+                            whileHover={{ scale: 1.1 }}
+                            whileTap={{ scale: 0.9 }}
+                          >
                             <Button size="sm" variant="outline" asChild>
                               <Link
                                 href={`/dashboard/transport/deliveries/tracking?id=${delivery.id}`}
@@ -1108,7 +1173,10 @@ export default function TransportDashboard() {
                               </Link>
                             </Button>
                           </motion.div>
-                          <motion.div whileHover={{ scale: 1.1 }} whileTap={{ scale: 0.9 }}>
+                          <motion.div
+                            whileHover={{ scale: 1.1 }}
+                            whileTap={{ scale: 0.9 }}
+                          >
                             <Button size="sm" variant="outline" asChild>
                               <Link
                                 href={`/dashboard/transport/deliveries/contact?driver=${delivery.driver}&delivery=${delivery.id}`}
@@ -1128,14 +1196,11 @@ export default function TransportDashboard() {
         </TabsContent>
 
         <TabsContent value="analytics" className="space-y-4 tab-content">
-          <motion.div 
+          <motion.div
             className="grid gap-4 md:grid-cols-2"
             variants={containerVariants}
           >
-            <motion.div
-              variants={cardVariants}
-              whileHover="hover"
-            >
+            <motion.div variants={cardVariants} whileHover="hover">
               <Card className="transition-shadow duration-300 hover:shadow-lg">
                 <CardHeader>
                   <motion.div
@@ -1145,14 +1210,14 @@ export default function TransportDashboard() {
                   >
                     <CardTitle className="flex items-center gap-2">
                       <motion.div
-                        animate={{ 
+                        animate={{
                           scale: [1, 1.1, 1],
-                          rotate: [0, 5, -5, 0]
+                          rotate: [0, 5, -5, 0],
                         }}
-                        transition={{ 
-                          duration: 3, 
-                          repeat: Infinity, 
-                          repeatDelay: 2 
+                        transition={{
+                          duration: 3,
+                          repeat: Infinity,
+                          repeatDelay: 2,
                         }}
                       >
                         <BarChart3 className="h-5 w-5" />
@@ -1162,18 +1227,22 @@ export default function TransportDashboard() {
                   </motion.div>
                 </CardHeader>
                 <CardContent className="space-y-4">
-                  <motion.div 
+                  <motion.div
                     className="flex justify-between items-center"
                     initial={{ opacity: 0, x: -20 }}
                     animate={{ opacity: 1, x: 0 }}
                     transition={{ duration: 0.4, delay: 0.1 }}
                   >
                     <span className="text-sm">Delivery Success Rate</span>
-                    <motion.span 
+                    <motion.span
                       className="font-semibold"
                       initial={{ scale: 0 }}
                       animate={{ scale: 1 }}
-                      transition={{ type: "spring", stiffness: 100, delay: 0.3 }}
+                      transition={{
+                        type: "spring",
+                        stiffness: 100,
+                        delay: 0.3,
+                      }}
                     >
                       {performanceMetrics.deliverySuccess}%
                     </motion.span>
@@ -1183,18 +1252,22 @@ export default function TransportDashboard() {
                     className="h-2"
                   />
 
-                  <motion.div 
+                  <motion.div
                     className="flex justify-between items-center"
                     initial={{ opacity: 0, x: -20 }}
                     animate={{ opacity: 1, x: 0 }}
                     transition={{ duration: 0.4, delay: 0.2 }}
                   >
                     <span className="text-sm">Customer Satisfaction</span>
-                    <motion.span 
+                    <motion.span
                       className="font-semibold"
                       initial={{ scale: 0 }}
                       animate={{ scale: 1 }}
-                      transition={{ type: "spring", stiffness: 100, delay: 0.4 }}
+                      transition={{
+                        type: "spring",
+                        stiffness: 100,
+                        delay: 0.4,
+                      }}
                     >
                       {performanceMetrics.customerSatisfaction}%
                     </motion.span>
@@ -1204,18 +1277,22 @@ export default function TransportDashboard() {
                     className="h-2"
                   />
 
-                  <motion.div 
+                  <motion.div
                     className="flex justify-between items-center"
                     initial={{ opacity: 0, x: -20 }}
                     animate={{ opacity: 1, x: 0 }}
                     transition={{ duration: 0.4, delay: 0.3 }}
                   >
                     <span className="text-sm">Vehicle Utilization</span>
-                    <motion.span 
+                    <motion.span
                       className="font-semibold"
                       initial={{ scale: 0 }}
                       animate={{ scale: 1 }}
-                      transition={{ type: "spring", stiffness: 100, delay: 0.5 }}
+                      transition={{
+                        type: "spring",
+                        stiffness: 100,
+                        delay: 0.5,
+                      }}
                     >
                       {performanceMetrics.vehicleUtilization}%
                     </motion.span>
@@ -1228,10 +1305,7 @@ export default function TransportDashboard() {
               </Card>
             </motion.div>
 
-            <motion.div
-              variants={cardVariants}
-              whileHover="hover"
-            >
+            <motion.div variants={cardVariants} whileHover="hover">
               <Card className="transition-shadow duration-300 hover:shadow-lg">
                 <CardHeader>
                   <motion.div
@@ -1242,7 +1316,11 @@ export default function TransportDashboard() {
                     <CardTitle className="flex items-center gap-2">
                       <motion.div
                         animate={{ rotate: [0, 360] }}
-                        transition={{ duration: 4, repeat: Infinity, ease: "linear" }}
+                        transition={{
+                          duration: 4,
+                          repeat: Infinity,
+                          ease: "linear",
+                        }}
                       >
                         <Target className="h-5 w-5" />
                       </motion.div>
@@ -1251,24 +1329,28 @@ export default function TransportDashboard() {
                   </motion.div>
                 </CardHeader>
                 <CardContent className="space-y-4">
-                  <motion.div 
+                  <motion.div
                     className="flex justify-between items-center"
                     initial={{ opacity: 0, x: -20 }}
                     animate={{ opacity: 1, x: 0 }}
                     transition={{ duration: 0.4, delay: 0.2 }}
                   >
                     <span className="text-sm">Revenue Target</span>
-                    <motion.span 
+                    <motion.span
                       className="font-semibold"
                       initial={{ scale: 0 }}
                       animate={{ scale: 1 }}
-                      transition={{ type: "spring", stiffness: 100, delay: 0.4 }}
+                      transition={{
+                        type: "spring",
+                        stiffness: 100,
+                        delay: 0.4,
+                      }}
                     >
                       ₹200K
                     </motion.span>
                   </motion.div>
                   <Progress value={92} className="h-2" />
-                  <motion.p 
+                  <motion.p
                     className="text-xs text-muted-foreground"
                     initial={{ opacity: 0, y: 10 }}
                     animate={{ opacity: 1, y: 0 }}
@@ -1277,24 +1359,28 @@ export default function TransportDashboard() {
                     ₹185K achieved (92%)
                   </motion.p>
 
-                  <motion.div 
+                  <motion.div
                     className="flex justify-between items-center"
                     initial={{ opacity: 0, x: -20 }}
                     animate={{ opacity: 1, x: 0 }}
                     transition={{ duration: 0.4, delay: 0.3 }}
                   >
                     <span className="text-sm">Delivery Target</span>
-                    <motion.span 
+                    <motion.span
                       className="font-semibold"
                       initial={{ scale: 0 }}
                       animate={{ scale: 1 }}
-                      transition={{ type: "spring", stiffness: 100, delay: 0.6 }}
+                      transition={{
+                        type: "spring",
+                        stiffness: 100,
+                        delay: 0.6,
+                      }}
                     >
                       500
                     </motion.span>
                   </motion.div>
                   <Progress value={91} className="h-2" />
-                  <motion.p 
+                  <motion.p
                     className="text-xs text-muted-foreground"
                     initial={{ opacity: 0, y: 10 }}
                     animate={{ opacity: 1, y: 0 }}
@@ -1308,10 +1394,7 @@ export default function TransportDashboard() {
           </motion.div>
 
           {/* Route Efficiency */}
-          <motion.div
-            variants={cardVariants}
-            whileHover="hover"
-          >
+          <motion.div variants={cardVariants} whileHover="hover">
             <Card className="transition-shadow duration-300 hover:shadow-lg">
               <CardHeader>
                 <motion.div
@@ -1322,7 +1405,11 @@ export default function TransportDashboard() {
                   <CardTitle className="flex items-center gap-2">
                     <motion.div
                       animate={{ x: [0, 3, -3, 0] }}
-                      transition={{ duration: 2.5, repeat: Infinity, repeatDelay: 2 }}
+                      transition={{
+                        duration: 2.5,
+                        repeat: Infinity,
+                        repeatDelay: 2,
+                      }}
                     >
                       <Route className="h-5 w-5" />
                     </motion.div>
@@ -1334,10 +1421,7 @@ export default function TransportDashboard() {
                 </motion.div>
               </CardHeader>
               <CardContent>
-                <motion.div 
-                  className="space-y-4"
-                  variants={containerVariants}
-                >
+                <motion.div className="space-y-4" variants={containerVariants}>
                   {routes.map((route, index) => (
                     <motion.div
                       key={index}
@@ -1346,7 +1430,7 @@ export default function TransportDashboard() {
                       whileHover={{ x: 5, transition: { duration: 0.2 } }}
                     >
                       <div>
-                        <motion.h4 
+                        <motion.h4
                           className="font-medium"
                           initial={{ opacity: 0, y: -5 }}
                           animate={{ opacity: 1, y: 0 }}
@@ -1354,21 +1438,27 @@ export default function TransportDashboard() {
                         >
                           {route.name}
                         </motion.h4>
-                        <motion.p 
+                        <motion.p
                           className="text-sm text-muted-foreground"
                           initial={{ opacity: 0, y: -5 }}
                           animate={{ opacity: 1, y: 0 }}
-                          transition={{ duration: 0.3, delay: index * 0.1 + 0.1 }}
+                          transition={{
+                            duration: 0.3,
+                            delay: index * 0.1 + 0.1,
+                          }}
                         >
                           {route.distance} • {route.avgTime}
                         </motion.p>
                       </div>
                       <div className="flex items-center gap-4">
-                        <motion.div 
+                        <motion.div
                           className="text-center"
                           initial={{ opacity: 0, scale: 0.8 }}
                           animate={{ opacity: 1, scale: 1 }}
-                          transition={{ duration: 0.4, delay: index * 0.1 + 0.2 }}
+                          transition={{
+                            duration: 0.4,
+                            delay: index * 0.1 + 0.2,
+                          }}
                         >
                           <p className="text-sm font-medium">
                             {route.efficiency}%
@@ -1381,9 +1471,14 @@ export default function TransportDashboard() {
                         <motion.div
                           initial={{ opacity: 0, scale: 0.8 }}
                           animate={{ opacity: 1, scale: 1 }}
-                          transition={{ duration: 0.4, delay: index * 0.1 + 0.3 }}
+                          transition={{
+                            duration: 0.4,
+                            delay: index * 0.1 + 0.3,
+                          }}
                         >
-                          <Badge variant="outline">{route.vehicles} vehicles</Badge>
+                          <Badge variant="outline">
+                            {route.vehicles} vehicles
+                          </Badge>
                         </motion.div>
                       </div>
                     </motion.div>
@@ -1396,14 +1491,11 @@ export default function TransportDashboard() {
       </Tabs>
 
       {/* Bottom Section - Recent Activities, Drivers, and Fleet Health */}
-      <motion.div 
+      <motion.div
         className="grid gap-4 md:grid-cols-3"
         variants={containerVariants}
       >
-        <motion.div
-          variants={cardVariants}
-          whileHover="hover"
-        >
+        <motion.div variants={cardVariants} whileHover="hover">
           <Card className="transition-shadow duration-300 hover:shadow-lg">
             <CardHeader>
               <motion.div
@@ -1414,7 +1506,11 @@ export default function TransportDashboard() {
                 <CardTitle className="flex items-center gap-2 text-lg">
                   <motion.div
                     animate={{ scale: [1, 1.1, 1] }}
-                    transition={{ duration: 2, repeat: Infinity, repeatDelay: 3 }}
+                    transition={{
+                      duration: 2,
+                      repeat: Infinity,
+                      repeatDelay: 3,
+                    }}
                   >
                     <Activity className="h-5 w-5" />
                   </motion.div>
@@ -1426,26 +1522,28 @@ export default function TransportDashboard() {
               </motion.div>
             </CardHeader>
             <CardContent>
-              <motion.div 
-                className="space-y-4"
-                variants={containerVariants}
-              >
+              <motion.div className="space-y-4" variants={containerVariants}>
                 {recentActivities.map((activity, index) => (
-                  <motion.div 
-                    key={index} 
+                  <motion.div
+                    key={index}
                     className="flex items-start gap-3"
                     variants={itemVariants}
                     whileHover={{ x: 5, transition: { duration: 0.2 } }}
                   >
-                    <motion.div 
+                    <motion.div
                       className="p-2 bg-gray-100 rounded-full"
                       animate={{ rotate: [0, 5, -5, 0] }}
-                      transition={{ duration: 2, repeat: Infinity, repeatDelay: 4, delay: index * 0.2 }}
+                      transition={{
+                        duration: 2,
+                        repeat: Infinity,
+                        repeatDelay: 4,
+                        delay: index * 0.2,
+                      }}
                     >
                       <activity.icon className="h-4 w-4" />
                     </motion.div>
                     <div className="flex-1">
-                      <motion.p 
+                      <motion.p
                         className="text-sm"
                         initial={{ opacity: 0, y: -5 }}
                         animate={{ opacity: 1, y: 0 }}
@@ -1453,7 +1551,7 @@ export default function TransportDashboard() {
                       >
                         {activity.message}
                       </motion.p>
-                      <motion.p 
+                      <motion.p
                         className="text-xs text-muted-foreground"
                         initial={{ opacity: 0, y: -5 }}
                         animate={{ opacity: 1, y: 0 }}
@@ -1469,10 +1567,7 @@ export default function TransportDashboard() {
           </Card>
         </motion.div>
 
-        <motion.div
-          variants={cardVariants}
-          whileHover="hover"
-        >
+        <motion.div variants={cardVariants} whileHover="hover">
           <Card className="transition-shadow duration-300 hover:shadow-lg">
             <CardHeader>
               <motion.div
@@ -1483,7 +1578,11 @@ export default function TransportDashboard() {
                 <CardTitle className="flex items-center gap-2 text-lg">
                   <motion.div
                     animate={{ rotate: [0, 10, -10, 0] }}
-                    transition={{ duration: 2.5, repeat: Infinity, repeatDelay: 2 }}
+                    transition={{
+                      duration: 2.5,
+                      repeat: Infinity,
+                      repeatDelay: 2,
+                    }}
                   >
                     <Users className="h-5 w-5" />
                   </motion.div>
@@ -1493,13 +1592,10 @@ export default function TransportDashboard() {
               </motion.div>
             </CardHeader>
             <CardContent>
-              <motion.div 
-                className="space-y-4"
-                variants={containerVariants}
-              >
+              <motion.div className="space-y-4" variants={containerVariants}>
                 {drivers.map((driver, index) => (
-                  <motion.div 
-                    key={index} 
+                  <motion.div
+                    key={index}
                     className="flex items-center justify-between"
                     variants={itemVariants}
                     whileHover={{ x: 5, transition: { duration: 0.2 } }}
@@ -1513,14 +1609,14 @@ export default function TransportDashboard() {
                             ? "bg-blue-100"
                             : "bg-gray-100"
                         }`}
-                        animate={{ 
-                          scale: driver.status === "active" ? [1, 1.1, 1] : 1 
+                        animate={{
+                          scale: driver.status === "active" ? [1, 1.1, 1] : 1,
                         }}
-                        transition={{ 
-                          duration: 2, 
+                        transition={{
+                          duration: 2,
                           repeat: driver.status === "active" ? Infinity : 0,
                           repeatDelay: 3,
-                          delay: index * 0.2 
+                          delay: index * 0.2,
                         }}
                       >
                         <User
@@ -1534,7 +1630,7 @@ export default function TransportDashboard() {
                         />
                       </motion.div>
                       <div>
-                        <motion.p 
+                        <motion.p
                           className="font-medium text-sm"
                           initial={{ opacity: 0, y: -5 }}
                           animate={{ opacity: 1, y: 0 }}
@@ -1542,17 +1638,20 @@ export default function TransportDashboard() {
                         >
                           {driver.name}
                         </motion.p>
-                        <motion.p 
+                        <motion.p
                           className="text-xs text-muted-foreground"
                           initial={{ opacity: 0, y: -5 }}
                           animate={{ opacity: 1, y: 0 }}
-                          transition={{ duration: 0.3, delay: index * 0.1 + 0.1 }}
+                          transition={{
+                            duration: 0.3,
+                            delay: index * 0.1 + 0.1,
+                          }}
                         >
                           {driver.experience}
                         </motion.p>
                       </div>
                     </div>
-                    <motion.div 
+                    <motion.div
                       className="text-right"
                       initial={{ opacity: 0, x: 20 }}
                       animate={{ opacity: 1, x: 0 }}
@@ -1561,7 +1660,12 @@ export default function TransportDashboard() {
                       <div className="flex items-center gap-1">
                         <motion.div
                           animate={{ rotate: [0, 360] }}
-                          transition={{ duration: 3, repeat: Infinity, ease: "linear", delay: index * 0.5 }}
+                          transition={{
+                            duration: 3,
+                            repeat: Infinity,
+                            ease: "linear",
+                            delay: index * 0.5,
+                          }}
                         >
                           <Star className="h-3 w-3 fill-yellow-400 text-yellow-400" />
                         </motion.div>
@@ -1570,7 +1674,11 @@ export default function TransportDashboard() {
                       <motion.div
                         initial={{ scale: 0 }}
                         animate={{ scale: 1 }}
-                        transition={{ type: "spring", stiffness: 200, delay: index * 0.1 + 0.3 }}
+                        transition={{
+                          type: "spring",
+                          stiffness: 200,
+                          delay: index * 0.1 + 0.3,
+                        }}
                       >
                         <Badge
                           variant={
@@ -1589,10 +1697,7 @@ export default function TransportDashboard() {
           </Card>
         </motion.div>
 
-        <motion.div
-          variants={cardVariants}
-          whileHover="hover"
-        >
+        <motion.div variants={cardVariants} whileHover="hover">
           <Card className="transition-shadow duration-300 hover:shadow-lg">
             <CardHeader>
               <motion.div
@@ -1603,7 +1708,11 @@ export default function TransportDashboard() {
                 <CardTitle className="flex items-center gap-2 text-lg">
                   <motion.div
                     animate={{ rotate: [0, 180, 360] }}
-                    transition={{ duration: 4, repeat: Infinity, ease: "linear" }}
+                    transition={{
+                      duration: 4,
+                      repeat: Infinity,
+                      ease: "linear",
+                    }}
                   >
                     <Gauge className="h-5 w-5" />
                   </motion.div>
@@ -1620,7 +1729,7 @@ export default function TransportDashboard() {
               >
                 <div className="flex justify-between items-center mb-2">
                   <span className="text-sm">Fuel Efficiency</span>
-                  <motion.span 
+                  <motion.span
                     className="font-semibold"
                     initial={{ scale: 0 }}
                     animate={{ scale: 1 }}
@@ -1639,7 +1748,7 @@ export default function TransportDashboard() {
               >
                 <div className="flex justify-between items-center mb-2">
                   <span className="text-sm">Vehicle Uptime</span>
-                  <motion.span 
+                  <motion.span
                     className="font-semibold"
                     initial={{ scale: 0 }}
                     animate={{ scale: 1 }}
@@ -1658,7 +1767,7 @@ export default function TransportDashboard() {
               >
                 <div className="flex justify-between items-center mb-2">
                   <span className="text-sm">Safety Score</span>
-                  <motion.span 
+                  <motion.span
                     className="font-semibold"
                     initial={{ scale: 0 }}
                     animate={{ scale: 1 }}
@@ -1670,7 +1779,7 @@ export default function TransportDashboard() {
                 <Progress value={98} className="h-2" />
               </motion.div>
 
-              <motion.div 
+              <motion.div
                 className="pt-2 border-t"
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
@@ -1679,13 +1788,17 @@ export default function TransportDashboard() {
                 <div className="flex items-center gap-2 text-green-600">
                   <motion.div
                     animate={{ scale: [1, 1.2, 1] }}
-                    transition={{ duration: 2, repeat: Infinity, repeatDelay: 3 }}
+                    transition={{
+                      duration: 2,
+                      repeat: Infinity,
+                      repeatDelay: 3,
+                    }}
                   >
                     <Award className="h-4 w-4" />
                   </motion.div>
                   <span className="text-sm font-medium">Excellent Fleet</span>
                 </div>
-                <motion.p 
+                <motion.p
                   className="text-xs text-muted-foreground mt-1"
                   initial={{ opacity: 0, y: 10 }}
                   animate={{ opacity: 1, y: 0 }}
