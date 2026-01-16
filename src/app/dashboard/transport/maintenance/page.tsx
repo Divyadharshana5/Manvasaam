@@ -29,8 +29,10 @@ import {
 } from "lucide-react";
 import Link from "next/link";
 import { useState } from "react";
+import { useLanguage } from "@/context/language-context";
 
 export default function MaintenancePage() {
+    const { t } = useLanguage();
     const [searchQuery, setSearchQuery] = useState("");
     const [activeTab, setActiveTab] = useState("overview");
 
@@ -475,7 +477,7 @@ COST ANALYSIS:
                             <div className="relative flex items-center">
                                 <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground pointer-events-none z-10" />
                                 <Input
-                                    placeholder="Search vehicles by ID or model..."
+                                    placeholder={t?.transport?.searchVehiclesPlaceholder ?? "Search vehicles by ID or model..."}
                                     value={searchQuery}
                                     onChange={(e) => setSearchQuery(e.target.value)}
                                     className="pl-10 pr-10"
