@@ -41,26 +41,26 @@ import {
 import Link from "next/link";
 import { useState } from "react";
 import { useRouter } from "next/navigation";
+import { useLanguage } from "@/context/language-context";
 
 export default function FleetFilter() {
+  const { t } = useLanguage();
   const router = useRouter();
   const [filters, setFilters] = useState({
     search: "",
     status: "all",
-    fuelRange: [0, 100],
-    batteryRange: [0, 100],
-    temperatureRange: [0, 100],
-    location: "all",
+              <h1 className="text-2xl font-bold">{t?.transport?.fleetFiltersTitle ?? "Fleet Filters"}</h1>
+              <p className="text-muted-foreground">{t?.transport?.fleetFiltersDesc ?? "Filter and search your fleet vehicles"}</p>
     driver: "all",
     mileageRange: [0, 20],
-    serviceStatus: [] as string[],
-    dateRange: "all",
-  });
-
-  const statusOptions = [
-    { value: "all", label: "All Status", count: 12 },
-    { value: "active", label: "Active", count: 5 },
-    { value: "available", label: "Available", count: 4 },
+            <Button variant="outline" onClick={handleReset}>
+              <RotateCcw className="h-4 w-4 mr-2" />
+              {t?.filters?.reset ?? "Reset"}
+            </Button>
+            <Button onClick={handleApplyFilters}>
+              <Filter className="h-4 w-4 mr-2" />
+              {t?.filters?.apply ?? "Apply Filters"}
+            </Button>
     { value: "maintenance", label: "Maintenance", count: 2 },
     { value: "offline", label: "Offline", count: 1 },
   ];
@@ -70,7 +70,7 @@ export default function FleetFilter() {
     { value: "highway", label: "Highway Routes" },
     { value: "city", label: "City Center" },
     { value: "depot", label: "Depot" },
-    { value: "service", label: "Service Center" },
+                {t?.transport?.searchStatusTitle ?? "Search & Status"}
     { value: "rural", label: "Rural Areas" },
   ];
 
@@ -81,7 +81,7 @@ export default function FleetFilter() {
     { value: "suresh-patel", label: "Suresh Patel" },
     { value: "vikram-yadav", label: "Vikram Yadav" },
   ];
-
+                    placeholder={t?.transport?.placeholders?.searchVehicles ?? "Search by ID, driver, location..."}
   const serviceStatusOptions = [
     { id: "due", label: "Service Due", count: 3 },
     { id: "overdue", label: "Service Overdue", count: 1 },
@@ -141,12 +141,12 @@ export default function FleetFilter() {
             <Button variant="outline" size="icon" asChild>
               <Link href="/dashboard/transport">
                 <ArrowLeft className="h-4 w-4" />
-              </Link>
+                    <SelectValue placeholder={t?.transport?.placeholders?.selectLocation ?? "Select location"} />
             </Button>
             <div>
               <h1 className="text-2xl font-bold">Fleet Filters</h1>
               <p className="text-muted-foreground">
-                Filter and search your fleet vehicles
+                        {t?.transport?.locations?.[location.value] ?? location.label}
               </p>
             </div>
           </div>
@@ -162,12 +162,12 @@ export default function FleetFilter() {
           </div>
         </div>
 
-        <div className="grid gap-6 md:grid-cols-2">
+                    <SelectValue placeholder={t?.transport?.placeholders?.selectDriver ?? "Select driver"} />
           {/* Search and Basic Filters */}
           <Card>
             <CardHeader>
               <CardTitle className="flex items-center gap-2">
-                <Search className="h-5 w-5" />
+                        {t?.transport?.drivers?.[driver.value] ?? driver.label}
                 Search & Status
               </CardTitle>
               <CardDescription>Basic search and status filters</CardDescription>
