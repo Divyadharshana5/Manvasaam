@@ -474,20 +474,20 @@ COST ANALYSIS:
         </Button>
         <div className="flex-1">
           <h1 className="text-2xl font-bold tracking-tight">
-            Fleet Maintenance
+            {t?.transport?.maintenanceTitle ?? "Fleet Maintenance"}
           </h1>
           <p className="text-muted-foreground">
-            Monitor and manage vehicle maintenance schedules and health
+            {t?.transport?.maintenanceDesc ?? "Monitor and manage vehicle maintenance schedules and health"}
           </p>
         </div>
         <div className="flex items-center gap-2">
           <Button variant="outline" onClick={handleExportReport}>
             <Download className="h-4 w-4 mr-2" />
-            Export Report
+            {t?.transport?.exportReport ?? "Export Report"}
           </Button>
           <Button onClick={handleNewScheduleService}>
             <Plus className="h-4 w-4 mr-2" />
-            Schedule Service
+            {t?.transport?.actions?.scheduleService ?? "Schedule Service"}
           </Button>
         </div>
       </div>
