@@ -561,10 +561,18 @@ COST ANALYSIS:
         className="space-y-4"
       >
         <TabsList className="grid w-full grid-cols-4">
-          <TabsTrigger value="overview">{t?.transport?.tabs?.overview ?? "Fleet Overview"}</TabsTrigger>
-          <TabsTrigger value="schedule">{t?.transport?.tabs?.schedule ?? "Schedule"}</TabsTrigger>
-          <TabsTrigger value="history">{t?.transport?.tabs?.history ?? "History"}</TabsTrigger>
-          <TabsTrigger value="analytics">{t?.transport?.tabs?.analytics ?? "Analytics"}</TabsTrigger>
+          <TabsTrigger value="overview">
+            {t?.transport?.tabs?.overview ?? "Fleet Overview"}
+          </TabsTrigger>
+          <TabsTrigger value="schedule">
+            {t?.transport?.tabs?.schedule ?? "Schedule"}
+          </TabsTrigger>
+          <TabsTrigger value="history">
+            {t?.transport?.tabs?.history ?? "History"}
+          </TabsTrigger>
+          <TabsTrigger value="analytics">
+            {t?.transport?.tabs?.analytics ?? "Analytics"}
+          </TabsTrigger>
         </TabsList>
 
         <TabsContent value="overview" className="space-y-4">
