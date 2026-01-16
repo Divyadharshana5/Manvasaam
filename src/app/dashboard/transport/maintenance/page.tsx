@@ -477,7 +477,8 @@ COST ANALYSIS:
             {t?.transport?.maintenanceTitle ?? "Fleet Maintenance"}
           </h1>
           <p className="text-muted-foreground">
-            {t?.transport?.maintenanceDesc ?? "Monitor and manage vehicle maintenance schedules and health"}
+            {t?.transport?.maintenanceDesc ??
+              "Monitor and manage vehicle maintenance schedules and health"}
           </p>
         </div>
         <div className="flex items-center gap-2">
