@@ -240,14 +240,19 @@ export default function FarmerNotifications() {
             </Link>
           </Button>
           <div>
-            <h1 className="text-2xl font-bold">{t?.notifications?.title ?? "Notifications"}</h1>
+            <h1 className="text-2xl font-bold">
+              {t?.notifications?.title ?? "Notifications"}
+            </h1>
             <p className="text-muted-foreground">
-              {t?.notifications?.subtitle ?? "Stay updated with your farming operations"}
+              {t?.notifications?.subtitle ??
+                "Stay updated with your farming operations"}
             </p>
           </div>
         </div>
         <div className="flex items-center gap-2">
-          <Badge variant="secondary">{unreadCount} {t?.notifications?.unread ?? "unread"}</Badge>
+          <Badge variant="secondary">
+            {unreadCount} {t?.notifications?.unread ?? "unread"}
+          </Badge>
           <Button
             variant="outline"
             size="sm"
@@ -263,7 +268,9 @@ export default function FarmerNotifications() {
           <div className="relative">
             <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground pointer-events-none z-10" />
             <Input
-              placeholder={t?.notifications?.searchPlaceholder ?? "Search notifications..."}
+              placeholder={
+                t?.notifications?.searchPlaceholder ?? "Search notifications..."
+              }
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
               className="pl-10 pr-10"
