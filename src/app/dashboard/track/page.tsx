@@ -6,6 +6,7 @@ import { useSearchParams } from 'next/navigation';
 import { Card, CardHeader, CardTitle, CardContent, CardDescription, CardFooter } from "@/components/ui/card";
 import { Truck, XCircle, ArrowLeft } from "lucide-react";
 import { useEffect, useState } from "react";
+import { useLanguage } from "@/context/language-context";
 import { Progress } from "@/components/ui/progress";
 import { Button } from '@/components/ui/button';
 import {
@@ -88,6 +89,7 @@ function LiveTrackingPage() {
     const searchParams = useSearchParams();
     const router = useRouter();
     const { toast } = useToast();
+    const { t } = useLanguage();
     const orderId = searchParams.get('orderId') || "ORD002"; // Fallback for direct access
     
     const [progress, setProgress] = useState(0);
@@ -172,18 +174,20 @@ function LiveTrackingPage() {
                     </Link>
                 </Button>
                 <div>
-                    <h2 className="text-3xl font-bold tracking-tight">Live Order Tracking</h2>
+                    <h2 className="text-3xl font-bold tracking-tight">{t?.track?.title ?? t?.sidebar?.track ?? "Live Order Tracking"}</h2>
                     <p className="text-muted-foreground">
-                        Watching order {orderId} in real-time.
+                        {t?.track?.watchingOrder ?? `Watching order ${orderId} in real-time.`}
                     </p>
                 </div>
             </div>
 
                 <Card>
-                    <CardHeader>
-                        <CardTitle>Your Delivery is on its way!</CardTitle>
-                        <CardDescription>Estimated Time of Arrival: <span className="text-primary font-bold">{trackingInfo.eta}</span></CardDescription>
-                    </CardHeader>
+                                        <CardHeader>
+                                                <CardTitle>{t?.track?.deliveryTitle ?? "Your Delivery is on its way!"}</CardTitle>
+                                                <CardDescription>{(t?.track?.eta ?? "Estimated Time of Arrival:")}
+                                                    <span className="text-primary font-bold"> {trackingInfo.eta}</span>
+                                                </CardDescription>
+                                        </CardHeader>
                     <CardContent>
                         <div className="relative w-full h-96 bg-muted rounded-lg overflow-hidden border">
                             {/* This is a mock map background */}
@@ -208,7 +212,7 @@ function LiveTrackingPage() {
                         </div>
 
                         <div className="mt-6 space-y-2">
-                            <h3 className="font-semibold">Current Status: <span className="text-primary">{currentStatus}</span></h3>
+                            <h3 className="font-semibold">{t?.track?.currentStatusLabel ?? "Current Status:"} <span className="text-primary">{currentStatus}</span></h3>
                             <Progress value={progress} />
                         </div>
                     </CardContent>
@@ -217,14 +221,14 @@ function LiveTrackingPage() {
                             <DialogTrigger asChild>
                                 <Button variant="destructive">
                                     <XCircle className="mr-2 h-4 w-4" />
-                                    Cancel Order
+                                    {t?.orders?.cancelAction ?? "Cancel Order"}
                                 </Button>
                             </DialogTrigger>
                             <DialogContent>
                                 <DialogHeader>
-                                    <DialogTitle>Cancel Order {orderId}</DialogTitle>
+                                    <DialogTitle>{`${t?.orders?.cancelDialogTitle ?? "Cancel Order"} ${orderId}`}</DialogTitle>
                                     <DialogDescription>
-                                        Please let us know why you're cancelling. This helps us improve our service.
+                                        {t?.orders?.cancelDialogDescription ?? "Please let us know why you're cancelling. This helps us improve our service."}
                                     </DialogDescription>
                                 </DialogHeader>
                                 <Form {...form}>
@@ -234,7 +238,7 @@ function LiveTrackingPage() {
                                             name="reason"
                                             render={({ field }) => (
                                                 <FormItem className="space-y-3">
-                                                    <FormLabel>Reason for Cancellation</FormLabel>
+                                                    <FormLabel>{t?.orders?.cancelReasonLabel ?? "Reason for Cancellation"}</FormLabel>
                                                     <FormControl>
                                                         <RadioGroup
                                                             onValueChange={field.onChange}
@@ -243,19 +247,19 @@ function LiveTrackingPage() {
                                                         >
                                                             <FormItem className="flex items-center space-x-3 space-y-0">
                                                                 <FormControl><RadioGroupItem value="mistake" /></FormControl>
-                                                                <FormLabel className="font-normal">Ordered by mistake</FormLabel>
+                                                                <FormLabel className="font-normal">{t?.orders?.cancelReasonMistake ?? "Ordered by mistake"}</FormLabel>
                                                             </FormItem>
                                                             <FormItem className="flex items-center space-x-3 space-y-0">
                                                                 <FormControl><RadioGroupItem value="timing" /></FormControl>
-                                                                <FormLabel className="font-normal">Delivery timing is not suitable</FormLabel>
+                                                                <FormLabel className="font-normal">{t?.orders?.cancelReasonTiming ?? "Delivery timing is not suitable"}</FormLabel>
                                                             </FormItem>
                                                             <FormItem className="flex items-center space-x-3 space-y-0">
                                                                 <FormControl><RadioGroupItem value="item" /></FormControl>
-                                                                <FormLabel className="font-normal">Incorrect item was ordered</FormLabel>
+                                                                <FormLabel className="font-normal">{t?.orders?.cancelReasonItem ?? "Incorrect item was ordered"}</FormLabel>
                                                             </FormItem>
                                                              <FormItem className="flex items-center space-x-3 space-y-0">
                                                                 <FormControl><RadioGroupItem value="other" /></FormControl>
-                                                                <FormLabel className="font-normal">Other</FormLabel>
+                                                                <FormLabel className="font-normal">{t?.orders?.cancelReasonOther ?? "Other"}</FormLabel>
                                                             </FormItem>
                                                         </RadioGroup>
                                                     </FormControl>
@@ -269,7 +273,7 @@ function LiveTrackingPage() {
                                                 name="otherDetails"
                                                 render={({ field }) => (
                                                     <FormItem>
-                                                        <FormLabel>Please specify</FormLabel>
+                                                        <FormLabel>{t?.orders?.cancelPleaseSpecify ?? "Please specify"}</FormLabel>
                                                         <FormControl>
                                                             <Textarea placeholder="Tell us more..." {...field} />
                                                         </FormControl>
@@ -279,12 +283,12 @@ function LiveTrackingPage() {
                                             />
                                         )}
                                         <DialogFooter>
-                                            <DialogClose asChild>
-                                                <Button type="button" variant="ghost" disabled={isCancelling}>Back</Button>
+                                                <DialogClose asChild>
+                                                <Button type="button" variant="ghost" disabled={isCancelling}>{t?.common?.back ?? "Back"}</Button>
                                             </DialogClose>
                                             <Button type="submit" variant="destructive" disabled={isCancelling}>
                                                 {isCancelling && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
-                                                Confirm Cancellation
+                                                {t?.orders?.confirmCancellation ?? "Confirm Cancellation"}
                                             </Button>
                                         </DialogFooter>
                                     </form>
