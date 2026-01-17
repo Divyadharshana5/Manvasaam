@@ -51,22 +51,22 @@ export default function VoiceAssistantPage() {
     <div className="flex flex-1 flex-col gap-6 p-4 md:p-6">
       <div className="flex items-center justify-between">
         <div>
-          <h1 className="text-4xl font-bold tracking-tight">Voice Assistant</h1>
+          <h1 className="text-4xl font-bold tracking-tight">{t?.voiceAssistant?.title ?? "Voice Assistant"}</h1>
           <p className="text-muted-foreground">
-            Control your hub operations with voice commands
+            {t?.voiceAssistant?.desc ?? "Control your hub operations with voice commands"}
           </p>
         </div>
         <Button variant="outline">
           <Settings className="mr-2 h-4 w-4" />
-          Settings
+          {t?.voiceAssistant?.settings ?? "Settings"}
         </Button>
       </div>
 
       <div className="grid gap-6 lg:grid-cols-2">
         <Card>
           <CardHeader>
-            <CardTitle>Voice Control</CardTitle>
-            <CardDescription>Tap to start voice commands</CardDescription>
+            <CardTitle>{t?.voiceAssistant?.voiceControlTitle ?? "Voice Control"}</CardTitle>
+            <CardDescription>{t?.voiceAssistant?.voiceControlDesc ?? "Tap to start voice commands"}</CardDescription>
           </CardHeader>
           <CardContent className="text-center space-y-6">
             <div className="relative flex justify-center">
@@ -74,9 +74,9 @@ export default function VoiceAssistantPage() {
             </div>
 
             <div>
-              <p className="text-lg font-medium">Voice Navigation</p>
+              <p className="text-lg font-medium">{t?.voiceAssistant?.voiceNavigation ?? "Voice Navigation"}</p>
               <p className="text-sm text-muted-foreground">
-                Click the microphone and say where you want to go
+                {t?.voiceAssistant?.voiceNavigationDesc ?? "Click the microphone and say where you want to go"}
               </p>
             </div>
 
@@ -94,8 +94,8 @@ export default function VoiceAssistantPage() {
 
         <Card>
           <CardHeader>
-            <CardTitle>Language Settings</CardTitle>
-            <CardDescription>Choose your preferred language</CardDescription>
+            <CardTitle>{t?.voiceAssistant?.languageTitle ?? "Language Settings"}</CardTitle>
+            <CardDescription>{t?.voiceAssistant?.languageDesc ?? "Choose your preferred language"}</CardDescription>
           </CardHeader>
           <CardContent>
             <div className="grid gap-2 max-h-64 overflow-y-auto">
@@ -116,12 +116,10 @@ export default function VoiceAssistantPage() {
       </div>
 
       <Card>
-        <CardHeader>
-          <CardTitle>Available Commands</CardTitle>
-          <CardDescription>
-            Try these voice commands to control your hub
-          </CardDescription>
-        </CardHeader>
+          <CardHeader>
+            <CardTitle>{t?.voiceAssistant?.availableCommands ?? "Available Commands"}</CardTitle>
+            <CardDescription>{t?.voiceAssistant?.availableCommandsDesc ?? "Try these voice commands to control your hub"}</CardDescription>
+          </CardHeader>
         <CardContent>
           <div className="grid gap-3 md:grid-cols-2">
             {commands.map((cmd, index) => (
@@ -146,8 +144,8 @@ export default function VoiceAssistantPage() {
 
       <Card>
         <CardHeader>
-          <CardTitle>Help & Tips</CardTitle>
-          <CardDescription>Get the most out of voice assistant</CardDescription>
+          <CardTitle>{t?.voiceAssistant?.helpTitle ?? "Help & Tips"}</CardTitle>
+          <CardDescription>{t?.voiceAssistant?.helpDesc ?? "Get the most out of voice assistant"}</CardDescription>
         </CardHeader>
         <CardContent>
           <div className="space-y-3">
