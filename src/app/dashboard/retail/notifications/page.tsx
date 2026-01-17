@@ -52,8 +52,10 @@ import {
 } from "lucide-react";
 import Link from "next/link";
 import { useState } from "react";
+import { useLanguage } from "@/context/language-context";
 
 export default function RetailNotifications() {
+    const { t } = useLanguage();
     const [searchQuery, setSearchQuery] = useState("");
     const [activeTab, setActiveTab] = useState("all");
     const [selectedTypes, setSelectedTypes] = useState<string[]>([]);
@@ -219,41 +221,41 @@ export default function RetailNotifications() {
                         </Link>
                     </Button>
                     <div>
-                        <h1 className="text-2xl font-bold">Notifications</h1>
+                        <h1 className="text-2xl font-bold">{t?.notifications?.title ?? "Notifications"}</h1>
                         <p className="text-muted-foreground">
-                            Stay updated with your retail operations
+                            {t?.notifications?.desc ?? "Stay updated with your retail operations"}
                         </p>
                     </div>
                 </div>
                 <div className="flex items-center gap-2">
                     <Badge variant="secondary">
-                        {unreadCount} unread
+                        {`${unreadCount} ${t?.notifications?.unread ?? "unread"}`}
                     </Badge>
                     <Dialog open={settingsOpen} onOpenChange={setSettingsOpen}>
                         <DialogTrigger asChild>
                             <Button variant="outline" size="sm">
                                 <Settings className="h-4 w-4 mr-2" />
-                                Settings
+                                {t?.notifications?.settings ?? "Settings"}
                             </Button>
                         </DialogTrigger>
                         <DialogContent className="max-w-2xl max-h-[80vh] overflow-y-auto">
                             <DialogHeader>
-                                <DialogTitle>Notification Settings</DialogTitle>
+                                <DialogTitle>{t?.notifications?.settingsTitle ?? "Notification Settings"}</DialogTitle>
                                 <DialogDescription>
-                                    Manage your notification preferences and customize how you receive alerts.
+                                    {t?.notifications?.settingsDesc ?? "Manage your notification preferences and customize how you receive alerts."}
                                 </DialogDescription>
                             </DialogHeader>
                             
                             <div className="space-y-6 py-4">
                                 {/* General Settings */}
                                 <div className="space-y-4">
-                                    <h3 className="text-sm font-semibold">General Preferences</h3>
+                                    <h3 className="text-sm font-semibold">{t?.notifications?.generalPreferences ?? "General Preferences"}</h3>
                                     
                                     <div className="flex items-center justify-between">
                                         <div className="space-y-0.5">
-                                            <Label htmlFor="email-notifications">Email Notifications</Label>
+                                            <Label htmlFor="email-notifications">{t?.notifications?.emailNotificationsLabel ?? "Email Notifications"}</Label>
                                             <p className="text-sm text-muted-foreground">
-                                                Receive notifications via email
+                                                {t?.notifications?.emailNotificationsDesc ?? "Receive notifications via email"}
                                             </p>
                                         </div>
                                         <Switch
@@ -265,9 +267,9 @@ export default function RetailNotifications() {
                                     
                                     <div className="flex items-center justify-between">
                                         <div className="space-y-0.5">
-                                            <Label htmlFor="push-notifications">Push Notifications</Label>
+                                            <Label htmlFor="push-notifications">{t?.notifications?.pushNotificationsLabel ?? "Push Notifications"}</Label>
                                             <p className="text-sm text-muted-foreground">
-                                                Receive push notifications in browser
+                                                {t?.notifications?.pushNotificationsDesc ?? "Receive push notifications in browser"}
                                             </p>
                                         </div>
                                         <Switch
@@ -279,9 +281,9 @@ export default function RetailNotifications() {
                                     
                                     <div className="flex items-center justify-between">
                                         <div className="space-y-0.5">
-                                            <Label htmlFor="sound-enabled">Sound Alerts</Label>
+                                            <Label htmlFor="sound-enabled">{t?.notifications?.soundAlertsLabel ?? "Sound Alerts"}</Label>
                                             <p className="text-sm text-muted-foreground">
-                                                Play sound for new notifications
+                                                {t?.notifications?.soundAlertsDesc ?? "Play sound for new notifications"}
                                             </p>
                                         </div>
                                         <Switch
@@ -294,9 +296,9 @@ export default function RetailNotifications() {
                                 
                                 {/* Category Settings */}
                                 <div className="space-y-4 pt-4 border-t">
-                                    <h3 className="text-sm font-semibold">Notification Categories</h3>
+                                    <h3 className="text-sm font-semibold">{t?.notifications?.categoriesTitle ?? "Notification Categories"}</h3>
                                     <p className="text-sm text-muted-foreground">
-                                        Choose which types of notifications you want to receive
+                                        {t?.notifications?.categoriesDesc ?? "Choose which types of notifications you want to receive"}
                                     </p>
                                     
                                     <div className="flex items-center justify-between">
@@ -401,10 +403,10 @@ export default function RetailNotifications() {
                             
                             <DialogFooter>
                                 <Button variant="outline" onClick={() => setSettingsOpen(false)}>
-                                    Cancel
+                                    {t?.common?.cancel ?? "Cancel"}
                                 </Button>
                                 <Button onClick={() => setSettingsOpen(false)}>
-                                    Save Changes
+                                    {t?.common?.saveChanges ?? "Save Changes"}
                                 </Button>
                             </DialogFooter>
                         </DialogContent>
@@ -417,7 +419,7 @@ export default function RetailNotifications() {
                     <div className="relative">
                         <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground pointer-events-none z-10" />
                         <Input
-                            placeholder="Search notifications..."
+                            placeholder={t?.notifications?.searchPlaceholder ?? "Search notifications..."}
                             value={searchQuery}
                             onChange={(e) => setSearchQuery(e.target.value)}
                             className="pl-10 pr-10"
@@ -437,7 +439,7 @@ export default function RetailNotifications() {
                     <DropdownMenuTrigger asChild>
                         <Button variant="outline" size="sm">
                             <Filter className="h-4 w-4 mr-2" />
-                            Filter
+                            {t?.notifications?.filter ?? "Filter"}
                             {activeFiltersCount > 0 && (
                                 <Badge variant="secondary" className="ml-2 h-5 w-5 rounded-full p-0 flex items-center justify-center">
                                     {activeFiltersCount}
@@ -446,14 +448,14 @@ export default function RetailNotifications() {
                         </Button>
                     </DropdownMenuTrigger>
                     <DropdownMenuContent align="end" className="w-56">
-                        <DropdownMenuLabel>Filter by Type</DropdownMenuLabel>
+                        <DropdownMenuLabel>{t?.notifications?.filters?.byType ?? "Filter by Type"}</DropdownMenuLabel>
                         <DropdownMenuCheckboxItem
                             checked={selectedTypes.includes("urgent")}
                             onCheckedChange={() => toggleType("urgent")}
                         >
                             <span className="flex items-center gap-2">
                                 <span className="w-2 h-2 rounded-full bg-red-500"></span>
-                                Urgent
+                                {t?.notifications?.types?.urgent ?? "Urgent"}
                             </span>
                         </DropdownMenuCheckboxItem>
                         <DropdownMenuCheckboxItem
@@ -462,7 +464,7 @@ export default function RetailNotifications() {
                         >
                             <span className="flex items-center gap-2">
                                 <span className="w-2 h-2 rounded-full bg-orange-500"></span>
-                                Warning
+                                {t?.notifications?.types?.warning ?? "Warning"}
                             </span>
                         </DropdownMenuCheckboxItem>
                         <DropdownMenuCheckboxItem
@@ -471,7 +473,7 @@ export default function RetailNotifications() {
                         >
                             <span className="flex items-center gap-2">
                                 <span className="w-2 h-2 rounded-full bg-green-500"></span>
-                                Success
+                                {t?.notifications?.types?.success ?? "Success"}
                             </span>
                         </DropdownMenuCheckboxItem>
                         <DropdownMenuCheckboxItem
@@ -480,54 +482,54 @@ export default function RetailNotifications() {
                         >
                             <span className="flex items-center gap-2">
                                 <span className="w-2 h-2 rounded-full bg-blue-500"></span>
-                                Info
+                                {t?.notifications?.types?.info ?? "Info"}
                             </span>
                         </DropdownMenuCheckboxItem>
                         
                         <DropdownMenuSeparator />
                         
-                        <DropdownMenuLabel>Filter by Category</DropdownMenuLabel>
+                        <DropdownMenuLabel>{t?.notifications?.filters?.byCategory ?? "Filter by Category"}</DropdownMenuLabel>
                         <DropdownMenuCheckboxItem
                             checked={selectedCategories.includes("inventory")}
                             onCheckedChange={() => toggleCategory("inventory")}
                         >
-                            Inventory
+                            {t?.notifications?.categories?.inventory ?? "Inventory"}
                         </DropdownMenuCheckboxItem>
                         <DropdownMenuCheckboxItem
                             checked={selectedCategories.includes("delivery")}
                             onCheckedChange={() => toggleCategory("delivery")}
                         >
-                            Delivery
+                            {t?.notifications?.categories?.delivery ?? "Delivery"}
                         </DropdownMenuCheckboxItem>
                         <DropdownMenuCheckboxItem
                             checked={selectedCategories.includes("order")}
                             onCheckedChange={() => toggleCategory("order")}
                         >
-                            Order
+                            {t?.notifications?.categories?.order ?? "Order"}
                         </DropdownMenuCheckboxItem>
                         <DropdownMenuCheckboxItem
                             checked={selectedCategories.includes("payment")}
                             onCheckedChange={() => toggleCategory("payment")}
                         >
-                            Payment
+                            {t?.notifications?.categories?.payment ?? "Payment"}
                         </DropdownMenuCheckboxItem>
                         <DropdownMenuCheckboxItem
                             checked={selectedCategories.includes("supplier")}
                             onCheckedChange={() => toggleCategory("supplier")}
                         >
-                            Supplier
+                            {t?.notifications?.categories?.supplier ?? "Supplier"}
                         </DropdownMenuCheckboxItem>
                         <DropdownMenuCheckboxItem
                             checked={selectedCategories.includes("feedback")}
                             onCheckedChange={() => toggleCategory("feedback")}
                         >
-                            Feedback
+                            {t?.notifications?.categories?.feedback ?? "Feedback"}
                         </DropdownMenuCheckboxItem>
                         <DropdownMenuCheckboxItem
                             checked={selectedCategories.includes("pricing")}
                             onCheckedChange={() => toggleCategory("pricing")}
                         >
-                            Pricing
+                            {t?.notifications?.categories?.pricing ?? "Pricing"}
                         </DropdownMenuCheckboxItem>
                         
                         {activeFiltersCount > 0 && (
@@ -539,7 +541,7 @@ export default function RetailNotifications() {
                                     className="w-full"
                                     onClick={clearFilters}
                                 >
-                                    Clear Filters
+                                    {t?.filters?.clear ?? "Clear Filters"}
                                 </Button>
                             </>
                         )}
