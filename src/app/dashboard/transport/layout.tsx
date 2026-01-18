@@ -86,10 +86,10 @@ function Sidebar({
     >
       <div className="flex-1 space-y-4 py-4">
         <div className="px-3 py-2">
-          <div className="flex items-center gap-2 mb-6 p-3 rounded-lg bg-gradient-to-r from-emerald-100 to-green-100 dark:from-emerald-900 dark:to-green-900 border border-emerald-200 dark:border-emerald-700">
+            <div className="flex items-center gap-2 mb-6 p-3 rounded-lg bg-gradient-to-r from-emerald-100 to-green-100 dark:from-emerald-900 dark:to-green-900 border border-emerald-200 dark:border-emerald-700">
             <Truck className="h-5 w-5 text-emerald-600 dark:text-emerald-400" />
             <h2 className="text-lg font-semibold text-emerald-800 dark:text-emerald-200">
-              Transport Portal
+              {t.dashboard?.title ? `${t.dashboard.title} Portal` : t?.sidebar?.dashboard ?? "Transport Portal"}
             </h2>
           </div>
           <div className="space-y-1">
@@ -123,7 +123,7 @@ function Sidebar({
           </div>
         </div>
       </div>
-      <div className="px-3 py-3 border-t-2 border-gradient-to-r from-emerald-200 via-green-200 to-lime-200 dark:from-emerald-700 dark:via-green-700 dark:to-lime-700 bg-gradient-to-r from-emerald-50/50 via-green-50/50 to-lime-50/50 dark:from-emerald-950/50 dark:via-green-950/50 dark:to-lime-950/50">
+          <div className="px-3 py-3 border-t-2 border-gradient-to-r from-emerald-200 via-green-200 to-lime-200 dark:from-emerald-700 dark:via-green-700 dark:to-lime-700 bg-gradient-to-r from-emerald-50/50 via-green-50/50 to-lime-50/50 dark:from-emerald-950/50 dark:via-green-950/50 dark:to-lime-950/50">
         <Button
           onClick={onSignOut}
           variant="ghost"
@@ -133,7 +133,7 @@ function Sidebar({
           <div className="absolute inset-0 rounded-xl opacity-0 group-hover:opacity-100 group-hover:animate-ping bg-gradient-to-r from-green-400/20 via-emerald-400/20 to-lime-400/20 transition-all duration-300"></div>
           <Power className="mr-3 h-5 w-5 group-hover:animate-bounce relative z-10 transition-all duration-300" />
           <span className="relative z-10 font-bold text-sm group-hover:text-base transition-all duration-300">
-            🚪 Sign Out
+            {t?.signOut?.button ?? "Sign Out"}
           </span>
           <DoorOpen className="ml-auto h-5 w-5 opacity-0 group-hover:opacity-100 transition-all duration-500 relative z-10 group-hover:translate-x-1" />
           <div className="absolute top-1 right-1 w-2 h-2 bg-lime-400 rounded-full opacity-0 group-hover:opacity-100 group-hover:animate-ping transition-all duration-700 delay-200"></div>
@@ -282,15 +282,15 @@ export default function TransportLayout({
           </Sheet>
           <div className="w-full flex-1">
             <h1 className="text-lg font-semibold md:text-2xl">
-              Transport Dashboard
+              {t?.dashboard?.title ?? "Transport Dashboard"}
             </h1>
           </div>
         </div>
 
         <div className="border-b border-emerald-200 dark:border-emerald-700 bg-gradient-to-r from-emerald-50 to-green-50 dark:from-emerald-950 dark:to-green-950 p-4">
           <div className="flex items-center justify-between">
-            <h2 className="text-lg font-semibold text-emerald-800 dark:text-emerald-200">
-              Transport Management Portal
+              <h2 className="text-lg font-semibold text-emerald-800 dark:text-emerald-200">
+              {t?.dashboard?.title ? `${t.dashboard.title} Management Portal` : "Transport Management Portal"}
             </h2>
             <Button
               className={`font-semibold px-6 py-2 rounded-full shadow-lg transition-all duration-300 hover:scale-105 ${
@@ -302,7 +302,7 @@ export default function TransportLayout({
               disabled={isListening}
             >
               <Mic className="mr-2 h-5 w-5" />
-              {isListening ? "Listening..." : "Voice Assistant"}
+              {isListening ? (t?.voiceAssistant?.listening ?? "Listening...") : (t?.voiceAssistant?.title ?? "Voice Assistant")}
             </Button>
           </div>
         </div>
