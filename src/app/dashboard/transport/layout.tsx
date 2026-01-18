@@ -81,15 +81,17 @@ function Sidebar({
     <div
       className={cn(
         "pb-4 bg-gradient-to-b from-emerald-50/30 via-green-50/30 to-lime-50/30 dark:from-emerald-950/30 dark:via-green-950/30 dark:to-lime-950/30 flex flex-col h-full",
-        className
+        className,
       )}
     >
       <div className="flex-1 space-y-4 py-4">
         <div className="px-3 py-2">
-            <div className="flex items-center gap-2 mb-6 p-3 rounded-lg bg-gradient-to-r from-emerald-100 to-green-100 dark:from-emerald-900 dark:to-green-900 border border-emerald-200 dark:border-emerald-700">
+          <div className="flex items-center gap-2 mb-6 p-3 rounded-lg bg-gradient-to-r from-emerald-100 to-green-100 dark:from-emerald-900 dark:to-green-900 border border-emerald-200 dark:border-emerald-700">
             <Truck className="h-5 w-5 text-emerald-600 dark:text-emerald-400" />
             <h2 className="text-lg font-semibold text-emerald-800 dark:text-emerald-200">
-              {t.dashboard?.title ? `${t.dashboard.title} Portal` : t?.sidebar?.dashboard ?? "Transport Portal"}
+              {t.dashboard?.title
+                ? `${t.dashboard.title} Portal`
+                : (t?.sidebar?.dashboard ?? "Transport Portal")}
             </h2>
           </div>
           <div className="space-y-1">
@@ -105,7 +107,7 @@ function Sidebar({
                   className={cn(
                     "w-full justify-start hover:bg-emerald-100 dark:hover:bg-emerald-900 transition-all duration-100",
                     pathname === item.href &&
-                      "bg-gradient-to-r from-emerald-200 to-green-200 dark:from-emerald-800 dark:to-green-800 text-emerald-800 dark:text-emerald-200 border border-emerald-300 dark:border-emerald-600"
+                      "bg-gradient-to-r from-emerald-200 to-green-200 dark:from-emerald-800 dark:to-green-800 text-emerald-800 dark:text-emerald-200 border border-emerald-300 dark:border-emerald-600",
                   )}
                 >
                   <item.icon
@@ -113,7 +115,7 @@ function Sidebar({
                       "mr-2 h-4 w-4",
                       pathname === item.href
                         ? "text-emerald-700 dark:text-emerald-300"
-                        : "text-emerald-600 dark:text-emerald-400"
+                        : "text-emerald-600 dark:text-emerald-400",
                     )}
                   />
                   {item.title}
@@ -123,7 +125,7 @@ function Sidebar({
           </div>
         </div>
       </div>
-          <div className="px-3 py-3 border-t-2 border-gradient-to-r from-emerald-200 via-green-200 to-lime-200 dark:from-emerald-700 dark:via-green-700 dark:to-lime-700 bg-gradient-to-r from-emerald-50/50 via-green-50/50 to-lime-50/50 dark:from-emerald-950/50 dark:via-green-950/50 dark:to-lime-950/50">
+      <div className="px-3 py-3 border-t-2 border-gradient-to-r from-emerald-200 via-green-200 to-lime-200 dark:from-emerald-700 dark:via-green-700 dark:to-lime-700 bg-gradient-to-r from-emerald-50/50 via-green-50/50 to-lime-50/50 dark:from-emerald-950/50 dark:via-green-950/50 dark:to-lime-950/50">
         <Button
           onClick={onSignOut}
           variant="ghost"
@@ -289,8 +291,10 @@ export default function TransportLayout({
 
         <div className="border-b border-emerald-200 dark:border-emerald-700 bg-gradient-to-r from-emerald-50 to-green-50 dark:from-emerald-950 dark:to-green-950 p-4">
           <div className="flex items-center justify-between">
-              <h2 className="text-lg font-semibold text-emerald-800 dark:text-emerald-200">
-              {t?.dashboard?.title ? `${t.dashboard.title} Management Portal` : "Transport Management Portal"}
+            <h2 className="text-lg font-semibold text-emerald-800 dark:text-emerald-200">
+              {t?.dashboard?.title
+                ? `${t.dashboard.title} Management Portal`
+                : "Transport Management Portal"}
             </h2>
             <Button
               className={`font-semibold px-6 py-2 rounded-full shadow-lg transition-all duration-300 hover:scale-105 ${
@@ -302,7 +306,9 @@ export default function TransportLayout({
               disabled={isListening}
             >
               <Mic className="mr-2 h-5 w-5" />
-              {isListening ? (t?.voiceAssistant?.listening ?? "Listening...") : (t?.voiceAssistant?.title ?? "Voice Assistant")}
+              {isListening
+                ? (t?.voiceAssistant?.listening ?? "Listening...")
+                : (t?.voiceAssistant?.title ?? "Voice Assistant")}
             </Button>
           </div>
         </div>
