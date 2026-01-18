@@ -240,7 +240,7 @@ export default function RetailLayout({
     } catch (error) {
       toast({
         variant: "destructive",
-        title: "Sign Out Failed",
+        title: t?.signOut?.errorTitle || "Sign Out Failed",
         description: "Please try again or refresh the page",
       });
     }
