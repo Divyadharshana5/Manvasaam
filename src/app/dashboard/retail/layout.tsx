@@ -287,7 +287,7 @@ export default function RetailLayout({
         <div className="border-b border-emerald-200 dark:border-emerald-700 bg-gradient-to-r from-emerald-50 to-green-50 dark:from-emerald-950 dark:to-green-950 p-4">
           <div className="flex items-center justify-between">
             <h2 className="text-lg font-semibold text-emerald-800 dark:text-emerald-200">
-              Retail Management Portal
+              {t?.dashboard?.welcome || "Retail Management Portal"}
             </h2>
             <Button
               className={`font-semibold px-6 py-2 rounded-full shadow-lg transition-all duration-300 hover:scale-105 ${
@@ -299,7 +299,9 @@ export default function RetailLayout({
               disabled={isListening}
             >
               <Mic className="mr-2 h-5 w-5" />
-              {isListening ? "Listening..." : "Voice Assistant"}
+              {isListening
+                ? t?.voiceAssistant?.listening || "Listening..."
+                : t?.sidebar?.voiceAssistant || "Voice Assistant"}
             </Button>
           </div>
         </div>
