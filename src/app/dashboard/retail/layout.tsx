@@ -81,7 +81,7 @@ function Sidebar({
     <div
       className={cn(
         "pb-4 bg-gradient-to-b from-emerald-50/30 via-green-50/30 to-lime-50/30 dark:from-emerald-950/30 dark:via-green-950/30 dark:to-lime-950/30 flex flex-col h-full",
-        className
+        className,
       )}
     >
       <div className="flex-1 space-y-4 py-4">
@@ -107,7 +107,7 @@ function Sidebar({
                   className={cn(
                     "w-full justify-start hover:bg-emerald-100 dark:hover:bg-emerald-900 transition-all duration-100",
                     pathname === item.href &&
-                      "bg-gradient-to-r from-emerald-200 to-green-200 dark:from-emerald-800 dark:to-green-800 text-emerald-800 dark:text-emerald-200 border border-emerald-300 dark:border-emerald-600"
+                      "bg-gradient-to-r from-emerald-200 to-green-200 dark:from-emerald-800 dark:to-green-800 text-emerald-800 dark:text-emerald-200 border border-emerald-300 dark:border-emerald-600",
                   )}
                 >
                   <item.icon
@@ -115,7 +115,7 @@ function Sidebar({
                       "mr-2 h-4 w-4",
                       pathname === item.href
                         ? "text-emerald-700 dark:text-emerald-300"
-                        : "text-emerald-600 dark:text-emerald-400"
+                        : "text-emerald-600 dark:text-emerald-400",
                     )}
                   />
                   {item.title}
@@ -196,7 +196,6 @@ export default function RetailLayout({
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const { isListening, startListening } = useVoiceAssistant();
   const { navigate, preload } = useFastNavigation();
-  const sidebarItems = makeSidebarItems(t);
 
   // Preload all retail routes on mount for instant navigation
   useEffect(() => {
