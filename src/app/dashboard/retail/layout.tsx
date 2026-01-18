@@ -225,8 +225,9 @@ export default function RetailLayout({
         localStorage.removeItem("userEmail");
 
         toast({
-          title: "Signed Out Successfully",
-          description: "Thank you for using Retail Portal",
+          title: t?.signOut?.title || "Signed Out Successfully",
+          description:
+            t?.signOut?.description || "Thank you for using Retail Portal",
           duration: 2000,
         });
 
