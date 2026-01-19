@@ -5,8 +5,10 @@ import { Badge } from "@/components/ui/badge";
 import { Mic, Volume2, Navigation, HelpCircle } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
+import { useLanguage } from "@/context/language-context";
 
 export default function VoiceAssistantHelpPage() {
+  const { t } = useLanguage();
   const voiceCommands = [
     { command: "Go to dashboard", description: "Navigate to main dashboard" },
     { command: "Open profile", description: "Go to your profile page" },
@@ -29,10 +31,10 @@ export default function VoiceAssistantHelpPage() {
         <div className="text-center space-y-4">
           <div className="flex items-center justify-center gap-2">
             <Mic className="h-8 w-8 text-primary" />
-            <h1 className="text-3xl font-bold">Voice Assistant Help</h1>
+            <h1 className="text-3xl font-bold">{t?.voiceAssistant?.helpTitle || "Voice Assistant Help"}</h1>
           </div>
           <p className="text-lg text-muted-foreground">
-            Learn how to navigate Manvaasam using voice commands
+            {t?.voiceAssistant?.helpDescription || "Learn how to navigate Manvaasam using voice commands"}
           </p>
         </div>
 
@@ -41,10 +43,10 @@ export default function VoiceAssistantHelpPage() {
             <CardHeader>
               <CardTitle className="flex items-center gap-2">
                 <Volume2 className="h-5 w-5" />
-                How to Use
+                {t?.voiceAssistant?.howToUse || "How to Use"}
               </CardTitle>
               <CardDescription>
-                Follow these simple steps to use the voice assistant
+                {t?.voiceAssistant?.howToUseDescription || "Follow these simple steps to use the voice assistant"}
               </CardDescription>
             </CardHeader>
             <CardContent className="space-y-4">
@@ -84,10 +86,10 @@ export default function VoiceAssistantHelpPage() {
             <CardHeader>
               <CardTitle className="flex items-center gap-2">
                 <HelpCircle className="h-5 w-5" />
-                Tips & Tricks
+                {t?.voiceAssistant?.tipsTitle || "Tips & Tricks"}
               </CardTitle>
               <CardDescription>
-                Get the most out of your voice assistant
+                {t?.voiceAssistant?.tipsDescription || "Get the most out of your voice assistant"}
               </CardDescription>
             </CardHeader>
             <CardContent className="space-y-3">
@@ -116,10 +118,10 @@ export default function VoiceAssistantHelpPage() {
           <CardHeader>
             <CardTitle className="flex items-center gap-2">
               <Navigation className="h-5 w-5" />
-              Available Voice Commands
+              {t?.voiceAssistant?.availableCommandsTitle || "Available Voice Commands"}
             </CardTitle>
             <CardDescription>
-              Here are all the voice commands you can use
+              {t?.voiceAssistant?.availableCommandsDescription || "Here are all the voice commands you can use"}
             </CardDescription>
           </CardHeader>
           <CardContent>
@@ -141,9 +143,7 @@ export default function VoiceAssistantHelpPage() {
 
         <div className="text-center">
           <Link href="/dashboard">
-            <Button>
-              Back to Dashboard
-            </Button>
+            <Button>{t?.voiceAssistant?.backToDashboard || "Back to Dashboard"}</Button>
           </Link>
         </div>
       </div>
