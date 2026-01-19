@@ -27,7 +27,9 @@ export function VoiceAssistantGlobal() {
         (window as any).webkitSpeechRecognition ||
         (window as any).SpeechRecognition;
       if (!SpeechRecognition) {
-        speak(t?.voiceAssistant?.pleaseUseChrome || "Please use Chrome browser");
+        speak(
+          t?.voiceAssistant?.pleaseUseChrome || "Please use Chrome browser",
+        );
         return;
       }
 
