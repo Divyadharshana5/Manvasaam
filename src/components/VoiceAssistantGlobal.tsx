@@ -11,7 +11,7 @@ export function VoiceAssistantGlobal() {
   const [isMounted, setIsMounted] = useState(false);
   const router = useRouter();
   const { user } = useAuth();
-  const { selectedLanguage } = useLanguage();
+  const { selectedLanguage, t } = useLanguage();
 
   useEffect(() => {
     setIsMounted(true);
@@ -27,7 +27,7 @@ export function VoiceAssistantGlobal() {
         (window as any).webkitSpeechRecognition ||
         (window as any).SpeechRecognition;
       if (!SpeechRecognition) {
-        speak("Please use Chrome browser");
+        speak(t?.voiceAssistant?.pleaseUseChrome || "Please use Chrome browser");
         return;
       }
 
@@ -46,12 +46,12 @@ export function VoiceAssistantGlobal() {
 
       recognition.onerror = () => {
         setIsListening(false);
-        speak("Voice recognition error");
+        speak(t?.voiceAssistant?.error || "Voice recognition error");
       };
 
       recognition.start();
     } catch (error) {
-      speak("Microphone access denied");
+      speak(t?.voiceAssistant?.micDenied || "Microphone access denied");
     }
   };
 
@@ -315,7 +315,9 @@ export function VoiceAssistantGlobal() {
     >
       <MicIcon className="h-4 w-4 mr-2" />
       <span className="font-medium">
-        {isListening ? "Listening..." : "Voice Assistant"}
+        {isListening
+          ? t?.voiceAssistant?.listening || "Listening..."
+          : t?.sidebar?.voiceAssistant || "Voice Assistant"}
       </span>
     </Button>
   );
