@@ -127,7 +127,7 @@ function Sidebar({
           <div className="absolute inset-0 rounded-xl opacity-0 group-hover:opacity-100 group-hover:animate-ping bg-gradient-to-r from-green-400/20 via-emerald-400/20 to-lime-400/20 transition-all duration-300"></div>
           <Power className="mr-3 h-5 w-5 group-hover:animate-bounce relative z-10 transition-all duration-300" />
           <span className="relative z-10 font-bold text-sm group-hover:text-base transition-all duration-300">
-            🚪 Sign Out
+            {t?.signOut?.button || "Sign Out"}
           </span>
           <DoorOpen className="ml-auto h-5 w-5 opacity-0 group-hover:opacity-100 transition-all duration-500 relative z-10 group-hover:translate-x-1" />
           <div className="absolute top-1 right-1 w-2 h-2 bg-lime-400 rounded-full opacity-0 group-hover:opacity-100 group-hover:animate-ping transition-all duration-700 delay-200"></div>
@@ -197,13 +197,13 @@ export default function FarmerLayout({
         },
       });
 
-      if (response.ok) {
+        if (response.ok) {
         localStorage.removeItem("userType");
         localStorage.removeItem("userEmail");
 
         toast({
-          title: "Signed Out Successfully",
-          description: "Thank you for using Farmer Portal",
+          title: t?.signOut?.title || "Signed Out Successfully",
+          description: t?.signOut?.description || "Thank you for using Farmer Portal",
           duration: 2000,
         });
 
@@ -216,7 +216,7 @@ export default function FarmerLayout({
     } catch (error) {
       toast({
         variant: "destructive",
-        title: "Sign Out Failed",
+        title: t?.signOut?.errorTitle || "Sign Out Failed",
         description: "Please try again or refresh the page",
       });
     }
@@ -247,7 +247,7 @@ export default function FarmerLayout({
           </Sheet>
           <div className="w-full flex-1">
             <h1 className="text-lg font-semibold md:text-2xl">
-              Farmer Dashboard
+              {t?.dashboard?.title || "Farmer Dashboard"}
             </h1>
           </div>
         </div>
@@ -255,7 +255,7 @@ export default function FarmerLayout({
         <div className="border-b border-emerald-200 dark:border-emerald-700 bg-gradient-to-r from-emerald-50 to-green-50 dark:from-emerald-950 dark:to-green-950 p-4">
           <div className="flex items-center justify-between">
             <h2 className="text-lg font-semibold text-emerald-800 dark:text-emerald-200">
-              Farmer Management Portal
+              {t?.dashboard?.welcome || "Farmer Management Portal"}
             </h2>
             <Button
               className={`font-semibold px-6 py-2 rounded-full shadow-lg transition-all duration-300 hover:scale-105 ${
@@ -267,7 +267,9 @@ export default function FarmerLayout({
               disabled={isListening}
             >
               <Mic className="mr-2 h-5 w-5" />
-              {isListening ? "Listening..." : "Voice Assistant"}
+              {isListening
+                ? t?.voiceAssistant?.listening || "Listening..."
+                : t?.sidebar?.voiceAssistant || "Voice Assistant"}
             </Button>
           </div>
         </div>
