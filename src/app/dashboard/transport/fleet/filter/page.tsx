@@ -247,7 +247,7 @@ export default function FleetFilter() {
                   <SelectContent>
                     {locationOptions.map((location) => (
                       <SelectItem key={location.value} value={location.value}>
-                        {t?.transport?.locations?.[location.value] ?? location.label}
+                        {location.label}
                       </SelectItem>
                     ))}
                   </SelectContent>
