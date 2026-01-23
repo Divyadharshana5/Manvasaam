@@ -263,12 +263,12 @@ export default function FleetFilter() {
                   }
                 >
                   <SelectTrigger>
-                    <SelectValue placeholder={t?.transport?.placeholders?.selectDriver ?? "Select driver"} />
+                    <SelectValue placeholder="Select driver" />
                   </SelectTrigger>
                   <SelectContent>
                     {driverOptions.map((driver) => (
                       <SelectItem key={driver.value} value={driver.value}>
-                        {t?.transport?.drivers?.[driver.value] ?? driver.label}
+                        {driver.label}
                       </SelectItem>
                     ))}
                   </SelectContent>
