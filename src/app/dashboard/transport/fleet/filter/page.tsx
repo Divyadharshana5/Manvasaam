@@ -146,11 +146,11 @@ export default function FleetFilter() {
           <div className="flex gap-2">
             <Button variant="outline" onClick={handleReset}>
               <RotateCcw className="h-4 w-4 mr-2" />
-              {t?.filters?.reset ?? "Reset"}
+              Reset
             </Button>
             <Button onClick={handleApplyFilters}>
               <Filter className="h-4 w-4 mr-2" />
-              {t?.filters?.apply ?? "Apply Filters"}
+              Apply Filters
             </Button>
           </div>
         </div>
