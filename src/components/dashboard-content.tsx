@@ -1,5 +1,6 @@
 "use client";
 
+import React from "react";
 import { useLanguage } from "@/context/language-context";
 import {
   Card,
