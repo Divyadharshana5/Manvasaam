@@ -127,11 +127,6 @@ export default function FleetFilter() {
     router.push(url);
   };
 
-  const handleCancel = () => {
-    // Discard changes and navigate back to transport fleet view
-    router.push("/dashboard/transport?tab=fleet");
-  };
-
   return (
     <div className="min-h-screen w-full overflow-auto">
       <div className="flex flex-col gap-4 p-4 md:gap-6 md:p-6 max-w-4xl mx-auto">
@@ -141,34 +136,32 @@ export default function FleetFilter() {
             <Button variant="outline" size="icon" asChild>
               <Link href="/dashboard/transport">
                 <ArrowLeft className="h-4 w-4" />
-                    <SelectValue placeholder={t?.transport?.placeholders?.selectLocation ?? "Select location"} />
+              </Link>
             </Button>
             <div>
-              <h1 className="text-2xl font-bold">Fleet Filters</h1>
-              <p className="text-muted-foreground">
-                        {t?.transport?.locations?.[location.value] ?? location.label}
-              </p>
+              <h1 className="text-2xl font-bold">{t?.transport?.fleetFiltersTitle ?? "Fleet Filters"}</h1>
+              <p className="text-muted-foreground">{t?.transport?.fleetFiltersDesc ?? "Filter and search your fleet vehicles"}</p>
             </div>
           </div>
           <div className="flex gap-2">
             <Button variant="outline" onClick={handleReset}>
               <RotateCcw className="h-4 w-4 mr-2" />
-              Reset
+              {t?.filters?.reset ?? "Reset"}
             </Button>
             <Button onClick={handleApplyFilters}>
               <Filter className="h-4 w-4 mr-2" />
-              Apply Filters
+              {t?.filters?.apply ?? "Apply Filters"}
             </Button>
           </div>
         </div>
 
-                    <SelectValue placeholder={t?.transport?.placeholders?.selectDriver ?? "Select driver"} />
+        <div className="grid gap-6">
           {/* Search and Basic Filters */}
           <Card>
             <CardHeader>
               <CardTitle className="flex items-center gap-2">
-                        {t?.transport?.drivers?.[driver.value] ?? driver.label}
-                Search & Status
+                <Search className="h-5 w-5" />
+                {t?.transport?.searchStatusTitle ?? "Search & Status"}
               </CardTitle>
               <CardDescription>Basic search and status filters</CardDescription>
             </CardHeader>
@@ -179,7 +172,7 @@ export default function FleetFilter() {
                   <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground pointer-events-none z-10" />
                   <Input
                     id="search"
-                    placeholder="Search by ID, driver, location..."
+                    placeholder={t?.transport?.placeholders?.searchVehicles ?? "Search by ID, driver, location..."}
                     value={filters.search}
                     onChange={(e) =>
                       setFilters({ ...filters, search: e.target.value })
@@ -249,12 +242,12 @@ export default function FleetFilter() {
                   }
                 >
                   <SelectTrigger>
-                    <SelectValue placeholder="Select location" />
+                    <SelectValue placeholder={t?.transport?.placeholders?.selectLocation ?? "Select location"} />
                   </SelectTrigger>
                   <SelectContent>
                     {locationOptions.map((location) => (
                       <SelectItem key={location.value} value={location.value}>
-                        {location.label}
+                        {t?.transport?.locations?.[location.value] ?? location.label}
                       </SelectItem>
                     ))}
                   </SelectContent>
@@ -270,12 +263,12 @@ export default function FleetFilter() {
                   }
                 >
                   <SelectTrigger>
-                    <SelectValue placeholder="Select driver" />
+                    <SelectValue placeholder={t?.transport?.placeholders?.selectDriver ?? "Select driver"} />
                   </SelectTrigger>
                   <SelectContent>
                     {driverOptions.map((driver) => (
                       <SelectItem key={driver.value} value={driver.value}>
-                        {driver.label}
+                        {t?.transport?.drivers?.[driver.value] ?? driver.label}
                       </SelectItem>
                     ))}
                   </SelectContent>
