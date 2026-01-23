@@ -172,7 +172,7 @@ export default function FleetFilter() {
                   <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground pointer-events-none z-10" />
                   <Input
                     id="search"
-                    placeholder={t?.transport?.placeholders?.searchVehicles ?? "Search by ID, driver, location..."}
+                    placeholder="Search by ID, driver, location..."
                     value={filters.search}
                     onChange={(e) =>
                       setFilters({ ...filters, search: e.target.value })
@@ -242,7 +242,7 @@ export default function FleetFilter() {
                   }
                 >
                   <SelectTrigger>
-                    <SelectValue placeholder={t?.transport?.placeholders?.selectLocation ?? "Select location"} />
+                    <SelectValue placeholder="Select location" />
                   </SelectTrigger>
                   <SelectContent>
                     {locationOptions.map((location) => (
