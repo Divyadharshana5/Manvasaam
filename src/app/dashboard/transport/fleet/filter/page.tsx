@@ -49,18 +49,19 @@ export default function FleetFilter() {
   const [filters, setFilters] = useState({
     search: "",
     status: "all",
-              <h1 className="text-2xl font-bold">{t?.transport?.fleetFiltersTitle ?? "Fleet Filters"}</h1>
-              <p className="text-muted-foreground">{t?.transport?.fleetFiltersDesc ?? "Filter and search your fleet vehicles"}</p>
+    fuelRange: [0, 100],
+    batteryRange: [0, 100],
+    temperatureRange: [0, 100],
+    location: "all",
     driver: "all",
     mileageRange: [0, 20],
-            <Button variant="outline" onClick={handleReset}>
-              <RotateCcw className="h-4 w-4 mr-2" />
-              {t?.filters?.reset ?? "Reset"}
-            </Button>
-            <Button onClick={handleApplyFilters}>
-              <Filter className="h-4 w-4 mr-2" />
-              {t?.filters?.apply ?? "Apply Filters"}
-            </Button>
+    serviceStatus: [] as string[],
+    dateRange: "all",
+  });
+
+  const statusOptions = [
+    { value: "all", label: "All Status", count: 12 },
+    { value: "active", label: "Active", count: 8 },
     { value: "maintenance", label: "Maintenance", count: 2 },
     { value: "offline", label: "Offline", count: 1 },
   ];
@@ -70,7 +71,6 @@ export default function FleetFilter() {
     { value: "highway", label: "Highway Routes" },
     { value: "city", label: "City Center" },
     { value: "depot", label: "Depot" },
-                {t?.transport?.searchStatusTitle ?? "Search & Status"}
     { value: "rural", label: "Rural Areas" },
   ];
 
@@ -81,7 +81,7 @@ export default function FleetFilter() {
     { value: "suresh-patel", label: "Suresh Patel" },
     { value: "vikram-yadav", label: "Vikram Yadav" },
   ];
-                    placeholder={t?.transport?.placeholders?.searchVehicles ?? "Search by ID, driver, location..."}
+
   const serviceStatusOptions = [
     { id: "due", label: "Service Due", count: 3 },
     { id: "overdue", label: "Service Overdue", count: 1 },
