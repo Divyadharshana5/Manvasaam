@@ -139,8 +139,8 @@ export default function FleetFilter() {
               </Link>
             </Button>
             <div>
-              <h1 className="text-2xl font-bold">{t?.transport?.fleetFiltersTitle ?? "Fleet Filters"}</h1>
-              <p className="text-muted-foreground">{t?.transport?.fleetFiltersDesc ?? "Filter and search your fleet vehicles"}</p>
+              <h1 className="text-2xl font-bold">Fleet Filters</h1>
+              <p className="text-muted-foreground">Filter and search your fleet vehicles</p>
             </div>
           </div>
           <div className="flex gap-2">
@@ -161,7 +161,7 @@ export default function FleetFilter() {
             <CardHeader>
               <CardTitle className="flex items-center gap-2">
                 <Search className="h-5 w-5" />
-                {t?.transport?.searchStatusTitle ?? "Search & Status"}
+                Search & Status
               </CardTitle>
               <CardDescription>Basic search and status filters</CardDescription>
             </CardHeader>
