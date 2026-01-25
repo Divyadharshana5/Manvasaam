@@ -389,6 +389,9 @@ export default function HomePage() {
 
   return (
     <LazyMotion features={domAnimation}>
+      {/* Language Sync - Ensures language consistency across pages */}
+      <LanguageSync />
+      
       {/* Scroll Fix - Only render on client */}
       <ScrollFix />
 
