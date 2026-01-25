@@ -2416,7 +2416,7 @@ export const LanguageProvider = ({
   );
 
   return (
-    <LanguageContext.Provider value={contextValue} suppressHydrationWarning>
+    <LanguageContext.Provider value={contextValue}>
       {children}
     </LanguageContext.Provider>
   );
