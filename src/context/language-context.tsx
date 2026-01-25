@@ -2315,18 +2315,30 @@ export const LanguageProvider = ({
 
   useEffect(() => {
     setIsMounted(true);
-    // Re-check localStorage on mount to ensure we have the latest language preference
+    // Re-check localStorage and cookie on mount to ensure we have the latest language preference
     try {
+      // First check localStorage
       const storedLanguage = localStorage.getItem(
         "manvaasam-language"
       ) as Language | null;
-      if (storedLanguage && translations[storedLanguage]) {
-        setSelectedLanguage(storedLanguage);
+      
+      // Then check cookie as fallback
+      const cookieLanguage = document.cookie
+        .split('; ')
+        .find(row => row.startsWith('manvaasam-language='))
+        ?.split('=')[1] as Language | undefined;
+      
+      // Use the most recent language preference
+      const preferredLanguage = storedLanguage || cookieLanguage;
+      
+      if (preferredLanguage && translations[preferredLanguage] && preferredLanguage !== selectedLanguage) {
+        console.log("[LanguageProvider] Syncing language on mount:", preferredLanguage);
+        setSelectedLanguage(preferredLanguage);
       }
     } catch (e) {
-      // ignore
+      console.warn("[LanguageProvider] Error syncing language on mount:", e);
     }
-  }, []);
+  }, [selectedLanguage]);
 
   // Sync language across tabs/windows and respond to custom events
   useEffect(() => {
@@ -2365,12 +2377,31 @@ export const LanguageProvider = ({
     setSelectedLanguage(language);
     if (typeof window !== "undefined") {
       try {
+        // Save to localStorage first
         localStorage.setItem("manvaasam-language", language);
-        document.cookie = `manvaasam-language=${language};path=/;max-age=31536000`;
+        
+        // Set cookie with proper path and expiration
+        const expires = new Date();
+        expires.setFullYear(expires.getFullYear() + 1);
+        document.cookie = `manvaasam-language=${language};path=/;expires=${expires.toUTCString()};SameSite=Lax`;
+        
         // Notify other listeners on the same page
         window.dispatchEvent(
           new CustomEvent("languageChange", { detail: language })
         );
+        
+        // Force a storage event for cross-tab synchronization
+        window.dispatchEvent(
+          new StorageEvent("storage", {
+            key: "manvaasam-language",
+            newValue: language,
+            oldValue: localStorage.getItem("manvaasam-language"),
+            storageArea: localStorage,
+            url: window.location.href
+          })
+        );
+        
+        console.log("[LanguageProvider] Language saved successfully:", language);
       } catch (error) {
         console.warn("Could not save language preference:", error);
       }
@@ -2396,5 +2427,21 @@ export const useLanguage = () => {
   if (context === undefined) {
     throw new Error("useLanguage must be used within a LanguageProvider");
   }
+  
+  // Additional client-side sync check
+  useEffect(() => {
+    if (typeof window !== "undefined") {
+      try {
+        const storedLanguage = localStorage.getItem("manvaasam-language") as Language | null;
+        if (storedLanguage && translations[storedLanguage] && storedLanguage !== context.selectedLanguage) {
+          console.log("[useLanguage] Syncing language from localStorage:", storedLanguage);
+          context.setSelectedLanguage(storedLanguage);
+        }
+      } catch (e) {
+        // ignore
+      }
+    }
+  }, [context]);
+  
   return context;
 };
