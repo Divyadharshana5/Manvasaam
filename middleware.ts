@@ -21,6 +21,9 @@ export function middleware(request: NextRequest) {
   const sessionCookie = request.cookies.get('session');
   const isAuthenticated = !!sessionCookie;
   
+  // Get language cookie and ensure it's properly set
+  const languageCookie = request.cookies.get('manvaasam-language');
+  
   // Define protected routes that require authentication
   const protectedRoutes = [
     '/dashboard/retail',
@@ -51,7 +54,20 @@ export function middleware(request: NextRequest) {
     return NextResponse.redirect(new URL('/dashboard/retail', request.url));
   }
   
-  return NextResponse.next();
+  // Create response
+  const response = NextResponse.next();
+  
+  // Ensure language cookie is set with proper attributes if missing
+  if (!languageCookie) {
+    response.cookies.set('manvaasam-language', 'English', {
+      path: '/',
+      maxAge: 31536000, // 1 year
+      sameSite: 'lax',
+      secure: process.env.NODE_ENV === 'production'
+    });
+  }
+  
+  return response;
 }
 
 export const config = {
