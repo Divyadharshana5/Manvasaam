@@ -85,25 +85,30 @@ export function DashboardContent({
     selectedLanguage
   );
 
+  // Enhanced language synchronization
   React.useEffect(() => {
-    try {
-      const stored =
-        typeof window !== "undefined"
-          ? localStorage.getItem("manvaasam-language")
-          : null;
-      if (stored && stored !== selectedLanguage) {
-        console.log(
-          "[DashboardContent] syncing language from localStorage:",
-          stored
-        );
-        // @ts-ignore
-        setSelectedLanguage(stored);
+    if (typeof window !== "undefined") {
+      try {
+        const storedLanguage = localStorage.getItem("manvaasam-language") as any;
+        const cookieLanguage = document.cookie
+          .split('; ')
+          .find(row => row.startsWith('manvaasam-language='))
+          ?.split('=')[1];
+        
+        const preferredLanguage = storedLanguage || cookieLanguage;
+        
+        if (preferredLanguage && preferredLanguage !== selectedLanguage) {
+          console.log(
+            "[DashboardContent] syncing language from storage:",
+            preferredLanguage
+          );
+          setSelectedLanguage(preferredLanguage);
+        }
+      } catch (e) {
+        console.warn("[DashboardContent] Error syncing language:", e);
       }
-    } catch (e) {
-      // ignore
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [selectedLanguage, setSelectedLanguage]);
 
   const renderGeneralDashboard = () => (
     <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
