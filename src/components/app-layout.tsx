@@ -53,6 +53,7 @@ import {
 } from "@/context/language-context";
 import VoiceAssistant from "@/components/voice-assistant";
 import { Languages } from "lucide-react";
+import { LanguageSync } from "@/components/language-sync";
 
 interface UserProfile {
   userType?: string;
