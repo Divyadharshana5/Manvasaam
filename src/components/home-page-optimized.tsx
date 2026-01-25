@@ -689,6 +689,7 @@ export default function HomePage() {
           </div>
         </motion.footer>
       </div>
+      <LanguageDebug />
     </LazyMotion>
   );
 }
