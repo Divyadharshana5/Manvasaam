@@ -54,6 +54,7 @@ import {
 import VoiceAssistant from "@/components/voice-assistant";
 import { Languages } from "lucide-react";
 import { LanguageSync } from "@/components/language-sync";
+import { LanguageDebug } from "@/components/language-debug";
 
 interface UserProfile {
   userType?: string;
