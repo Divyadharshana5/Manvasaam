@@ -43,7 +43,6 @@ import { FastLink } from "@/components/fast-link";
 import { useFastNavigation } from "@/hooks/use-fast-navigation";
 import { ScrollFix } from "@/components/scroll-fix";
 import { LanguageSync } from "@/components/language-sync";
-import { LanguageDebug } from "@/components/language-debug";
 
 // Lazy load AI components for better initial load performance
 const ProductShowcase = lazy(() => import("@/components/product-showcase"));
