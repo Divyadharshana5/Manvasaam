@@ -85,7 +85,7 @@ export function DashboardContent({
     selectedLanguage
   );
 
-  // Enhanced language synchronization
+  // Enhanced language synchronization - run only once on mount
   React.useEffect(() => {
     if (typeof window !== "undefined") {
       try {
@@ -108,7 +108,7 @@ export function DashboardContent({
         console.warn("[DashboardContent] Error syncing language:", e);
       }
     }
-  }, [selectedLanguage, setSelectedLanguage]);
+  }, []); // Remove dependencies to avoid loops
 
   const renderGeneralDashboard = () => (
     <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
