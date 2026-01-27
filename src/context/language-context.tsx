@@ -2338,7 +2338,7 @@ export const LanguageProvider = ({
     } catch (e) {
       console.warn("[LanguageProvider] Error syncing language on mount:", e);
     }
-  }, [selectedLanguage]);
+  }, []); // Remove selectedLanguage dependency to avoid loop
 
   // Sync language across tabs/windows and respond to custom events
   useEffect(() => {
@@ -2428,7 +2428,7 @@ export const useLanguage = () => {
     throw new Error("useLanguage must be used within a LanguageProvider");
   }
   
-  // Additional client-side sync check
+  // Additional client-side sync check - only run once on mount
   useEffect(() => {
     if (typeof window !== "undefined") {
       try {
@@ -2441,7 +2441,7 @@ export const useLanguage = () => {
         // ignore
       }
     }
-  }, [context]);
+  }, []); // Remove context dependency to avoid loop
   
   return context;
 };
