@@ -2284,12 +2284,25 @@ const initializeLanguage = (): Language => {
   }
 
   try {
+    // First check localStorage (most recent user preference)
     const storedLanguage = localStorage.getItem(
       "manvaasam-language"
     ) as Language;
     console.log("[initializeLanguage] Found stored language:", storedLanguage);
     if (storedLanguage && translations[storedLanguage]) {
       return storedLanguage;
+    }
+
+    // Fallback to cookie if localStorage is empty
+    const cookieLanguage = document.cookie
+      .split('; ')
+      .find(row => row.startsWith('manvaasam-language='))
+      ?.split('=')[1] as Language | undefined;
+    console.log("[initializeLanguage] Found cookie language:", cookieLanguage);
+    if (cookieLanguage && translations[cookieLanguage]) {
+      // Sync cookie to localStorage for future use
+      localStorage.setItem("manvaasam-language", cookieLanguage);
+      return cookieLanguage;
     }
   } catch (error) {
     console.warn("[initializeLanguage] Error reading localStorage:", error);
