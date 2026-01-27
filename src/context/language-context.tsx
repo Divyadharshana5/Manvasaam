@@ -2414,6 +2414,11 @@ export const LanguageProvider = ({
           })
         );
         
+        // Force immediate re-render by updating state again
+        setTimeout(() => {
+          setSelectedLanguage(language);
+        }, 50);
+        
         console.log("[LanguageProvider] Language saved successfully:", language);
       } catch (error) {
         console.warn("Could not save language preference:", error);
