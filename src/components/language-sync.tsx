@@ -16,7 +16,7 @@ export function LanguageSync() {
 
     const syncLanguage = () => {
       try {
-        // Check localStorage first
+        // Check localStorage first (most recent user preference)
         const storedLanguage = localStorage.getItem("manvaasam-language");
         
         // Check cookie as fallback
@@ -36,8 +36,8 @@ export function LanguageSync() {
       }
     };
 
-    // Sync on mount
-    syncLanguage();
+    // Sync immediately on mount with a small delay to ensure DOM is ready
+    const timeoutId = setTimeout(syncLanguage, 100);
 
     // Listen for storage changes (cross-tab sync)
     const handleStorageChange = (e: StorageEvent) => {
@@ -61,16 +61,26 @@ export function LanguageSync() {
       syncLanguage();
     };
 
+    // Listen for page visibility changes
+    const handleVisibilityChange = () => {
+      if (!document.hidden) {
+        syncLanguage();
+      }
+    };
+
     window.addEventListener("storage", handleStorageChange);
     window.addEventListener("languageChange", handleLanguageChange as EventListener);
     window.addEventListener("focus", handleFocus);
+    document.addEventListener("visibilitychange", handleVisibilityChange);
 
     return () => {
+      clearTimeout(timeoutId);
       window.removeEventListener("storage", handleStorageChange);
       window.removeEventListener("languageChange", handleLanguageChange as EventListener);
       window.removeEventListener("focus", handleFocus);
+      document.removeEventListener("visibilitychange", handleVisibilityChange);
     };
-  }, [selectedLanguage, setSelectedLanguage]);
+  }, []); // Remove dependencies to avoid loops, sync will happen via events
 
   return null; // This component doesn't render anything
 }
