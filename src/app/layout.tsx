@@ -1,6 +1,7 @@
 import type { Metadata, Viewport } from "next";
 import { LanguageProvider } from "@/context/language-context";
 import { readCookie } from "@/lib/read-cookie";
+import { GlobalLanguageSync } from "@/components/global-language-sync";
 
 import "../styles/hide-scrollbar.css";
 import "./globals.css";
