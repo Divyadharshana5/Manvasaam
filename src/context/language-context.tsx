@@ -2377,6 +2377,7 @@ export const LanguageProvider = ({
       if (e.key === "manvaasam-language" && e.newValue) {
         const newLanguage = e.newValue as Language;
         if (translations[newLanguage]) {
+          console.log("[LanguageProvider] Storage event - setting language:", newLanguage);
           setSelectedLanguage(newLanguage);
         }
       }
@@ -2385,21 +2386,27 @@ export const LanguageProvider = ({
     const handleLanguageChange = (e: Event) => {
       const customEvent = e as CustomEvent<Language>;
       if (customEvent?.detail && translations[customEvent.detail]) {
+        console.log("[LanguageProvider] Custom event - setting language:", customEvent.detail);
+        setSelectedLanguage(customEvent.detail);
+      }
+    };
+
+    const handleForceSync = (e: Event) => {
+      const customEvent = e as CustomEvent<Language>;
+      if (customEvent?.detail && translations[customEvent.detail]) {
+        console.log("[LanguageProvider] Force sync event - setting language:", customEvent.detail);
         setSelectedLanguage(customEvent.detail);
       }
     };
 
     window.addEventListener("storage", handleStorageChange);
-    window.addEventListener(
-      "languageChange",
-      handleLanguageChange as EventListener
-    );
+    window.addEventListener("languageChange", handleLanguageChange as EventListener);
+    window.addEventListener("forceLanguageSync", handleForceSync as EventListener);
+    
     return () => {
       window.removeEventListener("storage", handleStorageChange);
-      window.removeEventListener(
-        "languageChange",
-        handleLanguageChange as EventListener
-      );
+      window.removeEventListener("languageChange", handleLanguageChange as EventListener);
+      window.removeEventListener("forceLanguageSync", handleForceSync as EventListener);
     };
   }, []);
 
