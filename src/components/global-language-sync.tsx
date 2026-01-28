@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect } from "react";
+import { languageDebug } from "@/lib/language-debug";
 
 /**
  * GlobalLanguageSync - Forces language synchronization on every page load
@@ -9,6 +10,12 @@ import { useEffect } from "react";
 export function GlobalLanguageSync() {
   useEffect(() => {
     if (typeof window === "undefined") return;
+
+    // Make debug utilities available in development
+    if (process.env.NODE_ENV === "development") {
+      (window as any).languageDebug = languageDebug;
+      console.log("Language debug utilities available at window.languageDebug");
+    }
 
     // Force language sync on page load
     const forceLanguageSync = () => {
