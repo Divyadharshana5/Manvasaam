@@ -2405,23 +2405,26 @@ export const LanguageProvider = ({
 
   const handleSetLanguage = (language: Language) => {
     console.log("[LanguageProvider] setSelectedLanguage called ->", language);
+    
+    // Immediately update state
     setSelectedLanguage(language);
+    
     if (typeof window !== "undefined") {
       try {
-        // Save to localStorage first
+        // Save to localStorage immediately
         localStorage.setItem("manvaasam-language", language);
         
-        // Set cookie with proper path and expiration
+        // Set cookie with proper attributes
         const expires = new Date();
         expires.setFullYear(expires.getFullYear() + 1);
-        document.cookie = `manvaasam-language=${language};path=/;expires=${expires.toUTCString()};SameSite=Lax`;
+        document.cookie = `manvaasam-language=${language};path=/;expires=${expires.toUTCString()};SameSite=Lax;Secure=${window.location.protocol === 'https:'}`;
         
-        // Notify other listeners on the same page
+        // Notify other components immediately
         window.dispatchEvent(
           new CustomEvent("languageChange", { detail: language })
         );
         
-        // Force a storage event for cross-tab synchronization
+        // Force storage event for cross-tab sync
         window.dispatchEvent(
           new StorageEvent("storage", {
             key: "manvaasam-language",
@@ -2432,10 +2435,20 @@ export const LanguageProvider = ({
           })
         );
         
-        // Force immediate re-render by updating state again
+        // Double-check persistence with multiple attempts
         setTimeout(() => {
+          const stored = localStorage.getItem("manvaasam-language");
+          if (stored !== language) {
+            localStorage.setItem("manvaasam-language", language);
+            console.log("[LanguageProvider] Re-saved language to localStorage:", language);
+          }
+          // Force state update again to ensure UI reflects change
           setSelectedLanguage(language);
         }, 50);
+        
+        setTimeout(() => {
+          setSelectedLanguage(language);
+        }, 200);
         
         console.log("[LanguageProvider] Language saved successfully:", language);
       } catch (error) {
