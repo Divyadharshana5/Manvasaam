@@ -85,30 +85,55 @@ export function DashboardContent({
     selectedLanguage
   );
 
-  // Enhanced language synchronization - run only once on mount
+  // AGGRESSIVE language synchronization for dashboard
   React.useEffect(() => {
     if (typeof window !== "undefined") {
-      try {
-        const storedLanguage = localStorage.getItem("manvaasam-language") as any;
-        const cookieLanguage = document.cookie
-          .split('; ')
-          .find(row => row.startsWith('manvaasam-language='))
-          ?.split('=')[1];
-        
-        const preferredLanguage = storedLanguage || cookieLanguage;
-        
-        if (preferredLanguage && preferredLanguage !== selectedLanguage) {
-          console.log(
-            "[DashboardContent] syncing language from storage:",
-            preferredLanguage
-          );
-          setSelectedLanguage(preferredLanguage);
+      const forceSyncLanguage = () => {
+        try {
+          const storedLanguage = localStorage.getItem("manvaasam-language") as any;
+          const cookieLanguage = document.cookie
+            .split('; ')
+            .find(row => row.startsWith('manvaasam-language='))
+            ?.split('=')[1];
+          
+          const preferredLanguage = storedLanguage || cookieLanguage;
+          
+          console.log("[DashboardContent] Language check:", {
+            current: selectedLanguage,
+            stored: storedLanguage,
+            cookie: cookieLanguage,
+            preferred: preferredLanguage
+          });
+          
+          if (preferredLanguage && preferredLanguage !== selectedLanguage) {
+            console.log(
+              "[DashboardContent] FORCE syncing language from storage:",
+              preferredLanguage
+            );
+            setSelectedLanguage(preferredLanguage);
+            
+            // Try multiple times to ensure it sticks
+            setTimeout(() => setSelectedLanguage(preferredLanguage), 100);
+            setTimeout(() => setSelectedLanguage(preferredLanguage), 300);
+          }
+        } catch (e) {
+          console.warn("[DashboardContent] Error syncing language:", e);
         }
-      } catch (e) {
-        console.warn("[DashboardContent] Error syncing language:", e);
-      }
+      };
+
+      // Multiple sync attempts
+      forceSyncLanguage();
+      const timeout1 = setTimeout(forceSyncLanguage, 50);
+      const timeout2 = setTimeout(forceSyncLanguage, 200);
+      const timeout3 = setTimeout(forceSyncLanguage, 500);
+
+      return () => {
+        clearTimeout(timeout1);
+        clearTimeout(timeout2);
+        clearTimeout(timeout3);
+      };
     }
-  }, []); // Remove dependencies to avoid loops
+  }, []); // No dependencies to avoid loops
 
   const renderGeneralDashboard = () => (
     <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
