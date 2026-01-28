@@ -210,6 +210,7 @@ export default async function RootLayout({
       </head>
       <body className="font-sans antialiased" suppressHydrationWarning>
         <LanguageProvider initialLanguage={langCookie as any}>
+          <GlobalLanguageSync />
           {children}
           <Toaster />
         </LanguageProvider>
