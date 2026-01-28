@@ -2477,20 +2477,33 @@ export const useLanguage = () => {
     throw new Error("useLanguage must be used within a LanguageProvider");
   }
   
-  // Additional client-side sync check - only run once on mount
+  // Aggressive client-side sync check on every hook usage
   useEffect(() => {
     if (typeof window !== "undefined") {
-      try {
-        const storedLanguage = localStorage.getItem("manvaasam-language") as Language | null;
-        if (storedLanguage && translations[storedLanguage] && storedLanguage !== context.selectedLanguage) {
-          console.log("[useLanguage] Syncing language from localStorage:", storedLanguage);
-          context.setSelectedLanguage(storedLanguage);
+      const syncLanguage = () => {
+        try {
+          const storedLanguage = localStorage.getItem("manvaasam-language") as Language | null;
+          if (storedLanguage && translations[storedLanguage] && storedLanguage !== context.selectedLanguage) {
+            console.log("[useLanguage] Force syncing language from localStorage:", storedLanguage);
+            context.setSelectedLanguage(storedLanguage);
+          }
+        } catch (e) {
+          console.warn("[useLanguage] Error syncing language:", e);
         }
-      } catch (e) {
-        // ignore
-      }
+      };
+      
+      // Sync immediately
+      syncLanguage();
+      
+      // Also sync on focus to catch navigation changes
+      const handleFocus = () => syncLanguage();
+      window.addEventListener("focus", handleFocus);
+      
+      return () => {
+        window.removeEventListener("focus", handleFocus);
+      };
     }
-  }, []); // Remove context dependency to avoid loop
+  }, []); // No dependencies to avoid loops
   
   return context;
 };
