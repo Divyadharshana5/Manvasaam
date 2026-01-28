@@ -2317,41 +2317,59 @@ export const LanguageProvider = ({
   children: ReactNode;
   initialLanguage?: Language;
 }) => {
-  // Initialize from server-provided language (cookie) when available,
-  // otherwise fall back to localStorage on the client, then English.
-  const [selectedLanguage, setSelectedLanguage] = useState<Language>(() =>
-    initialLanguage && translations[initialLanguage]
-      ? initialLanguage
-      : initializeLanguage()
-  );
+  // Always start with English to prevent hydration issues, then sync on client
+  const [selectedLanguage, setSelectedLanguage] = useState<Language>("English");
   const [isMounted, setIsMounted] = useState(false);
 
   useEffect(() => {
     setIsMounted(true);
-    // Re-check localStorage and cookie on mount to ensure we have the latest language preference
-    try {
-      // First check localStorage
-      const storedLanguage = localStorage.getItem(
-        "manvaasam-language"
-      ) as Language | null;
-      
-      // Then check cookie as fallback
-      const cookieLanguage = document.cookie
-        .split('; ')
-        .find(row => row.startsWith('manvaasam-language='))
-        ?.split('=')[1] as Language | undefined;
-      
-      // Use the most recent language preference
-      const preferredLanguage = storedLanguage || cookieLanguage;
-      
-      if (preferredLanguage && translations[preferredLanguage] && preferredLanguage !== selectedLanguage) {
-        console.log("[LanguageProvider] Syncing language on mount:", preferredLanguage);
-        setSelectedLanguage(preferredLanguage);
+    
+    // Aggressive language sync on mount - prioritize client-side storage
+    const syncLanguageOnMount = () => {
+      try {
+        // First check localStorage (most recent user preference)
+        const storedLanguage = localStorage.getItem("manvaasam-language") as Language | null;
+        
+        // Then check cookie as fallback
+        const cookieLanguage = document.cookie
+          .split('; ')
+          .find(row => row.startsWith('manvaasam-language='))
+          ?.split('=')[1] as Language | undefined;
+        
+        // Then check server-provided initial language
+        const serverLanguage = initialLanguage;
+        
+        // Priority: localStorage > cookie > server > English
+        const preferredLanguage = storedLanguage || cookieLanguage || serverLanguage || "English";
+        
+        console.log("[LanguageProvider] Language sources:", {
+          stored: storedLanguage,
+          cookie: cookieLanguage,
+          server: serverLanguage,
+          preferred: preferredLanguage
+        });
+        
+        if (preferredLanguage && translations[preferredLanguage]) {
+          console.log("[LanguageProvider] Setting language to:", preferredLanguage);
+          setSelectedLanguage(preferredLanguage);
+          
+          // Ensure both localStorage and cookie are set
+          localStorage.setItem("manvaasam-language", preferredLanguage);
+          const expires = new Date();
+          expires.setFullYear(expires.getFullYear() + 1);
+          document.cookie = `manvaasam-language=${preferredLanguage};path=/;expires=${expires.toUTCString()};SameSite=Lax`;
+        }
+      } catch (e) {
+        console.warn("[LanguageProvider] Error syncing language on mount:", e);
       }
-    } catch (e) {
-      console.warn("[LanguageProvider] Error syncing language on mount:", e);
-    }
-  }, []); // Remove selectedLanguage dependency to avoid loop
+    };
+
+    // Run sync immediately and with a small delay to ensure DOM is ready
+    syncLanguageOnMount();
+    const timeoutId = setTimeout(syncLanguageOnMount, 100);
+    
+    return () => clearTimeout(timeoutId);
+  }, []); // No dependencies to avoid loops
 
   // Sync language across tabs/windows and respond to custom events
   useEffect(() => {
