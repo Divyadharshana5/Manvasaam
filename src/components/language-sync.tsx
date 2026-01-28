@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect } from "react";
+import { useEffect, useRef } from "react";
 import { useLanguage } from "@/context/language-context";
 
 /**
@@ -10,11 +10,13 @@ import { useLanguage } from "@/context/language-context";
  */
 export function LanguageSync() {
   const { selectedLanguage, setSelectedLanguage } = useLanguage();
+  const syncAttempts = useRef(0);
+  const maxSyncAttempts = 5;
 
   useEffect(() => {
     if (typeof window === "undefined") return;
 
-    const syncLanguage = () => {
+    const aggressiveSync = () => {
       try {
         // Check localStorage first (most recent user preference)
         const storedLanguage = localStorage.getItem("manvaasam-language");
@@ -27,17 +29,36 @@ export function LanguageSync() {
         
         const preferredLanguage = storedLanguage || cookieLanguage;
         
-        if (preferredLanguage && preferredLanguage !== selectedLanguage) {
-          console.log("[LanguageSync] Syncing language:", preferredLanguage);
+        console.log("[LanguageSync] Current state:", {
+          selected: selectedLanguage,
+          stored: storedLanguage,
+          cookie: cookieLanguage,
+          preferred: preferredLanguage,
+          attempts: syncAttempts.current
+        });
+        
+        if (preferredLanguage && preferredLanguage !== selectedLanguage && syncAttempts.current < maxSyncAttempts) {
+          console.log("[LanguageSync] FORCE syncing language:", preferredLanguage);
           setSelectedLanguage(preferredLanguage as any);
+          syncAttempts.current++;
+          
+          // Try again after a short delay if sync didn't work
+          setTimeout(() => {
+            if (selectedLanguage !== preferredLanguage && syncAttempts.current < maxSyncAttempts) {
+              aggressiveSync();
+            }
+          }, 100);
         }
       } catch (error) {
         console.warn("[LanguageSync] Error syncing language:", error);
       }
     };
 
-    // Sync immediately on mount with a small delay to ensure DOM is ready
-    const timeoutId = setTimeout(syncLanguage, 100);
+    // Multiple sync attempts with different timings
+    aggressiveSync(); // Immediate
+    const timeout1 = setTimeout(aggressiveSync, 50);
+    const timeout2 = setTimeout(aggressiveSync, 200);
+    const timeout3 = setTimeout(aggressiveSync, 500);
 
     // Listen for storage changes (cross-tab sync)
     const handleStorageChange = (e: StorageEvent) => {
@@ -58,29 +79,41 @@ export function LanguageSync() {
 
     // Listen for focus events to sync when returning to tab
     const handleFocus = () => {
-      syncLanguage();
+      syncAttempts.current = 0; // Reset attempts on focus
+      aggressiveSync();
     };
 
     // Listen for page visibility changes
     const handleVisibilityChange = () => {
       if (!document.hidden) {
-        syncLanguage();
+        syncAttempts.current = 0; // Reset attempts on visibility
+        aggressiveSync();
       }
+    };
+
+    // Listen for navigation events
+    const handlePopState = () => {
+      syncAttempts.current = 0; // Reset attempts on navigation
+      setTimeout(aggressiveSync, 100);
     };
 
     window.addEventListener("storage", handleStorageChange);
     window.addEventListener("languageChange", handleLanguageChange as EventListener);
     window.addEventListener("focus", handleFocus);
+    window.addEventListener("popstate", handlePopState);
     document.addEventListener("visibilitychange", handleVisibilityChange);
 
     return () => {
-      clearTimeout(timeoutId);
+      clearTimeout(timeout1);
+      clearTimeout(timeout2);
+      clearTimeout(timeout3);
       window.removeEventListener("storage", handleStorageChange);
       window.removeEventListener("languageChange", handleLanguageChange as EventListener);
       window.removeEventListener("focus", handleFocus);
+      window.removeEventListener("popstate", handlePopState);
       document.removeEventListener("visibilitychange", handleVisibilityChange);
     };
-  }, []); // Remove dependencies to avoid loops, sync will happen via events
+  }, []); // No dependencies to avoid loops
 
   return null; // This component doesn't render anything
 }
