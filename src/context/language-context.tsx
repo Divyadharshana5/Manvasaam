@@ -2299,97 +2299,37 @@ export const LanguageProvider = ({
   children: ReactNode;
   initialLanguage?: Language;
 }) => {
-  // Always start with English to prevent hydration issues, then sync on client
-  const [selectedLanguage, setSelectedLanguage] = useState<Language>("English");
-  const [isMounted, setIsMounted] = useState(false);
-
-  useEffect(() => {
-    setIsMounted(true);
-    
-    // Aggressive language sync on mount - prioritize client-side storage
-    const syncLanguageOnMount = () => {
-      try {
-        // First check localStorage (most recent user preference)
-        const storedLanguage = localStorage.getItem("manvaasam-language") as Language | null;
-        
-        // Then check cookie as fallback
-        const cookieLanguage = document.cookie
-          .split('; ')
-          .find(row => row.startsWith('manvaasam-language='))
-          ?.split('=')[1] as Language | undefined;
-        
-        // Then check server-provided initial language
-        const serverLanguage = initialLanguage;
-        
-        // Priority: localStorage > cookie > server > English
-        const preferredLanguage = storedLanguage || cookieLanguage || serverLanguage || "English";
-        
-        console.log("[LanguageProvider] Language sources:", {
-          stored: storedLanguage,
-          cookie: cookieLanguage,
-          server: serverLanguage,
-          preferred: preferredLanguage
-        });
-        
-        if (preferredLanguage && translations[preferredLanguage]) {
-          console.log("[LanguageProvider] Setting language to:", preferredLanguage);
-          setSelectedLanguage(preferredLanguage);
-          
-          // Ensure both localStorage and cookie are set
-          localStorage.setItem("manvaasam-language", preferredLanguage);
-          const expires = new Date();
-          expires.setFullYear(expires.getFullYear() + 1);
-          document.cookie = `manvaasam-language=${preferredLanguage};path=/;expires=${expires.toUTCString()};SameSite=Lax`;
-        }
-      } catch (e) {
-        console.warn("[LanguageProvider] Error syncing language on mount:", e);
+  // Simple initialization - prioritize localStorage over everything
+  const [selectedLanguage, setSelectedLanguage] = useState<Language>(() => {
+    if (typeof window !== "undefined") {
+      const stored = localStorage.getItem("manvaasam-language") as Language;
+      if (stored && translations[stored]) {
+        return stored;
       }
-    };
+    }
+    return initialLanguage && translations[initialLanguage] ? initialLanguage : "English";
+  });
 
-    // Run sync immediately and with a small delay to ensure DOM is ready
-    syncLanguageOnMount();
-    const timeoutId = setTimeout(syncLanguageOnMount, 100);
-    
-    return () => clearTimeout(timeoutId);
-  }, []); // No dependencies to avoid loops
+  // Simple effect to sync on mount
+  useEffect(() => {
+    if (typeof window !== "undefined") {
+      const stored = localStorage.getItem("manvaasam-language") as Language;
+      if (stored && translations[stored] && stored !== selectedLanguage) {
+        setSelectedLanguage(stored);
+      }
+    }
+  }, []);
 
-  // Sync language across tabs/windows and respond to custom events
+  // Listen for storage changes
   useEffect(() => {
     const handleStorageChange = (e: StorageEvent) => {
-      if (e.key === "manvaasam-language" && e.newValue) {
-        const newLanguage = e.newValue as Language;
-        if (translations[newLanguage]) {
-          console.log("[LanguageProvider] Storage event - setting language:", newLanguage);
-          setSelectedLanguage(newLanguage);
-        }
-      }
-    };
-
-    const handleLanguageChange = (e: Event) => {
-      const customEvent = e as CustomEvent<Language>;
-      if (customEvent?.detail && translations[customEvent.detail]) {
-        console.log("[LanguageProvider] Custom event - setting language:", customEvent.detail);
-        setSelectedLanguage(customEvent.detail);
-      }
-    };
-
-    const handleForceSync = (e: Event) => {
-      const customEvent = e as CustomEvent<Language>;
-      if (customEvent?.detail && translations[customEvent.detail]) {
-        console.log("[LanguageProvider] Force sync event - setting language:", customEvent.detail);
-        setSelectedLanguage(customEvent.detail);
+      if (e.key === "manvaasam-language" && e.newValue && translations[e.newValue as Language]) {
+        setSelectedLanguage(e.newValue as Language);
       }
     };
 
     window.addEventListener("storage", handleStorageChange);
-    window.addEventListener("languageChange", handleLanguageChange as EventListener);
-    window.addEventListener("forceLanguageSync", handleForceSync as EventListener);
-    
-    return () => {
-      window.removeEventListener("storage", handleStorageChange);
-      window.removeEventListener("languageChange", handleLanguageChange as EventListener);
-      window.removeEventListener("forceLanguageSync", handleForceSync as EventListener);
-    };
+    return () => window.removeEventListener("storage", handleStorageChange);
   }, []);
 
   const handleSetLanguage = (language: Language) => {
