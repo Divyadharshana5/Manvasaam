@@ -2279,35 +2279,17 @@ const LanguageContext = createContext<LanguageContextType | undefined>(
 const initializeLanguage = (): Language => {
   // Always return English during SSR to prevent hydration mismatches
   if (typeof window === "undefined") {
-    console.log("[initializeLanguage] SSR mode - returning English");
     return "English";
   }
 
   try {
-    // First check localStorage (most recent user preference)
-    const storedLanguage = localStorage.getItem(
-      "manvaasam-language"
-    ) as Language;
-    console.log("[initializeLanguage] Found stored language:", storedLanguage);
+    const storedLanguage = localStorage.getItem("manvaasam-language") as Language;
     if (storedLanguage && translations[storedLanguage]) {
       return storedLanguage;
     }
-
-    // Fallback to cookie if localStorage is empty
-    const cookieLanguage = document.cookie
-      .split('; ')
-      .find(row => row.startsWith('manvaasam-language='))
-      ?.split('=')[1] as Language | undefined;
-    console.log("[initializeLanguage] Found cookie language:", cookieLanguage);
-    if (cookieLanguage && translations[cookieLanguage]) {
-      // Sync cookie to localStorage for future use
-      localStorage.setItem("manvaasam-language", cookieLanguage);
-      return cookieLanguage;
-    }
   } catch (error) {
-    console.warn("[initializeLanguage] Error reading localStorage:", error);
+    console.warn("Error reading localStorage:", error);
   }
-  console.log("[initializeLanguage] Defaulting to English");
   return "English";
 };
 export const LanguageProvider = ({
