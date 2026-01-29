@@ -54,6 +54,7 @@ import {
 import VoiceAssistant from "@/components/voice-assistant";
 import { Languages } from "lucide-react";
 import { LanguageSync } from "@/components/language-sync";
+import { useLanguageSync } from "@/hooks/use-language-sync";
 
 interface UserProfile {
   userType?: string;
@@ -78,6 +79,9 @@ export function AppLayout({ children }: { children: React.ReactNode }) {
   const [userProfile, setUserProfile] = React.useState<UserProfile | null>(
     null
   );
+
+  // Force language sync in app layout
+  useLanguageSync();
 
   React.useEffect(() => {
     async function fetchUserProfile() {
