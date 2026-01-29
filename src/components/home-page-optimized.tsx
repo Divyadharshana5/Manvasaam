@@ -43,6 +43,7 @@ import { FastLink } from "@/components/fast-link";
 import { useFastNavigation } from "@/hooks/use-fast-navigation";
 import { ScrollFix } from "@/components/scroll-fix";
 import { LanguageSync } from "@/components/language-sync";
+import { useLanguageSync } from "@/hooks/use-language-sync";
 
 // Lazy load AI components for better initial load performance
 const ProductShowcase = lazy(() => import("@/components/product-showcase"));
@@ -189,6 +190,9 @@ export default function HomePage() {
   const router = useRouter();
   const { navigateInstantly, prefetchRoute } = useInstantNavigation();
   const { prefetchRoutes, isNavigating } = useFastNavigation();
+
+  // Force language sync on home page
+  useLanguageSync();
 
   const [loadingRoleHref, setLoadingRoleHref] = useState<string | null>(null);
   const [prefersReducedMotion, setPrefersReducedMotion] = useState(false);

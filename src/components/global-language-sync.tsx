@@ -1,59 +1,23 @@
 "use client";
 
 import { useEffect } from "react";
-import { languageDebug } from "@/lib/language-debug";
 
-/**
- * GlobalLanguageSync - Forces language synchronization on every page load
- * This component runs client-side JavaScript to ensure language persistence
- */
 export function GlobalLanguageSync() {
   useEffect(() => {
     if (typeof window === "undefined") return;
 
-    // Make debug utilities available in development
-    if (process.env.NODE_ENV === "development") {
-      (window as any).languageDebug = languageDebug;
-      console.log("Language debug utilities available at window.languageDebug");
+    // Simple force sync on page load
+    const stored = localStorage.getItem("manvaasam-language");
+    if (stored) {
+      // Dispatch storage event to notify language context
+      window.dispatchEvent(
+        new StorageEvent("storage", {
+          key: "manvaasam-language",
+          newValue: stored,
+          storageArea: localStorage,
+        })
+      );
     }
-
-    // Force language sync on page load
-    const forceLanguageSync = () => {
-      try {
-        const storedLanguage = localStorage.getItem("manvaasam-language");
-        if (storedLanguage) {
-          console.log("[GlobalLanguageSync] Found stored language:", storedLanguage);
-          
-          // Dispatch custom event to notify all language contexts
-          window.dispatchEvent(
-            new CustomEvent("forceLanguageSync", { detail: storedLanguage })
-          );
-          
-          // Also dispatch storage event for cross-component sync
-          window.dispatchEvent(
-            new StorageEvent("storage", {
-              key: "manvaasam-language",
-              newValue: storedLanguage,
-              oldValue: null,
-              storageArea: localStorage,
-              url: window.location.href
-            })
-          );
-        }
-      } catch (error) {
-        console.warn("[GlobalLanguageSync] Error:", error);
-      }
-    };
-
-    // Run immediately and with delays
-    forceLanguageSync();
-    const timeout1 = setTimeout(forceLanguageSync, 100);
-    const timeout2 = setTimeout(forceLanguageSync, 500);
-
-    return () => {
-      clearTimeout(timeout1);
-      clearTimeout(timeout2);
-    };
   }, []);
 
   return null;
