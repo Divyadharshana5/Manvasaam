@@ -2299,57 +2299,94 @@ export const LanguageProvider = ({
   children: ReactNode;
   initialLanguage?: Language;
 }) => {
-  // Simple initialization - prioritize localStorage over everything
-  const [selectedLanguage, setSelectedLanguage] = useState<Language>(() => {
-    if (typeof window !== "undefined") {
-      const stored = localStorage.getItem("manvaasam-language") as Language;
-      if (stored && translations[stored]) {
-        return stored;
-      }
-    }
-    return initialLanguage && translations[initialLanguage] ? initialLanguage : "English";
-  });
+  // Initialize with English to prevent hydration mismatches
+  const [selectedLanguage, setSelectedLanguage] = useState<Language>("English");
+  const [isHydrated, setIsHydrated] = useState(false);
 
-  // Simple effect to sync on mount
+  // Hydration effect - runs once on client mount
   useEffect(() => {
     if (typeof window !== "undefined") {
       const stored = localStorage.getItem("manvaasam-language") as Language;
-      if (stored && translations[stored] && stored !== selectedLanguage) {
-        setSelectedLanguage(stored);
+      const cookieValue = document.cookie
+        .split('; ')
+        .find(row => row.startsWith('manvaasam-language='))
+        ?.split('=')[1] as Language;
+      
+      // Priority: localStorage > cookie > initialLanguage > English
+      const languageToUse = 
+        (stored && translations[stored]) ? stored :
+        (cookieValue && translations[cookieValue]) ? cookieValue :
+        (initialLanguage && translations[initialLanguage]) ? initialLanguage :
+        "English";
+      
+      setSelectedLanguage(languageToUse);
+      setIsHydrated(true);
+      
+      // Ensure both localStorage and cookie are in sync
+      if (languageToUse !== stored) {
+        localStorage.setItem("manvaasam-language", languageToUse);
+      }
+      if (languageToUse !== cookieValue) {
+        const expires = new Date();
+        expires.setFullYear(expires.getFullYear() + 1);
+        document.cookie = `manvaasam-language=${languageToUse};path=/;expires=${expires.toUTCString()};SameSite=Lax`;
       }
     }
-  }, []);
+  }, [initialLanguage]);
 
-  // Listen for storage changes
+  // Listen for storage changes from other tabs/windows
   useEffect(() => {
+    if (!isHydrated) return;
+
     const handleStorageChange = (e: StorageEvent) => {
       if (e.key === "manvaasam-language" && e.newValue && translations[e.newValue as Language]) {
         setSelectedLanguage(e.newValue as Language);
       }
     };
 
+    // Listen for custom language change events (for same-tab updates)
+    const handleLanguageChange = (e: CustomEvent) => {
+      if (e.detail && translations[e.detail as Language]) {
+        setSelectedLanguage(e.detail as Language);
+      }
+    };
+
     window.addEventListener("storage", handleStorageChange);
-    return () => window.removeEventListener("storage", handleStorageChange);
-  }, []);
+    window.addEventListener("languageChange", handleLanguageChange as EventListener);
+    
+    return () => {
+      window.removeEventListener("storage", handleStorageChange);
+      window.removeEventListener("languageChange", handleLanguageChange as EventListener);
+    };
+  }, [isHydrated]);
 
   const handleSetLanguage = (language: Language) => {
+    if (!translations[language]) return;
+    
     setSelectedLanguage(language);
     
     if (typeof window !== "undefined") {
       try {
+        // Update localStorage
         localStorage.setItem("manvaasam-language", language);
         
+        // Update cookie
         const expires = new Date();
         expires.setFullYear(expires.getFullYear() + 1);
         document.cookie = `manvaasam-language=${language};path=/;expires=${expires.toUTCString()};SameSite=Lax`;
         
-        // Notify other tabs
+        // Notify other tabs via storage event
         window.dispatchEvent(
           new StorageEvent("storage", {
             key: "manvaasam-language",
             newValue: language,
             storageArea: localStorage,
           })
+        );
+        
+        // Notify same tab via custom event
+        window.dispatchEvent(
+          new CustomEvent("languageChange", { detail: language })
         );
       } catch (error) {
         console.warn("Could not save language preference:", error);
