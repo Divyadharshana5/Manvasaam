@@ -13,23 +13,47 @@ export function useLanguageSync() {
   useEffect(() => {
     if (typeof window === "undefined") return;
 
-    // Check localStorage and force sync if different
-    const checkAndSync = () => {
+    // Aggressive sync check - runs on every component mount
+    const syncLanguage = () => {
       const stored = localStorage.getItem("manvaasam-language");
-      if (stored && stored !== selectedLanguage) {
-        console.log(`[useLanguageSync] Syncing language: ${stored}`);
-        setSelectedLanguage(stored as any);
+      const cookieValue = document.cookie
+        .split('; ')
+        .find(row => row.startsWith('manvaasam-language='))
+        ?.split('=')[1];
+      
+      // Priority: localStorage > cookie > current context
+      const targetLanguage = stored || cookieValue || selectedLanguage;
+      
+      if (targetLanguage && targetLanguage !== selectedLanguage && targetLanguage !== "undefined" && targetLanguage !== "null") {
+        console.log(`[useLanguageSync] Forcing sync to: ${targetLanguage}`);
+        setSelectedLanguage(targetLanguage as any);
       }
     };
 
-    // Check immediately
-    checkAndSync();
+    // Sync immediately
+    syncLanguage();
 
-    // Check on focus (when user returns to tab)
-    const handleFocus = () => checkAndSync();
+    // Set up interval to check periodically (for edge cases)
+    const interval = setInterval(syncLanguage, 1000);
+
+    // Listen for page visibility changes
+    const handleVisibilityChange = () => {
+      if (!document.hidden) {
+        syncLanguage();
+      }
+    };
+
+    // Listen for focus events
+    const handleFocus = () => {
+      syncLanguage();
+    };
+
+    document.addEventListener("visibilitychange", handleVisibilityChange);
     window.addEventListener("focus", handleFocus);
 
     return () => {
+      clearInterval(interval);
+      document.removeEventListener("visibilitychange", handleVisibilityChange);
       window.removeEventListener("focus", handleFocus);
     };
   }, [selectedLanguage, setSelectedLanguage]);
