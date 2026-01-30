@@ -2,6 +2,7 @@
 
 import React, { useState, useEffect } from "react";
 import { useLanguage } from "@/context/language-context";
+import { DashboardLanguageSync } from "@/components/dashboard-language-sync";
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
 import { cn } from "@/lib/utils";

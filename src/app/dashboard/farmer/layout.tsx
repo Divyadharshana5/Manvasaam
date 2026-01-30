@@ -2,6 +2,7 @@
 
 import React, { useState, useEffect } from "react";
 import { useLanguage } from "@/context/language-context";
+import { DashboardLanguageSync } from "@/components/dashboard-language-sync";
 import Link from "next/link";
 import { useFastNavigation } from "@/hooks/use-fast-navigation";
 import "@/styles/fast-transitions.css";
@@ -225,6 +226,9 @@ export default function FarmerLayout({
 
   return (
     <div className="grid min-h-screen w-full md:grid-cols-[220px_1fr] lg:grid-cols-[280px_1fr]">
+      {/* Language Sync Component for Dashboard */}
+      <DashboardLanguageSync />
+      
       <div className="hidden border-r border-emerald-200 dark:border-emerald-700 bg-gradient-to-b from-emerald-50/50 to-green-50/50 dark:from-emerald-950/50 dark:to-green-950/50 md:block">
         <div className="flex h-full max-h-screen flex-col">
           <Sidebar onSignOut={handleSignOut} sidebarItems={sidebarItems} />
